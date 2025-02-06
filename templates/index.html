@@ -3,8 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Football Fixtures and Heatmaps</title>
+    <title>Football Fixtures & Correct Score Heatmaps</title>
     <style>
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #333
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
@@ -14,29 +21,39 @@
         }
         .fixture {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 130px;
+            margin-top: 150px;
         }
-        .fixture h2 {
+        .fixture h3 {
             font-size: 1.5em;
             color: #333;
         }
         .heatmap {
-            max-width: 100%;
+            max-width: 400px;
             height: auto;
             margin-top: 10px;
         }
+        .fixture-info {
+            color: #777; /* Lighter text color */
+        }
+
     </style>
 </head>
 <body>
+
     <h1>EPL Score Prediction Heatmaps</h1>
     <h3>Gameweek 25</h3>
-    <br><br>
     {% for fixture in fixtures %}
         <div class="fixture">
-        <h3>{{ fixture['home_team'] }} vs {{ fixture['away_team'] }}</h3>
-        <img src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '.png') }}" 
+            
+            <!-- Fixture name A vs B -->
+            <a href="#"><h3>{{ fixture['home_team'] }} vs {{ fixture['away_team'] }}</h3></a>
+
+            <!-- Fixture Date under fixture name -->
+            <h5 class="fixture-info">{{ fixture['date'] }}</h5>
+            
+            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '.png') }}" 
         alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
-        <br><br><br>
         </div>
     {% endfor %}
   

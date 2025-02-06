@@ -12,14 +12,15 @@ app = Flask(__name__)
 # Load your fixtures data from the CSV
 fixtures_by_gw = pd.read_csv("https://fixturedownload.com/download/epl-2024-GMTStandardTime.csv")
 fixtures_by_gw = fixtures_by_gw[fixtures_by_gw['Round Number'] == 25]
-fixtures_by_gw = fixtures_by_gw[['Home Team', 'Away Team']]
+fixtures_by_gw = fixtures_by_gw[['Home Team', 'Away Team', 'Date']]
 
 # Convert it into a list of dictionaries
 fixtures = []
 for _, row in fixtures_by_gw.iterrows():
     fixtures.append({
         "home_team": row["Home Team"],
-        "away_team": row["Away Team"]
+        "away_team": row["Away Team"],
+        "date": row["Date"]
     })
 
 import pandas as pd
@@ -107,7 +108,7 @@ fixtures_by_gw = fixtures_by_gw[fixtures_by_gw['Round Number'] == 25]
 
 # now refine to just the home and away team names
 
-fixtures_by_gw=fixtures_by_gw[['Home Team', 'Away Team']]
+fixtures_by_gw=fixtures_by_gw[['Home Team', 'Away Team', 'Date']]
 
 #Now time to run the match simulator for each fixture in this game week
 
@@ -266,6 +267,7 @@ def simulate_poisson_distribution(home_team_xg, away_team_xg, number_of_goals=nu
 for index, row in fixtures_by_gw.iterrows():
     home_team = row['Home Team']
     away_team = row['Away Team']
+    date = row['Date']
     
     #I want the XG to be the number of goals that a team needs to score to keep their ATT rating the exact same
     
@@ -312,3 +314,8 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route('/')
+def index():
+    # Assuming you pass fixtures_by_gw to the template as 'fixtures'
+    return render_template('index.html', fixtures=fixtures_by_gw)
