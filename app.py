@@ -17,6 +17,10 @@ def home():
     fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a list of dictionaries
     return render_template("index.html", fixtures=fixtures)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 # Function to simulate a match using Poisson distribution
 def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     result_matrix = np.zeros((max_goals, max_goals))
