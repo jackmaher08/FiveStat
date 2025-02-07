@@ -37,6 +37,47 @@
             color: #777; /* Lighter text color */
         }
 
+        .fixture-divider {
+            border: none;            /* Removes default border */
+            height: 1px;             /* Thin line */
+            background-color: #ccc;  /* Light grey color */
+            width: 50%;              /* Central and 50% width */
+            margin: 20px auto;       /* Centered with spacing */
+}
+
+            /* Responsive Design */
+    @media (max-width: 768px) {
+        body {
+            padding: 10px;
+        }
+        h1 {
+            font-size: 1.8em;
+        }
+        h3 {
+            font-size: 1.3em;
+        }
+        .fixture {
+            margin-bottom: 60px;
+            margin-top: 60px;
+        }
+        .heatmap {
+            max-width: 80%; /* Ensures heatmaps fit smaller screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.5em;
+        }
+        h3 {
+            font-size: 1.1em;
+        }
+        .fixture {
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+    }
+
     </style>
 </head>
 <body>
@@ -52,9 +93,11 @@
             <!-- Fixture Date under fixture name -->
             <h5 class="fixture-info">{{ fixture['date'] }}</h5>
             
-            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '.png') }}" 
+            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '_heatmap.png') }}" 
         alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
         </div>
+
+        <hr class="fixture-divider">
     {% endfor %}
   
   
