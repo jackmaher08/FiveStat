@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Fixtures & Correct Score Heatmaps</title>
+    <style>
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #333
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .fixture {
+            text-align: center;
+            margin-bottom: 130px;
+            margin-top: 150px;
+        }
+        .fixture h3 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .heatmap {
+            max-width: 400px;
+            height: auto;
+            margin-top: 10px;
+        }
+        .fixture-info {
+            color: #777; /* Lighter text color */
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>EPL Score Prediction Heatmaps</h1>
+    <h3>Gameweek 25</h3>
+    {% for fixture in fixtures %}
+        <div class="fixture">
+            
+            <!-- Fixture name A vs B -->
+            <a href="#"><h3>{{ fixture['home_team'] }} vs {{ fixture['away_team'] }}</h3></a>
+
+            <!-- Fixture Date under fixture name -->
+            <h5 class="fixture-info">{{ fixture['date'] }}</h5>
+            
+            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '.png') }}" 
+        alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+        </div>
+    {% endfor %}
+  
+  
+
+</body>
+</html>

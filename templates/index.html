@@ -52,7 +52,7 @@
             <!-- Fixture Date under fixture name -->
             <h5 class="fixture-info">{{ fixture['date'] }}</h5>
             
-            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '.png') }}" 
+            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '_heatmap.png') }}" 
         alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
         </div>
     {% endfor %}
