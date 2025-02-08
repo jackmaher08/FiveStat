@@ -31,6 +31,8 @@ def load_fixtures():
 
     return fixtures_df[fixtures_df['Round Number'] == round_number][['home_team', 'away_team', 'date']]
 
+print("Fixtures loaded successfully!")
+
 # Function to load historical match data
 def load_match_data(start_year=2016, end_year=2024):
     frames = []
@@ -47,6 +49,8 @@ def load_match_data(start_year=2016, end_year=2024):
     df['result'] = df.apply(lambda row: 'home_win' if row['home_goals'] > row['away_goals'] 
                             else 'away_win' if row['home_goals'] < row['away_goals'] else 'draw', axis=1)
     return df
+
+print("Match data loaded successfully!")
 
 # Function to calculate team statistics
 def calculate_team_statistics(df):
@@ -74,6 +78,8 @@ def calculate_team_statistics(df):
 
     return team_data, home_field_advantage
 
+print("Team statistics calculated!")
+
 # Function to calculate recent form ratings
 def calculate_recent_form(df, team_data, recent_matches=10, alpha=0.35):
     recent_form_att = {}
@@ -94,3 +100,63 @@ def calculate_recent_form(df, team_data, recent_matches=10, alpha=0.35):
         recent_form_def[team] = ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * ((avg_home_def + avg_away_def) / 2))
 
     return recent_form_att, recent_form_def
+
+# Function to simulate a match using Poisson distribution
+def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
+    result_matrix = np.zeros((max_goals, max_goals))
+    for home_goals in range(max_goals):
+        for away_goals in range(max_goals):
+            home_prob = poisson.pmf(home_goals, home_xg)
+            away_prob = poisson.pmf(away_goals, away_xg)
+            result_matrix[home_goals, away_goals] = home_prob * away_prob
+    # Normalize the matrix so the probabilities sum to 1
+    result_matrix /= result_matrix.sum()
+    return result_matrix
+
+# Function to generate a heatmap
+def display_heatmap(result_matrix, home_team, away_team, save_path):
+    display_matrix = result_matrix[:6, :6]
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.imshow(display_matrix, cmap="Purples", origin='upper')
+    ax.set_xlabel(f"{away_team} Goals")
+    ax.set_ylabel(f"{home_team} Goals")
+    for i in range(6):
+        for j in range(6):
+            ax.text(j, i, f"{display_matrix[i, j] * 100:.1f}%", ha='center', va='center', color='black', fontsize=8)
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+    plt.savefig(os.path.join(save_path, f"{home_team}_vs_{away_team}_heatmap.png"))
+    plt.close()
+
+def generate_all_heatmaps(fixtures, team_stats, save_path="static/heatmaps/"):
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
+
+    for fixture in fixtures:
+        home_team = fixture['home_team']
+        away_team = fixture['away_team']
+
+            # Check if both teams exist in team_stats
+        if home_team not in team_stats or away_team not in team_stats:
+            print(f"Skipping {home_team} vs {away_team} due to missing data.")
+            continue  # Skips affected fixture
+            
+        home_xg = team_stats[home_team]['ATT Rating'] * team_stats[away_team]['DEF Rating']
+        away_xg = team_stats[away_team]['ATT Rating'] * team_stats[home_team]['DEF Rating']
+        
+        result_matrix = simulate_poisson_distribution(home_xg, away_xg)
+        display_heatmap(result_matrix, home_team, away_team, save_path)
+
+
+print("Heatmaps generated successfully!")
+print("Data loading complete!")
+print(r"""
+ ______      ___   ____  _____  ________  
+|_   _ `.  .'   `.|_   \|_   _||_   __  | 
+  | | `. \/  .-.  \ |   \ | |    | |_ \_| 
+  | |  | || |   | | | |\ \| |    |  _| _  
+ _| |_.' /\  `-'  /_| |_\   |_  _| |__/ | 
+|______.'  `.___.'|_____|\____||________| 
+                                          
+""")
+

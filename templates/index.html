@@ -9,27 +9,56 @@
             text-decoration: none;
         }
         a:hover {
-            text-decoration: underline;
-            color: #333
+            text-decoration: none;
+            color: #666;
         }
         body {
             font-family: Arial, sans-serif;
+            color: #222;
             background-color: #f4f4f9;
             margin: 0;
             padding: 20px;
             text-align: center;
         }
+        body h1 {
+            margin: 50px 0;
+        }
+        .info-box {
+            background-color: #f8f9fa; /* Light gray background */
+            border-left: 5px solid purple; /* purple highlight */
+            border-right: 5px solid purple; /* purple highlight */
+            padding: 15px;
+            margin-bottom: 50px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            width: 900px;
+            max-width: 100%; /* Ensures it doesn't exceed the screen width */
+            margin-left: auto;
+            margin-right: auto; /* Centers the box */
+        }
+
+        .info-box h2 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .info-box p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+        }
         .fixture {
             text-align: center;
-            margin-bottom: 130px;
-            margin-top: 150px;
+            margin-bottom: 50px;
+            margin-top: 50px;
         }
         .fixture h3 {
-            font-size: 1.5em;
+            font-size: 1.2em;
             color: #333;
         }
         .heatmap {
-            max-width: 400px;
+            max-width: 300px;
             height: auto;
             margin-top: 10px;
         }
@@ -42,7 +71,7 @@
             height: 1px;             /* Thin line */
             background-color: #ccc;  /* Light grey color */
             width: 50%;              /* Central and 50% width */
-            margin: 20px auto;       /* Centered with spacing */
+            /* margin: 20px auto;*/       /* Centered with spacing */
 }
 
             /* Responsive Design */
@@ -110,6 +139,9 @@
             cursor: pointer;
             color: white;
         }
+        .info-box {
+            width: 90%;
+        }
 
     @media (max-width: 600px) {
         .menu {
@@ -151,9 +183,21 @@
         </div>
     </div>
 
-    <h1>EPL Score Prediction Heatmaps</h1>
-    <h3>Gameweek 25</h3>
+    <h1>Correct Score Heatmaps</h1>
+
+    <div class="info-box">
+        <p>Correct score heatmaps visualize the probability of different scorelines in a football match. 
+           They are generated using historical data and statistical models
+           to predict the likelihood of each possible outcome.</p>
+        <p>These heatmaps can be useful for sports analysts, bettors, and football fans who want 
+            potential match results derived from a data-driven approach.</p>
+    </div>
+
+    <h3>Premier League - Gameweek 25</h3>
     {% for fixture in fixtures %}
+
+    <hr class="fixture-divider">
+
         <div class="fixture">
             
             <!-- Fixture name A vs B -->
@@ -162,11 +206,10 @@
             <!-- Fixture Date under fixture name -->
             <h5 class="fixture-info">{{ fixture['date'] }}</h5>
             
-            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '_heatmap.png') }}" 
-        alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+            <a href="#"><img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] + '_vs_' + fixture['away_team'] + '_heatmap.png') }}" 
+        alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap"></a>
         </div>
 
-        <hr class="fixture-divider">
     {% endfor %}
 
 
