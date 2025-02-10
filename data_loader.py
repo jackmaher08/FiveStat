@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import poisson
+import matplotlib.colors as mcolors
 
 # Function to load fixture data
 def load_fixtures():
@@ -81,7 +82,7 @@ def calculate_team_statistics(df):
 print("Team statistics calculated!")
 
 # Function to calculate recent form ratings
-def calculate_recent_form(df, team_data, recent_matches=10, alpha=0.35):
+def calculate_recent_form(df, team_data, recent_matches=15, alpha=0.65):
     recent_form_att = {}
     recent_form_def = {}
 
@@ -111,24 +112,85 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
             result_matrix[home_goals, away_goals] = home_prob * away_prob
     # Normalize the matrix so the probabilities sum to 1
     result_matrix /= result_matrix.sum()
-    return result_matrix
+
+    # Calculate overall probabilities
+    home_win_prob = np.sum(np.tril(result_matrix, -1))  # Below diagonal
+    away_win_prob = np.sum(np.triu(result_matrix, 1))   # Above diagonal
+    draw_prob = np.sum(np.diag(result_matrix))          # Diagonal elements
+
+    return result_matrix, home_win_prob, draw_prob, away_win_prob
 
 # Function to generate a heatmap
-def display_heatmap(result_matrix, home_team, away_team, save_path):
-    display_matrix = result_matrix[:6, :6]
-    fig, ax = plt.subplots(figsize=(6, 6))
-    ax.imshow(display_matrix, cmap="Purples", origin='upper')
-    ax.set_xlabel(f"{away_team} Goals")
-    ax.set_ylabel(f"{home_team} Goals")
+def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, away_prob, save_path):
+    fig, axes = plt.subplots(2, 1, figsize=(6, 8), gridspec_kw={'height_ratios': [3, 1]}, facecolor="#f4f4f9")
+
+    # --- Heatmap (Top) ---
+    heatmap_ax = axes[0]
+    display_matrix = result_matrix[:6, :6]  # Limit to 6x6 grid
+    heatmap_ax.imshow(display_matrix, cmap="Purples", origin='upper')
+
+    # Move x-axis labels and ticks to the top
+    heatmap_ax.xaxis.set_label_position('top')
+    heatmap_ax.xaxis.tick_top()
+
+    # Labeling
+    heatmap_ax.set_xlabel(f"{away_team} Goals")
+    heatmap_ax.set_ylabel(f"{home_team} Goals")
+    
+    # Add percentage text inside each cell
     for i in range(6):
         for j in range(6):
-            ax.text(j, i, f"{display_matrix[i, j] * 100:.1f}%", ha='center', va='center', color='black', fontsize=8)
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+            heatmap_ax.text(j, i, f"{display_matrix[i, j] * 100:.1f}%", 
+                            ha='center', va='center', color='black', fontsize=8)
+
+    # Hide spines
+    for spine in heatmap_ax.spines.values():
+        spine.set_visible(False)
+
+    # --- Bar Chart (Bottom) ---
+    bar_ax = axes[1]
+
+    # Set background color for the bar chart
+    bar_ax.set_facecolor('#f4f4f9')
+    
+    categories = [f"{away_team}", "Draw", f"{home_team}"]
+    values = [away_prob * 100, draw_prob * 100, home_prob * 100]
+
+
+    # Horizontal bar chart
+    bars = bar_ax.barh(categories, values, color='#3f007d', alpha=1)
+
+    # Set x-axis range from 0 to 100
+    bar_ax.set_xlim(0, 100)
+
+    # Hide x-axis values and ticks
+    bar_ax.set_title("Projected Win %'s:")
+    bar_ax.set_xticks([])
+    bar_ax.set_xticklabels([])
+
+    # Add text labels on bars
+    for bar in bars:
+        width = bar.get_width()
+        bar_ax.text(width + 2, bar.get_y() + bar.get_height()/2, f"{width:.1f}%", 
+                    va='center', fontsize=10, fontweight='bold')
+
+    # Remove spines
+    bar_ax.spines['top'].set_visible(False)
+    bar_ax.spines['right'].set_visible(False)
+    bar_ax.spines['left'].set_visible(False)
+    bar_ax.spines['bottom'].set_visible(False)
+
+    # Adjust layout
+    plt.tight_layout()
+
+    # Save the combined figure
     plt.savefig(os.path.join(save_path, f"{home_team}_vs_{away_team}_heatmap.png"))
     plt.close()
 
-def generate_all_heatmaps(fixtures, team_stats, save_path="static/heatmaps/"):
+
+
+
+def generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def, alpha=0.45, save_path="static/heatmaps/"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
@@ -136,16 +198,24 @@ def generate_all_heatmaps(fixtures, team_stats, save_path="static/heatmaps/"):
         home_team = fixture['home_team']
         away_team = fixture['away_team']
 
-            # Check if both teams exist in team_stats
         if home_team not in team_stats or away_team not in team_stats:
             print(f"Skipping {home_team} vs {away_team} due to missing data.")
-            continue  # Skips affected fixture
-            
-        home_xg = team_stats[home_team]['ATT Rating'] * team_stats[away_team]['DEF Rating']
-        away_xg = team_stats[away_team]['ATT Rating'] * team_stats[home_team]['DEF Rating']
+            continue
+
+        # Blend overall ratings with recent form using the same alpha weighting
+        home_att_rating = (1 - alpha) * team_stats[home_team]['ATT Rating'] + alpha * recent_form_att[home_team]
+        away_att_rating = (1 - alpha) * team_stats[away_team]['ATT Rating'] + alpha * recent_form_att[away_team]
+        home_def_rating = (1 - alpha) * team_stats[home_team]['DEF Rating'] + alpha * recent_form_def[home_team]
+        away_def_rating = (1 - alpha) * team_stats[away_team]['DEF Rating'] + alpha * recent_form_def[away_team]
+
+        # Adjusted expected goals (xG)
+        home_xg = home_att_rating * away_def_rating
+        away_xg = away_att_rating * home_def_rating
         
-        result_matrix = simulate_poisson_distribution(home_xg, away_xg)
-        display_heatmap(result_matrix, home_team, away_team, save_path)
+        result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
+        
+        display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, away_prob, save_path)
+
 
 
 print("Heatmaps generated successfully!")
@@ -159,4 +229,18 @@ print(r"""
 |______.'  `.___.'|_____|\____||________| 
                                           
 """)
+
+if __name__ == "__main__":
+    print("🔄 Generating heatmaps in advance...")
+    fixtures = load_fixtures().to_dict(orient="records")
+    match_data = load_match_data()
+    team_stats, _ = calculate_team_statistics(match_data)
+    
+    # Calculate recent form
+    recent_form_att, recent_form_def = calculate_recent_form(match_data, team_stats, recent_matches=15, alpha=0.65)
+
+    # Generate heatmaps with blended ratings
+    generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def, alpha=0.65)
+
+    print("✅ All heatmaps generated and saved in 'static/heatmaps/'")
 

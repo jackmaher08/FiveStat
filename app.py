@@ -15,7 +15,8 @@ team_stats, home_field_advantage = calculate_team_statistics(match_data)
 @app.route("/")
 def home():
     fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a list of dictionaries
-    return render_template("index.html", fixtures=fixtures)
+    return render_template("index.html", fixtures=fixtures)  # Just render, no heatmap generation
+
 
 @app.route("/about")
 def about():
