@@ -102,6 +102,48 @@ def calculate_recent_form(df, team_data, recent_matches=15, alpha=0.65):
 
     return recent_form_att, recent_form_def
 
+# create league table
+def calculate_league_table(df):
+    teams = df['Home Team'].unique()
+    table = {team: {'MP': 0, 'W': 0, 'D': 0, 'L': 0, 'G': 0, 'GA': 0, 'PTS': 0} for team in teams}
+
+    for _, row in df.iterrows():
+        home_team = row['Home Team']
+        away_team = row['Away Team']
+        home_goals = row['home_goals']
+        away_goals = row['away_goals']
+
+        # Update Matches Played (MP) and Goals
+        table[home_team]['MP'] += 1
+        table[away_team]['MP'] += 1
+        table[home_team]['G'] += home_goals
+        table[away_team]['G'] += away_goals
+        table[home_team]['GA'] += away_goals
+        table[away_team]['GA'] += home_goals
+
+        # Update Wins, Draws, Losses, Points
+        if home_goals > away_goals:
+            table[home_team]['W'] += 1
+            table[away_team]['L'] += 1
+            table[home_team]['PTS'] += 3
+        elif home_goals < away_goals:
+            table[away_team]['W'] += 1
+            table[home_team]['L'] += 1
+            table[away_team]['PTS'] += 3
+        else:
+            table[home_team]['D'] += 1
+            table[away_team]['D'] += 1
+            table[home_team]['PTS'] += 1
+            table[away_team]['PTS'] += 1
+
+    # Convert to sorted list
+    table_df = pd.DataFrame.from_dict(table, orient='index').reset_index()
+    table_df.rename(columns={'index': 'Team'}, inplace=True)
+    table_df.sort_values(by=['PTS', 'G'], ascending=[False, False], inplace=True)
+    table_df.insert(0, 'Pos', range(1, len(table_df) + 1))  # Add Position column
+
+    return table_df
+
 # Function to simulate a match using Poisson distribution
 def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     result_matrix = np.zeros((max_goals, max_goals))
@@ -123,7 +165,6 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
 # Function to generate a heatmap
 def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, away_prob, save_path):
     fig, axes = plt.subplots(2, 1, figsize=(6, 8), gridspec_kw={'height_ratios': [3, 1]}, facecolor="#f4f4f9")
-
     # --- Heatmap (Top) ---
     heatmap_ax = axes[0]
     display_matrix = result_matrix[:6, :6]  # Limit to 6x6 grid
@@ -149,36 +190,32 @@ def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, a
 
     # --- Bar Chart (Bottom) ---
     bar_ax = axes[1]
+    bar_ax.set_facecolor('#f4f4f9')  # Background color
 
-    # Set background color for the bar chart
-    bar_ax.set_facecolor('#f4f4f9')
-    
-    categories = [f"{away_team}", "Draw", f"{home_team}"]
-    values = [away_prob * 100, draw_prob * 100, home_prob * 100]
+    categories = [f"{home_team}", "Draw", f"{away_team}"]
+    values = [home_prob * 100, draw_prob * 100, away_prob * 100]
 
+    # **Change from horizontal to vertical bars**
+    bars = bar_ax.bar(categories, values, color='#3f007d', alpha=0.9, width=0.6)
 
-    # Horizontal bar chart
-    bars = bar_ax.barh(categories, values, color='#3f007d', alpha=1)
+    # Set y-axis range from 0 to 100
+    # bar_ax.set_ylim(0, 100)
 
-    # Set x-axis range from 0 to 100
-    bar_ax.set_xlim(0, 100)
-
-    # Hide x-axis values and ticks
+    # Title for the bar chart
     bar_ax.set_title("Projected Win %'s:")
-    bar_ax.set_xticks([])
-    bar_ax.set_xticklabels([])
 
-    # Add text labels on bars
+    # Add text labels on bars (above each bar)
     for bar in bars:
-        width = bar.get_width()
-        bar_ax.text(width + 2, bar.get_y() + bar.get_height()/2, f"{width:.1f}%", 
-                    va='center', fontsize=10, fontweight='bold')
+        height = bar.get_height()
+        bar_ax.text(bar.get_x() + bar.get_width()/2, height + 2, f"{height:.1f}%", 
+                    ha='center', fontsize=10, fontweight='bold')
 
-    # Remove spines
+    # Remove unnecessary spines
     bar_ax.spines['top'].set_visible(False)
     bar_ax.spines['right'].set_visible(False)
     bar_ax.spines['left'].set_visible(False)
     bar_ax.spines['bottom'].set_visible(False)
+    bar_ax.set_yticks([])
 
     # Adjust layout
     plt.tight_layout()
@@ -186,6 +223,7 @@ def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, a
     # Save the combined figure
     plt.savefig(os.path.join(save_path, f"{home_team}_vs_{away_team}_heatmap.png"))
     plt.close()
+
 
 
 
