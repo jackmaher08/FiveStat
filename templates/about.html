@@ -98,12 +98,18 @@
 </head>
 <body>
 
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('show');
+        }
+    </script>
+
     <!-- Navbar -->
     <div class="navbar">
         <a href="/">⚽ FiveStat</a>
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <div class="menu">
-            <a href="/">Premier League</a>
+            <a href="/">EPL Fixtures</a>
             <a href="/about">About</a>
         </div>
     </div>
