@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier League Player Stats</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">⚽ FiveStat</a>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <div class="dropdown">
+                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier league ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/">Fixtures</a>
+                    <a href="/">Results</a>
+                    <!--<a href="/table">League Table</a>-->
+                    <a href="/epl-player">Player Stats</a>
+                </div>
+            </div>
+            <a href="/about">About</a>
+        </div>
+    </div>
+    
+
+    <!-- <h1>Premier League Player Stats</h1>-->
+
+    <!-- Player Table -->
+     <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Name <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(1)">Team <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(2)">MP <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(3)">Mins <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(4)">G <span class="sort-indicator">▼</span></th> <!-- Default sorted -->
+                    <th onclick="sortTable(5)">xG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(6)">NPG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(7)">NPxG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(8)">A <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(9)">xA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(10)">YC <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(11)">RC <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="playerTable">
+                {% for player in players if player is mapping %}
+                <tr>
+                    <td>{{ player["Name"] }}</td>
+                    <td>{{ player["Team"] }}</td>
+                    <td>{{ player["MP"] }}</td>
+                    <td>{{ player["Mins"] }}</td>
+                    <td>{{ player["G"] }}</td>
+                    <td>{{ player["xG"] }}</td>
+                    <td>{{ player["NPG"] }}</td>
+                    <td>{{ player["NPxG"] }}</td>
+                    <td>{{ player["A"] }}</td>
+                    <td>{{ player["xA"] }}</td>
+                    <td>{{ player["YC"] }}</td>
+                    <td>{{ player["RC"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+
+    <script>
+        let currentSortColumn = 3; // Default sort by "Goals"
+        let ascending = false; // Default sort order is descending
+        let currentPage = 1;
+        const rowsPerPage = 20;
+        let allRows = Array.from(document.querySelector("#playerTable").rows);
+
+        function sortTable(columnIndex) {
+            if (currentSortColumn === columnIndex) {
+                ascending = !ascending;
+            } else {
+                ascending = false;
+                currentSortColumn = columnIndex;
+            }
+
+            allRows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim();
+                let valB = b.cells[columnIndex].innerText.trim();
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return ascending ? valA - valB : valB - valA;
+                } else {
+                    return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                }
+            });
+
+            updateSortingIndicator();
+            updateTable();
+        }
+
+        function updateSortingIndicator() {
+            document.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+            let header = document.querySelectorAll("th")[currentSortColumn];
+            header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector("#playerTable");
+            tableBody.innerHTML = "";
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const visibleRows = allRows.slice(start, end);
+
+            visibleRows.forEach(row => tableBody.appendChild(row));
+
+            document.querySelector("#prevBtn").disabled = currentPage === 1;
+            document.querySelector("#nextBtn").disabled = end >= allRows.length;
+            document.querySelector("#pageInfo").innerText = `Page ${currentPage}`;
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            updateTable();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            allRows.sort((a, b) => b.cells[3].innerText.trim() - a.cells[3].innerText.trim());
+            updateSortingIndicator();
+            updateTable();
+        });
+
+    </script>
+
+    <script>
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+    </script>
+
+    <script>
+        function toggleMenu() {
+            let menu = document.querySelector('.menu');
+            menu.classList.toggle('show');
+        }
+    </script>
+
+</body>
+</html>

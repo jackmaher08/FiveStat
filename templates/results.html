@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">⚽ FiveStat</a>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <div class="menu">
+            <div class="dropdown">
+                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/">Fixtures</a>
+                    <a href="#">Results</a>
+                    <!--<a href="/table">League Table</a>-->
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+            <a href="/about">About</a> 
+        </div>
+    </div>
+    <header>
+        <h1>Match Results</h1>
+    </header>
+
+    <main>
+        <div class="navigation">
+                <!-- Disable Previous button if at first available gameweek 
+                {% if week_offset > first_gw %}
+                <a href="{{ url_for('results', week_offset=week_offset - 1) }}" class="nav-button">⬅ Previous Round</a>
+                {% else %}
+                    <span class="nav-button disabled">⬅ Previous Round</span>
+                {% endif %}-->
+
+                <h2 class="gw-header">Gameweek {{ week_offset }}</h2>
+
+                <!-- Disable Next button if at last available gameweek 
+                {% if week_offset < last_gw %}
+                    <a href="{{ url_for('results', week_offset=week_offset + 1) }}" class="nav-button">Next Round ➡</a>
+                {% else %}
+                    <span class="nav-button disabled">Next Round ➡</span>
+                {% endif %}-->
+        </div>
+
+        <div class="fixtures-container">
+
+            {% for fixture in fixtures %}
+
+            <hr class="fixture-divider">
+
+            <div class="fixture">
+                <h3>
+                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
+                    vs 
+                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                </h3>
+                
+                <h5 class="fixture-date">{{ fixture.date.strftime('%d %b %Y') if fixture.date else 'Missing Date Info' }}</h5>
+        
+                <a href="#">
+                    <img class="shotmap" 
+                    src="{{ url_for('static', filename='shotmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_shotmap.png') }}" 
+                    alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+
+    <!-- Dark Overlay for Team Modal -->
+    <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
+
+    <!-- Team Modal -->
+    <div class="modal" id="teamInfoModal">
+        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
+        <h3>Team Pages Coming Soon</h3>
+        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('show');
+        }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id === 'infoModal' ? 'modalOverlay' : 'teamModalOverlay');
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+    </script>
+
+    <script>
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>

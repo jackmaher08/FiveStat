@@ -1,9 +1,16 @@
 import os
+import re
+import json
+import requests
+import random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import poisson
 import matplotlib.colors as mcolors
+from bs4 import BeautifulSoup
+from mplsoccer import Pitch
+from matplotlib.colors import LinearSegmentedColormap
 
 # Function to load fixture data
 def load_fixtures():
@@ -53,6 +60,40 @@ def load_match_data(start_year=2016, end_year=2024):
 
 print("Match data loaded successfully!")
 
+def get_player_data():
+    url = 'https://understat.com/league/EPL/2024'
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    ugly_soup = str(soup)
+
+    # Extract JSON data
+    player_data = re.search(r"var\s+playersData\s*=\s*JSON.parse\('(.*)'\);", ugly_soup).group(1)
+    player_df = player_data.encode('utf8').decode('unicode_escape')
+    player_df = json.loads(player_df)
+
+    # Parse data into a list of dicts
+    player_data = [
+        {
+            "Name": fixture.get("player_name"),
+            "POS": fixture.get("position", ""),
+            "Team": fixture.get("team_title", ""),
+            "MP": int(fixture["games"]) if fixture["games"] else 0,
+            "Mins": int(fixture["time"]) if fixture["time"] else 0,
+            "G": int(fixture["goals"]) if fixture["goals"] else 0,
+            "xG": round(float(fixture["xG"]), 2) if fixture["xG"] else 0.0,
+            "NPG": int(fixture["npg"]) if fixture["npg"] else 0.0,
+            "NPxG": round(float(fixture["npxG"]), 2) if fixture["npxG"] else 0.0,
+            "A": int(fixture["assists"]) if fixture["assists"] else 0,
+            "xA": round(float(fixture["xA"]), 2) if fixture["xA"] else 0.0,
+            "YC": int(fixture["yellow_cards"]) if fixture["yellow_cards"] else 0,
+            "RC": int(fixture["red_cards"]) if fixture["red_cards"] else 0,
+        }
+        for fixture in player_df
+    ]
+
+    return player_data  # Return player data as a list of dictionaries
+
+
 # Function to calculate team statistics
 def calculate_team_statistics(df):
     team_names = df['Home Team'].unique()
@@ -82,7 +123,7 @@ def calculate_team_statistics(df):
 print("Team statistics calculated!")
 
 # Function to calculate recent form ratings
-def calculate_recent_form(df, team_data, recent_matches=15, alpha=0.65):
+def calculate_recent_form(df, team_data, recent_matches=20, alpha=0.65):
     recent_form_att = {}
     recent_form_def = {}
 
@@ -120,8 +161,11 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
 
     return result_matrix, home_win_prob, draw_prob, away_win_prob
 
+import os
+import matplotlib.pyplot as plt
+
 # Function to generate a heatmap
-def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, away_prob, save_path):
+def display_heatmap(result_matrix, match_id, home_team, away_team, home_prob, draw_prob, away_prob, save_path):
     fig, axes = plt.subplots(2, 1, figsize=(6, 8), gridspec_kw={'height_ratios': [3, 1]}, facecolor="#f4f4f9")
 
     # --- Heatmap (Top) ---
@@ -149,52 +193,45 @@ def display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, a
 
     # --- Bar Chart (Bottom) ---
     bar_ax = axes[1]
+    bar_ax.set_facecolor('#f4f4f9')  # Background color
 
-    # Set background color for the bar chart
-    bar_ax.set_facecolor('#f4f4f9')
-    
-    categories = [f"{away_team}", "Draw", f"{home_team}"]
-    values = [away_prob * 100, draw_prob * 100, home_prob * 100]
+    categories = [f"{home_team}", "Draw", f"{away_team}"]
+    values = [home_prob * 100, draw_prob * 100, away_prob * 100]
 
+    # **Change from horizontal to vertical bars**
+    bars = bar_ax.bar(categories, values, color='#3f007d', alpha=0.9, width=0.6)
 
-    # Horizontal bar chart
-    bars = bar_ax.barh(categories, values, color='#3f007d', alpha=1)
-
-    # Set x-axis range from 0 to 100
-    bar_ax.set_xlim(0, 100)
-
-    # Hide x-axis values and ticks
+    # Title for the bar chart
     bar_ax.set_title("Projected Win %'s:")
-    bar_ax.set_xticks([])
-    bar_ax.set_xticklabels([])
 
-    # Add text labels on bars
+    # Add text labels on bars (above each bar)
     for bar in bars:
-        width = bar.get_width()
-        bar_ax.text(width + 2, bar.get_y() + bar.get_height()/2, f"{width:.1f}%", 
-                    va='center', fontsize=10, fontweight='bold')
+        height = bar.get_height()
+        bar_ax.text(bar.get_x() + bar.get_width()/2, height + 2, f"{height:.1f}%", 
+                    ha='center', fontsize=10, fontweight='bold')
 
-    # Remove spines
+    # Remove unnecessary spines
     bar_ax.spines['top'].set_visible(False)
     bar_ax.spines['right'].set_visible(False)
     bar_ax.spines['left'].set_visible(False)
     bar_ax.spines['bottom'].set_visible(False)
+    bar_ax.set_yticks([])
 
     # Adjust layout
     plt.tight_layout()
 
-    # Save the combined figure
-    plt.savefig(os.path.join(save_path, f"{home_team}_vs_{away_team}_heatmap.png"))
+    # Save the combined figure using match_id
+    heatmap_filename = f"{match_id}_heatmap.png"
+    plt.savefig(os.path.join(save_path, heatmap_filename))
     plt.close()
 
 
-
-
-def generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def, alpha=0.45, save_path="static/heatmaps/"):
+def generate_all_heatmaps(new_fixture_df, team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
-    for fixture in fixtures:
+    for _, fixture in new_fixture_df.iterrows():  # Use DataFrame iteration
+        match_id = f"{fixture['home_team']}_{fixture['away_team']}_24_25"
         home_team = fixture['home_team']
         away_team = fixture['away_team']
 
@@ -214,11 +251,25 @@ def generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def
         
         result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
         
-        display_heatmap(result_matrix, home_team, away_team, home_prob, draw_prob, away_prob, save_path)
+        display_heatmap(result_matrix, match_id, home_team, away_team, home_prob, draw_prob, away_prob, save_path)
+
 
 
 
 print("Heatmaps generated successfully!")
+
+# generating & saving shotmaps
+
+# Directory to save shotmaps
+shotmap_save_path = "static/shotmaps/"
+os.makedirs(shotmap_save_path, exist_ok=True)
+
+
+
+
+
+
+
 print("Data loading complete!")
 print(r"""
  ______      ___   ____  _____  ________  
@@ -232,12 +283,12 @@ print(r"""
 
 if __name__ == "__main__":
     print("🔄 Generating heatmaps in advance...")
-    fixtures = load_fixtures().to_dict(orient="records")
+    fixtures = pd.DataFrame(load_fixtures())
     match_data = load_match_data()
     team_stats, _ = calculate_team_statistics(match_data)
     
     # Calculate recent form
-    recent_form_att, recent_form_def = calculate_recent_form(match_data, team_stats, recent_matches=15, alpha=0.65)
+    recent_form_att, recent_form_def = calculate_recent_form(match_data, team_stats, recent_matches=20, alpha=0.65)
 
     # Generate heatmaps with blended ratings
     generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def, alpha=0.65)
