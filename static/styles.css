@@ -95,28 +95,6 @@ a:hover {
     cursor: pointer;
     color: white;
 }
-@media (max-width: 600px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        background-color: #333;
-        width: 100%;
-        top: 50px;
-        left: 0;
-        padding: 10px 0;
-    }
-    .menu a {
-        display: block;
-        padding: 10px;
-    }
-    .menu.show {
-        display: flex;
-    }
-    .menu-icon {
-        display: block;
-    }
-}
 
 /* Header Container */
 .header-container {
@@ -155,11 +133,73 @@ a:hover {
     background-color: #ccc;
     width: 50%;
 }
+
 @media (max-width: 768px) {
-    .heatmap {
-        max-width: 80%;
+    /* Navbar - Center items & ensure dropdown works */
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+    .menu {
+        flex-direction: column;
+        width: 100%;
+    }
+    .menu a, .dropdown {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Dropdown fixes */
+    .dropdown-content {
+        position: static; /* Ensure dropdown stays inside the screen */
+        width: 100%;
+    }
+
+    /* Table - Make it scrollable on small screens */
+    .table-container {
+        overflow-x: auto; /* Enables horizontal scroll */
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        min-width: 600px; /* Ensures columns don't shrink too much */
+    }
+
+    /* Table cells - Improve readability */
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    /* Pagination - Stack buttons on smaller screens */
+    .pagination {
+        flex-direction: column;
+        gap: 5px;
+    }
+    button {
+        width: 100%;
+    }
+    .heatmap, .shotmap {
+        max-width: 100%;
+    }
+    .header-container {
+        display: inline;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        text-align: center;
+        width: 100%;
+    }
+    .header-container h1 {
+        font-size: 22px;
+    }
+    .header-container .info-button {
+        font-size: 18px;
+        margin-bottom: 40px;
     }
 }
+
 
 /* The Modal (Box) */
 .modal {
@@ -375,28 +415,6 @@ body {
     cursor: pointer;
     color: white;
 }
-@media (max-width: 600px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        background-color: #333;
-        width: 100%;
-        top: 50px;
-        left: 0;
-        padding: 10px 0;
-    }
-    .menu a {
-        display: block;
-        padding: 10px;
-    }
-    .menu.show {
-        display: flex;
-    }
-    .menu-icon {
-        display: block;
-    }
-}
 
 h1 {
     margin: 20px 0;
@@ -500,56 +518,28 @@ button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
-@media (max-width: 768px) {
-    /* Navbar - Center items & ensure dropdown works */
-    .navbar {
-        flex-direction: column;
-        text-align: center;
-    }
-    .menu {
-        flex-direction: column;
-        width: 100%;
-    }
-    .menu a, .dropdown {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Dropdown fixes */
-    .dropdown-content {
-        position: static; /* Ensure dropdown stays inside the screen */
-        width: 100%;
-    }
-
-    /* Table - Make it scrollable on small screens */
-    .table-container {
-        overflow-x: auto; /* Enables horizontal scroll */
-        width: 100%;
-    }
-
-    table {
-        width: 100%;
-        min-width: 600px; /* Ensures columns don't shrink too much */
-    }
-
-    /* Table cells - Improve readability */
-    th, td {
-        padding: 8px;
-        font-size: 12px;
-    }
-
-    /* Pagination - Stack buttons on smaller screens */
-    .pagination {
-        flex-direction: column;
-        gap: 5px;
-    }
-    button {
-        width: 100%;
-    }
-    
-}
 
 @media (max-width: 600px) {
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        background-color: #333;
+        width: 100%;
+        top: 50px;
+        left: 0;
+        padding: 10px 0;
+    }
+    .menu a {
+        display: block;
+        padding: 10px;
+    }
+    .menu.show {
+        display: flex;
+    }
+    .menu-icon {
+        display: block;
+    }
     .dropdown {
         width: 100%; /* Ensures the dropdown takes the full width */
         text-align: center; /* Centers the text */
