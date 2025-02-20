@@ -27,6 +27,7 @@
     </div>
     <header>
         <h1>Match Results</h1>
+        <h3>w/ Shotmap Data</h3>
     </header>
 
     <main>
@@ -38,7 +39,7 @@
                     <span class="nav-button disabled">⬅ Previous Round</span>
                 {% endif %}-->
 
-                <h2 class="gw-header">Gameweek {{ week_offset }}</h2>
+                <h3 class="gw-header">Gameweek {{ week_offset }}</h3>
 
                 <!-- Disable Next button if at last available gameweek 
                 {% if week_offset < last_gw %}
@@ -60,8 +61,9 @@
                     vs 
                     <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
                 </h3>
-                
-                <h5 class="fixture-date">{{ fixture.date.strftime('%d %b %Y') if fixture.date else 'Missing Date Info' }}</h5>
+                <h5 class="fixture-date">
+                    {{ fixture.date.strftime('%d %b %Y') if fixture.date else 'Missing Date Info' }}
+                </h5>
         
                 <a href="#">
                     <img class="shotmap" 

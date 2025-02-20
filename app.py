@@ -75,7 +75,9 @@ def filter_players():
     return jsonify(filtered_players)
 
 # Load fixtures
-fixtures_df = pd.DataFrame(load_fixtures())
+fixtures_df = load_fixtures()
+print(fixtures_df[['date']].head())  # Check if 'date' column is parsed correctly
+
 
 # this lets us determine the current gameweek along with all completed gameweeks
 def get_fixtures_for_week(week_offset=0):
@@ -132,6 +134,14 @@ def results():
             fixture["date"] = datetime.strptime(fixture["date"], "%Y-%m-%d")
         except (ValueError, TypeError):
             fixture["date"] = None  
+
+        # ✅ Ensure 'date' is in datetime format
+    for fixture in weekly_fixtures:
+        if isinstance(fixture.get("date"), str):  # Convert only if it's a string
+            try:
+                fixture["date"] = datetime.strptime(fixture["date"], "%Y-%m-%d")
+            except ValueError:
+                fixture["date"] = None  # Keep None if invalid
 
     return render_template(
         "results.html",

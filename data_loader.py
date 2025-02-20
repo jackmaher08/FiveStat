@@ -11,13 +11,27 @@ from bs4 import BeautifulSoup
 from mplsoccer import Pitch
 from matplotlib.colors import LinearSegmentedColormap
 import random
+import matplotlib.image as mpimg
 
 # Function to load fixture data from multiple sources
 def load_fixtures():
     fixture_file_path = "data/tables/fixture_data.csv"
-    
     if os.path.exists(fixture_file_path):
         fixtures_df = pd.read_csv(fixture_file_path)
+
+        # ✅ Ensure 'date' column exists
+        if 'date' in fixtures_df.columns:
+            # ✅ Fix: Replace double spaces with a single space
+            fixtures_df['date'] = fixtures_df['date'].astype(str).str.replace("  ", " ").str.strip()
+
+            # ✅ Convert to datetime format
+            fixtures_df['date'] = pd.to_datetime(
+                fixtures_df['date'], format="%d/%m/%Y %H:%M:%S", errors='coerce'
+            )
+
+            print(fixtures_df.columns)
+            print(fixtures_df[['date']].head(10))
+
         print("✅ Loaded fixtures from saved file.")
     else:
         raise FileNotFoundError(f"⚠️ Fixture file not found: {fixture_file_path}. Ensure it's saved before running.")
@@ -317,25 +331,39 @@ def generate_shot_map(understat_match_id):
         total_goals_away = away_df['result'].str.contains('Goal', case=False, na=False).sum()
         total_xg_home = home_df['xG'].astype(float).sum()
         total_xg_away = away_df['xG'].astype(float).sum()
+    
+            # Compute stats for table
+        def calculate_match_stats(team_df):
+            team_df['xG'] = pd.to_numeric(team_df['xG'], errors='coerce')  # Ensure xG is numeric
+            return {
+                'Goals': len(team_df[team_df['result'] == 'Goal']),  
+                'xG': round(team_df['xG'].sum(), 2),  
+                'Shots': len(team_df),  
+                'SOT': len(team_df[team_df['result'].isin(['Goal', 'SavedShot'])])  
+            }
+
+        home_stats = calculate_match_stats(home_df)
+        away_stats = calculate_match_stats(away_df)
 
         # Initialize pitch
-        pitch = Pitch(pitch_type='statsbomb', pitch_color='white', line_color='black', line_zorder=2)
-        fig, ax = plt.subplots(figsize=(10, 6))
+        pitch = Pitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2)
+        fig, axs = plt.subplots(2, 1, figsize=(10, 10), gridspec_kw={'height_ratios': [3, 1]})
+
 
         # Set background color
         fig.patch.set_facecolor('#f4f4f9')
-        ax.set_facecolor('#f4f4f9')
+        axs[0].set_facecolor('#f4f4f9')
 
         # Plot heatmap
         all_shots = pd.concat([home_df, away_df])
         cmap = LinearSegmentedColormap.from_list('custom_cmap', ['#f4f4f9', '#3f007d'])
         pitch.kdeplot(
-            all_shots['x_scaled'], all_shots['y_scaled'], ax=ax, fill=True, cmap=cmap,
+            all_shots['x_scaled'], all_shots['y_scaled'], ax=axs[0], fill=True, cmap=cmap,
             n_levels=100, thresh=0, zorder=1
         )
 
         # Draw pitch
-        pitch.draw(ax=ax)
+        pitch.draw(ax=axs[0])
 
         # Plot shots for both teams
         for df in [home_df, away_df]:  
@@ -343,18 +371,90 @@ def generate_shot_map(understat_match_id):
                 x, y = shot['x_scaled'], shot['y_scaled']
                 color = 'gold' if shot['result'] == 'Goal' else 'white'
                 zorder = 3 if shot['result'] == 'Goal' else 2
-                ax.scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
+                axs[0].scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
                            ec='black', c=color, zorder=zorder)
 
+        # Define the base path (where data_loader.py is located)
+        base_path = os.path.dirname(os.path.abspath(__file__))  # Gets the directory of data_loader.py
+
+        # Construct full paths for the logos
+        home_logo_path = os.path.join(base_path, "static", "team_logos", f"{home_team_name.lower()}_logo.png")
+        away_logo_path = os.path.join(base_path, "static", "team_logos", f"{away_team_name.lower()}_logo.png")
+
+        def add_team_logo(ax, logo_path, x_min, x_max, y_center):
+            """Loads and displays a team logo at a given position, keeping aspect ratio and flipping it if necessary."""
+            if os.path.exists(logo_path):
+                logo_img = mpimg.imread(logo_path)
+                
+                # ✅ Flip the image vertically so it appears correctly
+                logo_img = np.flipud(logo_img)  # This prevents it from appearing upside down
+                
+                # Get image aspect ratio (height / width)
+                aspect_ratio = logo_img.shape[0] / logo_img.shape[1]  # Height / Width
+                
+                # Set y_min and y_max dynamically based on x width
+                width = x_max - x_min  # Define width of the image
+                height = width * aspect_ratio  # Maintain aspect ratio
+                
+                y_min = y_center - (height / 2)  # Centered positioning
+                y_max = y_center + (height / 2)
+
+                # ✅ Display the flipped image with transparency (alpha)
+                ax.imshow(logo_img, extent=(x_min, x_max, y_min, y_max), alpha=0.1, zorder=1)
+
+        # 🎯 Add team logos with automatic height adjustment
+        add_team_logo(axs[0], home_logo_path, x_min=8, x_max=52, y_center=40)  # Home team
+        add_team_logo(axs[0], away_logo_path, x_min=68, x_max=112, y_center=40)  # Away team
+
         # Add match info
-        ax.text(30, 10, f"{home_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
-        ax.text(90, 10, f"{away_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
-        ax.text(30, 40, f"{total_goals_home}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
-        ax.text(90, 40, f"{total_goals_away}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
-        ax.text(30, 60, f"{total_xg_home:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
-        ax.text(90, 60, f"{total_xg_away:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
-        ax.text(105,78, f"Respective Team XG values", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
-        ax.text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
+        #axs[0].text(30, 10, f"{home_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
+        #axs[0].text(90, 10, f"{away_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
+        axs[0].text(30, 40, f"{total_goals_home}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
+        axs[0].text(90, 40, f"{total_goals_away}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
+        axs[0].text(30, 60, f"{total_xg_home:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
+        axs[0].text(90, 60, f"{total_xg_away:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
+        axs[0].text(105,78, f"Respective Team XG values", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
+        axs[0].text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
+
+        # 📊 Generate Table
+        ax_table = axs[1]
+        column_labels = [rf"$\bf{{{home_team_name}}}$", "", rf"$\bf{{{away_team_name}}}$"]
+        table_vals = [
+            [home_stats['Goals'], 'Goals', away_stats['Goals']],
+            [home_stats['xG'], 'xG', away_stats['xG']],
+            [home_stats['Shots'], 'Shots', away_stats['Shots']],
+            [home_stats['SOT'], 'SOT', away_stats['SOT']]
+        ]
+
+        table = ax_table.table(
+            cellText=table_vals,
+            cellLoc='center',
+            colLabels=column_labels,
+            bbox=[0, 0, 1, 1]
+        )
+
+        for i in range(len(table_vals) + 1):  # +1 to include header row
+            for j in range(len(column_labels)):
+                cell = table[(i, j)]
+                cell.set_facecolor("#f4f4f9")  # Background color
+
+        table.set_fontsize(14)
+        column_widths = [0.4, 0.2, 0.4]
+
+        for j, width in enumerate(column_widths):
+            for i in range(len(table_vals) + 1):  # +1 includes header row
+                cell = table[i, j]
+                cell.set_width(width)
+
+        for (i, j), cell in table.get_celld().items():
+            if j == 0:
+                table.get_celld()[(i, j)].visible_edges = 'R'
+            elif j == 2:
+                table.get_celld()[(i, j)].visible_edges = 'L'
+            else:
+                table.get_celld()[(i, j)].visible_edges = 'LR'
+
+        ax_table.axis('off')  # Hide axes for the table
 
         # Save figure
         plt.tight_layout()

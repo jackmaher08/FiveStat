@@ -2,7 +2,6 @@ import os
 import re
 import json
 import requests
-import random
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -11,98 +10,72 @@ import matplotlib.colors as mcolors
 from bs4 import BeautifulSoup
 from mplsoccer import Pitch
 from matplotlib.colors import LinearSegmentedColormap
+import random
 
-# Function to load fixture data
+# Function to load fixture data from multiple sources
 def load_fixtures():
-    url = "https://fixturedownload.com/download/epl-2024-GMTStandardTime.csv"
-    fixtures_df = pd.read_csv(url)
+    fixture_file_path = "data/tables/fixture_data.csv"
+    
+    if os.path.exists(fixture_file_path):
+        fixtures_df = pd.read_csv(fixture_file_path)
+        print("✅ Loaded fixtures from saved file.")
+    else:
+        raise FileNotFoundError(f"⚠️ Fixture file not found: {fixture_file_path}. Ensure it's saved before running.")
 
-    # Print actual column names for debugging
-    print("CSV Columns:", fixtures_df.columns)
-
-    # Rename columns to match expected format
-    fixtures_df = fixtures_df.rename(columns={
-        "Home Team": "home_team",
-        "Away Team": "away_team",
-        "Date": "date"
-    })
-
-    # Ensure correct columns exist
-    if not {"home_team", "away_team", "date"}.issubset(set(fixtures_df.columns)):
-        raise ValueError(f"Missing expected columns! Found: {fixtures_df.columns}")
-
-    # Find the next gameweek
-    round_counts = fixtures_df[fixtures_df['Result'].isna()].groupby('Round Number').size()
-    round_number = round_counts[round_counts >= 10].index.min()
-
-    print(f"The next gameweek is GW {round_number}")
-
-    return fixtures_df[fixtures_df['Round Number'] == round_number][['home_team', 'away_team', 'date']]
+    return fixtures_df
 
 print("Fixtures loaded successfully!")
 
 # Function to load historical match data
 def load_match_data(start_year=2016, end_year=2024):
-    frames = []
-    for year in range(start_year, end_year + 1):
-        url = f"https://fixturedownload.com/download/epl-{year}-GMTStandardTime.csv"
-        frame = pd.read_csv(url)
-        frame['Season'] = year
-        frames.append(frame)
-    df = pd.concat(frames)
-    df = df[pd.notnull(df.Result)]
+    historical_fixture_file_path = "data/tables/historical_fixture_data.csv"
     
-    # Process result column
-    df[['home_goals', 'away_goals']] = df['Result'].str.split(' - ', expand=True).astype(float)
-    df['result'] = df.apply(lambda row: 'home_win' if row['home_goals'] > row['away_goals'] 
-                            else 'away_win' if row['home_goals'] < row['away_goals'] else 'draw', axis=1)
-    return df
+    if os.path.exists(historical_fixture_file_path):
+        historical_fixtures_df = pd.read_csv(historical_fixture_file_path)
+        print("✅ Loaded next GW fixtures from saved file.")
+    else:
+        raise FileNotFoundError(f"⚠️ Fixture file not found: {historical_fixture_file_path}. Ensure it's saved before running.")
+
+    return historical_fixtures_df
 
 print("Match data loaded successfully!")
 
+def load_next_gw_fixtures():
+    """Loads the next gameweek fixtures from the saved file."""
+    next_gw_file_path = "data/tables/next_gw_fixtures.csv"
+
+    if os.path.exists(next_gw_file_path):
+        next_gw_fixtures_df = pd.read_csv(next_gw_file_path)
+        print("✅ Loaded next gameweek fixtures from saved file.")
+        return next_gw_fixtures_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
+    else:
+        raise FileNotFoundError(f"⚠️ Next gameweek fixtures file not found: {next_gw_file_path}. Ensure it's saved before running.")
+
+
 def get_player_data():
-    url = 'https://understat.com/league/EPL/2024'
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    ugly_soup = str(soup)
+    player_file_path = "data/tables/player_data.csv"
+    
+    if os.path.exists(player_file_path):
+        player_data_df = pd.read_csv(player_file_path)
+        print("✅ Loaded player data from saved file.")
+    else:
+        raise FileNotFoundError(f"⚠️ Player data file not found: {player_file_path}. Ensure it's saved before running.")
 
-    # Extract JSON data
-    player_data = re.search(r"var\s+playersData\s*=\s*JSON.parse\('(.*)'\);", ugly_soup).group(1)
-    player_df = player_data.encode('utf8').decode('unicode_escape')
-    player_df = json.loads(player_df)
+    return player_data_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
 
-    # Parse data into a list of dicts
-    player_data = [
-        {
-            "Name": fixture.get("player_name"),
-            "POS": fixture.get("position", ""),
-            "Team": fixture.get("team_title", ""),
-            "MP": int(fixture["games"]) if fixture["games"] else 0,
-            "Mins": int(fixture["time"]) if fixture["time"] else 0,
-            "G": int(fixture["goals"]) if fixture["goals"] else 0,
-            "xG": round(float(fixture["xG"]), 2) if fixture["xG"] else 0.0,
-            "NPG": int(fixture["npg"]) if fixture["npg"] else 0.0,
-            "NPxG": round(float(fixture["npxG"]), 2) if fixture["npxG"] else 0.0,
-            "A": int(fixture["assists"]) if fixture["assists"] else 0,
-            "xA": round(float(fixture["xA"]), 2) if fixture["xA"] else 0.0,
-            "YC": int(fixture["yellow_cards"]) if fixture["yellow_cards"] else 0,
-            "RC": int(fixture["red_cards"]) if fixture["red_cards"] else 0,
-        }
-        for fixture in player_df
-    ]
 
-    return player_data  # Return player data as a list of dictionaries
+print("Player data loaded successfully!")
 
 
 # Function to calculate team statistics
-def calculate_team_statistics(df):
-    team_names = df['Home Team'].unique()
-    home_field_advantage = df['home_goals'].mean() - df['away_goals'].mean()
+def calculate_team_statistics(historical_fixture_data):
+    team_names = historical_fixture_data['Home Team'].unique()
+    home_field_advantage = historical_fixture_data['home_goals'].mean() - historical_fixture_data['away_goals'].mean()
     team_data = {}
 
     for team in team_names:
-        home_games = df[df['Home Team'] == team]
-        away_games = df[df['Away Team'] == team]
+        home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team]
+        away_games = historical_fixture_data[historical_fixture_data['Away Team'] == team]
 
         avg_home_goals_for = home_games['home_goals'].mean()
         avg_away_goals_for = away_games['away_goals'].mean()
@@ -123,12 +96,12 @@ def calculate_team_statistics(df):
 print("Team statistics calculated!")
 
 # Function to calculate recent form ratings
-def calculate_recent_form(df, team_data, recent_matches=20, alpha=0.65):
+def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20, alpha=0.65):
     recent_form_att = {}
     recent_form_def = {}
 
-    for team in df['Home Team'].unique():
-        recent_matches_df = df[(df['Home Team'] == team) | (df['Away Team'] == team)].tail(recent_matches)
+    for team in historical_fixture_data['Home Team'].unique():
+        recent_matches_df = historical_fixture_data[(historical_fixture_data['Home Team'] == team) | (historical_fixture_data['Away Team'] == team)].tail(recent_matches)
         
         home_matches = recent_matches_df[recent_matches_df['Home Team'] == team]
         away_matches = recent_matches_df[recent_matches_df['Away Team'] == team]
@@ -165,7 +138,7 @@ import os
 import matplotlib.pyplot as plt
 
 # Function to generate a heatmap
-def display_heatmap(result_matrix, match_id, home_team, away_team, home_prob, draw_prob, away_prob, save_path):
+def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path):
     fig, axes = plt.subplots(2, 1, figsize=(6, 8), gridspec_kw={'height_ratios': [3, 1]}, facecolor="#f4f4f9")
 
     # --- Heatmap (Top) ---
@@ -217,29 +190,57 @@ def display_heatmap(result_matrix, match_id, home_team, away_team, home_prob, dr
     bar_ax.spines['bottom'].set_visible(False)
     bar_ax.set_yticks([])
 
+    # Add "FiveStat" watermark in the bottom-left corner
+    fig.text(0.97, 0.60, "FiveStat", fontsize=8, color="black", fontweight="bold", ha="left", va="bottom", alpha=0.4, rotation=90)
+    #f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4
+
     # Adjust layout
     plt.tight_layout()
 
-    # Save the combined figure using match_id
-    heatmap_filename = f"{match_id}_heatmap.png"
+    # 📌 **Save the combined figure using Team IDs**
+    heatmap_filename = f"{home_team}_{away_team}_heatmap.png"
     plt.savefig(os.path.join(save_path, heatmap_filename))
     plt.close()
 
+    heatmap_path = os.path.join(save_path, heatmap_filename)
 
-def generate_all_heatmaps(new_fixture_df, team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
+
+    # ✅ **Check if the heatmap already exists**
+    if os.path.exists(heatmap_path):
+        print(f"Heatmap for {home_team} vs {away_team} already exists.")
+        return  # 🔄 Skip generating this heatmap
+
+    print(f"✅ Heatmap saved: {heatmap_filename}")
+
+
+
+def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
 
-    for _, fixture in new_fixture_df.iterrows():  # Use DataFrame iteration
-        match_id = f"{fixture['home_team']}_{fixture['away_team']}_24_25"
+    # ✅ Load the next gameweek fixtures
+    next_gw_file_path = "data/tables/next_gw_fixtures.csv"
+    if os.path.exists(next_gw_file_path):
+        next_gw_fixtures = pd.read_csv(next_gw_file_path)
+        print("✅ Loaded next gameweek fixtures from saved file.")
+    else:
+        raise FileNotFoundError(f"⚠️ Next gameweek fixture file not found: {next_gw_file_path}. Ensure it's saved before running.")
+
+    # ✅ Generate heatmaps only for next gameweek fixtures
+    for _, fixture in next_gw_fixtures.iterrows():
         home_team = fixture['home_team']
         away_team = fixture['away_team']
+        gw_number = fixture['round_number']
+
+        if pd.isna(home_team) or pd.isna(away_team):
+            print(f"❌ Skipping match {home_team} vs {away_team}: Missing team names")
+            continue  # Skip if IDs are missing
 
         if home_team not in team_stats or away_team not in team_stats:
-            print(f"Skipping {home_team} vs {away_team} due to missing data.")
+            print(f"❌ Skipping {home_team} vs {away_team} due to missing data.")
             continue
 
-        # Blend overall ratings with recent form using the same alpha weighting
+        # Blend overall ratings with recent form using alpha weighting
         home_att_rating = (1 - alpha) * team_stats[home_team]['ATT Rating'] + alpha * recent_form_att[home_team]
         away_att_rating = (1 - alpha) * team_stats[away_team]['ATT Rating'] + alpha * recent_form_att[away_team]
         home_def_rating = (1 - alpha) * team_stats[home_team]['DEF Rating'] + alpha * recent_form_def[home_team]
@@ -250,8 +251,13 @@ def generate_all_heatmaps(new_fixture_df, team_stats, recent_form_att, recent_fo
         away_xg = away_att_rating * home_def_rating
         
         result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
-        
-        display_heatmap(result_matrix, match_id, home_team, away_team, home_prob, draw_prob, away_prob, save_path)
+
+        # ✅ Generate heatmap for the next gameweek fixture
+        display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path)
+
+    print("✅ Heatmaps for next gameweek fixtures generated!")
+
+
 
 
 
@@ -260,38 +266,130 @@ print("Heatmaps generated successfully!")
 
 # generating & saving shotmaps
 
-# Directory to save shotmaps
+# 📌 Directory to save shotmaps
 shotmap_save_path = "static/shotmaps/"
 os.makedirs(shotmap_save_path, exist_ok=True)
 
+# 📌 Fetch the latest fixtures (Merged from FixtureDownload & Understat)
+fixtures_df = load_fixtures()
 
+# 📌 Filter only completed matches (ignore upcoming games)
+completed_fixtures = fixtures_df.dropna(subset=["home_goals", "away_goals"])
 
+# 📌 Function to generate and save shot maps
+def generate_shot_map(understat_match_id):
+    try:
+        url = f'https://understat.com/match/{understat_match_id}'
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        ugly_soup = str(soup)
 
+        # Extract JSON shot data
+        match = re.search("var shotsData .*= JSON.parse\\('(.*)'\\)", ugly_soup)
+        if not match:
+            print(f"Skipping match {understat_match_id}: No shot data found")
+            return
 
+        shots_data = match.group(1)
+        data = shots_data.encode('utf8').decode('unicode_escape')
+        data = json.loads(data)
 
+        # Create DataFrames
+        home_df = pd.DataFrame(data['h'])
+        away_df = pd.DataFrame(data['a'])
 
-print("Data loading complete!")
-print(r"""
- ______      ___   ____  _____  ________  
-|_   _ `.  .'   `.|_   \|_   _||_   __  | 
-  | | `. \/  .-.  \ |   \ | |    | |_ \_| 
-  | |  | || |   | | | |\ \| |    |  _| _  
- _| |_.' /\  `-'  /_| |_\   |_  _| |__/ | 
-|______.'  `.___.'|_____|\____||________| 
-                                          
-""")
+        # Extract and update team names
+        home_team_name = home_df.iloc[0]['h_team'] if not home_df.empty else "Unknown"
+        away_team_name = away_df.iloc[0]['a_team'] if not away_df.empty else "Unknown"
+
+        # Scale coordinates to StatsBomb pitch (120x80)
+        home_df['x_scaled'] = home_df['X'].astype(float) * 120
+        home_df['y_scaled'] = home_df['Y'].astype(float) * 80
+        away_df['x_scaled'] = away_df['X'].astype(float) * 120
+        away_df['y_scaled'] = away_df['Y'].astype(float) * 80
+
+        # Adjust positions for correct plotting
+        home_df['x_scaled'] = 120 - home_df['x_scaled']
+        away_df['y_scaled'] = 80 - away_df['y_scaled']
+
+        # Calculate total goals and xG
+        total_goals_home = home_df['result'].str.contains('Goal', case=False, na=False).sum()
+        total_goals_away = away_df['result'].str.contains('Goal', case=False, na=False).sum()
+        total_xg_home = home_df['xG'].astype(float).sum()
+        total_xg_away = away_df['xG'].astype(float).sum()
+    
+        # Initialize pitch
+        pitch = Pitch(pitch_type='statsbomb', pitch_color='white', line_color='black', line_zorder=2)
+        fig, ax = plt.subplots(figsize=(10, 6))
+
+        # Set background color
+        fig.patch.set_facecolor('#f4f4f9')
+        ax.set_facecolor('#f4f4f9')
+
+        # Plot heatmap
+        all_shots = pd.concat([home_df, away_df])
+        cmap = LinearSegmentedColormap.from_list('custom_cmap', ['#f4f4f9', '#3f007d'])
+        pitch.kdeplot(
+            all_shots['x_scaled'], all_shots['y_scaled'], ax=ax, fill=True, cmap=cmap,
+            n_levels=100, thresh=0, zorder=1
+        )
+
+        # Draw pitch
+        pitch.draw(ax=ax)
+
+        # Plot shots for both teams
+        for df in [home_df, away_df]:  
+            for _, shot in df.iterrows():
+                x, y = shot['x_scaled'], shot['y_scaled']
+                color = 'gold' if shot['result'] == 'Goal' else 'white'
+                zorder = 3 if shot['result'] == 'Goal' else 2
+                ax.scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
+                           ec='black', c=color, zorder=zorder)
+
+        # Add match info
+        ax.text(30, 10, f"{home_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
+        ax.text(90, 10, f"{away_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')
+        ax.text(30, 40, f"{total_goals_home}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
+        ax.text(90, 40, f"{total_goals_away}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
+        ax.text(30, 60, f"{total_xg_home:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
+        ax.text(90, 60, f"{total_xg_away:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
+        ax.text(105,78, f"Respective Team XG values", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
+        ax.text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
+
+        # Save figure
+        plt.tight_layout()
+        shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
+        plt.savefig(shotmap_file)
+        plt.close(fig)
+
+        print(f"✅ Shotmap saved: {shotmap_file}")
+
+    except Exception as e:
+        print(f"❌ Error processing match {understat_match_id}: {e}")
+
+# 📌 Loop through completed fixtures only and generate shotmaps
+for _, row in completed_fixtures.iterrows():
+    home_team = row['home_team']
+    away_team = row['away_team']
+    match_id = row['id']
+    shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
+
+    # Skip if shotmap already exists
+    if os.path.exists(shotmap_file):
+        continue
+
+    generate_shot_map(match_id)
+
+print("✅ All Shotmaps Generated!")
+
 
 if __name__ == "__main__":
-    print("🔄 Generating heatmaps in advance...")
-    fixtures = pd.DataFrame(load_fixtures())
-    match_data = load_match_data()
-    team_stats, _ = calculate_team_statistics(match_data)
-    
+    fixtures_df = load_fixtures()
+    historical_fixtures_df = load_match_data()  # ✅ Fix here
+    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df)  # ✅ Use correct variable
+
     # Calculate recent form
-    recent_form_att, recent_form_def = calculate_recent_form(match_data, team_stats, recent_matches=20, alpha=0.65)
+    recent_form_att, recent_form_def = calculate_recent_form(historical_fixtures_df, team_data, recent_matches=20, alpha=0.65)  # ✅ Use correct variable
 
     # Generate heatmaps with blended ratings
-    generate_all_heatmaps(fixtures, team_stats, recent_form_att, recent_form_def, alpha=0.65)
-
-    print("✅ All heatmaps generated and saved in 'static/heatmaps/'")
-
+    generate_all_heatmaps(team_data, recent_form_att, recent_form_def, alpha=0.65)
