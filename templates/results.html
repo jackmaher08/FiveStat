@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
+    <title>EPL Results</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -62,7 +62,7 @@
                     <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
                 </h3>
                 <h5 class="fixture-date">
-                    {{ fixture.date.strftime('%d %b %Y') if fixture.date else 'Missing Date Info' }}
+                    {{ fixture.date if fixture.date else 'Missing Date Info' }}
                 </h5>
         
                 <a href="#">

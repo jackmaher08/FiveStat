@@ -381,30 +381,31 @@ def generate_shot_map(understat_match_id):
         home_logo_path = os.path.join(base_path, "static", "team_logos", f"{home_team_name.lower()}_logo.png")
         away_logo_path = os.path.join(base_path, "static", "team_logos", f"{away_team_name.lower()}_logo.png")
 
-        def add_team_logo(ax, logo_path, x_min, x_max, y_center):
+        def add_team_logo(ax, logo_path, y_min, y_max, x_center):
             """Loads and displays a team logo at a given position, keeping aspect ratio and flipping it if necessary."""
             if os.path.exists(logo_path):
                 logo_img = mpimg.imread(logo_path)
                 
                 # ✅ Flip the image vertically so it appears correctly
-                logo_img = np.flipud(logo_img)  # This prevents it from appearing upside down
+                logo_img = np.flipud(logo_img)  # Prevents upside-down images
                 
                 # Get image aspect ratio (height / width)
                 aspect_ratio = logo_img.shape[0] / logo_img.shape[1]  # Height / Width
                 
-                # Set y_min and y_max dynamically based on x width
-                width = x_max - x_min  # Define width of the image
-                height = width * aspect_ratio  # Maintain aspect ratio
+                # Set width dynamically based on height
+                height = y_max - y_min  # Define height of the image
+                width = height / aspect_ratio  # Maintain aspect ratio
                 
-                y_min = y_center - (height / 2)  # Centered positioning
-                y_max = y_center + (height / 2)
+                x_min = x_center - (width / 2)  # Centered positioning
+                x_max = x_center + (width / 2)
 
                 # ✅ Display the flipped image with transparency (alpha)
                 ax.imshow(logo_img, extent=(x_min, x_max, y_min, y_max), alpha=0.1, zorder=1)
 
-        # 🎯 Add team logos with automatic height adjustment
-        add_team_logo(axs[0], home_logo_path, x_min=8, x_max=52, y_center=40)  # Home team
-        add_team_logo(axs[0], away_logo_path, x_min=68, x_max=112, y_center=40)  # Away team
+        # 🎯 Add team logos with automatic width adjustment
+        add_team_logo(axs[0], home_logo_path, y_min=20, y_max=60, x_center=30)  # Home team
+        add_team_logo(axs[0], away_logo_path, y_min=20, y_max=60, x_center=90)  # Away team
+
 
         # Add match info
         #axs[0].text(30, 10, f"{home_team_name}", ha='center', va='center', fontsize=25, fontweight='bold', color='black')

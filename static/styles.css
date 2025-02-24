@@ -118,7 +118,7 @@ a:hover {
     margin: 40px 0;
 }
 .heatmap {
-    max-width: 300px;
+    max-width: 400px;
     height: auto;
     margin-top: 10px;
 }
@@ -303,11 +303,6 @@ img {
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
-}
-
-.heatmap {
-    width: 45%;
-    border-radius: 8px;
 }
 
 /* Navigation Buttons */

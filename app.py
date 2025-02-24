@@ -90,29 +90,31 @@ def get_fixtures_for_week(week_offset=0):
     # Ensure 'round_number' is numeric
     fixtures_df['round_number'] = pd.to_numeric(fixtures_df['round_number'], errors='coerce')
 
-    # ✅ Get list of completed gameweeks (where isResult = TRUE)
-    completed_rounds = fixtures_df.loc[fixtures_df['isResult'] == True, 'round_number'].unique()
-    completed_rounds = sorted(completed_rounds)  # Ensure they are sorted
+    # ✅ Count occurrences of isResult == True per round
+    result_counts = fixtures_df[fixtures_df['isResult'] == True].groupby('round_number').size()
+
+    # ✅ Get list of completed rounds (where at least 10 results exist)
+    completed_rounds = result_counts[result_counts >= 10].index.tolist()
+    completed_rounds.sort()  # Ensure they are sorted
 
     if not completed_rounds:
-        raise ValueError("No completed gameweeks found in fixture_data.")
+        raise ValueError("No completed gameweeks with at least 10 results found in fixture_data.")
 
     # ✅ Determine the latest completed gameweek
-    latest_round = max(completed_rounds)  
+    latest_round = max(completed_rounds)
 
     # ✅ Adjust for previous/next navigation
     selected_round = latest_round + week_offset
 
     # ✅ Prevent navigation past valid rounds
-    if selected_round < min(completed_rounds):
-        selected_round = min(completed_rounds)
-    elif selected_round > max(completed_rounds):
-        selected_round = max(completed_rounds)
+    selected_round = max(min(completed_rounds), min(max(completed_rounds), selected_round))
 
     # ✅ Filter fixtures for selected round
     weekly_fixtures = fixtures_df[fixtures_df['round_number'] == selected_round].to_dict(orient='records')
 
     return weekly_fixtures, selected_round, min(completed_rounds), max(completed_rounds)
+
+
 
 
 
