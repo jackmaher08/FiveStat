@@ -83,33 +83,33 @@ print(fixtures_df[['date']].head())  # Check if 'date' column is parsed correctl
 def get_fixtures_for_week(week_offset=0):
     """ Returns fixtures for the selected completed round. """
     
-    # ✅ Load fixture data
+    # Load fixture data
     fixture_file_path = "data/tables/fixture_data.csv"
     fixtures_df = pd.read_csv(fixture_file_path)
 
     # Ensure 'round_number' is numeric
     fixtures_df['round_number'] = pd.to_numeric(fixtures_df['round_number'], errors='coerce')
 
-    # ✅ Count occurrences of isResult == True per round
+    # Count occurrences of isResult == True per round
     result_counts = fixtures_df[fixtures_df['isResult'] == True].groupby('round_number').size()
 
-    # ✅ Get list of completed rounds (where at least 10 results exist)
-    completed_rounds = result_counts[result_counts >= 10].index.tolist()
+    # Get list of completed rounds (where at least 3 results exist)
+    completed_rounds = result_counts[result_counts >= 3].index.tolist()
     completed_rounds.sort()  # Ensure they are sorted
 
     if not completed_rounds:
         raise ValueError("No completed gameweeks with at least 10 results found in fixture_data.")
 
-    # ✅ Determine the latest completed gameweek
+    # Determine the latest completed gameweek
     latest_round = max(completed_rounds)
 
-    # ✅ Adjust for previous/next navigation
+    # Adjust for previous/next navigation
     selected_round = latest_round + week_offset
 
-    # ✅ Prevent navigation past valid rounds
+    # Prevent navigation past valid rounds
     selected_round = max(min(completed_rounds), min(max(completed_rounds), selected_round))
 
-    # ✅ Filter fixtures for selected round
+    # Filter fixtures for selected round
     weekly_fixtures = fixtures_df[fixtures_df['round_number'] == selected_round].to_dict(orient='records')
 
     return weekly_fixtures, selected_round, min(completed_rounds), max(completed_rounds)
@@ -121,7 +121,6 @@ def get_fixtures_for_week(week_offset=0):
 
 
 from datetime import datetime
-
 @app.route('/results')
 def results():
     """ Renders the results page with shotmaps for the selected completed gameweek """
@@ -130,24 +129,21 @@ def results():
     # ✅ Get completed fixtures and limits
     weekly_fixtures, current_week, first_gw, last_gw = get_fixtures_for_week(week_offset)
 
-    # ✅ Convert 'date' from string to datetime
-    for fixture in weekly_fixtures:
-        try:
-            fixture["date"] = datetime.strptime(fixture["date"], "%Y-%m-%d")
-        except (ValueError, TypeError):
-            fixture["date"] = None  
+    # ✅ Define shotmap directory
+    shotmap_dir = os.path.join("static", "shotmaps")
 
-        # ✅ Ensure 'date' is in datetime format
+    # ✅ Filter fixtures where the shotmap image exists
+    filtered_fixtures = []
     for fixture in weekly_fixtures:
-        if isinstance(fixture.get("date"), str):  # Convert only if it's a string
-            try:
-                fixture["date"] = datetime.strptime(fixture["date"], "%Y-%m-%d")
-            except ValueError:
-                fixture["date"] = None  # Keep None if invalid
+        shotmap_filename = f"{fixture['home_team']}_{fixture['away_team']}_shotmap.png"
+        shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
+
+        if os.path.exists(shotmap_path):  # ✅ Only add if file exists
+            filtered_fixtures.append(fixture)
 
     return render_template(
         "results.html",
-        fixtures=weekly_fixtures,
+        fixtures=filtered_fixtures,  # ✅ Pass only filtered fixtures
         week_offset=current_week,
         first_gw=first_gw,
         last_gw=last_gw
@@ -155,7 +151,9 @@ def results():
 
 
 
-
+@app.route('/methodology')
+def methodology():
+    return render_template('methodology.html')
 
 
 if __name__ == "__main__":

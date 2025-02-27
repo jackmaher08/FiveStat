@@ -53,8 +53,8 @@
             <tbody id="playerTable">
                 {% for player in players if player is mapping %}
                 <tr>
-                    <td>{{ player["Name"] }}</td>
-                    <td>{{ player["Team"] }}</td>
+                    <td><a href="javascript:void(0);" onclick="toggleModal('playerInfoModal')">{{ player["Name"] }}</a></td>
+                    <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ player["Team"] }}</a></td>
                     <td>{{ player["MP"] }}</td>
                     <td>{{ player["Mins"] }}</td>
                     <td>{{ player["G"] }}</td>
@@ -69,6 +69,26 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+
+    <!-- Dark Overlay for Team Modal -->
+    <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
+
+    <!-- Team Modal -->
+    <div class="modal" id="teamInfoModal">
+        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
+        <h3>Team Pages Coming Soon</h3>
+        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+
+    <!-- Dark Overlay for Player Modal -->
+    <div class="modal-overlay" id="playerInfoModalOverlay" onclick="toggleModal('playerInfoModal')"></div>
+
+    <!-- Player Modal -->
+    <div class="modal" id="playerInfoModal">
+        <button class="close-button" onclick="toggleModal('playerInfoModal')">✖</button>
+        <h3>Player Pages Coming Soon</h3>
+        <p>We are currently working on individual player pages. Stay tuned for updates!</p>
     </div>
 
     <!-- Pagination Controls -->
@@ -170,5 +190,17 @@
         }
     </script>
 
+    
+    <script>
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay
+
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+    </script>
 </body>
 </html>

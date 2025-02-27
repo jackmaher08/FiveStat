@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methodology - Match Prediction Heatmaps</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.menu').classList.toggle('show');
+        }
+    </script>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">
+            <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <div class="menu">
+            <div class="dropdown">
+                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/">Fixtures</a>
+                    <a href="/results">Results</a>
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <br><br><br>
+        <h2>How we generate our Correct Score Heatmaps</h2>
+        <p>
+            Our match predictions are based on a statistical model that simulates thousands of possible 
+            outcomes using historical data, team performance metrics, and expected goals (xG). To generate 
+            the likelyhood of each team scoring a certain number of goals in a given fixture, we use a 
+            <strong>Poisson distribution</strong>, a method widely used in football analytics to estimate 
+            goal probabilities.
+        </p>
+        <br><br><br><br>
+        <h2>What Data is Used?</h2>
+        <p>
+            <strong>Historical Match Data</strong> - Gives an insight to a teams overall performance. <br> 
+            <strong>Expected Goals (xG) Data</strong> - Measures the quality of goal scoring oppertunities. <br>
+            <strong>Team Form</strong> - Recent performances will influence predictions, along with how injury & suspension can impact a Team's strength. <br>
+            <strong>Home & Away Performance</strong> - Home field advantage can also have an impact. <br>
+        </p>
+        <br><br><br><br>
+        <h2>How is this Data used?</h2>
+        <p>
+            We look at a Teams overall performance from all the available match data we have over the seasons. 
+            We factor in Recent form and assign each team with an Attack Rating and a Defence Rating.
+            This measures a teams strength against the rest of the league. 
+            <br><br>
+            We can then determine how many goals
+            a team will need to score in a given fixture in order to keep their rating the same - this is a teams XG.
+            From this, we are able to run a Poisson Distribution and determinethe likelyhood of each team scoring
+            a certain number of goals in a fixture.
+            <br><br>
+            We can display these together on a heatmap so visualize the most 
+            likely outcomes based on our model.
+        </p>
+        <br><br><br><br>
+        <h2>Why Use a Heatmap?</h2>
+        <p>
+            Our prediction heatmaps visually display the most likely scorelines, making it easier to 
+            interpret probabilities at a glance. Darker shades indicate more probable outcomes, helping 
+            users quickly understand match expectations beyond just win/loss probabilities.
+        </p>
+        <br>
+        <img src="../static/heatmaps/Ipswich_Spurs_heatmap.png" alt="">
+        <br><br><br><br>
+        <h2>How Can You Use This Data?</h2>
+        <p>
+            <strong>Fans & Analysts</strong> – Gain data-driven insights into matches. Understand how likely a team is to win or lose based on statistical modeling.
+            Compare expected vs. actual performance to spot underrated teams or over valued players.<br><br>
+            <strong>FPL Players</strong> – Identify potential goal-heavy matches. Spot fixtures where high xG suggests multiple goals, making certain players strong captain choices.
+            Identify teams likely to keep clean sheets, helping with defensive picks.
+            Use injury & suspension data to see if key attacking players are missing, reducing a team's goal threat.<br><br>
+            <strong>Betting & Predictions</strong> – Use probability models rather than intuition. Instead of relying on gut feeling, use our win probabilities and score predictions to find value bets.
+            Identify overrated or underrated odds by comparing bookmaker lines with our model's output.
+            Use the heatmap to assess how likely specific scorelines are before betting on correct scores or over/under markets.
+            
+        </p>
+        <br><br><br><br><br><br><br><br><br>
+        <p>We aim to provide transparent and data-driven football insights through our modeling approach.</p>
+    </div>
+
+    <script>
+        function toggleDropdown(event) {
+            event.preventDefault();
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+    </script>
+
+</body>
+</html>

@@ -18,21 +18,6 @@ def load_fixtures():
     fixture_file_path = "data/tables/fixture_data.csv"
     if os.path.exists(fixture_file_path):
         fixtures_df = pd.read_csv(fixture_file_path)
-
-        # ✅ Ensure 'date' column exists
-        if 'date' in fixtures_df.columns:
-            # ✅ Fix: Replace double spaces with a single space
-            fixtures_df['date'] = fixtures_df['date'].astype(str).str.replace("  ", " ").str.strip()
-
-            # ✅ Convert to datetime format
-            fixtures_df['date'] = pd.to_datetime(
-                fixtures_df['date'], format="%d/%m/%Y %H:%M:%S", errors='coerce'
-            )
-
-            print(fixtures_df.columns)
-            print(fixtures_df[['date']].head(10))
-
-        print("✅ Loaded fixtures from saved file.")
     else:
         raise FileNotFoundError(f"⚠️ Fixture file not found: {fixture_file_path}. Ensure it's saved before running.")
 
@@ -46,7 +31,6 @@ def load_match_data(start_year=2016, end_year=2024):
     
     if os.path.exists(historical_fixture_file_path):
         historical_fixtures_df = pd.read_csv(historical_fixture_file_path)
-        print("✅ Loaded next GW fixtures from saved file.")
     else:
         raise FileNotFoundError(f"⚠️ Fixture file not found: {historical_fixture_file_path}. Ensure it's saved before running.")
 
@@ -60,18 +44,17 @@ def load_next_gw_fixtures():
 
     if os.path.exists(next_gw_file_path):
         next_gw_fixtures_df = pd.read_csv(next_gw_file_path)
-        print("✅ Loaded next gameweek fixtures from saved file.")
         return next_gw_fixtures_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
     else:
         raise FileNotFoundError(f"⚠️ Next gameweek fixtures file not found: {next_gw_file_path}. Ensure it's saved before running.")
 
+print("Next GW data loaded successfully!")
 
 def get_player_data():
     player_file_path = "data/tables/player_data.csv"
     
     if os.path.exists(player_file_path):
         player_data_df = pd.read_csv(player_file_path)
-        print("✅ Loaded player data from saved file.")
     else:
         raise FileNotFoundError(f"⚠️ Player data file not found: {player_file_path}. Ensure it's saved before running.")
 
@@ -130,6 +113,8 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
 
     return recent_form_att, recent_form_def
 
+print("Team recent form calculated!")
+
 # Function to simulate a match using Poisson distribution
 def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     result_matrix = np.zeros((max_goals, max_goals))
@@ -150,6 +135,8 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
 
 import os
 import matplotlib.pyplot as plt
+
+print("Poisson Dist Calculated!")
 
 # Function to generate a heatmap
 def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path):
@@ -224,7 +211,7 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         print(f"Heatmap for {home_team} vs {away_team} already exists.")
         return  # 🔄 Skip generating this heatmap
 
-    print(f"✅ Heatmap saved: {heatmap_filename}")
+print(f"Heatmaps saved!")
 
 
 
@@ -236,7 +223,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     next_gw_file_path = "data/tables/next_gw_fixtures.csv"
     if os.path.exists(next_gw_file_path):
         next_gw_fixtures = pd.read_csv(next_gw_file_path)
-        print("✅ Loaded next gameweek fixtures from saved file.")
     else:
         raise FileNotFoundError(f"⚠️ Next gameweek fixture file not found: {next_gw_file_path}. Ensure it's saved before running.")
 
@@ -247,11 +233,9 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         gw_number = fixture['round_number']
 
         if pd.isna(home_team) or pd.isna(away_team):
-            print(f"❌ Skipping match {home_team} vs {away_team}: Missing team names")
             continue  # Skip if IDs are missing
 
         if home_team not in team_stats or away_team not in team_stats:
-            print(f"❌ Skipping {home_team} vs {away_team} due to missing data.")
             continue
 
         # Blend overall ratings with recent form using alpha weighting
@@ -269,8 +253,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         # ✅ Generate heatmap for the next gameweek fixture
         display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path)
 
-    print("✅ Heatmaps for next gameweek fixtures generated!")
-
 
 
 
@@ -280,17 +262,29 @@ print("Heatmaps generated successfully!")
 
 # generating & saving shotmaps
 
-# 📌 Directory to save shotmaps
+# Directory to save shotmaps
 shotmap_save_path = "static/shotmaps/"
 os.makedirs(shotmap_save_path, exist_ok=True)
 
-# 📌 Fetch the latest fixtures (Merged from FixtureDownload & Understat)
+# Fetch the latest fixtures (Merged from FixtureDownload & Understat)
 fixtures_df = load_fixtures()
 
-# 📌 Filter only completed matches (ignore upcoming games)
-completed_fixtures = fixtures_df.dropna(subset=["home_goals", "away_goals"])
+# Filter only completed matches
+completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 
-# 📌 Function to generate and save shot maps
+# Dict for shotmap table team names
+TEAM_NAME_MAPPING = {
+    "WolverhamptonWanderers": "Wolves",
+    "CrystalPalace": "Crystal Palace",
+    "NottinghamForest": "Forest",
+    "Tottenham": "Spurs",
+    "ManchesterCity": "Man City",
+    "Man Utd": "ManchesterUnited",
+    "NewcastleUnited": "Newcastle",
+    "WestHam": "West Ham"
+}
+
+# Function to generate and save shot maps
 def generate_shot_map(understat_match_id):
     try:
         url = f'https://understat.com/match/{understat_match_id}'
@@ -327,8 +321,21 @@ def generate_shot_map(understat_match_id):
         away_df['y_scaled'] = 80 - away_df['y_scaled']
 
         # Calculate total goals and xG
-        total_goals_home = home_df['result'].str.contains('Goal', case=False, na=False).sum()
-        total_goals_away = away_df['result'].str.contains('Goal', case=False, na=False).sum()
+        goal_keywords = ['Goal', 'PenaltyGoal']
+        own_goal_keyword = 'OwnGoal'  # Special case
+
+        # Count regular & penalty goals normally
+        home_goals = home_df['result'].apply(lambda x: any(kw in str(x) for kw in goal_keywords)).sum()
+        away_goals = away_df['result'].apply(lambda x: any(kw in str(x) for kw in goal_keywords)).sum()
+
+        # Count own goals (but assign them to the **other** team)
+        home_own_goals = home_df['result'].apply(lambda x: own_goal_keyword in str(x)).sum()
+        away_own_goals = away_df['result'].apply(lambda x: own_goal_keyword in str(x)).sum()
+
+        # Correct final goal counts
+        total_goals_home = home_goals + away_own_goals - home_own_goals  # Home goals + own goals scored by away team
+        total_goals_away = away_goals + home_own_goals - away_own_goals  # Away goals + own goals scored by home team
+
         total_xg_home = home_df['xG'].astype(float).sum()
         total_xg_away = away_df['xG'].astype(float).sum()
     
@@ -369,7 +376,7 @@ def generate_shot_map(understat_match_id):
         for df in [home_df, away_df]:  
             for _, shot in df.iterrows():
                 x, y = shot['x_scaled'], shot['y_scaled']
-                color = 'gold' if shot['result'] == 'Goal' else 'white'
+                color = 'gold' if "goal" in str(shot['result']).lower() else 'white'
                 zorder = 3 if shot['result'] == 'Goal' else 2
                 axs[0].scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
                            ec='black', c=color, zorder=zorder)
@@ -386,7 +393,7 @@ def generate_shot_map(understat_match_id):
             if os.path.exists(logo_path):
                 logo_img = mpimg.imread(logo_path)
                 
-                # ✅ Flip the image vertically so it appears correctly
+                # Flip the image vertically so it appears correctly
                 logo_img = np.flipud(logo_img)  # Prevents upside-down images
                 
                 # Get image aspect ratio (height / width)
@@ -399,7 +406,7 @@ def generate_shot_map(understat_match_id):
                 x_min = x_center - (width / 2)  # Centered positioning
                 x_max = x_center + (width / 2)
 
-                # ✅ Display the flipped image with transparency (alpha)
+                # Display the flipped image with transparency (alpha)
                 ax.imshow(logo_img, extent=(x_min, x_max, y_min, y_max), alpha=0.1, zorder=1)
 
         # 🎯 Add team logos with automatic width adjustment
@@ -417,16 +424,16 @@ def generate_shot_map(understat_match_id):
         axs[0].text(105,78, f"Respective Team XG values", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
         axs[0].text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
 
+
         # 📊 Generate Table
         ax_table = axs[1]
-        column_labels = [rf"$\bf{{{home_team_name}}}$", "", rf"$\bf{{{away_team_name}}}$"]
+        column_labels = [f"{home_team_name}", "", f"{away_team_name}"]
         table_vals = [
-            [home_stats['Goals'], 'Goals', away_stats['Goals']],
-            [home_stats['xG'], 'xG', away_stats['xG']],
-            [home_stats['Shots'], 'Shots', away_stats['Shots']],
-            [home_stats['SOT'], 'SOT', away_stats['SOT']]
+            [total_goals_home, 'Goals', total_goals_away],  # Use corrected scores here
+            [home_stats['xG'], 'xG', away_stats['xG']],  
+            [home_stats['Shots'], 'Shots', away_stats['Shots']],  
+            [home_stats['SOT'], 'SOT', away_stats['SOT']]  
         ]
-
         table = ax_table.table(
             cellText=table_vals,
             cellLoc='center',
@@ -439,7 +446,6 @@ def generate_shot_map(understat_match_id):
                 cell = table[(i, j)]
                 cell.set_facecolor("#f4f4f9")  # Background color
 
-        table.set_fontsize(14)
         column_widths = [0.4, 0.2, 0.4]
 
         for j, width in enumerate(column_widths):
@@ -456,6 +462,7 @@ def generate_shot_map(understat_match_id):
                 table.get_celld()[(i, j)].visible_edges = 'LR'
 
         ax_table.axis('off')  # Hide axes for the table
+        table.set_fontsize(16)
 
         # Save figure
         plt.tight_layout()
@@ -463,12 +470,10 @@ def generate_shot_map(understat_match_id):
         plt.savefig(shotmap_file)
         plt.close(fig)
 
-        print(f"✅ Shotmap saved: {shotmap_file}")
-
     except Exception as e:
         print(f"❌ Error processing match {understat_match_id}: {e}")
 
-# 📌 Loop through completed fixtures only and generate shotmaps
+# Loop through completed fixtures only and generate shotmaps
 for _, row in completed_fixtures.iterrows():
     home_team = row['home_team']
     away_team = row['away_team']
@@ -481,13 +486,13 @@ for _, row in completed_fixtures.iterrows():
 
     generate_shot_map(match_id)
 
-print("✅ All Shotmaps Generated!")
+print("All Shotmaps Generated!")
 
 
 if __name__ == "__main__":
     fixtures_df = load_fixtures()
-    historical_fixtures_df = load_match_data()  # ✅ Fix here
-    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df)  # ✅ Use correct variable
+    historical_fixtures_df = load_match_data()  
+    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df) 
 
     # Calculate recent form
     recent_form_att, recent_form_def = calculate_recent_form(historical_fixtures_df, team_data, recent_matches=20, alpha=0.65)  # ✅ Use correct variable
