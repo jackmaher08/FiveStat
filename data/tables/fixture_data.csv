@@ -268,7 +268,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 27,26/02/2025 19:30,Spurs,Man City,,26865,True,0.0,1.0,1.28,2.39
 27,26/02/2025 19:30,Man Utd,Ipswich,,26871,True,3.0,2.0,1.4,1.04
 27,26/02/2025 20:15,Liverpool,Newcastle,,26870,True,2.0,0.0,1.4,0.46
-27,27/02/2025 20:00,West Ham,Leicester,,26866,False,,,,
+27,27/02/2025 20:00,West Ham,Leicester,,26866,True,2.0,0.0,1.7,0.29
 28,08/03/2025 12:30,Nott'm Forest,Man City,,26878,False,,,,
 28,08/03/2025 15:00,Brighton,Fulham,,26873,False,,,,
 28,08/03/2025 15:00,Crystal Palace,Ipswich,,26875,False,,,,
