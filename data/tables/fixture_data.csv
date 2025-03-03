@@ -259,16 +259,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 26,22/02/2025 17:30,Aston Villa,Chelsea,2 - 1,26854,True,2.0,1.0,2.69,2.17
 26,23/02/2025 14:00,Newcastle,Nott'm Forest,4 - 3,26860,True,4.0,3.0,3.46,2.39
 26,23/02/2025 16:30,Man City,Liverpool,0 - 2,26859,True,0.0,2.0,0.56,0.8
-27,25/02/2025 19:30,Brighton,Bournemouth,,26863,True,2.0,1.0,2.58,1.7
-27,25/02/2025 19:30,Wolves,Fulham,,26867,True,1.0,2.0,0.93,1.43
-27,25/02/2025 19:30,Crystal Palace,Aston Villa,,26868,True,4.0,1.0,4.03,0.67
-27,25/02/2025 20:15,Chelsea,Southampton,,26869,True,4.0,0.0,2.98,0.85
-27,26/02/2025 19:30,Brentford,Everton,,26862,True,1.0,1.0,1.34,1.45
-27,26/02/2025 19:30,Nott'm Forest,Arsenal,,26864,True,0.0,0.0,0.51,1.32
-27,26/02/2025 19:30,Spurs,Man City,,26865,True,0.0,1.0,1.28,2.39
-27,26/02/2025 19:30,Man Utd,Ipswich,,26871,True,3.0,2.0,1.4,1.04
-27,26/02/2025 20:15,Liverpool,Newcastle,,26870,True,2.0,0.0,1.4,0.46
-27,27/02/2025 20:00,West Ham,Leicester,,26866,True,2.0,0.0,1.7,0.29
+27,25/02/2025 19:30,Brighton,Bournemouth,2 - 1,26863,True,2.0,1.0,2.58,1.7
+27,25/02/2025 19:30,Wolves,Fulham,1 - 2,26867,True,1.0,2.0,0.93,1.43
+27,25/02/2025 19:30,Crystal Palace,Aston Villa,4 - 1,26868,True,4.0,1.0,4.03,0.67
+27,25/02/2025 20:15,Chelsea,Southampton,4 - 0,26869,True,4.0,0.0,2.98,0.85
+27,26/02/2025 19:30,Brentford,Everton,1 - 1,26862,True,1.0,1.0,1.34,1.45
+27,26/02/2025 19:30,Nott'm Forest,Arsenal,0 - 0,26864,True,0.0,0.0,0.51,1.32
+27,26/02/2025 19:30,Spurs,Man City,0 - 1,26865,True,0.0,1.0,1.28,2.39
+27,26/02/2025 19:30,Man Utd,Ipswich,3 - 2,26871,True,3.0,2.0,1.4,1.04
+27,26/02/2025 20:15,Liverpool,Newcastle,2 - 0,26870,True,2.0,0.0,1.4,0.46
+27,27/02/2025 20:00,West Ham,Leicester,2 - 0,26866,True,2.0,0.0,1.7,0.29
 28,08/03/2025 12:30,Nott'm Forest,Man City,,26878,False,,,,
 28,08/03/2025 15:00,Brighton,Fulham,,26873,False,,,,
 28,08/03/2025 15:00,Crystal Palace,Ipswich,,26875,False,,,,

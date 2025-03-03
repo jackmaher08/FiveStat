@@ -20,7 +20,7 @@
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/">Fixtures</a>
                     <a href="#">Results</a>
-                    <!--<a href="/table">League Table</a>-->
+                    <a href="/epl_table">League Table</a>
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
@@ -77,7 +77,41 @@
             {% endfor %}
         </div>
     </main>
-
+    <hr class="fixture-divider">
+    <h2>Premier League Table</h2>
+    <div class="table-container">
+        <table id="leagueTable">
+            <thead>
+                <tr>                    
+                    <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 1)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">W <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 3)">D<span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 4)">L<span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 5)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 6)">GA <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 7)">PTS <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="leagueTable">
+                {% for team in league_table %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a>                    </td>
+                    <td>{{ team["MP"] }}</td>
+                    <td class="bold-left-border">{{ team["W"] }}</td>
+                    <td>{{ team["D"] }}</td>
+                    <td>{{ team["L"] }}</td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ team["GA"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
     <!-- Dark Overlay for Team Modal -->
     <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
 
@@ -122,6 +156,83 @@
                 }
             }
         };
+            function toggleDropdown(event) {
+                event.preventDefault();  // Prevents page from jumping
+                let dropdown = document.querySelector('.dropdown');
+                dropdown.classList.toggle('show');
+            }
+            
+            // Close dropdown if clicked outside
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    let dropdowns = document.getElementsByClassName("dropdown");
+                    for (let i = 0; i < dropdowns.length; i++) {
+                        let openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            };
+
+            let currentSortColumn = -1;
+            let ascending = true;
+
+            let sortState = {}; // Track sorting state per table
+
+            function sortTable(tableId, columnIndex) {
+                let table = document.getElementById(tableId);
+                let tbody = table.querySelector("tbody");
+                let rows = Array.from(tbody.rows);
+
+                // Initialize sorting state for this table if not set
+                if (!sortState[tableId]) {
+                    sortState[tableId] = { column: -1, ascending: true };
+                }
+
+                // Toggle sorting order if the same column is clicked
+                if (sortState[tableId].column === columnIndex) {
+                    sortState[tableId].ascending = !sortState[tableId].ascending;
+                } else {
+                    sortState[tableId].column = columnIndex;
+                    sortState[tableId].ascending = false; // Default to ascending on new column click
+                }
+
+                let ascending = sortState[tableId].ascending;
+
+                rows.sort((a, b) => {
+                    let valA = a.cells[columnIndex].innerText.trim();
+                    let valB = b.cells[columnIndex].innerText.trim();
+
+                    // Convert to numbers when possible
+                    let numA = parseFloat(valA);
+                    let numB = parseFloat(valB);
+
+                    if (!isNaN(numA) && !isNaN(numB)) {
+                        return ascending ? numA - numB : numB - numA;
+                    } else {
+                        return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                    }
+                });
+
+                tbody.innerHTML = "";
+                rows.forEach(row => tbody.appendChild(row));
+
+                updateSortingIndicator(tableId, columnIndex, ascending);
+            }
+
+            function updateSortingIndicator(tableId, columnIndex, ascending) {
+                let table = document.getElementById(tableId);
+
+                // Reset all indicators for this table
+                table.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+
+                // Set indicator for the currently sorted column
+                let header = table.querySelectorAll("th")[columnIndex];
+                if (header) {
+                    header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
+                }
+            }
     </script>
 </body>
 </html>

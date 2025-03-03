@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premier League Table</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .sorted-column {
+            font-weight: bold;
+        }
+        .positive {
+            color: #d9534f;
+        }
+        .negative {
+            color: #5cb85c;
+        }
+        .bold-left-border {
+            border-left: 2px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="#">
+            <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">
+            <div class="dropdown">
+                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier league ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/">Fixtures</a>
+                    <a href="/results">Results</a>
+                    <a href="/epl_table">League Table</a>
+                    <a href="/epl-player">Player Stats</a>
+                </div>
+            </div>
+            <a href="/about">About</a>
+        </div>
+    </div>
+
+    <h2>Premier League Table</h2>
+    <div class="table-container">
+        <table id="leagueTable">
+            <thead>
+                <tr>                    
+                    <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 3)">W <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 4)">D<span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 8)">PTS <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="leagueTable">
+                {% for team in league_table %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a>                    </td>
+                    <td class="bold-left-border">{{ team["MP"] }}</td>
+                    <td class="bold-left-border">{{ team["W"] }}</td>
+                    <td>{{ team["D"] }}</td>
+                    <td>{{ team["L"] }}</td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ team["GA"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+    <h2>xTable</h2>
+    <div class="table-container">
+        <table id="xTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('xTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 2)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 3)">xG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 4)">npxG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 5)">xG +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 6)">GA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 7)">xGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 8)">npxGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 9)">xGA +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 10)">PTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 11)">xPTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 12)">xPTS +/- <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="xTable">
+                {% for team in league_table %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ team["xG"] }}</td>
+                    <td>{{ team["npxG"] }}</td>
+                    <td class="{% if team['xG +/-'] > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["GA"] }}</td>
+                    <td>{{ team["xGA"] }}</td>
+                    <td>{{ team["npxGA"] }}</td>
+                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}"">{{ team["xGA +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                    <td>{{ team["xPTS"] }}</td>
+                    <td class="{% if team['xPTS +/-'] > 0 %}positive{% elif team['xPTS +/-'] < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+    <div class="team_shotmap_image">
+        <h2>24/25 Shotmap</h2>
+        <h5>All shots taken this season</h5>
+
+    <img class="shotmap" src="../static/shotmaps/all/all_shots.png" alt="shotmap unavailable">
+        
+    </div>
+
+        <!-- Dark Overlay for Team Modal -->
+        <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
+
+        <!-- Team Modal -->
+        <div class="modal" id="teamInfoModal">
+            <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
+            <h3>Team Pages Coming Soon</h3>
+            <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+        </div>
+
+
+        <script>
+            function toggleDropdown(event) {
+                event.preventDefault();  // Prevents page from jumping
+                let dropdown = document.querySelector('.dropdown');
+                dropdown.classList.toggle('show');
+            }
+            
+            // Close dropdown if clicked outside
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    let dropdowns = document.getElementsByClassName("dropdown");
+                    for (let i = 0; i < dropdowns.length; i++) {
+                        let openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            };
+
+            let currentSortColumn = -1;
+        let ascending = true;
+
+        let sortState = {}; // Track sorting state per table
+
+        function sortTable(tableId, columnIndex) {
+            let table = document.getElementById(tableId);
+            let tbody = table.querySelector("tbody");
+            let rows = Array.from(tbody.rows);
+
+            // Initialize sorting state for this table if not set
+            if (!sortState[tableId]) {
+                sortState[tableId] = { column: -1, ascending: true };
+            }
+
+            // Toggle sorting order if the same column is clicked
+            if (sortState[tableId].column === columnIndex) {
+                sortState[tableId].ascending = !sortState[tableId].ascending;
+            } else {
+                sortState[tableId].column = columnIndex;
+                sortState[tableId].ascending = false; // Default to ascending on new column click
+            }
+
+            let ascending = sortState[tableId].ascending;
+
+            rows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim();
+                let valB = b.cells[columnIndex].innerText.trim();
+
+                // Convert to numbers when possible
+                let numA = parseFloat(valA);
+                let numB = parseFloat(valB);
+
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return ascending ? numA - numB : numB - numA;
+                } else {
+                    return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                }
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach(row => tbody.appendChild(row));
+
+            updateSortingIndicator(tableId, columnIndex, ascending);
+        }
+
+        function updateSortingIndicator(tableId, columnIndex, ascending) {
+            let table = document.getElementById(tableId);
+
+            // Reset all indicators for this table
+            table.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+
+            // Set indicator for the currently sorted column
+            let header = table.querySelectorAll("th")[columnIndex];
+            if (header) {
+                header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
+            }
+        }
+
+
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay
+
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+        </script>
+</body>
+</html>

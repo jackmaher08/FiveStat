@@ -30,9 +30,23 @@ def home():
 def about():
     return render_template("about.html")
 
-@app.route('/table')
+@app.route('/epl_table')
 def table():
-    return render_template('table.html')  # Ensure table.html exists in templates folder
+    try:
+        league_table_file_path = "data/tables/league_table_data.csv"
+
+        if os.path.exists(league_table_file_path):
+            league_table_df = pd.read_csv(league_table_file_path)
+            league_table = league_table_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
+        else:
+            league_table = []
+
+        return render_template('epl_table.html', league_table=league_table)
+
+    except Exception as e:
+        print(f"❌ Error loading league table data: {e}")
+        return render_template('epl_table.html', league_table=[])
+
 
 @app.route('/epl-players')
 def epl_players():
@@ -123,31 +137,46 @@ def get_fixtures_for_week(week_offset=0):
 from datetime import datetime
 @app.route('/results')
 def results():
-    """ Renders the results page with shotmaps for the selected completed gameweek """
-    week_offset = int(request.args.get('week_offset', 0))
+    """ Renders the results page with shotmaps and league table """
+    try:
+        week_offset = int(request.args.get('week_offset', 0))
 
-    # ✅ Get completed fixtures and limits
-    weekly_fixtures, current_week, first_gw, last_gw = get_fixtures_for_week(week_offset)
+        # ✅ Get completed fixtures and limits
+        weekly_fixtures, current_week, first_gw, last_gw = get_fixtures_for_week(week_offset)
 
-    # ✅ Define shotmap directory
-    shotmap_dir = os.path.join("static", "shotmaps")
+        # ✅ Define shotmap directory
+        shotmap_dir = os.path.join("static", "shotmaps")
 
-    # ✅ Filter fixtures where the shotmap image exists
-    filtered_fixtures = []
-    for fixture in weekly_fixtures:
-        shotmap_filename = f"{fixture['home_team']}_{fixture['away_team']}_shotmap.png"
-        shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
+        # ✅ Filter fixtures where the shotmap image exists
+        filtered_fixtures = []
+        for fixture in weekly_fixtures:
+            shotmap_filename = f"{fixture['home_team']}_{fixture['away_team']}_shotmap.png"
+            shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
 
-        if os.path.exists(shotmap_path):  # ✅ Only add if file exists
-            filtered_fixtures.append(fixture)
+            if os.path.exists(shotmap_path):  # ✅ Only add if file exists
+                filtered_fixtures.append(fixture)
 
-    return render_template(
-        "results.html",
-        fixtures=filtered_fixtures,  # ✅ Pass only filtered fixtures
-        week_offset=current_week,
-        first_gw=first_gw,
-        last_gw=last_gw
-    )
+        # ✅ Load League Table Data
+        league_table_file_path = "data/tables/league_table_data.csv"
+
+        if os.path.exists(league_table_file_path):
+            league_table_df = pd.read_csv(league_table_file_path)
+            league_table = league_table_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
+        else:
+            league_table = []
+
+        return render_template(
+            "results.html",
+            fixtures=filtered_fixtures,  # ✅ Pass filtered fixtures
+            week_offset=current_week,
+            first_gw=first_gw,
+            last_gw=last_gw,
+            league_table=league_table  # ✅ Pass league table data
+        )
+
+    except Exception as e:
+        print(f"❌ Error loading data: {e}")
+        return render_template("results.html", fixtures=[], league_table=[], week_offset=0, first_gw=0, last_gw=0)
 
 
 

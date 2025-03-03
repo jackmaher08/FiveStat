@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from mplsoccer import Pitch
 from matplotlib.colors import LinearSegmentedColormap
 
+
 fixturedownload_url = "https://fixturedownload.com/download/epl-2024-GMTStandardTime.csv"
 fixtures_df = pd.read_csv(fixturedownload_url)
 
@@ -214,3 +215,93 @@ player_file_path = os.path.join(save_dir, "player_data.csv")
 player_data.to_csv(player_file_path, index=False)
 
 print(f"✅ player data saved to: {player_file_path}")
+
+
+
+
+
+# Gathering league table data
+fixture_result_data = re.search("var teamsData .*= JSON.parse\('(.*)'\)", ugly_soup).group(1)
+fixture_results_df = fixture_result_data.encode('utf8').decode('unicode_escape')
+fixture_results_df = json.loads(fixture_results_df)
+
+# Prepare the list to store extracted data
+team_stats = []
+
+# Extract relevant fields for each team
+for team_id, team_info in fixture_results_df.items():
+    team_name = team_info['title']  # Get the team name
+    for match in team_info['history']:
+        team_stats.append({
+            "Team": team_name,
+            "h_a": match["h_a"],
+            "xG": round(float(match["xG"]), 2),
+            "xGA": round(float(match["xGA"]), 2),
+            "npxG": round(float(match["npxG"]), 2),
+            "npxGA": round(float(match["npxGA"]), 2),
+            "G": int(match["scored"]),
+            "Shots": int(match["missed"]),
+            "W": int(match["wins"]),
+            "D": int(match["draws"]),
+            "L": int(match["loses"]),
+            "PTS": int(match["pts"]),
+            "xPTS": round(float(match["xpts"]), 2),
+        })
+
+# Convert to DataFrame
+complete_fixture_results_df = pd.DataFrame(team_stats)
+
+# ✅ Calculate Matches Played (MP)
+matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
+
+# Ensure save_dir is defined
+save_dir = "tables"
+os.makedirs(save_dir, exist_ok=True)
+
+# Load fixture data
+fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")
+fixture_df = pd.read_csv(fixture_data_file_path)
+
+# Standardize team names for merging
+team_name_mapping = {
+    "Nott'm Forest": "Nottingham Forest",
+    "Man City": "Manchester City",
+    "Newcastle": "Newcastle United",
+    "Spurs": "Tottenham",
+    "Man Utd": "Manchester United",
+    "Wolves": "Wolverhampton Wanderers"
+}
+
+fixture_df["home_team"] = fixture_df["home_team"].replace(team_name_mapping)
+fixture_df["away_team"] = fixture_df["away_team"].replace(team_name_mapping)
+
+# ✅ Calculate Goals Against (GA)
+ga_home = fixture_df.groupby("home_team")["away_goals"].sum()
+ga_away = fixture_df.groupby("away_team")["home_goals"].sum()
+ga_total = ga_home.add(ga_away, fill_value=0).reset_index()
+ga_total.columns = ["Team", "GA"]
+ga_total["GA"] = ga_total["GA"].astype(int)
+
+# ✅ Aggregate team stats
+aggregated_results_df = complete_fixture_results_df.groupby("Team", as_index=False).sum()
+
+# ✅ Merge GA and Matches Played (MP)
+aggregated_results_df = aggregated_results_df.merge(ga_total, on="Team", how="left")
+aggregated_results_df = aggregated_results_df.merge(matches_played, on="Team", how="left")
+
+# ✅ Sort by points
+aggregated_results_df = aggregated_results_df.sort_values(by="PTS", ascending=False)
+
+# ✅ Add new calculated columns
+aggregated_results_df["xG +/-"] = (aggregated_results_df["xG"] - aggregated_results_df["G"]).round(2)
+aggregated_results_df["xGA +/-"] = (aggregated_results_df["xGA"] - aggregated_results_df["GA"]).round(2)
+aggregated_results_df["xPTS +/-"] = (aggregated_results_df["xPTS"] - aggregated_results_df["PTS"]).round(2)
+
+# ✅ Reorder columns
+aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'xG', 'npxG', 'xG +/-', 'GA', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
+
+# ✅ Save final league table
+league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
+aggregated_results_df.to_csv(league_table_file_path, index=False)
+
+print(f"✅ League table data saved to: {league_table_file_path}")
