@@ -23,24 +23,23 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <a href="#">
+        <a href="/">
             <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
         </a>
         <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
         <div class="menu">
             <div class="dropdown">
-                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier league ☰</a>
+                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
                 <div class="dropdown-content" id="eplDropdown">
-                    <a href="/">Fixtures</a>
-                    <a href="/results">Results</a>
-                    <a href="/epl_table">League Table</a>
-                    <a href="/epl-player">Player Stats</a>
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_results">Results</a>
+                    <a href="/epl_table">League Stats</a>
+                    <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
-            <a href="/about">About</a>
         </div>
     </div>
-
+    <br><br><br>
     <h2>Premier League Table</h2>
     <div class="table-container">
         <table id="leagueTable">
@@ -118,11 +117,17 @@
     </div>
     <br><br><br>
     <div class="team_shotmap_image">
+        <h2>24/25 Weekly Goals</h2>
+        <h5>Looking at the total goals scored against the xG per GW</h5>
+
+    <img class="shotmap" src="../static/chart_images/epl_goals_chart.png" alt="chart unavailable">
+    </div>
+    <br><br><br>
+    <div class="team_shotmap_image">
         <h2>24/25 Shotmap</h2>
         <h5>All shots taken this season</h5>
 
     <img class="shotmap" src="../static/shotmaps/all/all_shots.png" alt="shotmap unavailable">
-        
     </div>
 
         <!-- Dark Overlay for Team Modal -->

@@ -3,96 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EPL Fixtures</title>
+    <title>About - EPL Score Prediction Heatmaps</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-
-    <!-- Navbar -->
-    <div class="navbar">
-        <a href="#">
-            <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
-        </a>
-        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
-        <div class="menu">
-            <div class="dropdown">
-                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
-                <div class="dropdown-content" id="eplDropdown">
-                    <a href="/">Fixtures</a>
-                    <a href="/results">Results</a>
-                    <a href="/epl_table">League Table</a>
-                    <a href="/epl-players">Player Stats</a>
-                </div>
-            </div>
-            <a href="/about">About</a>
-        </div>
-    </div>
-    
-
-    <!-- Header with Info Button -->
-    <div class="header-container">
-        <h1>Correct Score Heatmaps</h1>
-        <button class="info-button" onclick="toggleModal('infoModal')">ℹ️</button>
-    </div>
-
-    <!-- Dark Overlay -->
-    <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
-
-    <!-- Info Modal -->
-    <div class="modal" id="infoModal">
-        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
-        <p>Correct score heatmaps visualize the probability of different scorelines in a football match.
-           They are generated using historical data and statistical models to predict the likelihood of each possible outcome.</p>
-        <p>These heatmaps can be useful for sports analysts, bettors, and football fans looking for data-driven projections.</p>
-        <p>You can read more about how our Heatmaps are generated <a href="/methodology">HERE</a></p>
-    </div>
-
-    <h3>Gameweek {{ current_gw }}</h3>
-
-    {% for fixture in fixtures %}
-
-    <hr class="fixture-divider">
-
-    <div class="fixture">
-        <h3>
-            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['home_team'] }}</a> 
-            vs 
-            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['away_team'] }}</a>
-        </h3>
-        <h5 class="fixture-date">{{ fixture['date'] }}</h5>
-        <a href="#">
-            <img class="heatmap" 
-            src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_heatmap.png') }}" 
-            alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
-        </a>
-    </div>
-
-    {% endfor %}
-
-    <!-- Dark Overlay for Team Modal -->
-    <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-
-    <!-- Team Modal -->
-    <div class="modal" id="teamInfoModal">
-        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
-        <h3>Team Pages Coming Soon</h3>
-        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
-    </div>
 
     <script>
         function toggleMenu() {
             document.querySelector('.menu').classList.toggle('show');
         }
-
-        function toggleModal(id) {
-            let modal = document.getElementById(id);
-            let overlay = document.getElementById(id === 'infoModal' ? 'modalOverlay' : 'teamModalOverlay');
-            let isVisible = modal.style.display === "block";
-
-            modal.style.display = isVisible ? "none" : "block";
-            overlay.style.display = isVisible ? "none" : "block";
-        }
     </script>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">
+            <div class="dropdown">
+                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_results">Results</a>
+                    <a href="/epl_table">League Stats</a>
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <p>
+            Welcome to FiveStat - The Football Data Analysis project!
+        </p>
+        <p>
+            This site is a project aimed at analyzing football fixtures and generating correct score heatmaps built from data-driven predictions.  
+        </p>
+        <p>
+            This site will be evolving as I go, refining the model and adding new features. <br>
+            I'm excited to see where we can take this!
+        </p>
+        <p>
+            You can follow our journey via X (Twitter):  
+            <a href="https://twitter.com/fivefivestat" target="_blank">@fivefivestat</a>
+        </p>
+    </div>
 
     <script>
         function toggleDropdown(event) {
@@ -114,7 +70,7 @@
             }
         };
     </script>
-    
+        
 
 </body>
 </html>

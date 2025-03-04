@@ -16,20 +16,20 @@
 
     <!-- Navbar -->
     <div class="navbar">
-        <a href="#">
+        <a href="/">
             <img src="{{ url_for('static', filename='logo/FiveFiveStat.png') }}" alt="FiveStat Logo" class="logo">
         </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
         <div class="menu">
             <div class="dropdown">
-                <a href="#" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
                 <div class="dropdown-content" id="eplDropdown">
-                    <a href="/">Fixtures</a>
-                    <a href="/results">Results</a>
-                    <a href="/epl_table">League Table</a>
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_results">Results</a>
+                    <a href="/epl_table">League Stats</a>
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
-            <a href="/about">About</a>
         </div>
     </div>
 

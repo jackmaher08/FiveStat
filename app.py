@@ -11,18 +11,23 @@ from datetime import datetime
 # Flask app initialization
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 # Load data
 match_data = load_match_data()
 team_stats, home_field_advantage = calculate_team_statistics(match_data)
 fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a list of dictionaries
-@app.route("/")
+@app.route("/epl_fixtures")
 def home():
     next_gw_fixtures = load_next_gw_fixtures()
 
     # Get the current gameweek number dynamically
     current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
 
-    return render_template("index.html", fixtures=next_gw_fixtures, current_gw=current_gw)
+    return render_template("epl_fixtures.html", fixtures=next_gw_fixtures, current_gw=current_gw)
 
 
 
@@ -90,7 +95,6 @@ def filter_players():
 
 # Load fixtures
 fixtures_df = load_fixtures()
-print(fixtures_df[['date']].head())  # Check if 'date' column is parsed correctly
 
 
 # this lets us determine the current gameweek along with all completed gameweeks
@@ -135,7 +139,7 @@ def get_fixtures_for_week(week_offset=0):
 
 
 from datetime import datetime
-@app.route('/results')
+@app.route('/epl_results')
 def results():
     """ Renders the results page with shotmaps and league table """
     try:
@@ -166,7 +170,7 @@ def results():
             league_table = []
 
         return render_template(
-            "results.html",
+            "epl_results.html",
             fixtures=filtered_fixtures,  # ✅ Pass filtered fixtures
             week_offset=current_week,
             first_gw=first_gw,

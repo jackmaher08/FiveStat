@@ -213,10 +213,6 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         print(f"Heatmap for {home_team} vs {away_team} already exists.")
         return  # 🔄 Skip generating this heatmap
 
-print(f"Heatmaps saved!")
-
-
-
 def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
     if not os.path.exists(save_path):
         os.makedirs(save_path)
@@ -226,7 +222,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     if os.path.exists(next_gw_file_path):
         next_gw_fixtures = pd.read_csv(next_gw_file_path)
     else:
-        raise FileNotFoundError(f"⚠️ Next gameweek fixture file not found: {next_gw_file_path}. Ensure it's saved before running.")
+        raise FileNotFoundError(f"Next gameweek fixture file not found: {next_gw_file_path}. Ensure it's saved before running.")
 
     # ✅ Generate heatmaps only for next gameweek fixtures
     for _, fixture in next_gw_fixtures.iterrows():
@@ -255,14 +251,9 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         # ✅ Generate heatmap for the next gameweek fixture
         display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path)
 
-
-
-
-
-
 print("Heatmaps generated successfully!")
 
-# generating & saving shotmaps
+# generating & saving fixture shotmaps
 
 # Directory to save shotmaps
 shotmap_save_path = "static/shotmaps/"
@@ -491,238 +482,89 @@ for _, row in completed_fixtures.iterrows():
 print("Fixture Shotmaps Generated!")
 
 
+# Function to generate and save goals vs. xG bar chart
+def generate_goals_xg_chart():
+    """Generate a bar chart comparing total goals vs. total xG per gameweek and save it."""
+    
+    # Define file paths
+    DATA_PATH = "data/tables/fixture_data.csv"
+    SAVE_DIR = "static/chart_images"
+    SAVE_PATH = os.path.join(SAVE_DIR, "epl_goals_chart.png")
 
+    # Ensure save directory exists
+    os.makedirs(SAVE_DIR, exist_ok=True)
 
-
-
-# Now generating Team & ALL shots shotmaps
-print("Starting to process all shotmap data (this may take a while)")
-
-# Ensure directories exist
-SHOTMAP_DIR = "static/shotmaps/"
-ALL_SHOTMAP_DIR = os.path.join(SHOTMAP_DIR, "all/")
-TEAM_SHOTMAP_DIR = os.path.join(SHOTMAP_DIR, "team/")
-
-os.makedirs(ALL_SHOTMAP_DIR, exist_ok=True)
-os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
-
-# ✅ Define the path for saving shots_data.csv
-SHOTS_DATA_PATH = "data/tables/shots_data.csv"
-
-# ✅ Load existing shot data if available
-if os.path.exists(SHOTS_DATA_PATH):
-    print("📂 Loading existing shot data...")
-    existing_shots_df = pd.read_csv(SHOTS_DATA_PATH)
-else:
-    print("🚀 No existing shot data found, processing all matches...")
-    existing_shots_df = pd.DataFrame()
-
-# ✅ Get processed match IDs
-processed_match_ids = set(existing_shots_df["match_id"].unique()) if not existing_shots_df.empty else set()
-
-# ✅ Get new match IDs that haven't been processed
-new_match_ids = set(completed_fixtures["id"].unique()) - processed_match_ids
-
-print(f"🆕 Found {len(new_match_ids)} new matches to process.")
-
-# ✅ Process only new matches
-team_shots = {}  # Store new shots
-
-def process_match_shots(understat_match_id):
-    """Fetch and process shot data for a match."""
-    try:
-        url = f'https://understat.com/match/{understat_match_id}'
-        response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-        soup = BeautifulSoup(response.content, 'html.parser')
-        match = re.search(r"var shotsData\s*=\s*JSON.parse\('(.*)'\)", str(soup))
-
-        if not match:
-            print(f"⚠️ Skipping match {understat_match_id}: No shot data found")
-            return
-        
-        data = json.loads(match.group(1).encode('utf8').decode('unicode_escape'))
-
-        # Get team names
-        match_info = completed_fixtures[completed_fixtures["id"] == understat_match_id]
-        if match_info.empty:
-            print(f"⚠️ Match {understat_match_id} not found in fixture list")
-            return
-        
-        home_team, away_team = match_info["home_team"].values[0], match_info["away_team"].values[0]
-
-        # Process shots for both teams
-        for team, shots in [('home', data['h']), ('away', data['a'])]:
-            df = pd.DataFrame(shots)
-            if df.empty:
-                continue
-
-            df['team'] = home_team if team == 'home' else away_team
-            df['x_scaled'] = df['X'].astype(float) * 120
-            df['y_scaled'] = df['Y'].astype(float) * 80
-
-            # Flip coordinates **only for away teams** (so all shots face the same goal)
-            if team == 'away':
-                df['x_scaled'] = 120 - df['x_scaled']
-
-            team_shots.setdefault(df['team'].iloc[0], pd.DataFrame())
-            team_shots[df['team'].iloc[0]] = pd.concat([team_shots[df['team'].iloc[0]], df], ignore_index=True)
-
-    except Exception as e:
-        print(f"❌ Error processing match {understat_match_id}: {e}")
-
-# ✅ Process ONLY new matches
-for i, match_id in enumerate(new_match_ids, start=1):
-    process_match_shots(match_id)  # ✅ Keep and use this function!
-    print(f"📊 Progress: {i}/{len(new_match_ids)} matches processed.")
-
-# ✅ Merge new shot data with existing data
-if team_shots:
-    new_shots_df = pd.concat(team_shots.values(), ignore_index=True)
-    all_shots_df = pd.concat([existing_shots_df, new_shots_df], ignore_index=True)
-else:
-    print("⚠️ No new shot data found. Using existing shots_data.csv.")
-    all_shots_df = existing_shots_df  # Keep existing data if no new matches
-
-# Ensure all_shots_df doesn't have duplicate 'id' before merging
-if 'id' in all_shots_df.columns:
-    all_shots_df.drop(columns=['id'], inplace=True)
-
-all_shots_df['match_id'] = all_shots_df['match_id'].astype(str)
-completed_fixtures['id'] = completed_fixtures['id'].astype(str)
-
-# Merge completed_fixtures with all_shots_df
-all_shots_df = all_shots_df.merge(
-    completed_fixtures[['id', 'home_team', 'away_team']], 
-    left_on='match_id', 
-    right_on='id', 
-    how='left'
-)
-
-# ✅ Remove duplicate ID columns
-all_shots_df.drop(columns=['id'], errors='ignore', inplace=True)
-
-# ✅ Rename merged columns correctly
-all_shots_df.rename(columns={'home_team_y': 'home_team', 'away_team_y': 'away_team'}, inplace=True)
-
-# ✅ Ensure 'home_team' exists before proceeding
-if 'home_team' not in all_shots_df.columns:
-    print("⚠️ 'home_team' is missing after merging! Merge may have failed.")
-else:
-    print("✅ 'home_team' column exists. Proceeding with calculations.")
-
-# Drop duplicate home/away team columns
-all_shots_df = all_shots_df.loc[:, ~all_shots_df.columns.duplicated()].copy()
-
-# ✅ Assign home/away indicator
-all_shots_df['h_a'] = all_shots_df.apply(lambda row: 'h' if str(row['team']).strip() == str(row['home_team']).strip() else 'a', axis=1)
-
-# ✅ Save updated shots_data.csv
-all_shots_df.to_csv(SHOTS_DATA_PATH, index=False, columns=['match_id', 'team', 'x_scaled', 'y_scaled', 'xG', 'result', 'h_a', 'home_team', 'away_team'])
-print(f"✅ Shot data saved to {SHOTS_DATA_PATH}")
-
-
-# ✅ Create All-Shots Shotmap
-pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-fig, ax = pitch.draw(figsize=(13, 9))
-fig.patch.set_facecolor("#f4f4f9")
-goals_df = all_shots_df[all_shots_df['result'].str.lower() == 'goal']
-# 🔥 Add Heatmap
-#if not goals_df.empty:
-#    cmap = LinearSegmentedColormap.from_list('custom_cmap', ['#f4f4f9', '#3f007d']) 
-#    pitch.kdeplot(
-#        goals_df['x_scaled'], goals_df['y_scaled'], ax=ax, fill=True, cmap=cmap,
-#        n_levels=100, thresh=0, zorder=1, alpha=0.6
-#    )
-for _, shot in all_shots_df.iterrows():
-    x, y = shot['x_scaled'], shot['y_scaled']
-    color = 'gold' if "goal" in str(shot['result']).lower() else 'white'
-    zorder = 3 if shot['result'].lower() == 'goal' else 2
-    size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-
-    pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
-
-
-plt.savefig(os.path.join(ALL_SHOTMAP_DIR, "all_shots.png"), facecolor=fig.get_facecolor())
-plt.close(fig)
-
-
-
-def plot_team_shotmap(team_name):
-    """Generate and save a shotmap for a specific team."""
-    df = all_shots_df[all_shots_df['team'] == team_name]
-
-    if df.empty:
-        print(f"⚠️ No shots found for {team_name}")
+    # Load fixture data
+    if not os.path.exists(DATA_PATH):
+        print(f"❌ Error: {DATA_PATH} not found. Skipping chart generation.")
         return
+
+    df = pd.read_csv(DATA_PATH)
+
+    # Ensure required columns exist
+    required_columns = {"round_number", "home_goals", "away_goals", "home_xG", "away_xG"}
+    if not required_columns.issubset(df.columns):
+        print(f"❌ Missing required columns in {DATA_PATH}. Found: {df.columns}")
+        return
+
+    # Convert round_number to int
+    df["round_number"] = pd.to_numeric(df["round_number"], errors="coerce")
+
+    # Aggregate total goals and xG per round (gameweek)
+    weekly_stats = df.groupby("round_number").agg(
+        total_goals=("home_goals", "sum"),  # Sum home + away goals
+        total_xG=("home_xG", "sum")  # Sum home + away xG
+    )
+    weekly_stats["total_xG"] += df.groupby("round_number")["away_xG"].sum()  # Add away xG
+    weekly_stats["total_goals"] += df.groupby("round_number")["away_goals"].sum()  # Add away goals
+
+    # Compute average goals per week
+    avg_goals = weekly_stats["total_goals"].mean()
+
+    # Sort by gameweek
+    weekly_stats = weekly_stats.sort_index()
+
+    # Create bar chart
+    fig, ax = plt.subplots(figsize=(18, 6))
+    fig.patch.set_facecolor("#f4f4f9")  # Set entire figure background
+    ax.set_facecolor("#f4f4f9")  # Set axes background
+
+    bar_width = 0.4
+    x_labels = weekly_stats.index.astype(str)  # Convert round numbers to strings for x-axis labels
+
+    # Plot bars for Goals and xG
+    ax.bar(weekly_stats.index - bar_width / 2, weekly_stats["total_goals"], width=bar_width, label="Total Goals", color="#3f007d")
+    ax.bar(weekly_stats.index + bar_width / 2, weekly_stats["total_xG"], width=bar_width, label="Total xG", color="#9163cb")
+
+    # Plot average total goals line
+    ax.axhline(y=avg_goals, color="black", linestyle="dashed", linewidth=1.5, label=f"Avg Goals ({avg_goals:.2f})")
+
+    # Remove all axis lines
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+    ax.spines["bottom"].set_visible(False)
+
+    # Add legend
+    ax.legend(frameon=False, loc="upper right")
+
+    # Save the chart
+    plt.savefig(SAVE_PATH, dpi=300, bbox_inches="tight", transparent=True)
+    plt.close()
+
+    print(f"Chart saved to {SAVE_PATH}")
+
+
     
-    # Create pitch
-    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-    fig, ax = pitch.draw(figsize=(12, 9))
-    fig.patch.set_facecolor("#f4f4f9")
-
-    print(f"🔍 {team_name} Shot Data for KDE:\n", df[['x_scaled', 'y_scaled']].head())
-    
-    for _, shot in df.iterrows():
-        x, y = shot['x_scaled'], shot['y_scaled']
-        color = 'gold' if shot['result'].lower() == 'goal' else 'white'
-        zorder = 3 if shot['result'].lower() == 'goal' else 2
-        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-
-        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
-
-    plt.title(f"{team_name} Shotmap", fontsize=15)
-
-    # ✅ Save shotmap
-    team_filename = f"{team_name.replace(' ', '_').lower()}_shotmap.png"
-    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, team_filename))
-    plt.close(fig)
-    print(f"✅ Saved {team_name} shotmap to {TEAM_SHOTMAP_DIR}{team_filename}")
-
-# Generate team shotmaps
-for team in team_shots.keys():
-    plot_team_shotmap(team)
-
-print("✅ All Shotmaps Generated! 🎯⚽")
-
-    # Initialize a half-pitch
-pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-
-
-
-
-
-print("✅ Team Shotmaps Generated!")
-print("✅ All Shots Shotmaps Generated!")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-print("All Shotmaps Generated!")
-
-
 if __name__ == "__main__":
     fixtures_df = load_fixtures()
-    historical_fixtures_df = load_match_data()  
-    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df) 
+    historical_fixtures_df = load_match_data()
+    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df)
 
-    # Calculate recent form
-    recent_form_att, recent_form_def = calculate_recent_form(historical_fixtures_df, team_data, recent_matches=20, alpha=0.65)  # ✅ Use correct variable
+    recent_form_att, recent_form_def = calculate_recent_form(
+        historical_fixtures_df, team_data, recent_matches=20, alpha=0.65
+    )
 
-    # Generate heatmaps with blended ratings
-    generate_all_heatmaps(team_data, recent_form_att, recent_form_def, alpha=0.65)
+    generate_all_heatmaps(team_data, recent_form_att, recent_form_def)
+
+    generate_goals_xg_chart()
