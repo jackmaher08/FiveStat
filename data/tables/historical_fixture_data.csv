@@ -3309,4 +3309,13 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 270,27,26/02/2025 19:30,Old Trafford,Man Utd,Ipswich,3 - 2,2024,3.0,2.0,home_win,20,14
 269,27,26/02/2025 20:15,Anfield,Liverpool,Newcastle,2 - 0,2024,2.0,0.0,home_win,17,22
 265,27,27/02/2025 20:00,London Stadium,West Ham,Leicester,2 - 0,2024,2.0,0.0,home_win,34,16
+277,28,08/03/2025 12:30,The City Ground,Nott'm Forest,Man City,1 - 0,2024,1.0,0.0,home_win,24,19
+272,28,08/03/2025 15:00,American Express Stadium,Brighton,Fulham,2 - 1,2024,2.0,1.0,home_win,5,11
+274,28,08/03/2025 15:00,Selhurst Park,Crystal Palace,Ipswich,1 - 0,2024,1.0,0.0,home_win,9,14
+275,28,08/03/2025 15:00,Anfield,Liverpool,Southampton,3 - 1,2024,3.0,1.0,home_win,17,27
+271,28,08/03/2025 17:30,Gtech Community Stadium,Brentford,Aston Villa,0 - 1,2024,0.0,1.0,away_win,4,2
+280,28,08/03/2025 20:00,Molineux Stadium,Wolves,Everton,1 - 1,2024,1.0,1.0,draw,35,10
+273,28,09/03/2025 14:00,Stamford Bridge,Chelsea,Leicester,1 - 0,2024,1.0,0.0,home_win,8,16
+278,28,09/03/2025 14:00,Tottenham Hotspur Stadium,Spurs,Bournemouth,2 - 2,2024,2.0,2.0,draw,28,3
+276,28,09/03/2025 16:30,Old Trafford,Man Utd,Arsenal,1 - 1,2024,1.0,1.0,draw,20,1
 282,29,19/02/2025 19:30,Villa Park,Aston Villa,Liverpool,2 - 2,2024,2.0,2.0,draw,2,17

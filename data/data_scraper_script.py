@@ -9,6 +9,7 @@ from scipy.stats import poisson
 import matplotlib.colors as mcolors
 from bs4 import BeautifulSoup
 from mplsoccer import Pitch
+from mplsoccer import Radar
 from matplotlib.colors import LinearSegmentedColormap
 
 
@@ -305,3 +306,67 @@ league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
 aggregated_results_df.to_csv(league_table_file_path, index=False)
 
 print(f"✅ League table data saved to: {league_table_file_path}")
+
+
+
+
+
+# scraping fbref player data for player radar plots
+
+fbref_url = 'https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats'
+fbref_df = pd.read_html(fbref_url, attrs={"id": "stats_standard"})[0]
+
+# getting rid of the per 90 columns and will recalculate the ones we're interested in
+columns_to_drop = fbref_df.columns.get_level_values(0) == 'Per 90 Minutes'
+fbref_df = fbref_df.drop(columns=fbref_df.columns[columns_to_drop])
+
+
+# get rid of the first level of the multiindex on the columns
+fbref_df = fbref_df.droplevel(0, axis=1)
+
+# Convert the 'Min' column to numeric, coercing any non-numeric entries to NaN
+fbref_df['Min'] = pd.to_numeric(fbref_df['Min'], errors='coerce')
+
+# Drop rows where 'Min' is NaN (i.e., non-numeric values)
+fbref_df = fbref_df.dropna(subset=['Min'])
+
+# Convert 'Min' to integers
+fbref_df['Min'] = fbref_df['Min'].astype(int)
+
+# Filter for players who have played more than 400 minutes
+fbref_df = fbref_df[fbref_df['Min'] > 400]
+
+
+
+
+# let's also make sure that the columns are of the correct type
+fbref_df[['90s', 'xG', 'xAG']] = fbref_df[['90s', 'xG', 'xAG']].astype(float)
+fbref_df[['Gls', 'Ast', 'G+A', 'PrgC', 'PrgP', 'PrgR']] = fbref_df[['Gls', 'Ast', 'G+A', 'PrgC', 'PrgP', 'PrgR']].astype(int)
+
+# Now let's calculate the per 90 stats for each of these columns
+# name them as we want to see them in the radar plot
+fbref_df['goals_per_90'] = fbref_df['Gls'] / fbref_df['90s']
+fbref_df['assists_per_90'] = fbref_df['Ast'] / fbref_df['90s']
+fbref_df['goals_assists_per_90'] = fbref_df['G+A'] / fbref_df['90s']
+fbref_df['expected_goals_per_90'] = fbref_df['xG'] / fbref_df['90s']
+fbref_df['expected_assists_per_90'] = fbref_df['xAG'] / fbref_df['90s']
+fbref_df['progressive_carries_per_90'] = fbref_df['PrgC'] / fbref_df['90s']
+fbref_df['progressive_passes_per_90'] = fbref_df['PrgP'] / fbref_df['90s']
+fbref_df['progressive_receptions_per_90'] = fbref_df['PrgR'] / fbref_df['90s']
+
+# We'll calculate the percentiles for each of these columns
+# We will also name them as we want to see them in the radar plot
+fbref_df['Goals'] = (fbref_df['goals_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Assists'] = (fbref_df['assists_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Goals + Assists'] = (fbref_df['goals_assists_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Expected Goals'] = (fbref_df['expected_goals_per_90'].rank(pct=True)  * 100).astype(int)
+fbref_df['Expected Assists'] = (fbref_df['expected_assists_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Progressive Carries'] = (fbref_df['progressive_carries_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Progressive Passes'] = (fbref_df['progressive_passes_per_90'].rank(pct=True) * 100).astype(int)
+fbref_df['Progressive Receptions'] = (fbref_df['progressive_receptions_per_90'].rank(pct=True) * 100).astype(int)
+
+# ✅ Save final league table
+player_stats_file_path = os.path.join(save_dir, "player_radar_data.csv")
+fbref_df.to_csv(player_stats_file_path, index=False)
+
+print(f"✅ Player Radar data saved to: {player_stats_file_path}")
