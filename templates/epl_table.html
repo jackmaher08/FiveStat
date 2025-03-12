@@ -256,15 +256,24 @@
 
         function openTeamShotmapModal(teamName) {
             // Use the mapping dictionary to standardize team names
-            let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName; // Use mapped name if it exists
+            let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName;
 
-            // Set the correct image path (keeping spaces in filenames)
-            let imageUrl = `/static/shotmaps/team/${standardizedTeamName}_shotmap.png`;
+            // Convert the filename to lowercase to match saved images
+            let formattedTeamName = standardizedTeamName.toLowerCase();
+
+            // Construct the image URL
+            let imageUrl = `/static/shotmaps/team/${formattedTeamName}_shotmap.png`;
+
+            // Debugging: Log the generated image URL
+            console.log(`Looking for: ${imageUrl}`);
+
+            // Set the image source
             document.getElementById("teamShotmapImage").src = imageUrl;
-
+            
             // Show the modal
             toggleModal('teamShotmapModal');
         }
+
         </script>
 </body>
 </html>
