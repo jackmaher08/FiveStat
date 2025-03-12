@@ -205,7 +205,7 @@ print(TEAM_NAME_MAPPING.get("spurs", "Not Found"))  # Output: Tottenham
 
 def plot_team_shotmap(team_name):
     # Convert all filenames to Title Case to maintain consistency
-    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.lower().strip(), team_name)
+    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
     formatted_filename = standardized_team_name.title()  # Ensures "chelsea" → "Chelsea"
 
     df = all_shots_df[all_shots_df['team'] == team_name]
