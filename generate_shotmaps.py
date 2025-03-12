@@ -32,25 +32,25 @@ SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 
 TEAM_NAME_MAPPING = {
     "arsenal": "Arsenal",
-    "aston villa": "Aston Villa",
+    "Aston Villa": "Aston Villa",
     "bournemouth": "Bournemouth",
     "brentford": "Brentford",
     "brighton": "Brighton",
     "chelsea": "Chelsea",
-    "crystal palace": "Crystal Palace",
+    "Crystal Palace": "Crystal Palace",
     "everton": "Everton",
     "fulham": "Fulham",
     "ipswich": "Ipswich",
     "leicester": "Leicester",
     "liverpool": "Liverpool",
-    "man city": "Manchester City",
-    "man utd": "Manchester United",
+    "Man City": "Manchester City",
+    "Man Utd": "Manchester United",
     "newcastle": "Newcastle United",
-    "nott'm forest": "Nottingham Forest",
+    "Nott'M Forest": "Nottingham Forest",
     "southampton": "Southampton",
-    "spurs": "Tottenham",
+    "Spurs": "Tottenham",
     "west ham": "West Ham",
-    "wolves": "Wolverhampton Wanderers"
+    "Wolves": "Wolverhampton Wanderers"
 }
 
 
