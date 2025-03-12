@@ -204,11 +204,9 @@ print(TEAM_NAME_MAPPING.get("Spurs", "Not Found"))  # Output: Not Found
 print(TEAM_NAME_MAPPING.get("spurs", "Not Found"))  # Output: Tottenham
 
 def plot_team_shotmap(team_name):
-    # Convert to lowercase and remove extra spaces for matching
-    formatted_team_name = team_name.lower().strip()
-
-    # Use the mapping dictionary to get the correct name, or default to original
-    standardized_team_name = TEAM_NAME_MAPPING.get(formatted_team_name, team_name)
+    # Convert all filenames to Title Case to maintain consistency
+    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.lower().strip(), team_name)
+    formatted_filename = standardized_team_name.title()  # Ensures "chelsea" → "Chelsea"
 
     df = all_shots_df[all_shots_df['team'] == team_name]
 
@@ -238,7 +236,7 @@ def plot_team_shotmap(team_name):
     plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
 
     # Save using standardized team name
-    shotmap_filename = f"{standardized_team_name}_shotmap.png"
+    shotmap_filename = f"{formatted_filename}_shotmap.png"
     plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
     plt.close(fig)
     print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
