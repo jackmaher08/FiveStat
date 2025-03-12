@@ -98,7 +98,7 @@
                 {% for team in league_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a></td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ team["xG"] }}</td>
                     <td>{{ team["npxG"] }}</td>
@@ -123,25 +123,47 @@
     <img class="shotmap" src="../static/chart_images/epl_goals_chart.png" alt="chart unavailable">
     </div>
     <br><br><br>
-    <div class="team_shotmap_image">
-        <h2>24/25 Shotmap</h2>
-        <h5>All shots taken this season</h5>
-
-    <img class="shotmap" src="../static/shotmaps/all/all_shots.png" alt="shotmap unavailable">
-    </div>
+    
 
         <!-- Dark Overlay for Team Modal -->
         <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-
+        <div class="modal-overlay" id="teamShotmapModalOverlay" onclick="toggleModal('teamShotmapModal')"></div>
         <!-- Team Modal -->
         <div class="modal" id="teamInfoModal">
             <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
             <h3>Team Pages Coming Soon</h3>
             <p>We are currently working on individual team pages. Stay tuned for updates!</p>
         </div>
+        <div class="modal" id="teamShotmapModal">
+            <img id="teamShotmapImage" src="" alt="Team Shotmap">
+        </div>
 
 
         <script>
+
+            const TEAM_NAME_MAPPING = {
+                "Arsenal": "Arsenal",
+                "Aston Villa": "Aston Villa",
+                "Bournemouth": "Bournemouth",
+                "Brentford": "Brentford",
+                "Brighton": "Brighton",
+                "Chelsea": "Chelsea",
+                "Crystal Palace": "Crystal Palace",
+                "Everton": "Everton",
+                "Fulham": "Fulham",
+                "Ipswich": "Ipswich",
+                "Leicester": "Leicester",
+                "Liverpool": "Liverpool",
+                "Man City": "Manchester City",
+                "Man Utd": "Manchester United",
+                "Newcastle": "Newcastle United",
+                "Nott'm Forest": "Nottingham Forest",
+                "Southampton": "Southampton",
+                "Spurs": "Tottenham",
+                "West Ham": "West Ham",
+                "Wolves": "Wolverhampton Wanderers"
+            };
+
             function toggleDropdown(event) {
                 event.preventDefault();  // Prevents page from jumping
                 let dropdown = document.querySelector('.dropdown');
@@ -230,6 +252,18 @@
 
             modal.style.display = isVisible ? "none" : "block";
             overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        function openTeamShotmapModal(teamName) {
+            // Use the mapping dictionary to standardize team names
+            let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName; // Use mapped name if it exists
+
+            // Set the correct image path (keeping spaces in filenames)
+            let imageUrl = `/static/shotmaps/team/${standardizedTeamName}_shotmap.png`;
+            document.getElementById("teamShotmapImage").src = imageUrl;
+
+            // Show the modal
+            toggleModal('teamShotmapModal');
         }
         </script>
 </body>

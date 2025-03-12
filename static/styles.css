@@ -167,7 +167,7 @@ a:hover {
     }
     .modal {
         font-size: 12px;
-    }
+    }     
     .navbar a {
         text-align: center; /* Ensures text alignment */
         margin: 0 auto; /* Center links */
@@ -248,6 +248,14 @@ a:hover {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
+#playerRadarImage, #teamShotmapImage {
+    width: 90%;   /* Ensures the image scales with the modal */
+    height: auto;  /* Maintains aspect ratio */
+    display: block;
+    margin: 0 auto; /* Centers the image */
+}
+
 
 .close-button {
     float: right;

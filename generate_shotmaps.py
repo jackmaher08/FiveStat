@@ -17,6 +17,8 @@ import matplotlib.image as mpimg
 import seaborn as sns
 
 
+
+
 # Ensure directories exist
 SHOTMAP_DIR = "static/shotmaps/"
 ALL_SHOTMAP_DIR = os.path.join(SHOTMAP_DIR, "all/")
@@ -27,6 +29,30 @@ os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
 
 # ✅ Define the path for saving shots_data.csv
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
+
+TEAM_NAME_MAPPING = {
+    "arsenal": "Arsenal",
+    "aston villa": "Aston Villa",
+    "bournemouth": "Bournemouth",
+    "brentford": "Brentford",
+    "brighton": "Brighton",
+    "chelsea": "Chelsea",
+    "crystal palace": "Crystal Palace",
+    "everton": "Everton",
+    "fulham": "Fulham",
+    "ipswich": "Ipswich",
+    "leicester": "Leicester",
+    "liverpool": "Liverpool",
+    "man city": "Manchester City",
+    "man utd": "Manchester United",
+    "newcastle": "Newcastle United",
+    "nott'm forest": "Nottingham Forest",
+    "southampton": "Southampton",
+    "spurs": "Tottenham",
+    "west ham": "West Ham",
+    "wolves": "Wolverhampton Wanderers"
+}
+
 
 if os.path.exists(SHOTS_DATA_PATH):
     all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
@@ -174,9 +200,15 @@ def process_shot_data(completed_fixtures, team_shots):
     plt.close(fig)
     print("✅ All-Shots Shotmap Saved!")
 
-
+print(TEAM_NAME_MAPPING.get("Spurs", "Not Found"))  # Output: Not Found
+print(TEAM_NAME_MAPPING.get("spurs", "Not Found"))  # Output: Tottenham
 
 def plot_team_shotmap(team_name):
+    # Convert to lowercase and remove extra spaces for matching
+    formatted_team_name = team_name.lower().strip()
+
+    # Use the mapping dictionary to get the correct name, or default to original
+    standardized_team_name = TEAM_NAME_MAPPING.get(formatted_team_name, team_name)
 
     df = all_shots_df[all_shots_df['team'] == team_name]
 
@@ -189,7 +221,6 @@ def plot_team_shotmap(team_name):
     fig, ax = pitch.draw(figsize=(12, 9))
     fig.patch.set_facecolor("#f4f4f9")
 
-    
     existing_columns = set(df.columns)
     subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in existing_columns]
 
@@ -204,13 +235,14 @@ def plot_team_shotmap(team_name):
 
         pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
 
-    plt.title(f"{team_name} Shotmap", fontsize=15)
+    plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
 
-    # Save shotmap
-    team_filename = f"{team_name.replace(' ', '_').lower()}_shotmap.png"
-    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, team_filename))
+    # Save using standardized team name
+    shotmap_filename = f"{standardized_team_name}_shotmap.png"
+    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
     plt.close(fig)
-    print(f"Saved {team_name} shotmap to {TEAM_SHOTMAP_DIR}{team_filename}")
+    print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
+
 
 print(f"🔄 Generating shotmaps for {len(team_shots.keys())} teams...")
 

@@ -47,6 +47,10 @@ def generate_radar_chart(player_name, player_stats, average_stats):
     # Set up the plot
     fig, ax = radar.setup_axis()
 
+    # Set background color for the figure and axis
+    fig.patch.set_facecolor('#f4f4f9')  # Background color for the entire figure
+    ax.set_facecolor('#f4f4f9')  # Background for the radar plot area
+
     # Draw circles for the radar chart
     radar.draw_circles(ax=ax, facecolor='#f4f4f9', edgecolor='black', lw=1, zorder=1)
 
@@ -112,7 +116,7 @@ for player_name in df['Player'].unique():
     radar_filename = f"{player_name}_radar.png" 
     
     # Save the radar chart to the specified folder
-    plt.savefig(os.path.join(radar_save_path, radar_filename))
+    plt.savefig(os.path.join(radar_save_path, radar_filename), facecolor=fig.get_facecolor(), dpi=300)
     
     # Close the figure to free up memory
     plt.close()

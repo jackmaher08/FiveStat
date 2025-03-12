@@ -52,7 +52,7 @@
             <tbody id="playerTable">
                 {% for player in players if player is mapping %}
                 <tr>
-                    <td><a href="javascript:void(0);" onclick="toggleModal('playerInfoModal')">{{ player["Name"] }}</a></td>
+                    <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player["Name"] }}')">{{ player["Name"] }}</a></td>
                     <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ player["Team"] }}</a></td>
                     <td>{{ player["MP"] }}</td>
                     <td>{{ player["Mins"] }}</td>
@@ -85,9 +85,7 @@
 
     <!-- Player Modal -->
     <div class="modal" id="playerInfoModal">
-        <button class="close-button" onclick="toggleModal('playerInfoModal')">✖</button>
-        <h3>Player Pages Coming Soon</h3>
-        <p>We are currently working on individual player pages. Stay tuned for updates!</p>
+        <img id="playerRadarImage" src="" alt="Player Radar">
     </div>
 
     <!-- Pagination Controls -->
@@ -158,6 +156,12 @@
             updateSortingIndicator();
             updateTable();
         });
+
+        function openPlayerModal(playerName) {
+            let imageUrl = `/static/radar/${playerName}_radar.png`;
+            document.getElementById("playerRadarImage").src = imageUrl;
+            toggleModal('playerInfoModal');
+        }
 
     </script>
 
