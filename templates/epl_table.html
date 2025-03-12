@@ -258,11 +258,8 @@
             // Use the mapping dictionary to standardize team names
             let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName;
 
-            // Convert the filename to lowercase to match saved images
-            let formattedTeamName = standardizedTeamName.toLowerCase();
-
             // Construct the image URL
-            let imageUrl = `/static/shotmaps/team/${formattedTeamName}_shotmap.png`;
+            let imageUrl = `/static/shotmaps/team/${standardizedTeamName}_shotmap.png`;
 
             // Debugging: Log the generated image URL
             console.log(`Looking for: ${imageUrl}`);
