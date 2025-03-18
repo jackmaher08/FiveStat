@@ -31,25 +31,25 @@ os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 
 TEAM_NAME_MAPPING = {
-    "arsenal": "Arsenal",
+    "Arsenal": "Arsenal",
     "Aston Villa": "Aston Villa",
-    "bournemouth": "Bournemouth",
-    "brentford": "Brentford",
-    "brighton": "Brighton",
-    "chelsea": "Chelsea",
+    "Bournemouth": "Bournemouth",
+    "Brentford": "Brentford",
+    "Brighton": "Brighton",
+    "Chelsea": "Chelsea",
     "Crystal Palace": "Crystal Palace",
-    "everton": "Everton",
-    "fulham": "Fulham",
-    "ipswich": "Ipswich",
-    "leicester": "Leicester",
-    "liverpool": "Liverpool",
+    "Everton": "Everton",
+    "Fulham": "Fulham",
+    "Ipswich": "Ipswich",
+    "Leicester": "Leicester",
+    "Liverpool": "Liverpool",
     "Man City": "Manchester City",
     "Man Utd": "Manchester United",
     "Newcastle": "Newcastle United",
     "Nott'm Forest": "Nottingham Forest",
-    "southampton": "Southampton",
+    "Southampton": "Southampton",
     "Spurs": "Tottenham",
-    "west ham": "West Ham",
+    "West Ham": "West Ham",
     "Wolves": "Wolverhampton Wanderers"
 }
 

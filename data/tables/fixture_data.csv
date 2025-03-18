@@ -278,16 +278,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 28,09/03/2025 14:00,Chelsea,Leicester,1 - 0,26874,True,1.0,0.0,1.77,0.11
 28,09/03/2025 14:00,Spurs,Bournemouth,2 - 2,26879,True,2.0,2.0,1.35,2.23
 28,09/03/2025 16:30,Man Utd,Arsenal,1 - 1,26877,True,1.0,1.0,1.31,1.83
-28,10/03/2025 20:00,West Ham,Newcastle,,26880,True,0.0,1.0,0.82,1.63
+28,10/03/2025 20:00,West Ham,Newcastle,0 - 1,26880,True,0.0,1.0,0.82,1.63
 29,19/02/2025 19:30,Aston Villa,Liverpool,2 - 2,26884,True,2.0,2.0,1.02,2.04
-29,15/03/2025 15:00,Everton,West Ham,,26885,False,,,,
-29,15/03/2025 15:00,Ipswich,Nott'm Forest,,26887,False,,,,
-29,15/03/2025 15:00,Man City,Brighton,,26889,False,,,,
-29,15/03/2025 15:00,Southampton,Wolves,,26891,False,,,,
-29,15/03/2025 17:30,Bournemouth,Brentford,,26882,False,,,,
-29,16/03/2025 13:30,Arsenal,Chelsea,,26883,False,,,,
-29,16/03/2025 13:30,Fulham,Spurs,,26886,False,,,,
-29,16/03/2025 19:00,Leicester,Man Utd,,26888,False,,,,
+29,15/03/2025 15:00,Everton,West Ham,1 - 1,26885,True,1.0,1.0,1.19,0.52
+29,15/03/2025 15:00,Ipswich,Nott'm Forest,2 - 4,26887,True,2.0,4.0,0.52,1.31
+29,15/03/2025 15:00,Man City,Brighton,2 - 2,26889,True,2.0,2.0,2.03,2.11
+29,15/03/2025 15:00,Southampton,Wolves,1 - 2,26891,True,1.0,2.0,1.28,0.54
+29,15/03/2025 17:30,Bournemouth,Brentford,1 - 2,26882,True,1.0,2.0,2.03,1.6
+29,16/03/2025 13:30,Arsenal,Chelsea,1 - 0,26883,True,1.0,0.0,0.7,0.29
+29,16/03/2025 13:30,Fulham,Spurs,2 - 0,26886,True,2.0,0.0,1.04,1.41
+29,16/03/2025 19:00,Leicester,Man Utd,0 - 3,26888,True,0.0,3.0,1.3,1.14
 29,16/04/2025 19:30,Newcastle,Crystal Palace,,26890,False,,,,
 30,01/04/2025 19:45,Arsenal,Fulham,,26892,False,,,,
 30,01/04/2025 19:45,Wolves,West Ham,,26895,False,,,,
@@ -311,22 +311,22 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 31,07/04/2025 20:00,Leicester,Newcastle,,26908,False,,,,
 32,12/04/2025 12:30,Man City,Crystal Palace,,26917,False,,,,
 32,12/04/2025 15:00,Brighton,Leicester,,26914,False,,,,
-32,12/04/2025 15:00,Chelsea,Ipswich,,26915,False,,,,
 32,12/04/2025 15:00,Nott'm Forest,Everton,,26920,False,,,,
 32,12/04/2025 15:00,Southampton,Aston Villa,,26921,False,,,,
-32,12/04/2025 15:00,Wolves,Spurs,,26919,False,,,,
 32,12/04/2025 17:30,Arsenal,Brentford,,26913,False,,,,
+32,13/04/2025 14:00,Chelsea,Ipswich,,26915,False,,,,
 32,13/04/2025 14:00,Liverpool,West Ham,,26916,False,,,,
+32,13/04/2025 14:00,Wolves,Spurs,,26919,False,,,,
 32,13/04/2025 16:30,Newcastle,Man Utd,,26918,False,,,,
 32,14/04/2025 20:00,Bournemouth,Fulham,,26912,False,,,,
 33,19/04/2025 15:00,Brentford,Brighton,,26923,False,,,,
 33,19/04/2025 15:00,Crystal Palace,Bournemouth,,26924,False,,,,
 33,19/04/2025 15:00,Everton,Man City,,26925,False,,,,
-33,19/04/2025 15:00,Fulham,Chelsea,,26926,False,,,,
-33,19/04/2025 15:00,Man Utd,Wolves,,26929,False,,,,
 33,19/04/2025 15:00,West Ham,Southampton,,26931,False,,,,
 33,19/04/2025 17:30,Aston Villa,Newcastle,,26922,False,,,,
+33,20/04/2025 14:00,Fulham,Chelsea,,26926,False,,,,
 33,20/04/2025 14:00,Ipswich,Arsenal,,26927,False,,,,
+33,20/04/2025 14:00,Man Utd,Wolves,,26929,False,,,,
 33,20/04/2025 16:30,Leicester,Liverpool,,26928,False,,,,
 33,21/04/2025 20:00,Spurs,Nott'm Forest,,26930,False,,,,
 34,26/04/2025 12:30,Chelsea,Everton,,26935,False,,,,

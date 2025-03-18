@@ -3318,4 +3318,13 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 273,28,09/03/2025 14:00,Stamford Bridge,Chelsea,Leicester,1 - 0,2024,1.0,0.0,home_win,8,16
 278,28,09/03/2025 14:00,Tottenham Hotspur Stadium,Spurs,Bournemouth,2 - 2,2024,2.0,2.0,draw,28,3
 276,28,09/03/2025 16:30,Old Trafford,Man Utd,Arsenal,1 - 1,2024,1.0,1.0,draw,20,1
+279,28,10/03/2025 20:00,London Stadium,West Ham,Newcastle,0 - 1,2024,0.0,1.0,away_win,34,22
 282,29,19/02/2025 19:30,Villa Park,Aston Villa,Liverpool,2 - 2,2024,2.0,2.0,draw,2,17
+284,29,15/03/2025 15:00,Goodison Park,Everton,West Ham,1 - 1,2024,1.0,1.0,draw,10,34
+286,29,15/03/2025 15:00,Portman Road,Ipswich,Nott'm Forest,2 - 4,2024,2.0,4.0,away_win,14,24
+288,29,15/03/2025 15:00,Etihad Stadium,Man City,Brighton,2 - 2,2024,2.0,2.0,draw,19,5
+290,29,15/03/2025 15:00,St. Mary's Stadium,Southampton,Wolves,1 - 2,2024,1.0,2.0,away_win,27,35
+283,29,15/03/2025 17:30,Vitality Stadium,Bournemouth,Brentford,1 - 2,2024,1.0,2.0,away_win,3,4
+281,29,16/03/2025 13:30,Emirates Stadium,Arsenal,Chelsea,1 - 0,2024,1.0,0.0,home_win,1,8
+285,29,16/03/2025 13:30,Craven Cottage,Fulham,Spurs,2 - 0,2024,2.0,0.0,home_win,11,28
+287,29,16/03/2025 19:00,King Power Stadium,Leicester,Man Utd,0 - 3,2024,0.0,3.0,away_win,16,20

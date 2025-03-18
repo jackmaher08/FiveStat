@@ -99,8 +99,11 @@ print(f"✅ fixture data saved to: {file_path}")
 
 
 # load next gw fixtures
-# Find the next round number by getting the minimum round_number where isResult is False
-next_round_number = fixture_data.loc[fixture_data["isResult"] == False, "round_number"].min()
+# Count how many fixtures per round have isResult == False
+round_counts = fixture_data[fixture_data["isResult"] == False].groupby("round_number").size()
+
+# Find the first round_number where at least 5 fixtures are still to be played
+next_round_number = round_counts[round_counts >= 5].index.min()
 
 # Filter the fixtures for that round
 next_gw_fixtures = fixture_data[
