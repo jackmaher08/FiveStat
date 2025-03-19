@@ -212,5 +212,9 @@ def methodology():
     return render_template('methodology.html')
 
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = os.getenv("PORT")
+    if port is None:
+        raise RuntimeError("PORT environment variable is not set.")
+    app.run(host="0.0.0.0", port=int(port), debug=False)
