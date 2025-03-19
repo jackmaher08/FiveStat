@@ -591,12 +591,12 @@ def generate_goals_xg_chart():
 
 
 
-
+os.makedirs("data/tables", exist_ok=True)
 # Load remaining fixtures
-fixtures = pd.read_csv("C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv")
+fixtures = pd.read_csv("data/tables/fixture_data.csv")
 
 # Load current league table
-league_table = pd.read_csv("C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/league_table_data.csv")
+league_table = pd.read_csv("data/tables/league_table_data.csv")
 
 # Extract necessary columns
 team_points = league_table.set_index("Team")["PTS"].to_dict()
