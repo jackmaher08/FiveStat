@@ -207,14 +207,14 @@ def results():
 
 
 
-@app.route('/methodology')
+@app.route("/methodology")
 def methodology():
-    return render_template('methodology.html')
+    return render_template("methodology.html")
 
 
 
 if __name__ == "__main__":
-    port = os.getenv("PORT")
+    port = int(os.environ.get("PORT", 5000))
     if port is None:
         raise RuntimeError("PORT environment variable is not set.")
-    app.run(host="0.0.0.0", port=int(port), debug=False)
+    app.run(host="0.0.0.0", port=port, debug=True)

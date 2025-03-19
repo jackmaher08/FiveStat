@@ -122,33 +122,33 @@
     <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
     <!-- Info Modal -->
     <div class="modal" id="infoModal">
-        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="./methodology.html">Match Prediction Model</a> to visualize how the final Premier League Table will look</p>
+        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a> to visualize how the final Premier League Table will look</p>
     </div>
     <div class="table-container">
         <table id="simulatedTable">
             <thead>
                 <tr>
-                    <th onclick="sortTable('simulatedTable', 0)">Rank <span class="sort-indicator">▼</span></th>
-                    <th class="bold-left-border" onclick="sortTable('simulatedTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th >Rank </th>
+                    <th>Team</th>
                     {% for position in range(1, num_positions + 1) %}
-                    <th onclick="sortTable('simulatedTable', {{ position + 2 }})">{{ position }} <span class="sort-indicator"></span></th>
+                    <th>{{ position }}</th>
                     {% endfor %}
-                    <th class="bold-left-border" onclick="sortTable('simulatedTable', 2)">Final xPTS <span class="sort-indicator"></span></th>
+                    <th>Final xPTS</th>
                 </tr>
             </thead>
             <tbody id="simulatedTable">
                 {% for team in simulated_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
+                    <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
                     {% for position in range(1, num_positions + 1) %}
                         {% set probability = team[position|string] * 100 %}
-                        {% set opacity = probability / 40 %} {# Scale from 0 to 1 #}
+                        {% set opacity = probability / 25 %} {# Scale from 0 to 1 #}
                         <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
                             {{ probability | round(1) }}%
                         </td>
                     {% endfor %}
-                    <td class="bold-left-border">{{ team["Final xPTS"] | round(1) }}</td>
+                    <td>{{ team["Final xPTS"] | round(1) }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -168,15 +168,6 @@
     <div class="modal-overlay" id="infoModalOverlay"></div>
     <div class="modal-overlay" id="teamInfoModalOverlay"></div>
     <div class="modal-overlay" id="teamShotmapModalOverlay"></div>
-
-    <!-- Info Modal -->
-    <div class="modal" id="infoModal">
-        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
-        <p>
-            We have simulated the remaining fixtures of the 24/25 season using our
-            <a href="./methodology.html">Match Prediction Model</a> to visualize how the final Premier League Table will look.
-        </p>
-    </div>
 
     <!-- Team Modal -->
     <div class="modal" id="teamInfoModal">
