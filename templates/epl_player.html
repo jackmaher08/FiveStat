@@ -27,9 +27,10 @@
         </div>
     </div>
     
-    <br><br><br>
+    <br>
     <!-- <h1>Premier League Player Stats</h1>-->
-
+    <p>**Click on a player name to view their stats on a Radar Chart**</p>
+    <br>
     <!-- Player Table -->
      <div class="table-container">
         <table>
@@ -96,7 +97,7 @@
     </div>
 
     <script>
-        let currentSortColumn = 3; // Default sort by "Goals"
+        let currentSortColumn = 4; // Default sort by "Goals"
         let ascending = false; // Default sort order is descending
         let currentPage = 1;
         const rowsPerPage = 20;
@@ -152,7 +153,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            allRows.sort((a, b) => b.cells[3].innerText.trim() - a.cells[3].innerText.trim());
+            allRows.sort((a, b) => b.cells[4].innerText.trim() - a.cells[4].innerText.trim()); // Correctly sorting by "Goals"
             updateSortingIndicator();
             updateTable();
         });

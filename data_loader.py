@@ -27,6 +27,20 @@ def run_data_scraper():
     subprocess.run(["python", script_path], check=True)  # Run the script with the correct path
     print("✅ Data scraper completed.")
 
+    # ✅ Run generate_shotmaps.py
+    shotmaps_script_path = os.path.join("data", "generate_shotmaps.py")
+    if os.path.exists(shotmaps_script_path):
+        print("🔄 Running generate_shotmaps.py to update shotmaps...")
+        subprocess.run(["python", shotmaps_script_path], check=True)
+        print("✅ Shotmaps generated.")
+
+    # ✅ Run generate_radars.py
+    radars_script_path = os.path.join("data", "generate_radars.py")
+    if os.path.exists(radars_script_path):
+        print("🔄 Running generate_radars.py to update radar charts...")
+        subprocess.run(["python", radars_script_path], check=True)
+        print("✅ Radar charts generated.")
+
 # Function to load fixture data from multiple sources
 def load_fixtures():
     fixture_file_path = "data/tables/fixture_data.csv"
