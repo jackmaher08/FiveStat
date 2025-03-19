@@ -81,7 +81,7 @@ fixture_data = pd.merge(
 )
 
 # Define the save directory
-save_dir = "tables"
+save_dir = "data/tables"
 os.makedirs(save_dir, exist_ok=True)  # ✅ Ensure the directory exists
 
 # Define the file path
@@ -239,17 +239,17 @@ for team_id, team_info in fixture_results_df.items():
         team_stats.append({
             "Team": team_name,
             "h_a": match["h_a"],
-            "xG": round(float(match["xG"]), 2),
-            "xGA": round(float(match["xGA"]), 2),
-            "npxG": round(float(match["npxG"]), 2),
-            "npxGA": round(float(match["npxGA"]), 2),
+            "xG": round(float(match["xG"]), 1),
+            "xGA": round(float(match["xGA"]), 1),  # Ensures rounding
+            "npxG": round(float(match["npxG"]), 1),
+            "npxGA": round(float(match["npxGA"]), 1),
             "G": int(match["scored"]),
             "Shots": int(match["missed"]),
             "W": int(match["wins"]),
             "D": int(match["draws"]),
             "L": int(match["loses"]),
             "PTS": int(match["pts"]),
-            "xPTS": round(float(match["xpts"]), 2),
+            "xPTS": round(float(match["xpts"]), 1),
         })
 
 # Convert to DataFrame
@@ -257,10 +257,6 @@ complete_fixture_results_df = pd.DataFrame(team_stats)
 
 # ✅ Calculate Matches Played (MP)
 matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
-
-# Ensure save_dir is defined
-save_dir = "tables"
-os.makedirs(save_dir, exist_ok=True)
 
 # Load fixture data
 fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")

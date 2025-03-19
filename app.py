@@ -35,22 +35,45 @@ def home():
 def about():
     return render_template("about.html")
 
+
+
+
+
+
+
+
 @app.route('/epl_table')
-def table():
-    try:
-        league_table_file_path = "data/tables/league_table_data.csv"
+def epl_table():
+    import pandas as pd
+    
+    # ✅ Load current league table
+    league_table = pd.read_csv("data/tables/league_table_data.csv").to_dict(orient="records")
 
-        if os.path.exists(league_table_file_path):
-            league_table_df = pd.read_csv(league_table_file_path)
-            league_table = league_table_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
-        else:
-            league_table = []
+    # ✅ Load simulated league table
+    simulated_table = pd.read_csv("data/tables/simulated_league_positions.csv")
 
-        return render_template('epl_table.html', league_table=league_table)
+    # ✅ Rename first column to "Team" if it is unnamed
+    simulated_table.rename(columns={"Unnamed: 0": "Team"}, inplace=True)
 
-    except Exception as e:
-        print(f"❌ Error loading league table data: {e}")
-        return render_template('epl_table.html', league_table=[])
+    # ✅ Convert all column names to **strings** (so Jinja can access them)
+    simulated_table.columns = simulated_table.columns.astype(str)
+
+    # ✅ Convert back to dictionary format
+    simulated_table = simulated_table.to_dict(orient="records")
+
+    # ✅ Get number of positions (1-20)
+    num_positions = len(simulated_table[0]) - 2  # Exclude "Team" and "Final xPTS"
+
+    return render_template("epl_table.html", league_table=league_table, simulated_table=simulated_table, num_positions=num_positions)
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/epl-players')

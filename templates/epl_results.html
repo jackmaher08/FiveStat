@@ -98,7 +98,7 @@
                 {% for team in league_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a>                    </td>
+                    <td><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a>                    </td>
                     <td>{{ team["MP"] }}</td>
                     <td class="bold-left-border">{{ team["W"] }}</td>
                     <td>{{ team["D"] }}</td>
@@ -114,12 +114,15 @@
     <br><br><br>
     <!-- Dark Overlay for Team Modal -->
     <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-
+    <div class="modal-overlay" id="teamShotmapModalOverlay" onclick="toggleModal('teamShotmapModal')"></div>
     <!-- Team Modal -->
     <div class="modal" id="teamInfoModal">
         <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
         <h3>Team Pages Coming Soon</h3>
         <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+    <div class="modal" id="teamShotmapModal">
+        <img id="teamShotmapImage" src="" alt="Team Shotmap">
     </div>
 
     <script>
@@ -138,6 +141,29 @@
     </script>
 
     <script>
+        const TEAM_NAME_MAPPING = {
+            "Arsenal": "Arsenal",
+            "Aston Villa": "Aston Villa",
+            "Bournemouth": "Bournemouth",
+            "Brentford": "Brentford",
+            "Brighton": "Brighton",
+            "Chelsea": "Chelsea",
+            "Crystal Palace": "Crystal Palace",
+            "Everton": "Everton",
+            "Fulham": "Fulham",
+            "Ipswich": "Ipswich",
+            "Leicester": "Leicester",
+            "Liverpool": "Liverpool",
+            "Man City": "Manchester City",
+            "Man Utd": "Manchester United",
+            "Newcastle": "Newcastle United",
+            "Nott'm Forest": "Nottingham Forest",
+            "Southampton": "Southampton",
+            "Spurs": "Tottenham",
+            "West Ham": "West Ham",
+            "Wolves": "Wolverhampton Wanderers"
+        };
+
         function toggleDropdown(event) {
             event.preventDefault();  // Prevents page from jumping
             let dropdown = document.querySelector('.dropdown');
@@ -156,83 +182,111 @@
                 }
             }
         };
-            function toggleDropdown(event) {
-                event.preventDefault();  // Prevents page from jumping
-                let dropdown = document.querySelector('.dropdown');
-                dropdown.classList.toggle('show');
-            }
-            
-            // Close dropdown if clicked outside
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropbtn')) {
-                    let dropdowns = document.getElementsByClassName("dropdown");
-                    for (let i = 0; i < dropdowns.length; i++) {
-                        let openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
                     }
                 }
-            };
+            }
+        };
 
-            let currentSortColumn = -1;
-            let ascending = true;
+        let currentSortColumn = -1;
+        let ascending = true;
 
-            let sortState = {}; // Track sorting state per table
+        let sortState = {}; // Track sorting state per table
 
-            function sortTable(tableId, columnIndex) {
-                let table = document.getElementById(tableId);
-                let tbody = table.querySelector("tbody");
-                let rows = Array.from(tbody.rows);
+        function sortTable(tableId, columnIndex) {
+            let table = document.getElementById(tableId);
+            let tbody = table.querySelector("tbody");
+            let rows = Array.from(tbody.rows);
 
-                // Initialize sorting state for this table if not set
-                if (!sortState[tableId]) {
-                    sortState[tableId] = { column: -1, ascending: true };
-                }
+            // Initialize sorting state for this table if not set
+            if (!sortState[tableId]) {
+                sortState[tableId] = { column: -1, ascending: true };
+            }
 
-                // Toggle sorting order if the same column is clicked
-                if (sortState[tableId].column === columnIndex) {
-                    sortState[tableId].ascending = !sortState[tableId].ascending;
+            // Toggle sorting order if the same column is clicked
+            if (sortState[tableId].column === columnIndex) {
+                sortState[tableId].ascending = !sortState[tableId].ascending;
+            } else {
+                sortState[tableId].column = columnIndex;
+                sortState[tableId].ascending = false; // Default to ascending on new column click
+            }
+
+            let ascending = sortState[tableId].ascending;
+
+            rows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim();
+                let valB = b.cells[columnIndex].innerText.trim();
+
+                // Convert to numbers when possible
+                let numA = parseFloat(valA);
+                let numB = parseFloat(valB);
+
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return ascending ? numA - numB : numB - numA;
                 } else {
-                    sortState[tableId].column = columnIndex;
-                    sortState[tableId].ascending = false; // Default to ascending on new column click
+                    return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
                 }
+            });
 
-                let ascending = sortState[tableId].ascending;
+            tbody.innerHTML = "";
+            rows.forEach(row => tbody.appendChild(row));
 
-                rows.sort((a, b) => {
-                    let valA = a.cells[columnIndex].innerText.trim();
-                    let valB = b.cells[columnIndex].innerText.trim();
+            updateSortingIndicator(tableId, columnIndex, ascending);
+        }
 
-                    // Convert to numbers when possible
-                    let numA = parseFloat(valA);
-                    let numB = parseFloat(valB);
+        function updateSortingIndicator(tableId, columnIndex, ascending) {
+            let table = document.getElementById(tableId);
 
-                    if (!isNaN(numA) && !isNaN(numB)) {
-                        return ascending ? numA - numB : numB - numA;
-                    } else {
-                        return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
-                    }
-                });
+            // Reset all indicators for this table
+            table.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
 
-                tbody.innerHTML = "";
-                rows.forEach(row => tbody.appendChild(row));
-
-                updateSortingIndicator(tableId, columnIndex, ascending);
+            // Set indicator for the currently sorted column
+            let header = table.querySelectorAll("th")[columnIndex];
+            if (header) {
+                header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
             }
+        }
 
-            function updateSortingIndicator(tableId, columnIndex, ascending) {
-                let table = document.getElementById(tableId);
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay
 
-                // Reset all indicators for this table
-                table.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+            let isVisible = modal.style.display === "block";
 
-                // Set indicator for the currently sorted column
-                let header = table.querySelectorAll("th")[columnIndex];
-                if (header) {
-                    header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
-                }
-            }
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        function openTeamShotmapModal(teamName) {
+            // Use the mapping dictionary to standardize team names
+            let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName;
+
+            // Construct the image URL
+            let imageUrl = `/static/shotmaps/team/${standardizedTeamName}_shotmap.png`;
+
+            // Debugging: Log the generated image URL
+            console.log(`Looking for: ${imageUrl}`);
+
+            // Set the image source
+            document.getElementById("teamShotmapImage").src = imageUrl;
+
+            // Show the modal
+            toggleModal('teamShotmapModal');
+        }
+
     </script>
 </body>
 </html>

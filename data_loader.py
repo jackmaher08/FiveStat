@@ -14,6 +14,18 @@ from matplotlib.colors import LinearSegmentedColormap
 import random
 import matplotlib.image as mpimg
 import seaborn as sns
+import subprocess
+
+def run_data_scraper():
+    """Runs data_scraper_script.py to update fixture data before loading."""
+    script_path = os.path.join("data", "data_scraper_script.py")  # Correct path
+
+    if not os.path.exists(script_path):
+        raise FileNotFoundError(f"❌ data_scraper_script.py not found at {script_path}")
+
+    print("🔄 Running data_scraper_script.py to update data...")
+    subprocess.run(["python", script_path], check=True)  # Run the script with the correct path
+    print("✅ Data scraper completed.")
 
 # Function to load fixture data from multiple sources
 def load_fixtures():
@@ -133,10 +145,9 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     away_win_prob = np.sum(np.triu(result_matrix, 1))   # Above diagonal
     draw_prob = np.sum(np.diag(result_matrix))          # Diagonal elements
 
-    return result_matrix, home_win_prob, draw_prob, away_win_prob
+    print(f"XG: {home_xg:.2f} vs {away_xg:.2f} -> Home Win: {home_win_prob:.3f}, Draw: {draw_prob:.3f}, Away Win: {away_win_prob:.3f}")
 
-import os
-import matplotlib.pyplot as plt
+    return result_matrix, home_win_prob, draw_prob, away_win_prob
 
 print("Poisson Dist Calculated!")
 
@@ -214,42 +225,60 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         return  # 🔄 Skip generating this heatmap
 
 def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+    print("🔄 Running generate_all_heatmaps()...")
 
-    # ✅ Load the next gameweek fixtures
-    next_gw_file_path = "data/tables/next_gw_fixtures.csv"
-    if os.path.exists(next_gw_file_path):
-        next_gw_fixtures = pd.read_csv(next_gw_file_path)
-    else:
-        raise FileNotFoundError(f"Next gameweek fixture file not found: {next_gw_file_path}. Ensure it's saved before running.")
+    fixture_file_path = "data/tables/fixture_data.csv"
+    probabilities_file_path = "data/tables/fixture_probabilities.csv"
 
-    # ✅ Generate heatmaps only for next gameweek fixtures
-    for _, fixture in next_gw_fixtures.iterrows():
+    if not os.path.exists(fixture_file_path):
+        print("❌ Fixture file missing! Exiting...")
+        raise FileNotFoundError(f"Fixture file not found: {fixture_file_path}. Ensure it's saved before running.")
+
+    print("✅ Fixture file found, loading data...")
+    fixtures_df = pd.read_csv(fixture_file_path)
+
+    print("✅ Creating a new DataFrame for probabilities...")
+    probabilities_df = fixtures_df[['home_team', 'away_team']].copy()
+
+    print("✅ Initializing empty probability columns...")
+    probabilities_df["home_win_prob"] = np.nan
+    probabilities_df["draw_prob"] = np.nan
+    probabilities_df["away_win_prob"] = np.nan
+
+    print("✅ Processing matches to calculate probabilities...")
+    for index, fixture in fixtures_df.iterrows():
         home_team = fixture['home_team']
         away_team = fixture['away_team']
-        gw_number = fixture['round_number']
 
         if pd.isna(home_team) or pd.isna(away_team):
-            continue  # Skip if IDs are missing
+            continue
 
         if home_team not in team_stats or away_team not in team_stats:
             continue
 
-        # Blend overall ratings with recent form using alpha weighting
         home_att_rating = (1 - alpha) * team_stats[home_team]['ATT Rating'] + alpha * recent_form_att[home_team]
         away_att_rating = (1 - alpha) * team_stats[away_team]['ATT Rating'] + alpha * recent_form_att[away_team]
         home_def_rating = (1 - alpha) * team_stats[home_team]['DEF Rating'] + alpha * recent_form_def[home_team]
         away_def_rating = (1 - alpha) * team_stats[away_team]['DEF Rating'] + alpha * recent_form_def[away_team]
 
-        # Adjusted expected goals (xG)
         home_xg = home_att_rating * away_def_rating
         away_xg = away_att_rating * home_def_rating
-        
-        result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
 
-        # ✅ Generate heatmap for the next gameweek fixture
-        display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path)
+        _, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
+
+        print(f"Match: {home_team} vs {away_team} | Home: {home_prob:.3f}, Draw: {draw_prob:.3f}, Away: {away_prob:.3f}")
+
+        probabilities_df.at[index, "home_win_prob"] = home_prob
+        probabilities_df.at[index, "draw_prob"] = draw_prob
+        probabilities_df.at[index, "away_win_prob"] = away_prob
+
+    print("🔄 Saving match probabilities to fixture_probabilities.csv...")
+    probabilities_df.to_csv(probabilities_file_path, index=False)
+
+    print("✅ fixture_probabilities.csv successfully created at:", probabilities_file_path)
+
+
+
 
 print("Heatmaps generated successfully!")
 
@@ -267,14 +296,20 @@ completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 
 # Dict for shotmap table team names
 TEAM_NAME_MAPPING = {
-    "WolverhamptonWanderers": "Wolves",
-    "CrystalPalace": "Crystal Palace",
-    "NottinghamForest": "Forest",
+    "Wolverhampton Wanderers": "Wolves",
+    "Crystal Palace": "Crystal Palace",
+    "Nottingham Forest": "Forest",
     "Tottenham": "Spurs",
-    "ManchesterCity": "Man City",
-    "Man Utd": "ManchesterUnited",
-    "NewcastleUnited": "Newcastle",
-    "WestHam": "West Ham"
+    "Manchester City": "Man City",
+    "Man Utd": "Manchester United",
+    "Newcastle United": "Newcastle",
+    "West Ham": "West Ham",
+    "Nott'm": "Nottingham Forest",
+    "Man City": "Manchester City",
+    "Spurs": "Tottenham",
+    "Newcastle": "Newcastle United",
+    "Wolves": "Wolverhampton Wanderers",
+    "Nott'm Forest": "Nottingham Forest"
 }
 
 # Function to generate and save shot maps
@@ -555,16 +590,172 @@ def generate_goals_xg_chart():
     print(f"Chart saved to {SAVE_PATH}")
 
 
-    
+
+
+# Load remaining fixtures
+fixtures = pd.read_csv("C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv")
+
+# Load current league table
+league_table = pd.read_csv("C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/league_table_data.csv")
+
+# Extract necessary columns
+team_points = league_table.set_index("Team")["PTS"].to_dict()
+teams = list(team_points.keys())
+
+# Simulation Parameters
+num_simulations = 10000
+num_teams = len(teams)
+num_positions = num_teams  # Positions 1 to last place
+
+# Create a dictionary to store simulation results
+position_counts = {team: np.zeros(num_positions) for team in teams}
+
+
+
+
+
+
+
+# ✅ Move execution inside `if __name__ == "__main__"`
 if __name__ == "__main__":
-    fixtures_df = load_fixtures()
+    print("🚀 Starting data_loader.py...")
+
+    print("🔄 Running data scraper to update fixtures...")
+    run_data_scraper()
+
+    print("🔄 Loading match data...")
     historical_fixtures_df = load_match_data()
     team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df)
 
+    print("🔄 Calculating recent form...")
     recent_form_att, recent_form_def = calculate_recent_form(
         historical_fixtures_df, team_data, recent_matches=20, alpha=0.65
     )
 
+    print("🔄 Ensuring generate_all_heatmaps() runs before simulation...")
     generate_all_heatmaps(team_data, recent_form_att, recent_form_def)
+    print("✅ generate_all_heatmaps() executed successfully!")
 
-    generate_goals_xg_chart()
+    # ✅ Ensure fixture_probabilities.csv is created before simulation
+    probabilities_file_path = "data/tables/fixture_probabilities.csv"
+    print("🔄 Loading match probabilities from fixture_probabilities.csv...")
+
+    try:
+        probabilities_df = pd.read_csv(probabilities_file_path)
+    except FileNotFoundError:
+        raise ValueError("❌ 'fixture_probabilities.csv' is missing! Check if generate_all_heatmaps() is running.")
+
+    print("🔎 Checking columns in fixture_probabilities.csv:", probabilities_df.columns)
+    if "home_win_prob" not in probabilities_df.columns:
+        raise ValueError("❌ 'home_win_prob' is missing! Ensure generate_all_heatmaps() ran properly.")
+
+    print("✅ Match probabilities successfully loaded!")
+
+    # ✅ Move Monte Carlo Simulation Here (AFTER probabilities are loaded)
+    print("🔄 Running Monte Carlo simulation: 10,000 sims")
+
+    # ✅ Load fixture data (contains results) and match probabilities
+    fixture_data = pd.read_csv("data/tables/fixture_data.csv")  # Contains `result`
+    probabilities_df = pd.read_csv("data/tables/fixture_probabilities.csv")  # Contains win probabilities
+
+    # ✅ Merge the datasets to ensure we have probabilities + results
+    fixtures = fixture_data.merge(probabilities_df, on=["home_team", "away_team"], how="left")
+
+    # ✅ Filter only games that haven't been played (where `result` column is NULL)
+    remaining_fixtures = fixtures[fixtures["result"].isna()]
+
+    # ✅ Load current league table
+    league_table = pd.read_csv("data/tables/league_table_data.csv")
+
+    # ✅ Extract current points for each team
+    team_points = league_table.set_index("Team")["PTS"].to_dict()
+    teams = list(team_points.keys())
+
+    # ✅ Simulation Parameters
+    num_simulations = 10000
+    num_teams = len(teams)
+    num_positions = num_teams  # Positions 1 to last place
+
+    # ✅ Create a dictionary to store simulation results
+    num_positions = 20  # Ensure exactly 20 positions
+    position_counts = {team: np.zeros(num_positions) for team in teams}
+
+    simulated_remaining_points = {team: 0 for team in teams}  # ✅ Track only points from unplayed matches
+
+    # ✅ Monte Carlo Simulation (Simulating Remaining Fixtures Only)
+    for _ in range(num_simulations):
+        simulated_points = team_points.copy()  # ✅ Start with real league points
+
+        for _, match in remaining_fixtures.iterrows():  # ✅ Use only unplayed matches
+            home_team = match["home_team"]
+            away_team = match["away_team"]
+
+            # ✅ Standardize team names
+            home_team = TEAM_NAME_MAPPING.get(home_team, home_team)
+            away_team = TEAM_NAME_MAPPING.get(away_team, away_team)
+
+            # ✅ Ensure team exists before simulating
+            if home_team not in simulated_points or away_team not in simulated_points:
+                print(f"⚠️ Warning: {home_team} or {away_team} not found in league table! Skipping match.")
+                continue
+
+            home_prob = match["home_win_prob"]
+            draw_prob = match["draw_prob"]
+            away_prob = match["away_win_prob"]
+
+            # ✅ Simulate match result
+            outcome = np.random.choice(["home_win", "draw", "away_win"], p=[home_prob, draw_prob, away_prob])
+
+            # ✅ Update points only for remaining fixtures
+            if outcome == "home_win":
+                simulated_points[home_team] += 3
+                simulated_remaining_points[home_team] += 3
+            elif outcome == "draw":
+                simulated_points[home_team] += 1
+                simulated_points[away_team] += 1
+                simulated_remaining_points[home_team] += 1
+                simulated_remaining_points[away_team] += 1
+            else:  # away win
+                simulated_points[away_team] += 3
+                simulated_remaining_points[away_team] += 3
+
+        # ✅ Rank teams based on final simulated points
+        sorted_teams = sorted(simulated_points.items(), key=lambda x: x[1], reverse=True)
+
+        # ✅ Record finishing positions
+        for rank, (team, _) in enumerate(sorted_teams):
+            position_counts[team][rank] += 1
+
+    # ✅ Compute Final xPTS (Current Points + Expected Simulated Points for Remaining Games)
+    average_xPTS = {}
+    for team in teams:
+        avg_sim_points = simulated_remaining_points.get(team, 0) / num_simulations
+        average_xPTS[team] = team_points.get(team, 0) + avg_sim_points  # Add to current points
+
+
+    # ✅ Ensure all teams have 1-20 position keys before saving
+    for team in position_counts:
+        for pos in range(num_positions):  # Loop through indices (0-19)
+            if pos >= len(position_counts[team]):  # If index out of range, fill it
+                position_counts[team][pos] = 0
+
+
+
+
+    # ✅ Convert position counts to percentages
+    final_probabilities = pd.DataFrame(position_counts)
+    final_probabilities = final_probabilities.T  # Transpose (Teams as rows)
+    final_probabilities.columns = [str(i) for i in range(1, num_positions + 1)]  # Ensure column names are strings
+    final_probabilities /= num_simulations  # ✅ Keep precise values (e.g., 0.0036, not 0.0)
+
+    # ✅ Add Final xPTS Column
+    final_probabilities["Final xPTS"] = final_probabilities.index.map(average_xPTS)
+
+    # ✅ Rank teams based on Final xPTS
+    final_probabilities = final_probabilities.sort_values(by="Final xPTS", ascending=False)
+
+    # ✅ Save results to CSV
+    output_file_path = "data/tables/simulated_league_positions.csv"
+    final_probabilities.to_csv(output_file_path, index=True, float_format="%.6f")
+
+    print(f"✅ Simulation results saved to: {output_file_path}")

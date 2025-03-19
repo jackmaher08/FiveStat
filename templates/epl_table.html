@@ -60,7 +60,7 @@
                 {% for team in league_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a>                    </td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
                     <td class="bold-left-border">{{ team["MP"] }}</td>
                     <td class="bold-left-border">{{ team["W"] }}</td>
                     <td>{{ team["D"] }}</td>
@@ -116,6 +116,45 @@
         </table>
     </div>
     <br><br><br>
+    <h2>Simulated League Positions</h2>
+    <button class="info-button" onclick="toggleModal('infoModal')">ℹ️</button>
+    <!-- Dark Overlay -->
+    <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="./methodology.html">Match Prediction Model</a> to visualize how the final Premier League Table will look</p>
+    </div>
+    <div class="table-container">
+        <table id="simulatedTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('simulatedTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('simulatedTable', 1)">Team <span class="sort-indicator"></span></th>
+                    {% for position in range(1, num_positions + 1) %}
+                    <th onclick="sortTable('simulatedTable', {{ position + 2 }})">{{ position }} <span class="sort-indicator"></span></th>
+                    {% endfor %}
+                    <th class="bold-left-border" onclick="sortTable('simulatedTable', 2)">Final xPTS <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="simulatedTable">
+                {% for team in simulated_table %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
+                    {% for position in range(1, num_positions + 1) %}
+                        {% set probability = team[position|string] * 100 %}
+                        {% set opacity = probability / 40 %} {# Scale from 0 to 1 #}
+                        <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
+                            {{ probability | round(1) }}%
+                        </td>
+                    {% endfor %}
+                    <td class="bold-left-border">{{ team["Final xPTS"] | round(1) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
     <div class="team_shotmap_image">
         <h2>24/25 Weekly Goals</h2>
         <h5>Looking at the total goals scored against the xG per GW</h5>
@@ -125,18 +164,32 @@
     <br><br><br>
     
 
-        <!-- Dark Overlay for Team Modal -->
-        <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-        <div class="modal-overlay" id="teamShotmapModalOverlay" onclick="toggleModal('teamShotmapModal')"></div>
-        <!-- Team Modal -->
-        <div class="modal" id="teamInfoModal">
-            <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
-            <h3>Team Pages Coming Soon</h3>
-            <p>We are currently working on individual team pages. Stay tuned for updates!</p>
-        </div>
-        <div class="modal" id="teamShotmapModal">
-            <img id="teamShotmapImage" src="" alt="Team Shotmap">
-        </div>
+    <!-- Dark Overlay for Team Modal -->
+    <div class="modal-overlay" id="infoModalOverlay"></div>
+    <div class="modal-overlay" id="teamInfoModalOverlay"></div>
+    <div class="modal-overlay" id="teamShotmapModalOverlay"></div>
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
+        <p>
+            We have simulated the remaining fixtures of the 24/25 season using our
+            <a href="./methodology.html">Match Prediction Model</a> to visualize how the final Premier League Table will look.
+        </p>
+    </div>
+
+    <!-- Team Modal -->
+    <div class="modal" id="teamInfoModal">
+        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
+        <h3>Team Pages Coming Soon</h3>
+        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+
+    <!-- Shotmap Modal -->
+    <div class="modal" id="teamShotmapModal">
+        <img id="teamShotmapImage" src="" alt="Team Shotmap">
+    </div>
+
 
 
         <script>
@@ -246,13 +299,13 @@
 
         function toggleModal(id) {
             let modal = document.getElementById(id);
-            let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay
-
+            let overlay = document.getElementById("modalOverlay");
             let isVisible = modal.style.display === "block";
 
             modal.style.display = isVisible ? "none" : "block";
             overlay.style.display = isVisible ? "none" : "block";
         }
+
 
         function openTeamShotmapModal(teamName) {
             // Use the mapping dictionary to standardize team names
@@ -270,6 +323,26 @@
             // Show the modal
             toggleModal('teamShotmapModal');
         }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Use corresponding overlay
+
+            let isVisible = modal.style.display === "block";
+
+            // Toggle modal and overlay display
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        // Close modal when clicking the overlay
+        document.querySelectorAll(".modal-overlay").forEach(overlay => {
+            overlay.addEventListener("click", function() {
+                let modalId = this.id.replace("Overlay", ""); // Extract corresponding modal ID
+                toggleModal(modalId);
+            });
+        });
+
 
         </script>
 </body>

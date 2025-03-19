@@ -359,8 +359,17 @@ ul {
 }
 /* Responsive Table */
 .table-container {   
+    overflow-x: auto;
     max-width: 90vw;
+    width: 100%;
     margin: auto;
+    display: block;
+}
+
+.table-container table {
+    min-width: 600px;  /* Ensures table has a reasonable width */
+    width: 100%;
+    border-collapse: collapse;
 }
 
 table {
@@ -373,4 +382,10 @@ table {
 th, td {
     padding: 8px;
     text-align: center;
+}
+.small-text {
+    font-size: 10px;  
+    text-align: center;  
+    font-weight: bold;
+    color: #222;
 }
