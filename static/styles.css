@@ -375,7 +375,7 @@ ul {
 
 .table-container table {
     min-width: 600px;  /* Ensures table has a reasonable width */
-    width: 100%;
+    width: 95%;
     border-collapse: collapse;
 }
 

@@ -171,7 +171,6 @@
 
     <!-- Team Modal -->
     <div class="modal" id="teamInfoModal">
-        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
         <h3>Team Pages Coming Soon</h3>
         <p>We are currently working on individual team pages. Stay tuned for updates!</p>
     </div>
@@ -213,19 +212,6 @@
                 let dropdown = document.querySelector('.dropdown');
                 dropdown.classList.toggle('show');
             }
-            
-            // Close dropdown if clicked outside
-            window.onclick = function(event) {
-                if (!event.target.matches('.dropbtn')) {
-                    let dropdowns = document.getElementsByClassName("dropdown");
-                    for (let i = 0; i < dropdowns.length; i++) {
-                        let openDropdown = dropdowns[i];
-                        if (openDropdown.classList.contains('show')) {
-                            openDropdown.classList.remove('show');
-                        }
-                    }
-                }
-            };
 
             let currentSortColumn = -1;
         let ascending = true;

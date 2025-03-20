@@ -113,14 +113,17 @@
     </div>
     <br><br><br>
     <!-- Dark Overlay for Team Modal -->
-    <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-    <div class="modal-overlay" id="teamShotmapModalOverlay" onclick="toggleModal('teamShotmapModal')"></div>
+    <div class="modal-overlay" id="infoModalOverlay"></div>
+    <div class="modal-overlay" id="teamInfoModalOverlay"></div>
+    <div class="modal-overlay" id="teamShotmapModalOverlay"></div>
+
     <!-- Team Modal -->
     <div class="modal" id="teamInfoModal">
-        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
         <h3>Team Pages Coming Soon</h3>
         <p>We are currently working on individual team pages. Stay tuned for updates!</p>
     </div>
+
+    <!-- Shotmap Modal -->
     <div class="modal" id="teamShotmapModal">
         <img id="teamShotmapImage" src="" alt="Team Shotmap">
     </div>
@@ -169,37 +172,14 @@
             let dropdown = document.querySelector('.dropdown');
             dropdown.classList.toggle('show');
         }
-        
-        // Close dropdown if clicked outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                let dropdowns = document.getElementsByClassName("dropdown");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    let openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        };
-        function toggleDropdown(event) {
-            event.preventDefault();  // Prevents page from jumping
-            let dropdown = document.querySelector('.dropdown');
-            dropdown.classList.toggle('show');
-        }
-        
-        // Close dropdown if clicked outside
-        window.onclick = function(event) {
-            if (!event.target.matches('.dropbtn')) {
-                let dropdowns = document.getElementsByClassName("dropdown");
-                for (let i = 0; i < dropdowns.length; i++) {
-                    let openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        };
+
+        // Close modal when clicking the overlay
+        document.querySelectorAll(".modal-overlay").forEach(overlay => {
+            overlay.addEventListener("click", function() {
+                let modalId = this.id.replace("Overlay", ""); // Extract corresponding modal ID
+                toggleModal(modalId);
+            });
+        });
 
         let currentSortColumn = -1;
         let ascending = true;

@@ -96,20 +96,30 @@ def process_match_shots(understat_match_id):
             df = pd.DataFrame(shots)
             if df.empty:
                 continue
-
+            
             df['team'] = home_team if team == 'home' else away_team
+             
+            # ✅ Flip coordinates for away teams (Ensuring all shots face the same goal)
+            if team == 'away':
+                df['X'] = 1 - df['X']  # Flip X
+
+            
             df['x_scaled'] = df['X'].astype(float) * 120
             df['y_scaled'] = df['Y'].astype(float) * 80
 
-            # Flip coordinates **only for away teams** (so all shots face the same goal)
-            if team == 'away':
-                df['x_scaled'] = 120 - df['x_scaled']
+            
 
-            team_shots.setdefault(df['team'].iloc[0], pd.DataFrame())
-            team_shots[df['team'].iloc[0]] = pd.concat([team_shots[df['team'].iloc[0]], df], ignore_index=True)
+            # ✅ Debugging: Print sample flipped shots for validation
+            print(f"🏟️ Processed shots for {df['team'].iloc[0]} (Team: {team}) - First 3 shots:")
+            print(df[['x_scaled', 'y_scaled']].head(3))
+
+            # ✅ Ensure modified shot data is correctly stored
+            team_name = df['team'].iloc[0]  # Get team name
+            team_shots[team_name] = df.copy()  # Save flipped shots
 
     except Exception as e:
-        print(f"Error processing match {understat_match_id}: {e}")
+        print(f"❌ Error processing match {understat_match_id}: {e}")
+
 
 
 
@@ -214,6 +224,14 @@ def plot_team_shotmap(team_name):
         print(f"No shots found for {team_name}")
         return
     
+    # ✅ Flip away team shots so all teams shoot towards the same goal
+    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
+    df.loc[df["h_a"] == "a", "y_scaled"] = 80 - df["y_scaled"]
+
+    total_shots = len(df)
+    total_goals = len(df[df["result"].str.lower() == "goal"])
+    total_xg = df["xG"].sum()
+
     # Create pitch
     pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
     fig, ax = pitch.draw(figsize=(12, 9))
@@ -235,6 +253,8 @@ def plot_team_shotmap(team_name):
 
     plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
 
+
+
     # Save using standardized team name
     shotmap_filename = f"{formatted_filename}_shotmap.png"
     plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
@@ -249,4 +269,3 @@ for team in team_shots.keys():
     plot_team_shotmap(team)  # ✅ Now uses **all** available shots for the season
 
 print("✅ All Team Shotmaps Generated! 🎯⚽")
-
