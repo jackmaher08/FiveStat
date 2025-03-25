@@ -71,15 +71,6 @@
         </table>
     </div>
 
-    <!-- Dark Overlay for Team Modal -->
-    <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-
-    <!-- Team Modal -->
-    <div class="modal" id="teamInfoModal">
-        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
-        <h3>Team Pages Coming Soon</h3>
-        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
-    </div>
 
     <!-- Dark Overlay for Player Modal -->
     <div class="modal-overlay" id="playerInfoModalOverlay" onclick="toggleModal('playerInfoModal')"></div>
@@ -95,6 +86,47 @@
         <span id="pageInfo">Page 1</span>
         <button id="nextBtn" onclick="changePage(1)">Next</button>
     </div>
+    <br><br>
+    <hr class="fixture-divider">
+    <br><br>
+    <div class="radar-container">
+        <label for="player1">Select Player 1:</label>
+        <select id="player1">
+            <option value="">Select Player</option>
+            {% for player in players %}
+            <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% endfor %}
+        </select>
+    <br><br>
+        <label for="player2">Select Player 2:</label>
+        <select id="player2">
+            <option value="">Select Player</option>
+            {% for player in players %}
+            <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% endfor %}
+        </select>
+    <br><br>
+        <button onclick="generateRadar()">Compare Players</button>
+    </div>
+    <br><br>
+    <!-- Display the radar chart -->
+    <div id="radarChartContainer">
+        <img id="radarChart" src="" alt="Radar Chart will appear here">
+    </div>
+    
+
+    
+
+    <!-- Dark Overlay for Team Modal -->
+    <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
+
+    <!-- Team Modal -->
+    <div class="modal" id="teamInfoModal">
+        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
+        <h3>Team Pages Coming Soon</h3>
+        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+
 
     <script>
         let currentSortColumn = 4; // Default sort by "Goals"
@@ -164,9 +196,19 @@
             toggleModal('playerInfoModal');
         }
 
-    </script>
+        function generateRadar() {
+            let player1 = document.getElementById("player1").value;
+            let player2 = document.getElementById("player2").value;
 
-    <script>
+            if (!player1 || !player2) {
+                alert("Please select two players!");
+                return;
+            }
+
+            let radarImage = document.getElementById("radarChart");
+            radarImage.src = `/generate_radar?player1=${player1}&player2=${player2}`;
+        }
+
         function toggleDropdown(event) {
             event.preventDefault();  // Prevents page from jumping
             let dropdown = document.querySelector('.dropdown');
@@ -185,17 +227,12 @@
                 }
             }
         };
-    </script>
 
-    <script>
         function toggleMenu() {
             let menu = document.querySelector('.menu');
             menu.classList.toggle('show');
         }
-    </script>
 
-    
-    <script>
         function toggleModal(id) {
             let modal = document.getElementById(id);
             let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay

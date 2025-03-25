@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 import numpy as np
 from scipy.stats import poisson
 import os
@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data
 import datetime
 from datetime import datetime
+from generate_radars import generate_comparison_radar_chart, columns_to_plot
+
 
 # Flask app initialization
 app = Flask(__name__)
@@ -204,6 +206,36 @@ def results():
     except Exception as e:
         print(f"❌ Error loading data: {e}")
         return render_template("results.html", fixtures=[], league_table=[], week_offset=0, first_gw=0, last_gw=0)
+    
+
+@app.route('/generate_radar')
+def generate_radar():
+    player1 = request.args.get('player1')
+    player2 = request.args.get('player2')
+
+    if not player1 or not player2:
+        return "Invalid player selection", 400
+
+    # Load player data
+    df = pd.read_csv("data/tables/player_radar_data.csv")
+
+    if player1 not in df['Player'].values or player2 not in df['Player'].values:
+        return "Player not found", 404
+
+    # Get player stats
+    player1_stats = df[df['Player'] == player1][columns_to_plot].values.flatten().tolist()
+    player2_stats = df[df['Player'] == player2][columns_to_plot].values.flatten().tolist()
+
+    # Generate radar chart comparing both players
+    fig, ax = generate_comparison_radar_chart(player1, player2, player1_stats, player2_stats)
+
+    # Save the radar image
+    radar_image_path = f"static/radar/{player1}_vs_{player2}.png"
+    fig.savefig(radar_image_path, dpi=300)
+    plt.close(fig)
+
+    return send_file(radar_image_path, mimetype='image/png')
+
 
 
 

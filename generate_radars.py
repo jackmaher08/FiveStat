@@ -2,6 +2,9 @@ import os
 import pandas as pd
 from mplsoccer import Radar
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')  # Use a non-interactive backend
+
 
 # generating player radar charts
 
@@ -88,6 +91,51 @@ def generate_radar_chart(player_name, player_stats, average_stats):
     )
 
     return fig, ax
+
+
+# Generate player comparion radar charts
+def generate_comparison_radar_chart(player1, player2, player1_stats, player2_stats):
+    radar = Radar(
+        params=columns_to_plot,
+        min_range=[0 for _ in columns_to_plot],
+        max_range=[100 for _ in columns_to_plot]
+    )
+
+    # Set background color for the figure and axis
+    fig.patch.set_facecolor('#f4f4f9')  # Background color for the entire figure
+    ax.set_facecolor('#f4f4f9')  # Background for the radar plot area
+
+    fig, ax = radar.setup_axis()
+    radar.draw_circles(ax=ax, facecolor='white', edgecolor='black', lw=1, zorder=1)
+
+    # Plot Player 1 (Red) vs Player 2 (Blue)
+    radar.draw_radar_compare(
+        ax=ax,
+        values=player1_stats,
+        compare_values=player2_stats,
+        kwargs_radar={'facecolor': '#e63946', 'alpha': 0.6},
+        kwargs_compare={'facecolor': '#669bbc', 'alpha': 0.6}
+    )
+
+    # ✅ Add Axis Labels (Goals, Assists, etc.)
+    radar.draw_range_labels(ax=ax, fontsize=15, fontproperties="monospace")
+    radar.draw_param_labels(ax=ax, fontsize=15, fontproperties="monospace")
+
+    # ✅ Add Player Names
+    ax.text(0.2, 1.02, player1, fontsize=15, ha='center', transform=ax.transAxes, color='#e63946')
+    ax.text(0.8, 1.02, player2, fontsize=15, ha='center', transform=ax.transAxes, color='#669bbc')
+
+    # ✅ Add Additional Info Text
+    ax.text(
+        x=0, y=0.05, 
+        s='Metrics show per 90 stats\n\nComparing against all Players\nwith at least 400 minutes played\nin Europes Top 5 Domestic Leagues\n\n@FiveStat', 
+        fontsize=10, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+    )
+
+    return fig, ax
+
+
+
 
 
 # Loop through each player and generate the radar chart
