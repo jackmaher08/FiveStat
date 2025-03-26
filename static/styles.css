@@ -405,15 +405,16 @@ th, td {
 }
 
 #radarChart {
-    width: 100%; /* Set the desired width */
-    height: 100%; /* Set the desired height */
-    object-fit: contain; /* Ensures the image is contained within the dimensions */
+    width: 100%;
+    height: 100%; 
+    object-fit: contain; 
 }
 
-/* Optionally, set the maximum width for responsiveness */
+
 #radarChartContainer {
-    max-width: 100%;
+    max-width: 700px;
     overflow: hidden;
+    margin: 0 auto;
 }
 
 
