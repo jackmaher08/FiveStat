@@ -432,3 +432,12 @@ select:focus {
     border-color: #3f007d;
     box-shadow: 0 0 5px #3f007d;
 }
+
+
+.container .methodologyleagueimage {
+    width: 80%;
+}
+
+.container img {
+    margin: 30px 0;
+}
