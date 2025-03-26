@@ -89,8 +89,13 @@
     <br><br>
     <hr class="fixture-divider">
     <br><br>
+
+
+
+
+
+    <!-- Player comparison radar chart -->
     <div class="radar-container">
-        <label for="player1">Select Player 1:</label>
         <select id="player1">
             <option value="">Select Player</option>
             {% for player in players %}
@@ -98,7 +103,6 @@
             {% endfor %}
         </select>
     <br><br>
-        <label for="player2">Select Player 2:</label>
         <select id="player2">
             <option value="">Select Player</option>
             {% for player in players %}
@@ -111,7 +115,7 @@
     <br><br>
     <!-- Display the radar chart -->
     <div id="radarChartContainer">
-        <img id="radarChart" src="" alt="Radar Chart will appear here">
+        <img id="radarChart" src="">
     </div>
     
 

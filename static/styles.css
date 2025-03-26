@@ -404,3 +404,31 @@ th, td {
     text-overflow: ellipsis;
 }
 
+#radarChart {
+    width: 100%; /* Set the desired width */
+    height: 100%; /* Set the desired height */
+    object-fit: contain; /* Ensures the image is contained within the dimensions */
+}
+
+/* Optionally, set the maximum width for responsiveness */
+#radarChartContainer {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+
+
+select {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+select:focus {
+    outline: none;
+    border-color: #3f007d;
+    box-shadow: 0 0 5px #3f007d;
+}
