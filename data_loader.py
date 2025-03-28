@@ -151,7 +151,7 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     away_win_prob = np.sum(np.triu(result_matrix, 1))   # Above diagonal
     draw_prob = np.sum(np.diag(result_matrix))          # Diagonal
 
-    print(f"XG: {home_xg:.2f} vs {away_xg:.2f} -> Home Win: {home_win_prob:.3f}, Draw: {draw_prob:.3f}, Away Win: {away_win_prob:.3f}")
+    #print(f"XG: {home_xg:.2f} vs {away_xg:.2f} -> Home Win: {home_win_prob:.3f}, Draw: {draw_prob:.3f}, Away Win: {away_win_prob:.3f}")
 
     return result_matrix, home_win_prob, draw_prob, away_win_prob
 
@@ -190,44 +190,37 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
     categories = [f"{home_team}", "Draw", f"{away_team}"]
     values = [home_prob * 100, draw_prob * 100, away_prob * 100]
 
-    # Change to vertical bars
+    # Vertical bars for the probabilities
     bars = bar_ax.bar(categories, values, color='#3f007d', alpha=0.9, width=0.6)
 
     # Title for the bar chart
     bar_ax.set_title("Projected Win %'s:")
 
-    # Add text labels on bars (above each bar)
+    # Add text labels on bars
     for bar in bars:
         height = bar.get_height()
         bar_ax.text(bar.get_x() + bar.get_width()/2, height + 2, f"{height:.1f}%", 
                     ha='center', fontsize=10, fontweight='bold')
 
-    # Remove unnecessary spines
+    # Remove unnecessary spines and y-ticks
     bar_ax.spines['top'].set_visible(False)
     bar_ax.spines['right'].set_visible(False)
     bar_ax.spines['left'].set_visible(False)
     bar_ax.spines['bottom'].set_visible(False)
     bar_ax.set_yticks([])
 
-    # Add "FiveStat" watermark 
-    fig.text(0.97, 0.60, "FiveStat", fontsize=8, color="black", fontweight="bold", ha="left", va="bottom", alpha=0.4, rotation=90)
+    # Add watermark
+    fig.text(0.97, 0.60, "FiveStat", fontsize=8, color="black", fontweight="bold", 
+             ha="left", va="bottom", alpha=0.4, rotation=90)
     
-
-    # Adjust layout
+    # Adjust layout and save the figure unconditionally
     plt.tight_layout()
-
-    # Save image using Team names
     heatmap_filename = f"{home_team}_{away_team}_heatmap.png"
-    plt.savefig(os.path.join(save_path, heatmap_filename))
-    plt.close()
-
     heatmap_path = os.path.join(save_path, heatmap_filename)
+    plt.savefig(heatmap_path)
+    plt.close()
+    print(f"Saved heatmap for {home_team} vs {away_team} at {heatmap_path}")
 
-
-    # Check if the heatmap already exists
-    if os.path.exists(heatmap_path):
-        print(f"Heatmap for {home_team} vs {away_team} already exists.")
-        return  # Skip generating this heatmap
 
 def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
     print("🔄 Running generate_all_heatmaps()...")
@@ -250,7 +243,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     probabilities_df["draw_prob"] = np.nan
     probabilities_df["away_win_prob"] = np.nan
 
-    print("✅ Processing matches to calculate probabilities...")
+    print("✅ Processing matches to calculate probabilities and generate heatmaps...")
     for index, fixture in fixtures_df.iterrows():
         home_team = fixture['home_team']
         away_team = fixture['away_team']
@@ -269,18 +262,20 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         home_xg = home_att_rating * away_def_rating
         away_xg = away_att_rating * home_def_rating
 
-        _, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
-
-        print(f"Match: {home_team} vs {away_team} | Home: {home_prob:.3f}, Draw: {draw_prob:.3f}, Away: {away_prob:.3f}")
+        # Capture the full result_matrix along with probabilities
+        result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)
 
         probabilities_df.at[index, "home_win_prob"] = home_prob
         probabilities_df.at[index, "draw_prob"] = draw_prob
         probabilities_df.at[index, "away_win_prob"] = away_prob
 
+        # Call display_heatmap to generate and save the image (this will print a confirmation)
+        display_heatmap(result_matrix, home_team, away_team, fixture.get('round_number', ''), home_prob, draw_prob, away_prob, save_path)
+
     print("🔄 Saving match probabilities to fixture_probabilities.csv...")
     probabilities_df.to_csv(probabilities_file_path, index=False)
-
     print("✅ fixture_probabilities.csv successfully created at:", probabilities_file_path)
+
 
 
 
@@ -299,18 +294,15 @@ completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 TEAM_NAME_MAPPING = {
     "Wolverhampton Wanderers": "Wolves",
     "Crystal Palace": "Crystal Palace",
-    "Nottingham Forest": "Forest",
     "Tottenham": "Spurs",
     "Manchester City": "Man City",
     "Man Utd": "Manchester United",
     "Newcastle United": "Newcastle",
     "West Ham": "West Ham",
-    "Nott'm": "Nottingham Forest",
     "Man City": "Manchester City",
     "Spurs": "Tottenham",
     "Newcastle": "Newcastle United",
     "Wolves": "Wolverhampton Wanderers",
-    "Nott'm Forest": "Nottingham Forest"
 }
 
 # Function to generate and save shot maps

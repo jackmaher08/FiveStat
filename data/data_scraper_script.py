@@ -25,6 +25,11 @@ fixtures_df = fixtures_df.rename(columns={
     "Result": "result"
 })
 
+# change Nott'm Forest to Nottingham Forest
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Nott'm Forest": "Nottingham Forest"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Nott'm Forest": "Nottingham Forest"})
+
+
 # Convert 'round_number' to numeric
 fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
 
@@ -51,8 +56,10 @@ team_name_mapping = {
     "Manchester City": "Man City",
     "Tottenham": "Spurs",
     "Wolverhampton Wanderers": "Wolves",
-    "Nottingham Forest": "Nott'm Forest"
+    "Nottingham Forest": "Nottingham Forest",
+    "Nott'm Forest": "Nottingham Forest"
 }
+
 
 # Parse fixture data
 fixture_data_temp = []
@@ -80,8 +87,10 @@ fixture_data = pd.merge(
     how="left"  # Keep all fixtures even if no match in fixture_data_df
 )
 
+
+
 # Define the save directory
-save_dir = "data/tables"
+save_dir = "tables"
 os.makedirs(save_dir, exist_ok=True)  # ✅ Ensure the directory exists
 
 # Define the file path
@@ -264,7 +273,6 @@ fixture_df = pd.read_csv(fixture_data_file_path)
 
 # Standardize team names for merging
 team_name_mapping = {
-    "Nott'm Forest": "Nottingham Forest",
     "Man City": "Manchester City",
     "Newcastle": "Newcastle United",
     "Spurs": "Tottenham",

@@ -30,9 +30,8 @@
 
     <!-- Header with Info Button -->
     <div class="header-container">
-        <h2>Gameweek {{ current_gw }} Fixtures</h2>
-        <h3>w/ Correct Score Heatmaps</h3>
-        <button class="info-button" onclick="toggleModal('infoModal')">ℹ️</button>
+        <h2>Gameweek {{ current_gw }}</h2>
+        <h6>w/<a href="javascript:void(0);" onclick="toggleModal('infoModal')">Correct Score Heatmaps</a></h6>
     </div>
 
     <!-- Dark Overlay -->
@@ -54,15 +53,22 @@
     <hr class="fixture-divider">
 
     <div class="fixture">
-        <h3>
-            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['home_team'] }}</a> 
-            vs 
-            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['away_team'] }}</a>
-        </h3>
-        <h5 class="fixture-date">{{ fixture['date'] }}</h5>
-        <img class="heatmap" 
-        src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_heatmap.png') }}" 
-        alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+        <div class="fixture-header" onclick="toggleHeatmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
+            <div class="fixture-info">
+                <h3>
+                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['home_team'] }}</a> 
+                    vs 
+                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['away_team'] }}</a>
+                </h3>
+                <h5 class="fixture-date">{{ fixture['date'] }}</h5>
+            </div>
+            <span class="dropdown-icon" id="icon_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}">&#9666;</span>
+        </div>
+        <div class="heatmap-container" id="heatmap_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
+            <img class="heatmap" 
+            src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_heatmap.png') }}" 
+            alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+        </div>
     </div>
 
     {% endfor %}
@@ -112,6 +118,22 @@
             }
         };
     </script>
+
+    <script>
+        function toggleHeatmap(homeTeam, awayTeam) {
+            let heatmap = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
+            let icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`);
+            
+            if (heatmap.style.maxHeight === "0px" || heatmap.style.maxHeight === "0") {
+                heatmap.style.maxHeight = "500px"; // Adjust based on content size
+                icon.innerHTML = "&#9662;"; // Down arrow
+            } else {
+                heatmap.style.maxHeight = "0";
+                icon.innerHTML = "&#9666;"; // Left arrow
+            }
+        }
+    </script>
+    
     
 
 </body>

@@ -13,6 +13,9 @@ from generate_radars import generate_comparison_radar_chart, columns_to_plot
 # Flask app initialization
 app = Flask(__name__)
 
+
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
