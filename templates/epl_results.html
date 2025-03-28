@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EPL Results</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -35,24 +36,29 @@
     <main>
         <div class="fixtures-container">
             {% for fixture in fixtures %}
-            <hr class="fixture-divider">
-            <div class="fixture">
-                <h3>
-                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
-                    {{ fixture.home_goals}}
-                    -
-                    {{ fixture.away_goals}}
-                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
-                </h3>
-                <h5 class="fixture-date">
-                    {{ fixture.date if fixture.date else 'Missing Date Info' }}
-                </h5>
-                <a href="#">
-                <img class="shotmap" 
-                    src="{{ url_for('static', filename='shotmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_shotmap.png') }}" 
-                    alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap not yet available.">
-                </a>
-            </div>
+                <hr class="fixture-divider">
+                <div class="fixture">
+                    <div class="fixture-header" onclick="toggleShotmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
+                        <div class="fixture-info">
+                            <h3>
+                                <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
+                                {{ fixture.home_goals | int }}
+                                -
+                                {{ fixture.away_goals | int }}
+                                <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                            </h3>
+                            <h5 class="fixture-date">{{ fixture.date if fixture.date else 'Missing Date Info' }}</h5>
+                        </div>
+                        <span class="dropdown-icon" id="shotmapIcon_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                    </div>
+                    <div class="shotmap-container" id="shotmap_{{ fixture.home_team }}_{{ fixture.away_team }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
+                        <img class="shotmap" 
+                            src="{{ url_for('static', filename='shotmaps/' + fixture.home_team | string + '_' + fixture.away_team | string + '_shotmap.png') }}" 
+                            alt="{{ fixture.home_team }} vs {{ fixture.away_team }} Shotmap not yet available.">
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </main>
@@ -244,6 +250,22 @@
 
             // Show the modal
             toggleModal('teamShotmapModal');
+        }
+
+        function toggleShotmap(homeTeam, awayTeam) {
+            let container = document.getElementById(`shotmap_${homeTeam}_${awayTeam}`);
+            let icon = document.getElementById(`shotmapIcon_${homeTeam}_${awayTeam}`);
+            let img = container.querySelector('img');
+
+            if (container.style.maxHeight === "0px" || container.style.maxHeight === "0") {
+                // Measure the natural height of the image
+                let imgHeight = img.naturalHeight;
+                container.style.maxHeight = imgHeight + "px"; // Or add extra pixels if needed
+                icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            } else {
+                container.style.maxHeight = "0";
+                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            }
         }
 
     </script>

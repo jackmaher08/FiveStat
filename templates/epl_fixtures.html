@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EPL Fixtures</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -62,7 +63,9 @@
                 </h3>
                 <h5 class="fixture-date">{{ fixture['date'] }}</h5>
             </div>
-            <span class="dropdown-icon" id="icon_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}">&#9666;</span>
+            <span class="dropdown-icon" id="icon_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}">
+                <i class="fas fa-chevron-left"></i>
+            </span>              
         </div>
         <div class="heatmap-container" id="heatmap_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
             <img class="heatmap" 
@@ -126,10 +129,10 @@
             
             if (heatmap.style.maxHeight === "0px" || heatmap.style.maxHeight === "0") {
                 heatmap.style.maxHeight = "500px"; // Adjust based on content size
-                icon.innerHTML = "&#9662;"; // Down arrow
+                icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
             } else {
                 heatmap.style.maxHeight = "0";
-                icon.innerHTML = "&#9666;"; // Left arrow
+                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
             }
         }
     </script>
