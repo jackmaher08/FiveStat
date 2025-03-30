@@ -155,6 +155,11 @@ for year in range(start_year, end_year + 1):
 
 # Merge all season data
 df = pd.concat(frames)
+
+# correct forest team name
+df["Home Team"] = df["Home Team"].replace({"Nott'm Forest": "Nottingham Forest"})
+df["Away Team"] = df["Away Team"].replace({"Nott'm Forest": "Nottingham Forest"})
+
 df = df[pd.notnull(df["Result"])]  # Keep only matches with results
 
 # Process result column

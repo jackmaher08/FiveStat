@@ -237,6 +237,8 @@ a:hover {
     height: 2px;
     background-color: #ccc;
     width: 50%;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* Modal */
@@ -462,7 +464,7 @@ select:focus {
     cursor: pointer;
     background-color: #f4f4f9;
     margin: 0px auto;
-    padding: 20px 0;
+    padding: 0;
     width: 95%;
     max-width: 700px;
 }
@@ -479,7 +481,7 @@ select:focus {
 }
 
 .dropdown-icon {
-    font-size: 2em;
+    font-size: 1rem;
     padding: 10px 15px;
     transition: transform 0.1s ease-in-out;
     display: flex;

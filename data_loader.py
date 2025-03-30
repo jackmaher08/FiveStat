@@ -101,16 +101,28 @@ def calculate_team_statistics(historical_fixture_data):
         avg_home_goals_against = home_games['away_goals'].mean()
         avg_away_goals_against = away_games['home_goals'].mean()
 
+        att_rating = (avg_home_goals_for + avg_away_goals_for) / 2
+        def_rating = (avg_home_goals_against + avg_away_goals_against) / 2
+
         team_data[team] = {
             'Home Goals For': avg_home_goals_for,
             'Away Goals For': avg_away_goals_for,
             'Home Goals Against': avg_home_goals_against,
             'Away Goals Against': avg_away_goals_against,
-            'ATT Rating': (avg_home_goals_for + avg_away_goals_for) / 2,
-            'DEF Rating': (avg_home_goals_against + avg_away_goals_against) / 2
+            'ATT Rating': att_rating,
+            'DEF Rating': def_rating
         }
+        
+        print(f"=== Overall Historical Stats for {team} ===")
+        print(f"Avg Home Goals For: {avg_home_goals_for}")
+        print(f"Avg Away Goals For: {avg_away_goals_for}")
+        print(f"Avg Home Goals Against: {avg_home_goals_against}")
+        print(f"Avg Away Goals Against: {avg_away_goals_against}")
+        print(f"ATT Rating: {att_rating}")
+        print(f"DEF Rating: {def_rating}\n")
 
     return team_data, home_field_advantage
+
 
 
 # Function to calculate recent form ratings
@@ -129,10 +141,22 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         avg_home_def = home_matches['away_goals'].mean()
         avg_away_def = away_matches['home_goals'].mean()
 
-        recent_form_att[team] = ((1 - alpha) * team_data[team]['ATT Rating']) + (alpha * ((avg_home_att + avg_away_att) / 2))
-        recent_form_def[team] = ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * ((avg_home_def + avg_away_def) / 2))
+        recent_att = ((1 - alpha) * team_data[team]['ATT Rating']) + (alpha * ((avg_home_att + avg_away_att) / 2))
+        recent_def = ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * ((avg_home_def + avg_away_def) / 2))
+
+        recent_form_att[team] = recent_att
+        recent_form_def[team] = recent_def
+
+        print(f"=== Recent Form Stats for {team} ===")
+        print(f"Avg Home Att: {avg_home_att}")
+        print(f"Avg Away Att: {avg_away_att}")
+        print(f"Avg Home Def: {avg_home_def}")
+        print(f"Avg Away Def: {avg_away_def}")
+        print(f"Recent ATT: {recent_att}")
+        print(f"Recent DEF: {recent_def}\n")
 
     return recent_form_att, recent_form_def
+
 
 
 # Function to simulate a match using Poisson distribution

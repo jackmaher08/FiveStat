@@ -46,12 +46,13 @@
         <p>These heatmaps can be useful for sports analysts, bettors, and football fans looking for data-driven projections.</p>
         <p>You can read more about how our Heatmaps are generated <a href="/methodology">HERE</a></p>
     </div>
+    <br>
 
-    
+    <hr class="fixture-divider">
 
     {% for fixture in fixtures %}
 
-    <hr class="fixture-divider">
+    
 
     <div class="fixture">
         <div class="fixture-header" onclick="toggleHeatmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
@@ -76,6 +77,8 @@
 
     {% endfor %}
 
+    <hr class="fixture-divider">
+    <br><br>
     <!-- Dark Overlay for Team Modal -->
     <div class="modal-overlay" id="teamModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
 
@@ -126,9 +129,17 @@
         function toggleHeatmap(homeTeam, awayTeam) {
             let heatmap = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
             let icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`);
-            
+            let img = heatmap.querySelector('img');
+
+            // Check if the image exists and has loaded
+            if (!img || !img.complete) {
+                console.log("Image not loaded yet.");
+                return;
+            }
+
             if (heatmap.style.maxHeight === "0px" || heatmap.style.maxHeight === "0") {
-                heatmap.style.maxHeight = "500px"; // Adjust based on content size
+                // Use the natural height of the image
+                heatmap.style.maxHeight = img.naturalHeight + "px";
                 icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
             } else {
                 heatmap.style.maxHeight = "0";
