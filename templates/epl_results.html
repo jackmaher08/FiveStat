@@ -69,8 +69,8 @@
             <thead>
                 <tr>                    
                     <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
-                    <th onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 1)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">MP <span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">W <span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 3)">D<span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 4)">L<span class="sort-indicator"></span></th>
@@ -83,8 +83,8 @@
                 {% for team in league_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a>                    </td>
-                    <td>{{ team["MP"] }}</td>
+                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a>                    </td>
+                    <td class="bold-left-border">{{ team["MP"] }}</td>
                     <td class="bold-left-border">{{ team["W"] }}</td>
                     <td>{{ team["D"] }}</td>
                     <td>{{ team["L"] }}</td>

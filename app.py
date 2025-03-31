@@ -4,7 +4,7 @@ import numpy as np
 from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
-from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data
+from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data
 import datetime
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
@@ -84,24 +84,41 @@ def epl_table():
 @app.route('/epl-players')
 def epl_players():
     try:
-        players = get_player_data()  # Load from the saved file
+        # Load radar data for dropdowns
+        radar_players = get_player_radar_data()
+
+        # Filter out goalkeepers and players missing required stats for the radar comparison
+        required_stats = [
+            'Goals', 'Assists', 'Goals + Assists', 'Expected Goals',
+            'Expected Assists', 'Progressive Carries', 'Progressive Passes', 'Progressive Receptions'
+        ]
+        dropdown_players = []
+        for player in radar_players:
+            if player.get("Pos") == "GK":
+                continue
+            # Only include if all required stats are present (even if they are 0)
+            if all(player.get(stat) not in [None, ""] for stat in required_stats):
+                dropdown_players.append(player)
+                
+        # Load player data for the main table (if you still want to use the original list)
+        players = get_player_data()  # or load radar_players if you want the same list for both
+
         next_gw_fixtures = load_next_gw_fixtures()
         current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
 
-        # Ensure data is properly structured
-        if not isinstance(players, list) or not all(isinstance(player, dict) for player in players):
-            print("⚠️ Unexpected player data format")
-            players = []
+        # Extract unique positions and teams (you can derive these from the full list)
+        unique_positions = sorted(set(p.get("Pos", "Unknown") for p in players))
+        unique_teams = sorted(set(p.get("Team", "Unknown") for p in players))
 
-        # Extract unique positions and teams
-        unique_positions = sorted(set(player.get("POS", "Unknown") for player in players if isinstance(player, dict)))
-        unique_teams = sorted(set(player.get("Team", "Unknown") for player in players if isinstance(player, dict)))
-
-        return render_template('epl_player.html', players=players, positions=unique_positions, teams=unique_teams, current_gw=current_gw)
-
+        return render_template('epl_player.html', 
+                               players=players,               # For the main table
+                               dropdown_players=dropdown_players,  # For the radar dropdowns
+                               positions=unique_positions, 
+                               teams=unique_teams, 
+                               current_gw=current_gw)
     except Exception as e:
         print(f"❌ Error loading player data: {e}")
-        return render_template('epl_player.html', players=[], positions=[], teams=[], current_gw="Unknown")
+        return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown")
 
 
 

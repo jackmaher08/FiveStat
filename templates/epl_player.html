@@ -98,17 +98,17 @@
     <div class="radar-container">
         <select id="player1">
             <option value="">Select Player</option>
-            {% for player in players %}
-            <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% for player in dropdown_players %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>
-    <br><br>
+        <br><br>
         <select id="player2">
             <option value="">Select Player</option>
-            {% for player in players %}
-            <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% for player in dropdown_players %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
-        </select>
+        </select>        
     <br><br>
         <button onclick="generateRadar()">Compare Players</button>
     </div>
@@ -117,6 +117,7 @@
     <div id="radarChartContainer">
         <img id="radarChart" src="">
     </div>
+
     
 
     

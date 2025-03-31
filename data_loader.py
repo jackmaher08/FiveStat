@@ -40,6 +40,17 @@ def run_data_scraper():
         print("🔄 Running generate_radars.py to update radar charts...")
         subprocess.run(["python", radars_script_path], check=True)
         print("✅ Radar charts generated.")'''
+    
+def get_player_radar_data():
+    radar_file_path = "data/tables/player_radar_data.csv"
+    if os.path.exists(radar_file_path):
+        radar_df = pd.read_csv(radar_file_path)
+    else:
+        raise FileNotFoundError(f"⚠️ Player radar data file not found: {radar_file_path}.")
+    # Filter to only include players from the Premier League
+    radar_df = radar_df[radar_df['Comp'] == 'eng Premier League']
+    return radar_df.to_dict(orient="records")
+
 
 # Function to load fixture data from multiple sources
 def load_fixtures():

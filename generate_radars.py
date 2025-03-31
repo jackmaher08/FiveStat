@@ -12,14 +12,17 @@ app = Flask(__name__)
 radar_data_file_path = "data/tables/player_radar_data.csv"
 df = pd.read_csv(radar_data_file_path)
 
-# Filter only Premier League players
-df_premier_league = df[df['Comp'] == 'eng Premier League']
+# Filter only Premier League players and exclude goalkeepers
+df_premier_league = df[(df['Comp'] == 'eng Premier League') & (df['Pos'] != 'GK')]
 
 # Stats to compare
 columns_to_plot = [
     'Goals', 'Assists', 'Goals + Assists', 'Expected Goals', 
     'Expected Assists', 'Progressive Carries', 'Progressive Passes', 'Progressive Receptions'
 ]
+
+# Drop any players where the above are 0
+df_premier_league = df_premier_league.dropna(subset=columns_to_plot)
 
 # Calculate league average for comparison
 average_stats = df[columns_to_plot].mean().values.flatten().tolist()

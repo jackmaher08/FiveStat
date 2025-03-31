@@ -348,6 +348,9 @@ fbref_df['Min'] = fbref_df['Min'].astype(int)
 # Filter for players who have played more than 400 minutes
 fbref_df = fbref_df[fbref_df['Min'] > 400]
 
+# Drop GKs
+fbref_df = fbref_df[fbref_df['Pos'] != 'GK']
+
 
 
 
@@ -376,6 +379,21 @@ fbref_df['Expected Assists'] = (fbref_df['expected_assists_per_90'].rank(pct=Tru
 fbref_df['Progressive Carries'] = (fbref_df['progressive_carries_per_90'].rank(pct=True) * 100).astype(int)
 fbref_df['Progressive Passes'] = (fbref_df['progressive_passes_per_90'].rank(pct=True) * 100).astype(int)
 fbref_df['Progressive Receptions'] = (fbref_df['progressive_receptions_per_90'].rank(pct=True) * 100).astype(int)
+
+# ensure we only keep players who have per 90 stats populated
+
+fbref_df = fbref_df[fbref_df['goals_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['assists_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['goals_assists_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['expected_goals_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['expected_assists_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['progressive_carries_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['progressive_passes_per_90'] > 0]
+fbref_df = fbref_df[fbref_df['progressive_receptions_per_90'] > 0]
+
+# sort df by goals desc
+fbref_df = fbref_df.sort_values(by='Gls', ascending=False)
+
 
 # ✅ Save final league table
 player_stats_file_path = os.path.join(save_dir, "player_radar_data.csv")
