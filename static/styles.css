@@ -55,6 +55,7 @@ a:hover {
     width: 100%;
     z-index: 1000;
     transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
 }
 
 .navbar a {
@@ -492,4 +493,8 @@ select:focus {
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.gw-selector {
+    margin: 10px 0;
 }

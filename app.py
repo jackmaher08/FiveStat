@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, redirect, url_for
 import numpy as np
 from scipy.stats import poisson
 import os
@@ -25,14 +25,47 @@ def index():
 match_data = load_match_data()
 team_stats, home_field_advantage = calculate_team_statistics(match_data)
 fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a list of dictionaries
+
+
 @app.route("/epl_fixtures")
-def home():
-    next_gw_fixtures = load_next_gw_fixtures()
+def fixtures_redirect():
+    fixture_path = "C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv"
+    fixtures = pd.read_csv(fixture_path)
+    fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
+    fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    # Get the current gameweek number dynamically
-    current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
+    #next_gw = fixtures[fixtures["isResult"] == False]["round_number"].min()
+    next_gw = 30
+    return redirect(url_for("epl_fixtures", gw=next_gw))
 
-    return render_template("epl_fixtures.html", fixtures=next_gw_fixtures, current_gw=current_gw)
+
+@app.route("/epl_fixtures/<int:gw>")
+def epl_fixtures(gw):
+    fixture_path = "C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv"
+    fixtures = pd.read_csv(fixture_path)
+
+    # Normalize boolean values (critical!)
+    fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
+    fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
+
+    gw_fixtures = fixtures[
+        (fixtures["round_number"] == gw) & 
+        (fixtures["isResult"] == False)
+    ]
+
+    gameweeks = sorted(fixtures[fixtures["isResult"] == False]["round_number"].dropna().unique().tolist())
+
+    return render_template(
+        "epl_fixtures.html",
+        fixtures=gw_fixtures.to_dict(orient="records"),
+        current_gw=gw,
+        gameweeks=gameweeks
+    )
+
+
+
+
+
 
 
 
@@ -183,49 +216,56 @@ def get_fixtures_for_week(week_offset=0):
 
 
 
-from datetime import datetime
 @app.route('/epl_results')
-def results():
-    """ Renders the results page with shotmaps and league table """
+def results_redirect():
+    """ Redirect to latest completed GW """
+    _, current_week, *_ = get_fixtures_for_week(0)
+    return redirect(url_for("epl_results", gw=current_week))
+
+
+@app.route('/epl_results/<int:gw>')
+def epl_results(gw):
+    """ Renders the results page for a specific gameweek """
     try:
-        week_offset = int(request.args.get('week_offset', 0))
+        # ✅ Get all valid completed gameweeks
+        weekly_fixtures, _, first_gw, last_gw = get_fixtures_for_week(0)
+        all_gws = list(range(first_gw, last_gw + 1))
 
-        # ✅ Get completed fixtures and limits
-        weekly_fixtures, current_week, first_gw, last_gw = get_fixtures_for_week(week_offset)
+        # ✅ Force the selected week to stay within valid bounds
+        gw = max(first_gw, min(last_gw, gw))
 
-        # ✅ Define shotmap directory
+        # ✅ Get fixtures for selected week
+        weekly_fixtures, _, _, _ = get_fixtures_for_week(gw - last_gw)  # This reuses offset logic
+
+        # ✅ Filter for fixtures with existing shotmaps
         shotmap_dir = os.path.join("static", "shotmaps")
-
-        # ✅ Filter fixtures where the shotmap image exists
         filtered_fixtures = []
         for fixture in weekly_fixtures:
             shotmap_filename = f"{fixture['home_team']}_{fixture['away_team']}_shotmap.png"
             shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
-
-            if os.path.exists(shotmap_path):  # ✅ Only add if file exists
+            if os.path.exists(shotmap_path):
                 filtered_fixtures.append(fixture)
 
-        # ✅ Load League Table Data
-        league_table_file_path = "data/tables/league_table_data.csv"
-
-        if os.path.exists(league_table_file_path):
-            league_table_df = pd.read_csv(league_table_file_path)
-            league_table = league_table_df.to_dict(orient="records")  # Convert DataFrame to list of dictionaries
-        else:
-            league_table = []
+        # ✅ Load League Table
+        league_table_path = "data/tables/league_table_data.csv"
+        league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
 
         return render_template(
             "epl_results.html",
-            fixtures=filtered_fixtures,  # ✅ Pass filtered fixtures
-            week_offset=current_week,
-            first_gw=first_gw,
-            last_gw=last_gw,
-            league_table=league_table  # ✅ Pass league table data
+            fixtures=filtered_fixtures,
+            current_gw=gw,
+            gameweeks=all_gws,
+            league_table=league_table
         )
 
     except Exception as e:
         print(f"❌ Error loading data: {e}")
-        return render_template("results.html", fixtures=[], league_table=[], week_offset=0, first_gw=0, last_gw=0)
+        return render_template("epl_results.html", fixtures=[], current_gw=0, gameweeks=[], league_table=[])
+
+
+
+
+
     
 
 @app.route('/generate_radar')

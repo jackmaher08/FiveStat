@@ -123,6 +123,95 @@ def process_match_shots(understat_match_id):
 
 
 
+
+
+
+
+
+def plot_team_shotmap(team_name):
+    # Convert all filenames to Title Case to maintain consistency
+    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
+    formatted_filename = standardized_team_name.title()  # Ensures "chelsea" → "Chelsea"
+
+    df = all_shots_df[all_shots_df['team'] == team_name]
+
+    if df.empty:
+        print(f"No shots found for {team_name}")
+        return
+    
+    # ✅ Flip away team shots so all teams shoot towards the same goal
+    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
+    df.loc[df["h_a"] == "a", "y_scaled"] = 80 - df["y_scaled"]
+
+    total_shots = len(df)
+    total_goals = len(df[df["result"].str.lower() == "goal"])
+    total_xg = df["xG"].sum()
+
+    # Create pitch
+    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
+    fig, ax = pitch.draw(figsize=(12, 9))
+    fig.patch.set_facecolor("#f4f4f9")
+
+    existing_columns = set(df.columns)
+    subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in existing_columns]
+
+    if subset_columns:
+        df = df.drop_duplicates(subset=subset_columns)
+
+    for _, shot in df.iterrows():
+        x, y = shot['x_scaled'], shot['y_scaled']
+        color = 'gold' if shot['result'].lower() == 'goal' else 'white'
+        zorder = 3 if shot['result'].lower() == 'goal' else 2
+        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
+
+        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
+
+    plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
+
+
+
+    # Save using standardized team name
+    shotmap_filename = f"{formatted_filename}_shotmap.png"
+    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
+    plt.close(fig)
+    print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
+
+
+
+
+
+
+
+def plot_match_shotmap(home_team, away_team, match_shots_df):
+    if match_shots_df.empty:
+        print(f"No shot data found for {home_team} vs {away_team}")
+        return
+
+    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
+    fig, ax = pitch.draw(figsize=(12, 9))
+    fig.patch.set_facecolor("#f4f4f9")
+
+    for _, shot in match_shots_df.iterrows():
+        x, y = shot['x_scaled'], shot['y_scaled']
+        color = 'gold' if str(shot['result']).lower() == 'goal' else 'white'
+        zorder = 3 if str(shot['result']).lower() == 'goal' else 2
+        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
+        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
+
+    match_filename = f"{home_team}_{away_team}_shotmap.png"
+    filepath = os.path.join(SHOTMAP_DIR, match_filename)
+    plt.title(f"{home_team} vs {away_team}", fontsize=15)
+    plt.savefig(filepath)
+    plt.close(fig)
+    print(f"✅ Saved match shotmap: {filepath}")
+
+
+
+
+
+
+    
+
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 ALL_SHOTMAP_DIR = "static/shotmaps/all"
 
@@ -210,59 +299,11 @@ def process_shot_data(completed_fixtures, team_shots):
     plt.close(fig)
     print("✅ All-Shots Shotmap Saved!")
 
-print(TEAM_NAME_MAPPING.get("Spurs", "Not Found"))  # Output: Not Found
-print(TEAM_NAME_MAPPING.get("spurs", "Not Found"))  # Output: Tottenham
-
-def plot_team_shotmap(team_name):
-    # Convert all filenames to Title Case to maintain consistency
-    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
-    formatted_filename = standardized_team_name.title()  # Ensures "chelsea" → "Chelsea"
-
-    df = all_shots_df[all_shots_df['team'] == team_name]
-
-    if df.empty:
-        print(f"No shots found for {team_name}")
-        return
-    
-    # ✅ Flip away team shots so all teams shoot towards the same goal
-    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
-    df.loc[df["h_a"] == "a", "y_scaled"] = 80 - df["y_scaled"]
-
-    total_shots = len(df)
-    total_goals = len(df[df["result"].str.lower() == "goal"])
-    total_xg = df["xG"].sum()
-
-    # Create pitch
-    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-    fig, ax = pitch.draw(figsize=(12, 9))
-    fig.patch.set_facecolor("#f4f4f9")
-
-    existing_columns = set(df.columns)
-    subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in existing_columns]
-
-    if subset_columns:
-        df = df.drop_duplicates(subset=subset_columns)
-
-    for _, shot in df.iterrows():
-        x, y = shot['x_scaled'], shot['y_scaled']
-        color = 'gold' if shot['result'].lower() == 'goal' else 'white'
-        zorder = 3 if shot['result'].lower() == 'goal' else 2
-        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-
-        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
-
-    plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
-
-
-
-    # Save using standardized team name
-    shotmap_filename = f"{formatted_filename}_shotmap.png"
-    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
-    plt.close(fig)
-    print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
-
-
-print(f"🔄 Generating shotmaps for {len(team_shots.keys())} teams...")
+    for match_id in completed_fixtures["id"]:
+        home = completed_fixtures.loc[completed_fixtures["id"] == match_id, "home_team"].values[0]
+        away = completed_fixtures.loc[completed_fixtures["id"] == match_id, "away_team"].values[0]
+        match_shots = all_shots_df[all_shots_df["match_id"] == str(match_id)]
+        plot_match_shotmap(home, away, match_shots)
 
 for team in team_shots.keys():
     print(f"🎯 Processing shotmap for {team}...")
