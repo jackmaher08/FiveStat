@@ -287,32 +287,53 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
     return mid  # Best approximation
 
-def get_team_xg(team, opponent, is_home, team_stats, recent_form_att, recent_form_def, alpha=0.65, home_field_advantage=0.15):
+def get_team_xg(
+    team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
+    alpha=0.65, beta=0.3, home_field_advantage=0.15
+):
     """
-    Returns the adjusted xG value for a given team against an opponent.
+    Returns the blended xG value for a given team against an opponent,
+    combining Poisson-based calibration with intuitive attack × defense logic.
 
     Args:
-        team (str): The name of the team.
-        opponent (str): The name of the opponent.
-        is_home (bool): True if the team is playing at home.
-        team_stats (dict): Long-term stats with 'ATT Rating' and 'DEF Rating' per team.
-        recent_form_att (dict): Recent form attack ratings per team.
-        recent_form_def (dict): Recent form defense ratings per team.
-        alpha (float): Weight for recent form (e.g., 0.65 means 65% recent, 35% long-term).
-        home_field_advantage (float): Value to boost xG if the team is at home.
+        team (str): Team name.
+        opponent (str): Opponent team name.
+        is_home (bool): True if team is playing at home.
+        team_stats (dict): Contains 'ATT Rating' and 'DEF Rating' for each team.
+        recent_form_att (dict): Recent ATT ratings.
+        recent_form_def (dict): Recent DEF ratings.
+        alpha (float): Weight of recent form in ATT/DEF rating blend.
+        beta (float): Weight of multiplicative xG vs Poisson-calibrated xG.
+        home_field_advantage (float): Additive bonus if team is at home.
 
     Returns:
-        float: xG value calibrated to preserve the blended ATT rating.
+        float: Blended xG value.
+
+
+    Tweaking beta
+    beta = 0.0: only Poisson logic (status quo)
+
+    beta = 1.0: only attack × defense model
     """
-    blended_att = (1 - alpha) * team_stats[team]['ATT Rating'] + alpha * recent_form_att[team]
-    blended_def = (1 - alpha) * team_stats[opponent]['DEF Rating'] + alpha * recent_form_def[opponent]
+    # 1. Get blended ratings
+    att_rating = (1 - alpha) * team_stats[team]['ATT Rating'] + alpha * recent_form_att[team]
+    def_rating = (1 - alpha) * team_stats[opponent]['DEF Rating'] + alpha * recent_form_def[opponent]
 
-    xg = find_xg_to_match_att_rating(blended_att, blended_def, is_home=is_home)
+    # 2. Poisson-based xG to preserve ATT rating
+    poisson_matched_xg = find_xg_to_match_att_rating(att_rating, def_rating, is_home=is_home)
 
+    # 3. Simple multiplicative xG model
+    multiplicative_xg = att_rating * def_rating
+
+    # 4. Blend both
+    true_xg = (1 - beta) * poisson_matched_xg + beta * multiplicative_xg
+
+    # 5. Home field bonus
     if is_home:
-        xg += home_field_advantage
+        true_xg += home_field_advantage
 
-    return xg
+    return true_xg
+
 
 
 
@@ -354,6 +375,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
 
         away_xg = get_team_xg(away_team, home_team, is_home=False, team_stats=team_stats, 
                       recent_form_att=recent_form_att, recent_form_def=recent_form_def)
+
 
 
 
