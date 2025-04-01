@@ -29,7 +29,7 @@ fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a l
 
 @app.route("/epl_fixtures")
 def fixtures_redirect():
-    fixture_path = "C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv"
+    fixture_path = "data/tables/fixture_data.csv"
     fixtures = pd.read_csv(fixture_path)
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
@@ -39,9 +39,10 @@ def fixtures_redirect():
     return redirect(url_for("epl_fixtures", gw=next_gw))
 
 
+
 @app.route("/epl_fixtures/<int:gw>")
 def epl_fixtures(gw):
-    fixture_path = "C:/Users/jmaher/Documents/flask_heatmap_app/data/tables/fixture_data.csv"
+    fixture_path = "data/tables/fixture_data.csv"
     fixtures = pd.read_csv(fixture_path)
 
     # Normalize boolean values (critical!)
@@ -61,6 +62,7 @@ def epl_fixtures(gw):
         current_gw=gw,
         gameweeks=gameweeks
     )
+
 
 
 
