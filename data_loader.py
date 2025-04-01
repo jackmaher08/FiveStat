@@ -257,6 +257,66 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
     print(f"Saved heatmap for {home_team} vs {away_team} at {heatmap_path}")
 
 
+
+# Calc the XG we need to keep a teams att rating the same
+def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, max_iter=100):
+    """Binary search to find xG that gives expected goals ≈ target_att."""
+    from data_loader import simulate_poisson_distribution
+
+    low, high = 0.1, 5.0  # Reasonable xG bounds
+    for _ in range(max_iter):
+        mid = (low + high) / 2
+        home_xg = mid if is_home else opp_def
+        away_xg = opp_def if is_home else mid
+
+        result_matrix, _, _, _ = simulate_poisson_distribution(home_xg, away_xg)
+
+        # Expected goals calculation
+        expected_goals = 0.0
+        for i in range(result_matrix.shape[0]):
+            for j in range(result_matrix.shape[1]):
+                prob = result_matrix[i, j]
+                expected_goals += (i if is_home else j) * prob
+
+        if abs(expected_goals - target_att) < tolerance:
+            return mid  # Found matching xG
+        elif expected_goals > target_att:
+            high = mid
+        else:
+            low = mid
+
+    return mid  # Best approximation
+
+def get_team_xg(team, opponent, is_home, team_stats, recent_form_att, recent_form_def, alpha=0.65, home_field_advantage=0.15):
+    """
+    Returns the adjusted xG value for a given team against an opponent.
+
+    Args:
+        team (str): The name of the team.
+        opponent (str): The name of the opponent.
+        is_home (bool): True if the team is playing at home.
+        team_stats (dict): Long-term stats with 'ATT Rating' and 'DEF Rating' per team.
+        recent_form_att (dict): Recent form attack ratings per team.
+        recent_form_def (dict): Recent form defense ratings per team.
+        alpha (float): Weight for recent form (e.g., 0.65 means 65% recent, 35% long-term).
+        home_field_advantage (float): Value to boost xG if the team is at home.
+
+    Returns:
+        float: xG value calibrated to preserve the blended ATT rating.
+    """
+    blended_att = (1 - alpha) * team_stats[team]['ATT Rating'] + alpha * recent_form_att[team]
+    blended_def = (1 - alpha) * team_stats[opponent]['DEF Rating'] + alpha * recent_form_def[opponent]
+
+    xg = find_xg_to_match_att_rating(blended_att, blended_def, is_home=is_home)
+
+    if is_home:
+        xg += home_field_advantage
+
+    return xg
+
+
+
+
 def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
     print("🔄 Running generate_all_heatmaps()...")
 
@@ -289,13 +349,13 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         if home_team not in team_stats or away_team not in team_stats:
             continue
 
-        home_att_rating = (1 - alpha) * team_stats[home_team]['ATT Rating'] + alpha * recent_form_att[home_team]
-        away_att_rating = (1 - alpha) * team_stats[away_team]['ATT Rating'] + alpha * recent_form_att[away_team]
-        home_def_rating = (1 - alpha) * team_stats[home_team]['DEF Rating'] + alpha * recent_form_def[home_team]
-        away_def_rating = (1 - alpha) * team_stats[away_team]['DEF Rating'] + alpha * recent_form_def[away_team]
+        home_xg = get_team_xg(home_team, away_team, is_home=True, team_stats=team_stats, 
+                      recent_form_att=recent_form_att, recent_form_def=recent_form_def)
 
-        home_xg = home_att_rating * away_def_rating
-        away_xg = away_att_rating * home_def_rating
+        away_xg = get_team_xg(away_team, home_team, is_home=False, team_stats=team_stats, 
+                      recent_form_att=recent_form_att, recent_form_def=recent_form_def)
+
+
 
         # Capture the full result_matrix along with probabilities
         result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)

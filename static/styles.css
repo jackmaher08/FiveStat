@@ -138,6 +138,10 @@ a:hover {
     border-left: 2px solid #444;
 }
 
+.hide-left-border {
+    border-left: 0px;
+}
+
 @media (max-width: 768px) {
     h3, h5 {
         font-size: small;

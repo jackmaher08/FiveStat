@@ -47,7 +47,7 @@
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">MP <span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 3)">W <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 4)">D<span class="sort-indicator"></span></th>
+                    <th class="hide-left-border" onclick="sortTable('leagueTable', 4)">D<span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
@@ -61,7 +61,7 @@
                     <td class="bold-left-border"><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ team["Team"] }}</a></td>
                     <td class="bold-left-border">{{ team["MP"] }}</td>
                     <td class="bold-left-border">{{ team["W"] }}</td>
-                    <td>{{ team["D"] }}</td>
+                    <td class="hide-left-border">{{ team["D"] }}</td>
                     <td>{{ team["L"] }}</td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ team["GA"] }}</td>
@@ -120,7 +120,7 @@
     <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
     <!-- Info Modal -->
     <div class="modal" id="infoModal">
-        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a> to visualize how the final Premier League Table will look</p>
+        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a>to visualize how the final Premier League Table will look</p>
     </div>
     <div class="table-container">
         <table id="simulatedTable">
