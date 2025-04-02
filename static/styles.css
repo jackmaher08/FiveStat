@@ -506,3 +506,34 @@ select:focus {
 }
 
 
+
+
+
+.date-header {
+    background-color: #f4f4f4;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column; /* Center items vertically */
+    align-items: center;     /* Center horizontally */
+    text-align: center;
+}
+.date-header:hover {
+    background-color: #ccc;
+}
+.date-header h3 {
+    margin: 0;
+}
+.fixture-group {
+    transition: max-height 0.5s ease;
+}
+
+
+
+.heatmap-container {
+    display: none;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+}
+
+

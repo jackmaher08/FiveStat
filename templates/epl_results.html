@@ -46,32 +46,38 @@
 
 
     <main>
-    <hr class="fixture-divider">
+    
         <div class="fixtures-container">
-            {% for fixture in fixtures %}
-                
-                <div class="fixture">
-                    <div class="fixture-header" onclick="toggleShotmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
-                        <div class="fixture-info">
-                            <h3>
-                                <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
-                                {{ fixture.home_goals | int }}
-                                -
-                                {{ fixture.away_goals | int }}
-                                <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
-                            </h3>
-                            <h5 class="fixture-date">{{ fixture.date if fixture.date else 'Missing Date Info' }}</h5>
-                        </div>
-                        <span class="dropdown-icon" id="shotmapIcon_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
-                    </div>
-                    <div class="shotmap-container" id="shotmap_{{ fixture.home_team }}_{{ fixture.away_team }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
-                        <img class="shotmap" 
-                            src="{{ url_for('static', filename='shotmaps/' + fixture.home_team | string + '_' + fixture.away_team | string + '_shotmap.png') }}" 
-                            alt="{{ fixture.home_team }} vs {{ fixture.away_team }} Shotmap not yet available.">
-                    </div>
+            {% for date, fixtures in fixture_groups.items() %}
+                <hr class="fixture-divider">
+                <div class="date-header">
+                    <h3>{{ date | format_date }}</h3>
                 </div>
+                <hr class="fixture-divider">
+                {% for fixture in fixtures %}
+                    <div class="fixture">
+                        <div class="fixture-header" onclick="toggleShotmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
+                            <div class="fixture-info">
+                                <h3>
+                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
+                                    {{ fixture.home_goals | int }}
+                                    -
+                                    {{ fixture.away_goals | int }}
+                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                                </h3>
+                                <h5 class="fixture-date">{{ fixture.date if fixture.date else 'Missing Date Info' }}</h5>
+                            </div>
+                            <span class="dropdown-icon" id="shotmapIcon_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                        </div>
+                        <div class="shotmap-container" id="shotmap_{{ fixture.home_team }}_{{ fixture.away_team }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
+                            <img class="shotmap" 
+                                src="{{ url_for('static', filename='shotmaps/' + fixture.home_team | string + '_' + fixture.away_team | string + '_shotmap.png') }}" 
+                                alt="{{ fixture.home_team }} vs {{ fixture.away_team }} Shotmap not yet available.">
+                        </div>
+                    </div>
+                {% endfor %}
             {% endfor %}
         </div>
     </main>

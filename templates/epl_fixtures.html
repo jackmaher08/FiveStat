@@ -59,36 +59,34 @@
     </div>
     <br>
 
-    <hr class="fixture-divider">
 
-    {% for fixture in fixtures %}
-
-    
-
-    <div class="fixture">
-        <div class="fixture-header" onclick="toggleHeatmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
-            <div class="fixture-info">
-                <h3>
-                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['home_team'] }}</a> 
-                    vs 
-                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture['away_team'] }}</a>
-                </h3>
-                <h5 class="fixture-date">{{ fixture['date'] }}</h5>
-            </div>
-            <span class="dropdown-icon" id="icon_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}">
-                <i class="fas fa-chevron-left"></i>
-            </span>              
+    {% for date, fixtures in fixture_groups.items() %}
+        <hr class="fixture-divider">
+        <div class="date-header">
+            <h3>{{ date | format_date }}</h3>
         </div>
-        <div class="heatmap-container" id="heatmap_{{ fixture['home_team'] }}_{{ fixture['away_team'] }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
-            <img class="heatmap" 
-            src="{{ url_for('static', filename='heatmaps/' + fixture['home_team'] | string + '_' + fixture['away_team'] | string + '_heatmap.png') }}" 
-            alt="{{ fixture['home_team'] }} vs {{ fixture['away_team'] }} Heatmap">
+        <hr class="fixture-divider">
+        <div id="fixtures_{{ date }}" class="fixture-group" style="overflow: hidden;">
+            {% for fixture in fixtures %}
+                <div class="fixture">
+                    <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
+                        <div class="fixture-info">
+                            <h3>{{ fixture.home_team }} vs {{ fixture.away_team }}</h3>
+                            <h5 class="fixture-date">{{ fixture.date }}</h5>
+                        </div>
+                        <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                            <i class="fas fa-chevron-left"></i>
+                        </span>
+                    </div>
+                    <div class="heatmap-container" id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                        <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
-
     {% endfor %}
 
-    <hr class="fixture-divider">
+
     <br>
     <div class="centered-button">
         <button class="info-button" onclick="toggleModal('infoModal')">ℹ️</button>
@@ -145,30 +143,23 @@
 
     <script>
         function toggleHeatmap(homeTeam, awayTeam) {
-            let heatmap = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
-            let icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`);
-            let img = heatmap.querySelector('img');
+            const container = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
+            const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`);
 
-            // Check if the image exists and has loaded
-            if (!img || !img.complete) {
-                console.log("Image not loaded yet.");
-                return;
-            }
+            const isOpen = container.style.display === "block";
 
-            if (heatmap.style.maxHeight === "0px" || heatmap.style.maxHeight === "0") {
-                // Use the natural height of the image
-                heatmap.style.maxHeight = img.naturalHeight + "px";
+            if (!isOpen) {
+                container.style.display = "block";
                 icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
             } else {
-                heatmap.style.maxHeight = "0";
+                container.style.display = "none";
                 icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
             }
         }
 
-        
     </script>
     
-    
+        
 
 </body>
 </html>

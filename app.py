@@ -5,7 +5,7 @@ from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data
-import datetime
+from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
 
@@ -49,20 +49,34 @@ def epl_fixtures(gw):
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    gw_fixtures = fixtures[
-        (fixtures["round_number"] == gw) & 
-        (fixtures["isResult"] == False)
-    ]
+    gw_fixtures = fixtures[(fixtures["round_number"] == gw) & (fixtures["isResult"] == False)].copy()
+
+    # Extract date-only from datetime string
+    gw_fixtures["match_date"] = gw_fixtures["date"].str[:10]  # e.g. '02/04/2025'
+
+    # Group fixtures by match_date
+    fixture_groups = defaultdict(list)
+    for _, row in gw_fixtures.iterrows():
+        fixture_groups[row["match_date"]].append(row.to_dict())
+
 
     gameweeks = sorted(fixtures[fixtures["isResult"] == False]["round_number"].dropna().unique().tolist())
 
     return render_template(
         "epl_fixtures.html",
-        fixtures=gw_fixtures.to_dict(orient="records"),
+        fixture_groups=dict(fixture_groups),
         current_gw=gw,
         gameweeks=gameweeks
     )
 
+
+@app.template_filter("format_date")
+def format_date(value):
+    try:
+        dt = datetime.strptime(value, "%d/%m/%Y")
+        return dt.strftime("%A %d %B %Y")
+    except:
+        return value
 
 
 
@@ -248,22 +262,29 @@ def epl_results(gw):
             if os.path.exists(shotmap_path):
                 filtered_fixtures.append(fixture)
 
+        # ✅ Group fixtures by date (INSERT HERE)
+        fixture_groups = defaultdict(list)
+        for fixture in filtered_fixtures:
+            date_str = fixture['date'][:10] if fixture['date'] else 'Unknown'
+            fixture_groups[date_str].append(fixture)
+
         # ✅ Load League Table
         league_table_path = "data/tables/league_table_data.csv"
         league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
 
         return render_template(
             "epl_results.html",
-            fixtures=filtered_fixtures,
+            fixture_groups=dict(fixture_groups),
             current_gw=gw,
             gameweeks=all_gws,
             league_table=league_table
         )
 
+
+
     except Exception as e:
         print(f"❌ Error loading data: {e}")
         return render_template("epl_results.html", fixtures=[], current_gw=0, gameweeks=[], league_table=[])
-
 
 
 
