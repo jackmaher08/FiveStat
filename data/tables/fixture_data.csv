@@ -289,9 +289,9 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 29,16/03/2025 13:30,Fulham,Spurs,2 - 0,26886,True,2.0,0.0,1.04,1.41
 29,16/03/2025 19:00,Leicester,Man Utd,0 - 3,26888,True,0.0,3.0,1.3,1.14
 29,16/04/2025 19:30,Newcastle,Crystal Palace,,26890,False,,,,
-30,01/04/2025 19:45,Arsenal,Fulham,,26892,False,,,,
-30,01/04/2025 19:45,Wolves,West Ham,,26895,False,,,,
-30,01/04/2025 20:00,Nottingham Forest,Man Utd,,26894,False,,,,
+30,01/04/2025 19:45,Arsenal,Fulham,,26892,True,2.0,1.0,2.3,1.44
+30,01/04/2025 19:45,Wolves,West Ham,,26895,True,1.0,0.0,1.1,1.73
+30,01/04/2025 20:00,Nottingham Forest,Man Utd,,26894,True,1.0,0.0,0.51,1.87
 30,02/04/2025 19:45,Bournemouth,Ipswich,,26896,False,,,,
 30,02/04/2025 19:45,Brighton,Aston Villa,,26893,False,,,,
 30,02/04/2025 19:45,Man City,Leicester,,26898,False,,,,

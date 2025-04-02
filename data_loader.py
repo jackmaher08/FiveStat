@@ -289,7 +289,7 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, beta=0.3, home_field_advantage=0.15
+    alpha=0.65, beta=0.6, home_field_advantage=0.15
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -312,7 +312,6 @@ def get_team_xg(
 
     Tweaking beta
     beta = 0.0: only Poisson logic (status quo)
-
     beta = 1.0: only attack × defense model
     """
     # 1. Get blended ratings
