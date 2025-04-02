@@ -39,12 +39,13 @@ a:hover {
 }
 
 .info-button {
-    display: inline-block;
-    margin: 0 auto; /* Ensures perfect centering */
     background-color: #f4f4f9;
     color: #f4f4f9;
-    width: 3px;
-    padding: 0;
+}
+.centered-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Navbar */
@@ -503,3 +504,5 @@ select:focus {
 .gw-selector {
     margin: 10px 0;
 }
+
+
