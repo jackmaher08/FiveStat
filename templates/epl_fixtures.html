@@ -72,7 +72,7 @@
                     <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
                         <div class="fixture-info">
                             <h3>{{ fixture.home_team }} vs {{ fixture.away_team }}</h3>
-                            <h5 class="fixture-date">{{ fixture.date }}</h5>
+                            <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                         </div>
                         <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
                             <i class="fas fa-chevron-left"></i>

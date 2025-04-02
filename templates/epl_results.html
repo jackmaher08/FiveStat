@@ -65,7 +65,7 @@
                                     {{ fixture.away_goals | int }}
                                     <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
                                 </h3>
-                                <h5 class="fixture-date">{{ fixture.date if fixture.date else 'Missing Date Info' }}</h5>
+                                <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                             </div>
                             <span class="dropdown-icon" id="shotmapIcon_{{ fixture.home_team }}_{{ fixture.away_team }}">
                                 <i class="fas fa-chevron-left"></i>
