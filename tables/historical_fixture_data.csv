@@ -3331,3 +3331,9 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 291,30,01/04/2025 19:45,Emirates Stadium,Arsenal,Fulham,2 - 1,2024,2.0,1.0,home_win,1,11
 295,30,01/04/2025 19:45,Molineux Stadium,Wolves,West Ham,1 - 0,2024,1.0,0.0,home_win,34,33
 294,30,01/04/2025 20:00,The City Ground,Nottingham Forest,Man Utd,1 - 0,2024,1.0,0.0,home_win,24,20
+292,30,02/04/2025 19:45,Vitality Stadium,Bournemouth,Ipswich,1 - 2,2024,1.0,2.0,away_win,3,14
+293,30,02/04/2025 19:45,American Express Stadium,Brighton,Aston Villa,0 - 3,2024,0.0,3.0,away_win,5,2
+297,30,02/04/2025 19:45,Etihad Stadium,Man City,Leicester,2 - 0,2024,2.0,0.0,home_win,19,16
+298,30,02/04/2025 19:45,St. James' Park,Newcastle,Brentford,2 - 1,2024,2.0,1.0,home_win,22,4
+299,30,02/04/2025 19:45,St. Mary's Stadium,Southampton,Crystal Palace,1 - 1,2024,1.0,1.0,draw,26,9
+300,30,02/04/2025 20:00,Anfield,Liverpool,Everton,1 - 0,2024,1.0,0.0,home_win,17,10

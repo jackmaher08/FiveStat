@@ -8,17 +8,28 @@ from data_loader import load_fixtures, load_match_data, calculate_team_statistic
 from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
+import subprocess
 
 
 # Flask app initialization
 app = Flask(__name__)
+
+def get_last_updated_time():
+    try:
+        raw_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd'], encoding='utf-8').strip()
+        return datetime.strptime(raw_date, '%a %b %d %H:%M:%S %Y %z').strftime('%d %b %Y at %H:%M')
+    except Exception:
+        return "Unknown"
+
+
 
 
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template("index.html")
+
 
 
 # Load data
@@ -66,7 +77,8 @@ def epl_fixtures(gw):
         "epl_fixtures.html",
         fixture_groups=dict(fixture_groups),
         current_gw=gw,
-        gameweeks=gameweeks
+        gameweeks=gameweeks,
+        last_updated=get_last_updated_time()
     )
 
 
@@ -87,7 +99,7 @@ def format_date(value):
 
 @app.route("/about")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", last_updated=get_last_updated_time())
 
 
 
@@ -118,7 +130,7 @@ def epl_table():
     # ✅ Get number of positions (1-20)
     num_positions = len(simulated_table[0]) - 2  # Exclude "Team" and "Final xPTS"
 
-    return render_template("epl_table.html", league_table=league_table, simulated_table=simulated_table, num_positions=num_positions)
+    return render_template("epl_table.html", league_table=league_table, simulated_table=simulated_table, num_positions=num_positions, last_updated=get_last_updated_time())
 
 
 
@@ -164,10 +176,11 @@ def epl_players():
                                dropdown_players=dropdown_players,  # For the radar dropdowns
                                positions=unique_positions, 
                                teams=unique_teams, 
-                               current_gw=current_gw)
+                               current_gw=current_gw,
+                               last_updated=get_last_updated_time())
     except Exception as e:
         print(f"❌ Error loading player data: {e}")
-        return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown")
+        return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown", last_updated=get_last_updated_time())
 
 
 
@@ -277,14 +290,15 @@ def epl_results(gw):
             fixture_groups=dict(fixture_groups),
             current_gw=gw,
             gameweeks=all_gws,
-            league_table=league_table
+            league_table=league_table,
+            last_updated=get_last_updated_time()
         )
 
 
 
     except Exception as e:
         print(f"❌ Error loading data: {e}")
-        return render_template("epl_results.html", fixtures=[], current_gw=0, gameweeks=[], league_table=[])
+        return render_template("epl_results.html", fixtures=[], current_gw=0, gameweeks=[], league_table=[], last_updated=get_last_updated_time())
 
 
 

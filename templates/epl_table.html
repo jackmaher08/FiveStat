@@ -27,7 +27,7 @@
         <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
         <div class="menu">
             <div class="dropdown">
-                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
                     <a href="/epl_results">Results</a>
@@ -156,8 +156,7 @@
     <div class="team_shotmap_image">
         <h2>24/25 Weekly Goals</h2>
         <h5>Looking at the total goals scored against the xG per GW</h5>
-
-    <img class="shotmap" src="../static/chart_images/epl_goals_chart.png" alt="chart unavailable">
+        <img class="shotmap" src="../static/chart_images/epl_goals_chart.png" alt="chart unavailable">
     </div>
     <br><br><br>
     
@@ -320,5 +319,10 @@
 
 
         </script>
+
+    <footer class="footer">
+        <p>Last updated: {{ last_updated }}</p>
+    </footer>
+
 </body>
 </html>
