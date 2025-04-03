@@ -14,3 +14,4 @@ cryptography>=3.4.0
 pyzmq==25.0.0
 gunicorn==20.1.0
 ipython==8.9.0
+lxml
