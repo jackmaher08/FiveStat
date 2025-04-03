@@ -1,8 +1,11 @@
 round_number,date,home_team,away_team
-30,02/04/2025 19:45,Bournemouth,Ipswich
-30,02/04/2025 19:45,Brighton,Aston Villa
-30,02/04/2025 19:45,Man City,Leicester
-30,02/04/2025 19:45,Newcastle,Brentford
-30,02/04/2025 19:45,Southampton,Crystal Palace
-30,02/04/2025 20:00,Liverpool,Everton
-30,03/04/2025 20:00,Chelsea,Spurs
+31,05/04/2025 12:30,Everton,Arsenal
+31,05/04/2025 15:00,Crystal Palace,Brighton
+31,05/04/2025 15:00,Ipswich,Wolves
+31,05/04/2025 15:00,West Ham,Bournemouth
+31,05/04/2025 17:30,Aston Villa,Nottingham Forest
+31,06/04/2025 14:00,Brentford,Chelsea
+31,06/04/2025 14:00,Fulham,Liverpool
+31,06/04/2025 14:00,Spurs,Southampton
+31,06/04/2025 16:30,Man Utd,Man City
+31,07/04/2025 20:00,Leicester,Newcastle

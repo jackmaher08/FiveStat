@@ -3328,3 +3328,6 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 281,29,16/03/2025 13:30,Emirates Stadium,Arsenal,Chelsea,1 - 0,2024,1.0,0.0,home_win,1,8
 285,29,16/03/2025 13:30,Craven Cottage,Fulham,Spurs,2 - 0,2024,2.0,0.0,home_win,11,27
 287,29,16/03/2025 19:00,King Power Stadium,Leicester,Man Utd,0 - 3,2024,0.0,3.0,away_win,16,20
+291,30,01/04/2025 19:45,Emirates Stadium,Arsenal,Fulham,2 - 1,2024,2.0,1.0,home_win,1,11
+295,30,01/04/2025 19:45,Molineux Stadium,Wolves,West Ham,1 - 0,2024,1.0,0.0,home_win,34,33
+294,30,01/04/2025 20:00,The City Ground,Nottingham Forest,Man Utd,1 - 0,2024,1.0,0.0,home_win,24,20
