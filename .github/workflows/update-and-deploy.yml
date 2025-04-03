@@ -31,7 +31,7 @@ jobs:
       - name: Run Data Scripts
         run: |
           python data/data_scraper_script.py
-          python data/data_loader.py
+          python data_loader.py
 
       - name: Commit & Push Changes
         run: |
