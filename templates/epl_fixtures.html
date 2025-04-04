@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EPL Fixtures</title>
+    <title>EPL Fixtures | FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='FiveStat_plain.png') }}">
@@ -44,6 +44,14 @@
             window.location.href = `/epl_fixtures/${gw}`;
         }
     </script>
+
+    <div class="view-toggle">
+        <label class="switch">
+            <input type="checkbox" id="toggleView" onchange="toggleAllHeatmaps(this.checked)">
+            <span class="slider round"></span>
+        </label>
+        <span id="toggleLabel">Expanded View</span>
+    </div>
     
 
     <!-- Dark Overlay -->
@@ -66,19 +74,36 @@
             <h3>{{ date | format_date }}</h3>
         </div>
         <hr class="fixture-divider">
-        <div id="fixtures_{{ date }}" class="fixture-group" style="overflow: hidden;">
             {% for fixture in fixtures %}
                 <div class="fixture">
                     <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
                         <div class="fixture-info">
                             <div class="fixture-row">
                                 <span class="team-name home">
-                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a>
+                                    <span class="form-tooltip">
+                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a>
+                                        <div class="tooltip-content">
+                                            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                            {% for f in fixture.home_form %}
+                                                <span class="{{ f }}">{{ f.upper() }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </span>
                                 </span>
+                                
                                 <span class="versus">vs</span>
+                                
                                 <span class="team-name away">
-                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
-                                </span>
+                                    <span class="form-tooltip">
+                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                                        <div class="tooltip-content">
+                                            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                            {% for f in fixture.away_form %}
+                                                <span class="{{ f }}">{{ f.upper() }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    </span>
+                                </span>                                
                             </div>                          
                             <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                         </div>
@@ -91,14 +116,15 @@
                     </div>
                 </div>
             {% endfor %}
-        </div>
     {% endfor %}
 
 
     <br>
-    <div class="centered-button">
-        <button class="info-button" onclick="toggleModal('infoModal')">ℹ️</button>
-    </div>
+        <div class="centered-button">
+            <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>    
     <br>
 
 
@@ -126,9 +152,7 @@
             modal.style.display = isVisible ? "none" : "block";
             overlay.style.display = isVisible ? "none" : "block";
         }
-    </script>
 
-    <script>
         function toggleDropdown(event) {
             event.preventDefault();  // Prevents page from jumping
             let dropdown = document.querySelector('.dropdown');
@@ -147,25 +171,44 @@
                 }
             }
         };
-    </script>
-
-    <script>
+    
         function toggleHeatmap(homeTeam, awayTeam) {
             const container = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
-            const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`);
+            const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`).querySelector('i');
 
-            const isOpen = container.style.display === "block";
-
-            if (!isOpen) {
-                container.style.display = "block";
-                icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+            if (container.classList.contains("open")) {
+                container.classList.remove("open");
+                icon.className = "fas fa-chevron-left";
             } else {
-                container.style.display = "none";
-                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                container.classList.add("open");
+                icon.className = "fas fa-chevron-down";
             }
         }
 
+
+        function toggleAllHeatmaps(expand = true) {
+            const containers = document.querySelectorAll('.heatmap-container');
+            const icons = document.querySelectorAll('.dropdown-icon i');
+
+            containers.forEach((container, index) => {
+                if (expand) {
+                    if (!container.classList.contains("open")) {
+                        container.classList.add("open");
+                        icons[index].className = "fas fa-chevron-down";
+                    }
+                } else {
+                    if (container.classList.contains("open")) {
+                        container.classList.remove("open");
+                        icons[index].className = "fas fa-chevron-left";
+                    }
+                }
+            });
+
+            document.getElementById("toggleLabel").innerText = expand ? "Expanded View" : "Compact View";
+        }
     </script>
+    
+    
     
         
     <footer class="footer">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EPL Results</title>
+    <title>EPL Results | FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='FiveStat_plain.png') }}">
@@ -44,6 +44,14 @@
         }
     </script>
 
+    <div class="view-toggle">
+        <label class="switch">
+            <input type="checkbox" id="toggleResultsView" onchange="toggleAllShotmaps(this.checked)">
+            <span class="slider round"></span>
+        </label>
+        <span id="resultsToggleLabel">Expanded View</span>
+    </div>
+
     <br>
     <main>
     
@@ -59,15 +67,37 @@
                         <div class="fixture-header" onclick="toggleShotmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
                             <div class="fixture-info">
                                 <div class="fixture-row">
+
                                     <span class="team-name home">
-                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a>
+                                        <span class="form-tooltip">
+                                            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a>
+                                            <div class="tooltip-content">
+                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                                {% for f in fixture.home_form %}
+                                                    <span class="{{ f }}">{{ f.upper() }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </span>                                          
                                     </span>
+
                                     <span class="score">{{ fixture.home_goals | int }}</span>
+
                                     <span class="versus">-</span>
+
                                     <span class="score">{{ fixture.away_goals | int }}</span>
+
                                     <span class="team-name away">
-                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                                        <span class="form-tooltip">
+                                            <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                                            <div class="tooltip-content">
+                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                                {% for f in fixture.away_form %}
+                                                    <span class="{{ f }}">{{ f.upper() }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </span>
                                     </span>
+                                    
                                 </div>                                
                                 <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                             </div>
@@ -289,6 +319,23 @@
                 container.style.maxHeight = "0";
                 icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
             }
+        }
+
+        function toggleAllShotmaps(expand = true) {
+            const containers = document.querySelectorAll('.shotmap-container');
+            const icons = document.querySelectorAll('.dropdown-icon i');
+
+            containers.forEach((container, index) => {
+                if (expand) {
+                    container.style.maxHeight = container.scrollHeight + "px";
+                    icons[index].className = "fas fa-chevron-down";
+                } else {
+                    container.style.maxHeight = "0";
+                    icons[index].className = "fas fa-chevron-left";
+                }
+            });
+
+            document.getElementById("resultsToggleLabel").innerText = expand ? "Expanded View" : "Compact View";
         }
 
     </script>

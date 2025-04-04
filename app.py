@@ -22,6 +22,26 @@ def get_last_updated_time():
         return "Unknown"
 
 
+def get_team_form(fixtures_df, team_name, max_matches=5):
+    team_matches = fixtures_df[
+        ((fixtures_df["home_team"] == team_name) | (fixtures_df["away_team"] == team_name)) &
+        (fixtures_df["isResult"] == True)
+    ].sort_values("date", ascending=False).head(max_matches)
+
+    form = []
+    for _, match in team_matches.iterrows():
+        is_home = match["home_team"] == team_name
+        team_goals = match["home_goals"] if is_home else match["away_goals"]
+        opp_goals = match["away_goals"] if is_home else match["home_goals"]
+
+        if team_goals > opp_goals:
+            form.append("w")
+        elif team_goals == opp_goals:
+            form.append("d")
+        else:
+            form.append("l")
+    return form
+
 
 
 
@@ -65,11 +85,24 @@ def epl_fixtures(gw):
     # Extract date-only from datetime string
     gw_fixtures["match_date"] = gw_fixtures["date"].str[:10]  # e.g. '02/04/2025'
 
+    # Load all fixtures
+    all_fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+    all_fixtures_df["isResult"] = all_fixtures_df["isResult"].astype(str).str.lower() == "true"
+    all_fixtures_df["date"] = pd.to_datetime(all_fixtures_df["date"], dayfirst=True)
+
+    gw_fixtures["home_form"] = None
+    gw_fixtures["away_form"] = None
+
+    # Add form to each fixture
+    for idx, fixture in gw_fixtures.iterrows():
+        gw_fixtures.at[idx, "home_form"] = get_team_form(all_fixtures_df, fixture["home_team"])
+        gw_fixtures.at[idx, "away_form"] = get_team_form(all_fixtures_df, fixture["away_team"])
+
+
     # Group fixtures by match_date
     fixture_groups = defaultdict(list)
     for _, row in gw_fixtures.iterrows():
         fixture_groups[row["match_date"]].append(row.to_dict())
-
 
     gameweeks = sorted(fixtures[fixtures["isResult"] == False]["round_number"].dropna().unique().tolist())
 
@@ -274,6 +307,16 @@ def epl_results(gw):
             shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
             if os.path.exists(shotmap_path):
                 filtered_fixtures.append(fixture)
+
+        # ✅ Load all fixture results to calculate form
+        all_results_df = pd.read_csv("data/tables/fixture_data.csv")
+        all_results_df["isResult"] = all_results_df["isResult"].astype(str).str.lower() == "true"
+        all_results_df["date"] = pd.to_datetime(all_results_df["date"], dayfirst=True)
+
+        # ✅ Add form data to each fixture in this GW
+        for fixture in filtered_fixtures:
+            fixture["home_form"] = get_team_form(all_results_df, fixture["home_team"])
+            fixture["away_form"] = get_team_form(all_results_df, fixture["away_team"])
 
         # ✅ Group fixtures by date (INSERT HERE)
         fixture_groups = defaultdict(list)

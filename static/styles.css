@@ -39,9 +39,22 @@ a:hover {
 }
 
 .info-button {
-    background-color: #f4f4f9;
-    color: #f4f4f9;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.4rem;
+    cursor: pointer;
 }
+
+.info-button:hover {
+    color: #3f007d;
+}
+
+
+
+
+
+
 .centered-button {
     display: flex;
     justify-content: center;
@@ -337,6 +350,8 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #f1f1f1;
+    border-top: #666 solid 1.5px;
+    border-bottom: #666 solid 1.5px;
 }
 
 /* Pagination */
@@ -567,9 +582,16 @@ select:focus {
 
 
 .heatmap-container {
-    display: none;
+    max-height: 0;
     overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
 }
+
+.heatmap-container.open {
+    display: block;
+    max-height: 1000px; /* or more if needed */
+}
+
 
 .dropdown-icon {
     font-size: 1rem;
@@ -588,3 +610,107 @@ select:focus {
     margin-top: 40px;
     color: #666;
 }
+
+
+.form-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.form-tooltip .tooltip-content {
+    visibility: hidden;
+    width: auto;
+    background-color: #f4f4f4;
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px 10px;
+    position: absolute;
+    bottom: 125%; /* Show below */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.form-tooltip:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
+
+.w { color: green; font-weight: bold; }
+.d { color: goldenrod; font-weight: bold; }
+.l { color: red; font-weight: bold; }
+
+.tooltip-content {
+    align-items: center;
+}
+
+.form-arrow {
+    font-size: 0.65rem;
+    color: #666;
+    margin-bottom: 3px;
+    font-style: italic;
+}
+
+.form-row {
+    display: flex;
+    gap: 5px;
+}
+
+
+
+
+
+
+
+/* Toggle Switch Styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+
+
