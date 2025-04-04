@@ -46,7 +46,7 @@ def fixtures_redirect():
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
     #next_gw = fixtures[fixtures["isResult"] == False]["round_number"].min()
-    next_gw = 30
+    next_gw = 31
     return redirect(url_for("epl_fixtures", gw=next_gw))
 
 
