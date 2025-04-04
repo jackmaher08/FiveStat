@@ -214,6 +214,13 @@ a:hover {
         font-size: 11px !important;
         padding: 4px 6px !important; /* Adjust padding if needed */
     }
+    .fixture-row {
+        font-size: 0.5;
+    }
+    .team-name.home, .team-name.away {
+        font-size: 12px;
+        width: 120px;
+    }
 }
 
 /* Fixture Styles */
@@ -502,6 +509,41 @@ select:focus {
     margin: 10px 0;
 }
 
+.fixture-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.team-name {
+    width: 180px; /* fixed width for alignment */
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.team-name.home {
+    text-align: right;
+}
+
+.team-name.away {
+    text-align: left;
+}
+
+.score {
+    width: 20px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.versus {
+    width: 20px;
+    text-align: center;
+}
+
+
 
 
 
@@ -521,16 +563,12 @@ select:focus {
 .date-header h3 {
     margin: 0;
 }
-.fixture-group {
-    transition: max-height 0.5s ease;
-}
 
 
 
 .heatmap-container {
     display: none;
     overflow: hidden;
-    transition: all 0.5s ease-in-out;
 }
 
 .dropdown-icon {

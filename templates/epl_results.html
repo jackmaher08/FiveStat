@@ -58,13 +58,17 @@
                     <div class="fixture">
                         <div class="fixture-header" onclick="toggleShotmap('{{ fixture['home_team'] }}', '{{ fixture['away_team'] }}')">
                             <div class="fixture-info">
-                                <h3>
-                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a> 
-                                    {{ fixture.home_goals | int }}
-                                    -
-                                    {{ fixture.away_goals | int }}
-                                    <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
-                                </h3>
+                                <div class="fixture-row">
+                                    <span class="team-name home">
+                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.home_team }}</a>
+                                    </span>
+                                    <span class="score">{{ fixture.home_goals | int }}</span>
+                                    <span class="versus">-</span>
+                                    <span class="score">{{ fixture.away_goals | int }}</span>
+                                    <span class="team-name away">
+                                        <a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ fixture.away_team }}</a>
+                                    </span>
+                                </div>                                
                                 <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                             </div>
                             <span class="dropdown-icon" id="shotmapIcon_{{ fixture.home_team }}_{{ fixture.away_team }}">
