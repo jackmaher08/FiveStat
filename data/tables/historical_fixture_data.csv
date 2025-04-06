@@ -3338,3 +3338,8 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 299,30,02/04/2025 19:45,St. Mary's Stadium,Southampton,Crystal Palace,1 - 1,2024,1.0,1.0,draw,26,9
 300,30,02/04/2025 20:00,Anfield,Liverpool,Everton,1 - 0,2024,1.0,0.0,home_win,17,10
 296,30,03/04/2025 20:00,Stamford Bridge,Chelsea,Spurs,1 - 0,2024,1.0,0.0,home_win,8,27
+304,31,05/04/2025 12:30,Goodison Park,Everton,Arsenal,1 - 1,2024,1.0,1.0,draw,10,1
+303,31,05/04/2025 15:00,Selhurst Park,Crystal Palace,Brighton,2 - 1,2024,2.0,1.0,home_win,9,5
+306,31,05/04/2025 15:00,Portman Road,Ipswich,Wolves,1 - 2,2024,1.0,2.0,away_win,14,34
+310,31,05/04/2025 15:00,London Stadium,West Ham,Bournemouth,2 - 2,2024,2.0,2.0,draw,33,3
+301,31,05/04/2025 17:30,Villa Park,Aston Villa,Nottingham Forest,2 - 1,2024,2.0,1.0,home_win,2,24
