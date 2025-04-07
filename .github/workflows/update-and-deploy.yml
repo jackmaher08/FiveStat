@@ -46,4 +46,4 @@ jobs:
           git add -f static/heatmaps
           git add -f data/tables
           git commit -m "🔁 Auto update: fixtures, shotmaps, heatmaps, league tables" || echo "No changes to commit"
-          git push origin main
+          git push https://x-access-token:${GH_TOKEN}@github.com/jackmaher08/FiveStat.git HEAD:main
