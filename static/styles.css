@@ -365,7 +365,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #d8d8d8;
     border-top: #666 solid 1.5px;
     border-bottom: #666 solid 1.5px;
 }
