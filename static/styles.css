@@ -229,10 +229,11 @@ a:hover {
     }
     .fixture-row {
         font-size: 0.5;
+        width: 250px;
     }
     .team-name.home, .team-name.away {
         font-size: 12px;
-        width: 120px;
+        width: 100px;
     }
 }
 
