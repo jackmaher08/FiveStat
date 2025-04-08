@@ -3343,3 +3343,7 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 306,31,05/04/2025 15:00,Portman Road,Ipswich,Wolves,1 - 2,2024,1.0,2.0,away_win,14,34
 310,31,05/04/2025 15:00,London Stadium,West Ham,Bournemouth,2 - 2,2024,2.0,2.0,draw,33,3
 301,31,05/04/2025 17:30,Villa Park,Aston Villa,Nottingham Forest,2 - 1,2024,2.0,1.0,home_win,2,24
+302,31,06/04/2025 14:00,Gtech Community Stadium,Brentford,Chelsea,0 - 0,2024,0.0,0.0,draw,4,8
+305,31,06/04/2025 14:00,Craven Cottage,Fulham,Liverpool,3 - 2,2024,3.0,2.0,home_win,11,17
+309,31,06/04/2025 14:00,Tottenham Hotspur Stadium,Spurs,Southampton,3 - 1,2024,3.0,1.0,home_win,27,26
+308,31,06/04/2025 16:30,Old Trafford,Man Utd,Man City,0 - 0,2024,0.0,0.0,draw,20,19

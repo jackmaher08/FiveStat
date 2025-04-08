@@ -304,11 +304,11 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 31,05/04/2025 15:00,Ipswich,Wolves,1 - 2,26907,True,1.0,2.0,0.87,2.81
 31,05/04/2025 15:00,West Ham,Bournemouth,2 - 2,26911,True,2.0,2.0,0.91,1.95
 31,05/04/2025 17:30,Aston Villa,Nottingham Forest,2 - 1,26902,True,2.0,1.0,2.63,0.97
-31,06/04/2025 14:00,Brentford,Chelsea,,26903,True,0.0,0.0,1.36,1.48
-31,06/04/2025 14:00,Fulham,Liverpool,,26906,True,3.0,2.0,1.73,1.41
-31,06/04/2025 14:00,Spurs,Southampton,,26910,True,3.0,1.0,2.65,0.78
-31,06/04/2025 16:30,Man Utd,Man City,,26909,True,0.0,0.0,1.23,0.69
-31,07/04/2025 20:00,Leicester,Newcastle,,26908,False,,,,
+31,06/04/2025 14:00,Brentford,Chelsea,0 - 0,26903,True,0.0,0.0,1.36,1.48
+31,06/04/2025 14:00,Fulham,Liverpool,3 - 2,26906,True,3.0,2.0,1.73,1.41
+31,06/04/2025 14:00,Spurs,Southampton,3 - 1,26910,True,3.0,1.0,2.65,0.78
+31,06/04/2025 16:30,Man Utd,Man City,0 - 0,26909,True,0.0,0.0,1.23,0.69
+31,07/04/2025 20:00,Leicester,Newcastle,,26908,True,0.0,3.0,0.35,3.44
 32,12/04/2025 12:30,Man City,Crystal Palace,,26917,False,,,,
 32,12/04/2025 15:00,Brighton,Leicester,,26914,False,,,,
 32,12/04/2025 15:00,Nottingham Forest,Everton,,26920,False,,,,
