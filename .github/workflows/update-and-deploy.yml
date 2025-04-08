@@ -33,7 +33,7 @@ jobs:
           python data/data_scraper_script.py
           python data_loader.py
 
-            - name: Commit & Push Changes
+      - name: Commit & Push Changes
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
@@ -46,5 +46,4 @@ jobs:
           git add -f data/tables
           git commit -m "🔁 Auto update: fixtures, shotmaps, heatmaps, league tables" || echo "No changes to commit"
 
-          # ✅ This pushes with your token directly
           git push https://x-access-token:${GH_TOKEN}@github.com/jackmaher08/FiveStat.git HEAD:main
