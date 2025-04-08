@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - - name: Checkout Repo (with PAT)
-          uses: actions/checkout@v3
-          with:
-            token: ${{ secrets.GH_PAT }}
+      - name: Checkout Repo (with PAT)
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
 
 
       - name: Install System Packages for lxml
