@@ -6,6 +6,7 @@
     <title>EPL Table | FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='FiveStat_plain.png') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .sorted-column {
@@ -105,7 +106,7 @@
                     <td class="bold-left-border">{{ team["GA"] }}</td>
                     <td>{{ team["xGA"] }}</td>
                     <td>{{ team["npxGA"] }}</td>
-                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}"">{{ team["xGA +/-"] }}</td>
+                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
                     <td class="bold-left-border">{{ team["PTS"] }}</td>
                     <td>{{ team["xPTS"] }}</td>
                     <td class="{% if team['xPTS +/-'] > 0 %}positive{% elif team['xPTS +/-'] < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
@@ -117,10 +118,10 @@
     <br><br><br>
     <h2>Simulated League Positions</h2>
     <div class="centered-button">
-        <button class="info-button" onclick="toggleModal('infoModal')">
-            <i class="fa-solid fa-circle-info"></i>
+        <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
+            <i class="fas fa-info-circle"></i>
         </button>
-    </div>
+    </div>  
     <!-- Dark Overlay -->
     <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
     <!-- Info Modal -->

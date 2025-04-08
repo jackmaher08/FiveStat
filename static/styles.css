@@ -208,7 +208,7 @@ a:hover {
         width: 95% !important; /* Ensure modal is almost full-width */
         max-width: none !important;
         padding: 10px !important;
-    }     
+    }
     .navbar a {
         text-align: center; /* Ensures text alignment */
         margin: 0 auto; /* Center links */
@@ -281,13 +281,27 @@ a:hover {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 65%;
+    width: auto;
     background-color: #f4f4f9;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     padding: 15px;
     border-radius: 10px;
     text-align: center;
+    max-width: none !important;
+    height: auto;
+    max-height: 95vh;
+    box-sizing: border-box;
 }
+.modal img {
+    max-width: 100%;
+    max-height: 90vh;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+
 
 .modal-overlay {
     display: none;
@@ -299,6 +313,7 @@ a:hover {
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
+
 
 #playerRadarImage, #teamShotmapImage {
     width: 90%;   /* Ensures the image scales with the modal */
@@ -551,7 +566,7 @@ select:focus {
     width: 20px;
     text-align: center;
     font-weight: 400;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 .versus {
@@ -567,14 +582,10 @@ select:focus {
 .date-header {
     background-color: #f4f4f4;
     padding: 12px;
-    cursor: pointer;
     display: flex;
     flex-direction: column; /* Center items vertically */
     align-items: center;     /* Center horizontally */
     text-align: center;
-}
-.date-header:hover {
-    background-color: #ccc;
 }
 .date-header h3 {
     margin: 0;
