@@ -129,52 +129,76 @@ def process_match_shots(understat_match_id):
 
 
 def plot_team_shotmap(team_name):
-    # Convert all filenames to Title Case to maintain consistency
     standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
-    formatted_filename = standardized_team_name.title()  # Ensures "chelsea" → "Chelsea"
+    formatted_filename = standardized_team_name.title()
 
     df = all_shots_df[all_shots_df['team'] == team_name]
 
     if df.empty:
         print(f"No shots found for {team_name}")
         return
-    
-    # ✅ Flip away team shots so all teams shoot towards the same goal
+
+    # Flip away team shots
     df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
     df.loc[df["h_a"] == "a", "y_scaled"] = 80 - df["y_scaled"]
 
-    total_shots = len(df)
-    total_goals = len(df[df["result"].str.lower() == "goal"])
-    total_xg = df["xG"].sum()
+    home_shots = len(df[
+        (df["h_a"] == "h") & (df["home_team"] == team_name)
+    ])
 
-    # Create pitch
+    away_shots = len(df[
+        (df["h_a"] == "a") & (df["away_team"] == team_name)
+    ])
+
+    deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
+
+    team_shots = deduped[
+        ((deduped["h_a"] == "h") & (deduped["home_team"] == team_name)) |
+        ((deduped["h_a"] == "a") & (deduped["away_team"] == team_name))
+    ]
+    total_shots = len(team_shots)
+    print(f"{team_name} - Shots: {len(team_shots)}")
+
+    # ✅ Load goals from league table
+    league_table_path = "data/tables/league_table_data.csv"
+    league_df = pd.read_csv(league_table_path)
+    team_row = league_df[league_df["Team"] == team_name]
+    total_goals = int(team_row.iloc[0]["G"]) if not team_row.empty else 0
+    total_xg = float(team_row.iloc[0]["xG"]) if not team_row.empty else 0.0
+
+
+    # Draw pitch
     pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
     fig, ax = pitch.draw(figsize=(12, 9))
     fig.patch.set_facecolor("#f4f4f9")
 
-    existing_columns = set(df.columns)
-    subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in existing_columns]
-
+    # Remove duplicates
+    subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in df.columns]
     if subset_columns:
         df = df.drop_duplicates(subset=subset_columns)
 
+    # Plot each shot
     for _, shot in df.iterrows():
         x, y = shot['x_scaled'], shot['y_scaled']
         color = 'gold' if shot['result'].lower() == 'goal' else 'white'
         zorder = 3 if shot['result'].lower() == 'goal' else 2
         size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-
         pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
 
-    plt.title(f"{standardized_team_name} Shotmap", fontsize=15)
+    # Title and labels
+    plt.title(f"{standardized_team_name} Shotmap - 24/25 Season", fontsize=15)
+    ax.text(10, 55, f"Shots: {total_shots}", ha='left', va='center', fontsize=12)
+    ax.text(40, 55, f"Goals: {total_goals}", ha='center', va='center', fontsize=12)
+    ax.text(70, 55, f"xG: {total_xg:.2f}", ha='right', va='center', fontsize=12)
+    ax.text(4, 119, "FiveStat", ha='right', va='center', fontsize=8, alpha=0.3)
 
 
-
-    # Save using standardized team name
+    # Save
     shotmap_filename = f"{formatted_filename}_shotmap.png"
     plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
     plt.close(fig)
     print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
+
 
 
 

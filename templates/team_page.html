@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ team.name }} | FiveStat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">
+            <div class="dropdown">
+                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_results">Results</a>
+                    <a href="/epl_table">League Stats</a>
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="team-switcher">
+        <select id="team-select" onchange="navigateToTeam(this.value)">
+            {% for team_option in all_teams %}
+              <option value="{{ team_option }}" {% if team_option == team.name %}selected{% endif %}>
+                {{ team_display_names[team_option] }}
+              </option>
+            {% endfor %}
+        </select>          
+      </div>
+      
+
+
+
+    <div class="team-header">
+        <img src="{{ url_for('static', filename=('team_logos/' + team.name + '_logo.png')|lower) }}" alt="{{ team.name }} Logo" class="team-logo">
+        <h1>{{ team.display_name }}</h1>
+        <p><strong>Manager:</strong> {{ team.manager }}</p>
+        <p><strong>Stadium:</strong> {{ team.stadium }}</p>
+    </div>
+
+    <hr>
+
+    <div class="section">
+        <h2>Performance</h2>
+        <div class="table-scroll">
+            <table class="league-table" id="teamLeagueTable">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th class="bold-left-border">Team</th>
+                        <th class="bold-left-border">MP</th>
+                        <th class="bold-left-border">W</th>
+                        <th class="hide-left-border">D</th>
+                        <th>L</th>
+                        <th class="bold-left-border">G</th>
+                        <th>GA</th>
+                        <th class="bold-left-border">PTS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in league_table %}
+                    <tr class="{% if t.Team == team.name %}highlight{% endif %}">
+                        <td>{{ loop.index0 + start_position + 1 }}</td>
+                        <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=t["Team"]) }}">{{ t["Team"] }}</a></td>
+                        <td class="bold-left-border">{{ t["MP"] }}</td>
+                        <td class="bold-left-border">{{ t["W"] }}</td>
+                        <td class="hide-left-border">{{ t["D"] }}</td>
+                        <td>{{ t["L"] }}</td>
+                        <td class="bold-left-border">{{ t["G"] }}</td>
+                        <td>{{ t["GA"] }}</td>
+                        <td class="bold-left-border">{{ t["PTS"] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="form-display">
+            <h3>Recent Form</h3>
+            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+            <div class="form-icons">
+                <span class="form-arrow"></span>
+                {% for result in team.form %}
+                    <span class="form-circle {{ result }}">{{ result|upper }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 
+        <div class="xg-chart">
+            <h3>xG vs xGA (by Gameweek)</h3>
+            <img src="{{ url_for('static', filename='xg_charts/' + team.name + '_xg_trend.png') }}" alt="xG Chart">
+        </div>
+        -->
+
+        <div class="team_shotmap_image">
+            <img class="shotmap" src="{{ url_for('static', filename='chart_images/teams/' + team.name + '_goals_xg_chart.png') }}">
+        </div>
+    </div>
+
+    <div class="section">
+        <img class="shotmap"src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap">
+    </div>
+
+    <!-- Additional sections will be added for squad, fixtures, and more -->
+
+
+
+    <script>
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function navigateToTeam(teamName) {
+            const encoded = encodeURIComponent(teamName);
+            window.location.href = `/team/${encoded}`;
+        }
+    </script>
+
+
+    <footer class="footer">
+        <p>Last updated: {{ last_updated }}</p>
+    </footer>
+
+</body>
+</html>

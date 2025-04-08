@@ -9,10 +9,22 @@ from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
+import json
 
 
 # Flask app initialization
 app = Flask(__name__)
+
+TEAM_NAME_MAPPING = {
+    "Wolverhampton Wanderers": "Wolves",
+    "Crystal Palace": "Crystal Palace",
+    "Tottenham": "Spurs",
+    "Man Utd": "Manchester United",
+    "Newcastle United": "Newcastle",
+    "Spurs": "Tottenham",
+    "Newcastle": "Newcastle United",
+    "Wolves": "Wolverhampton Wanderers",
+}
 
 def get_last_updated_time():
     try:
@@ -382,6 +394,70 @@ def generate_radar():
 @app.route("/methodology")
 def methodology():
     return render_template("methodology.html")
+
+
+
+
+
+
+@app.route("/team/<team_name>")
+def team_page(team_name):
+    with open("data/team_metadata.json", "r") as f:
+        team_metadata = json.load(f)
+
+    all_teams = list(team_metadata.keys())
+
+    # ✅ Always define this BEFORE any return
+    team_display_names = {
+        t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams
+    }
+
+    team_data = team_metadata.get(team_name)
+    if not team_data:
+        return f"Team '{team_name}' not found.", 404
+
+    team_data["name"] = team_name
+    team_data["display_name"] = TEAM_NAME_MAPPING.get(team_name, team_name)
+    team_data["logo_name"] = TEAM_NAME_MAPPING.get(team_name, team_name)
+
+    # Load full league table
+    table_path = "data/tables/league_table_data.csv"
+    league_df = pd.read_csv(table_path)
+
+    # Find team position
+    team_row = league_df[league_df["Team"] == team_name]
+    if not team_row.empty:
+        position = team_row.index[0]
+        start_position = max(0, position - 3)
+        end_position = position + 4
+        partial_table = league_df.iloc[start_position:end_position].to_dict(orient="records")
+    else:
+        start_position = 0
+        partial_table = []
+
+    form_df = pd.read_csv("data/tables/fixture_data.csv")
+    form_df["isResult"] = form_df["isResult"].astype(str).str.lower() == "true"
+    form_df["date"] = pd.to_datetime(form_df["date"], dayfirst=True)
+
+    team_data["form"] = get_team_form(form_df, team_name)
+
+    return render_template(
+        "team_page.html",
+        team=team_data,
+        all_teams=all_teams,
+        team_display_names=team_display_names,
+        league_table=partial_table,
+        start_position=start_position,
+        last_updated=get_last_updated_time()
+    )
+
+
+
+
+
+
+
+
 
 
 

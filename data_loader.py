@@ -624,76 +624,75 @@ for _, row in completed_fixtures.iterrows():
 
 
 # Function to generate and save goals vs. xG bar chart
-def generate_goals_xg_chart():
-    """Generate a bar chart comparing total goals vs. total xG per gameweek and save it."""
-    
-    # Define file paths
+def generate_team_goals_xg_charts():
     DATA_PATH = "data/tables/fixture_data.csv"
-    SAVE_DIR = "static/chart_images"
-    SAVE_PATH = os.path.join(SAVE_DIR, "epl_goals_chart.png")
-
-    # Ensure save directory exists
+    SAVE_DIR = "static/chart_images/teams"
     os.makedirs(SAVE_DIR, exist_ok=True)
 
-    # Load fixture data
     if not os.path.exists(DATA_PATH):
         print(f"❌ Error: {DATA_PATH} not found. Skipping chart generation.")
         return
 
     df = pd.read_csv(DATA_PATH)
-
-    # Ensure required columns exist
-    required_columns = {"round_number", "home_goals", "away_goals", "home_xG", "away_xG"}
-    if not required_columns.issubset(df.columns):
-        print(f"❌ Missing required columns in {DATA_PATH}. Found: {df.columns}")
-        return
-
-    # Convert round_number to int
     df["round_number"] = pd.to_numeric(df["round_number"], errors="coerce")
 
-    # Aggregate total goals and xG per round (gameweek)
-    weekly_stats = df.groupby("round_number").agg(
-        total_goals=("home_goals", "sum"),  # Sum home + away goals
-        total_xG=("home_xG", "sum")  # Sum home + away xG
-    )
-    weekly_stats["total_xG"] += df.groupby("round_number")["away_xG"].sum()  # Add away xG
-    weekly_stats["total_goals"] += df.groupby("round_number")["away_goals"].sum()  # Add away goals
+    required_cols = {"round_number", "home_team", "away_team", "home_goals", "away_goals", "home_xG", "away_xG"}
+    if not required_cols.issubset(df.columns):
+        print(f"❌ Missing columns in fixture_data.csv: {required_cols - set(df.columns)}")
+        return
 
-    # Compute average goals per week
-    avg_goals = weekly_stats["total_goals"].mean()
+    # Get all unique team names
+    teams = sorted(set(df["home_team"]) | set(df["away_team"]))
 
-    # Sort by gameweek
-    weekly_stats = weekly_stats.sort_index()
+    for team in teams:
+        # Filter all matches where the team played
+        team_games = df[(df["home_team"] == team) | (df["away_team"] == team)].copy()
 
-    # Create bar chart
-    fig, ax = plt.subplots(figsize=(18, 6))
-    fig.patch.set_facecolor("#f4f4f9")  # Set entire figure background
-    ax.set_facecolor("#f4f4f9")  # Set axes background
+        # Calculate goals and xG for the team (home or away)
+        team_games["goals"] = team_games.apply(
+            lambda row: row["home_goals"] if row["home_team"] == team else row["away_goals"], axis=1
+        )
+        team_games["xG"] = team_games.apply(
+            lambda row: row["home_xG"] if row["home_team"] == team else row["away_xG"], axis=1
+        )
 
-    bar_width = 0.4
-    x_labels = weekly_stats.index.astype(str)  # Convert round numbers to strings for x-axis labels
+        # Group by gameweek
+        weekly_stats = team_games.groupby("round_number").agg({
+            "goals": "sum",
+            "xG": "sum"
+        }).sort_index()
 
-    # Plot bars for Goals and xG
-    ax.bar(weekly_stats.index - bar_width / 2, weekly_stats["total_goals"], width=bar_width, label="Total Goals", color="#3f007d")
-    ax.bar(weekly_stats.index + bar_width / 2, weekly_stats["total_xG"], width=bar_width, label="Total xG", color="#9163cb")
+        # Plot chart
+        # ✅ Calculate average goals (only for played weeks)
+        avg_goals = weekly_stats["goals"].mean()
 
-    # Plot average total goals line
-    ax.axhline(y=avg_goals, color="black", linestyle="dashed", linewidth=1.5, label=f"Avg Goals ({avg_goals:.2f})")
+        # Plot chart
+        fig, ax = plt.subplots(figsize=(14, 5))
+        fig.patch.set_facecolor("#f4f4f9")
+        ax.set_facecolor("#f4f4f9")
 
-    # Remove all axis lines
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.spines["left"].set_visible(False)
-    ax.spines["bottom"].set_visible(False)
+        bar_width = 0.4
+        x = weekly_stats.index
+        ax.bar(x - bar_width / 2, weekly_stats["goals"], width=bar_width, label="Goals", color="#3f007d")
+        ax.bar(x + bar_width / 2, weekly_stats["xG"], width=bar_width, label="xG", color="#9163cb")
 
-    # Add legend
-    ax.legend(frameon=False, loc="upper right")
+        # ✅ Add average goals line
+        ax.axhline(y=avg_goals, color="black", linestyle="dashed", linewidth=1.5, label=f"Avg Goals ({avg_goals:.2f})")
 
-    # Save the chart
-    plt.savefig(SAVE_PATH, dpi=300, bbox_inches="tight", transparent=True)
-    plt.close()
+        ax.set_title("Goals vs xG (by Gameweek)", fontsize=15, pad=10)
+        ax.legend(frameon=False)
+        ax.set_xlabel("Gameweek")
+        ax.set_ylabel("Total")
 
-    print(f"Chart saved to {SAVE_PATH}")
+        # Clean look
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+
+        chart_path = os.path.join(SAVE_DIR, f"{team}_goals_xg_chart.png")
+        plt.savefig(chart_path, dpi=300, bbox_inches="tight", transparent=True)
+        plt.close()
+        print(f"✅ Saved: {chart_path}")
+
 
 
 
@@ -863,3 +862,5 @@ if __name__ == "__main__":
     final_probabilities.to_csv(output_file_path, index=True, float_format="%.6f")
 
     print(f"✅ Simulation results saved to: {output_file_path}")
+
+    generate_team_goals_xg_charts()

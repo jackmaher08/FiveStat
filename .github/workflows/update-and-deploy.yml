@@ -15,7 +15,6 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
 
-
       - name: Install System Packages for lxml
         run: |
           sudo apt-get update

@@ -52,21 +52,21 @@
                 </tr>
             </thead>
             <tbody id="playerTable">
-                {% for player in players if player is mapping %}
-                <tr>
-                    <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player["Name"] }}')">{{ player["Name"] }}</a></td>
-                    <td><a href="javascript:void(0);" onclick="toggleModal('teamInfoModal')">{{ player["Team"] }}</a></td>
-                    <td>{{ player["MP"] }}</td>
-                    <td>{{ player["Mins"] }}</td>
-                    <td>{{ player["G"] }}</td>
-                    <td>{{ player["xG"] }}</td>
-                    <td>{{ player["NPG"] }}</td>
-                    <td>{{ player["NPxG"] }}</td>
-                    <td>{{ player["A"] }}</td>
-                    <td>{{ player["xA"] }}</td>
-                    <td>{{ player["YC"] }}</td>
-                    <td>{{ player["RC"] }}</td>
-                </tr>
+                {% for player in players %}
+                    <tr>
+                        <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player['Name'] }}')">{{ player['Name'] }}</a></td>
+                        <td><a href="{{ url_for('team_page', team_name=player['Team']) }}">{{ player['Team'] }}</a></td>
+                        <td>{{ player['MP'] }}</td>
+                        <td>{{ player['Mins'] }}</td>
+                        <td>{{ player['G'] }}</td>
+                        <td>{{ player['xG'] }}</td>
+                        <td>{{ player['NPG'] }}</td>
+                        <td>{{ player['NPxG'] }}</td>
+                        <td>{{ player['A'] }}</td>
+                        <td>{{ player['xA'] }}</td>
+                        <td>{{ player['YC'] }}</td>
+                        <td>{{ player['RC'] }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

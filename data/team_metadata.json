@@ -1,0 +1,102 @@
+{
+  "Arsenal": {
+    "manager": "Mikel Arteta",
+    "stadium": "Emirates Stadium",
+    "logo": "arsenal.png"
+  },
+  "Aston Villa": {
+    "manager": "Unai Emery",
+    "stadium": "Villa Park",
+    "logo": "aston villa.png"
+  },
+  "Bournemouth": {
+    "manager": "Andoni Iraola",
+    "stadium": "Vitality Stadium",
+    "logo": "bournemouth.png"
+  },
+  "Brentford": {
+    "manager": "Thomas Frank",
+    "stadium": "Gtech Community Stadium",
+    "logo": "brentford.png"
+  },
+  "Brighton": {
+    "manager": "Fabian Hürzeler",
+    "stadium": "Amex Stadium",
+    "logo": "brighton.png"
+  },
+  "Chelsea": {
+    "manager": "Enzo Maresca",
+    "stadium": "Stamford Bridge",
+    "logo": "chelsea.png"
+  },
+  "Crystal Palace": {
+    "manager": "Oliver Glasner",
+    "stadium": "Selhurst Park",
+    "logo": "crystal palace.png"
+  },
+  "Everton": {
+    "manager": "David Moyes",
+    "stadium": "Goodison Park",
+    "logo": "everton.png"
+  },
+  "Fulham": {
+    "manager": "Marco Silva",
+    "stadium": "Craven Cottage",
+    "logo": "fulham.png"
+  },
+  "Liverpool": {
+    "manager": "Arne Slot",
+    "stadium": "Anfield",
+    "logo": "liverpool.png"
+  },
+  "Manchester City": {
+    "manager": "Pep Guardiola",
+    "stadium": "Etihad Stadium",
+    "logo": "manchester city.png"
+  },
+  "Manchester United": {
+    "manager": "Ruben Amorim",
+    "stadium": "Old Trafford",
+    "logo": "manchester united.png"
+  },
+  "Newcastle United": {
+    "manager": "Eddie Howe",
+    "stadium": "St. James' Park",
+    "logo": "newcastle.png"
+  },
+  "Nottingham Forest": {
+    "manager": "Nuno Espírito Santo",
+    "stadium": "City Ground",
+    "logo": "nottingham forest.png"
+  },
+  "Tottenham": {
+    "manager": "Ange Postecoglou",
+    "stadium": "Tottenham Hotspur Stadium",
+    "logo": "tottenham.png"
+  },
+  "West Ham": {
+    "manager": "Graham Potter",
+    "stadium": "London Stadium",
+    "logo": "west ham.png"
+  },
+  "Wolverhampton Wanderers": {
+    "manager": "Vítor Pereira",
+    "stadium": "Molineux Stadium",
+    "logo": "wolves.png"
+  },
+  "Ipswich": {
+    "manager": "Kieran McKenna",
+    "stadium": "Portman Road Stadium",
+    "logo": "ipswich.png"
+  },
+  "Leicester": {
+    "manager": "Ruud van Nistelrooy",
+    "stadium": "King Power",
+    "logo": "leicester.png"
+  },
+  "Southampton": {
+    "manager": "Ivan Jurić",
+    "stadium": "St Mary's Stadium",
+    "logo": "southampton.png"
+  }
+}
