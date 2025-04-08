@@ -10,8 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - - name: Checkout Repo (with PAT)
+          uses: actions/checkout@v3
+          with:
+            token: ${{ secrets.GH_PAT }}
+
 
       - name: Install System Packages for lxml
         run: |
@@ -46,4 +49,5 @@ jobs:
           git add -f data/tables
           git commit -m "🔁 Auto update: fixtures, shotmaps, heatmaps, league tables" || echo "No changes to commit"
 
-          git push https://x-access-token:${GH_TOKEN}@github.com/jackmaher08/FiveStat.git HEAD:main
+          git remote -v  # 🐛 debug: show which remote is being used
+          git push origin main
