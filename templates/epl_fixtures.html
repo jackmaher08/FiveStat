@@ -81,7 +81,7 @@
                                 <div class="fixture-row">
                                     <span class="team-name home">
                                         <span class="form-tooltip">
-                                            <a href="{{ url_for('team_page', team_name=fixture.home_team) }}">{{ fixture.home_team }}</a>
+                                            {{ fixture.home_team }}
                                             <div class="tooltip-content">
                                                 <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
                                                 {% for f in fixture.home_form %}
@@ -95,7 +95,7 @@
                                     
                                     <span class="team-name away">
                                         <span class="form-tooltip">
-                                            <a href="{{ url_for('team_page', team_name=fixture.away_team) }}">{{ fixture.away_team }}</a>
+                                            {{ fixture.away_team }}
                                             <div class="tooltip-content">
                                                 <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
                                                 {% for f in fixture.away_form %}

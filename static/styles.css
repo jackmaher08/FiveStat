@@ -275,7 +275,7 @@ a:hover {
         background-color: #ccc;
         }
     .fixture {
-        width: 80%;
+        width: 95%;
         margin: 0 auto;
     }
     .dropdown-icon {
@@ -313,6 +313,10 @@ a:hover {
     height: auto;
     display: block;
     margin: 0 auto;
+}
+
+.heatmap {
+    width: 70%;
 }
 
 
@@ -572,7 +576,6 @@ select:focus {
 .fixture-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures even spacing */
     position: relative;
     cursor: pointer;
     background-color: #f8f8f8;
@@ -583,22 +586,21 @@ select:focus {
     border-radius: 8px;
     border: 1px solid #ddd;
     box-sizing: border-box;
+    justify-content: center;
+    height: 60px;
 }
-
-
 .fixture-header:hover {
     background-color: #ccc;
-}
-
-  
-  .fixture-header h3 {
+}  
+.fixture-header h3 {
     margin: 0;
     font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
-  }
-
-  .fixture-info {
+    line-height: 1.2;
+    padding: 0;
+}
+.fixture-info {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -850,10 +852,6 @@ input:checked + .slider:before {
     margin-top: 20px;
 }
 
-.section h3, .section h2 {
-    margin-top: 50px;
-}
-
 .form-display, .xg-chart {
     margin-top: 20px;
 }
@@ -925,41 +923,14 @@ input:checked + .slider:before {
 .dropdown-spacer {
     width: 1.2rem; /* Same width as the icon */
 }
-.fixture-viz-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.fixture-viz-column {
-    width: 100%;
-}
-
-.vertical-divider {
-    display: none;
-}
-
-.fixture-header {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* ⬅️ This vertically centers all children */
-    padding: 0.75rem 1rem;
-    height: 60px; /* optional for consistent header height */
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    background-color: #f8f8f8;
-}
-.fixture-header h3 {
-    margin: 0;
-    padding: 0;
-    line-height: 1.2;
-}
 
 .dropdown-icon {
     position: absolute;
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.view-toggle {
+    margin-top: 15px;
 }

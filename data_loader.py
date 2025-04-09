@@ -795,12 +795,8 @@ if __name__ == "__main__":
         simulated_points = team_points.copy()  # ✅ Start with real league points
 
         for _, match in remaining_fixtures.iterrows():  # ✅ Use only unplayed matches
-            home_team = match["home_team"]
-            away_team = match["away_team"]
-
-            # Standardize team names
-            home_team = TEAM_NAME_MAPPING.get(row["home_team"], row["home_team"])
-            away_team = TEAM_NAME_MAPPING.get(row["away_team"], row["away_team"])
+            home_team = TEAM_NAME_MAPPING.get(match["home_team"], match["home_team"])
+            away_team = TEAM_NAME_MAPPING.get(match["away_team"], match["away_team"])
 
 
             # Ensure team exists before simulating

@@ -86,81 +86,108 @@
             </table>
         </div>
 
+        <div class="view-toggle">
+            <label class="switch">
+                <input type="checkbox" id="toggleResultsView" onchange="toggleAllSections(this.checked)">
+                <span class="slider round"></span>
+            </label>
+            <span id="resultsToggleLabel">Expand All Sections</span>
+        </div>
+        
 
-        <div class="form-display">
-            <h2>Recent Form</h2>
-            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-            <div class="form-icons">
-                <span class="form-arrow"></span>
-                {% for result in team.form %}
+        <div class="fixture-toggle-wrapper">
+            <div class="fixture-header" onclick="toggleFixtureSection('form')">
+                <span class="dropdown-spacer"></span>
+                <h3>Recent Form</h3>
+                <span class="dropdown-icon" id="form-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="form-section" class="fixture-body">
+                <div class="form-display">
+                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                <div class="form-icons">
+                    <span class="form-arrow"></span>
+                    {% for result in team.form %}
                     <span class="form-circle {{ result }}">{{ result|upper }}</span>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div class="team_radar">
-            <h2>Performance Radar</h2>
-            <img src="{{ url_for('static', filename=('radar/teams/' + team.name + '_team_radar.png')) }}"
-                 alt="{{ team.display_name }} Radar Chart"
-                 class="team-radar-img">
-        </div>
-
-
-        <div class="fixture-viz-wrapper">
-            <div class="fixture-viz-column">
-                <div class="fixture-toggle-wrapper">
-                    <!-- Previous Fixture Section -->
-                    <div class="fixture-header" onclick="toggleFixtureSection('prev')">
-                        <span class="dropdown-spacer"></span> <!-- Left spacer to balance -->
-                        <h3>Previous Fixtures</h3>
-                        <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
-                    </div>
-                    <div id="prev-section" class="fixture-body open">
-                    <div class="gw-selector">
-                        <select id="prev-gw-select" onchange="updatePrevFixture(this.value)">
-                        {% for gw in previous_gameweeks %}
-                            <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>
-                            Gameweek {{ gw }}
-                            </option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                    <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}">
+                    {% endfor %}
                 </div>
-            </div>
-
-            <hr class="fixture-divider vertical-divider">
-            
-            <div class="fixture-viz-column">
-                <div class="fixture-toggle-wrapper">
-                    <!-- Next Fixture Section -->
-                    <div class="fixture-header" onclick="toggleFixtureSection('next')">
-                        <span class="dropdown-spacer"></span>
-                        <h3>Upcoming Fixtures</h3>
-                        <span class="dropdown-icon" id="next-icon"><i class="fas fa-chevron-down"></i></span>
-                    </div>
-                    <div id="next-section" class="fixture-body open">
-                    <div class="gw-selector">
-                        <select id="next-gw-select" onchange="updateNextFixture(this.value)">
-                        {% for gw in upcoming_gameweeks %}
-                            <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>
-                            Gameweek {{ gw }}
-                            </option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                    <img id="next-heatmap" class="heatmap" src="{{ url_for('static', filename='heatmaps/' + next_fixture_image) }}">
                 </div>
             </div>
         </div>
 
+        <div class="fixture-toggle-wrapper">
+            <div class="fixture-header" onclick="toggleFixtureSection('radar')">
+                <span class="dropdown-spacer"></span>
+                <h3>Performance Radar</h3>
+                <span class="dropdown-icon" id="radar-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="radar-section" class="fixture-body">
+                <div class="team_radar">
+                <img src="{{ url_for('static', filename=('radar/teams/' + team.name + '_team_radar.png')) }}"
+                        alt="{{ team.display_name }} Radar Chart"
+                        class="team-radar-img">
+                </div>
+            </div>
+        </div>
+
+        <div class="fixture-toggle-wrapper">
+            <!-- Previous Fixture Section -->
+            <div class="fixture-header" onclick="toggleFixtureSection('prev')">
+                <span class="dropdown-spacer"></span> <!-- Left spacer to balance -->
+                <h3>Previous Fixtures</h3>
+                <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="prev-section" class="fixture-body">
+                <div class="gw-selector">
+                    <select id="prev-gw-select" onchange="updatePrevFixture(this.value)">
+                    {% for gw in previous_gameweeks %}
+                        <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>
+                        Gameweek {{ gw }}
+                        </option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}">
+            </div>
+        </div>
+
+        <div class="fixture-toggle-wrapper">
+            <!-- Next Fixture Section -->
+            <div class="fixture-header" onclick="toggleFixtureSection('next')">
+                <span class="dropdown-spacer"></span>
+                <h3>Upcoming Fixtures</h3>
+                <span class="dropdown-icon" id="next-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="next-section" class="fixture-body">
+                <div class="gw-selector">
+                    <select id="next-gw-select" onchange="updateNextFixture(this.value)">
+                    {% for gw in upcoming_gameweeks %}
+                        <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>
+                        Gameweek {{ gw }}
+                        </option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <img id="next-heatmap" class="heatmap" src="{{ url_for('static', filename='heatmaps/' + next_fixture_image) }}">
+            </div>
+        </div>
 
 
 
 
 
-        <h2>Shotmap - 24/25 Season</h2>
-        <img class="shotmap"src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap">
+
+        <div class="fixture-toggle-wrapper">
+            <div class="fixture-header" onclick="toggleFixtureSection('shotmap')">
+              <span class="dropdown-spacer"></span>
+              <h3>Shotmap - 24/25 Season</h3>
+              <span class="dropdown-icon" id="shotmap-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="shotmap-section" class="fixture-body">
+              <img class="shotmap" src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap">
+            </div>
+        </div>
+
+
     </div>
 
     <!-- Additional sections will be added for squad, fixtures, and more -->
@@ -209,15 +236,38 @@
 
             const isOpen = body.classList.contains('open');
             if (isOpen) {
-            body.classList.remove('open');
-            body.style.maxHeight = "0";
-            icon.className = "fas fa-chevron-left";
+                body.classList.remove('open');
+                body.style.maxHeight = "0";
+                icon.className = "fas fa-chevron-left";
             } else {
-            body.classList.add('open');
-            body.style.maxHeight = "1000px";  // or dynamically measure height
-            icon.className = "fas fa-chevron-down";
+                body.classList.add('open');
+                body.style.maxHeight = "1000px";
+                icon.className = "fas fa-chevron-down";
             }
         }
+
+        function toggleAllSections(expand) {
+            const sections = ["prev", "next", "form", "radar", "shotmap"];
+            const label = document.getElementById("resultsToggleLabel");
+
+            sections.forEach(section => {
+                const body = document.getElementById(`${section}-section`);
+                const icon = document.getElementById(`${section}-icon`).querySelector('i');
+
+                if (expand) {
+                body.classList.add("open");
+                body.style.maxHeight = "1000px";
+                icon.className = "fas fa-chevron-down";
+                } else {
+                body.classList.remove("open");
+                body.style.maxHeight = "0";
+                icon.className = "fas fa-chevron-left";
+                }
+            });
+
+            label.textContent = expand ? "Collapse All Sections" : "Expand All Sections";
+            }
+
 
 
       </script>
