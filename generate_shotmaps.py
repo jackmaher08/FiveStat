@@ -186,10 +186,9 @@ def plot_team_shotmap(team_name):
         pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
 
     # Title and labels
-    plt.title(f"{standardized_team_name} Shotmap - 24/25 Season", fontsize=15)
-    ax.text(10, 55, f"Shots: {total_shots}", ha='left', va='center', fontsize=12)
-    ax.text(40, 55, f"Goals: {total_goals}", ha='center', va='center', fontsize=12)
-    ax.text(70, 55, f"xG: {total_xg:.2f}", ha='right', va='center', fontsize=12)
+    ax.text(10, 55, f"Shots: {total_shots}", ha='left', va='center', fontsize=20)
+    ax.text(40, 55, f"Goals: {total_goals}", ha='center', va='center', fontsize=20)
+    ax.text(70, 55, f"xG: {total_xg:.2f}", ha='right', va='center', fontsize=20)
     ax.text(4, 119, "FiveStat", ha='right', va='center', fontsize=8, alpha=0.3)
 
 
@@ -239,38 +238,43 @@ def plot_match_shotmap(home_team, away_team, match_shots_df):
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 ALL_SHOTMAP_DIR = "static/shotmaps/all"
 
-
-
+# Define team name mapping
+TEAM_NAME_MAPPING = {
+    "Man Utd": "Manchester United",
+    "Man City": "Manchester City",
+    "Spurs": "Tottenham Hotspur",
+    "Tottenham": "Tottenham Hotspur",
+    "Wolves": "Wolverhampton Wanderers",
+    "Nott'm Forest": "Nottingham Forest",
+    "Newcastle": "Newcastle United"
+}
 
 def process_shot_data(completed_fixtures, team_shots):
     """Processes shot data, merges with fixture info, and generates an all-shots shotmap."""
     global all_shots_df
-    # ✅ Load existing shot data
+
     if os.path.exists(SHOTS_DATA_PATH):
         all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
-        processed_match_ids = set(all_shots_df["match_id"].astype(str).unique())  # Convert IDs to string for comparison
+        processed_match_ids = set(all_shots_df["match_id"].astype(str).unique())
     else:
         processed_match_ids = set()
 
-    # ✅ Process ONLY new matches instead of ALL matches
     new_match_ids = set(completed_fixtures["id"].astype(str).unique()) - processed_match_ids
 
     if new_match_ids:
-        print(f"🔄 Processing {len(new_match_ids)} new matches...")
+        print(f"\U0001f501 Processing {len(new_match_ids)} new matches...")
         for i, match_id in enumerate(new_match_ids, start=1):
             process_match_shots(match_id)  
             print(f"Progress: {i}/{len(new_match_ids)} matches processed.")
     else:
         print("✅ No new matches to process. Using existing shot data.")
 
-    # ✅ Merge new shot data with existing data
     if team_shots:
         new_shots_df = pd.concat(team_shots.values(), ignore_index=True)
         all_shots_df = pd.concat([all_shots_df, new_shots_df], ignore_index=True)
     else:
         print("No new shot data found. Using existing shots_data.csv.")
 
-    # ✅ Ensure no duplicate 'id' column before merging
     if 'id' in all_shots_df.columns:
         all_shots_df.drop(columns=['id'], inplace=True)
 
@@ -285,7 +289,12 @@ def process_shot_data(completed_fixtures, team_shots):
         how='left'
     )
 
-    # ✅ Clean up unnecessary columns
+    # ✅ Apply team name mapping to fix inconsistencies
+    all_shots_df["team"] = all_shots_df["team"].replace(TEAM_NAME_MAPPING)
+    all_shots_df["home_team"] = all_shots_df["home_team"].replace(TEAM_NAME_MAPPING)
+    all_shots_df["away_team"] = all_shots_df["away_team"].replace(TEAM_NAME_MAPPING)
+
+    # ✅ Clean up columns
     all_shots_df.drop(columns=['id'], errors='ignore', inplace=True)
     all_shots_df.rename(columns={'home_team_y': 'home_team', 'away_team_y': 'away_team'}, inplace=True)
     all_shots_df = all_shots_df.loc[:, ~all_shots_df.columns.duplicated()].copy()
@@ -300,16 +309,14 @@ def process_shot_data(completed_fixtures, team_shots):
     print(f"✅ Shot data saved to {SHOTS_DATA_PATH}")
 
     # ✅ Generate All-Shots Shotmap
-    print("🔄 Generating All-Shots Shotmap...")
+    print("\U0001f501 Generating All-Shots Shotmap...")
 
     pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
     fig, ax = pitch.draw(figsize=(13, 9))
     fig.patch.set_facecolor("#f4f4f9")
-    
-    # ✅ Filter for goals only
+
     goals_df = all_shots_df[all_shots_df['result'].str.lower() == 'goal']
 
-    # ✅ Plot all shots
     for _, shot in all_shots_df.iterrows():
         x, y = shot['x_scaled'], shot['y_scaled']
         color = 'gold' if "goal" in str(shot['result']).lower() else 'white'
@@ -317,7 +324,6 @@ def process_shot_data(completed_fixtures, team_shots):
         size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
         pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
 
-    # ✅ Save All-Shots Shotmap
     os.makedirs(ALL_SHOTMAP_DIR, exist_ok=True)
     plt.savefig(os.path.join(ALL_SHOTMAP_DIR, "all_shots.png"), facecolor=fig.get_facecolor())
     plt.close(fig)
@@ -328,6 +334,7 @@ def process_shot_data(completed_fixtures, team_shots):
         away = completed_fixtures.loc[completed_fixtures["id"] == match_id, "away_team"].values[0]
         match_shots = all_shots_df[all_shots_df["match_id"] == str(match_id)]
         plot_match_shotmap(home, away, match_shots)
+
 
 for team in team_shots.keys():
     print(f"🎯 Processing shotmap for {team}...")

@@ -402,29 +402,83 @@ def methodology():
 
 @app.route("/team/<team_name>")
 def team_page(team_name):
+    import pandas as pd
+    import json
+    from collections import defaultdict
+
+    # Load team metadata
     with open("data/team_metadata.json", "r") as f:
         team_metadata = json.load(f)
 
     all_teams = list(team_metadata.keys())
-
-    # ✅ Always define this BEFORE any return
-    team_display_names = {
-        t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams
-    }
-
+    team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
     team_data = team_metadata.get(team_name)
     if not team_data:
         return f"Team '{team_name}' not found.", 404
 
     team_data["name"] = team_name
     team_data["display_name"] = TEAM_NAME_MAPPING.get(team_name, team_name)
-    team_data["logo_name"] = TEAM_NAME_MAPPING.get(team_name, team_name)
 
-    # Load full league table
+    # === Load fixture data ===
+    fixture_df = pd.read_csv("data/tables/fixture_data.csv")
+    fixture_df["isResult"] = fixture_df["isResult"].astype(str).str.lower() == "true"
+    fixture_df["date"] = pd.to_datetime(fixture_df["date"], dayfirst=True)
+    fixture_df["round_number"] = pd.to_numeric(fixture_df["round_number"], errors="coerce")
+
+    # === Previous Fixture Shotmap ===
+    past_games = fixture_df[
+        ((fixture_df["home_team"] == team_name) | (fixture_df["away_team"] == team_name)) &
+        (fixture_df["isResult"] == True)
+    ].sort_values("date", ascending=False)
+
+    if not past_games.empty:
+        prev_game = past_games.iloc[0]
+        prev_gw = int(prev_game["round_number"])
+        last_opp = prev_game["away_team"] if prev_game["home_team"] == team_name else prev_game["home_team"]
+        prev_fixture_image = f"{prev_game['home_team']}_{prev_game['away_team']}_shotmap.png"
+    else:
+        prev_gw = 1
+        last_opp = "Unknown"
+        prev_fixture_image = "placeholder.png"
+
+    # === Next Fixture Heatmap ===
+    upcoming_games = fixture_df[
+        ((fixture_df["home_team"] == team_name) | (fixture_df["away_team"] == team_name)) &
+        (fixture_df["isResult"] == False)
+    ].sort_values("date", ascending=True)
+
+    if not upcoming_games.empty:
+        next_game = upcoming_games.iloc[0]
+        next_gw = int(next_game["round_number"])
+        next_opp = next_game["away_team"] if next_game["home_team"] == team_name else next_game["home_team"]
+        next_fixture_image = f"{next_game['home_team']}_{next_game['away_team']}_heatmap.png"
+    else:
+        next_gw = 1
+        next_opp = "Unknown"
+        next_fixture_image = "placeholder.png"
+
+    # === Create GW dropdown options ===
+    # === Previous gameweek mapping {gw: [home_team, away_team]} ===
+    past_fixtures_by_gw = {}
+    for _, row in past_games.iterrows():
+        gw = int(row["round_number"])
+        past_fixtures_by_gw[gw] = {
+            "home": row["home_team"],
+            "away": row["away_team"]
+        }
+
+    upcoming_gameweeks = sorted(upcoming_games["round_number"].dropna().astype(int).unique())
+
+    # Create JS dict to resolve opponents for next fixture heatmaps
+    next_opponents_by_gw = {}
+    for _, row in upcoming_games.iterrows():
+        gw = int(row["round_number"])
+        opp = row["away_team"] if row["home_team"] == team_name else row["home_team"]
+        next_opponents_by_gw[gw] = opp
+
+    # === League table window for context ===
     table_path = "data/tables/league_table_data.csv"
     league_df = pd.read_csv(table_path)
-
-    # Find team position
     team_row = league_df[league_df["Team"] == team_name]
     if not team_row.empty:
         position = team_row.index[0]
@@ -435,11 +489,8 @@ def team_page(team_name):
         start_position = 0
         partial_table = []
 
-    form_df = pd.read_csv("data/tables/fixture_data.csv")
-    form_df["isResult"] = form_df["isResult"].astype(str).str.lower() == "true"
-    form_df["date"] = pd.to_datetime(form_df["date"], dayfirst=True)
-
-    team_data["form"] = get_team_form(form_df, team_name)
+    # Form
+    team_data["form"] = get_team_form(fixture_df, team_name)
 
     return render_template(
         "team_page.html",
@@ -448,8 +499,20 @@ def team_page(team_name):
         team_display_names=team_display_names,
         league_table=partial_table,
         start_position=start_position,
-        last_updated=get_last_updated_time()
+        last_updated=get_last_updated_time(),
+
+        # Fixture visual data
+        prev_fixture_image=prev_fixture_image,
+        next_fixture_image=next_fixture_image,
+        current_result_gw=prev_gw,
+        current_fixture_gw=next_gw,
+        past_fixtures_by_gw=past_fixtures_by_gw,
+        previous_gameweeks=sorted(past_fixtures_by_gw.keys()),  # ✅ ADD THIS
+        upcoming_gameweeks=upcoming_gameweeks,
+        next_opponents_by_gw=next_opponents_by_gw
     )
+
+
 
 
 

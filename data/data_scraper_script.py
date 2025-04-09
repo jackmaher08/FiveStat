@@ -25,9 +25,24 @@ fixtures_df = fixtures_df.rename(columns={
     "Result": "result"
 })
 
-# change Nott'm Forest to Nottingham Forest
+# change relevant team names
 fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Nott'm Forest": "Nottingham Forest"})
 fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Nott'm Forest": "Nottingham Forest"})
+
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Man Utd": "Manchester United"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Man Utd": "Manchester United"})
+
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Man City": "Manchester City"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Man City": "Manchester City"})
+
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Spurs": "Tottenham Hotspur"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Spurs": "Tottenham Hotspur"})
+
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Wolves": "Wolverhampton Wanderers"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Wolves": "Wolverhampton Wanderers"})
+
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Newcastle": "Newcastle United"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Newcastle": "Newcastle United"})
 
 
 # Convert 'round_number' to numeric
@@ -51,12 +66,12 @@ else:
 
 # Team name mapping for consistency
 team_name_mapping = {
-    "Manchester United": "Man Utd",
-    "Newcastle United": "Newcastle",
-    "Manchester City": "Man City",
-    "Tottenham": "Spurs",
-    "Wolverhampton Wanderers": "Wolves",
-    "Nottingham Forest": "Nottingham Forest",
+    "Man City": "Manchester City",
+    "Newcastle": "Newcastle United",
+    "Spurs": "Tottenham",
+    "Tottenham": "Tottenham Hotspur",
+    "Man Utd": "Manchester United",
+    "Wolves": "Wolverhampton Wanderers",
     "Nott'm Forest": "Nottingham Forest"
 }
 
@@ -269,24 +284,14 @@ for team_id, team_info in fixture_results_df.items():
 # Convert to DataFrame
 complete_fixture_results_df = pd.DataFrame(team_stats)
 
+complete_fixture_results_df["Team"] = complete_fixture_results_df["Team"].replace(team_name_mapping)
+
 # ✅ Calculate Matches Played (MP)
 matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
 
 # Load fixture data
 fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")
 fixture_df = pd.read_csv(fixture_data_file_path)
-
-# Standardize team names for merging
-team_name_mapping = {
-    "Man City": "Manchester City",
-    "Newcastle": "Newcastle United",
-    "Spurs": "Tottenham",
-    "Man Utd": "Manchester United",
-    "Wolves": "Wolverhampton Wanderers"
-}
-
-fixture_df["home_team"] = fixture_df["home_team"].replace(team_name_mapping)
-fixture_df["away_team"] = fixture_df["away_team"].replace(team_name_mapping)
 
 # ✅ Calculate Goals Against (GA)
 ga_home = fixture_df.groupby("home_team")["away_goals"].sum()

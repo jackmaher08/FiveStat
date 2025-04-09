@@ -157,7 +157,7 @@ a:hover {
     border-left: 0px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
     h3, h5 {
         font-size: small;
     }
@@ -188,13 +188,20 @@ a:hover {
         text-align: center;
         margin: 0 auto; /* Ensures centering */
     }
+    .shotmap-container {
+        padding: 0;
+    }
     .heatmap, .shotmap {
         max-width: 100%;
         width: 95%;
         height: auto;
         margin-top: 10px;
     }
-    .team_shotmap_image .shotmap {
+    .section .team_radar .team-radar-img {
+        max-width: 100vw;
+        width: 100%;
+    }
+    .team_radar, .shotmap {
         max-width: 100vw;
         width: 100%;
     }
@@ -229,12 +236,12 @@ a:hover {
         padding: 4px 6px !important; /* Adjust padding if needed */
     }
     .fixture-row {
-        font-size: 0.5;
+        font-size: 0.5rem;
         width: 250px;
     }
     .team-name.home, .team-name.away {
         font-size: 12px;
-        width: 100px;
+        width: 80px;
     }
     .team-logo {
         max-height: 120px;
@@ -246,8 +253,36 @@ a:hover {
         left: 50%;
         transform: translateX(-50%);
     }
+    .vertical-divider {
+        display: block;
+        width: 1px;
+        background-color: #ccc;
+        margin: 0 1rem;
+    }
+    .fixture-viz-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
     
+    .fixture-viz-column {
+        flex: 1 1 48%;
+        }
+
+    .vertical-divider {
+        display: block;
+        width: 1px;
+        background-color: #ccc;
+        }
+    .fixture {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .dropdown-icon {
+        display: none;
+    }
 }
+    
 
 /* Fixture Styles */
 
@@ -260,22 +295,36 @@ a:hover {
     margin: 25px 0;
 }
 
-.heatmap {
-    max-width: 400px;
+.fixtures-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+
+.heatmap#next-heatmap, .shotmap#prev-shotmap {
+    max-width: 500px;
     height: auto;
-    margin-top: 10px;
 }
 
 .shotmap {
-    max-width: 1100px;
+    width: 100%;
+    max-width: 600px;
     height: auto;
-    margin-top: 10px;
+    display: block;
+    margin: 0 auto;
 }
-.team_shotmap_image .shotmap {
+
+
+.team_radar .shotmap {
     width: 90vw;
     margin-top: 0;
 }
-
+.team_radar .team-radar-img {
+    margin-top: 50px;
+    width: 40vw;
+    max-width: 1100px;
+}
 .fixture-divider {
     border: none;
     height: 2px;
@@ -521,34 +570,42 @@ select:focus {
 
 
 .fixture-header {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr; /* left | center | right */
+    display: flex;
     align-items: center;
+    justify-content: space-between; /* Ensures even spacing */
+    position: relative;
     cursor: pointer;
-    background-color: #f4f4f9;
-    padding: 0;
+    background-color: #f8f8f8;
+    padding: 0.75rem 1rem;
     width: 95%;
     max-width: 700px;
-    margin: 0 auto;
+    margin: 1rem auto 0 auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
 }
+
 
 .fixture-header:hover {
     background-color: #ccc;
 }
 
-.fixture-info {
+  
+  .fixture-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .fixture-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
+    margin: 0 10px;
 }
 
-.fixture-info {
-    grid-column: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .gw-selector {
     margin: 10px 0;
@@ -620,6 +677,7 @@ select:focus {
 
 
 .dropdown-icon {
+    position: absolute;
     font-size: 1rem;
     padding: 10px 15px;
     display: flex;
@@ -628,6 +686,12 @@ select:focus {
     height: 100%;
     width: 100%; /* Take up entire right column */
     box-sizing: border-box;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #444;
 }
 
 .footer {
@@ -775,15 +839,23 @@ input:checked + .slider:before {
 }
 
 .league-table {
-    width: 100%;
+    width: 90%;
     min-width: 600px;
     max-width: 1500px;
     margin: 0 auto;
     border-collapse: collapse;
 }
 
-.form-display, .xg-chart, .section {
+.section {
+    margin-top: 20px;
+}
+
+.section h3, .section h2 {
     margin-top: 50px;
+}
+
+.form-display, .xg-chart {
+    margin-top: 20px;
 }
 
 .form-icons {
@@ -820,4 +892,74 @@ input:checked + .slider:before {
     font-size: 0.8rem;
     color: #333;
     margin-right: 5px;
+}
+
+.fixture-viz-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.fixture-viz-column {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vertical-divider {
+    display: none;
+}
+
+.fixture-body {
+    overflow: hidden;
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in-out;
+}
+.fixture-body:not(.open) {
+    max-height: 0;
+}
+
+.dropdown-spacer {
+    width: 1.2rem; /* Same width as the icon */
+}
+.fixture-viz-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.fixture-viz-column {
+    width: 100%;
+}
+
+.vertical-divider {
+    display: none;
+}
+
+.fixture-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* ⬅️ This vertically centers all children */
+    padding: 0.75rem 1rem;
+    height: 60px; /* optional for consistent header height */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+.fixture-header h3 {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 }

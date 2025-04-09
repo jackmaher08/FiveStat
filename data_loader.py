@@ -16,6 +16,17 @@ import matplotlib.image as mpimg
 import seaborn as sns
 import subprocess
 
+TEAM_NAME_MAPPING = {
+    "Man Utd": "Manchester United",
+    "Man City": "Manchester City",
+    "Spurs": "Tottenham Hotspur",
+    "Wolves": "Wolverhampton Wanderers",
+    "Tottenham": "Tottenham Hotspur",
+    "Newcastle": "Newcastle United",
+    "Nott'm Forest": "Nottingham Forest"
+}
+
+
 def run_data_scraper():
     """Runs data_scraper_script.py to update fixture data before loading."""
     script_path = os.path.join("data", "data_scraper_script.py") 
@@ -358,10 +369,18 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     probabilities_df["draw_prob"] = np.nan
     probabilities_df["away_win_prob"] = np.nan
 
+    # Normalize team keys in stats dictionaries
+    team_stats = {TEAM_NAME_MAPPING.get(k, k): v for k, v in team_stats.items()}
+    recent_form_att = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_att.items()}
+    recent_form_def = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_def.items()}
+
     print("✅ Processing matches to calculate probabilities and generate heatmaps...")
     for index, fixture in fixtures_df.iterrows():
         home_team = fixture['home_team']
         away_team = fixture['away_team']
+        home_team = TEAM_NAME_MAPPING.get(home_team, home_team)
+        away_team = TEAM_NAME_MAPPING.get(away_team, away_team)
+
 
         if pd.isna(home_team) or pd.isna(away_team):
             continue
@@ -406,20 +425,8 @@ fixtures_df = load_fixtures()
 # Filter only completed matches
 completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 
-# Dict for shotmap table team names
-TEAM_NAME_MAPPING = {
-    "Wolverhampton Wanderers": "Wolves",
-    "Crystal Palace": "Crystal Palace",
-    "Tottenham": "Spurs",
-    "Manchester City": "Man City",
-    "Man Utd": "Manchester United",
-    "Newcastle United": "Newcastle",
-    "West Ham": "West Ham",
-    "Man City": "Manchester City",
-    "Spurs": "Tottenham",
-    "Newcastle": "Newcastle United",
-    "Wolves": "Wolverhampton Wanderers",
-}
+
+
 
 # Function to generate and save shot maps
 def generate_shot_map(understat_match_id):
@@ -679,7 +686,6 @@ def generate_team_goals_xg_charts():
         # ✅ Add average goals line
         ax.axhline(y=avg_goals, color="black", linestyle="dashed", linewidth=1.5, label=f"Avg Goals ({avg_goals:.2f})")
 
-        ax.set_title("Goals vs xG (by Gameweek)", fontsize=15, pad=10)
         ax.legend(frameon=False)
         ax.set_xlabel("Gameweek")
         ax.set_ylabel("Total")
@@ -748,7 +754,6 @@ if __name__ == "__main__":
     except FileNotFoundError:
         raise ValueError("❌ 'fixture_probabilities.csv' is missing! Check if generate_all_heatmaps() is running.")
 
-    print("🔎 Checking columns in fixture_probabilities.csv:", probabilities_df.columns)
     if "home_win_prob" not in probabilities_df.columns:
         raise ValueError("❌ 'home_win_prob' is missing! Ensure generate_all_heatmaps() ran properly.")
 
@@ -794,8 +799,9 @@ if __name__ == "__main__":
             away_team = match["away_team"]
 
             # Standardize team names
-            home_team = TEAM_NAME_MAPPING.get(home_team, home_team)
-            away_team = TEAM_NAME_MAPPING.get(away_team, away_team)
+            home_team = TEAM_NAME_MAPPING.get(row["home_team"], row["home_team"])
+            away_team = TEAM_NAME_MAPPING.get(row["away_team"], row["away_team"])
+
 
             # Ensure team exists before simulating
             if home_team not in simulated_points or away_team not in simulated_points:

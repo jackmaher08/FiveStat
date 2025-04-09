@@ -62,61 +62,62 @@
         <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
         <p>Correct score heatmaps visualize the probability of scorelines in a football match.
            They are generated using historical data and statistical models to predict the likelihood of each possible outcome.</p>
-        <p>These heatmaps can be useful for sports analysts, bettors, and football fans looking for data-driven projections.</p>
+        <p>These heatmaps can be useful for sports analysts, bettors and football fans looking for data-driven projections.</p>
         <p>You can read more about how our Heatmaps are generated<a href="/methodology">HERE</a></p>
     </div>
     <br>
 
-
-    {% for date, fixtures in fixture_groups.items() %}
-        <hr class="fixture-divider">
-        <div class="date-header">
-            <h3>{{ date | format_date }}</h3>
-        </div>
-        <hr class="fixture-divider">
-            {% for fixture in fixtures %}
-                <div class="fixture">
-                    <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
-                        <div class="fixture-info">
-                            <div class="fixture-row">
-                                <span class="team-name home">
-                                    <span class="form-tooltip">
-                                        <a href="{{ url_for('team_page', team_name=fixture.home_team) }}">{{ fixture.home_team }}</a>
-                                        <div class="tooltip-content">
-                                            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                            {% for f in fixture.home_form %}
-                                                <span class="{{ f }}">{{ f.upper() }}</span>
-                                            {% endfor %}
-                                        </div>
+    <div class="fixtures-container">
+        {% for date, fixtures in fixture_groups.items() %}
+            <hr class="fixture-divider">
+            <div class="date-header">
+                <h3>{{ date | format_date }}</h3>
+            </div>
+            <hr class="fixture-divider">
+                {% for fixture in fixtures %}
+                    <div class="fixture">
+                        <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
+                            <div class="fixture-info">
+                                <div class="fixture-row">
+                                    <span class="team-name home">
+                                        <span class="form-tooltip">
+                                            <a href="{{ url_for('team_page', team_name=fixture.home_team) }}">{{ fixture.home_team }}</a>
+                                            <div class="tooltip-content">
+                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                                {% for f in fixture.home_form %}
+                                                    <span class="{{ f }}">{{ f.upper() }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </span>
                                     </span>
-                                </span>
-                                
-                                <span class="versus">vs</span>
-                                
-                                <span class="team-name away">
-                                    <span class="form-tooltip">
-                                        <a href="{{ url_for('team_page', team_name=fixture.away_team) }}">{{ fixture.away_team }}</a>
-                                        <div class="tooltip-content">
-                                            <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                            {% for f in fixture.away_form %}
-                                                <span class="{{ f }}">{{ f.upper() }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    </span>
-                                </span>                                
-                            </div>                          
-                            <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
+                                    
+                                    <span class="versus">vs</span>
+                                    
+                                    <span class="team-name away">
+                                        <span class="form-tooltip">
+                                            <a href="{{ url_for('team_page', team_name=fixture.away_team) }}">{{ fixture.away_team }}</a>
+                                            <div class="tooltip-content">
+                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
+                                                {% for f in fixture.away_form %}
+                                                    <span class="{{ f }}">{{ f.upper() }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        </span>
+                                    </span>                                
+                                </div>                          
+                                <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
+                            </div>
+                            <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
                         </div>
-                        <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                            <i class="fas fa-chevron-left"></i>
-                        </span>
+                        <div class="heatmap-container" id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
+                        </div>
                     </div>
-                    <div class="heatmap-container" id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                        <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
-                    </div>
-                </div>
-            {% endfor %}
-    {% endfor %}
+                {% endfor %}
+        {% endfor %}
+    </div>
 
 
     <br>

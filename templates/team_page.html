@@ -50,10 +50,9 @@
         <p><strong>Stadium:</strong> {{ team.stadium }}</p>
     </div>
 
-    <hr>
+    <hr class="fixture-divider">
 
     <div class="section">
-        <h2>Performance</h2>
         <div class="table-scroll">
             <table class="league-table" id="teamLeagueTable">
                 <thead>
@@ -89,7 +88,7 @@
 
 
         <div class="form-display">
-            <h3>Recent Form</h3>
+            <h2>Recent Form</h2>
             <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
             <div class="form-icons">
                 <span class="form-arrow"></span>
@@ -99,19 +98,68 @@
             </div>
         </div>
 
-        <!-- 
-        <div class="xg-chart">
-            <h3>xG vs xGA (by Gameweek)</h3>
-            <img src="{{ url_for('static', filename='xg_charts/' + team.name + '_xg_trend.png') }}" alt="xG Chart">
+        <div class="team_radar">
+            <h2>Performance Radar</h2>
+            <img src="{{ url_for('static', filename=('radar/teams/' + team.name + '_team_radar.png')) }}"
+                 alt="{{ team.display_name }} Radar Chart"
+                 class="team-radar-img">
         </div>
-        -->
 
-        <div class="team_shotmap_image">
-            <img class="shotmap" src="{{ url_for('static', filename='chart_images/teams/' + team.name + '_goals_xg_chart.png') }}">
+
+        <div class="fixture-viz-wrapper">
+            <div class="fixture-viz-column">
+                <div class="fixture-toggle-wrapper">
+                    <!-- Previous Fixture Section -->
+                    <div class="fixture-header" onclick="toggleFixtureSection('prev')">
+                        <span class="dropdown-spacer"></span> <!-- Left spacer to balance -->
+                        <h3>Previous Fixtures</h3>
+                        <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="prev-section" class="fixture-body open">
+                    <div class="gw-selector">
+                        <select id="prev-gw-select" onchange="updatePrevFixture(this.value)">
+                        {% for gw in previous_gameweeks %}
+                            <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>
+                            Gameweek {{ gw }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}">
+                </div>
+            </div>
+
+            <hr class="fixture-divider vertical-divider">
+            
+            <div class="fixture-viz-column">
+                <div class="fixture-toggle-wrapper">
+                    <!-- Next Fixture Section -->
+                    <div class="fixture-header" onclick="toggleFixtureSection('next')">
+                        <span class="dropdown-spacer"></span>
+                        <h3>Upcoming Fixtures</h3>
+                        <span class="dropdown-icon" id="next-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="next-section" class="fixture-body open">
+                    <div class="gw-selector">
+                        <select id="next-gw-select" onchange="updateNextFixture(this.value)">
+                        {% for gw in upcoming_gameweeks %}
+                            <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>
+                            Gameweek {{ gw }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <img id="next-heatmap" class="heatmap" src="{{ url_for('static', filename='heatmaps/' + next_fixture_image) }}">
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="section">
+
+
+
+
+
+        <h2>Shotmap - 24/25 Season</h2>
         <img class="shotmap"src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap">
     </div>
 
@@ -130,7 +178,50 @@
             const encoded = encodeURIComponent(teamName);
             window.location.href = `/team/${encoded}`;
         }
-    </script>
+
+
+
+        const team = "{{ team.name }}";
+
+        window.pastFixtures = {{ past_fixtures_by_gw | tojson }};
+        window.nextOpponents = {{ next_opponents_by_gw | tojson }};
+
+        function updatePrevFixture(gw) {
+            const fixture = window.pastFixtures[gw];
+            if (!fixture) return;
+
+            const shotmapPath = `/static/shotmaps/${fixture.home}_${fixture.away}_shotmap.png`;
+            document.getElementById("prev-shotmap").src = shotmapPath;
+        }
+
+        function updateNextFixture(gw) {
+            const opp = window.nextOpponents[gw] || "Unknown";
+            const heatmapPath = `/static/heatmaps/${team}_${opp}_heatmap.png`;
+            document.getElementById("next-heatmap").src = heatmapPath;
+        }
+
+
+
+
+        function toggleFixtureSection(section) {
+            const body = document.getElementById(`${section}-section`);
+            const icon = document.getElementById(`${section}-icon`).querySelector('i');
+
+            const isOpen = body.classList.contains('open');
+            if (isOpen) {
+            body.classList.remove('open');
+            body.style.maxHeight = "0";
+            icon.className = "fas fa-chevron-left";
+            } else {
+            body.classList.add('open');
+            body.style.maxHeight = "1000px";  // or dynamically measure height
+            icon.className = "fas fa-chevron-down";
+            }
+        }
+
+
+      </script>
+      
 
 
     <footer class="footer">

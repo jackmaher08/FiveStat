@@ -5,6 +5,9 @@ matplotlib.use('Agg') # Place this line BEFORE importing pyplot
 import matplotlib.pyplot as plt
 from io import BytesIO
 from mplsoccer import Radar
+import os
+from matplotlib import rcParams
+from math import pi
 
 app = Flask(__name__)
 
@@ -124,6 +127,99 @@ def generate_comparison_radar_chart(player1, player2, player1_stats, player2_sta
     )
 
     return fig, ax
+
+
+
+
+# Load league table data
+LEAGUE_DATA_PATH = "data/tables/league_table_data.csv"
+SAVE_DIR = "static/radar/teams"
+os.makedirs(SAVE_DIR, exist_ok=True)
+
+df = pd.read_csv(LEAGUE_DATA_PATH)
+
+# Sort by PTS descending to simulate actual table position
+df = df.sort_values(by="PTS", ascending=False).reset_index(drop=True)
+
+# Assign position as index + 1
+df["Pos"] = df.index + 1
+
+
+# Metrics to include and how to calculate them
+METRICS = {
+    "Win%": lambda row: row["W"] / row["MP"] if row["MP"] else 0,
+    "Goals/Match": lambda row: float(row["G"]) / row["MP"] if row["MP"] else 0,
+    "xG/Match": lambda row: float(row["xG"]) / row["MP"] if row["MP"] else 0,
+    "PTS/Match": lambda row: row["PTS"] / row["MP"] if row["MP"] else 0,
+    "xPTS/Match": lambda row: row["xPTS"] / row["MP"] if row["MP"] else 0,
+    "Pos": lambda row: row["Pos"]  
+}
+
+# Load data
+if not os.path.exists(LEAGUE_DATA_PATH):
+    raise FileNotFoundError("League table data not found.")
+
+df.dropna(subset=["G", "xG", "MP"], inplace=True)
+
+# Compute raw metrics for all teams
+for label, func in METRICS.items():
+    df[label] = df.apply(func, axis=1)
+
+# Convert metrics to percentiles
+for label in METRICS.keys():
+    if label == "Pos":
+        df[label + "_pct"] = df[label].rank(pct=True, ascending=False) * 100
+    else:
+        df[label + "_pct"] = df[label].rank(pct=True, ascending=True) * 100
+
+
+# Generate radar chart for each team
+for _, row in df.iterrows():
+    team = row["Team"]
+
+    # 1. Define your labels and base values
+    labels = list(METRICS.keys())               # 6 metrics
+    values = [row[m + "_pct"] for m in labels]  # 6 values
+
+    # 2. Close the loop for plotting
+    values += values[:1]  # 7 points for plotting only
+
+    # ✅ 3. Only create angles for 6 segments
+    angles = [n / float(len(labels)) * 2 * pi for n in range(len(labels))]
+    angles += angles[:1]  # 7 angles to match values
+
+    # Create the radar chart
+    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    fig.patch.set_facecolor("#f4f4f9")
+    ax.set_facecolor("#f4f4f9")
+    ax.set_ylim(0, 100)  # ✅ Fix the radar radius to full 0–100
+
+    ax.plot(angles, values, linewidth=2, linestyle='solid')
+    ax.fill(angles, values, alpha=0.25)
+
+    # ✅ Only use first 6 angles for grid ticks and labels
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(labels, fontsize=9)
+
+    ax.set_yticklabels([])
+
+    # Additional info text
+    ax.text(
+        x=-0.1, y=0.1, 
+        s='Metrics show Percentile\nstats compared with the\nrest of the league\n\n@FiveStat', 
+        fontsize=5, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+    )
+
+    # 5. Save the image
+    save_path = os.path.join(SAVE_DIR, f"{team}_team_radar.png")
+    plt.savefig(save_path, dpi=300, bbox_inches="tight", transparent=True)
+    plt.close()
+    print(f"✅ Saved: {save_path}")
+
+
+cols = ["Team", "G", "xG", "MP", "Goals/Match", "Goals/Match_pct", "xG/Match", "xG/Match_pct"]
+print(df[cols].sort_values("Goals/Match", ascending=False))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
