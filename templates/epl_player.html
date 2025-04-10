@@ -38,16 +38,16 @@
             <thead>
                 <tr>
                     <th onclick="sortTable(0)">Name <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable(1)">Team <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable(2)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(2)">MP <span class="sort-indicator"></span></th>
                     <th onclick="sortTable(3)">Mins <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable(4)">G <span class="sort-indicator">▼</span></th> <!-- Default sorted -->
+                    <th class="bold-left-border" onclick="sortTable(4)">G <span class="sort-indicator">▼</span></th> <!-- Default sorted -->
                     <th onclick="sortTable(5)">xG <span class="sort-indicator"></span></th>
                     <th onclick="sortTable(6)">NPG <span class="sort-indicator"></span></th>
                     <th onclick="sortTable(7)">NPxG <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable(8)">A <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(8)">A <span class="sort-indicator"></span></th>
                     <th onclick="sortTable(9)">xA <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable(10)">YC <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(10)">YC <span class="sort-indicator"></span></th>
                     <th onclick="sortTable(11)">RC <span class="sort-indicator"></span></th>
                 </tr>
             </thead>
@@ -55,16 +55,16 @@
                 {% for player in players %}
                     <tr>
                         <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player['Name'] }}')">{{ player['Name'] }}</a></td>
-                        <td><a href="{{ url_for('team_page', team_name=player['Team']) }}">{{ player['Team'] }}</a></td>
-                        <td>{{ player['MP'] }}</td>
+                        <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=player['Team']) }}">{{ player['Team'] }}</a></td>
+                        <td class="bold-left-border">{{ player['MP'] }}</td>
                         <td>{{ player['Mins'] }}</td>
-                        <td>{{ player['G'] }}</td>
+                        <td class="bold-left-border">{{ player['G'] }}</td>
                         <td>{{ player['xG'] }}</td>
                         <td>{{ player['NPG'] }}</td>
                         <td>{{ player['NPxG'] }}</td>
-                        <td>{{ player['A'] }}</td>
+                        <td class="bold-left-border">{{ player['A'] }}</td>
                         <td>{{ player['xA'] }}</td>
-                        <td>{{ player['YC'] }}</td>
+                        <td class="bold-left-border">{{ player['YC'] }}</td>
                         <td>{{ player['RC'] }}</td>
                     </tr>
                 {% endfor %}
