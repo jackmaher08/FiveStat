@@ -118,12 +118,20 @@ def epl_fixtures(gw):
 
     gameweeks = sorted(fixtures[fixtures["isResult"] == False]["round_number"].dropna().unique().tolist())
 
+    with open("data/team_metadata.json", "r") as f:
+        team_metadata = json.load(f)
+
+    all_teams = list(team_metadata.keys())
+    team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
+
     return render_template(
         "epl_fixtures.html",
         fixture_groups=dict(fixture_groups),
         current_gw=gw,
         gameweeks=gameweeks,
-        last_updated=get_last_updated_time()
+        last_updated=get_last_updated_time(),
+        all_teams=all_teams,
+    team_display_names=team_display_names
     )
 
 
@@ -340,13 +348,21 @@ def epl_results(gw):
         league_table_path = "data/tables/league_table_data.csv"
         league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
 
+        with open("data/team_metadata.json", "r") as f:
+            team_metadata = json.load(f)
+
+        all_teams = list(team_metadata.keys())
+        team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
+
         return render_template(
             "epl_results.html",
             fixture_groups=dict(fixture_groups),
             current_gw=gw,
             gameweeks=all_gws,
             league_table=league_table,
-            last_updated=get_last_updated_time()
+            last_updated=get_last_updated_time(),
+            all_teams=all_teams,
+            team_display_names=team_display_names
         )
 
 

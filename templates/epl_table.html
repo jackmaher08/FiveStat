@@ -97,9 +97,9 @@
                 {% for team in league_table %}
                 <tr>
                     <td>{{ loop.index }}</td>
-                    <td class="bold-left-border"><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
-                    <td>{{ team["xG"] }}</td>
+                    <td>{{ '%.1f' | format(team["xG"]) }}</td>
                     <td>{{ team["npxG"] }}</td>
                     <td class="{% if team['xG +/-'] > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
                     <td class="bold-left-border">{{ team["GA"] }}</td>

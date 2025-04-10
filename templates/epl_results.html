@@ -150,6 +150,29 @@
             </tbody>
         </table>
     </div>
+    
+    <br><br><br>
+
+    <!-- Team pages dropdown -->
+    <div class="team-switcher">
+        <select id="team-select" onchange="navigateToTeam(this.value)">
+            <option value="" selected disabled>Team Pages</option>
+            {% for team_option in all_teams %}
+                <option value="{{ team_option }}">
+                {{ team_display_names[team_option] }}
+                </option>
+            {% endfor %}
+        </select>          
+    </div>    
+
+    <script>
+        function navigateToTeam(teamName) {
+            const encoded = encodeURIComponent(teamName);
+            window.location.href = `/team/${encoded}`;
+        }
+    </script>
+
+
     <br><br><br>
     <!-- Dark Overlay for Team Modal -->
     <div class="modal-overlay" id="infoModalOverlay"></div>

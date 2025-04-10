@@ -263,17 +263,17 @@ a:hover {
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
-      }
-    
+    }
+
     .fixture-viz-column {
         flex: 1 1 48%;
-        }
+    }
 
     .vertical-divider {
         display: block;
         width: 1px;
         background-color: #ccc;
-        }
+    }
     .fixture {
         width: 95%;
         margin: 0 auto;
@@ -413,6 +413,7 @@ th, td {
     position: relative;
     font-size: 14px;
     font-family: 'Arial';
+    min-width: 30px;
 }
 
 th {
@@ -530,6 +531,16 @@ th, td {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+#xTable td:nth-child(2), 
+#xTable th:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#xTable td:nth-child(2) {
+    width: auto;
+}
+
 
 #radarChart {
     width: 100%;
@@ -863,7 +874,7 @@ input:checked + .slider:before {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-top: 8px;
+    margin: 8px 0;
 }
 
 .form-circle {
