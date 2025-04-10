@@ -293,7 +293,7 @@ a:hover {
 .fixture {
     text-align: center;
     align-items: center;
-    margin: 5px 0;
+    margin: 0;
 }
 
 .fixtures-container {
@@ -589,16 +589,14 @@ select:focus {
     align-items: center;
     position: relative;
     cursor: pointer;
-    background-color: #f8f8f8;
     padding: 0.75rem 1rem;
     width: 95%;
     max-width: 700px;
     margin: 5px auto;
-    border-radius: 8px;
-    border: 1px solid #ddd;
     box-sizing: border-box;
     justify-content: center;
-    height: 60px;
+    height: 80px;
+    border-radius: 8px;
 }
 .fixture-header:hover {
     background-color: #ccc;
