@@ -8,7 +8,7 @@ body {
 }
 
 h1, h2 {
-    margin: 10px 0;
+    margin: 10px 0 20px 0;
     color: #555;
 }
 
@@ -314,6 +314,9 @@ a:hover {
     height: auto;
     display: block;
     margin: 0 auto;
+}
+#landing-page.shotmap {
+    max-width: 1500px;
 }
 
 .heatmap {
@@ -951,4 +954,21 @@ input:checked + .slider:before {
 
 .view-toggle {
     margin: 15px 0;
+}
+
+
+#goalProjectionsTableWrapper {
+    overflow-x: auto;
+    width: 100%;
+}
+
+#goalProjectionsTableContainer {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.goal-projections-table {
+    width: 100%;
+    min-width: 450px;
+    border-collapse: collapse;
 }

@@ -1,15 +1,17 @@
 import pandas as pd
-from flask import Flask, render_template, request, send_file, redirect, url_for
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify
 import numpy as np
 from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
-from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data
+from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals
 from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
 import json
+import unicodedata
+
 
 
 # Flask app initialization
@@ -198,42 +200,77 @@ def epl_table():
 @app.route('/epl-players')
 def epl_players():
     try:
-        # Load radar data for dropdowns
+        # Radar dropdown players (only those with full radar stats)
         radar_players = get_player_radar_data()
-
-        # Filter out goalkeepers and players missing required stats for the radar comparison
         required_stats = [
             'Goals', 'Assists', 'Goals + Assists', 'Expected Goals',
             'Expected Assists', 'Progressive Carries', 'Progressive Passes', 'Progressive Receptions'
         ]
-        dropdown_players = []
-        for player in radar_players:
-            if player.get("Pos") == "GK":
-                continue
-            # Only include if all required stats are present (even if they are 0)
-            if all(player.get(stat) not in [None, ""] for stat in required_stats):
-                dropdown_players.append(player)
-                
-        # Load player data for the main table (if you still want to use the original list)
-        players = get_player_data()  # or load radar_players if you want the same list for both
+        radar_dropdown_players = [
+            p for p in radar_players
+            if p.get("Pos") != "GK" and all(p.get(stat) not in [None, ""] for stat in required_stats)
+        ]
+
+        # Goal projection dropdown players (all outfield players)
+        players = get_player_data()
+        goal_dropdown_players = [p for p in players if p.get("POS") != "GK"]
+
+        # Load player data for the main table
+        players = get_player_data()
 
         next_gw_fixtures = load_next_gw_fixtures()
         current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
 
-        # Extract unique positions and teams (you can derive these from the full list)
         unique_positions = sorted(set(p.get("Pos", "Unknown") for p in players))
         unique_teams = sorted(set(p.get("Team", "Unknown") for p in players))
 
-        return render_template('epl_player.html', 
-                               players=players,               # For the main table
-                               dropdown_players=dropdown_players,  # For the radar dropdowns
-                               positions=unique_positions, 
-                               teams=unique_teams, 
-                               current_gw=current_gw,
-                               last_updated=get_last_updated_time())
+        return render_template(
+            'epl_player.html',
+            players=players,
+            dropdown_players_radar=radar_dropdown_players,
+            dropdown_players_goals=goal_dropdown_players,
+            positions=unique_positions,
+            teams=unique_teams,
+            current_gw=current_gw,
+            last_updated=get_last_updated_time()
+        )
+
     except Exception as e:
         print(f"❌ Error loading player data: {e}")
         return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown", last_updated=get_last_updated_time())
+
+
+
+
+
+
+
+@app.route("/predict_player_goals/<player_name>")
+def predict_player_goals_route(player_name):
+    try:
+        # Load player data (same source as player stats page)
+        players = get_player_data()
+
+        # Find the selected player
+        def normalize_name(s):
+            return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8").lower()
+
+        normalized_input = normalize_name(player_name)
+        player = next((p for p in players if normalize_name(p["Name"]) == normalized_input), None)
+
+        if not player:
+            return jsonify({"error": "Player not found"}), 404
+
+        # Run prediction
+        predictions = predict_player_goals(player_name=player_name, player_team=player["Team"])
+        return jsonify(predictions)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+
 
 
 

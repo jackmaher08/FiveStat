@@ -15,6 +15,11 @@ import random
 import matplotlib.image as mpimg
 import seaborn as sns
 import subprocess
+import unicodedata
+
+def normalize_name(s):
+    return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8").lower()
+
 
 TEAM_NAME_MAPPING = {
     "Man Utd": "Manchester United",
@@ -79,6 +84,11 @@ def load_match_data(start_year=2016, end_year=2024):
     
     if os.path.exists(historical_fixture_file_path):
         historical_fixtures_df = pd.read_csv(historical_fixture_file_path)
+
+        # ✅ Normalize team names in Home Team and Away Team columns
+        historical_fixtures_df["Home Team"] = historical_fixtures_df["Home Team"].replace(TEAM_NAME_MAPPING)
+        historical_fixtures_df["Away Team"] = historical_fixtures_df["Away Team"].replace(TEAM_NAME_MAPPING)
+
     else:
         raise FileNotFoundError(f"⚠️ Fixture file not found: {historical_fixture_file_path}. Ensure it's saved before running.")
 
@@ -100,6 +110,10 @@ def get_player_data():
     
     if os.path.exists(player_file_path):
         player_data_df = pd.read_csv(player_file_path)
+
+        # ✅ Normalize team names in Team column
+        player_data_df["Team"] = player_data_df["Team"].replace(TEAM_NAME_MAPPING)
+
     else:
         raise FileNotFoundError(f"⚠️ Player data file not found: {player_file_path}. Ensure it's saved before running.")
 
@@ -178,6 +192,42 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         print(f"Recent DEF: {recent_def}\n")
 
     return recent_form_att, recent_form_def
+
+
+def calculate_team_efficiency_and_momentum(league_table_path="data/tables/league_table_data.csv", 
+                                           fixture_data_path="data/tables/fixture_data.csv", recent_matches=5):
+    """
+    Calculates team efficiency (G / xG) and recent scoring momentum.
+    """
+    league_df = pd.read_csv(league_table_path)
+    fixtures_df = pd.read_csv(fixture_data_path)
+
+    efficiency = {}
+    momentum = {}
+
+    for team in league_df["Team"].unique():
+        team_row = league_df[league_df["Team"] == team]
+        total_goals = team_row["G"].values[0]
+        total_xg = team_row["xG"].values[0]
+        efficiency[team] = total_goals / total_xg if total_xg > 0 else 1.0
+
+        # Grab last N matches
+        team_games = fixtures_df[
+            ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
+            (fixtures_df["isResult"] == True)
+        ].sort_values(by="date", ascending=False).head(recent_matches)
+
+        team_games["goals"] = team_games.apply(
+            lambda row: row["home_goals"] if row["home_team"] == team else row["away_goals"], axis=1)
+        team_games["xG"] = team_games.apply(
+            lambda row: row["home_xG"] if row["home_team"] == team else row["away_xG"], axis=1)
+
+        recent_goals = team_games["goals"].sum()
+        recent_xg = team_games["xG"].sum()
+        momentum[team] = recent_goals / recent_xg if recent_xg > 0 else 1.0
+
+    return efficiency, momentum
+
 
 
 
@@ -298,9 +348,13 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
     return mid  # Best approximation
 
+
+
+
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, beta=0.6, home_field_advantage=0.15
+    alpha=0.65, beta=0.6, home_field_advantage=0.15,
+    efficiency_factors=None, momentum_factors=None
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -316,6 +370,8 @@ def get_team_xg(
         alpha (float): Weight of recent form in ATT/DEF rating blend.
         beta (float): Weight of multiplicative xG vs Poisson-calibrated xG.
         home_field_advantage (float): Additive bonus if team is at home.
+        efficiency_factors: 
+        momentum_factors:
 
     Returns:
         float: Blended xG value.
@@ -342,7 +398,135 @@ def get_team_xg(
     if is_home:
         true_xg += home_field_advantage
 
+    # 6. Efficiency & momentum adjustments
+    if efficiency_factors:
+        true_xg *= np.clip(efficiency_factors.get(team, 1.0), 0.75, 1.25)
+    if momentum_factors:
+        true_xg *= np.clip(momentum_factors.get(team, 1.0), 0.9, 1.15)
+
+
     return true_xg
+
+
+
+
+# generate player goalscoring probs
+import numpy as np
+from scipy.stats import poisson
+
+def simulate_player_goals_mc(xg, sims=10000):
+    """Monte Carlo simulation of player scoring probability."""
+    simulated_goals = np.random.poisson(lam=xg, size=sims)
+    prob_score = np.mean(simulated_goals >= 1)
+    return prob_score
+
+def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matches=5, weight_recent_form=0.3):
+    # Load data
+    fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+    player_df = pd.read_csv("data/tables/player_data.csv")
+    league_df = pd.read_csv("data/tables/league_table_data.csv")
+    historical_df = pd.read_csv("data/tables/historical_fixture_data.csv")
+
+    # Normalize name
+    normalized_input = normalize_name(player_name)
+    player_row = player_df[player_df["Name"].apply(lambda x: normalize_name(x)) == normalized_input]
+
+
+    if player_row.empty:
+        print(f"❌ Player not found in data: {player_name}")
+        return []
+
+    player_xg = float(player_row.iloc[0]["xG"])
+    player_pos = player_row.iloc[0]["POS"]
+    team_players = player_df[player_df["Team"] == player_team]
+    team_total_xg = league_df[league_df["Team"].str.strip().str.lower() == player_team.strip().lower()]["xG"].values[0]
+
+    if team_total_xg == 0:
+        return []
+
+    # Season xG share
+    season_share = player_xg / team_total_xg
+
+    # === Recent Form Adjustment ===
+    # Get player’s recent xG per 90
+    recent_games = fixtures_df[
+        ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
+        (fixtures_df["isResult"] == True)
+    ].sort_values(by="date", ascending=False).head(recent_matches)
+
+    recent_player_xg = 0
+    recent_player_minutes = 0
+
+    if not recent_games.empty:
+        # Estimate minutes and xG if available (simplified fallback model)
+        if "Mins" in player_row.columns:
+            avg_mins = player_row.iloc[0]["Mins"] / player_row.iloc[0]["MP"]
+            recent_player_minutes = avg_mins * len(recent_games)
+        if "xG" in player_row.columns:
+            recent_player_xg = (player_row.iloc[0]["xG"] / player_row.iloc[0]["MP"]) * len(recent_games)
+
+    if recent_player_minutes > 0:
+        recent_xg_per_90 = (recent_player_xg / recent_player_minutes) * 90
+    else:
+        recent_xg_per_90 = 0
+
+    # Estimate team xG per 90 from season (baseline)
+    team_xg_per_90 = team_total_xg / (player_row.iloc[0]["MP"] * 1.0)
+    recent_xg_share = recent_xg_per_90 / team_xg_per_90 if team_xg_per_90 > 0 else season_share
+
+    # Final blended share
+    adjusted_xg_share = (1 - weight_recent_form) * season_share + weight_recent_form * recent_xg_share
+
+    # Get upcoming fixtures
+    upcoming = fixtures_df[
+        ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
+        (fixtures_df["isResult"] == False)
+    ].sort_values("round_number").head(num_fixtures)
+
+    # Prepare team stats
+    team_stats, _ = calculate_team_statistics(historical_df)
+    recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats)
+
+    predictions = []
+
+    for _, row in upcoming.iterrows():
+        is_home = row["home_team"] == player_team
+        opponent = row["away_team"] if is_home else row["home_team"]
+        round_number = row["round_number"]
+
+        try:
+            if opponent not in team_stats or player_team not in team_stats:
+                continue
+
+            team_xg = get_team_xg(
+                team=player_team,
+                opponent=opponent,
+                is_home=is_home,
+                team_stats=team_stats,
+                recent_form_att=recent_form_att,
+                recent_form_def=recent_form_def
+            )
+
+            player_exp_xg = adjusted_xg_share * team_xg
+            prob_score = simulate_player_goals_mc(player_exp_xg)
+
+            expected_goals = round(player_exp_xg, 2)
+            goal_prob = round(prob_score * 100, 1)
+
+            if player_pos != "GK" and expected_goals > 0 and goal_prob > 0:
+                predictions.append({
+                    "gameweek": int(round_number),
+                    "opponent": opponent,
+                    "expected_goals": expected_goals,
+                    "goal_probability": goal_prob
+                })
+
+        except Exception as e:
+            print(f"❌ Error for {player_name} vs {opponent}: {e}")
+            continue
+
+    return predictions
+
 
 
 
@@ -374,6 +558,8 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     recent_form_att = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_att.items()}
     recent_form_def = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_def.items()}
 
+    efficiency_factors, momentum_factors = calculate_team_efficiency_and_momentum()
+
     print("✅ Processing matches to calculate probabilities and generate heatmaps...")
     for index, fixture in fixtures_df.iterrows():
         home_team = fixture['home_team']
@@ -388,14 +574,17 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         if home_team not in team_stats or away_team not in team_stats:
             continue
 
-        home_xg = get_team_xg(home_team, away_team, is_home=True, team_stats=team_stats, 
-                      recent_form_att=recent_form_att, recent_form_def=recent_form_def)
+        home_xg = get_team_xg(
+            home_team, away_team, is_home=True,
+            team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors
+        )
 
-        away_xg = get_team_xg(away_team, home_team, is_home=False, team_stats=team_stats, 
-                      recent_form_att=recent_form_att, recent_form_def=recent_form_def)
-
-
-
+        away_xg = get_team_xg(
+            away_team, home_team, is_home=False,
+            team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors
+        )
 
         # Capture the full result_matrix along with probabilities
         result_matrix, home_prob, draw_prob, away_prob = simulate_poisson_distribution(home_xg, away_xg)

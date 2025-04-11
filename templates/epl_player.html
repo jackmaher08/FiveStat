@@ -97,16 +97,17 @@
 
     <!-- Player comparison radar chart -->
     <div class="radar-container">
+        <h2>Player Comparison Tool</h2>
         <select id="player1">
-            <option value="">Select Player</option>
-            {% for player in dropdown_players %}
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>
         <br><br>
         <select id="player2">
-            <option value="">Select Player</option>
-            {% for player in dropdown_players %}
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>        
@@ -119,7 +120,33 @@
         <img id="radarChart" src="">
     </div>
 
-    
+    <br><br>
+    <hr class="fixture-divider">
+    <br><br>
+
+
+
+    <!-- Player Goal Prediction Section -->
+    <div class="radar-container">
+        <h2>Player Goal Projections</h2>
+        <select id="predictionPlayerSelect">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_goals %}
+                <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button onclick="getGoalProjections()">Show Goal Projections</button>
+        <div id="goalProjectionsTableWrapper">
+            <div id="goalProjectionsTableContainer"></div>
+        </div>
+          
+        
+    </div>
+
+
+
+
 
     
 
@@ -247,6 +274,52 @@
 
             modal.style.display = isVisible ? "none" : "block";
             overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        function getGoalProjections() {
+            const player = document.getElementById("predictionPlayerSelect").value;
+            const container = document.getElementById("goalProjectionsTableContainer");
+
+            if (!player) {
+                container.innerHTML = "<p>Please select a player.</p>";
+                return;
+            }
+
+            fetch(`/predict_player_goals/${encodeURIComponent(player)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        container.innerHTML = "<p>No data available for this player.</p>";
+                        return;
+                    }
+
+                    let html = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>GW</th>
+                                    <th>Opponent</th>
+                                    <th>xG</th>
+                                    <th>Scoring Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data.map(row => `
+                                    <tr>
+                                        <td>${row.gameweek}</td>
+                                        <td>${row.opponent}</td>
+                                        <td>${row.expected_goals}</td>
+                                        <td>${row.goal_probability}%</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                    container.innerHTML = html;
+                })
+                .catch(err => {
+                    container.innerHTML = `<p>Error fetching goal projection data: ${err}</p>`;
+                });
         }
     </script>
 

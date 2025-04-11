@@ -68,7 +68,7 @@ else:
 team_name_mapping = {
     "Man City": "Manchester City",
     "Newcastle": "Newcastle United",
-    "Spurs": "Tottenham",
+    "Spurs": "Tottenham Hotspur",
     "Tottenham": "Tottenham Hotspur",
     "Man Utd": "Manchester United",
     "Wolves": "Wolverhampton Wanderers",
@@ -171,9 +171,24 @@ for year in range(start_year, end_year + 1):
 # Merge all season data
 df = pd.concat(frames)
 
-# correct forest team name
+# correct team names
 df["Home Team"] = df["Home Team"].replace({"Nott'm Forest": "Nottingham Forest"})
 df["Away Team"] = df["Away Team"].replace({"Nott'm Forest": "Nottingham Forest"})
+                                          
+df["Home Team"] = df["Home Team"].replace({"Spurs": "Tottenham Hotspur"})
+df["Away Team"] = df["Away Team"].replace({"Spurs": "Tottenham Hotspur"})
+
+df["Home Team"] = df["Home Team"].replace({"Man Utd": "Manchester United"})
+df["Away Team"] = df["Away Team"].replace({"Man Utd": "Manchester United"})
+
+df["Home Team"] = df["Home Team"].replace({"Man City": "Manchester City"})
+df["Away Team"] = df["Away Team"].replace({"Man City": "Manchester City"})
+
+df["Home Team"] = df["Home Team"].replace({"Newcastle": "Newcastle United"})
+df["Away Team"] = df["Away Team"].replace({"Newcastle": "Newcastle United"})
+
+df["Home Team"] = df["Home Team"].replace({"Wolves": "Wolverhampton Wanderers"})
+df["Away Team"] = df["Away Team"].replace({"Wolves": "Wolverhampton Wanderers"})
 
 df = df[pd.notnull(df["Result"])]  # Keep only matches with results
 
@@ -240,6 +255,8 @@ player_data = [
 ]
 
 player_data = pd.DataFrame(player_data)
+
+player_data["Team"] = player_data["Team"].replace({"Tottenham": "Tottenham Hotspur"})
 
 # Define the file path
 player_file_path = os.path.join(save_dir, "player_data.csv")
