@@ -30,7 +30,6 @@
     
     <br>
     <h2>Premier League Player Stats</h2>
-    <p>**Click on a player name to view their stats on a Radar Chart**</p>
     <br>
     <!-- Player Table -->
      <div class="table-container">
@@ -165,7 +164,7 @@
         let currentSortColumn = 4; // Default sort by "Goals"
         let ascending = false; // Default sort order is descending
         let currentPage = 1;
-        const rowsPerPage = 20;
+        const rowsPerPage = 15;
         let allRows = Array.from(document.querySelector("#playerTable").rows);
 
         function sortTable(columnIndex) {

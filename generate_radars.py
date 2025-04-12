@@ -122,7 +122,7 @@ def generate_comparison_radar_chart(player1, player2, player1_stats, player2_sta
     # Additional info text
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 stats\n\n@FiveStat', 
+        s='Metrics show per 90 stats\ncompared againt all players\nin Europes Top 5 Leagues\n\n@FiveStat', 
         fontsize=10, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 

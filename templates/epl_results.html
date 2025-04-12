@@ -135,7 +135,11 @@
             <tbody id="leagueTable">
                 {% for team in league_table %}
                 <tr>
-                    <td>{{ loop.index }}</td>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
                     <td class="bold-left-border"><a href="javascript:void(0);" onclick="openTeamShotmapModal('{{team['Team']}}')">{{ team["Team"] }}</a>                    </td>
                     <td class="bold-left-border">{{ team["MP"] }}</td>
                     <td class="bold-left-border">{{ team["W"] }}</td>

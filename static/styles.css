@@ -197,6 +197,9 @@ a:hover {
         height: auto;
         margin-top: 10px;
     }
+    .heatmap {
+        width: 100%;
+    }
     .section .team_radar .team-radar-img {
         max-width: 100vw;
         width: 100%;
@@ -259,21 +262,6 @@ a:hover {
         background-color: #ccc;
         margin: 0 1rem;
     }
-    .fixture-viz-wrapper {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .fixture-viz-column {
-        flex: 1 1 48%;
-    }
-
-    .vertical-divider {
-        display: block;
-        width: 1px;
-        background-color: #ccc;
-    }
     .fixture {
         width: 95%;
         margin: 0 auto;
@@ -317,10 +305,6 @@ a:hover {
 }
 #landing-page.shotmap {
     max-width: 1500px;
-}
-
-.heatmap {
-    width: 70%;
 }
 
 
@@ -971,4 +955,59 @@ input:checked + .slider:before {
     width: 100%;
     min-width: 450px;
     border-collapse: collapse;
+}
+
+
+/* League Position visuals */
+/* Style only the number badge */
+.position-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.position-badge::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(0px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    bottom: 120%;
+    left: 50%;
+    transform: translate(-50%, 0px);
+    z-index: 999;
+}
+
+.position-badge:hover::after {
+    visibility: visible;
+    opacity: 0.9;
+}
+
+/* Color rules */
+.position-badge[data-tooltip="Champions League"] {
+    background-color: #3562A6;
+    color: white;
+}
+.position-badge[data-tooltip="Europa League"] {
+    background-color: #e07b00;
+    color: white;
+}
+.position-badge[data-tooltip="Conference League"] {
+    background-color: #3aa76d;
+    color: white;
+}
+.position-badge[data-tooltip="Relegation"] {
+    background-color: #d93636;
+    color: white;
+}
+.position-badge[data-tooltip=""]::after {
+    display: none;
 }
