@@ -939,32 +939,6 @@ position_counts = {team: np.zeros(num_positions) for team in teams}
 
 
 
-def precompute_top_projected_xg(output_file="data/top_projected_player_xg.csv"):
-    players = get_player_data()
-    top_players = []
-
-    for player in players:
-        name = player.get("Name")
-        team = player.get("Team")
-
-        try:
-            projections = predict_player_goals(name, team, num_fixtures=3)
-            total_xg = sum(row["expected_goals"] for row in projections if row["expected_goals"])
-            if total_xg > 0:
-                top_players.append({
-                    "name": name,
-                    "team": team,
-                    "total_xg": round(total_xg, 2)
-                })
-        except Exception as e:
-            print(f"Error processing {name}: {e}")
-            continue
-
-    top_players_sorted = sorted(top_players, key=lambda x: x["total_xg"], reverse=True)[:10]
-    df = pd.DataFrame(top_players_sorted)
-    df.to_csv(output_file, index=False)
-    print(f"✅ Top projected xG saved to {output_file}")
-
 
 
 if __name__ == "__main__":

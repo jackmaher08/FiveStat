@@ -6,6 +6,15 @@
     <title>FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SQPCR3KM4Y');
+    </script>
 </head>
 <body>
 
