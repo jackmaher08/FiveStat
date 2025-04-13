@@ -111,7 +111,7 @@
                             </span>
                         </div>
                         <div class="heatmap-container" id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                            <img class="heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
+                            <img class="heatmap" id="fixture-page-heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
                         </div>
                     </div>
                 {% endfor %}

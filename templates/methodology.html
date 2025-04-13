@@ -58,52 +58,54 @@
         <br><br><hr class="fixture-divider"><br><br>
         <h2>Data Used in the Models</h2>
         <p>We collect and engineer a wide range of data</p>
-        <table class="styled-table">
-        <thead>
-            <tr>
-            <th>Data Type</th>
-            <th>How It's Used</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            <td>Historical Fixture Data (2016 - Present)</td>
-            <td>Long-term ATT/DEF Ratings</td>
-            </tr>
-            <tr>
-            <td>Current Season Results</td>
-            <td>Real-time updates for Poisson simulation</td>
-            </tr>
-            <tr>
-            <td>xG Data</td>
-            <td>Probability calibration</td>
-            </tr>
-            <tr>
-            <td>Player Stats</td>
-            <td>Used for radars and goal forecasts</td>
-            </tr>
-            <tr>
-            <td>Team Efficiency/Momentum</td>
-            <td>Adjusts model dynamically</td>
-            </tr>
-            <tr>
-            <td>Shot Locations</td>
-            <td>Visuals of attacking patterns</td>
-            </tr>
-        </tbody>
-        </table>
+        <div class="table-scroll">
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                    <th>Data Type</th>
+                    <th>How It's Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>Historical Fixture Data (2016 - Present)</td>
+                    <td>Long-term ATT/DEF Ratings</td>
+                    </tr>
+                    <tr>
+                    <td>Current Season Results</td>
+                    <td>Real-time updates for Poisson simulation</td>
+                    </tr>
+                    <tr>
+                    <td>xG Data</td>
+                    <td>Probability calibration</td>
+                    </tr>
+                    <tr>
+                    <td>Player Stats</td>
+                    <td>Used for radars and goal forecasts</td>
+                    </tr>
+                    <tr>
+                    <td>Team Efficiency/Momentum</td>
+                    <td>Adjusts model dynamically</td>
+                    </tr>
+                    <tr>
+                    <td>Shot Locations</td>
+                    <td>Visuals of attacking patterns</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <br><br><hr class="fixture-divider"><br><br>
-        <h2>The Core Models Behind FiveStat</h2>
-        <h4>1. Poisson Regression for Match Prediction</h4>
+        <h2>Which Models We Use</h2>
+        <h4>1. Poisson Regression for our Match Predictions</h4>
         <p>
-            <strong>Purpose:</strong>Projects how many goals each team will score in a given fixture <br>
-            <strong>How It Works:</strong>The Poisson distribution models the probability of scoring <i>n</i> goals when the expected goals (xG) for each team is known. <br><br>
+            <strong>Purpose :</strong> To Project how many goals each team will score in a given fixture <br><br>
+            <strong>How It Works:</strong> A Poisson Distribution calculates the probability of scoring <i>n</i> goals when the expected goals (xG) for each team is known. <br><br>
             We calculate each team’s Attack and Defense Ratings using:
             <ul>
-                <li>Long-term historical data (2016–2024)</li>
-                <li>Recent form</li>
-                <li>Home/Away splits</li>
-                <li>Momentum & efficiency boosts</li>
+                <li>Historical data (2016–2024)</li>
+                <li>Recent Team Form</li>
+                <li>Home/Away Performance</li>
+                <li>Team Momentum & Efficiency</li>
             </ul>
             <br>
             Think of a Poisson dist as rolling a weighted dice where the most likely outcome is known. Because of this, we can center the dist around the team's average xG.
@@ -119,33 +121,33 @@
             <br><br>
             We can multiply each of the home and away goal probabilities to get the probability of each scoreline:
             <br>
-            Arsenal 1 - 2 Chelsea: ~7.8%
+            Ipswich 1 - 2 Spurs: ~7.8%
             <br><br>
             <img src="../static/heatmaps/Ipswich_Spurs_heatmap.png" alt="Example Heatmap">
             <br><br>
             <strong>Why Poisson?</strong>
             <ul>
                 <li>Well-suited to discrete events like goals</li>
-                <li>Widely accepted in sports analytics</li>
+                <li>Widely used in sports analytics</li>
                 <li>Easy to extend for full match score simulation</li>
             </ul>
         </p>
         <br><br>
         <h4>2. Monte Carlo Simulation for League Positions</h4>
         <p>
-            <strong>Purpose:</strong>Forecast the final league table based on predicted match outcomes
-            <strong>How It Works:</strong>The Poisson distribution models the probability of scoring <i>n</i> goals when the expected goals (xG) for each team is known.
-            We calculate each team’s Attack and Defense Ratings using:
+            <strong>Purpose:</strong>Forecast the final league table based on predicted match outcomes <br><br>
+            <strong>How It Works:</strong>
             <ul>
-                For each unplayed match, simulate the result based on Poisson-generated win/draw/loss probabilities <br>
-                Repeat this 10,000 times <br>
-                Tally each team's finishing position <br>
-            </ul>            
-            Think of it Like playing out a season 10,000 times on Football Manager and recording where everyone finishes.
+                <li>For each unplayed match, simulate the result based on Poisson-generated win/draw/loss probabilities</li>
+                <li>Repeat this 10,000 times</li>
+                <li>Tally each team's finishing position</li>
+            </ul>         
+            <br>   
+            Think of it Like playing out a season 10,000 times on Football Manager and recording where everyone finishes. <br><br><br><br><br>
             <strong>What We Produce:</strong>
             <ul>
-            The probability (%) that each team finishes 1st, 2nd, ..., 20th
-            Final xPTS = Current Points + Average Points in Simulations
+                <li>The probability (%) that each team finishes 1st, 2nd, ..., 20th</li>
+                <li>Final xPTS = Current Points + Average Points in Simulations</li>
             </ul>
             <img src="../static/chart_images/league_model.png" alt="Example League Table" class="methodologyleagueimage">
         </p>
@@ -169,19 +171,21 @@
     
         <H4>Team Radar Charts</H4>
         <ul>
-            Metrics: Win %, Goals/Match, xG/Match, PTS/Match, etc.
-            Each value is turned into a percentile vs league peers
+            <li>Metrics: Win %, Goals/Match, xG/Match, PTS/Match, etc.</li>
+            <li>Each value is turned into a percentile vs league peers</li>
         </ul>
+        <img src="../static/chart_images/team_radar.png" alt="Team Radar Image">
         <h4>Shotmaps</h4>
         <ul>
-            Use real-world data to display shot locations & xG quality
-            Normalize all shots so they face one direction for consistency
+            <li>Use real-world data to display shot locations & xG quality</li>
+            <li>Normalize all shots so they face one direction for consistency</li>
         </ul>
+        <img src="../static/chart_images/shotmap_example.png" alt="Sotmap Example Image">
         
     
         <br><br><hr class="fixture-divider"><br><br>
         <p>
-            Coming soon:
+            The Pipeline Behind the Scenes:
             <ul>
               <li>Data processing & cleaning</li>
               <li>Model calculation</li>
@@ -190,16 +194,7 @@
             </ul>
             We try to ensure the entire model is refreshed regularly to reflect real-time data - no stale stats here!
         </p>
-        <br><br><hr class="fixture-divider"><br><br>
-        <p>
-            The Pipeline Behind the Scenes:
-            <ul>
-              <li>Assists & xA predictions</li>
-              <li>Live match model adjustments</li>
-              <li>FPL optimization tools</li>
-            </ul>
-        </p>
-        <br>
+        <br><br><hr class="fixture-divider"><br>
     </div>
     
     <script>

@@ -454,6 +454,7 @@ button:disabled {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: #555;
 }
 
 
@@ -541,6 +542,10 @@ th, td {
     max-width: 700px;
     overflow: hidden;
     margin: 0 auto;
+}
+
+#fixture-page-heatmap.heatmap {
+    max-width: 500px;
 }
 
 
@@ -956,6 +961,25 @@ input:checked + .slider:before {
     width: 100%;
     min-width: 450px;
     border-collapse: collapse;
+}
+
+.table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.styled-table {
+    width: 90%;
+    border-collapse: collapse;
+    min-width: 500px;
+    margin: 0 auto;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 
