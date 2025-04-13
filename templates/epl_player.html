@@ -6,6 +6,7 @@
     <title>EPL Player Stats | FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -139,7 +140,13 @@
         <div id="goalProjectionsTableWrapper">
             <div id="goalProjectionsTableContainer"></div>
         </div>
-          
+        <div id="playerChartsContainer" style="display:none; margin-top: 30px;">
+            <h3>xG Profile (Past 5 + Next 3 GWs)</h3>
+            <canvas id="xgRadarChart" width="400" height="400"></canvas>
+            <br><br>
+            <h3>Goal Scoring Probability (Next 3 GWs)</h3>
+            <canvas id="scoringBarChart" width="400" height="200"></canvas>
+        </div>
         
     </div>
 
@@ -275,12 +282,17 @@
             overlay.style.display = isVisible ? "none" : "block";
         }
 
+        let radarChartInstance;
+        let barChartInstance;
+
         function getGoalProjections() {
             const player = document.getElementById("predictionPlayerSelect").value;
             const container = document.getElementById("goalProjectionsTableContainer");
+            const chartsContainer = document.getElementById("playerChartsContainer");
 
             if (!player) {
                 container.innerHTML = "<p>Please select a player.</p>";
+                chartsContainer.style.display = "none";
                 return;
             }
 
@@ -289,10 +301,12 @@
                 .then(data => {
                     if (!Array.isArray(data) || data.length === 0) {
                         container.innerHTML = "<p>No data available for this player.</p>";
+                        chartsContainer.style.display = "none";
                         return;
                     }
 
-                    let html = `
+                    // Display Table
+                    const tableHtml = `
                         <table>
                             <thead>
                                 <tr>
@@ -303,22 +317,140 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                ${data.map(row => `
-                                    <tr>
-                                        <td>${row.gameweek}</td>
-                                        <td>${row.opponent}</td>
-                                        <td>${row.expected_goals}</td>
-                                        <td>${row.goal_probability}%</td>
-                                    </tr>
-                                `).join('')}
+                            ${data
+                            .filter(row => row.goal_probability !== null)
+                            .map(row => `
+                                <tr>
+                                <td>${row.gameweek}</td>
+                                <td>${row.opponent}</td>
+                                <td>${row.expected_goals}</td>
+                                <td>${row.goal_probability}%</td>
+                                </tr>
+                            `).join('')}
                             </tbody>
                         </table>
                     `;
-                    container.innerHTML = html;
+                    container.innerHTML = tableHtml;
+                    chartsContainer.style.display = "block";
+
+                    // Chart Data
+                    const allGWs = data.map(row => `GW${row.gameweek}`);
+                    const xgData = data.map(row => row.expected_goals);
+                    const scoringLabels = allGWs.slice(-3);
+                    const scoringData = data.slice(-3).map(row => row.goal_probability);
+
+                    renderRadarChart(allGWs, xgData);
+                    renderBarChart(scoringLabels, scoringData);
                 })
                 .catch(err => {
                     container.innerHTML = `<p>Error fetching goal projection data: ${err}</p>`;
+                    chartsContainer.style.display = "none";
                 });
+        }
+
+        function renderRadarChart(labels, data) {
+            if (radarChartInstance) radarChartInstance.destroy();
+
+            // Detect screen size for mobile tweaks
+            const isMobile = window.innerWidth < 900;
+            const fontSize = isMobile ? 10 : 16;
+            const pointRadius = isMobile ? 5 : 8;
+            const pointHoverRadius = isMobile ? 8 : 12;
+
+            // Dynamically set axis max (only on desktop)
+            const maxXg = Math.max(...data);
+            const axisMax = isMobile ? undefined : Math.ceil(maxXg * 1.25 * 4) / 4;
+
+            radarChartInstance = new Chart(document.getElementById('xgRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'xG',
+                        data,
+                        fill: true,
+                        backgroundColor: 'rgba(0, 128, 255, 0.2)',
+                        borderColor: 'rgba(0, 128, 255, 1)',
+                        pointBackgroundColor: labels.map((_, i) => i >= 5 ? 'orange' : 'blue'),
+                        pointRadius: pointRadius,
+                        pointHoverRadius: pointHoverRadius
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true, // ✅ Prevent layout bugs
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `xG: ${context.raw}`
+                            }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: axisMax, // ✅ Only set max if not mobile
+                            pointLabels: {
+                                align: 'center',
+                                font: {
+                                    size: fontSize
+                                },
+                                callback: function(value, index) {
+                                    return (index >= 5 ? [value, '(projected)'] : [value]);
+                                }
+                            },
+                            ticks: {
+                                display: !isMobile, // Hide numeric ticks on mobile
+                                font: {
+                                    size: isMobile ? 8 : 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+        function renderBarChart(labels, data) {
+            if (barChartInstance) barChartInstance.destroy();
+
+            barChartInstance = new Chart(document.getElementById('scoringBarChart'), {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Goal Scoring Probability (%)',
+                        data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Probability %'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw}%`
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
         }
     </script>
 

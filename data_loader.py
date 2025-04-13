@@ -489,6 +489,30 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
 
     predictions = []
 
+    # === STEP 1: Past 5 Gameweeks (Historical xG Only) ===
+    past_fixtures = fixtures_df[
+        ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
+        (fixtures_df["isResult"] == True)
+    ].sort_values("round_number", ascending=False).head(5).sort_values("round_number")
+
+    for _, row in past_fixtures.iterrows():
+        is_home = row["home_team"] == player_team
+        opponent = row["away_team"] if is_home else row["home_team"]
+        round_number = row["round_number"]
+
+        # Estimate team xG from data
+        team_xg = row["home_xG"] if is_home else row["away_xG"]
+        player_exp_xg = adjusted_xg_share * team_xg
+
+        if player_exp_xg > 0:
+            predictions.append({
+                "gameweek": int(round_number),
+                "opponent": opponent,
+                "expected_goals": round(player_exp_xg, 2),
+                "goal_probability": None  # No scoring prob for past games
+            })
+
+    # === STEP 2: Upcoming 3 Fixtures ===
     for _, row in upcoming.iterrows():
         is_home = row["home_team"] == player_team
         opponent = row["away_team"] if is_home else row["home_team"]
