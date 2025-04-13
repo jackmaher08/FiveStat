@@ -152,6 +152,7 @@ def epl_fixtures(gw):
     )
 
 
+
 @app.template_filter("format_date")
 def format_date(value):
     try:
@@ -255,11 +256,6 @@ def epl_players():
         return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown", last_updated=get_last_updated_time())
 
 
-
-
-
-
-
 @app.route("/predict_player_goals/<player_name>")
 def predict_player_goals_route(player_name):
     try:
@@ -304,6 +300,19 @@ def filter_players():
     ]
 
     return jsonify(filtered_players)
+
+
+@app.route("/top_projected_xg")
+def top_projected_xg():
+    try:
+        df = pd.read_csv("data/top_projected_xg.csv")
+        return jsonify(df.to_dict(orient="records"))
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+
 
 # Load fixtures
 fixtures_df = load_fixtures()

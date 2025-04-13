@@ -149,9 +149,10 @@
         </div>
         
     </div>
+    <br><br>
 
-
-
+      
+    
 
 
     
@@ -452,6 +453,74 @@
                 }
             });
         }
+
+
+    let topXGTableLoaded = false;
+
+    function toggleTopXGTable() {
+        const wrapper = document.getElementById("topXGTableWrapper");
+
+        if (wrapper.style.display === "none") {
+            wrapper.style.display = "block";
+
+            if (!topXGTableLoaded) {
+                fetch("/top_projected_xg")
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data || data.length === 0) {
+                            wrapper.innerHTML = "<p>No projection data available.</p>";
+                            return;
+                        }
+
+                        let tableHtml = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Player</th>
+                                        <th>Team</th>
+                                        <th>Total xG (Next 3 GWs)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.map((player, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${player.name}</td>
+                                            <td>${player.team}</td>
+                                            <td>${player.total_xg}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        wrapper.innerHTML = tableHtml;
+                        topXGTableLoaded = true;
+                    })
+                    .catch(err => {
+                        wrapper.innerHTML = `<p>Error loading top xG projections: ${err}</p>`;
+                    });
+            }
+        } else {
+            wrapper.style.display = "none";
+        }
+    }
+
+
+    function toggleFixtureSection(sectionId) {
+        const section = document.getElementById(`${sectionId}-section`);
+        const icon = document.getElementById(`${sectionId}-icon`);
+
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "block";
+            icon.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        } else {
+            section.style.display = "none";
+            icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+        }
+    }
+
+
     </script>
 
     <footer class="footer">
