@@ -40,7 +40,7 @@
 
     <!-- Dropdown Selector for Gameweek -->
     <div class="gw-selector">
-        <select id="gw-select" onchange="changeGameweek(this.value)">
+        <select id="gw-select" onchange="changeGameweek(this.value); trackTeamSelect(this.value)">
             {% for gw in gameweeks %}
                 <option value="{{ gw }}" {% if gw == current_gw %}selected{% endif %}>Gameweek {{ gw }}</option>
             {% endfor %}
@@ -139,7 +139,7 @@
 
     <!-- Team pages dropdown -->
     <div class="team-switcher" id="middle">
-        <select id="team-select" onchange="navigateToTeam(this.value)">
+        <select id="team-select" onchange="navigateToTeam(this.value); trackTeamSelect(this.value)">
             <option value="" selected disabled>Team Pages</option>
             {% for team_option in all_teams %}
             <label for=""></label>
@@ -235,6 +235,14 @@
             });
 
             document.getElementById("toggleLabel").innerText = expand ? "Expanded View" : "Compact View";
+        }
+
+        function trackTeamSelect(teamName) {
+            gtag('event', 'team_selected', {
+                'event_category': 'Dropdown',
+                'event_label': teamName,
+                'value': 1
+            });
         }
     </script>
     

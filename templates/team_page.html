@@ -40,7 +40,7 @@
 
 
     <div class="team-switcher">
-        <select id="team-select" onchange="navigateToTeam(this.value)">
+        <select id="team-select" onchange="navigateToTeam(this.value); trackTeamSelect(this.value)">
             {% for team_option in all_teams %}
               <option value="{{ team_option }}" {% if team_option == team.name %}selected{% endif %}>
                 {{ team_display_names[team_option] }}
@@ -147,7 +147,7 @@
             </div>
             <div id="prev-section" class="fixture-body">
                 <div class="gw-selector">
-                    <select id="prev-gw-select" onchange="updatePrevFixture(this.value)">
+                    <select id="prev-gw-select" onchange="updatePrevFixture(this.value); trackTeamSelect(this.value)">
                     {% for gw in previous_gameweeks %}
                         <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>
                         Gameweek {{ gw }}
@@ -168,7 +168,7 @@
             </div>
             <div id="next-section" class="fixture-body">
                 <div class="gw-selector">
-                    <select id="next-gw-select" onchange="updateNextFixture(this.value)">
+                    <select id="next-gw-select" onchange="updateNextFixture(this.value); trackTeamSelect(this.value)">
                     {% for gw in upcoming_gameweeks %}
                         <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>
                         Gameweek {{ gw }}
@@ -278,6 +278,17 @@
             }
 
 
+            function openPlayerModal(playerName) {
+                let imageUrl = `/static/radar/${playerName}_radar.png`;
+                document.getElementById("playerRadarImage").src = imageUrl;
+                toggleModal('playerInfoModal');
+
+                gtag('event', 'player_radar_viewed', {
+                    'event_category': 'Radar Chart',
+                    'event_label': playerName,
+                    'value': 1
+                });
+            }
 
       </script>
       

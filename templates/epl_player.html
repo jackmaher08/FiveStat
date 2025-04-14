@@ -107,21 +107,21 @@
     <!-- Player comparison radar chart -->
     <div class="radar-container">
         <h2>Player Comparison Tool</h2>
-        <select id="player1">
+        <select id="player1;" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>
         <br><br>
-        <select id="player2">
+        <select id="player2;" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>        
     <br><br>
-        <button onclick="generateRadar()">Compare Players</button>
+        <button onclick="generateRadar(); trackRadarCompare()">Compare Players</button>
     </div>
     <br><br>
     <!-- Display the radar chart -->
@@ -138,7 +138,7 @@
     <!-- Player Goal Prediction Section -->
     <div class="radar-container">
         <h2>Player Goal Projections</h2>
-        <select id="predictionPlayerSelect">
+        <select id="predictionPlayerSelect" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_goals %}
                 <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
@@ -243,7 +243,14 @@
             let imageUrl = `/static/radar/${playerName}_radar.png`;
             document.getElementById("playerRadarImage").src = imageUrl;
             toggleModal('playerInfoModal');
+
+            gtag('event', 'player_radar_viewed', {
+                'event_category': 'Radar Chart',
+                'event_label': playerName,
+                'value': 1
+            });
         }
+
 
         function generateRadar() {
             let player1 = document.getElementById("player1").value;
@@ -530,6 +537,26 @@
     }
 
 
+    function trackRadarCompare() {
+        let player1 = document.getElementById("player1").value;
+        let player2 = document.getElementById("player2").value;
+
+        if (player1 && player2) {
+            gtag('event', 'compare_clicked', {
+                'event_category': 'Radar Chart',
+                'event_label': `${player1} vs ${player2}`,
+                'value': 1
+            });
+        }
+    }
+
+    function trackTeamSelect(teamName) {
+        gtag('event', 'team_selected', {
+            'event_category': 'Dropdown',
+            'event_label': teamName,
+            'value': 1
+        });
+    }
     </script>
 
     <footer class="footer">

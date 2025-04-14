@@ -134,7 +134,7 @@
     <br><br><br>
     <h2>Simulated League Positions</h2>
     <div class="centered-button">
-        <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
+        <button class="info-button" onclick="toggleModal('infoModal'); trackRadarCompare()" title="More info">
             <i class="fas fa-info-circle"></i>
         </button>
     </div>  
@@ -336,6 +336,18 @@
             });
         });
 
+        function trackRadarCompare() {
+            let player1 = document.getElementById("player1").value;
+            let player2 = document.getElementById("player2").value;
+
+            if (player1 && player2) {
+                gtag('event', 'compare_clicked', {
+                    'event_category': 'Radar Chart',
+                    'event_label': `${player1} vs ${player2}`,
+                    'value': 1
+                });
+            }
+        }
 
     </script>
 
