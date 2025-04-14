@@ -31,31 +31,20 @@ os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 
 TEAM_NAME_MAPPING = {
-    "Arsenal": "Arsenal",
-    "Aston Villa": "Aston Villa",
-    "Bournemouth": "Bournemouth",
-    "Brentford": "Brentford",
-    "Brighton": "Brighton",
-    "Chelsea": "Chelsea",
-    "Crystal Palace": "Crystal Palace",
-    "Everton": "Everton",
-    "Fulham": "Fulham",
-    "Ipswich": "Ipswich",
-    "Leicester": "Leicester",
-    "Liverpool": "Liverpool",
     "Man City": "Manchester City",
-    "Man Utd": "Manchester United",
     "Newcastle": "Newcastle United",
-    "Nott'm Forest": "Nottingham Forest",
-    "Southampton": "Southampton",
-    "Spurs": "Tottenham",
-    "West Ham": "West Ham",
-    "Wolves": "Wolverhampton Wanderers"
+    "Spurs": "Tottenham Hotspur",
+    "Tottenham": "Tottenham Hotspur",
+    "Man Utd": "Manchester United",
+    "Wolves": "Wolverhampton Wanderers",
+    "Nott'm Forest": "Nottingham Forest"
 }
 
 
 if os.path.exists(SHOTS_DATA_PATH):
     all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
+    all_shots_df["team"] = all_shots_df["team"].replace(TEAM_NAME_MAPPING)
+    all_shots_df["team"] = all_shots_df["team"].str.strip()
 else:
     print("⚠️ No shot data found! Exiting...")
     exit()
@@ -114,8 +103,9 @@ def process_match_shots(understat_match_id):
             print(df[['x_scaled', 'y_scaled']].head(3))
 
             # ✅ Ensure modified shot data is correctly stored
-            team_name = df['team'].iloc[0]  # Get team name
-            team_shots[team_name] = df.copy()  # Save flipped shots
+            standardized_name = TEAM_NAME_MAPPING.get(team_name, team_name)
+            team_shots[standardized_name] = df.copy()
+
 
     except Exception as e:
         print(f"❌ Error processing match {understat_match_id}: {e}")
@@ -238,102 +228,60 @@ def plot_match_shotmap(home_team, away_team, match_shots_df):
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 ALL_SHOTMAP_DIR = "static/shotmaps/all"
 
-# Define team name mapping
-TEAM_NAME_MAPPING = {
-    "Man Utd": "Manchester United",
-    "Man City": "Manchester City",
-    "Spurs": "Tottenham Hotspur",
-    "Tottenham": "Tottenham Hotspur",
-    "Wolves": "Wolverhampton Wanderers",
-    "Nott'm Forest": "Nottingham Forest",
-    "Newcastle": "Newcastle United"
-}
 
-def process_shot_data(completed_fixtures, team_shots):
-    """Processes shot data, merges with fixture info, and generates an all-shots shotmap."""
-    global all_shots_df
 
-    if os.path.exists(SHOTS_DATA_PATH):
-        all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
-        processed_match_ids = set(all_shots_df["match_id"].astype(str).unique())
-    else:
-        processed_match_ids = set()
+def process_match_shots(understat_match_id):
+    """Fetch and process shot data for a match."""
+    try:
+        url = f'https://understat.com/match/{understat_match_id}'
+        response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
+        soup = BeautifulSoup(response.content, 'html.parser')
+        match = re.search(r"var shotsData\s*=\s*JSON.parse\('(.*)'\)", str(soup))
 
-    new_match_ids = set(completed_fixtures["id"].astype(str).unique()) - processed_match_ids
+        if not match:
+            print(f"Skipping match {understat_match_id}: No shot data found")
+            return
 
-    if new_match_ids:
-        print(f"\U0001f501 Processing {len(new_match_ids)} new matches...")
-        for i, match_id in enumerate(new_match_ids, start=1):
-            process_match_shots(match_id)  
-            print(f"Progress: {i}/{len(new_match_ids)} matches processed.")
-    else:
-        print("✅ No new matches to process. Using existing shot data.")
+        data = json.loads(match.group(1).encode('utf8').decode('unicode_escape'))
 
-    if team_shots:
-        new_shots_df = pd.concat(team_shots.values(), ignore_index=True)
-        all_shots_df = pd.concat([all_shots_df, new_shots_df], ignore_index=True)
-    else:
-        print("No new shot data found. Using existing shots_data.csv.")
+        # ✅ Get team names and standardize them
+        match_info = completed_fixtures[completed_fixtures["id"] == understat_match_id]
+        if match_info.empty:
+            print(f"Match {understat_match_id} not found in fixture list")
+            return
 
-    if 'id' in all_shots_df.columns:
-        all_shots_df.drop(columns=['id'], inplace=True)
+        raw_home_team = match_info["home_team"].values[0]
+        raw_away_team = match_info["away_team"].values[0]
 
-    all_shots_df['match_id'] = all_shots_df['match_id'].astype(str)
-    completed_fixtures['id'] = completed_fixtures['id'].astype(str)
+        home_team = TEAM_NAME_MAPPING.get(raw_home_team, raw_home_team)
+        away_team = TEAM_NAME_MAPPING.get(raw_away_team, raw_away_team)
 
-    # ✅ Merge completed fixtures with shot data
-    all_shots_df = all_shots_df.merge(
-        completed_fixtures[['id', 'home_team', 'away_team']], 
-        left_on='match_id', 
-        right_on='id', 
-        how='left'
-    )
+        # ✅ Process shots for both teams
+        for team_side, shots in [('home', data['h']), ('away', data['a'])]:
+            df = pd.DataFrame(shots)
+            if df.empty:
+                continue
 
-    # ✅ Apply team name mapping to fix inconsistencies
-    all_shots_df["team"] = all_shots_df["team"].replace(TEAM_NAME_MAPPING)
-    all_shots_df["home_team"] = all_shots_df["home_team"].replace(TEAM_NAME_MAPPING)
-    all_shots_df["away_team"] = all_shots_df["away_team"].replace(TEAM_NAME_MAPPING)
+            df['team'] = home_team if team_side == 'home' else away_team
 
-    # ✅ Clean up columns
-    all_shots_df.drop(columns=['id'], errors='ignore', inplace=True)
-    all_shots_df.rename(columns={'home_team_y': 'home_team', 'away_team_y': 'away_team'}, inplace=True)
-    all_shots_df = all_shots_df.loc[:, ~all_shots_df.columns.duplicated()].copy()
+            if team_side == 'away':
+                df['X'] = 1 - df['X']  # Flip X for consistent pitch view
 
-    # ✅ Assign home/away indicator
-    all_shots_df['h_a'] = all_shots_df.apply(
-        lambda row: 'h' if str(row['team']).strip() == str(row['home_team']).strip() else 'a', axis=1
-    )
+            df['x_scaled'] = df['X'].astype(float) * 120
+            df['y_scaled'] = df['Y'].astype(float) * 80
 
-    # ✅ Save updated shot data
-    all_shots_df.to_csv(SHOTS_DATA_PATH, index=False, columns=['match_id', 'team', 'x_scaled', 'y_scaled', 'xG', 'result', 'h_a', 'home_team', 'away_team'])
-    print(f"✅ Shot data saved to {SHOTS_DATA_PATH}")
+            # Debug sample
+            print(f"🏟️ Processed shots for {df['team'].iloc[0]} ({team_side}) - First 3 shots:")
+            print(df[['x_scaled', 'y_scaled']].head(3))
 
-    # ✅ Generate All-Shots Shotmap
-    print("\U0001f501 Generating All-Shots Shotmap...")
+            # ✅ Store standardized version
+            team_name = df['team'].iloc[0].strip()
+            team_name_standardized = TEAM_NAME_MAPPING.get(team_name, team_name)
+            team_shots[team_name_standardized] = df.copy()
 
-    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-    fig, ax = pitch.draw(figsize=(13, 9))
-    fig.patch.set_facecolor("#f4f4f9")
+    except Exception as e:
+        print(f"❌ Error processing match {understat_match_id}: {e}")
 
-    goals_df = all_shots_df[all_shots_df['result'].str.lower() == 'goal']
-
-    for _, shot in all_shots_df.iterrows():
-        x, y = shot['x_scaled'], shot['y_scaled']
-        color = 'gold' if "goal" in str(shot['result']).lower() else 'white'
-        zorder = 3 if shot['result'].lower() == 'goal' else 2
-        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
-
-    os.makedirs(ALL_SHOTMAP_DIR, exist_ok=True)
-    plt.savefig(os.path.join(ALL_SHOTMAP_DIR, "all_shots.png"), facecolor=fig.get_facecolor())
-    plt.close(fig)
-    print("✅ All-Shots Shotmap Saved!")
-
-    for match_id in completed_fixtures["id"]:
-        home = completed_fixtures.loc[completed_fixtures["id"] == match_id, "home_team"].values[0]
-        away = completed_fixtures.loc[completed_fixtures["id"] == match_id, "away_team"].values[0]
-        match_shots = all_shots_df[all_shots_df["match_id"] == str(match_id)]
-        plot_match_shotmap(home, away, match_shots)
 
 
 for team in team_shots.keys():
