@@ -149,13 +149,13 @@ def calculate_team_statistics(historical_fixture_data):
             'DEF Rating': def_rating
         }
         
-        print(f"=== Overall Historical Stats for {team} ===")
-        print(f"Avg Home Goals For: {avg_home_goals_for}")
-        print(f"Avg Away Goals For: {avg_away_goals_for}")
-        print(f"Avg Home Goals Against: {avg_home_goals_against}")
-        print(f"Avg Away Goals Against: {avg_away_goals_against}")
-        print(f"ATT Rating: {att_rating}")
-        print(f"DEF Rating: {def_rating}\n")
+        #print(f"=== Overall Historical Stats for {team} ===")
+        #print(f"Avg Home Goals For: {avg_home_goals_for}")
+        #print(f"Avg Away Goals For: {avg_away_goals_for}")
+        #print(f"Avg Home Goals Against: {avg_home_goals_against}")
+        #print(f"Avg Away Goals Against: {avg_away_goals_against}")
+        #print(f"ATT Rating: {att_rating}")
+        #print(f"DEF Rating: {def_rating}\n")
 
     return team_data, home_field_advantage
 
@@ -183,13 +183,13 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         recent_form_att[team] = recent_att
         recent_form_def[team] = recent_def
 
-        print(f"=== Recent Form Stats for {team} ===")
-        print(f"Avg Home Att: {avg_home_att}")
-        print(f"Avg Away Att: {avg_away_att}")
-        print(f"Avg Home Def: {avg_home_def}")
-        print(f"Avg Away Def: {avg_away_def}")
-        print(f"Recent ATT: {recent_att}")
-        print(f"Recent DEF: {recent_def}\n")
+        #print(f"=== Recent Form Stats for {team} ===")
+        #print(f"Avg Home Att: {avg_home_att}")
+        #print(f"Avg Away Att: {avg_away_att}")
+        #print(f"Avg Home Def: {avg_home_def}")
+        #print(f"Avg Away Def: {avg_away_def}")
+        #print(f"Recent ATT: {recent_att}")
+        #print(f"Recent DEF: {recent_def}\n")
 
     return recent_form_att, recent_form_def
 
@@ -315,7 +315,6 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
     heatmap_path = os.path.join(save_path, heatmap_filename)
     plt.savefig(heatmap_path)
     plt.close()
-    print(f"Saved heatmap for {home_team} vs {away_team} at {heatmap_path}")
 
 
 
@@ -733,7 +732,7 @@ def generate_shot_map(understat_match_id):
         for df in [home_df, away_df]:  
             for _, shot in df.iterrows():
                 x, y = shot['x_scaled'], shot['y_scaled']
-                color = 'gold' if "goal" in str(shot['result']).lower() else 'white'
+                color = 'gold' if "goal" in str(shot['result']).lower() else 'red' if "owngoal" in str(shot['result']).lower() else 'white'
                 zorder = 3 if shot['result'] == 'Goal' else 2
                 axs[0].scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
                            ec='black', c=color, zorder=zorder)
@@ -843,74 +842,7 @@ for _, row in completed_fixtures.iterrows():
 
 
 
-# Function to generate and save goals vs. xG bar chart
-def generate_team_goals_xg_charts():
-    DATA_PATH = "data/tables/fixture_data.csv"
-    SAVE_DIR = "static/chart_images/teams"
-    os.makedirs(SAVE_DIR, exist_ok=True)
 
-    if not os.path.exists(DATA_PATH):
-        print(f"❌ Error: {DATA_PATH} not found. Skipping chart generation.")
-        return
-
-    df = pd.read_csv(DATA_PATH)
-    df["round_number"] = pd.to_numeric(df["round_number"], errors="coerce")
-
-    required_cols = {"round_number", "home_team", "away_team", "home_goals", "away_goals", "home_xG", "away_xG"}
-    if not required_cols.issubset(df.columns):
-        print(f"❌ Missing columns in fixture_data.csv: {required_cols - set(df.columns)}")
-        return
-
-    # Get all unique team names
-    teams = sorted(set(df["home_team"]) | set(df["away_team"]))
-
-    for team in teams:
-        # Filter all matches where the team played
-        team_games = df[(df["home_team"] == team) | (df["away_team"] == team)].copy()
-
-        # Calculate goals and xG for the team (home or away)
-        team_games["goals"] = team_games.apply(
-            lambda row: row["home_goals"] if row["home_team"] == team else row["away_goals"], axis=1
-        )
-        team_games["xG"] = team_games.apply(
-            lambda row: row["home_xG"] if row["home_team"] == team else row["away_xG"], axis=1
-        )
-
-        # Group by gameweek
-        weekly_stats = team_games.groupby("round_number").agg({
-            "goals": "sum",
-            "xG": "sum"
-        }).sort_index()
-
-        # Plot chart
-        # ✅ Calculate average goals (only for played weeks)
-        avg_goals = weekly_stats["goals"].mean()
-
-        # Plot chart
-        fig, ax = plt.subplots(figsize=(14, 5))
-        fig.patch.set_facecolor("#f4f4f9")
-        ax.set_facecolor("#f4f4f9")
-
-        bar_width = 0.4
-        x = weekly_stats.index
-        ax.bar(x - bar_width / 2, weekly_stats["goals"], width=bar_width, label="Goals", color="#3f007d")
-        ax.bar(x + bar_width / 2, weekly_stats["xG"], width=bar_width, label="xG", color="#9163cb")
-
-        # ✅ Add average goals line
-        ax.axhline(y=avg_goals, color="black", linestyle="dashed", linewidth=1.5, label=f"Avg Goals ({avg_goals:.2f})")
-
-        ax.legend(frameon=False)
-        ax.set_xlabel("Gameweek")
-        ax.set_ylabel("Total")
-
-        # Clean look
-        for spine in ax.spines.values():
-            spine.set_visible(False)
-
-        chart_path = os.path.join(SAVE_DIR, f"{team}_goals_xg_chart.png")
-        plt.savefig(chart_path, dpi=300, bbox_inches="tight", transparent=True)
-        plt.close()
-        print(f"✅ Saved: {chart_path}")
 
 
 
@@ -956,7 +888,7 @@ if __name__ == "__main__":
         historical_fixtures_df, team_data, recent_matches=20, alpha=0.65
     )
 
-    print("🔄 Ensuring generate_all_heatmaps() runs before simulation...")
+    print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
     generate_all_heatmaps(team_data, recent_form_att, recent_form_def)
     print("✅ generate_all_heatmaps() executed successfully!")
 
@@ -1080,4 +1012,5 @@ if __name__ == "__main__":
 
     print(f"✅ Simulation results saved to: {output_file_path}")
 
-    generate_team_goals_xg_charts()
+
+   

@@ -147,7 +147,6 @@ def plot_team_shotmap(team_name):
         ((deduped["h_a"] == "a") & (deduped["away_team"] == team_name))
     ]
     total_shots = len(team_shots)
-    print(f"{team_name} - Shots: {len(team_shots)}")
 
     # ✅ Load goals from league table
     league_table_path = "data/tables/league_table_data.csv"
@@ -285,7 +284,6 @@ def process_match_shots(understat_match_id):
 
 
 for team in team_shots.keys():
-    print(f"🎯 Processing shotmap for {team}...")
     plot_team_shotmap(team)  # ✅ Now uses **all** available shots for the season
 
 print("✅ All Team Shotmaps Generated! 🎯⚽")
