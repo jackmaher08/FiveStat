@@ -107,14 +107,14 @@
     <!-- Player comparison radar chart -->
     <div class="radar-container">
         <h2>Player Comparison Tool</h2>
-        <select id="player1;" onchange="trackTeamSelect(this.value)">
+        <select id="player1" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>
         <br><br>
-        <select id="player2;" onchange="trackTeamSelect(this.value)">
+        <select id="player2" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
