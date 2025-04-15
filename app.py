@@ -94,8 +94,8 @@ def fixtures_redirect():
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    #next_gw = fixtures[fixtures["isResult"] == False]["round_number"].min()
-    next_gw = 33
+    next_gw = fixtures[fixtures["isResult"] == False]["round_number"].min()
+    #next_gw = 33
     return redirect(url_for("epl_fixtures", gw=next_gw))
 
 
