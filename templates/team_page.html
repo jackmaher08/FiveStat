@@ -27,7 +27,8 @@
         <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
         <div class="menu">
             <div class="dropdown">
-                <a href="/" class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</a>
+                <a href="javascript:void(0);" onclick="toggleModal('feedbackModal')">Feedback</a>
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
                     <a href="/epl_results">Results</a>
@@ -35,9 +36,8 @@
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
-
 
     <div class="team-switcher">
         <select id="team-select" onchange="navigateToTeam(this.value); trackTeamSelect(this.value)">
@@ -290,7 +290,44 @@
                 });
             }
 
+            function toggleModal(id) {
+                let modal = document.getElementById(id);
+                let overlay = document.getElementById(id + "Overlay");
+                let isVisible = modal.style.display === "block";
+
+                modal.style.display = isVisible ? "none" : "block";
+                overlay.style.display = isVisible ? "none" : "block";
+
+                if (id === 'feedbackModal') {
+                    gtag('event', 'feedback_opened', {
+                        'event_category': 'Engagement',
+                        'event_label': 'Feedback Modal Opened',
+                        'value': 1
+                    });
+                }
+            }
+
       </script>
+
+     <!-- Feedback Modal Overlay -->
+    <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedbackModal">
+        <button class="close-button" onclick="toggleModal('feedbackModal')">✖</button>
+        <h3>We'd love your feedback!</h3>
+        <p>Please take a moment to answer a few quick questions to help improve FiveStat.</p>
+
+        <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true" 
+            width="100%" 
+            height="600" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
       
 
 

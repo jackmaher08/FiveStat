@@ -32,6 +32,7 @@
         <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
         <div class="menu">
             <div class="dropdown">
+                <a href="javascript:void(0);" onclick="toggleModal('feedbackModal')">Feedback</a>
                 <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
@@ -45,24 +46,43 @@
 
     <div class="container">
         <p>
-            Welcome to FiveStat - The Football Data Visuals & Analysis Project!
+            <strong>Welcome to FiveStat</strong> <br> A live Football Data Modelling, Visuals & Analysis Project in early development!
         </p>
         <p>
-            This site is a project aimed at analyzing football fixtures, generating 
-            data visualizations and building predictive models derived from a data-driven approach.  
+            This site is a soft launch project aimed at analyzing football fixtures, generating 
+            data visualizations and building predictive models derived from a data-driven approach. 
         </p>
         <p>
-            This site will be evolving as I go, refining the model and adding new features. <br>
-            I'm excited to see where we can take this!
+            I’ve been building this from the ground up using Python, Flask web hosting, predictive modeling and a lot of trial and error!
         </p>
+        <p><strong>Currently, you can explore:</strong></p>
+        <ul>
+            <li>Correct Score prediction heatmaps (derived from xG-driven Poisson models)</li>
+            <li>Player radar comparisons & goal projections</li>
+            <li>Fixture Shotmaps & Stats</li>
+            <li>Team performance & form analysis</li>
+            <li>Simulated league table to show the final standings</li>
+        </ul>
+    
+        <p><strong>What's coming soon:</strong></p>
+        <ul>
+            <li>Optional user accounts (still free!)</li>
+            <li>Email newsletter for developement & gameweek insights</li>
+            <li>Intorduce more leagues & competitions beyond the Premier League</li>
+        </ul>
+        <br>
         <p>
             You can read a bit more about the back end workings of this site and how it has been developed<a href="./methodology">HERE</a>
         </p>
         <p>
             Have a look around and let us know what you think!
         </p>
+        <p>
+            <strong>Enjoy!</strong>
+        </p>
         
     </div>
+
     <div class="team_shotmap_image">
         <img class="shotmap" id="landing-page" src="../static/shotmaps/all/all_shots.png" alt="shotmap unavailable">
     </div>
@@ -85,7 +105,48 @@
                 }
             }
         };
+
+
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay");
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+
+            if (id === 'feedbackModal') {
+                gtag('event', 'feedback_opened', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Feedback Modal Opened',
+                    'value': 1
+                });
+            }
+        }
+
     </script>
+
+    <!-- Feedback Modal Overlay -->
+    <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedbackModal">
+        <button class="close-button" onclick="toggleModal('feedbackModal')">✖</button>
+        <h3>We'd love your feedback!</h3>
+        <p>Please take a moment to answer a few quick questions to help improve FiveStat.</p>
+
+        <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true" 
+            width="100%" 
+            height="600" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
         
 
 </body>

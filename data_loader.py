@@ -274,7 +274,7 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         for j in range(6):
             prob = display_matrix[i, j]
             # Set text color based on probability thresholds
-            if prob > 0.05:
+            if prob > 0.49:
                 text_color = "white"
             else:
                 text_color = "black"
@@ -740,8 +740,19 @@ def generate_shot_map(understat_match_id):
         for df in [home_df, away_df]:  
             for _, shot in df.iterrows():
                 x, y = shot['x_scaled'], shot['y_scaled']
-                color = 'gold' if "goal" in str(shot['result']).lower() else 'red' if "owngoal" in str(shot['result']).lower() else 'white'
-                zorder = 3 if shot['result'] == 'Goal' else 2
+                
+                result = str(shot['result']).lower()
+                if "owngoal" in result:
+                    color = 'red'
+                    zorder = 3
+                elif "goal" in result:
+                    color = 'gold'
+                    zorder = 4
+                else:
+                    color = 'white'
+                    zorder = 2
+
+                zorder = 4 if shot['result'] == 'Goal' else 3 if shot['result'] == 'OwnGoal' else 2
                 axs[0].scatter(x, y, s=1000 * float(shot['xG']) if pd.notna(shot['xG']) else 100, 
                            ec='black', c=color, zorder=zorder)
 
@@ -783,7 +794,6 @@ def generate_shot_map(understat_match_id):
         axs[0].text(90, 40, f"{total_goals_away}", ha='center', va='center', fontsize=180, fontweight='bold', color='black', alpha=0.5)
         axs[0].text(30, 60, f"{total_xg_home:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
         axs[0].text(90, 60, f"{total_xg_away:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
-        axs[0].text(105,78, f"Respective Team XG values", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
         axs[0].text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
 
 
@@ -830,6 +840,12 @@ def generate_shot_map(understat_match_id):
         plt.tight_layout()
         shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
         plt.savefig(shotmap_file)
+
+        # ✅ Save all shots data to CSV (overwrite)
+        all_shots_path = os.path.join(shotmap_save_path, "shots_data.csv")
+        all_shots.to_csv(all_shots_path, index=False)
+        print(f"✅ Saved shot data to {all_shots_path}")
+
         plt.close(fig)
 
     except Exception as e:

@@ -224,9 +224,6 @@ def plot_match_shotmap(home_team, away_team, match_shots_df):
 
     
 
-SHOTS_DATA_PATH = "data/tables/shots_data.csv"
-ALL_SHOTMAP_DIR = "static/shotmaps/all"
-
 
 
 def process_match_shots(understat_match_id):
