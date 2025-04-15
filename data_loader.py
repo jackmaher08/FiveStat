@@ -272,8 +272,16 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
     # Add percentage text inside each cell
     for i in range(6):
         for j in range(6):
-            heatmap_ax.text(j, i, f"{display_matrix[i, j] * 100:.1f}%", 
-                            ha='center', va='center', color='black', fontsize=8)
+            prob = display_matrix[i, j]
+            # Set text color based on probability thresholds
+            if prob > 0.05:
+                text_color = "white"
+            else:
+                text_color = "black"
+
+            heatmap_ax.text(j, i, f"{prob * 100:.1f}%", 
+                            ha='center', va='center', color=text_color, fontsize=8)
+
 
     # Hide spines
     for spine in heatmap_ax.spines.values():
@@ -1011,6 +1019,8 @@ if __name__ == "__main__":
     final_probabilities.to_csv(output_file_path, index=True, float_format="%.6f")
 
     print(f"✅ Simulation results saved to: {output_file_path}")
+
+
 
 
    

@@ -3353,3 +3353,7 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 318,32,12/04/2025 15:00,The City Ground,Nottingham Forest,Everton,0 - 1,2024,0.0,1.0,away_win,24,10
 319,32,12/04/2025 15:00,St. Mary's Stadium,Southampton,Aston Villa,0 - 3,2024,0.0,3.0,away_win,26,2
 311,32,12/04/2025 17:30,Emirates Stadium,Arsenal,Brentford,1 - 1,2024,1.0,1.0,draw,1,4
+314,32,13/04/2025 14:00,Stamford Bridge,Chelsea,Ipswich,2 - 2,2024,2.0,2.0,draw,8,14
+315,32,13/04/2025 14:00,Anfield,Liverpool,West Ham,2 - 1,2024,2.0,1.0,home_win,17,33
+320,32,13/04/2025 14:00,Molineux Stadium,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,2024,4.0,2.0,home_win,34,30
+317,32,13/04/2025 16:30,St. James' Park,Newcastle United,Manchester United,4 - 1,2024,4.0,1.0,home_win,22,20

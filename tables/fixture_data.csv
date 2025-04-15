@@ -318,7 +318,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 32,13/04/2025 14:00,Liverpool,West Ham,2 - 1,26916,True,2.0,1.0,1.43,1.47
 32,13/04/2025 14:00,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,26919,True,4.0,2.0,2.23,1.63
 32,13/04/2025 16:30,Newcastle United,Manchester United,4 - 1,26918,True,4.0,1.0,2.64,0.79
-32,14/04/2025 20:00,Bournemouth,Fulham,,26912,False,,,,
+32,14/04/2025 20:00,Bournemouth,Fulham,,26912,True,1.0,0.0,1.86,1.07
 33,19/04/2025 15:00,Brentford,Brighton,,26923,False,,,,
 33,19/04/2025 15:00,Crystal Palace,Bournemouth,,26924,False,,,,
 33,19/04/2025 15:00,Everton,Manchester City,,26925,False,,,,

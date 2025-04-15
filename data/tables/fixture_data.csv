@@ -314,11 +314,11 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 32,12/04/2025 15:00,Nottingham Forest,Everton,0 - 1,26920,True,0.0,1.0,0.42,1.26
 32,12/04/2025 15:00,Southampton,Aston Villa,0 - 3,26921,True,0.0,3.0,0.41,3.0
 32,12/04/2025 17:30,Arsenal,Brentford,1 - 1,26913,True,1.0,1.0,0.77,0.59
-32,13/04/2025 14:00,Chelsea,Ipswich,,26915,True,2.0,2.0,2.91,1.6
-32,13/04/2025 14:00,Liverpool,West Ham,,26916,True,2.0,1.0,1.43,1.47
-32,13/04/2025 14:00,Wolverhampton Wanderers,Tottenham Hotspur,,26919,True,4.0,2.0,2.23,1.63
-32,13/04/2025 16:30,Newcastle United,Manchester United,,26918,True,4.0,1.0,2.64,0.79
-32,14/04/2025 20:00,Bournemouth,Fulham,,26912,False,,,,
+32,13/04/2025 14:00,Chelsea,Ipswich,2 - 2,26915,True,2.0,2.0,2.91,1.6
+32,13/04/2025 14:00,Liverpool,West Ham,2 - 1,26916,True,2.0,1.0,1.43,1.47
+32,13/04/2025 14:00,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,26919,True,4.0,2.0,2.23,1.63
+32,13/04/2025 16:30,Newcastle United,Manchester United,4 - 1,26918,True,4.0,1.0,2.64,0.79
+32,14/04/2025 20:00,Bournemouth,Fulham,,26912,True,1.0,0.0,1.86,1.07
 33,19/04/2025 15:00,Brentford,Brighton,,26923,False,,,,
 33,19/04/2025 15:00,Crystal Palace,Bournemouth,,26924,False,,,,
 33,19/04/2025 15:00,Everton,Manchester City,,26925,False,,,,
