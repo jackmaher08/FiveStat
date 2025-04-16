@@ -49,6 +49,7 @@ else:
     print("⚠️ No shot data found! Exiting...")
     exit()
 
+
 # ✅ Ensure shot data is available before processing
 if all_shots_df.empty or "team" not in all_shots_df.columns:
     print("⚠️ No shot data available. Skipping shotmap generation.")

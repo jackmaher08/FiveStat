@@ -12,6 +12,11 @@ from mplsoccer import Pitch
 from mplsoccer import Radar
 from matplotlib.colors import LinearSegmentedColormap
 
+# Get absolute path to the script's directory (always /flask_heatmap_app/)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TABLES_DIR = os.path.join(BASE_DIR, "data", "tables")
+os.makedirs(TABLES_DIR, exist_ok=True)
+
 
 fixturedownload_url = "https://fixturedownload.com/download/epl-2024-GMTStandardTime.csv"
 fixtures_df = pd.read_csv(fixturedownload_url)
@@ -104,15 +109,12 @@ fixture_data = pd.merge(
 
 
 
-# Define the save directory
-save_dir = "tables"
-os.makedirs(save_dir, exist_ok=True)  # ✅ Ensure the directory exists
 
 # Define the file path
-file_path = os.path.join(save_dir, "fixture_data.csv")
+file_path = os.path.join(TABLES_DIR, "fixture_data.csv")
 
 # ✅ Save the DataFrame as a CSV file
-fixture_data.to_csv(file_path, index=False)
+fixture_data.to_csv(os.path.join(TABLES_DIR, "fixture_data.csv"), index=False)
 
 print(f"✅ fixture data saved to: {file_path}")
 
@@ -135,10 +137,10 @@ next_gw_fixtures = fixture_data[
 ][["round_number", "date", "home_team", "away_team"]]
 
 # Define the file path for saving
-next_gw_file_path = os.path.join(save_dir, "next_gw_fixtures.csv")
+next_gw_file_path = os.path.join(TABLES_DIR, "next_gw_fixtures.csv")
 
 # Save the next round of fixtures
-next_gw_fixtures.to_csv(next_gw_file_path, index=False)
+next_gw_fixtures.to_csv(os.path.join(TABLES_DIR, "next_gw_fixtures.csv"), index=False)
 
 
 print(f"✅ next gw fixture data saved to: {next_gw_file_path}")
@@ -208,10 +210,10 @@ df['away_team_id'] = df['Away Team'].map(team_id_dict)
 
 
 # Define the file path
-historical_fixture_file_path = os.path.join(save_dir, "historical_fixture_data.csv")
+historical_fixture_file_path = os.path.join(TABLES_DIR, "historical_fixture_data.csv")
 
 # ✅ Save the DataFrame as a CSV file
-df.to_csv(historical_fixture_file_path, index=False)
+df.to_csv(os.path.join(TABLES_DIR, "historical_fixture_data.csv"), index=False)
 
 print(f"✅ historical fixture data saved to: {historical_fixture_file_path}")
 
@@ -259,10 +261,10 @@ player_data = pd.DataFrame(player_data)
 player_data["Team"] = player_data["Team"].replace({"Tottenham": "Tottenham Hotspur"})
 
 # Define the file path
-player_file_path = os.path.join(save_dir, "player_data.csv")
+player_file_path = os.path.join(TABLES_DIR, "player_data.csv")
 
 # ✅ Save the DataFrame as a CSV file
-player_data.to_csv(player_file_path, index=False)
+player_data.to_csv(os.path.join(TABLES_DIR, "player_data.csv"), index=False)
 
 print(f"✅ player data saved to: {player_file_path}")
 
@@ -307,7 +309,7 @@ complete_fixture_results_df["Team"] = complete_fixture_results_df["Team"].replac
 matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
 
 # Load fixture data
-fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")
+fixture_data_file_path = os.path.join(TABLES_DIR, "fixture_data.csv")
 fixture_df = pd.read_csv(fixture_data_file_path)
 
 # ✅ Calculate Goals Against (GA)
@@ -336,8 +338,8 @@ aggregated_results_df["xPTS +/-"] = (aggregated_results_df["xPTS"] - aggregated_
 aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'xG', 'npxG', 'xG +/-', 'GA', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
 
 # ✅ Save final league table
-league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
-aggregated_results_df.to_csv(league_table_file_path, index=False)
+league_table_file_path = os.path.join(TABLES_DIR, "league_table_data.csv")
+aggregated_results_df.to_csv(os.path.join(TABLES_DIR, "league_table_data.csv"), index=False)
 
 print(f"✅ League table data saved to: {league_table_file_path}")
 
@@ -418,7 +420,7 @@ fbref_df = fbref_df.sort_values(by='Gls', ascending=False)
 
 
 # ✅ Save final league table
-player_stats_file_path = os.path.join(save_dir, "player_radar_data.csv")
-fbref_df.to_csv(player_stats_file_path, index=False)
+player_stats_file_path = os.path.join(TABLES_DIR, "player_radar_data.csv")
+fbref_df.to_csv(os.path.join(TABLES_DIR, "player_radar_data.csv"), index=False)
 
 print(f"✅ Player Radar data saved to: {player_stats_file_path}")

@@ -434,6 +434,79 @@ def epl_results(gw):
 
 
 
+import traceback  # make sure this is at the top of your file
+
+@app.route('/api/fixture_shots')
+def get_fixture_shots():
+    import traceback
+    home = request.args.get('home')
+    away = request.args.get('away')
+    print(f"🏟️ Fetching shots for: {home} vs {away}")
+
+    try:
+        # Load shot and fixture data
+        shots_df = pd.read_csv("data/tables/shots_data.csv")
+        fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+
+        # Fix column names
+        shots_df = shots_df.rename(columns={
+            "h_team": "home_team",
+            "a_team": "away_team"
+        })
+
+        # Find the right match
+        match_row = fixtures_df[
+            ((fixtures_df["home_team"] == home) & (fixtures_df["away_team"] == away)) |
+            ((fixtures_df["home_team"] == away) & (fixtures_df["away_team"] == home))
+        ]
+
+        if match_row.empty or "id" not in match_row.columns:
+            print("⚠️ Match ID not found.")
+            return jsonify([])
+
+        match_id = match_row.iloc[0]["id"]
+
+        # Filter shots for that match
+        fixture_shots = shots_df[shots_df["match_id"] == match_id]
+
+        # Add team column based on h_a
+        fixture_shots["team"] = fixture_shots.apply(
+            lambda row: row["home_team"] if row["h_a"] == "h" else row["away_team"],
+            axis=1
+        )
+
+        if fixture_shots.empty:
+            print("⚠️ No shots found for this fixture.")
+            return jsonify([])
+
+        # Check columns
+        required_columns = ["X", "Y", "xG", "team", "result", "player", "h_a"]
+        for col in required_columns:
+            if col not in fixture_shots.columns:
+                raise ValueError(f"Missing column: {col}")
+
+        # Scale coordinates
+        fixture_shots["xG"] = fixture_shots["xG"].astype(float)
+        fixture_shots["x"] = fixture_shots["X"].astype(float) * 120
+        fixture_shots["y"] = fixture_shots["Y"].astype(float) * 80
+
+        shot_data = fixture_shots[[
+            "x", "y", "team", "result", "player", "xG", "h_a"
+        ]].to_dict(orient="records")
+
+        return jsonify(shot_data)
+
+    except Exception as e:
+        print(f"❌ ERROR in /api/fixture_shots: {e}")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+
+
+
+
+
+
 
     
 
