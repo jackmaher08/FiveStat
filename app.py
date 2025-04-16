@@ -435,9 +435,6 @@ def epl_results(gw):
 
 
 
-
-
-
     
 
 @app.route('/generate_radar')

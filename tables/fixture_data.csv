@@ -1,0 +1,381 @@
+round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,home_xG,away_xG
+1,16/08/2024 20:00,Manchester United,Fulham,1 - 0,26602,True,1.0,0.0,2.04,0.42
+1,17/08/2024 12:30,Ipswich,Liverpool,0 - 2,26603,True,0.0,2.0,0.34,3.93
+1,17/08/2024 15:00,Arsenal,Wolverhampton Wanderers,2 - 0,26604,True,2.0,0.0,1.63,0.58
+1,17/08/2024 15:00,Everton,Brighton,0 - 3,26605,True,0.0,3.0,0.41,1.79
+1,17/08/2024 15:00,Newcastle United,Southampton,1 - 0,26606,True,1.0,0.0,0.43,1.95
+1,17/08/2024 15:00,Nottingham Forest,Bournemouth,1 - 1,26607,True,1.0,1.0,1.24,1.91
+1,17/08/2024 17:30,West Ham,Aston Villa,1 - 2,26608,True,1.0,2.0,2.8,2.67
+1,18/08/2024 14:00,Brentford,Crystal Palace,2 - 1,26609,True,2.0,1.0,1.38,1.15
+1,18/08/2024 16:30,Chelsea,Manchester City,0 - 2,26610,True,0.0,2.0,1.06,1.18
+1,19/08/2024 20:00,Leicester,Tottenham Hotspur,1 - 1,26611,True,1.0,1.0,1.03,1.41
+2,24/08/2024 12:30,Brighton,Manchester United,2 - 1,26612,True,2.0,1.0,2.14,1.29
+2,24/08/2024 15:00,Crystal Palace,West Ham,0 - 2,26613,True,0.0,2.0,1.38,1.53
+2,24/08/2024 15:00,Fulham,Leicester,2 - 1,26614,True,2.0,1.0,1.96,0.86
+2,24/08/2024 15:00,Manchester City,Ipswich,4 - 1,26615,True,4.0,1.0,3.08,0.48
+2,24/08/2024 15:00,Southampton,Nottingham Forest,0 - 1,26616,True,0.0,1.0,0.21,2.86
+2,24/08/2024 15:00,Tottenham Hotspur,Everton,4 - 0,26617,True,4.0,0.0,2.61,0.65
+2,24/08/2024 17:30,Aston Villa,Arsenal,0 - 2,26618,True,0.0,2.0,1.32,1.41
+2,25/08/2024 14:00,Bournemouth,Newcastle United,1 - 1,26620,True,1.0,1.0,2.54,1.89
+2,25/08/2024 14:00,Wolverhampton Wanderers,Chelsea,2 - 6,26619,True,2.0,6.0,2.42,2.03
+2,25/08/2024 16:30,Liverpool,Brentford,2 - 0,26621,True,2.0,0.0,2.72,0.46
+3,31/08/2024 12:30,Arsenal,Brighton,1 - 1,26622,True,1.0,1.0,2.42,1.82
+3,31/08/2024 15:00,Brentford,Southampton,3 - 1,26623,True,3.0,1.0,3.86,1.65
+3,31/08/2024 15:00,Everton,Bournemouth,2 - 3,26624,True,2.0,3.0,2.56,2.96
+3,31/08/2024 15:00,Ipswich,Fulham,1 - 1,26625,True,1.0,1.0,0.71,1.19
+3,31/08/2024 15:00,Leicester,Aston Villa,1 - 2,26626,True,1.0,2.0,0.77,2.16
+3,31/08/2024 15:00,Nottingham Forest,Wolverhampton Wanderers,1 - 1,26627,True,1.0,1.0,1.41,0.94
+3,31/08/2024 17:30,West Ham,Manchester City,1 - 3,26628,True,1.0,3.0,0.95,3.19
+3,01/09/2024 13:30,Chelsea,Crystal Palace,1 - 1,26630,True,1.0,1.0,2.98,0.46
+3,01/09/2024 13:30,Newcastle United,Tottenham Hotspur,2 - 1,26629,True,2.0,1.0,1.59,1.63
+3,01/09/2024 16:00,Manchester United,Liverpool,0 - 3,26631,True,0.0,3.0,1.5,2.1
+4,14/09/2024 12:30,Southampton,Manchester United,0 - 3,26632,True,0.0,3.0,1.36,3.03
+4,14/09/2024 15:00,Brighton,Ipswich,0 - 0,26633,True,0.0,0.0,1.76,0.72
+4,14/09/2024 15:00,Crystal Palace,Leicester,2 - 2,26636,True,2.0,2.0,2.89,1.65
+4,14/09/2024 15:00,Fulham,West Ham,1 - 1,26634,True,1.0,1.0,2.89,0.68
+4,14/09/2024 15:00,Liverpool,Nottingham Forest,0 - 1,26635,True,0.0,1.0,1.17,0.59
+4,14/09/2024 15:00,Manchester City,Brentford,2 - 1,26637,True,2.0,1.0,1.55,1.05
+4,14/09/2024 17:30,Aston Villa,Everton,3 - 2,26638,True,3.0,2.0,3.16,0.85
+4,14/09/2024 20:00,Bournemouth,Chelsea,0 - 1,26639,True,0.0,1.0,1.54,0.93
+4,15/09/2024 14:00,Tottenham Hotspur,Arsenal,0 - 1,26640,True,0.0,1.0,0.79,1.12
+4,15/09/2024 16:30,Wolverhampton Wanderers,Newcastle United,1 - 2,26641,True,1.0,2.0,1.47,1.48
+5,21/09/2024 12:30,West Ham,Chelsea,0 - 3,26642,True,0.0,3.0,0.76,2.4
+5,21/09/2024 15:00,Aston Villa,Wolverhampton Wanderers,3 - 1,26647,True,3.0,1.0,2.37,0.52
+5,21/09/2024 15:00,Fulham,Newcastle United,3 - 1,26646,True,3.0,1.0,3.21,1.1
+5,21/09/2024 15:00,Leicester,Everton,1 - 1,26644,True,1.0,1.0,1.34,1.82
+5,21/09/2024 15:00,Liverpool,Bournemouth,3 - 0,26645,True,3.0,0.0,2.44,1.47
+5,21/09/2024 15:00,Southampton,Ipswich,1 - 1,26643,True,1.0,1.0,2.9,1.65
+5,21/09/2024 15:00,Tottenham Hotspur,Brentford,3 - 1,26648,True,3.0,1.0,3.89,0.89
+5,21/09/2024 17:30,Crystal Palace,Manchester United,0 - 0,26649,True,0.0,0.0,1.67,2.35
+5,22/09/2024 14:00,Brighton,Nottingham Forest,2 - 2,26650,True,2.0,2.0,1.57,1.37
+5,22/09/2024 16:30,Manchester City,Arsenal,2 - 2,26651,True,2.0,2.0,2.76,1.28
+6,28/09/2024 12:30,Newcastle United,Manchester City,1 - 1,26652,True,1.0,1.0,1.34,1.27
+6,28/09/2024 15:00,Arsenal,Leicester,4 - 2,26655,True,4.0,2.0,6.05,0.34
+6,28/09/2024 15:00,Brentford,West Ham,1 - 1,26656,True,1.0,1.0,0.37,0.88
+6,28/09/2024 15:00,Chelsea,Brighton,4 - 2,26657,True,4.0,2.0,3.66,1.21
+6,28/09/2024 15:00,Everton,Crystal Palace,2 - 1,26654,True,2.0,1.0,1.11,1.12
+6,28/09/2024 15:00,Nottingham Forest,Fulham,0 - 1,26653,True,0.0,1.0,0.61,1.44
+6,28/09/2024 17:30,Wolverhampton Wanderers,Liverpool,1 - 2,26658,True,1.0,2.0,0.75,2.12
+6,29/09/2024 14:00,Ipswich,Aston Villa,2 - 2,26659,True,2.0,2.0,1.85,1.14
+6,29/09/2024 16:30,Manchester United,Tottenham Hotspur,0 - 3,26660,True,0.0,3.0,0.6,5.41
+6,30/09/2024 20:00,Bournemouth,Southampton,3 - 1,26661,True,3.0,1.0,1.44,0.7
+7,05/10/2024 12:30,Crystal Palace,Liverpool,0 - 1,26662,True,0.0,1.0,0.61,2.07
+7,05/10/2024 15:00,Arsenal,Southampton,3 - 1,26666,True,3.0,1.0,3.25,1.27
+7,05/10/2024 15:00,Brentford,Wolverhampton Wanderers,5 - 3,26667,True,5.0,3.0,4.14,0.7
+7,05/10/2024 15:00,Leicester,Bournemouth,1 - 0,26663,True,1.0,0.0,0.91,1.95
+7,05/10/2024 15:00,Manchester City,Fulham,3 - 2,26664,True,3.0,2.0,1.37,2.76
+7,05/10/2024 15:00,West Ham,Ipswich,4 - 1,26665,True,4.0,1.0,4.39,1.18
+7,05/10/2024 17:30,Everton,Newcastle United,0 - 0,26669,True,0.0,0.0,0.69,1.79
+7,06/10/2024 14:00,Aston Villa,Manchester United,0 - 0,26670,True,0.0,0.0,0.53,0.45
+7,06/10/2024 14:00,Chelsea,Nottingham Forest,1 - 1,26668,True,1.0,1.0,2.28,1.67
+7,06/10/2024 16:30,Brighton,Tottenham Hotspur,3 - 2,26671,True,3.0,2.0,1.97,1.09
+8,19/10/2024 12:30,Tottenham Hotspur,West Ham,4 - 1,26672,True,4.0,1.0,1.44,0.86
+8,19/10/2024 15:00,Fulham,Aston Villa,1 - 3,26673,True,1.0,3.0,2.63,1.44
+8,19/10/2024 15:00,Manchester United,Brentford,2 - 1,26675,True,2.0,1.0,1.77,0.89
+8,19/10/2024 15:00,Newcastle United,Brighton,0 - 1,26676,True,0.0,1.0,1.94,1.68
+8,19/10/2024 15:00,Southampton,Leicester,2 - 3,26678,True,2.0,3.0,2.43,2.84
+8,19/10/2024 15:15,Ipswich,Everton,0 - 2,26674,True,0.0,2.0,1.17,1.61
+8,19/10/2024 17:30,Bournemouth,Arsenal,2 - 0,26680,True,2.0,0.0,2.18,0.74
+8,20/10/2024 14:00,Wolverhampton Wanderers,Manchester City,1 - 2,26681,True,1.0,2.0,0.76,1.37
+8,20/10/2024 16:30,Liverpool,Chelsea,2 - 1,26679,True,2.0,1.0,2.23,1.34
+8,21/10/2024 20:00,Nottingham Forest,Crystal Palace,1 - 0,26677,True,1.0,0.0,1.89,0.84
+9,25/10/2024 20:00,Leicester,Nottingham Forest,1 - 3,26682,True,1.0,3.0,0.83,2.54
+9,26/10/2024 15:00,Aston Villa,Bournemouth,1 - 1,26684,True,1.0,1.0,1.97,0.33
+9,26/10/2024 15:00,Brentford,Ipswich,4 - 3,26685,True,4.0,3.0,4.1,1.66
+9,26/10/2024 15:00,Brighton,Wolverhampton Wanderers,2 - 2,26686,True,2.0,2.0,1.51,1.11
+9,26/10/2024 15:00,Manchester City,Southampton,1 - 0,26683,True,1.0,0.0,3.16,0.37
+9,26/10/2024 17:30,Everton,Fulham,1 - 1,26687,True,1.0,1.0,0.88,1.5
+9,27/10/2024 14:00,Chelsea,Newcastle United,2 - 1,26688,True,2.0,1.0,1.62,1.74
+9,27/10/2024 14:00,Crystal Palace,Tottenham Hotspur,1 - 0,26689,True,1.0,0.0,0.98,1.02
+9,27/10/2024 14:00,West Ham,Manchester United,2 - 1,26690,True,2.0,1.0,2.99,2.63
+9,27/10/2024 16:30,Arsenal,Liverpool,2 - 2,26691,True,2.0,2.0,1.09,1.35
+10,02/11/2024 12:30,Newcastle United,Arsenal,1 - 0,26694,True,1.0,0.0,0.86,0.91
+10,02/11/2024 15:00,Bournemouth,Manchester City,2 - 1,26692,True,2.0,1.0,2.45,2.35
+10,02/11/2024 15:00,Ipswich,Leicester,1 - 1,26695,True,1.0,1.0,1.34,2.34
+10,02/11/2024 15:00,Liverpool,Brighton,2 - 1,26696,True,2.0,1.0,1.81,1.02
+10,02/11/2024 15:00,Nottingham Forest,West Ham,3 - 0,26698,True,3.0,0.0,2.35,0.13
+10,02/11/2024 15:00,Southampton,Everton,1 - 0,26699,True,1.0,0.0,0.54,1.79
+10,02/11/2024 17:30,Wolverhampton Wanderers,Crystal Palace,2 - 2,26701,True,2.0,2.0,1.65,2.65
+10,03/11/2024 14:00,Tottenham Hotspur,Aston Villa,4 - 1,26700,True,4.0,1.0,2.1,2.49
+10,03/11/2024 16:30,Manchester United,Chelsea,1 - 1,26697,True,1.0,1.0,2.16,1.21
+10,04/11/2024 20:00,Fulham,Brentford,2 - 1,26693,True,2.0,1.0,1.43,0.74
+11,09/11/2024 15:00,Brentford,Bournemouth,3 - 2,26702,True,3.0,2.0,1.56,2.49
+11,09/11/2024 15:00,Crystal Palace,Fulham,0 - 2,26706,True,0.0,2.0,1.96,2.25
+11,09/11/2024 15:00,West Ham,Everton,0 - 0,26710,True,0.0,0.0,1.12,0.87
+11,09/11/2024 15:00,Wolverhampton Wanderers,Southampton,2 - 0,26711,True,2.0,0.0,0.91,0.79
+11,09/11/2024 17:30,Brighton,Manchester City,2 - 1,26703,True,2.0,1.0,2.87,2.6
+11,09/11/2024 20:00,Liverpool,Aston Villa,2 - 0,26707,True,2.0,0.0,2.68,1.66
+11,10/11/2024 14:00,Manchester United,Leicester,3 - 0,26708,True,3.0,0.0,1.24,0.42
+11,10/11/2024 14:00,Nottingham Forest,Newcastle United,1 - 3,26704,True,1.0,3.0,1.18,1.87
+11,10/11/2024 14:00,Tottenham Hotspur,Ipswich,1 - 2,26709,True,1.0,2.0,1.75,2.18
+11,10/11/2024 16:30,Chelsea,Arsenal,1 - 1,26705,True,1.0,1.0,1.24,1.96
+12,23/11/2024 12:30,Leicester,Chelsea,1 - 2,26719,True,1.0,2.0,0.97,2.82
+12,23/11/2024 15:00,Arsenal,Nottingham Forest,3 - 0,26714,True,3.0,0.0,1.66,0.4
+12,23/11/2024 15:00,Aston Villa,Crystal Palace,2 - 2,26716,True,2.0,2.0,3.04,1.61
+12,23/11/2024 15:00,Bournemouth,Brighton,1 - 2,26712,True,1.0,2.0,1.91,1.23
+12,23/11/2024 15:00,Everton,Brentford,0 - 0,26715,True,0.0,0.0,1.6,1.34
+12,23/11/2024 15:00,Fulham,Wolverhampton Wanderers,1 - 4,26717,True,1.0,4.0,0.72,1.34
+12,23/11/2024 17:30,Manchester City,Tottenham Hotspur,0 - 4,26720,True,0.0,4.0,2.16,3.3
+12,24/11/2024 14:00,Southampton,Liverpool,2 - 3,26721,True,2.0,3.0,1.54,3.19
+12,24/11/2024 16:30,Ipswich,Manchester United,1 - 1,26718,True,1.0,1.0,1.99,1.27
+12,25/11/2024 20:00,Newcastle United,West Ham,0 - 2,26713,True,0.0,2.0,1.5,0.94
+13,29/11/2024 20:00,Brighton,Southampton,1 - 1,26723,True,1.0,1.0,1.87,0.93
+13,30/11/2024 15:00,Brentford,Leicester,4 - 1,26722,True,4.0,1.0,2.22,0.91
+13,30/11/2024 15:00,Crystal Palace,Newcastle United,1 - 1,26725,True,1.0,1.0,2.3,0.02
+13,30/11/2024 15:00,Nottingham Forest,Ipswich,1 - 0,26728,True,1.0,0.0,1.77,0.46
+13,30/11/2024 15:00,Wolverhampton Wanderers,Bournemouth,2 - 4,26731,True,2.0,4.0,0.87,3.08
+13,30/11/2024 17:30,West Ham,Arsenal,2 - 5,26730,True,2.0,5.0,1.24,4.0
+13,01/12/2024 13:30,Chelsea,Aston Villa,3 - 0,26724,True,3.0,0.0,1.95,0.88
+13,01/12/2024 13:30,Manchester United,Everton,4 - 0,26727,True,4.0,0.0,1.76,0.77
+13,01/12/2024 13:30,Tottenham Hotspur,Fulham,1 - 1,26729,True,1.0,1.0,1.01,1.57
+13,01/12/2024 16:00,Liverpool,Manchester City,2 - 0,26726,True,2.0,0.0,3.7,0.75
+14,03/12/2024 19:30,Ipswich,Crystal Palace,0 - 1,26737,True,0.0,1.0,0.47,1.65
+14,03/12/2024 20:15,Leicester,West Ham,3 - 1,26738,True,3.0,1.0,2.78,2.88
+14,04/12/2024 19:30,Everton,Wolverhampton Wanderers,4 - 0,26735,True,4.0,0.0,1.5,0.85
+14,04/12/2024 19:30,Manchester City,Nottingham Forest,3 - 0,26739,True,3.0,0.0,3.2,0.8
+14,04/12/2024 19:30,Newcastle United,Liverpool,3 - 3,26740,True,3.0,3.0,1.52,2.23
+14,04/12/2024 19:30,Southampton,Chelsea,1 - 5,26741,True,1.0,5.0,1.91,5.83
+14,04/12/2024 20:15,Arsenal,Manchester United,2 - 0,26733,True,2.0,0.0,2.97,0.26
+14,04/12/2024 20:15,Aston Villa,Brentford,3 - 1,26734,True,3.0,1.0,3.22,1.13
+14,05/12/2024 19:30,Fulham,Brighton,3 - 1,26736,True,3.0,1.0,0.67,1.1
+14,05/12/2024 20:15,Bournemouth,Tottenham Hotspur,1 - 0,26732,True,1.0,0.0,3.28,0.62
+15,07/12/2024 15:00,Aston Villa,Southampton,1 - 0,26742,True,1.0,0.0,2.51,0.39
+15,07/12/2024 15:00,Brentford,Newcastle United,4 - 2,26743,True,4.0,2.0,1.75,1.96
+15,07/12/2024 15:00,Crystal Palace,Manchester City,2 - 2,26747,True,2.0,2.0,1.21,1.58
+15,07/12/2024 17:30,Manchester United,Nottingham Forest,2 - 3,26744,True,2.0,3.0,1.47,0.65
+15,08/12/2024 14:00,Fulham,Arsenal,1 - 1,26749,True,1.0,1.0,0.15,2.43
+15,08/12/2024 14:00,Ipswich,Bournemouth,1 - 2,26750,True,1.0,2.0,1.57,3.49
+15,08/12/2024 14:00,Leicester,Brighton,2 - 2,26751,True,2.0,2.0,1.42,1.12
+15,08/12/2024 16:30,Tottenham Hotspur,Chelsea,3 - 4,26745,True,3.0,4.0,3.25,2.57
+15,09/12/2024 20:00,West Ham,Wolverhampton Wanderers,2 - 1,26746,True,2.0,1.0,1.2,1.48
+15,12/02/2025 19:30,Everton,Liverpool,2 - 2,26748,True,2.0,2.0,0.91,0.93
+16,14/12/2024 15:00,Arsenal,Everton,0 - 0,26755,True,0.0,0.0,1.31,0.13
+16,14/12/2024 15:00,Liverpool,Fulham,2 - 2,26752,True,2.0,2.0,2.1,1.29
+16,14/12/2024 15:00,Newcastle United,Leicester,4 - 0,26760,True,4.0,0.0,3.95,0.19
+16,14/12/2024 15:00,Wolverhampton Wanderers,Ipswich,1 - 2,26758,True,1.0,2.0,1.24,1.73
+16,14/12/2024 17:30,Nottingham Forest,Aston Villa,2 - 1,26761,True,2.0,1.0,2.29,0.39
+16,15/12/2024 14:00,Brighton,Crystal Palace,1 - 3,26756,True,1.0,3.0,1.32,3.01
+16,15/12/2024 16:30,Manchester City,Manchester United,1 - 2,26753,True,1.0,2.0,0.64,2.05
+16,15/12/2024 19:00,Chelsea,Brentford,2 - 1,26757,True,2.0,1.0,2.59,1.66
+16,15/12/2024 19:00,Southampton,Tottenham Hotspur,0 - 5,26759,True,0.0,5.0,1.27,3.89
+16,16/12/2024 20:00,Bournemouth,West Ham,1 - 1,26754,True,1.0,1.0,2.05,1.82
+17,21/12/2024 12:30,Aston Villa,Manchester City,2 - 1,26762,True,2.0,1.0,2.06,1.1
+17,21/12/2024 15:00,Brentford,Nottingham Forest,0 - 2,26766,True,0.0,2.0,0.77,0.96
+17,21/12/2024 15:00,Ipswich,Newcastle United,0 - 4,26771,True,0.0,4.0,1.06,3.23
+17,21/12/2024 15:00,West Ham,Brighton,1 - 1,26767,True,1.0,1.0,1.23,1.34
+17,21/12/2024 17:30,Crystal Palace,Arsenal,1 - 5,26765,True,1.0,5.0,1.61,3.05
+17,22/12/2024 14:00,Everton,Chelsea,0 - 0,26764,True,0.0,0.0,1.07,1.52
+17,22/12/2024 14:00,Fulham,Southampton,0 - 0,26763,True,0.0,0.0,1.25,0.28
+17,22/12/2024 14:00,Leicester,Wolverhampton Wanderers,0 - 3,26770,True,0.0,3.0,0.79,1.14
+17,22/12/2024 14:00,Manchester United,Bournemouth,0 - 3,26769,True,0.0,3.0,2.29,1.83
+17,22/12/2024 16:30,Tottenham Hotspur,Liverpool,3 - 6,26768,True,3.0,6.0,1.2,5.2
+18,26/12/2024 12:30,Manchester City,Everton,1 - 1,26777,True,1.0,1.0,2.52,0.65
+18,26/12/2024 15:00,Bournemouth,Crystal Palace,0 - 0,26772,True,0.0,0.0,1.2,0.5
+18,26/12/2024 15:00,Chelsea,Fulham,1 - 2,26775,True,1.0,2.0,1.56,1.78
+18,26/12/2024 15:00,Newcastle United,Aston Villa,3 - 0,26778,True,3.0,0.0,2.83,0.23
+18,26/12/2024 15:00,Nottingham Forest,Tottenham Hotspur,1 - 0,26779,True,1.0,0.0,1.3,1.06
+18,26/12/2024 15:00,Southampton,West Ham,0 - 1,26780,True,0.0,1.0,2.2,1.9
+18,26/12/2024 17:30,Wolverhampton Wanderers,Manchester United,2 - 0,26781,True,2.0,0.0,0.83,0.36
+18,26/12/2024 20:00,Liverpool,Leicester,3 - 1,26776,True,3.0,1.0,1.9,0.22
+18,27/12/2024 19:30,Brighton,Brentford,0 - 0,26774,True,0.0,0.0,1.34,0.96
+18,27/12/2024 20:15,Arsenal,Ipswich,1 - 0,26773,True,1.0,0.0,2.16,0.08
+19,29/12/2024 14:30,Leicester,Manchester City,0 - 2,26788,True,0.0,2.0,1.84,1.58
+19,29/12/2024 15:00,Crystal Palace,Southampton,2 - 1,26784,True,2.0,1.0,3.05,1.22
+19,29/12/2024 15:00,Everton,Nottingham Forest,0 - 2,26785,True,0.0,2.0,0.62,2.03
+19,29/12/2024 15:00,Fulham,Bournemouth,2 - 2,26786,True,2.0,2.0,0.96,1.71
+19,29/12/2024 15:00,Tottenham Hotspur,Wolverhampton Wanderers,2 - 2,26790,True,2.0,2.0,2.28,0.64
+19,29/12/2024 17:15,West Ham,Liverpool,0 - 5,26791,True,0.0,5.0,0.52,3.3
+19,30/12/2024 19:45,Aston Villa,Brighton,2 - 2,26782,True,2.0,2.0,1.88,0.94
+19,30/12/2024 19:45,Ipswich,Chelsea,2 - 0,26787,True,2.0,0.0,1.5,1.61
+19,30/12/2024 20:00,Manchester United,Newcastle United,0 - 2,26789,True,0.0,2.0,1.0,2.24
+19,01/01/2025 17:30,Brentford,Arsenal,1 - 3,26783,True,1.0,3.0,0.27,2.0
+20,04/01/2025 12:30,Tottenham Hotspur,Newcastle United,1 - 2,26800,True,1.0,2.0,1.0,2.43
+20,04/01/2025 15:00,Aston Villa,Leicester,2 - 1,26793,True,2.0,1.0,2.35,0.82
+20,04/01/2025 15:00,Bournemouth,Everton,1 - 0,26792,True,1.0,0.0,2.62,0.56
+20,04/01/2025 15:00,Crystal Palace,Chelsea,1 - 1,26795,True,1.0,1.0,1.28,1.52
+20,04/01/2025 15:00,Manchester City,West Ham,4 - 1,26798,True,4.0,1.0,1.98,1.53
+20,04/01/2025 15:00,Southampton,Brentford,0 - 5,26799,True,0.0,5.0,0.25,5.55
+20,04/01/2025 17:30,Brighton,Arsenal,1 - 1,26794,True,1.0,1.0,1.77,1.81
+20,05/01/2025 14:00,Fulham,Ipswich,2 - 2,26796,True,2.0,2.0,2.65,1.44
+20,05/01/2025 16:30,Liverpool,Manchester United,2 - 2,26797,True,2.0,2.0,2.86,1.67
+20,06/01/2025 20:00,Wolverhampton Wanderers,Nottingham Forest,0 - 3,26801,True,0.0,3.0,1.9,2.57
+21,14/01/2025 19:30,Brentford,Manchester City,2 - 2,26803,True,2.0,2.0,2.39,2.65
+21,14/01/2025 19:30,West Ham,Fulham,3 - 2,26808,True,3.0,2.0,0.94,2.84
+21,14/01/2025 19:30,Chelsea,Bournemouth,2 - 2,26809,True,2.0,2.0,2.54,1.15
+21,14/01/2025 20:00,Nottingham Forest,Liverpool,1 - 1,26807,True,1.0,1.0,0.53,2.72
+21,15/01/2025 19:30,Everton,Aston Villa,0 - 1,26804,True,0.0,1.0,1.23,1.29
+21,15/01/2025 19:30,Leicester,Crystal Palace,0 - 2,26806,True,0.0,2.0,2.1,2.26
+21,15/01/2025 19:30,Newcastle United,Wolverhampton Wanderers,3 - 0,26810,True,3.0,0.0,2.13,1.47
+21,15/01/2025 20:00,Arsenal,Tottenham Hotspur,2 - 1,26802,True,2.0,1.0,2.26,0.78
+21,16/01/2025 19:30,Ipswich,Brighton,0 - 2,26805,True,0.0,2.0,0.27,1.06
+21,16/01/2025 20:00,Manchester United,Southampton,3 - 1,26811,True,3.0,1.0,3.11,1.37
+22,18/01/2025 12:30,Newcastle United,Bournemouth,1 - 4,26819,True,1.0,4.0,0.84,2.7
+22,18/01/2025 15:00,Brentford,Liverpool,0 - 2,26813,True,0.0,2.0,1.2,4.16
+22,18/01/2025 15:00,Leicester,Fulham,0 - 2,26817,True,0.0,2.0,0.68,2.37
+22,18/01/2025 15:00,West Ham,Crystal Palace,0 - 2,26821,True,0.0,2.0,0.22,1.63
+22,18/01/2025 17:30,Arsenal,Aston Villa,2 - 2,26812,True,2.0,2.0,1.64,1.21
+22,19/01/2025 14:00,Everton,Tottenham Hotspur,3 - 2,26815,True,3.0,2.0,2.56,1.36
+22,19/01/2025 14:00,Manchester United,Brighton,1 - 3,26818,True,1.0,3.0,1.32,2.17
+22,19/01/2025 14:00,Nottingham Forest,Southampton,3 - 2,26820,True,3.0,2.0,2.36,1.26
+22,19/01/2025 16:30,Ipswich,Manchester City,0 - 6,26816,True,0.0,6.0,0.8,3.2
+22,20/01/2025 20:00,Chelsea,Wolverhampton Wanderers,3 - 1,26814,True,3.0,1.0,3.15,1.07
+23,25/01/2025 15:00,Bournemouth,Nottingham Forest,5 - 0,26822,True,5.0,0.0,2.83,1.0
+23,25/01/2025 15:00,Brighton,Everton,0 - 1,26824,True,0.0,1.0,0.64,0.87
+23,25/01/2025 15:00,Liverpool,Ipswich,4 - 1,26827,True,4.0,1.0,2.17,0.8
+23,25/01/2025 15:00,Southampton,Newcastle United,1 - 3,26829,True,1.0,3.0,0.83,3.08
+23,25/01/2025 15:00,Wolverhampton Wanderers,Arsenal,0 - 1,26831,True,0.0,1.0,0.51,0.89
+23,25/01/2025 17:30,Manchester City,Chelsea,3 - 1,26828,True,3.0,1.0,2.23,1.5
+23,26/01/2025 14:00,Crystal Palace,Brentford,1 - 2,26825,True,1.0,2.0,1.23,1.92
+23,26/01/2025 14:00,Tottenham Hotspur,Leicester,1 - 2,26830,True,1.0,2.0,1.27,1.4
+23,26/01/2025 16:30,Aston Villa,West Ham,1 - 1,26823,True,1.0,1.0,0.91,1.68
+23,26/01/2025 19:00,Fulham,Manchester United,0 - 1,26826,True,0.0,1.0,0.56,0.2
+24,01/02/2025 12:30,Nottingham Forest,Brighton,7 - 0,26840,True,7.0,0.0,4.07,0.76
+24,01/02/2025 15:00,Bournemouth,Liverpool,0 - 2,26832,True,0.0,2.0,1.65,2.72
+24,01/02/2025 15:00,Everton,Leicester,4 - 0,26836,True,4.0,0.0,3.11,0.45
+24,01/02/2025 15:00,Ipswich,Southampton,1 - 2,26837,True,1.0,2.0,1.95,1.18
+24,01/02/2025 15:00,Newcastle United,Fulham,1 - 2,26839,True,1.0,2.0,1.23,1.61
+24,01/02/2025 17:30,Wolverhampton Wanderers,Aston Villa,2 - 0,26841,True,2.0,0.0,2.0,0.74
+24,02/02/2025 14:00,Brentford,Tottenham Hotspur,0 - 2,26834,True,0.0,2.0,1.66,0.95
+24,02/02/2025 14:00,Manchester United,Crystal Palace,0 - 2,26838,True,0.0,2.0,1.51,2.45
+24,02/02/2025 16:30,Arsenal,Manchester City,5 - 1,26833,True,5.0,1.0,1.53,0.74
+24,03/02/2025 20:00,Chelsea,West Ham,2 - 1,26835,True,2.0,1.0,1.39,1.19
+25,14/02/2025 20:00,Brighton,Chelsea,3 - 0,26843,True,3.0,0.0,2.07,0.65
+25,15/02/2025 12:30,Leicester,Arsenal,0 - 2,26846,True,0.0,2.0,0.23,1.75
+25,15/02/2025 15:00,Aston Villa,Ipswich,1 - 1,26842,True,1.0,1.0,2.9,0.33
+25,15/02/2025 15:00,Fulham,Nottingham Forest,2 - 1,26845,True,2.0,1.0,2.21,0.33
+25,15/02/2025 15:00,Manchester City,Newcastle United,4 - 0,26848,True,4.0,0.0,2.12,0.16
+25,15/02/2025 15:00,Southampton,Bournemouth,1 - 3,26849,True,1.0,3.0,0.97,2.09
+25,15/02/2025 15:00,West Ham,Brentford,0 - 1,26851,True,0.0,1.0,0.67,1.96
+25,15/02/2025 17:30,Crystal Palace,Everton,1 - 2,26844,True,1.0,2.0,2.31,1.02
+25,16/02/2025 14:00,Liverpool,Wolverhampton Wanderers,2 - 1,26847,True,2.0,1.0,1.87,1.05
+25,16/02/2025 16:30,Tottenham Hotspur,Manchester United,1 - 0,26850,True,1.0,0.0,1.97,1.43
+26,21/02/2025 20:00,Leicester,Brentford,0 - 4,26858,True,0.0,4.0,0.73,2.03
+26,22/02/2025 12:30,Everton,Manchester United,2 - 2,26855,True,2.0,2.0,2.1,0.65
+26,22/02/2025 15:00,Arsenal,West Ham,0 - 1,26853,True,0.0,1.0,1.37,1.03
+26,22/02/2025 15:00,Bournemouth,Wolverhampton Wanderers,0 - 1,26852,True,0.0,1.0,0.63,2.1
+26,22/02/2025 15:00,Fulham,Crystal Palace,0 - 2,26856,True,0.0,2.0,0.23,1.46
+26,22/02/2025 15:00,Ipswich,Tottenham Hotspur,1 - 4,26857,True,1.0,4.0,1.15,1.59
+26,22/02/2025 15:00,Southampton,Brighton,0 - 4,26861,True,0.0,4.0,0.15,5.12
+26,22/02/2025 17:30,Aston Villa,Chelsea,2 - 1,26854,True,2.0,1.0,2.69,2.17
+26,23/02/2025 14:00,Newcastle United,Nottingham Forest,4 - 3,26860,True,4.0,3.0,3.46,2.39
+26,23/02/2025 16:30,Manchester City,Liverpool,0 - 2,26859,True,0.0,2.0,0.56,0.8
+27,25/02/2025 19:30,Brighton,Bournemouth,2 - 1,26863,True,2.0,1.0,2.58,1.7
+27,25/02/2025 19:30,Wolverhampton Wanderers,Fulham,1 - 2,26867,True,1.0,2.0,0.93,1.43
+27,25/02/2025 19:30,Crystal Palace,Aston Villa,4 - 1,26868,True,4.0,1.0,4.03,0.67
+27,25/02/2025 20:15,Chelsea,Southampton,4 - 0,26869,True,4.0,0.0,2.98,0.85
+27,26/02/2025 19:30,Brentford,Everton,1 - 1,26862,True,1.0,1.0,1.34,1.45
+27,26/02/2025 19:30,Nottingham Forest,Arsenal,0 - 0,26864,True,0.0,0.0,0.51,1.32
+27,26/02/2025 19:30,Tottenham Hotspur,Manchester City,0 - 1,26865,True,0.0,1.0,1.28,2.39
+27,26/02/2025 19:30,Manchester United,Ipswich,3 - 2,26871,True,3.0,2.0,1.4,1.04
+27,26/02/2025 20:15,Liverpool,Newcastle United,2 - 0,26870,True,2.0,0.0,1.4,0.46
+27,27/02/2025 20:00,West Ham,Leicester,2 - 0,26866,True,2.0,0.0,1.7,0.29
+28,08/03/2025 12:30,Nottingham Forest,Manchester City,1 - 0,26878,True,1.0,0.0,0.5,0.72
+28,08/03/2025 15:00,Brighton,Fulham,2 - 1,26873,True,2.0,1.0,1.94,0.71
+28,08/03/2025 15:00,Crystal Palace,Ipswich,1 - 0,26875,True,1.0,0.0,3.14,1.63
+28,08/03/2025 15:00,Liverpool,Southampton,3 - 1,26876,True,3.0,1.0,4.99,0.51
+28,08/03/2025 17:30,Brentford,Aston Villa,0 - 1,26872,True,0.0,1.0,0.64,1.3
+28,08/03/2025 20:00,Wolverhampton Wanderers,Everton,1 - 1,26881,True,1.0,1.0,0.81,1.37
+28,09/03/2025 14:00,Chelsea,Leicester,1 - 0,26874,True,1.0,0.0,1.77,0.11
+28,09/03/2025 14:00,Tottenham Hotspur,Bournemouth,2 - 2,26879,True,2.0,2.0,1.35,2.23
+28,09/03/2025 16:30,Manchester United,Arsenal,1 - 1,26877,True,1.0,1.0,1.31,1.83
+28,10/03/2025 20:00,West Ham,Newcastle United,0 - 1,26880,True,0.0,1.0,0.82,1.63
+29,19/02/2025 19:30,Aston Villa,Liverpool,2 - 2,26884,True,2.0,2.0,1.02,2.04
+29,15/03/2025 15:00,Everton,West Ham,1 - 1,26885,True,1.0,1.0,1.19,0.52
+29,15/03/2025 15:00,Ipswich,Nottingham Forest,2 - 4,26887,True,2.0,4.0,0.52,1.31
+29,15/03/2025 15:00,Manchester City,Brighton,2 - 2,26889,True,2.0,2.0,2.03,2.11
+29,15/03/2025 15:00,Southampton,Wolverhampton Wanderers,1 - 2,26891,True,1.0,2.0,1.28,0.54
+29,15/03/2025 17:30,Bournemouth,Brentford,1 - 2,26882,True,1.0,2.0,2.03,1.6
+29,16/03/2025 13:30,Arsenal,Chelsea,1 - 0,26883,True,1.0,0.0,0.7,0.29
+29,16/03/2025 13:30,Fulham,Tottenham Hotspur,2 - 0,26886,True,2.0,0.0,1.04,1.41
+29,16/03/2025 19:00,Leicester,Manchester United,0 - 3,26888,True,0.0,3.0,1.3,1.14
+29,16/04/2025 19:30,Newcastle United,Crystal Palace,,26890,True,5.0,0.0,2.33,2.38
+30,01/04/2025 19:45,Arsenal,Fulham,2 - 1,26892,True,2.0,1.0,2.3,1.44
+30,01/04/2025 19:45,Wolverhampton Wanderers,West Ham,1 - 0,26895,True,1.0,0.0,1.1,1.73
+30,01/04/2025 20:00,Nottingham Forest,Manchester United,1 - 0,26894,True,1.0,0.0,0.51,1.87
+30,02/04/2025 19:45,Bournemouth,Ipswich,1 - 2,26896,True,1.0,2.0,2.0,1.41
+30,02/04/2025 19:45,Brighton,Aston Villa,0 - 3,26893,True,0.0,3.0,0.56,1.21
+30,02/04/2025 19:45,Manchester City,Leicester,2 - 0,26898,True,2.0,0.0,2.07,0.1
+30,02/04/2025 19:45,Newcastle United,Brentford,2 - 1,26899,True,2.0,1.0,2.27,1.53
+30,02/04/2025 19:45,Southampton,Crystal Palace,1 - 1,26900,True,1.0,1.0,0.69,0.94
+30,02/04/2025 20:00,Liverpool,Everton,1 - 0,26901,True,1.0,0.0,1.3,0.82
+30,03/04/2025 20:00,Chelsea,Tottenham Hotspur,1 - 0,26897,True,1.0,0.0,1.3,1.4
+31,05/04/2025 12:30,Everton,Arsenal,1 - 1,26905,True,1.0,1.0,1.23,1.4
+31,05/04/2025 15:00,Crystal Palace,Brighton,2 - 1,26904,True,2.0,1.0,0.44,1.27
+31,05/04/2025 15:00,Ipswich,Wolverhampton Wanderers,1 - 2,26907,True,1.0,2.0,0.87,2.81
+31,05/04/2025 15:00,West Ham,Bournemouth,2 - 2,26911,True,2.0,2.0,0.91,1.95
+31,05/04/2025 17:30,Aston Villa,Nottingham Forest,2 - 1,26902,True,2.0,1.0,2.63,0.97
+31,06/04/2025 14:00,Brentford,Chelsea,0 - 0,26903,True,0.0,0.0,1.36,1.48
+31,06/04/2025 14:00,Fulham,Liverpool,3 - 2,26906,True,3.0,2.0,1.73,1.41
+31,06/04/2025 14:00,Tottenham Hotspur,Southampton,3 - 1,26910,True,3.0,1.0,2.65,0.78
+31,06/04/2025 16:30,Manchester United,Manchester City,0 - 0,26909,True,0.0,0.0,1.23,0.69
+31,07/04/2025 20:00,Leicester,Newcastle United,0 - 3,26908,True,0.0,3.0,0.35,3.44
+32,12/04/2025 12:30,Manchester City,Crystal Palace,5 - 2,26917,True,5.0,2.0,4.6,1.34
+32,12/04/2025 15:00,Brighton,Leicester,2 - 2,26914,True,2.0,2.0,3.7,1.98
+32,12/04/2025 15:00,Nottingham Forest,Everton,0 - 1,26920,True,0.0,1.0,0.42,1.26
+32,12/04/2025 15:00,Southampton,Aston Villa,0 - 3,26921,True,0.0,3.0,0.41,3.0
+32,12/04/2025 17:30,Arsenal,Brentford,1 - 1,26913,True,1.0,1.0,0.77,0.59
+32,13/04/2025 14:00,Chelsea,Ipswich,2 - 2,26915,True,2.0,2.0,2.91,1.6
+32,13/04/2025 14:00,Liverpool,West Ham,2 - 1,26916,True,2.0,1.0,1.43,1.47
+32,13/04/2025 14:00,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,26919,True,4.0,2.0,2.23,1.63
+32,13/04/2025 16:30,Newcastle United,Manchester United,4 - 1,26918,True,4.0,1.0,2.64,0.79
+32,14/04/2025 20:00,Bournemouth,Fulham,1 - 0,26912,True,1.0,0.0,1.86,1.07
+33,19/04/2025 15:00,Brentford,Brighton,,26923,False,,,,
+33,19/04/2025 15:00,Crystal Palace,Bournemouth,,26924,False,,,,
+33,19/04/2025 15:00,Everton,Manchester City,,26925,False,,,,
+33,19/04/2025 15:00,West Ham,Southampton,,26931,False,,,,
+33,19/04/2025 17:30,Aston Villa,Newcastle United,,26922,False,,,,
+33,20/04/2025 14:00,Fulham,Chelsea,,26926,False,,,,
+33,20/04/2025 14:00,Ipswich,Arsenal,,26927,False,,,,
+33,20/04/2025 14:00,Manchester United,Wolverhampton Wanderers,,26929,False,,,,
+33,20/04/2025 16:30,Leicester,Liverpool,,26928,False,,,,
+33,21/04/2025 20:00,Tottenham Hotspur,Nottingham Forest,,26930,False,,,,
+34,22/04/2025 20:00,Manchester City,Aston Villa,,26937,False,,,,
+34,23/04/2025 20:00,Arsenal,Crystal Palace,,26933,False,,,,
+34,26/04/2025 12:30,Chelsea,Everton,,26935,False,,,,
+34,26/04/2025 15:00,Brighton,West Ham,,26934,False,,,,
+34,26/04/2025 15:00,Newcastle United,Ipswich,,26938,False,,,,
+34,26/04/2025 15:00,Southampton,Fulham,,26940,False,,,,
+34,26/04/2025 15:00,Wolverhampton Wanderers,Leicester,,26941,False,,,,
+34,27/04/2025 14:00,Bournemouth,Manchester United,,26932,False,,,,
+34,27/04/2025 16:30,Liverpool,Tottenham Hotspur,,26936,False,,,,
+34,01/05/2025 19:30,Nottingham Forest,Brentford,,26939,False,,,,
+35,02/05/2025 20:00,Manchester City,Wolverhampton Wanderers,,26942,False,,,,
+35,03/05/2025 12:30,Aston Villa,Fulham,,26946,False,,,,
+35,03/05/2025 15:00,Everton,Ipswich,,26950,False,,,,
+35,03/05/2025 15:00,Leicester,Southampton,,26951,False,,,,
+35,03/05/2025 15:00,West Ham,Tottenham Hotspur,,26943,False,,,,
+35,03/05/2025 17:30,Arsenal,Bournemouth,,26945,False,,,,
+35,04/05/2025 14:00,Brentford,Manchester United,,26947,False,,,,
+35,04/05/2025 14:00,Brighton,Newcastle United,,26944,False,,,,
+35,04/05/2025 16:30,Chelsea,Liverpool,,26948,False,,,,
+35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,,26949,False,,,,
+36,10/05/2025 12:30,Newcastle United,Chelsea,,26957,False,,,,
+36,10/05/2025 15:00,Fulham,Everton,,26953,False,,,,
+36,10/05/2025 15:00,Ipswich,Brentford,,26954,False,,,,
+36,10/05/2025 15:00,Manchester United,West Ham,,26956,False,,,,
+36,10/05/2025 15:00,Southampton,Manchester City,,26959,False,,,,
+36,10/05/2025 15:00,Tottenham Hotspur,Crystal Palace,,26960,False,,,,
+36,10/05/2025 15:00,Wolverhampton Wanderers,Brighton,,26961,False,,,,
+36,10/05/2025 17:30,Bournemouth,Aston Villa,,26955,False,,,,
+36,11/05/2025 14:15,Nottingham Forest,Leicester,,26958,False,,,,
+36,11/05/2025 16:30,Liverpool,Arsenal,,26952,False,,,,
+37,18/05/2025 15:00,Arsenal,Newcastle United,,26962,False,,,,
+37,18/05/2025 15:00,Aston Villa,Tottenham Hotspur,,26963,False,,,,
+37,18/05/2025 15:00,Brentford,Fulham,,26964,False,,,,
+37,18/05/2025 15:00,Brighton,Liverpool,,26965,False,,,,
+37,18/05/2025 15:00,Chelsea,Manchester United,,26966,False,,,,
+37,18/05/2025 15:00,Crystal Palace,Wolverhampton Wanderers,,26967,False,,,,
+37,18/05/2025 15:00,Everton,Southampton,,26968,False,,,,
+37,18/05/2025 15:00,Leicester,Ipswich,,26969,False,,,,
+37,18/05/2025 15:00,Manchester City,Bournemouth,,26970,False,,,,
+37,18/05/2025 15:00,West Ham,Nottingham Forest,,26971,False,,,,
+38,25/05/2025 16:00,Bournemouth,Leicester,,26979,False,,,,
+38,25/05/2025 16:00,Fulham,Manchester City,,26981,False,,,,
+38,25/05/2025 16:00,Ipswich,West Ham,,26980,False,,,,
+38,25/05/2025 16:00,Liverpool,Crystal Palace,,26975,False,,,,
+38,25/05/2025 16:00,Manchester United,Aston Villa,,26974,False,,,,
+38,25/05/2025 16:00,Newcastle United,Everton,,26973,False,,,,
+38,25/05/2025 16:00,Nottingham Forest,Chelsea,,26972,False,,,,
+38,25/05/2025 16:00,Southampton,Arsenal,,26977,False,,,,
+38,25/05/2025 16:00,Tottenham Hotspur,Brighton,,26976,False,,,,
+38,25/05/2025 16:00,Wolverhampton Wanderers,Brentford,,26978,False,,,,

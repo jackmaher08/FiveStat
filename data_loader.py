@@ -32,7 +32,7 @@ TEAM_NAME_MAPPING = {
 }
 
 
-'''def run_data_scraper():
+def run_data_scraper():
     """Runs data_scraper_script.py to update fixture data before loading."""
     script_path = os.path.join("data", "data_scraper_script.py") 
 
@@ -50,7 +50,7 @@ TEAM_NAME_MAPPING = {
         subprocess.run(["python", shotmaps_script_path], check=True)
         print("✅ Shotmaps generated.")
 
-    # Run generate_radars.py
+    '''# Run generate_radars.py
     radars_script_path = os.path.join("data", "generate_radars.py")
     if os.path.exists(radars_script_path):
         print("🔄 Running generate_radars.py to update radar charts...")
@@ -274,7 +274,10 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         for j in range(6):
             prob = display_matrix[i, j]
             # Set text color based on probability thresholds
-            text_color = "white" if prob > 0.049 else "black"
+            if prob > 0.49:
+                text_color = "white"
+            else:
+                text_color = "black"
 
             heatmap_ax.text(j, i, f"{prob * 100:.1f}%", 
                             ha='center', va='center', color=text_color, fontsize=8)
@@ -646,20 +649,7 @@ completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 
 
 # Function to generate and save shot maps
-def generate_shot_map(understat_match_id, shotmap_file, skip_if_exists = True):
-    # Get fixture-specific output file
-    fixture_df = pd.read_csv("data/tables/fixture_data.csv")
-    match_row = fixture_df[fixture_df["id"] == understat_match_id]
-    if match_row.empty:
-        return None
-
-    home_team = match_row.iloc[0]["home_team"]
-    away_team = match_row.iloc[0]["away_team"]
-    shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
-
-    if skip_if_exists and os.path.exists(shotmap_file):
-        return None
-
+def generate_shot_map(understat_match_id):
     try:
         url = f'https://understat.com/match/{understat_match_id}'
         response = requests.get(url)
@@ -848,24 +838,20 @@ def generate_shot_map(understat_match_id, shotmap_file, skip_if_exists = True):
 
         # Save figure
         plt.tight_layout()
-        print("✅ generate_all_heatmaps() executed successfully!")
+        shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
+        plt.savefig(shotmap_file)
 
+        # ✅ Save all shots data to CSV (overwrite)
+        all_shots_path = os.path.join(shotmap_save_path, "shots_data.csv")
+        all_shots.to_csv(all_shots_path, index=False)
+        print(f"✅ Saved shot data to {all_shots_path}")
 
         plt.close(fig)
-        all_shots = pd.concat([home_df, away_df])
-        return all_shots
-
 
     except Exception as e:
         print(f"❌ Error processing match {understat_match_id}: {e}")
-        return None
 
-
-
-
-
-all_shots_combined = []
-
+# Loop through completed fixtures only and generate shotmaps
 for _, row in completed_fixtures.iterrows():
     home_team = row['home_team']
     away_team = row['away_team']
@@ -876,19 +862,8 @@ for _, row in completed_fixtures.iterrows():
     if os.path.exists(shotmap_file):
         continue
 
-    # Generate new shotmap and collect shot data
-    df = generate_shot_map(match_id, shotmap_file)
-    if df is not None:
-        all_shots_combined.append(df)
+    generate_shot_map(match_id)
 
-
-# ✅ Save shots_data.csv regardless of PNG generation
-if all_shots_combined:
-    combined_df = pd.concat(all_shots_combined, ignore_index=True)
-    all_shots_path = os.path.join("data", "tables", "shots_data.csv")
-    os.makedirs(os.path.dirname(all_shots_path), exist_ok=True)
-    combined_df.to_csv(all_shots_path, index=False)
-    print(f"✅ Saved all shot data to {all_shots_path}")
 
 
 
@@ -923,10 +898,10 @@ position_counts = {team: np.zeros(num_positions) for team in teams}
 
 
 if __name__ == "__main__":
-    '''print("🚀 Starting data_loader.py...")
+    print("🚀 Starting data_loader.py...")
 
     print("🔄 Running data scraper to update fixtures...")
-    run_data_scraper()'''
+    run_data_scraper()
 
     print("🔄 Loading match data...")
     historical_fixtures_df = load_match_data()
