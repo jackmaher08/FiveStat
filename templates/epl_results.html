@@ -116,9 +116,11 @@
                                 <i class="fas fa-chevron-left"></i>
                             </span>
                         </div>
-                        <div class="shotmap-container" id="shotmap_container_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                            <div class="interactive-shotmap" id="interactive_shotmap_{{ fixture.home_team }}_{{ fixture.away_team }}"></div>
-                        </div>                        
+                        <div class="shotmap-container" id="shotmap_{{ fixture.home_team }}_{{ fixture.away_team }}" style="max-height: 0; overflow: hidden; transition: max-height 1s ease-in-out;">
+                            <img class="shotmap" 
+                                src="{{ url_for('static', filename='shotmaps/' + fixture.home_team | string + '_' + fixture.away_team | string + '_shotmap.png') }}" 
+                                alt="{{ fixture.home_team }} vs {{ fixture.away_team }} Shotmap not yet available.">
+                        </div>                                           
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -343,21 +345,7 @@
             toggleModal('teamShotmapModal');
         }
 
-        function toggleShotmap(homeTeam, awayTeam) {
-            let container = document.getElementById(`shotmap_${homeTeam}_${awayTeam}`);
-            let icon = document.getElementById(`shotmapIcon_${homeTeam}_${awayTeam}`);
-            let img = container.querySelector('img');
 
-            if (container.style.maxHeight === "0px" || container.style.maxHeight === "0") {
-                // Measure the natural height of the image
-                let imgHeight = img.naturalHeight;
-                container.style.maxHeight = imgHeight + "px"; // Or add extra pixels if needed
-                icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
-            } else {
-                container.style.maxHeight = "0";
-                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            }
-        }
 
         function toggleAllShotmaps(expand = true) {
             const containers = document.querySelectorAll('.shotmap-container');
@@ -401,67 +389,23 @@
             }
         }
 
-
-        async function loadShotmap(home, away, container) {
-            try {
-                const res = await fetch(`/api/fixture_shots?home=${encodeURIComponent(home)}&away=${encodeURIComponent(away)}`);
-                const data = await res.json();
-
-                if (!Array.isArray(data)) {
-                    container.innerText = "No shot data found.";
-                    return;
-                }
-
-                drawShotmap(container, data);
-            } catch (err) {
-                container.innerText = "Error loading shotmap.";
-            }
-        }
         
-        function drawShotmap(container, shots) {
-            const width = 360;
-            const height = 240;
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("width", width);
-            svg.setAttribute("height", height);
-            svg.setAttribute("viewBox", "0 0 120 80");
-            svg.style.background = "#f4f4f9";
-            svg.style.border = "1px solid #ccc";
-            container.appendChild(svg);
-        
-            shots.forEach(shot => {
-                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-                circle.setAttribute("cx", shot.x.toFixed(1));
-                circle.setAttribute("cy", shot.y.toFixed(1));
-                circle.setAttribute("r", (shot.xG * 10).toFixed(1));
-                circle.setAttribute("fill", shot.result === "Goal" ? "gold" : "white");
-                circle.setAttribute("stroke", "black");
-                circle.setAttribute("stroke-width", "0.5");
-                circle.setAttribute("opacity", 0.85);
-                circle.setAttribute("data-tooltip", `${shot.player} | xG: ${shot.xG.toFixed(2)}`);
-        
-                svg.appendChild(circle);
-            });
-        }
-        
-        function toggleShotmap(home, away) {
-            const outer = document.getElementById(`shotmap_container_${home}_${away}`);
-            const inner = document.getElementById(`interactive_shotmap_${home}_${away}`);
-            const icon = document.getElementById(`shotmapIcon_${home}_${away}`);
+        function toggleShotmap(homeTeam, awayTeam) {
+            let container = document.getElementById(`shotmap_${homeTeam}_${awayTeam}`);
+            let icon = document.getElementById(`shotmapIcon_${homeTeam}_${awayTeam}`);
+            let img = container.querySelector('img');
 
-            const isExpanded = outer.style.maxHeight && outer.style.maxHeight !== "0px";
-
-            if (isExpanded) {
-                outer.style.maxHeight = "0";
-                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            } else {
-                outer.style.maxHeight = inner.scrollHeight + "px";  // Dynamically adjust height
+            if (container.style.maxHeight === "0px" || container.style.maxHeight === "0") {
+                // Measure the natural height of the image
+                let imgHeight = img.naturalHeight;
+                container.style.maxHeight = imgHeight + "px"; // Or add extra pixels if needed
                 icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
-                if (inner.childNodes.length === 0) {
-                    loadShotmap(home, away, inner);
-                }
+            } else {
+                container.style.maxHeight = "0";
+                icon.innerHTML = '<i class="fas fa-chevron-left"></i>';
             }
         }
+
 
     </script>
 

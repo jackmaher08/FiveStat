@@ -1041,10 +1041,3 @@ input:checked + .slider:before {
     margin-left: auto;
     margin-right: auto;
 }
-.interactive-shotmap {
-    width: 100%;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height 0.8s ease;
-    padding: 1rem 0;
-}
