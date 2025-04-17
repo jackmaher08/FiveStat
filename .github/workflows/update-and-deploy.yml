@@ -1,9 +1,10 @@
 name: Auto Update & Deploy
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '30 02 * * *'
+  push:
+    branches-ignore:
+      - '**'  # ignore all pushes
+
 
 jobs:
   update:
@@ -32,8 +33,10 @@ jobs:
 
       - name: Run Data Scripts
         run: |
-          python data/data_scraper_script.py
+          python data_scraper_script.py
           python data_loader.py
+          python generate_radars.py
+          python generate_shotmaps.py
 
       - name: Commit & Push Changes
         env:
