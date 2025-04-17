@@ -31,20 +31,24 @@ os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
 
 TEAM_NAME_MAPPING = {
-    "Man City": "Manchester City",
-    "Newcastle": "Newcastle United",
-    "Spurs": "Tottenham Hotspur",
-    "Tottenham": "Tottenham Hotspur",
     "Man Utd": "Manchester United",
+    "Man City": "Manchester City",
+    "Spurs": "Tottenham Hotspur",
     "Wolves": "Wolverhampton Wanderers",
+    "Tottenham": "Tottenham Hotspur",
+    "Newcastle": "Newcastle United",
     "Nott'm Forest": "Nottingham Forest"
 }
 
 
 if os.path.exists(SHOTS_DATA_PATH):
     all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
-    all_shots_df["team"] = all_shots_df["team"].replace(TEAM_NAME_MAPPING)
-    all_shots_df["team"] = all_shots_df["team"].str.strip()
+    all_shots_df["team"] = all_shots_df.apply(
+        lambda row: row["h_team"] if row["h_a"] == "h" else row["a_team"],
+        axis=1
+    )
+    # Standardize team names
+    all_shots_df["team"] = all_shots_df["team"].replace(TEAM_NAME_MAPPING).str.strip()
 else:
     print("⚠️ No shot data found! Exiting...")
     exit()
@@ -78,7 +82,7 @@ def process_match_shots(understat_match_id):
             print(f"Match {understat_match_id} not found in fixture list")
             return
         
-        home_team, away_team = match_info["home_team"].values[0], match_info["away_team"].values[0]
+        home_team, away_team = match_info["h_team"].values[0], match_info["a_team"].values[0]
 
         # Process shots for both teams
         for team, shots in [('home', data['h']), ('away', data['a'])]:
@@ -122,29 +126,29 @@ def plot_team_shotmap(team_name):
     standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
     formatted_filename = standardized_team_name.title()
 
-    df = all_shots_df[all_shots_df['team'] == team_name]
+    df = all_shots_df[all_shots_df['team'] == team_name].copy()
 
     if df.empty:
         print(f"No shots found for {team_name}")
         return
 
-    # Flip away team shots
-    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
-    df.loc[df["h_a"] == "a", "y_scaled"] = 80 - df["y_scaled"]
+    # Flip home team shots
+    df.loc[df["h_a"] == "h", "x_scaled"] = 120 - df["x_scaled"]
+    df.loc[df["h_a"] == "h", "y_scaled"] = 80 - df["y_scaled"]
 
     home_shots = len(df[
-        (df["h_a"] == "h") & (df["home_team"] == team_name)
+        (df["h_a"] == "h") & (df["h_team"] == team_name)
     ])
 
     away_shots = len(df[
-        (df["h_a"] == "a") & (df["away_team"] == team_name)
+        (df["h_a"] == "a") & (df["a_team"] == team_name)
     ])
 
     deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
 
     team_shots = deduped[
-        ((deduped["h_a"] == "h") & (deduped["home_team"] == team_name)) |
-        ((deduped["h_a"] == "a") & (deduped["away_team"] == team_name))
+        ((deduped["h_a"] == "h") & (deduped["h_team"] == team_name)) |
+        ((deduped["h_a"] == "a") & (deduped["a_team"] == team_name))
     ]
     total_shots = len(team_shots)
 
@@ -246,8 +250,8 @@ def process_match_shots(understat_match_id):
             print(f"Match {understat_match_id} not found in fixture list")
             return
 
-        raw_home_team = match_info["home_team"].values[0]
-        raw_away_team = match_info["away_team"].values[0]
+        raw_home_team = match_info["h_team"].values[0]
+        raw_away_team = match_info["a_team"].values[0]
 
         home_team = TEAM_NAME_MAPPING.get(raw_home_team, raw_home_team)
         away_team = TEAM_NAME_MAPPING.get(raw_away_team, raw_away_team)

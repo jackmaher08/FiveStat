@@ -875,14 +875,25 @@ for _, row in completed_fixtures.iterrows():
     if os.path.exists(shotmap_file):
         continue
 
-    generate_shot_map(match_id)
-print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
+    match_df = generate_shot_map(match_id)
+    if match_df is not None:
+        all_shots_combined.append(match_df)
+        new_shotmaps += 1  # optional: track how many were generated
 
+print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
 if all_shots_combined:
     full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
+
+    # ✅ Standardize team names before saving
+    full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
+    full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
+    full_shot_df["Tottenham"] = full_shot_df["Tottenham Hotspur"].replace(TEAM_NAME_MAPPING)
+    full_shot_df["Tottenham"] = full_shot_df["Tottenham Hotspur"].replace(TEAM_NAME_MAPPING)
+
     full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
     print("✅ All match shot data saved to data/tables/shots_data.csv")
+
 
 
 def collect_all_shot_data():
@@ -905,6 +916,9 @@ def collect_all_shot_data():
 
     if all_shots_combined:
         full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
+        # ✅ Standardize team names before saving
+        full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
+        full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
         full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
         print("✅ All shot data saved to: data/tables/shots_data.csv")
 

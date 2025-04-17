@@ -247,7 +247,7 @@ a:hover {
     }
     .team-logo {
         max-height: 120px;
-        margin-top: 50px;
+        margin-top: 75px;
     }
     
     .team-switcher {
@@ -565,6 +565,23 @@ select:focus {
 }
 
 
+
+.team-switcher select {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.team-switcher select:focus {
+    outline: none;
+    border-color: #3f007d;
+    box-shadow: 0 0 5px #3f007d;
+}
+
+
 .container .methodologyleagueimage {
     width: 80%;
 }
@@ -822,14 +839,6 @@ input:checked + .slider:before {
     left: 50%;
     transform: translateX(-50%);
     right: auto;
-}
-
-
-
-.team-switcher select {
-    padding: 4px 8px;
-    font-size: 0.9rem;
-    border-radius: 6px;
 }
 
 .league-table {
