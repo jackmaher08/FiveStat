@@ -288,7 +288,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 29,16/03/2025 13:30,Arsenal,Chelsea,1 - 0,26883,True,1.0,0.0,0.7,0.29
 29,16/03/2025 13:30,Fulham,Tottenham Hotspur,2 - 0,26886,True,2.0,0.0,1.04,1.41
 29,16/03/2025 19:00,Leicester,Manchester United,0 - 3,26888,True,0.0,3.0,1.3,1.14
-29,16/04/2025 19:30,Newcastle United,Crystal Palace,,26890,False,,,,
+29,16/04/2025 19:30,Newcastle United,Crystal Palace,,26890,True,5.0,0.0,2.33,2.38
 30,01/04/2025 19:45,Arsenal,Fulham,2 - 1,26892,True,2.0,1.0,2.3,1.44
 30,01/04/2025 19:45,Wolverhampton Wanderers,West Ham,1 - 0,26895,True,1.0,0.0,1.1,1.73
 30,01/04/2025 20:00,Nottingham Forest,Manchester United,1 - 0,26894,True,1.0,0.0,0.51,1.87
@@ -318,7 +318,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 32,13/04/2025 14:00,Liverpool,West Ham,2 - 1,26916,True,2.0,1.0,1.43,1.47
 32,13/04/2025 14:00,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,26919,True,4.0,2.0,2.23,1.63
 32,13/04/2025 16:30,Newcastle United,Manchester United,4 - 1,26918,True,4.0,1.0,2.64,0.79
-32,14/04/2025 20:00,Bournemouth,Fulham,,26912,True,1.0,0.0,1.86,1.07
+32,14/04/2025 20:00,Bournemouth,Fulham,1 - 0,26912,True,1.0,0.0,1.86,1.07
 33,19/04/2025 15:00,Brentford,Brighton,,26923,False,,,,
 33,19/04/2025 15:00,Crystal Palace,Bournemouth,,26924,False,,,,
 33,19/04/2025 15:00,Everton,Manchester City,,26925,False,,,,

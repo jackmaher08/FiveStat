@@ -105,7 +105,7 @@ fixture_data = pd.merge(
 
 
 # Define the save directory
-save_dir = "tables"
+save_dir = "data/tables"
 os.makedirs(save_dir, exist_ok=True)  # ✅ Ensure the directory exists
 
 # Define the file path

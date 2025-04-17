@@ -32,7 +32,7 @@ TEAM_NAME_MAPPING = {
 }
 
 
-def run_data_scraper():
+'''def run_data_scraper():
     """Runs data_scraper_script.py to update fixture data before loading."""
     script_path = os.path.join("data", "data_scraper_script.py") 
 
@@ -50,7 +50,7 @@ def run_data_scraper():
         subprocess.run(["python", shotmaps_script_path], check=True)
         print("✅ Shotmaps generated.")
 
-    '''# Run generate_radars.py
+    # Run generate_radars.py
     radars_script_path = os.path.join("data", "generate_radars.py")
     if os.path.exists(radars_script_path):
         print("🔄 Running generate_radars.py to update radar charts...")
@@ -274,7 +274,7 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
         for j in range(6):
             prob = display_matrix[i, j]
             # Set text color based on probability thresholds
-            if prob > 0.49:
+            if prob > 0.049:
                 text_color = "white"
             else:
                 text_color = "black"
@@ -429,10 +429,14 @@ def simulate_player_goals_mc(xg, sims=10000):
 
 def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matches=5, weight_recent_form=0.3):
     # Load data
+    print("🔄 Loading match data...")
     fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+    print("✅ Match data loaded from data/tables/fixture_data.csv")
     player_df = pd.read_csv("data/tables/player_data.csv")
     league_df = pd.read_csv("data/tables/league_table_data.csv")
+    print("🔄 Loading historical fixture data...")
     historical_df = pd.read_csv("data/tables/historical_fixture_data.csv")
+    print("✅ Historical data loaded from data/tables/historical_fixture_data.csv")
 
     # Normalize name
     normalized_input = normalize_name(player_name)
@@ -491,8 +495,12 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
     ].sort_values("round_number").head(num_fixtures)
 
     # Prepare team stats
+    print("🔄 Calculating team attack & defense ratings...")
     team_stats, _ = calculate_team_statistics(historical_df)
+    print("✅ Base ratings calculated.")
+    print("🔄 Calculating recent form (last 20 matches)...")
     recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats)
+    print("✅ Recent form ratings calculated.")
 
     predictions = []
 
@@ -645,11 +653,13 @@ fixtures_df = load_fixtures()
 # Filter only completed matches
 completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
 
+all_shots_combined = []
+
 
 
 
 # Function to generate and save shot maps
-def generate_shot_map(understat_match_id):
+def generate_shot_map(understat_match_id, save_image=True):
     try:
         url = f'https://understat.com/match/{understat_match_id}'
         response = requests.get(url)
@@ -839,19 +849,22 @@ def generate_shot_map(understat_match_id):
         # Save figure
         plt.tight_layout()
         shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
-        plt.savefig(shotmap_file)
-
-        # ✅ Save all shots data to CSV (overwrite)
-        all_shots_path = os.path.join(shotmap_save_path, "shots_data.csv")
-        all_shots.to_csv(all_shots_path, index=False)
-        print(f"✅ Saved shot data to {all_shots_path}")
+        if save_image:
+            plt.savefig(shotmap_file)
+            print(f"✅ Saved shotmap for {home_team} vs {away_team} to: {shotmap_file}")
 
         plt.close(fig)
+
+        all_shots = pd.concat([home_df, away_df], ignore_index=True)
+        return all_shots
 
     except Exception as e:
         print(f"❌ Error processing match {understat_match_id}: {e}")
 
+
 # Loop through completed fixtures only and generate shotmaps
+print("🔄 Generating new shotmaps only (skipping existing ones)...")
+new_shotmaps = 0
 for _, row in completed_fixtures.iterrows():
     home_team = row['home_team']
     away_team = row['away_team']
@@ -863,9 +876,37 @@ for _, row in completed_fixtures.iterrows():
         continue
 
     generate_shot_map(match_id)
+print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
 
+if all_shots_combined:
+    full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
+    full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
+    print("✅ All match shot data saved to data/tables/shots_data.csv")
 
+
+def collect_all_shot_data():
+    print("🔄 Loading match data...")
+    fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+    print("✅ Match data loaded from data/tables/fixture_data.csv")
+    completed_fixtures = fixtures_df[fixtures_df["isResult"] == True]
+
+    all_shots_combined = []
+
+    for _, row in completed_fixtures.iterrows():
+        match_id = row["id"]
+        try:
+            match_shots = generate_shot_map(match_id, save_image=False)
+            if match_shots is not None:
+                all_shots_combined.append(match_shots)
+        except Exception as e:
+            print(f"❌ Failed to collect shots for match_id {match_id}: {e}")
+            continue
+
+    if all_shots_combined:
+        full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
+        full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
+        print("✅ All shot data saved to: data/tables/shots_data.csv")
 
 
 
@@ -898,10 +939,10 @@ position_counts = {team: np.zeros(num_positions) for team in teams}
 
 
 if __name__ == "__main__":
-    print("🚀 Starting data_loader.py...")
+    '''print("🚀 Starting data_loader.py...")
 
     print("🔄 Running data scraper to update fixtures...")
-    run_data_scraper()
+    run_data_scraper()'''
 
     print("🔄 Loading match data...")
     historical_fixtures_df = load_match_data()
@@ -911,6 +952,9 @@ if __name__ == "__main__":
     recent_form_att, recent_form_def = calculate_recent_form(
         historical_fixtures_df, team_data, recent_matches=20, alpha=0.65
     )
+
+    collect_all_shot_data()
+    print("✅ Saved shots_data.csv")
 
     print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
     generate_all_heatmaps(team_data, recent_form_att, recent_form_def)
