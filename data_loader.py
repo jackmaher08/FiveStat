@@ -888,8 +888,6 @@ if all_shots_combined:
     # ✅ Standardize team names before saving
     full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
     full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
-    full_shot_df["Tottenham"] = full_shot_df["Tottenham Hotspur"].replace(TEAM_NAME_MAPPING)
-    full_shot_df["Tottenham"] = full_shot_df["Tottenham Hotspur"].replace(TEAM_NAME_MAPPING)
 
     full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
     print("✅ All match shot data saved to data/tables/shots_data.csv")

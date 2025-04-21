@@ -348,7 +348,27 @@ print(f"✅ League table data saved to: {league_table_file_path}")
 # scraping fbref player data for player radar plots
 
 fbref_url = 'https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats'
-fbref_df = pd.read_html(fbref_url, attrs={"id": "stats_standard"})[0]
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                  "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Accept-Language": "en-US,en;q=0.5",
+    "Connection": "keep-alive",
+    "Referer": "https://www.google.com"
+}
+
+session = requests.Session()
+response = session.get(fbref_url, headers=headers)
+response.raise_for_status()
+
+from io import StringIO
+html_data = StringIO(response.text)
+fbref_df = pd.read_html(html_data, attrs={"id": "stats_standard"})[0]
+
+
+print(f"🔍 Status code: {response.status_code}")
+
 
 # getting rid of the per 90 columns and will recalculate the ones we're interested in
 columns_to_drop = fbref_df.columns.get_level_values(0) == 'Per 90 Minutes'
