@@ -360,7 +360,7 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, beta=0.6, home_field_advantage=0.15,
+    alpha=0.65, beta=0.8, home_field_advantage=0.15,
     efficiency_factors=None, momentum_factors=None
 ):
     """

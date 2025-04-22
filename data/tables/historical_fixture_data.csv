@@ -3359,3 +3359,12 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 320,32,13/04/2025 14:00,Molineux Stadium,Wolverhampton Wanderers,Tottenham Hotspur,4 - 2,2024,4.0,2.0,home_win,34,30
 317,32,13/04/2025 16:30,St. James' Park,Newcastle United,Manchester United,4 - 1,2024,4.0,1.0,home_win,22,20
 312,32,14/04/2025 20:00,Vitality Stadium,Bournemouth,Fulham,1 - 0,2024,1.0,0.0,home_win,3,11
+322,33,19/04/2025 15:00,Gtech Community Stadium,Brentford,Brighton,4 - 2,2024,4.0,2.0,home_win,4,5
+323,33,19/04/2025 15:00,Selhurst Park,Crystal Palace,Bournemouth,0 - 0,2024,0.0,0.0,draw,9,3
+324,33,19/04/2025 15:00,Goodison Park,Everton,Manchester City,0 - 2,2024,0.0,2.0,away_win,10,19
+330,33,19/04/2025 15:00,London Stadium,West Ham,Southampton,1 - 1,2024,1.0,1.0,draw,33,26
+321,33,19/04/2025 17:30,Villa Park,Aston Villa,Newcastle United,4 - 1,2024,4.0,1.0,home_win,2,22
+325,33,20/04/2025 14:00,Craven Cottage,Fulham,Chelsea,1 - 2,2024,1.0,2.0,away_win,11,8
+326,33,20/04/2025 14:00,Portman Road,Ipswich,Arsenal,0 - 4,2024,0.0,4.0,away_win,14,1
+328,33,20/04/2025 14:00,Old Trafford,Manchester United,Wolverhampton Wanderers,0 - 1,2024,0.0,1.0,away_win,20,34
+327,33,20/04/2025 16:30,King Power Stadium,Leicester,Liverpool,0 - 1,2024,0.0,1.0,away_win,16,17

@@ -25,9 +25,7 @@
             <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
         </a>
         <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
-        <div class="menu">
-            <a href="javascript:void(0);" onclick="toggleModal('feedbackModal')">Feedback</a>
-        
+        <div class="menu">        
             <div class="dropdown">
                 <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
@@ -124,7 +122,10 @@
         </select>        
     <br><br>
         <button onclick="generateRadar(); trackRadarCompare()">Compare Players</button>
+        <p id="loadingMessage" style="display:none; font-weight:bold;">🧠 Computing Player Data...</p>
     </div>
+    
+
     <br><br>
     <!-- Display the radar chart -->
     <div id="radarChartContainer">
@@ -148,6 +149,7 @@
         </select>
         <br><br>
         <button onclick="getGoalProjections()">Show Goal Projections</button>
+        <p id="goalLoadingMessage" style="display:none; font-weight:bold;">📊 Computing goal projections...</p>
         <div id="goalProjectionsTableWrapper">
             <div id="goalProjectionsTableContainer"></div>
         </div>
@@ -308,12 +310,17 @@
             const player = document.getElementById("predictionPlayerSelect").value;
             const container = document.getElementById("goalProjectionsTableContainer");
             const chartsContainer = document.getElementById("playerChartsContainer");
+            const loadingMsg = document.getElementById("goalLoadingMessage");
 
             if (!player) {
                 container.innerHTML = "<p>Please select a player.</p>";
                 chartsContainer.style.display = "none";
+                loadingMsg.style.display = "none";
                 return;
             }
+
+            // Show the loading message
+            loadingMsg.style.display = "block";
 
             fetch(`/predict_player_goals/${encodeURIComponent(player)}`)
                 .then(res => res.json())
@@ -321,6 +328,7 @@
                     if (!Array.isArray(data) || data.length === 0) {
                         container.innerHTML = "<p>No data available for this player.</p>";
                         chartsContainer.style.display = "none";
+                        loadingMsg.style.display = "none";
                         return;
                     }
 
@@ -336,16 +344,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            ${data
-                            .filter(row => row.goal_probability !== null)
-                            .map(row => `
-                                <tr>
-                                <td>${row.gameweek}</td>
-                                <td>${row.opponent}</td>
-                                <td>${row.expected_goals}</td>
-                                <td>${row.goal_probability}%</td>
-                                </tr>
-                            `).join('')}
+                                ${data
+                                    .filter(row => row.goal_probability !== null)
+                                    .map(row => `
+                                        <tr>
+                                            <td>${row.gameweek}</td>
+                                            <td>${row.opponent}</td>
+                                            <td>${row.expected_goals}</td>
+                                            <td>${row.goal_probability}%</td>
+                                        </tr>
+                                    `).join('')}
                             </tbody>
                         </table>
                     `;
@@ -360,10 +368,14 @@
 
                     renderRadarChart(allGWs, xgData);
                     renderBarChart(scoringLabels, scoringData);
+
+                    // Hide the loading message once everything is done
+                    loadingMsg.style.display = "none";
                 })
                 .catch(err => {
                     container.innerHTML = `<p>Error fetching goal projection data: ${err}</p>`;
                     chartsContainer.style.display = "none";
+                    loadingMsg.style.display = "none";
                 });
         }
 
@@ -576,7 +588,31 @@
             });
         }
     }
+
+    function generateRadar() {
+        let player1 = document.getElementById("player1").value;
+        let player2 = document.getElementById("player2").value;
+        let radarImage = document.getElementById("radarChart");
+        let loadingMsg = document.getElementById("loadingMessage");
+
+        if (!player1 || !player2) {
+            alert("Please select two players!");
+            return;
+        }
+
+        // Show loading message
+        loadingMsg.style.display = "block";
+
+        // Set radar image source and listen for when it's loaded
+        radarImage.onload = function() {
+            loadingMsg.style.display = "none"; // Hide message when image has loaded
+        };
+
+        radarImage.src = `/generate_radar?player1=${player1}&player2=${player2}`;
+    }
+
     </script>
+    
 
     <!-- Feedback Modal Overlay -->
     <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
