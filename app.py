@@ -33,7 +33,7 @@ def get_last_updated_time():
         raw_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd'], encoding='utf-8').strip()
         return datetime.strptime(raw_date, '%a %b %d %H:%M:%S %Y %z').strftime('%d %b %Y at %H:%M')
     except Exception:
-        return "Unknown"
+        return "Today"
 
 
 def get_team_form(fixtures_df, team_name, max_matches=5):

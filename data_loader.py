@@ -421,11 +421,18 @@ def get_team_xg(
 import numpy as np
 from scipy.stats import poisson
 
-def simulate_player_goals_mc(xg, sims=10000):
-    """Monte Carlo simulation of player scoring probability."""
-    simulated_goals = np.random.poisson(lam=xg, size=sims)
-    prob_score = np.mean(simulated_goals >= 1)
-    return prob_score
+def simulate_player_goals_mc(xg):
+    """Returns probability of scoring at least 1 goal using Poisson distribution."""
+    return 1 - poisson.pmf(0, xg)
+
+
+
+
+
+def get_goal_distribution(xg, max_goals=3):
+    dist = poisson.pmf(np.arange(max_goals), mu=xg).tolist()
+    more_goals = 1 - sum(dist)
+    return dist + [more_goals]
 
 def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matches=5, weight_recent_form=0.3):
     # Load data
@@ -510,22 +517,32 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
         (fixtures_df["isResult"] == True)
     ].sort_values("round_number", ascending=False).head(5).sort_values("round_number")
 
+    # Load shot data once
+    shots_df = pd.read_csv("data/tables/shots_data.csv")
+
     for _, row in past_fixtures.iterrows():
         is_home = row["home_team"] == player_team
         opponent = row["away_team"] if is_home else row["home_team"]
         round_number = row["round_number"]
 
-        # Estimate team xG from data
-        team_xg = row["home_xG"] if is_home else row["away_xG"]
-        player_exp_xg = adjusted_xg_share * team_xg
+        home_team = row["home_team"]
+        away_team = row["away_team"]
 
-        if player_exp_xg > 0:
-            predictions.append({
-                "gameweek": int(round_number),
-                "opponent": opponent,
-                "expected_goals": round(player_exp_xg, 2),
-                "goal_probability": None  # No scoring prob for past games
-            })
+        player_shots = shots_df[
+            (shots_df["h_team"] == home_team) &
+            (shots_df["a_team"] == away_team) &
+            (shots_df["player"].apply(normalize_name) == normalized_input)
+        ]
+
+        player_exp_xg = player_shots["xG"].sum() if not player_shots.empty else 0
+
+        predictions.append({
+            "gameweek": int(round_number),
+            "opponent": opponent,
+            "expected_goals": round(player_exp_xg, 2),
+            "goal_probability": None  # No scoring prob for past games
+        })
+
 
     # === STEP 2: Upcoming 3 Fixtures ===
     for _, row in upcoming.iterrows():
@@ -553,18 +570,23 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
             goal_prob = round(prob_score * 100, 1)
 
             if player_pos != "GK" and expected_goals > 0 and goal_prob > 0:
+                goal_dist = get_goal_distribution(player_exp_xg)
                 predictions.append({
                     "gameweek": int(round_number),
                     "opponent": opponent,
                     "expected_goals": expected_goals,
-                    "goal_probability": goal_prob
+                    "goal_probability": goal_prob,
+                    "goal_distribution": [round(p * 100, 1) for p in goal_dist]
                 })
+
 
         except Exception as e:
             print(f"❌ Error for {player_name} vs {opponent}: {e}")
             continue
 
     return predictions
+
+
 
 
 

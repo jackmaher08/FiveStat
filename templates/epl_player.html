@@ -122,7 +122,7 @@
         </select>        
     <br><br>
         <button onclick="generateRadar(); trackRadarCompare()">Compare Players</button>
-        <p id="loadingMessage" style="display:none; font-weight:bold;">🧠 Computing Player Data...</p>
+        <p id="loadingMessage" style="display:none; font-weight:bold;">📊 Computing Player Data...</p>
     </div>
     
 
@@ -149,17 +149,21 @@
         </select>
         <br><br>
         <button onclick="getGoalProjections()">Show Goal Projections</button>
-        <p id="goalLoadingMessage" style="display:none; font-weight:bold;">📊 Computing goal projections...</p>
+        <p id="goalLoadingMessage" style="display:none; font-weight:bold;">🧠 Computing goal projections...</p>
         <div id="goalProjectionsTableWrapper">
             <div id="goalProjectionsTableContainer"></div>
         </div>
         <div id="playerChartsContainer" style="display:none; margin-top: 30px;">
+            <h3>Goal Outcome Distribution (Next Match)</h3>
+            <canvas id="goalOutcomeBarChart" width="400" height="200"></canvas>
+            <br><br>
             <h3>xG Profile (Past 5 + Next 3 GWs)</h3>
             <canvas id="xgRadarChart" width="400" height="400"></canvas>
             <br><br>
             <h3>Goal Scoring Probability (Next 3 GWs)</h3>
             <canvas id="scoringBarChart" width="400" height="200"></canvas>
         </div>
+        
         
     </div>
     <br><br>
@@ -371,6 +375,12 @@
 
                     // Hide the loading message once everything is done
                     loadingMsg.style.display = "none";
+
+                    // Show goal outcome chart for next fixture
+                    const firstFuture = data.find(row => row.goal_distribution && row.goal_distribution.length);
+                    if (firstFuture) {
+                        renderGoalOutcomeBarChart(firstFuture.goal_distribution);
+                    }
                 })
                 .catch(err => {
                     container.innerHTML = `<p>Error fetching goal projection data: ${err}</p>`;
@@ -483,6 +493,47 @@
                 }
             });
         }
+
+        function renderGoalOutcomeBarChart(dist) {
+            const ctx = document.getElementById("goalOutcomeBarChart");
+            if (window.goalOutcomeChart) window.goalOutcomeChart.destroy();
+
+            window.goalOutcomeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["0 Goals", "1 Goal", "2 Goals", "3+ Goals"],
+                    datasets: [{
+                        label: "Probability (%)",
+                        data: dist,
+                        backgroundColor: 'rgba(0, 128, 255, 0.6)',
+                        borderColor: 'rgba(0, 128, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Probability (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: context => `${context.raw}%`
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
 
 
     let topXGTableLoaded = false;
