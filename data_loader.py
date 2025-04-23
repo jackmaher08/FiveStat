@@ -792,8 +792,11 @@ def generate_shot_map(understat_match_id, save_image=True):
         base_path = os.path.dirname(os.path.abspath(__file__))  # Gets the directory of data_loader.py
 
         # Construct full paths for the logos
-        home_logo_path = os.path.join(base_path, "static", "team_logos", f"{home_team_name.lower()}_logo.png")
-        away_logo_path = os.path.join(base_path, "static", "team_logos", f"{away_team_name.lower()}_logo.png")
+        standardized_home_team = TEAM_NAME_MAPPING.get(home_team_name.strip(), home_team_name)
+        standardized_away_team = TEAM_NAME_MAPPING.get(away_team_name.strip(), away_team_name)
+
+        home_logo_path = os.path.join(base_path, "static", "team_logos", f"{standardized_home_team.lower()}_logo.png")
+        away_logo_path = os.path.join(base_path, "static", "team_logos", f"{standardized_away_team.lower()}_logo.png")
 
         def add_team_logo(ax, logo_path, y_min, y_max, x_center):
             """Loads and displays a team logo at a given position, keeping aspect ratio and flipping it if necessary."""
@@ -831,7 +834,7 @@ def generate_shot_map(understat_match_id, save_image=True):
 
         # Generate Table
         ax_table = axs[1]
-        column_labels = [f"{home_team_name}", "", f"{away_team_name}"]
+        column_labels = [f"{standardized_home_team}", "", f"{standardized_away_team}"]
         table_vals = [
             [total_goals_home, 'Goals', total_goals_away],
             [home_stats['xG'], 'xG', away_stats['xG']],  

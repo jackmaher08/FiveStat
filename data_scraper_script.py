@@ -38,6 +38,9 @@ fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Man City": "Manche
 fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Spurs": "Tottenham Hotspur"})
 fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Spurs": "Tottenham Hotspur"})
 
+fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Tottenham": "Tottenham Hotspur"})
+fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Tottenham": "Tottenham Hotspur"})
+
 fixtures_df["home_team"] = fixtures_df["home_team"].replace({"Wolves": "Wolverhampton Wanderers"})
 fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Wolves": "Wolverhampton Wanderers"})
 

@@ -123,10 +123,10 @@ def process_match_shots(understat_match_id):
 
 
 def plot_team_shotmap(team_name):
+
     standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
     formatted_filename = standardized_team_name.title()
-
-    df = all_shots_df[all_shots_df['team'] == team_name].copy()
+    df = all_shots_df[all_shots_df['team'] == standardized_team_name].copy()
 
     if df.empty:
         print(f"No shots found for {team_name}")
@@ -136,13 +136,14 @@ def plot_team_shotmap(team_name):
     df.loc[df["h_a"] == "h", "x_scaled"] = 120 - df["x_scaled"]
     df.loc[df["h_a"] == "h", "y_scaled"] = 80 - df["y_scaled"]
 
-    home_shots = len(df[
-        (df["h_a"] == "h") & (df["h_team"] == team_name)
-    ])
+    home_shots = len(df[(df["h_a"] == "h") & (df["h_team"] == standardized_team_name)])
+    away_shots = len(df[(df["h_a"] == "a") & (df["a_team"] == standardized_team_name)])
 
-    away_shots = len(df[
-        (df["h_a"] == "a") & (df["a_team"] == team_name)
-    ])
+    team_shots = deduped[
+        ((deduped["h_a"] == "h") & (deduped["h_team"] == standardized_team_name)) |
+        ((deduped["h_a"] == "a") & (deduped["a_team"] == standardized_team_name))
+    ]
+
 
     deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
 
@@ -155,7 +156,7 @@ def plot_team_shotmap(team_name):
     # ✅ Load goals from league table
     league_table_path = "data/tables/league_table_data.csv"
     league_df = pd.read_csv(league_table_path)
-    team_row = league_df[league_df["Team"] == team_name]
+    team_row = league_df[league_df["Team"] == standardized_team_name]
     total_goals = int(team_row.iloc[0]["G"]) if not team_row.empty else 0
     total_xg = float(team_row.iloc[0]["xG"]) if not team_row.empty else 0.0
 

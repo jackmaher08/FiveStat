@@ -1,0 +1,8 @@
+{
+  "build": {
+    "commands": []
+  },
+  "deploy": {
+    "startCommand": "python auto_trigger.py"
+  }
+}

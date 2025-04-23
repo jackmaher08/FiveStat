@@ -4,13 +4,15 @@ import numpy as np
 from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
-from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals
+from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals, TEAM_NAME_MAPPING
 from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
 import json
 import unicodedata
+
+
 
 
 
@@ -388,6 +390,11 @@ def epl_results(gw):
             shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
             if os.path.exists(shotmap_path):
                 filtered_fixtures.append(fixture)
+
+        # ✅ Normalize team names for shotmap rendering
+        for fixture in filtered_fixtures:
+            fixture["home_team"] = TEAM_NAME_MAPPING.get(fixture["home_team"], fixture["home_team"])
+            fixture["away_team"] = TEAM_NAME_MAPPING.get(fixture["away_team"], fixture["away_team"])
 
         # ✅ Load all fixture results to calculate form
         all_results_df = pd.read_csv("data/tables/fixture_data.csv")
