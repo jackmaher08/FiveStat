@@ -2,6 +2,7 @@ import sys
 import os
 
 def main():
+    print("🧪 Script has started running")
     print("🔍 Checking for new data...")
 
     existing_df = load_existing_data()
