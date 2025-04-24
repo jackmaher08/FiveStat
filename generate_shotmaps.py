@@ -136,20 +136,14 @@ def plot_team_shotmap(team_name):
     df.loc[df["h_a"] == "h", "x_scaled"] = 120 - df["x_scaled"]
     df.loc[df["h_a"] == "h", "y_scaled"] = 80 - df["y_scaled"]
 
+    deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
+
     home_shots = len(df[(df["h_a"] == "h") & (df["h_team"] == standardized_team_name)])
     away_shots = len(df[(df["h_a"] == "a") & (df["a_team"] == standardized_team_name)])
 
     team_shots = deduped[
         ((deduped["h_a"] == "h") & (deduped["h_team"] == standardized_team_name)) |
         ((deduped["h_a"] == "a") & (deduped["a_team"] == standardized_team_name))
-    ]
-
-
-    deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
-
-    team_shots = deduped[
-        ((deduped["h_a"] == "h") & (deduped["h_team"] == team_name)) |
-        ((deduped["h_a"] == "a") & (deduped["a_team"] == team_name))
     ]
     total_shots = len(team_shots)
 
