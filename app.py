@@ -30,12 +30,20 @@ TEAM_NAME_MAPPING = {
     "Wolves": "Wolverhampton Wanderers",
 }
 
+    
 def get_last_updated_time():
     try:
+        # Try git first
         raw_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd'], encoding='utf-8').strip()
         return datetime.strptime(raw_date, '%a %b %d %H:%M:%S %Y %z').strftime('%d %b %Y at %H:%M')
     except Exception:
-        return "Today"
+        # Fallback to file mod time
+        try:
+            file_path = "data/tables/fixture_data.csv"
+            mtime = os.path.getmtime(file_path)
+            return datetime.fromtimestamp(mtime).strftime('%d %b %Y at %H:%M')
+        except Exception:
+            return "Unknown"
 
 
 def get_team_form(fixtures_df, team_name, max_matches=5):
@@ -334,8 +342,8 @@ def get_fixtures_for_week(week_offset=0):
     # Count occurrences of isResult == True per round
     result_counts = fixtures_df[fixtures_df['isResult'] == True].groupby('round_number').size()
 
-    # Get list of completed rounds (where at least 3 results exist)
-    completed_rounds = result_counts[result_counts >= 3].index.tolist()
+    # Get list of completed rounds (If there are fixtures from older rounds increase the value e.g. where at least 3 results exist)
+    completed_rounds = result_counts[result_counts >= 1].index.tolist()
     completed_rounds.sort()  # Ensure they are sorted
 
     if not completed_rounds:
