@@ -16,6 +16,7 @@
 
     gtag('config', 'G-SQPCR3KM4Y');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -218,6 +219,10 @@
                         </tbody>
                     </table>
                 </div>
+                    <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto;">
+                        <h3 style="text-align: center; margin-top: 30px;">Position Probability Distribution</h3>
+                        <canvas id="positionBarChart"></canvas>
+                    </div>
             </div>
         </div>
         
@@ -234,7 +239,7 @@
               <span class="dropdown-icon" id="shotmap-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="shotmap-section" class="fixture-body">
-              <img class="shotmap" src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap">
+              <img class="shotmap" src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}" alt="Team Shotmap" style="max-width: 1000px;  @media (min-width: 900px) {margin: 0 auto; padding: 2rem;}">
             </div>
         </div>
 
@@ -298,7 +303,7 @@
         }
 
         function toggleAllSections(expand) {
-            const sections = ["prev", "next", "form", "radar", "shotmap"];
+            const sections = ["prev", "next", "form", "radar", "simulated", "shotmap"];
             const label = document.getElementById("resultsToggleLabel");
 
             sections.forEach(section => {
@@ -320,36 +325,84 @@
             }
 
 
-            function openPlayerModal(playerName) {
-                let imageUrl = `/static/radar/${playerName}_radar.png`;
-                document.getElementById("playerRadarImage").src = imageUrl;
-                toggleModal('playerInfoModal');
+        function openPlayerModal(playerName) {
+            let imageUrl = `/static/radar/${playerName}_radar.png`;
+            document.getElementById("playerRadarImage").src = imageUrl;
+            toggleModal('playerInfoModal');
 
-                gtag('event', 'player_radar_viewed', {
-                    'event_category': 'Radar Chart',
-                    'event_label': playerName,
+            gtag('event', 'player_radar_viewed', {
+                'event_category': 'Radar Chart',
+                'event_label': playerName,
+                'value': 1
+            });
+        }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay");
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+
+            if (id === 'feedbackModal') {
+                gtag('event', 'feedback_opened', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Feedback Modal Opened',
                     'value': 1
                 });
             }
+        }
 
-            function toggleModal(id) {
-                let modal = document.getElementById(id);
-                let overlay = document.getElementById(id + "Overlay");
-                let isVisible = modal.style.display === "block";
+        document.addEventListener("DOMContentLoaded", function () {
+            const rawData = {{ sim_position_dist | tojson }};
+            if (!rawData.length) return;
 
-                modal.style.display = isVisible ? "none" : "block";
-                overlay.style.display = isVisible ? "none" : "block";
+            const labels = rawData.map(d => `${d.position}`);
+            const data = rawData.map(d => d.probability);
 
-                if (id === 'feedbackModal') {
-                    gtag('event', 'feedback_opened', {
-                        'event_category': 'Engagement',
-                        'event_label': 'Feedback Modal Opened',
-                        'value': 1
-                    });
+            const maxValue = Math.max(...data);
+            const yMax = Math.min(100, Math.ceil(maxValue * 1.1));
+
+            const ctx = document.getElementById("positionBarChart").getContext("2d");
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Probability (%)",
+                        data,
+                        backgroundColor: 'rgba(63, 0, 125, 0.7)',
+                        borderColor: '#3f007d',
+                        borderWidth: 1.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: context => `${context.raw.toFixed(1)}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: yMax,
+                            title: {
+                                display: true,
+                                text: 'Probability (%)'
+                            }
+                        }
+                    }
                 }
-            }
+            });
+        });
 
-      </script>
+    </script>
 
      <!-- Feedback Modal Overlay -->
     <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
@@ -371,6 +424,24 @@
         </iframe>
     </div>
       
+    <button id="backToTop" title="Back to Top">↑</button>
+
+    <script>
+        // Show/hide the back-to-top button
+        window.onscroll = function () {
+            const button = document.getElementById("backToTop");
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Scroll to top smoothly when clicked
+        document.getElementById("backToTop").addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 
 
     <footer class="footer">

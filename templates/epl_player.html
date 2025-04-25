@@ -685,6 +685,25 @@
         </iframe>
     </div>
 
+    <button id="backToTop" title="Back to Top">↑</button>
+
+    <script>
+        // Show/hide the back-to-top button
+        window.onscroll = function () {
+            const button = document.getElementById("backToTop");
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Scroll to top smoothly when clicked
+        document.getElementById("backToTop").addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
     <footer class="footer">
         <p>Last updated: {{ last_updated }}</p>
     </footer>

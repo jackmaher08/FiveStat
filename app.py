@@ -603,6 +603,19 @@ def team_page(team_name):
         simulated_partial = []
         num_sim_positions = 20  # default fallback
 
+    # Extract full simulation probabilities for the team
+    team_sim_row = simulated_df[simulated_df["Team"] == team_name]
+    sim_position_dist = []
+    if not team_sim_row.empty:
+        sim_position_dist = [
+            {
+                "position": int(pos),
+                "probability": round(team_sim_row.iloc[0][pos] * 100, 2)
+            }
+            for pos in map(str, range(1, 21))
+            if pos in team_sim_row.columns
+        ]
+
     return render_template(
         "team_page.html",
         team=team_data,
@@ -623,7 +636,8 @@ def team_page(team_name):
         next_opponents_by_gw=next_opponents_by_gw,
         sim_start=sim_start,
         simulated_table=simulated_partial,
-        num_sim_positions=num_sim_positions
+        num_sim_positions=num_sim_positions,
+        sim_position_dist=sim_position_dist
     )
 
 

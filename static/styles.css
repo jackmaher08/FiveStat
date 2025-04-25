@@ -515,7 +515,9 @@ th, td {
 }
 
 /* Ensure team names in simulatedTable do not wrap */
-#simulatedTable td:nth-child(2), #simulatedTable th:last-child {
+#simulatedTable td:nth-child(2), 
+#simulatedTable th:last-child, 
+#simulatedTeamTable td:nth-child(2) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1053,3 +1055,25 @@ input:checked + .slider:before {
     margin-left: auto;
     margin-right: auto;
 }
+
+#backToTop {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    z-index: 99;
+    font-size: 16px;
+    background-color: #3f007d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
+  }
+  
+  #backToTop:hover {
+    background-color: #26004d;
+  }
+  
