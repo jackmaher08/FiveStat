@@ -422,6 +422,7 @@ tr:hover {
     border-bottom: #666 solid 1.5px;
 }
 
+
 /* Pagination */
 .pagination {
     margin: 20px auto;
@@ -848,11 +849,13 @@ input:checked + .slider:before {
     margin: 0 auto;
 }
 
-.league-table .highlight {
+.league-table .highlight,
+#simulatedTeamTable .highlight {
     border-top: 3px solid #3f007d;
     border-bottom: 3px solid #3f007d;
     font-weight: bold;
 }
+
 
 .table-scroll {
     overflow-x: auto;

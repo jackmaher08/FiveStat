@@ -194,8 +194,19 @@ for _, row in df.iterrows():
     ax.set_facecolor("#f4f4f9")
     ax.set_ylim(0, 100)  # ✅ Fix the radar radius to full 0–100
 
-    ax.plot(angles, values, linewidth=2, linestyle='solid')
+    ax.plot(angles, values, linewidth=2, linestyle='solid', label=team, color='#669bbc')
     ax.fill(angles, values, alpha=0.25)
+
+    # Add League Average line at 50% (styled like team radar)
+    avg_values = [50] * len(labels)
+    avg_values += avg_values[:1]  # Close the loop
+
+    # Solid red line + filled area
+    ax.plot(angles, avg_values, color='#e63946', linewidth=2, linestyle='solid', label='League Average')
+    ax.fill(angles, avg_values, color='#e63946', alpha=0.25)
+
+    ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), fontsize=8)
+
 
     # ✅ Only use first 6 angles for grid ticks and labels
     ax.set_xticks(angles[:-1])
@@ -207,7 +218,7 @@ for _, row in df.iterrows():
     ax.text(
         x=-0.1, y=0.1, 
         s='Metrics show Percentile\nstats compared with the\nrest of the league\n\n@FiveStat', 
-        fontsize=5, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+        fontsize=6, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
     # 5. Save the image
@@ -221,5 +232,5 @@ cols = ["Team", "G", "xG", "MP", "Goals/Match", "Goals/Match_pct", "xG/Match", "
 print(df[cols].sort_values("Goals/Match", ascending=False))
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)

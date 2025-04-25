@@ -584,6 +584,25 @@ def team_page(team_name):
     # Form
     team_data["form"] = get_team_form(fixture_df, team_name)
 
+    # Load simulated league table data
+    simulated_path = "data/tables/simulated_league_positions.csv"
+    simulated_df = pd.read_csv(simulated_path)
+    simulated_df.rename(columns={"Unnamed: 0": "Team"}, inplace=True)
+
+    # Ensure consistent team names
+    simulated_df["Team"] = simulated_df["Team"].apply(str)
+    sim_team_row = simulated_df[simulated_df["Team"] == team_name]
+
+    if not sim_team_row.empty:
+        sim_index = sim_team_row.index[0]
+        sim_start = max(0, sim_index - 3)
+        sim_end = sim_index + 4
+        simulated_partial = simulated_df.iloc[sim_start:sim_end].to_dict(orient="records")
+        num_sim_positions = len([col for col in simulated_df.columns if col.isnumeric()])
+    else:
+        simulated_partial = []
+        num_sim_positions = 20  # default fallback
+
     return render_template(
         "team_page.html",
         team=team_data,
@@ -601,7 +620,10 @@ def team_page(team_name):
         past_fixtures_by_gw=past_fixtures_by_gw,
         previous_gameweeks=sorted(past_fixtures_by_gw.keys()),  # ✅ ADD THIS
         upcoming_gameweeks=upcoming_gameweeks,
-        next_opponents_by_gw=next_opponents_by_gw
+        next_opponents_by_gw=next_opponents_by_gw,
+        sim_start=sim_start,
+        simulated_table=simulated_partial,
+        num_sim_positions=num_sim_positions
     )
 
 
