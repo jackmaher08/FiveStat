@@ -71,7 +71,14 @@ def generate_radar_chart():
     radar.draw_param_labels(ax=ax, fontsize=15, fontproperties="monospace")
 
     ax.text(0.2, 1.02, player_name, fontsize=15, ha='center', transform=ax.transAxes, color='#669bbc')
-    ax.text(0.8, 1.02, 'Avg', fontsize=15, ha='center', transform=ax.transAxes, color='#e63946')
+    ax.text(0.8, 1.02, 'League Avg', fontsize=15, ha='center', transform=ax.transAxes, color='#e63946')
+
+    # Additional info text
+    ax.text(
+        x=0.5, y=0.05, 
+        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+    )
 
     # Save to BytesIO instead of file
     img_io = BytesIO()
@@ -121,9 +128,9 @@ def generate_comparison_radar_chart(player1, player2, player1_stats, player2_sta
 
     # Additional info text
     ax.text(
-        x=0, y=0.05, 
-        s='Metrics show per 90 stats\ncompared againt all players\nin Europes Top 5 Leagues\n\n@FiveStat', 
-        fontsize=10, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+        x=0.5, y=0.05, 
+        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
     return fig, ax
@@ -227,9 +234,6 @@ for _, row in df.iterrows():
     plt.close()
     print(f"✅ Saved: {save_path}")
 
-
-cols = ["Team", "G", "xG", "MP", "Goals/Match", "Goals/Match_pct", "xG/Match", "xG/Match_pct"]
-print(df[cols].sort_values("Goals/Match", ascending=False))
 
 
 #if __name__ == '__main__':

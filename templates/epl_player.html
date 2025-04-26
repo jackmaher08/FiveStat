@@ -6,6 +6,7 @@
     <title>EPL Player Stats | FiveStat</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
@@ -87,8 +88,13 @@
 
     <!-- Player Modal -->
     <div class="modal" id="playerInfoModal">
-        <img id="playerRadarImage" src="" alt="Player Radar">
+        <div id="playerRadarLoading" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Computing Player Data...</p>
+        </div>
+        <img id="playerRadarImage" src="" alt="Player Radar" style="display: none;">
     </div>
+    
 
     <!-- Pagination Controls -->
     <div class="pagination">
@@ -124,13 +130,24 @@
         <button onclick="generateRadar(); trackRadarCompare()">Compare Players</button>
         <p id="loadingMessage" style="display:none; font-weight:bold;">Computing Player Data...</p>
     </div>
+
+    <!-- Dark Overlay --> 
+    <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
+
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <p>These projections assume players will play 90 mins in the relevant fixtures.</p>
+    </div>
     
 
     <br><br>
     <!-- Display the radar chart -->
-    <div id="radarChartContainer">
-        <img id="radarChart" src="">
+    <div id="radarChartContainer" style="text-align: center;">
+        <p id="radarPlaceholder">Select two players to generate a radar comparison</p>
+        <img id="radarChart" src="" style="display: none; max-width: 100%; height: auto;">
     </div>
+    
 
     <br><br>
     <hr class="fixture-divider">
@@ -140,7 +157,12 @@
 
     <!-- Player Goal Prediction Section -->
     <div class="radar-container">
-        <h2>Player Goal Projections</h2>
+        <h2 style="margin-bottom: 0px;">Player Goal Projections</h2>
+        <div class="centered-button">
+            <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>   
         <select id="predictionPlayerSelect" onchange="trackTeamSelect(this.value)">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_goals %}
@@ -154,7 +176,7 @@
             <div id="goalProjectionsTableContainer"></div>
         </div>
         <div id="playerChartsContainer" style="display:none; margin-top: 30px;">
-            <h3>Goal Outcome Distribution (Next Match)</h3>
+            <h3>Goal Distribution (Next Match)</h3>
             <canvas id="goalOutcomeBarChart" width="400" height="200"></canvas>
             <br><br>
             <h3>xG Profile (Past 5 + Next 3 GWs)</h3>
@@ -173,16 +195,6 @@
 
 
     
-
-    <!-- Dark Overlay for Team Modal -->
-    <div class="modal-overlay" id="teamInfoModalOverlay" onclick="toggleModal('teamInfoModal')"></div>
-
-    <!-- Team Modal -->
-    <div class="modal" id="teamInfoModal">
-        <button class="close-button" onclick="toggleModal('teamInfoModal')">✖</button>
-        <h3>Team Pages Coming Soon</h3>
-        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
-    </div>
 
 
     <script>
@@ -248,8 +260,21 @@
         });
 
         function openPlayerModal(playerName) {
-            let imageUrl = `/static/radar/${playerName}_radar.png`;
-            document.getElementById("playerRadarImage").src = imageUrl;
+            const radarImage = document.getElementById("playerRadarImage");
+            const loadingSpinner = document.getElementById("playerRadarLoading");
+
+            // Show loading spinner and hide radar image
+            loadingSpinner.style.display = "flex";
+            radarImage.style.display = "none";
+            radarImage.src = "";
+
+            // Set radar image source
+            radarImage.onload = function() {
+                loadingSpinner.style.display = "none"; // Hide spinner
+                radarImage.style.display = "block";    // Show radar
+            };
+
+            radarImage.src = `/generate_single_radar?player=${encodeURIComponent(playerName)}`;
             toggleModal('playerInfoModal');
 
             gtag('event', 'player_radar_viewed', {
@@ -260,18 +285,6 @@
         }
 
 
-        function generateRadar() {
-            let player1 = document.getElementById("player1").value;
-            let player2 = document.getElementById("player2").value;
-
-            if (!player1 || !player2) {
-                alert("Please select two players!");
-                return;
-            }
-
-            let radarImage = document.getElementById("radarChart");
-            radarImage.src = `/generate_radar?player1=${player1}&player2=${player2}`;
-        }
 
         function toggleDropdown(event) {
             event.preventDefault();  // Prevents page from jumping
@@ -645,6 +658,7 @@
         let player2 = document.getElementById("player2").value;
         let radarImage = document.getElementById("radarChart");
         let loadingMsg = document.getElementById("loadingMessage");
+        let radarPlaceholder = document.getElementById("radarPlaceholder");
 
         if (!player1 || !player2) {
             alert("Please select two players!");
@@ -653,14 +667,16 @@
 
         // Show loading message
         loadingMsg.style.display = "block";
+        radarPlaceholder.style.display = "none";  // Hide placeholder when starting
 
-        // Set radar image source and listen for when it's loaded
         radarImage.onload = function() {
             loadingMsg.style.display = "none"; // Hide message when image has loaded
+            radarImage.style.display = "block"; // Show the radar image
         };
 
-        radarImage.src = `/generate_radar?player1=${player1}&player2=${player2}`;
+        radarImage.src = `/generate_radar?player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
     }
+
 
     </script>
     

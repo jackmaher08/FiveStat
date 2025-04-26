@@ -11,6 +11,9 @@ from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
 import json
 import unicodedata
+from mplsoccer import Radar
+from io import BytesIO
+
 
 
 
@@ -479,6 +482,65 @@ def generate_radar():
     plt.close(fig)
 
     return send_file(radar_image_path, mimetype='image/png')
+
+
+@app.route('/generate_single_radar')
+def generate_single_radar():
+    player = request.args.get('player')
+
+    if not player:
+        return "Player not specified", 400
+
+    # Load player data
+    df = pd.read_csv("data/tables/player_radar_data.csv")
+    
+    # Check if player exists
+    if player not in df['Player'].values:
+        return "Player not found", 404
+
+    # Get player stats
+    columns = [
+        'Goals', 'Assists', 'Goals + Assists', 'Expected Goals',
+        'Expected Assists', 'Progressive Carries', 'Progressive Passes', 'Progressive Receptions'
+    ]
+    player_stats = df[df['Player'] == player][columns].values.flatten().tolist()
+    average_stats = df[columns].mean().values.flatten().tolist()
+
+    # Create radar
+    from mplsoccer import Radar
+    radar = Radar(params=columns, min_range=[0]*len(columns), max_range=[100]*len(columns))
+
+    fig, ax = radar.setup_axis()
+    fig.patch.set_facecolor('#f4f4f9')
+    ax.set_facecolor('#f4f4f9')
+
+    radar.draw_circles(ax=ax, facecolor='#f4f4f9', edgecolor='black', lw=1, zorder=1)
+    radar.draw_radar_compare(
+        ax=ax,
+        values=player_stats,
+        compare_values=average_stats,
+        kwargs_radar={'facecolor': '#669bbc', 'alpha': 0.6},
+        kwargs_compare={'facecolor': '#e63946', 'alpha': 0.6}
+    )
+    radar.draw_range_labels(ax=ax, fontsize=15, fontproperties="monospace")
+    radar.draw_param_labels(ax=ax, fontsize=15, fontproperties="monospace")
+
+    ax.text(0.2, 1.02, player, fontsize=15, ha='center', transform=ax.transAxes, color='#669bbc')
+    ax.text(0.8, 1.02, 'League Avg', fontsize=15, ha='center', transform=ax.transAxes, color='#e63946')
+
+    ax.text(
+        x=0, y=0.05, 
+        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+    )
+
+    img_io = BytesIO()
+    plt.savefig(img_io, format='png', facecolor=fig.get_facecolor(), dpi=300)
+    img_io.seek(0)
+    plt.close(fig)
+
+    return send_file(img_io, mimetype='image/png')
+
 
 
 

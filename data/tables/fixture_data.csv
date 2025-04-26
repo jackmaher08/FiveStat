@@ -330,8 +330,8 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 33,20/04/2025 16:30,Leicester,Liverpool,0 - 1,26928,True,0.0,1.0,0.23,4.53
 33,21/04/2025 20:00,Tottenham Hotspur,Nottingham Forest,1 - 2,26930,True,1.0,2.0,2.4,0.56
 34,22/04/2025 20:00,Manchester City,Aston Villa,2 - 1,26937,True,2.0,1.0,1.36,1.86
-34,23/04/2025 20:00,Arsenal,Crystal Palace,,26933,True,2.0,2.0,1.92,2.51
-34,26/04/2025 12:30,Chelsea,Everton,,26935,False,,,,
+34,23/04/2025 20:00,Arsenal,Crystal Palace,2 - 2,26933,True,2.0,2.0,1.92,2.51
+34,26/04/2025 12:30,Chelsea,Everton,,26935,True,1.0,0.0,0.77,0.92
 34,26/04/2025 15:00,Brighton,West Ham,,26934,False,,,,
 34,26/04/2025 15:00,Newcastle United,Ipswich,,26938,False,,,,
 34,26/04/2025 15:00,Southampton,Fulham,,26940,False,,,,

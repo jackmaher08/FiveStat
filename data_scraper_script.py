@@ -396,6 +396,9 @@ fbref_df = fbref_df[fbref_df['Min'] > 400]
 # Drop GKs
 fbref_df = fbref_df[fbref_df['Pos'] != 'GK']
 
+# Only prem players
+fbref_df = fbref_df[(fbref_df['Comp'] == 'eng Premier League')]
+
 
 
 
