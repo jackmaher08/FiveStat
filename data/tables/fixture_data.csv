@@ -331,13 +331,13 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 33,21/04/2025 20:00,Tottenham Hotspur,Nottingham Forest,1 - 2,26930,True,1.0,2.0,2.4,0.56
 34,22/04/2025 20:00,Manchester City,Aston Villa,2 - 1,26937,True,2.0,1.0,1.36,1.86
 34,23/04/2025 20:00,Arsenal,Crystal Palace,2 - 2,26933,True,2.0,2.0,1.92,2.51
-34,26/04/2025 12:30,Chelsea,Everton,,26935,True,1.0,0.0,0.77,0.92
-34,26/04/2025 15:00,Brighton,West Ham,,26934,True,3.0,2.0,1.29,1.24
-34,26/04/2025 15:00,Newcastle United,Ipswich,,26938,True,3.0,0.0,4.12,0.13
-34,26/04/2025 15:00,Southampton,Fulham,,26940,True,1.0,2.0,0.94,2.0
-34,26/04/2025 15:00,Wolverhampton Wanderers,Leicester,,26941,True,3.0,0.0,2.58,1.05
-34,27/04/2025 14:00,Bournemouth,Manchester United,,26932,False,,,,
-34,27/04/2025 16:30,Liverpool,Tottenham Hotspur,,26936,False,,,,
+34,26/04/2025 12:30,Chelsea,Everton,1 - 0,26935,True,1.0,0.0,0.77,0.92
+34,26/04/2025 15:00,Brighton,West Ham,3 - 2,26934,True,3.0,2.0,1.29,1.24
+34,26/04/2025 15:00,Newcastle United,Ipswich,3 - 0,26938,True,3.0,0.0,4.12,0.13
+34,26/04/2025 15:00,Southampton,Fulham,1 - 2,26940,True,1.0,2.0,0.94,2.0
+34,26/04/2025 15:00,Wolverhampton Wanderers,Leicester,3 - 0,26941,True,3.0,0.0,2.58,1.05
+34,27/04/2025 14:00,Bournemouth,Manchester United,,26932,True,1.0,1.0,0.61,1.91
+34,27/04/2025 16:30,Liverpool,Tottenham Hotspur,,26936,True,5.0,1.0,2.51,0.51
 34,01/05/2025 19:30,Nottingham Forest,Brentford,,26939,False,,,,
 35,02/05/2025 20:00,Manchester City,Wolverhampton Wanderers,,26942,False,,,,
 35,03/05/2025 12:30,Aston Villa,Fulham,,26946,False,,,,
