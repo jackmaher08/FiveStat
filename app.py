@@ -402,11 +402,6 @@ def epl_results(gw):
             if os.path.exists(shotmap_path):
                 filtered_fixtures.append(fixture)
 
-        # ✅ Normalize team names for shotmap rendering
-        for fixture in filtered_fixtures:
-            fixture["home_team"] = TEAM_NAME_MAPPING.get(fixture["home_team"], fixture["home_team"])
-            fixture["away_team"] = TEAM_NAME_MAPPING.get(fixture["away_team"], fixture["away_team"])
-
         # ✅ Load all fixture results to calculate form
         all_results_df = pd.read_csv("data/tables/fixture_data.csv")
         all_results_df["isResult"] = all_results_df["isResult"].astype(str).str.lower() == "true"
