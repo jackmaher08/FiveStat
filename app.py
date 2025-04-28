@@ -699,6 +699,40 @@ def team_page(team_name):
 
 
 
+@app.route("/ev_checker")
+def ev_checker():
+    fixture_path = "data/tables/fixture_data.csv"
+    fixtures = pd.read_csv(fixture_path)
+
+    fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
+    fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
+
+    upcoming_fixtures = fixtures[fixtures["isResult"] == False].copy()
+
+    upcoming_fixtures["matchKey"] = upcoming_fixtures["home_team"] + " vs " + upcoming_fixtures["away_team"]
+    unique_gameweeks = sorted(upcoming_fixtures["round_number"].dropna().unique().tolist())
+
+    # Load model predictions (you need to precompute and save these, or pull from existing fixture_probabilities.csv)
+    probs_df = pd.read_csv("data/tables/fixture_probabilities.csv")
+    model_predictions = {}
+    for _, row in probs_df.iterrows():
+        key = row["home_team"] + " vs " + row["away_team"]
+        model_predictions[key] = {
+            "home": row["home_win_prob"],
+            "draw": row["draw_prob"],
+            "away": row["away_win_prob"],
+        }
+
+    return render_template(
+        "ev_checker.html",
+        fixtures=upcoming_fixtures.to_dict(orient="records"),
+        unique_gameweeks=unique_gameweeks,
+        model_predictions=model_predictions
+    )
+
+
+
+
 
 
 

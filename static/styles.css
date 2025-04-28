@@ -80,7 +80,8 @@ a:hover {
     margin: 10px 10px;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+.navbar .dropbtn:hover {
     background-color: #575757;
     border-radius: 5px;
 }
@@ -114,6 +115,8 @@ a:hover {
     z-index: 1000;
     text-align: center;
 }
+
+
 
 .dropdown-content a {
     color: white;
@@ -570,6 +573,15 @@ select:focus {
 
 
 .team-switcher select {
+    padding: 16px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+input {
     padding: 16px;
     font-size: 16px;
     border-radius: 12px;
@@ -1104,4 +1116,25 @@ input:checked + .slider:before {
     font-size: 14px;
     color: #333;
     font-weight: bold;
+}
+
+.fixture button {
+    background-color: #f4f4f9;
+    color: #444;
+    border: 2px solid transparent;
+    padding: 10px 16px;
+    margin: 5px;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.fixture button:hover {
+    background-color: #3f007d;
+    color: white;
+}
+
+label {
+    color: #555;
 }

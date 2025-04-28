@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bet EV Checker | FiveStat</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">
+            <a href="/ev_checker" class="dropbtn">Bet Value Checker</a>
+            <div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_results">Results</a>
+                    <a href="/epl_table">League Stats</a>
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <!-- Dark Overlay --> 
+    <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
+
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <p>
+            <b>What is Expected Value (EV)?</b><br><br>
+            A bets Expected Value tells you the average amount you can expect to win or lose per bet over the long run. It uses the true probability of your bet winning (derived from our models) and compares it to the odds you are offered.<br><br>
+            
+            <b>Positive EV</b> = Good Bet (profitable in the long term)<br>
+            <b>Negative EV</b> = Bad Bet (losses expected over time)<br><br>
+            
+            <b>Formula:</b><br>
+            EV = (True Probability × (Odds - 1)) - (Lose Probability × 1)<br><br>
+            
+            <b>How EV can assist you:</b><br>
+            • Helps identify "good value" bets.<br>
+            • Focuses on long-term profit, not maximizing short-term wins.<br>
+            • Even positive EV bets can lose - but win over many repetitions.<br><br>
+            
+            The key is to seek bets where the true win probability is greater than what the bookmaker odds imply!
+        </p>
+    </div>
+    <br>
+
+
+    <h1>Check Your Bets Expected Value (EV)</h1><button class="info-button" onclick="toggleModal('infoModal')" title="More info"><i class="fas fa-info-circle"></i></button>
+    <p>1. Make your 1X2 selections</p>
+    <p>2. Input your BB/Acca odds</p>
+    <p>3. Check below to see the EV of your bet</p>
+    <br>
+
+    <!-- Gameweek Dropdown -->
+    <div class="gw-selector">
+        <select id="gwSelector" onchange="filterFixturesByGW()">
+            {% for gw in unique_gameweeks %}
+                <option value="{{ gw }}">Gameweek {{ gw }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <br>
+    
+    <hr style="max-width: 50%;">
+
+    <div id="fixtures"></div>
+    
+    <div id="accumulatedOdds" style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">
+        <h3>Accumulated Odds: -</h3>
+    </div>
+
+    <div id="evResults" style="margin-top: 30px;"></div>
+
+
+    <div id="userOddsInput" style="margin-top: 30px; margin-bottom: 50px;">
+        <label for="userOdds" style="font-weight:bold;">Enter your Bookies price (decimal odds) for these same selections to calculate your exact EV:</label><br>
+        <input type="number" id="userOdds" step="0.01" min="1.01" placeholder="e.g. 12.5" style="margin-top: 20px;">
+    </div>
+
+
+    <script>
+
+    function toggleDropdown(event) {
+        event.preventDefault();  // Prevents page from jumping
+        let dropdown = document.querySelector('.dropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    const fixtures = {{ fixtures|tojson }};
+    const modelPredictions = {{ model_predictions|tojson }};
+    let selectedBets = {};
+
+    function renderFixtures(gwFilter = 'all') {
+        const container = document.getElementById("fixtures");
+        container.innerHTML = "";
+
+        fixtures.forEach(match => {
+            if (gwFilter !== 'all' && match.round_number != gwFilter) return;
+            const matchKey = match.matchKey;
+
+            container.innerHTML += `
+                <div class="fixture" id="fixture-${matchKey}">
+                <p><strong>${match.home_team} vs ${match.away_team}</strong></p>
+                <p>${match.date}</p>
+                <button style="border: 1px solid #444; border-radius: 5px;" id="home-${matchKey}" onclick="selectOutcome('${matchKey}', 'home', '${match.home_team}')">${match.home_team}</button>
+                <button style="border: 1px solid #444; border-radius: 5px;" id="draw-${matchKey}" onclick="selectOutcome('${matchKey}', 'draw', 'Draw')">Draw</button>
+                <button style="border: 1px solid #444; border-radius: 5px;" id="away-${matchKey}" onclick="selectOutcome('${matchKey}', 'away', '${match.away_team}')">${match.away_team}</button>
+                <div id="oddsInput-${matchKey}" style="display:none; margin-top:10px;">
+                    <p id="minOdds-${matchKey}" style="font-size: 0.9rem;"></p>
+                </div>
+                <hr style="max-width: 50%;">
+                </div>
+            `;
+        });
+    }
+
+    function selectOutcome(fixtureId, outcome, label) {
+        const button = document.getElementById(`${outcome}-${fixtureId}`);
+
+        if (button.classList.contains("selected")) {
+            // Already selected: unselect it
+            button.classList.remove("selected");
+            delete selectedBets[fixtureId];
+            document.getElementById(`oddsInput-${fixtureId}`).style.display = "none";
+        } else {
+            // First, clear previous selection
+            ["home", "draw", "away"].forEach(opt => {
+                document.getElementById(`${opt}-${fixtureId}`)?.classList.remove("selected");
+            });
+
+            // Then select new button
+            button.classList.add("selected");
+            selectedBets[fixtureId] = { outcome: outcome, label: label };
+            document.getElementById(`oddsInput-${fixtureId}`).style.display = "block";
+
+            const prob = modelPredictions[fixtureId][outcome];
+            const minOdds = (1 / prob).toFixed(2);
+            document.getElementById(`minOdds-${fixtureId}`).innerText = `Minimum singles odds for positive EV: ${minOdds}`;
+        }
+        updateAccumulatedOdds();
+        autoCalculateEV();
+    }
+
+    function updateAccumulatedOdds() {
+        let totalProbability = 1;
+
+        for (const fixtureId in selectedBets) {
+            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
+            totalProbability *= modelProb;
+        }
+
+        const accOddsDiv = document.getElementById("accumulatedOdds");
+
+        if (Object.keys(selectedBets).length === 0) {
+            accOddsDiv.innerHTML = `Accumulated Odds: -`;
+            return;
+        }
+
+        const impliedOdds = (1 / totalProbability).toFixed(2);
+        accOddsDiv.innerHTML = `Accumulated Odds: ${impliedOdds}`;
+    }
+
+
+
+
+    function filterFixturesByGW() {
+        const gw = document.getElementById("gwSelector").value;
+        renderFixtures(gw);
+    }
+
+    function calculateEV() {
+        let totalProbability = 1;
+        let resultsHTML = "<h3>Bet Slip Review:</h3>";
+
+        for (const fixtureId in selectedBets) {
+            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
+            totalProbability *= modelProb;
+
+            resultsHTML += `<p>${selectedBets[fixtureId].label}: ${Math.round(modelProb * 100)}% win probability</p>`;
+        }
+
+        const userOdds = parseFloat(document.getElementById("userOdds").value);
+
+        if (Object.keys(selectedBets).length === 0) {
+            resultsHTML += `<p style="color:red;">No selections made yet.</p>`;
+        } else {
+            // Calculate "true" minimum odds for EV >= 2%
+            const requiredPayout = (1 + 0.02) / totalProbability; // Solve (totalProbability × (odds-1)) - (1-totalProbability) = 0.02
+            const minRequiredOdds = (requiredPayout).toFixed(2);
+
+            if (!isNaN(userOdds) && userOdds > 1) {
+                const payout = userOdds - 1;
+                const ev = (totalProbability * payout) - (1 - totalProbability);
+
+                resultsHTML += `<h2 style="font-size: 1.4rem;">Your Betslip EV: ${(ev * 100).toFixed(2)}%</h2>`;
+
+                if (ev > 0.02) {
+                    resultsHTML += `<p style="color:green;">✅ Good Value Bet!</p>`;
+                } else {
+                    resultsHTML += `<p style="color:red;">❌ Low Value Bet</p>`;
+                }
+            }
+        }
+
+        document.getElementById("evResults").innerHTML = resultsHTML;
+    }
+
+
+
+    window.onload = function() {
+        const currentGW = document.getElementById("gwSelector").value;
+        renderFixtures(currentGW);
+    };
+
+    function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay");
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+    document.getElementById("userOdds").addEventListener("input", function() {
+        autoCalculateEV();
+    });
+
+    function autoCalculateEV() {
+        let totalProbability = 1;
+        let resultsHTML = "<h3>Bet Slip Review:</h3>";
+
+        for (const fixtureId in selectedBets) {
+            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
+            totalProbability *= modelProb;
+
+            resultsHTML += `<p>${selectedBets[fixtureId].label}: ${(modelProb * 100).toFixed(0)}% Win probability</p>`;
+        }
+
+        const userOdds = parseFloat(document.getElementById("userOdds").value);
+
+        if (Object.keys(selectedBets).length === 0) {
+            document.getElementById("evResults").innerHTML = "";
+            return;
+        } else {
+            const requiredPayout = (1 + 0.02) / totalProbability;
+            const minRequiredOdds = (requiredPayout).toFixed(2);
+
+            resultsHTML += `<br><strong style="font-size: 1.3rem; color: #333; padding: 8px; border-top: 3px solid #333; border-bottom: 3px solid #555;">Min Price needed for &gt;2% EV = ${minRequiredOdds}</strong><br>`;
+
+            if (!isNaN(userOdds) && userOdds > 1) {
+                const payout = userOdds - 1;
+                const ev = (totalProbability * payout) - (1 - totalProbability);
+
+                resultsHTML += `<h3 style="color:#222; margin-top: 50px; font-size: 1.5rem;">Your Betslip EV: ${(ev * 100).toFixed(2)}%</h3>`;
+
+                if (ev > 0.02) {
+                    resultsHTML += `<p style="color:green; font-size:1.2rem;">✅ Good Value Bet!</p>`;
+                } else if (ev >= 0 && ev <= 0.02) {
+                    resultsHTML += `<p style="color:orange; font-size:1.2rem;">🟠 Low Positive Value Bet</p>`;
+                } else {
+                    resultsHTML += `<p style="color:red; font-size:1.2rem;">❌ Negative Value Bet</p>`;
+                }
+            }
+        }
+
+        document.getElementById("evResults").innerHTML = resultsHTML;
+    }
+
+
+
+
+    </script>
+
+    <style>
+    button.selected {
+        background-color: #3f007d;
+        color: white;
+    }
+    </style>
+    
+
+</body>
+</html>
