@@ -197,8 +197,8 @@
         if (Object.keys(selectedBets).length === 0) {
             resultsHTML += `<p style="color:red;">No selections made yet.</p>`;
         } else {
-            // Calculate "true" minimum odds for EV >= 2%
-            const requiredPayout = (1 + 0.02) / totalProbability; // Solve (totalProbability × (odds-1)) - (1-totalProbability) = 0.02
+            // Calculate "true" minimum odds for EV >= 3%
+            const requiredPayout = (1 + 0.03) / totalProbability; // Solve (totalProbability × (odds-1)) - (1-totalProbability) = 0.03
             const minRequiredOdds = (requiredPayout).toFixed(2);
 
             if (!isNaN(userOdds) && userOdds > 1) {
@@ -207,7 +207,7 @@
 
                 resultsHTML += `<h2 style="font-size: 1.4rem;">Your Betslip EV: ${(ev * 100).toFixed(2)}%</h2>`;
 
-                if (ev > 0.02) {
+                if (ev > 0.03) {
                     resultsHTML += `<p style="color:green;">✅ Good Value Bet!</p>`;
                 } else {
                     resultsHTML += `<p style="color:red;">❌ Low Value Bet</p>`;
@@ -238,46 +238,58 @@
         autoCalculateEV();
     });
 
+
     function autoCalculateEV() {
         let totalProbability = 1;
-        let resultsHTML = "<h3>Bet Slip Review:</h3>";
-
-        for (const fixtureId in selectedBets) {
-            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
-            totalProbability *= modelProb;
-
-            resultsHTML += `<p>${selectedBets[fixtureId].label}: ${(modelProb * 100).toFixed(0)}% Win probability</p>`;
-        }
-
-        const userOdds = parseFloat(document.getElementById("userOdds").value);
+        let resultsHTML = '<div class="ev-card">';
 
         if (Object.keys(selectedBets).length === 0) {
             document.getElementById("evResults").innerHTML = "";
             return;
-        } else {
-            const requiredPayout = (1 + 0.02) / totalProbability;
-            const minRequiredOdds = (requiredPayout).toFixed(2);
-
-            resultsHTML += `<br><strong style="font-size: 1.3rem; color: #333; padding: 8px; border-top: 3px solid #333; border-bottom: 3px solid #555;">Min Price needed for &gt;2% EV = ${minRequiredOdds}</strong><br>`;
-
-            if (!isNaN(userOdds) && userOdds > 1) {
-                const payout = userOdds - 1;
-                const ev = (totalProbability * payout) - (1 - totalProbability);
-
-                resultsHTML += `<h3 style="color:#222; margin-top: 50px; font-size: 1.5rem;">Your Betslip EV: ${(ev * 100).toFixed(2)}%</h3>`;
-
-                if (ev > 0.02) {
-                    resultsHTML += `<p style="color:green; font-size:1.2rem;">✅ Good Value Bet!</p>`;
-                } else if (ev >= 0 && ev <= 0.02) {
-                    resultsHTML += `<p style="color:orange; font-size:1.2rem;">🟠 Low Positive Value Bet</p>`;
-                } else {
-                    resultsHTML += `<p style="color:red; font-size:1.2rem;">❌ Negative Value Bet</p>`;
-                }
-            }
         }
 
+        // Bet Slip Review
+        resultsHTML += `<div class="betslip-review"><h3>Your Bet Slip:</h3>`;
+        for (const fixtureId in selectedBets) {
+            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
+            totalProbability *= modelProb;
+            resultsHTML += `<p>${selectedBets[fixtureId].label}: ${(modelProb * 100).toFixed(0)}% Win probability</p>`;
+        }
+        resultsHTML += `</div>`;
+
+        // Accumulated Odds
+        const impliedOdds = (1 / totalProbability).toFixed(2);
+        const requiredPayout = (1 + 0.03) / totalProbability;
+        const minRequiredOdds = (requiredPayout).toFixed(2);
+
+        resultsHTML += `<div class="accumulated-odds">Accumulated Odds: ${impliedOdds}</div>`;
+        resultsHTML += `<div class="min-odds">Min Price needed for &gt;3% EV: ${minRequiredOdds}</div>`;
+
+        // EV % & Verdict
+        const userOddsValue = parseFloat(document.getElementById("userOdds").value);
+        if (!isNaN(userOddsValue) && userOddsValue > 1) {
+            const payout = userOddsValue - 1;
+            const ev = (totalProbability * payout) - (1 - totalProbability);
+
+            resultsHTML += `<div class="ev-percentage">Your Betslip EV: ${(ev * 100).toFixed(2)}%</div>`;
+
+            if (ev > 0.03) {
+                resultsHTML += `<p class="ev-good">🟢 Good Value Bet</p>`;
+            } else if (ev >= 0 && ev <= 0.03) {
+                resultsHTML += `<p class="ev-lowpositive">🟠 Low Positive Value Bet</p>`;
+            } else {
+                resultsHTML += `<p class="ev-bad">🔴 Negative Value Bet</p>`;
+            }
+        } else {
+            resultsHTML += `<p style="color:blue;">Enter your odds above to calculate EV!</p>`;
+        }
+
+        resultsHTML += `</div>`; // Close .ev-card
         document.getElementById("evResults").innerHTML = resultsHTML;
     }
+
+
+
 
 
 

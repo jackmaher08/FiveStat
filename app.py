@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify, send_from_directory
 import numpy as np
 from scipy.stats import poisson
 import os
@@ -14,13 +14,17 @@ import unicodedata
 from mplsoccer import Radar
 from io import BytesIO
 
-
-
-
-
-
 # Flask app initialization
 app = Flask(__name__)
+
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('static', 'sitemap.xml')
+
+
+
 
 TEAM_NAME_MAPPING = {
     "Wolverhampton Wanderers": "Wolves",
