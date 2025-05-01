@@ -160,7 +160,7 @@
                     {% endfor %}
                     </select>
                 </div>
-                <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}">
+                <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}" style="max-width: 600px;">
             </div>
         </div>
 
@@ -446,12 +446,31 @@
         document.getElementById("backToTop").addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+
+        function acceptCookies() {
+            localStorage.setItem("cookiesAccepted", "true");
+            document.getElementById("cookieNotice").style.display = "none";
+        }
+
+        window.onload = function () {
+            if (!localStorage.getItem("cookiesAccepted")) {
+                document.getElementById("cookieNotice").style.display = "block";
+            }
+        };
     </script>
 
 
     <footer class="footer">
         <p>Last updated: {{ last_updated }}</p>
+        <p>&copy; 2025 FiveStat</p>
+        <p><a href="/privacy.html" target="_blank">Privacy Policy</a></p>
     </footer>
+
+    <div id="cookieNotice" style="display: none; position: fixed; bottom: 0; width: 100%; background: #f1f1f1; border-top: 1px solid #ccc; padding: 10px; text-align: center; font-size: 14px; z-index: 1000;">
+        🍪 This site uses cookies to analyze traffic and improve experience. By continuing, you agree to our <a href="/privacy.html" target="_blank">Privacy Policy</a>.
+        <button onclick="acceptCookies()" style="margin-left: 10px;">Got it</button>
+    </div>
+    
 
 </body>
 </html>

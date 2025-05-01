@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify, send_from_directory
+from flask import Flask, render_template, request, send_file, redirect, url_for, jsonify
 import numpy as np
 from scipy.stats import poisson
 import os
@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('static', 'sitemap.xml')
+    return send_file('static/sitemap.xml', mimetype='application/xml')
 
 
 
@@ -223,6 +223,9 @@ def epl_table():
 
 
 
+@app.route("/privacy.html")
+def privacy():
+    return render_template("privacy.html")
 
 
 

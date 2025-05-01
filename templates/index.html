@@ -50,17 +50,16 @@
 
     <div class="container">
         <p>
-            <strong>Welcome to FiveStat</strong> <br> A live Football Data Modelling, Visuals & Analysis Project in early development!
+            <strong>Welcome to FiveStat!</strong> <br> A live Football Data Modelling, Visuals & Analysis Project!
         </p>
         <p>
-            This site is a project aimed at analyzing football fixtures, generating data visualizations and 
-            building data-driven predictive models.
+            This sites aim is to analyze football fixtures, generating data visualizations and build data-driven predictive models.
         </p>
         <p>
-            You can read a bit more about the back end workings of this site and how it has been developed<a href="./methodology">HERE</a>
+            You can read a bit more about the back-end workings of this site and how it has been developed<a href="./methodology">HERE</a>
         </p>
         <p>
-            Have a look around and let us know what you think! <br> You can reach me at jackmaher08@gmail.com 
+            Have a look around and let us know what you think! <br><br> You can reach me at<a href="mailto:jackmaher08@gmail.com">jackmaher08@gmail.com</a>with any feedback
         </p>
         <p>
             <strong>Enjoy!</strong>
@@ -110,6 +109,17 @@
             }
         }
 
+        function acceptCookies() {
+            localStorage.setItem("cookiesAccepted", "true");
+            document.getElementById("cookieNotice").style.display = "none";
+        }
+
+        window.onload = function () {
+            if (!localStorage.getItem("cookiesAccepted")) {
+                document.getElementById("cookieNotice").style.display = "block";
+            }
+        };
+
     </script>
 
     <!-- Feedback Modal Overlay -->
@@ -132,6 +142,15 @@
         </iframe>
     </div>
 
+    <footer class="footer">
+        <p>&copy; 2025 FiveStat</p>
+        <p><a href="/privacy.html" target="_blank">Privacy Policy</a></p>
+    </footer>
+
+    <div id="cookieNotice" style="display: none; position: fixed; bottom: 0; width: 100%; background: #f1f1f1; border-top: 1px solid #ccc; padding: 10px; text-align: center; font-size: 14px; z-index: 1000;">
+        🍪 This site uses cookies to analyze traffic and improve experience. By continuing, you agree to our <a href="/privacy.html" target="_blank">Privacy Policy</a>.
+        <button onclick="acceptCookies()" style="margin-left: 10px;">Got it</button>
+    </div>
         
 
 </body>

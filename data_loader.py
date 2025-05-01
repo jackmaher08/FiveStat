@@ -232,7 +232,7 @@ def calculate_team_efficiency_and_momentum(league_table_path="data/tables/league
 
 
 # Function to simulate a match using Poisson distribution
-def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
+def simulate_poisson_distribution(home_xg, away_xg, max_goals=8):
     result_matrix = np.zeros((max_goals, max_goals))
     for home_goals in range(max_goals):
         for away_goals in range(max_goals):
@@ -250,6 +250,7 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=12):
     #print(f"XG: {home_xg:.2f} vs {away_xg:.2f} -> Home Win: {home_win_prob:.3f}, Draw: {draw_prob:.3f}, Away Win: {away_win_prob:.3f}")
 
     return result_matrix, home_win_prob, draw_prob, away_win_prob
+
 
 
 # Function to generate a heatmap
