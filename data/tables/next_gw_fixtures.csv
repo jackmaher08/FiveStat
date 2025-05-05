@@ -1,11 +1,11 @@
 round_number,date,home_team,away_team
-35,02/05/2025 20:00,Manchester City,Wolverhampton Wanderers
-35,03/05/2025 12:30,Aston Villa,Fulham
-35,03/05/2025 15:00,Everton,Ipswich
-35,03/05/2025 15:00,Leicester,Southampton
-35,03/05/2025 17:30,Arsenal,Bournemouth
-35,04/05/2025 14:00,Brentford,Manchester United
-35,04/05/2025 14:00,Brighton,Newcastle United
-35,04/05/2025 14:00,West Ham,Tottenham Hotspur
-35,04/05/2025 16:30,Chelsea,Liverpool
-35,05/05/2025 20:00,Crystal Palace,Nottingham Forest
+36,10/05/2025 15:00,Fulham,Everton
+36,10/05/2025 15:00,Ipswich,Brentford
+36,10/05/2025 15:00,Southampton,Manchester City
+36,10/05/2025 15:00,Wolverhampton Wanderers,Brighton
+36,10/05/2025 17:30,Bournemouth,Aston Villa
+36,11/05/2025 12:00,Newcastle United,Chelsea
+36,11/05/2025 14:15,Manchester United,West Ham
+36,11/05/2025 14:15,Nottingham Forest,Leicester
+36,11/05/2025 14:15,Tottenham Hotspur,Crystal Palace
+36,11/05/2025 16:30,Liverpool,Arsenal

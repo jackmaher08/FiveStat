@@ -338,16 +338,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 34,26/04/2025 15:00,Wolverhampton Wanderers,Leicester,3 - 0,26941,True,3.0,0.0,2.58,1.05
 34,27/04/2025 14:00,Bournemouth,Manchester United,1 - 1,26932,True,1.0,1.0,0.61,1.91
 34,27/04/2025 16:30,Liverpool,Tottenham Hotspur,5 - 1,26936,True,5.0,1.0,2.51,0.51
-34,01/05/2025 19:30,Nottingham Forest,Brentford,,26939,True,0.0,2.0,0.67,1.52
-35,02/05/2025 20:00,Manchester City,Wolverhampton Wanderers,,26942,False,,,,
-35,03/05/2025 12:30,Aston Villa,Fulham,,26946,False,,,,
-35,03/05/2025 15:00,Everton,Ipswich,,26950,False,,,,
-35,03/05/2025 15:00,Leicester,Southampton,,26951,False,,,,
-35,03/05/2025 17:30,Arsenal,Bournemouth,,26945,False,,,,
-35,04/05/2025 14:00,Brentford,Manchester United,,26947,False,,,,
-35,04/05/2025 14:00,Brighton,Newcastle United,,26944,False,,,,
-35,04/05/2025 14:00,West Ham,Tottenham Hotspur,,26943,False,,,,
-35,04/05/2025 16:30,Chelsea,Liverpool,,26948,False,,,,
+34,01/05/2025 19:30,Nottingham Forest,Brentford,0 - 2,26939,True,0.0,2.0,0.67,1.52
+35,02/05/2025 20:00,Manchester City,Wolverhampton Wanderers,1 - 0,26942,True,1.0,0.0,0.86,0.62
+35,03/05/2025 12:30,Aston Villa,Fulham,1 - 0,26946,True,1.0,0.0,1.29,0.7
+35,03/05/2025 15:00,Everton,Ipswich,2 - 2,26950,True,2.0,2.0,0.81,1.14
+35,03/05/2025 15:00,Leicester,Southampton,2 - 0,26951,True,2.0,0.0,1.61,0.55
+35,03/05/2025 17:30,Arsenal,Bournemouth,1 - 2,26945,True,1.0,2.0,2.05,1.42
+35,04/05/2025 14:00,Brentford,Manchester United,,26947,True,4.0,3.0,3.59,1.13
+35,04/05/2025 14:00,Brighton,Newcastle United,,26944,True,1.0,1.0,0.69,1.64
+35,04/05/2025 14:00,West Ham,Tottenham Hotspur,,26943,True,1.0,1.0,1.15,0.85
+35,04/05/2025 16:30,Chelsea,Liverpool,,26948,True,3.0,1.0,3.52,1.43
 35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,,26949,False,,,,
 36,10/05/2025 15:00,Fulham,Everton,,26953,False,,,,
 36,10/05/2025 15:00,Ipswich,Brentford,,26954,False,,,,
@@ -364,11 +364,11 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 37,18/05/2025 14:15,Aston Villa,Tottenham Hotspur,,26963,False,,,,
 37,18/05/2025 14:15,West Ham,Nottingham Forest,,26971,False,,,,
 37,18/05/2025 15:00,Brentford,Fulham,,26964,False,,,,
-37,18/05/2025 15:00,Crystal Palace,Wolverhampton Wanderers,,26967,False,,,,
 37,18/05/2025 15:00,Leicester,Ipswich,,26969,False,,,,
 37,18/05/2025 16:30,Arsenal,Newcastle United,,26962,False,,,,
-37,18/05/2025 19:00,Manchester City,Bournemouth,,26970,False,,,,
 37,19/05/2025 20:00,Brighton,Liverpool,,26965,False,,,,
+37,20/05/2025 20:00,Crystal Palace,Wolverhampton Wanderers,,26967,False,,,,
+37,20/05/2025 20:00,Manchester City,Bournemouth,,26970,False,,,,
 38,25/05/2025 16:00,Bournemouth,Leicester,,26979,False,,,,
 38,25/05/2025 16:00,Fulham,Manchester City,,26981,False,,,,
 38,25/05/2025 16:00,Ipswich,West Ham,,26980,False,,,,
