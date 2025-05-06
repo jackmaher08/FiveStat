@@ -344,11 +344,11 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 35,03/05/2025 15:00,Everton,Ipswich,2 - 2,26950,True,2.0,2.0,0.81,1.14
 35,03/05/2025 15:00,Leicester,Southampton,2 - 0,26951,True,2.0,0.0,1.61,0.55
 35,03/05/2025 17:30,Arsenal,Bournemouth,1 - 2,26945,True,1.0,2.0,2.05,1.42
-35,04/05/2025 14:00,Brentford,Manchester United,,26947,True,4.0,3.0,3.59,1.13
-35,04/05/2025 14:00,Brighton,Newcastle United,,26944,True,1.0,1.0,0.69,1.64
-35,04/05/2025 14:00,West Ham,Tottenham Hotspur,,26943,True,1.0,1.0,1.15,0.85
-35,04/05/2025 16:30,Chelsea,Liverpool,,26948,True,3.0,1.0,3.52,1.43
-35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,,26949,False,,,,
+35,04/05/2025 14:00,Brentford,Manchester United,4 - 3,26947,True,4.0,3.0,3.59,1.13
+35,04/05/2025 14:00,Brighton,Newcastle United,1 - 1,26944,True,1.0,1.0,0.69,1.64
+35,04/05/2025 14:00,West Ham,Tottenham Hotspur,1 - 1,26943,True,1.0,1.0,1.15,0.85
+35,04/05/2025 16:30,Chelsea,Liverpool,3 - 1,26948,True,3.0,1.0,3.52,1.43
+35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,,26949,True,1.0,1.0,2.34,0.64
 36,10/05/2025 15:00,Fulham,Everton,,26953,False,,,,
 36,10/05/2025 15:00,Ipswich,Brentford,,26954,False,,,,
 36,10/05/2025 15:00,Southampton,Manchester City,,26959,False,,,,
