@@ -145,7 +145,8 @@
                     <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 8)">PTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 8)">GD <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 9)">PTS <span class="sort-indicator"></span></th>
                 </tr>
             </thead>
             <tbody id="leagueTable">
@@ -163,6 +164,7 @@
                     <td>{{ team["L"] }}</td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ team["GA"] }}</td>
+                    <td>{{ team["GD"] }}</td>
                     <td class="bold-left-border">{{ team["PTS"] }}</td>
                 </tr>
                 {% endfor %}

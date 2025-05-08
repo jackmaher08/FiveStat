@@ -57,7 +57,7 @@
     <br><br><br>
     <h2>Premier League Table</h2>
     <div class="table-container">
-        <table id="leagueTable">
+        <table id="leagueTable"> 
             <thead>
                 <tr>                    
                     <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
@@ -68,7 +68,8 @@
                     <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
                     <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
                     <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 8)">PTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 8)">GD <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 9)">PTS <span class="sort-indicator"></span></th>
                 </tr>
             </thead>
             <tbody id="leagueTable">
@@ -86,6 +87,7 @@
                     <td>{{ team["L"] }}</td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ team["GA"] }}</td>
+                    <td class="{% if team['GD']|float < 0 %}positive{% elif team['GD']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["GD"] }}</td>
                     <td class="bold-left-border">{{ team["PTS"] }}</td>
                 </tr>
                 {% endfor %}

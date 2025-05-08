@@ -327,8 +327,12 @@ aggregated_results_df = complete_fixture_results_df.groupby("Team", as_index=Fal
 aggregated_results_df = aggregated_results_df.merge(ga_total, on="Team", how="left")
 aggregated_results_df = aggregated_results_df.merge(matches_played, on="Team", how="left")
 
-# ✅ Sort by points
-aggregated_results_df = aggregated_results_df.sort_values(by="PTS", ascending=False)
+# add in gd
+aggregated_results_df["GD"] = aggregated_results_df["G"] - aggregated_results_df["GA"]
+
+# Sort by PTS, then GD, then Goals Scored
+aggregated_results_df = aggregated_results_df.sort_values(by=["PTS", "GD", "G"], ascending=[False, False, False])
+
 
 # ✅ Add new calculated columns
 aggregated_results_df["xG +/-"] = (aggregated_results_df["xG"] - aggregated_results_df["G"]).round(2)
@@ -336,7 +340,8 @@ aggregated_results_df["xGA +/-"] = (aggregated_results_df["xGA"] - aggregated_re
 aggregated_results_df["xPTS +/-"] = (aggregated_results_df["xPTS"] - aggregated_results_df["PTS"]).round(2)
 
 # ✅ Reorder columns
-aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'xG', 'npxG', 'xG +/-', 'GA', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
+aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'GD', 'GA', 'xG', 'npxG', 'xG +/-', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
+
 
 # ✅ Save final league table
 league_table_file_path = os.path.join(save_dir, "league_table_data.csv")

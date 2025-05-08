@@ -348,7 +348,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 35,04/05/2025 14:00,Brighton,Newcastle United,1 - 1,26944,True,1.0,1.0,0.69,1.64
 35,04/05/2025 14:00,West Ham,Tottenham Hotspur,1 - 1,26943,True,1.0,1.0,1.15,0.85
 35,04/05/2025 16:30,Chelsea,Liverpool,3 - 1,26948,True,3.0,1.0,3.52,1.43
-35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,,26949,True,1.0,1.0,2.34,0.64
+35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,1 - 1,26949,True,1.0,1.0,2.34,0.64
 36,10/05/2025 15:00,Fulham,Everton,,26953,False,,,,
 36,10/05/2025 15:00,Ipswich,Brentford,,26954,False,,,,
 36,10/05/2025 15:00,Southampton,Manchester City,,26959,False,,,,

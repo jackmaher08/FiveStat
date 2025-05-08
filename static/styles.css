@@ -153,9 +153,8 @@ a:hover {
     color: white;
 }
 
-.bold-left-border {
-    border-left: 2px solid #444;
-}
+
+
 
 .hide-left-border {
     border-left: 0px;
@@ -258,6 +257,14 @@ a:hover {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+    }    
+    #middle.team-switcher {
+        position: static !important;
+        transform: none !important;
+        margin: 0 auto;
+        margin-top: 40px;
+        text-align: center;
+        width: fit-content;
     }
     .vertical-divider {
         display: block;
@@ -397,15 +404,7 @@ table {
     border-spacing: 0;
 }
 
-th, td {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    position: relative;
-    font-size: 12px;
-    font-family: 'Arial';
-    min-width: 30px;
-}
+
 
 th {
     background-color: #666;
@@ -494,24 +493,35 @@ ul {
 }
 
 .table-container table {
-    min-width: 600px;  /* Ensures table has a reasonable width */
+    min-width: 600px;
     max-width: 2000px;
     width: 95%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin: 0 auto;
 }
+
 
 table {
     width: 100%;
     min-width: 600px; /* Ensures table doesn’t shrink too much */
-    border-collapse: collapse;
     margin: 10px;
 }
 
 th, td {
-    padding: 8px;
+    padding: 5px 15px;
     text-align: center;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    /* Leave out border-left to let .bold-left-border apply */
+    cursor: pointer;
+    position: relative;
+    font-size: 12px;
+    font-family: 'Arial';
+    min-width: 30px;
 }
+
 .small-text {
     font-size: 10px;  
     text-align: center;  
@@ -845,12 +855,6 @@ input:checked + .slider:before {
 
 .team-logo {
     height: 150px;
-}
-
-.team-switcher {
-    position: absolute;
-    right: 20px;
-    font-size: 0.8rem;
 }
 #middle.team-switcher {
     position: static;
@@ -1242,3 +1246,12 @@ label {
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+.bold-left-border {
+    border-left: 2px solid #444 !important;
+}
+
+td.bold-left-border, th.bold-left-border {
+    border-left: 2px solid #444 !important;
+}
+
