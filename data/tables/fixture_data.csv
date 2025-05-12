@@ -258,7 +258,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 26,22/02/2025 15:00,Southampton,Brighton,0 - 4,26861,True,0.0,4.0,0.15,5.12
 26,22/02/2025 17:30,Aston Villa,Chelsea,2 - 1,26854,True,2.0,1.0,2.69,2.17
 26,23/02/2025 14:00,Newcastle United,Nottingham Forest,4 - 3,26860,True,4.0,3.0,3.46,2.39
-26,23/02/2025 16:30,Manchester City,Liverpool,0 - 2,26859,True,0.0,2.0,0.56,0.8
+26,23/02/2025 16:30,Manchester City,Liverpool,0 - 2,26859,True,0.0,2.0,0.58,0.81
 27,25/02/2025 19:30,Brighton,Bournemouth,2 - 1,26863,True,2.0,1.0,2.58,1.7
 27,25/02/2025 19:30,Wolverhampton Wanderers,Fulham,1 - 2,26867,True,1.0,2.0,0.93,1.43
 27,25/02/2025 19:30,Crystal Palace,Aston Villa,4 - 1,26868,True,4.0,1.0,4.03,0.67
@@ -349,19 +349,19 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 35,04/05/2025 14:00,West Ham,Tottenham Hotspur,1 - 1,26943,True,1.0,1.0,1.15,0.85
 35,04/05/2025 16:30,Chelsea,Liverpool,3 - 1,26948,True,3.0,1.0,3.52,1.43
 35,05/05/2025 20:00,Crystal Palace,Nottingham Forest,1 - 1,26949,True,1.0,1.0,2.34,0.64
-36,10/05/2025 15:00,Fulham,Everton,,26953,False,,,,
-36,10/05/2025 15:00,Ipswich,Brentford,,26954,False,,,,
-36,10/05/2025 15:00,Southampton,Manchester City,,26959,False,,,,
-36,10/05/2025 15:00,Wolverhampton Wanderers,Brighton,,26961,False,,,,
-36,10/05/2025 17:30,Bournemouth,Aston Villa,,26955,False,,,,
-36,11/05/2025 12:00,Newcastle United,Chelsea,,26957,False,,,,
-36,11/05/2025 14:15,Manchester United,West Ham,,26956,False,,,,
-36,11/05/2025 14:15,Nottingham Forest,Leicester,,26958,False,,,,
-36,11/05/2025 14:15,Tottenham Hotspur,Crystal Palace,,26960,False,,,,
-36,11/05/2025 16:30,Liverpool,Arsenal,,26952,False,,,,
-37,16/05/2025 20:00,Chelsea,Manchester United,,26966,False,,,,
+36,10/05/2025 15:00,Fulham,Everton,1 - 3,26953,True,1.0,3.0,1.21,1.33
+36,10/05/2025 15:00,Ipswich,Brentford,0 - 1,26954,True,0.0,1.0,0.72,1.32
+36,10/05/2025 15:00,Southampton,Manchester City,0 - 0,26959,True,0.0,0.0,0.14,1.58
+36,10/05/2025 15:00,Wolverhampton Wanderers,Brighton,0 - 2,26961,True,0.0,2.0,0.73,1.41
+36,10/05/2025 17:30,Bournemouth,Aston Villa,0 - 1,26955,True,0.0,1.0,1.02,1.12
+36,11/05/2025 12:00,Newcastle United,Chelsea,,26957,True,2.0,0.0,1.67,0.65
+36,11/05/2025 14:15,Manchester United,West Ham,,26956,True,0.0,2.0,2.31,2.16
+36,11/05/2025 14:15,Nottingham Forest,Leicester,,26958,True,2.0,2.0,1.77,1.23
+36,11/05/2025 14:15,Tottenham Hotspur,Crystal Palace,,26960,True,0.0,2.0,0.81,3.99
+36,11/05/2025 16:30,Liverpool,Arsenal,,26952,True,2.0,2.0,2.75,2.19
+37,16/05/2025 19:30,Aston Villa,Tottenham Hotspur,,26963,False,,,,
+37,16/05/2025 20:15,Chelsea,Manchester United,,26966,False,,,,
 37,18/05/2025 12:00,Everton,Southampton,,26968,False,,,,
-37,18/05/2025 14:15,Aston Villa,Tottenham Hotspur,,26963,False,,,,
 37,18/05/2025 14:15,West Ham,Nottingham Forest,,26971,False,,,,
 37,18/05/2025 15:00,Brentford,Fulham,,26964,False,,,,
 37,18/05/2025 15:00,Leicester,Ipswich,,26969,False,,,,
