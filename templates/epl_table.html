@@ -87,7 +87,7 @@
                     <td>{{ team["L"] }}</td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ team["GA"] }}</td>
-                    <td class="{% if team['GD']|float < 0 %}positive{% elif team['GD']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["GD"] }}</td>
+                    <td>{{ team["GD"] }}</td>
                     <td class="bold-left-border">{{ team["PTS"] }}</td>
                 </tr>
                 {% endfor %}
