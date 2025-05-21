@@ -366,9 +366,9 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 37,18/05/2025 15:00,Brentford,Fulham,2 - 3,26964,True,2.0,3.0,2.43,1.62
 37,18/05/2025 15:00,Leicester,Ipswich,2 - 0,26969,True,2.0,0.0,0.79,1.37
 37,18/05/2025 16:30,Arsenal,Newcastle United,1 - 0,26962,True,1.0,0.0,1.16,2.25
-37,19/05/2025 20:00,Brighton,Liverpool,,26965,True,3.0,2.0,2.18,3.06
-37,20/05/2025 20:00,Crystal Palace,Wolverhampton Wanderers,,26967,False,,,,
-37,20/05/2025 20:00,Manchester City,Bournemouth,,26970,False,,,,
+37,19/05/2025 20:00,Brighton,Liverpool,3 - 2,26965,True,3.0,2.0,2.18,3.06
+37,20/05/2025 20:00,Crystal Palace,Wolverhampton Wanderers,,26967,True,4.0,2.0,1.68,1.43
+37,20/05/2025 20:00,Manchester City,Bournemouth,,26970,True,3.0,1.0,1.6,0.96
 38,25/05/2025 16:00,Bournemouth,Leicester,,26979,False,,,,
 38,25/05/2025 16:00,Fulham,Manchester City,,26981,False,,,,
 38,25/05/2025 16:00,Ipswich,West Ham,,26980,False,,,,
