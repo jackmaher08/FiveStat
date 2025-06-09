@@ -111,9 +111,11 @@ def fixtures_redirect():
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    next_gw = fixtures[fixtures["isResult"] == False]["round_number"].min()
-    #next_gw = 33
-    return redirect(url_for("epl_fixtures", gw=next_gw))
+    upcoming_rounds = fixtures[fixtures["isResult"] == False]["round_number"]
+    next_gw = upcoming_rounds.min() if not upcoming_rounds.empty else 38  # Fallback to GW38 if all results are complete
+
+    return redirect(url_for("epl_fixtures", gw=int(next_gw)))
+
 
 
 

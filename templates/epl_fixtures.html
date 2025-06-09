@@ -10,7 +10,7 @@
     <meta property="og:url" content="https://www.fivestat.co.uk/">
     <meta property="og:type" content="website"> 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
@@ -36,7 +36,7 @@
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
                     <a href="/epl_results">Results</a>
-                    <a href="/epl_table">League Stats</a>
+                    <a href="/epl_table">League Tables</a>
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
@@ -44,8 +44,7 @@
     </div>
 
     <p>
-        *Please note that we have kept the site on GW37 while we work on implementing some new features. This still gives you a chance to navigate
-        the site and get a feel for it. Thanks.*
+        ***Our Correct Score Prediction Heatmaps will be available once fixtures for the 25/26 Season are announced***
     </p>
 
     <!-- Dropdown Selector for Gameweek -->
@@ -272,6 +271,7 @@
         
     <footer class="footer">
         <p>Last updated: {{ last_updated }}</p>
+        <a href="https://x.com/Five_Stat" target="_blank"><i class="fa-brands fa-square-x-twitter socials"></i></a> <a href="mailto:fivestatanalytics@gmail.com"><i class="fa-solid fa-envelope socials"></i></a>
         <p>&copy; 2025 FiveStat</p>
         <p><a href="/privacy.html" target="_blank">Privacy Policy</a></p>
     </footer>

@@ -796,6 +796,12 @@ input {
     margin-bottom: 3px;
     font-style: italic;
 }
+.socials {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 3px;
+    font-style: italic;
+}
 
 .form-row {
     display: flex;

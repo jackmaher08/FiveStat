@@ -3407,3 +3407,15 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 368,37,18/05/2025 15:00,King Power Stadium,Leicester,Ipswich,2 - 0,2024,2.0,0.0,home_win,16,14
 361,37,18/05/2025 16:30,Emirates Stadium,Arsenal,Newcastle United,1 - 0,2024,1.0,0.0,home_win,1,22
 364,37,19/05/2025 20:00,American Express Stadium,Brighton,Liverpool,3 - 2,2024,3.0,2.0,home_win,5,17
+366,37,20/05/2025 20:00,Selhurst Park,Crystal Palace,Wolverhampton Wanderers,4 - 2,2024,4.0,2.0,home_win,9,34
+369,37,20/05/2025 20:00,Etihad Stadium,Manchester City,Bournemouth,3 - 1,2024,3.0,1.0,home_win,19,3
+371,38,25/05/2025 16:00,Vitality Stadium,Bournemouth,Leicester,2 - 0,2024,2.0,0.0,home_win,3,16
+372,38,25/05/2025 16:00,Craven Cottage,Fulham,Manchester City,0 - 2,2024,0.0,2.0,away_win,11,19
+373,38,25/05/2025 16:00,Portman Road,Ipswich,West Ham,1 - 3,2024,1.0,3.0,away_win,14,33
+374,38,25/05/2025 16:00,Anfield,Liverpool,Crystal Palace,1 - 1,2024,1.0,1.0,draw,17,9
+375,38,25/05/2025 16:00,Old Trafford,Manchester United,Aston Villa,2 - 0,2024,2.0,0.0,home_win,20,2
+376,38,25/05/2025 16:00,St. James' Park,Newcastle United,Everton,0 - 1,2024,0.0,1.0,away_win,22,10
+377,38,25/05/2025 16:00,The City Ground,Nottingham Forest,Chelsea,0 - 1,2024,0.0,1.0,away_win,24,8
+378,38,25/05/2025 16:00,St. Mary's Stadium,Southampton,Arsenal,1 - 2,2024,1.0,2.0,away_win,26,1
+379,38,25/05/2025 16:00,Tottenham Hotspur Stadium,Tottenham Hotspur,Brighton,1 - 4,2024,1.0,4.0,away_win,30,5
+380,38,25/05/2025 16:00,Molineux Stadium,Wolverhampton Wanderers,Brentford,1 - 1,2024,1.0,1.0,draw,34,4
