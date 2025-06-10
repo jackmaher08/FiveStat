@@ -13,6 +13,7 @@ import json
 import unicodedata
 from mplsoccer import Radar
 from io import BytesIO
+from generate_player_shots import create_player_shotmap_image
 
 # Flask app initialization
 app = Flask(__name__)
@@ -301,6 +302,17 @@ def predict_player_goals_route(player_name):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+@app.route("/generate_player_shotmap", methods=["GET"])
+def generate_player_shotmap():
+    player_name = request.args.get("player")
+    shot_type = request.args.get("type", "all")
+
+    image_bytes = create_player_shotmap_image(player_name, shot_type)
+    if image_bytes is None:
+        return "No shotmap available for this player", 404
+
+    return send_file(image_bytes, mimetype="image/png")
 
 
 

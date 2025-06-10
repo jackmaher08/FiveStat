@@ -193,14 +193,51 @@
         
         
     </div>
+    
+    <br><br>
+    <hr class="fixture-divider">
     <br><br>
 
       
     
+    <!-- Player Shotmap Generator -->
+    <div class="radarChartContainer">
+        <h2>Player Shotmaps</h2>
+        <select id="shotmapPlayerSelect" onchange="trackTeamSelect(this.value)">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <button onclick="generateShotmap()">Generate Shotmap</button>
+    </div>
+
+    <br>
+
+    <!-- Slider Toggle for All Shots / Only Goals -->
+    <div class="toggle-container">
+    <label class="switch">
+        <input type="checkbox" id="shotmapToggle" onchange="generateShotmap()">
+        <span class="slider round"></span>
+    </label>
+    <div class="toggle-labels">
+        <span id="allShotsLabel" class="active">All Shots</span>
+        <span id="goalsOnlyLabel">Goals Only</span>
+    </div>
+    </div>
+
+    <p id="shotmapLoadingMessage" style="display:none; font-weight:bold;">Generating shotmap...</p>
+
+
+    <div id="shotmapResultContainer" style="text-align:center; margin-top:20px;">
+        <img id="shotmapImage" src="" alt="Player Shotmap" style="display:none; max-width:100%;">
+    </div>
 
 
     
-
+    <br><br>
+    <hr class="fixture-divider">
 
     <script>
         let currentSortColumn = 4; // Default sort by "Goals"
@@ -734,6 +771,43 @@
                 document.getElementById("cookieNotice").style.display = "block";
             }
         };
+
+        function generateShotmap() {
+            const player = document.getElementById("shotmapPlayerSelect").value;
+            const img = document.getElementById("shotmapImage");
+            const loading = document.getElementById("shotmapLoadingMessage");
+            const toggle = document.getElementById("shotmapToggle");
+
+            const allLabel = document.getElementById("allShotsLabel");
+            const goalsLabel = document.getElementById("goalsOnlyLabel");
+
+            const type = toggle.checked ? "goals" : "all";
+
+            // Update label appearance
+            allLabel.classList.toggle("active", !toggle.checked);
+            goalsLabel.classList.toggle("active", toggle.checked);
+
+            if (!player) {
+                alert("Please select a player.");
+                return;
+            }
+
+            loading.style.display = "block";
+            img.style.display = "none";
+
+            const encoded = encodeURIComponent(player);
+            img.onload = () => {
+                loading.style.display = "none";
+                img.style.display = "block";
+            };
+            img.onerror = () => {
+                loading.textContent = "Error loading shotmap.";
+            };
+            img.src = `/generate_player_shotmap?player=${encoded}&type=${type}&t=${Date.now()}`;
+        }
+
+
+
     </script>
 
     <footer class="footer">
