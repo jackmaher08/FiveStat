@@ -153,7 +153,7 @@
     <div class="modal" id="infoModal">
         <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a>to visualize how the final Premier League Table will look</p>
     </div>
-    <div class="table-container">
+    <div id="sim-league-table" class="table-container">
         <table id="simulatedTable">
             <thead>
                 <tr>
@@ -404,6 +404,16 @@
                 document.getElementById("cookieNotice").style.display = "block";
             }
         };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash === "#league-table") {
+                const table = document.getElementById("league-table");
+                if (table) {
+                    table.classList.add("highlight");
+                    setTimeout(() => table.classList.remove("highlight"), 2000);
+                }
+            }
+        });
     </script>
 
     <footer class="footer">

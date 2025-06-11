@@ -54,9 +54,9 @@ def get_last_updated_time():
             return "Unknown"
 
 
-def get_team_form(fixtures_df, team_name, max_matches=5):
+def get_team_form(fixtures_df, team_name, max_matches=10):
     team_matches = fixtures_df[
-        ((fixtures_df["home_team"] == team_name) | (fixtures_df["away_team"] == team_name)) &
+        ((fixtures_df["home_team"] == team_name) | (fixtures_df["away_team"] == team_name)) & 
         (fixtures_df["isResult"] == True)
     ].sort_values("date", ascending=False).head(max_matches)
 
@@ -67,12 +67,21 @@ def get_team_form(fixtures_df, team_name, max_matches=5):
         opp_goals = match["away_goals"] if is_home else match["home_goals"]
 
         if team_goals > opp_goals:
-            form.append("w")
+            result = "w"
         elif team_goals == opp_goals:
-            form.append("d")
+            result = "d"
         else:
-            form.append("l")
+            result = "l"
+
+        form.append({
+            "result": result,
+            "h_team": match["home_team"],
+            "a_team": match["away_team"],
+            "h_score": int(match["home_goals"]),
+            "a_score": int(match["away_goals"])
+        })
     return form
+
 
 
 
@@ -429,9 +438,9 @@ def epl_results(gw):
         all_results_df["date"] = pd.to_datetime(all_results_df["date"], dayfirst=True)
 
         # ✅ Add form data to each fixture in this GW
-        for fixture in filtered_fixtures:
-            fixture["home_form"] = get_team_form(all_results_df, fixture["home_team"])
-            fixture["away_form"] = get_team_form(all_results_df, fixture["away_team"])
+        #for fixture in filtered_fixtures:
+        #   fixture["home_form"] = get_team_form(all_results_df, fixture["home_team"])
+        #  fixture["away_form"] = get_team_form(all_results_df, fixture["away_team"])
 
         # ✅ Group fixtures by date (INSERT HERE)
         fixture_groups = defaultdict(list)
@@ -464,7 +473,19 @@ def epl_results(gw):
 
     except Exception as e:
         print(f"❌ Error loading data: {e}")
-        return render_template("epl_results.html", fixtures=[], current_gw=0, gameweeks=[], league_table=[], last_updated=get_last_updated_time())
+        import traceback
+        traceback.print_exc()
+
+        return render_template(
+            "epl_results.html",
+            fixture_groups={},  # <-- key fix
+            current_gw=0,
+            gameweeks=[],
+            league_table=[],
+            last_updated=get_last_updated_time(),
+            all_teams=[],
+            team_display_names={}
+        )
 
 
 
@@ -694,6 +715,11 @@ def team_page(team_name):
             if pos in team_sim_row.columns
         ]
 
+    # === Filter Player Data for This Team ===
+    from data_loader import get_player_data
+    players_all = get_player_data()
+    team_players = [p for p in players_all if p.get("Team") == team_name]
+
     return render_template(
         "team_page.html",
         team=team_data,
@@ -701,6 +727,7 @@ def team_page(team_name):
         team_display_names=team_display_names,
         league_table=partial_table,
         start_position=start_position,
+        team_players=team_players,
         last_updated=get_last_updated_time(),
 
         # Fixture visual data

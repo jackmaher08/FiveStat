@@ -85,12 +85,6 @@
                                     <span class="team-name home">
                                         <span class="form-tooltip">
                                             {{ fixture.home_team }}
-                                            <div class="tooltip-content">
-                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                                {% for f in fixture.home_form %}
-                                                    <span class="{{ f }}">{{ f.upper() }}</span>
-                                                {% endfor %}
-                                            </div>
                                         </span>                                          
                                     </span>
 
@@ -103,12 +97,6 @@
                                     <span class="team-name away">
                                         <span class="form-tooltip">
                                             {{ fixture.away_team }}
-                                            <div class="tooltip-content">
-                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                                {% for f in fixture.away_form %}
-                                                    <span class="{{ f }}">{{ f.upper() }}</span>
-                                                {% endfor %}
-                                            </div>
                                         </span>
                                     </span>
                                     

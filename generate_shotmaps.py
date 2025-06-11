@@ -160,6 +160,28 @@ def plot_team_shotmap(team_name):
     fig, ax = pitch.draw(figsize=(12, 9))
     fig.patch.set_facecolor("#f4f4f9")
 
+    # Base path for logo location
+    base_path = os.path.dirname(os.path.abspath(__file__))
+
+    standardized_team = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
+    standardized_filename = standardized_team.lower().replace("’", "").replace("'", "")
+    logo_path = os.path.join(base_path, "static", "team_logos", f"{standardized_filename}_logo.png")
+
+    def add_team_logo(ax, logo_path, y_min, y_max, x_center):
+        if os.path.exists(logo_path):
+            logo_img = mpimg.imread(logo_path)
+            aspect_ratio = logo_img.shape[0] / logo_img.shape[1]
+            height = y_max - y_min
+            width = height / aspect_ratio
+            x_min = x_center - width / 2
+            x_max = x_center + width / 2
+            ax.imshow(logo_img, extent=(x_min, x_max, y_min, y_max), alpha=0.05, zorder=1)
+        else:
+            print(f"⚠️ Logo not found for team: {standardized_team} at {logo_path}")
+
+    # Call after pitch.draw
+    add_team_logo(ax, logo_path, y_min=60, y_max=110, x_center=40)
+
     # Remove duplicates
     subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in df.columns]
     if subset_columns:

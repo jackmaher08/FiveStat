@@ -250,6 +250,8 @@ a:hover {
     }
     .team-logo {
         max-height: 120px;
+    }
+    .team-header .team-logo {
         margin-top: 75px;
     }
     
@@ -500,6 +502,12 @@ ul {
     border-collapse: separate;
     border-spacing: 0;
     margin: 0 auto;
+}
+
+.scroll-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px;
 }
 
 
@@ -924,11 +932,13 @@ input:checked + .slider:before {
     justify-content: center;
     gap: 8px;
     margin: 8px 0;
+    flex-wrap: nowrap;
 }
 
 .form-circle {
     display: inline-block;
     width: 40px;
+    min-width: 40px;
     height: 40px;
     line-height: 40px;
     border-radius: 50%;
@@ -936,6 +946,7 @@ input:checked + .slider:before {
     font-size: 0.8rem;
     font-weight: bold;
     color: white;
+    flex-shrink: 0;
 }
 
 .form-circle.w {
@@ -1337,4 +1348,9 @@ input:checked + .slider:before {
 .toggle-labels span.active {
   font-weight: bold;
   opacity: 1;
+}
+
+.highlight {
+    outline: 3px solid #3f007d;
+    transition: outline 0.4s ease-in-out;
 }

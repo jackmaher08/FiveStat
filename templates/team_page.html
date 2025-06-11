@@ -115,17 +115,21 @@
         <div class="fixture-toggle-wrapper">
             <div class="fixture-header" onclick="toggleFixtureSection('form')">
                 <span class="dropdown-spacer"></span>
-                <h3>Recent Form</h3>
+                <h3><i class="fa-solid fa-chart-simple"></i> Recent Form</h3>
                 <span class="dropdown-icon" id="form-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="form-section" class="fixture-body">
                 <div class="form-display">
                 <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                <div class="form-icons">
-                    <span class="form-arrow"></span>
-                    {% for result in team.form %}
-                    <span class="form-circle {{ result }}">{{ result|upper }}</span>
-                    {% endfor %}
+                <div class="scroll-container">
+                    <div class="form-icons">
+                        <span class="form-arrow"></span>
+                        {% for result in team.form %}
+                            <span class="form-circle {{ result.result }}" title="{{ result.h_team }} {{ result.h_score }} - {{ result.a_score }} {{ result.a_team }}">
+                                {{ result.result|upper }}
+                            </span>
+                        {% endfor %}
+                    </div>
                 </div>
                 </div>
             </div>
@@ -134,7 +138,7 @@
         <div class="fixture-toggle-wrapper">
             <div class="fixture-header" onclick="toggleFixtureSection('radar')">
                 <span class="dropdown-spacer"></span>
-                <h3>Performance Radar</h3>
+                <h3><i class="fa-solid fa-chart-line"></i> Performance Radar</h3>
                 <span class="dropdown-icon" id="radar-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="radar-section" class="fixture-body">
@@ -150,7 +154,7 @@
             <!-- Previous Fixture Section -->
             <div class="fixture-header" onclick="toggleFixtureSection('prev')">
                 <span class="dropdown-spacer"></span> <!-- Left spacer to balance -->
-                <h3>Previous Fixtures</h3>
+                <h3><i class="fa-regular fa-calendar-check"></i> Previous Fixtures</h3>
                 <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="prev-section" class="fixture-body">
@@ -171,10 +175,13 @@
             <!-- Next Fixture Section -->
             <div class="fixture-header" onclick="toggleFixtureSection('next')">
                 <span class="dropdown-spacer"></span>
-                <h3>Upcoming Fixtures</h3>
+                <h3><i class="fa-regular fa-calendar"></i> Upcoming Fixtures</h3>
                 <span class="dropdown-icon" id="next-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="next-section" class="fixture-body">
+                <p>
+                    ***Our Correct Score Prediction Heatmaps will be available once fixtures for the 25/26 Season are announced***
+                </p>
                 <div class="gw-selector">
                     <select id="next-gw-select" onchange="updateNextFixture(this.value); trackTeamSelect(this.value)">
                     {% for gw in upcoming_gameweeks %}
@@ -193,7 +200,7 @@
         <div class="fixture-toggle-wrapper">
             <div class="fixture-header" onclick="toggleFixtureSection('simulated')">
                 <span class="dropdown-spacer"></span>
-                <h3>Simulated Final League Table</h3>
+                <h3><i class="fa-solid fa-table-cells"></i> Simulated Final League Table</h3>
                 <span class="dropdown-icon" id="simulated-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="simulated-section" class="fixture-body">
@@ -226,15 +233,51 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                <br>
                 </div>
-                    <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto;">
-                        <h3 style="text-align: center; margin-top: 30px;">Position Probability Distribution</h3>
-                        <canvas id="positionBarChart"></canvas>
-                    </div>
+                <a href="/epl_table#sim-league-table">View full Simulated League Table</a>
+                <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto;">
+                    <h3 style="text-align: center; margin-top: 30px;">Position Probability Distribution</h3>
+                    <canvas id="positionBarChart"></canvas>
+                </div>
             </div>
         </div>
-        
 
+
+        
+        <div class="fixture-toggle-wrapper">
+            <div class="fixture-header" onclick="toggleFixtureSection('player_shotmap')">
+                <span class="dropdown-spacer"></span>
+                <h3><i class="fa-solid fa-bullseye"></i> Player Shotmaps - 24/25 Season</h3>
+                <span class="dropdown-icon" id="player_shotmap-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div id="player_shotmap-section" class="fixture-body">
+                <select id="teamShotmapPlayerSelect">
+                    <option value="">Select a Player</option>
+                    {% for player in team_players %}
+                        <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <button onclick="generateTeamShotmap()">Generate Shotmap</button>
+
+                <div class="toggle-container" style="margin-top: 10px;">
+                    <label class="switch">
+                        <input type="checkbox" id="teamShotmapToggle" onchange="generateTeamShotmap()">
+                        <span class="slider round"></span>
+                    </label>
+                    <div class="toggle-labels">
+                        <span id="teamAllShotsLabel" class="active">All Shots</span>
+                        <span id="teamGoalsOnlyLabel">Goals Only</span>
+                    </div>
+                </div>
+
+                <p id="teamShotmapLoadingMessage" style="display:none; font-weight:bold;">Generating shotmap...</p>
+                <div id="teamShotmapResultContainer" style="text-align:center; margin-top:20px;">
+                    <img id="teamShotmapImage" src="" alt="Player Shotmap" style="display:none; max-width:800px; width:100%;">
+                </div>
+            </div>
+        </div>
 
 
 
@@ -243,7 +286,7 @@
         <div class="fixture-toggle-wrapper">
             <div class="fixture-header" onclick="toggleFixtureSection('shotmap')">
               <span class="dropdown-spacer"></span>
-              <h3>Shotmap - 24/25 Season</h3>
+              <h3><i class="fa-solid fa-users-viewfinder"></i> Team Shotmap - 24/25 Season</h3>
               <span class="dropdown-icon" id="shotmap-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="shotmap-section" class="fixture-body">
@@ -460,6 +503,167 @@
                 document.getElementById("cookieNotice").style.display = "block";
             }
         };
+
+
+
+        function generateTeamShotmap() {
+            const player = document.getElementById("teamShotmapPlayerSelect").value;
+            const img = document.getElementById("teamShotmapImage");
+            const loading = document.getElementById("teamShotmapLoadingMessage");
+            const toggle = document.getElementById("teamShotmapToggle");
+
+            const allLabel = document.getElementById("teamAllShotsLabel");
+            const goalsLabel = document.getElementById("teamGoalsOnlyLabel");
+
+            const type = toggle.checked ? "goals" : "all";
+
+            allLabel.classList.toggle("active", !toggle.checked);
+            goalsLabel.classList.toggle("active", toggle.checked);
+
+            if (!player) {
+                alert("Please select a player.");
+                return;
+            }
+
+            loading.style.display = "block";
+            img.style.display = "none";
+
+            const encoded = encodeURIComponent(player);
+            img.onload = () => {
+                loading.style.display = "none";
+                img.style.display = "block";
+            };
+            img.onerror = () => {
+                loading.textContent = "Error loading shotmap.";
+            };
+            img.src = `/generate_player_shotmap?player=${encoded}&type=${type}&t=${Date.now()}`;
+        }
+
+
+        
+
+        let teamRadarChart, teamBarChart, teamGoalChart;
+
+        function generateTeamPlayerCharts() {
+            const player = document.getElementById("teamChartsPlayerSelect").value;
+            const loadingMsg = document.getElementById("chartsLoadingMessage");
+            const chartsContainer = document.getElementById("teamPlayerChartsContainer");
+
+            if (!player) {
+                alert("Please select a player.");
+                return;
+            }
+
+            loadingMsg.style.display = "block";
+            chartsContainer.style.display = "none";
+
+            fetch(`/predict_player_goals/${encodeURIComponent(player)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data || data.length === 0) {
+                        loadingMsg.textContent = "No chart data available.";
+                        return;
+                    }
+
+                    // Prepare chart data
+                    const allGWs = data.map(row => `GW${row.gameweek}`);
+                    const xgData = data.map(row => row.expected_goals);
+                    const scoringLabels = allGWs.slice(-3);
+                    const scoringData = data.slice(-3).map(row => row.goal_probability);
+
+                    renderTeamRadar(allGWs, xgData);
+                    renderTeamBar(scoringLabels, scoringData);
+
+                    const nextGame = data.find(row => row.goal_distribution);
+                    if (nextGame) renderTeamGoalDist(nextGame.goal_distribution);
+
+                    loadingMsg.style.display = "none";
+                    chartsContainer.style.display = "block";
+                })
+                .catch(err => {
+                    loadingMsg.textContent = `Error: ${err}`;
+                });
+        }
+
+        function renderTeamRadar(labels, data) {
+            if (teamRadarChart) teamRadarChart.destroy();
+            teamRadarChart = new Chart(document.getElementById("teamXgRadarChart"), {
+                type: 'radar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "xG",
+                        data,
+                        fill: true,
+                        backgroundColor: 'rgba(0, 128, 255, 0.2)',
+                        borderColor: 'rgba(0, 128, 255, 1)',
+                        pointBackgroundColor: labels.map((_, i) => i >= 5 ? 'orange' : 'blue')
+                    }]
+                },
+                options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: { top: 20, bottom: 40 }
+                },
+                plugins: { legend: { display: false }},
+                scales: { r: { beginAtZero: true }}
+            }
+            });
+        }
+
+        function renderTeamBar(labels, data) {
+            if (teamBarChart) teamBarChart.destroy();
+            teamBarChart = new Chart(document.getElementById("teamScoringBarChart"), {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Scoring Probability (%)",
+                        data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: "Probability (%)" }
+                        }
+                    },
+                    plugins: { legend: { display: false }}
+                }
+            });
+        }
+
+        function renderTeamGoalDist(dist) {
+            if (teamGoalChart) teamGoalChart.destroy();
+            teamGoalChart = new Chart(document.getElementById("teamGoalOutcomeBarChart"), {
+                type: 'bar',
+                data: {
+                    labels: ["0 Goals", "1 Goal", "2 Goals", "3+ Goals"],
+                    datasets: [{
+                        label: "Probability (%)",
+                        data: dist,
+                        backgroundColor: 'rgba(0, 128, 255, 0.6)',
+                        borderColor: 'rgba(0, 128, 255, 1)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: "Probability (%)" }
+                        }
+                    },
+                    plugins: { legend: { display: false }}
+                }
+            });
+        }
+
     </script>
 
 
