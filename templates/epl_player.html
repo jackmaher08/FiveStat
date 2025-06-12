@@ -70,7 +70,11 @@
                 {% for player in players %}
                     <tr>
                         <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player['Name'] }}')">{{ player['Name'] }}</a></td>
-                        <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=player['Team']) }}">{{ player['Team'] }}</a></td>
+                        <td class="bold-left-border">
+                            {% for club in player['Team'].split(',') %}
+                                <a href="{{ url_for('team_page', team_name=club.strip()) }}">{{ club.strip() }}</a>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
                         <td class="bold-left-border">{{ player['MP'] }}</td>
                         <td>{{ player['Mins'] }}</td>
                         <td class="bold-left-border">{{ player['G'] }}</td>

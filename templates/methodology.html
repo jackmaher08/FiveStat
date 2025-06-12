@@ -11,6 +11,7 @@
     <meta property="og:type" content="website">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
     <script>
@@ -50,165 +51,57 @@
     
     <div class="container">
         <br><br>
-        <h2>What Are We Trying to Achieve?</h2>
-        <p>
-            At FiveStat, the mission is to turn raw football data into data-driven predictions and visuals. 
+        <h2>How we build out models</h2>
+        <hr class="fixture-divider">
+        <h3 style="margin-top: 20px;"><i class="fa-solid fa-futbol"></i> Match Prediction Model</h3>
+        <ol>
+            <li><strong>Load Historical Match Data:</strong> We ingest and normalize Premier League results going back to 2016. Team names are standardized, and goals scored/conceded are extracted for both home and away matches. This historical dataset forms the foundation of our team ratings.</li>
             <br>
-            We:
-            <ul>
-                <li>Forecast match scorelines and outcomes</li>
-                <li>Simulate the entire season to project final league standings</li>
-                <li>Estimate player-specific metrics, such as goal scoring probabilities</li>
-                <li>Visualize the strengths and weaknesses of teams and players</li>
-            </ul>
+            <li><strong>Calculate Base Ratings:</strong> Using the historical data, we compute long-term Attack (ATT) and Defense (DEF) ratings for each team. These are based on the average goals scored and conceded, split by home and away, and averaged to produce overall ATT and DEF strength per team.</li>
             <br>
-            Our models provide probabilities for:
-            <ul>
-                <li>Each scoreline in a fixture (0-0, 1-0, 2-1...)</li>
-                <li>Match results (Win, Draw, Loss)</li>
-                <li>Final league positions (from 10,000 simulations)</li>
-                <li>Player goalscoring probabilities in upcoming matches</li>
-            </ul>
-        </p>
-        <br><br><hr class="fixture-divider"><br><br>
-        <h2>Data Used in the Models</h2>
-        <p>We collect and engineer a wide range of data</p>
-        <div class="table-scroll">
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                    <th>Data Type</th>
-                    <th>How It's Used</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>Historical Fixture Data (2016 - Present)</td>
-                    <td>Long-term ATT/DEF Ratings</td>
-                    </tr>
-                    <tr>
-                    <td>Current Season Results</td>
-                    <td>Real-time updates for Poisson simulation</td>
-                    </tr>
-                    <tr>
-                    <td>xG Data</td>
-                    <td>Probability calibration</td>
-                    </tr>
-                    <tr>
-                    <td>Player Stats</td>
-                    <td>Used for radars and goal forecasts</td>
-                    </tr>
-                    <tr>
-                    <td>Team Efficiency/Momentum</td>
-                    <td>Adjusts model dynamically</td>
-                    </tr>
-                    <tr>
-                    <td>Shot Locations</td>
-                    <td>Visuals of attacking patterns</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <br><br><hr class="fixture-divider"><br><br>
-        <h2>Which Models We Use</h2>
-        <h4>1. Poisson Regression for our Match Predictions</h4>
-        <p>
-            <strong>Purpose :</strong> To Project how many goals each team will score in a given fixture <br><br>
-            <strong>How It Works:</strong> A Poisson Distribution calculates the probability of scoring <i>n</i> goals when the expected goals (xG) for each team is known. <br><br>
-            We calculate each team’s Attack and Defense Ratings using:
-            <ul>
-                <li>Historical data (2016–2024)</li>
-                <li>Recent Team Form</li>
-                <li>Home/Away Performance</li>
-                <li>Team Momentum & Efficiency</li>
-            </ul>
+            <li><strong>Adjust for Recent Form:</strong> We select the most recent 20 matches for each team and calculate a form-based ATT and DEF rating. We then blend these with the historical base using a weighted average (`blended = (1 - α) * historical + α * recent`), with α typically around 0.65.</li>
             <br>
-            Think of a Poisson dist as rolling a weighted dice where the most likely outcome is known. Because of this, we can center the dist around the team's average xG.
-            <br><br>
-            <strong>Example:</strong> If Arsenal has a 1.6 xG and Chelsea 1.2 xG, the model can give: <br><br>
-            Ipswich 0 goals: ~19%
+            <li><strong>Efficiency & Momentum:</strong> We assess how well a team is finishing chances (Efficiency = Goals ÷ xG) and their recent goal-scoring trend (Momentum = recent Goals ÷ recent xG). These factors modify the final expected goals to capture hot streaks or slumps.</li>
             <br>
-            Ipswich 1 goal: ~31%
+            <li><strong>Compute Team xG:</strong> For each team, we estimate their xG in a fixture using two methods: (1) A Poisson-calibrated xG that matches their ATT rating using binary search; (2) A simple ATT × opponent DEF calculation. The final xG is a weighted blend of both (typically 80% multiplicative, 20% Poisson), plus home advantage and efficiency/momentum adjustments.</li>
             <br>
-            ...
+            <li><strong>Simulate Scorelines:</strong> Using the two xG values (home and away), we simulate a matrix of scoreline probabilities with a Poisson distribution, covering results from 0–8 goals for each side. Each matrix cell represents the likelihood of a specific scoreline (e.g., 2–1 or 0–0).</li>
             <br>
-            Spurs 2 goals: ~25%, etc.
-            <br><br>
-            We can multiply each of the home and away goal probabilities to get the probability of each scoreline:
+            <li><strong>Derive Match Outcome Probabilities:</strong> From the scoreline matrix, we aggregate the probabilities to calculate: (1) Home Win % (P[home goals > away goals]), (2) Draw % (P[home goals = away goals]), and (3) Away Win % (P[away goals > home goals]).</li>
             <br>
-            Ipswich 1 - 2 Spurs: ~7.8%
-            <br><br>
-            <img src="../static/heatmaps/Ipswich_Spurs_heatmap.png" alt="Example Heatmap">
-            <br><br>
-            <strong>Why Poisson?</strong>
-            <ul>
-                <li>Well-suited to discrete events like goals</li>
-                <li>Widely used in sports analytics</li>
-                <li>Easy to extend for full match score simulation</li>
-            </ul>
-        </p>
-        <br><br>
-        <h4>2. Monte Carlo Simulation for League Positions</h4>
-        <p>
-            <strong>Purpose:</strong>Forecast the final league table based on predicted match outcomes <br><br>
-            <strong>How It Works:</strong>
-            <ul>
-                <li>For each unplayed match, simulate the result based on Poisson-generated win/draw/loss probabilities</li>
-                <li>Repeat this 10,000 times</li>
-                <li>Tally each team's finishing position</li>
-            </ul>         
-            <br>   
-            Think of it Like playing out a season 10,000 times on Football Manager and recording where everyone finishes. <br><br><br><br><br>
-            <strong>What We Produce:</strong>
-            <ul>
-                <li>The probability (%) that each team finishes 1st, 2nd, ..., 20th</li>
-                <li>Final xPTS = Current Points + Average Points in Simulations</li>
-            </ul>
-            <img src="../static/chart_images/league_model.png" alt="Example League Table" class="methodologyleagueimage">
-        </p>
-        <br><br><hr class="fixture-divider"><br><br>
-        <h2>Player Goal Predictions</h2>
-        <p>
-            We project a player's goal probability based on their xG share and team xG forecast in a given fixture.
-        </p>
+            <li><strong>Generate Visuals:</strong> Scoreline heatmaps and bar charts are rendered to show fans and analysts the most likely scorelines and win/draw probabilities in a visually intuitive way.</li>
+        </ol>
+
+        <hr class="fixture-divider">
+        <h3 style="margin-top: 20px;"><i class="fa-solid fa-table-cells"></i> League Table Simulation</h3>
+        <ol>
+            <li><strong>Monte Carlo Simulation:</strong> For each unplayed fixture in the season, we simulate match outcomes using the win/draw/loss probabilities from our model. Each run generates a possible end-of-season outcome.</li>
+            <br>
+            <li><strong>Repeat 10,000 Times:</strong> We simulate the full remaining season 10,000 times to create a distribution of possible finishing positions for every team.</li>
+            <br>
+            <li><strong>Project Final Table:</strong> We compute the probability of each team finishing 1st to 20th based on simulation outcomes. We also calculate final xPTS by combining current points with the average points earned in simulations.</li>
+        </ol>
+
+        <hr class="fixture-divider">
+        <h3 style="margin-top: 20px;"><i class="fa-solid fa-bullseye"></i> Player Goal Projections</h3>
+        <ol>
+            <li><strong>Calculate xG Share:</strong> We calculate the player's share of their team’s total xG using season-long data (player xG ÷ team xG). This gives a rough measure of how involved they are in goal chances.</li>
+            <br>
+            <li><strong>Adjust for Form:</strong> We blend the season average with recent performance (per-90 xG in last 5 matches), giving more weight to players on a hot streak.</li>
+            <br>
+            <li><strong>Forecast Team xG:</strong> For each of the next few fixtures, we estimate the team’s expected goals using the match model described above.</li>
+            <br>
+            <li><strong>Project Player xG:</strong> We multiply the adjusted xG share by the team’s projected xG for each match. This gives us a per-match expected goals value for the player.</li>
+            <br>
+            <li><strong>Simulate Scoring Probability:</strong> Finally, we use a Poisson distribution to estimate the probability the player scores at least once in each game, based on their xG.</li>
+        </ol>
+
+        <hr class="fixture-divider">
+        <h3 style="margin-top: 20px;"><i class="fa-solid fa-ranking-star"></i> Visualizations</h3>
         <ul>
-            <li>We can identify the quality of a players goalscoring oppertunities using their xG data</li>
-            <li>We know the Teams projected xG for the upcoming games thanks to our Poisson distribution model</li>
-            <li>We can then simulate Expected Goals (xG) and Scoring Probability (%) per match</li>
+            <li><strong>Radar Charts:</strong> Players and teams are scored across multiple metrics and converted to percentiles. This allows easy comparison with peers.</li>
+            <li><strong>Shotmaps:</strong> All shots are plotted with xG values and results. Coordinates are flipped so all shots face the same direction for consistent interpretation.</li>
         </ul>
-        <img class="methodologyleagueimage" src="../static/chart_images/player_x_goals.png" alt="Example Heatmap">
-        <p>We can think of it like giving each player their own mini match simulation</p>
-        <br><br><hr class="fixture-divider"><br><br>
-        <h2>Radar Charts & Team Shotmaps</h2>
-        <p>
-            We visualize team & player profile stats using percentile-based radar charts and shotmap visuals.
-        </p>
-    
-        <H4>Team Radar Charts</H4>
-        <ul>
-            <li>Metrics: Win %, Goals/Match, xG/Match, PTS/Match, etc.</li>
-            <li>Each value is turned into a percentile vs league peers</li>
-        </ul>
-        <img src="../static/chart_images/team_radar.png" alt="Team Radar Image">
-        <h4>Shotmaps</h4>
-        <ul>
-            <li>Use real-world data to display shot locations & xG quality</li>
-            <li>Normalize all shots so they face one direction for consistency</li>
-        </ul>
-        <img src="../static/chart_images/shotmap_example.png" alt="Sotmap Example Image">
-        
-    
-        <br><br><hr class="fixture-divider"><br><br>
-        <p>
-            The Pipeline Behind the Scenes:
-            <ul>
-              <li>Data processing & cleaning</li>
-              <li>Model calculation</li>
-              <li>Charts, Heatmaps & Shotmaps generation</li>
-              <li>Web app rendering (Flask + HTML templates)</li>
-            </ul>
-            We try to ensure the entire model is refreshed regularly to reflect real-time data - no stale stats here!
-        </p>
         <br><br><hr class="fixture-divider"><br>
     </div>
     

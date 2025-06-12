@@ -8,6 +8,7 @@ from mplsoccer import Radar
 import os
 from matplotlib import rcParams
 from math import pi
+import unicodedata
 
 app = Flask(__name__)
 
@@ -15,8 +16,10 @@ app = Flask(__name__)
 radar_data_file_path = "data/tables/player_radar_data.csv"
 df = pd.read_csv(radar_data_file_path)
 
-# Filter only Premier League players and exclude goalkeepers
-df_premier_league = df[(df['Comp'] == 'eng Premier League') & (df['Pos'] != 'GK')]
+# More flexible filter: includes players where Comp contains 'Premier League'
+df_premier_league = df[
+    df['Comp'].str.contains('Premier League', case=False, na=False) & (df['Pos'] != 'GK')
+]
 
 # Stats to compare
 columns_to_plot = [
@@ -30,23 +33,31 @@ df_premier_league = df_premier_league.dropna(subset=columns_to_plot)
 # Calculate league average for comparison
 average_stats = df[columns_to_plot].mean().values.flatten().tolist()
 
+def normalize_name(s):
+    return unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode("utf-8").lower().strip()
+
 @app.route('/generate_radar', methods=['GET'])
 def generate_radar_chart():
     player_name = request.args.get('player')
-    
-    # Ensure player is valid and exists in the dataset
-    if player_name not in df_premier_league['Player'].values:
+    if not player_name:
+        return jsonify({"error": "Missing player name"}), 400
+
+    # Normalize and match player name
+    normalized_input = normalize_name(player_name)
+    matched_rows = df_premier_league[df_premier_league["Player"].apply(lambda x: normalize_name(x)) == normalized_input]
+
+    if matched_rows.empty:
         return jsonify({"error": "Player not found"}), 404
 
-    # Get player stats
-    player_data = df_premier_league[df_premier_league['Player'] == player_name]
+    player_data = matched_rows.iloc[0:1]  # Keep as DataFrame for consistency
 
+    # Ensure no missing values in radar columns
     if player_data[columns_to_plot].isnull().any().any():
         return jsonify({"error": "Incomplete player data"}), 400
 
     player_stats = player_data[columns_to_plot].values.flatten().tolist()
 
-    # Create Radar Chart
+    # Radar chart logic
     radar = Radar(
         params=columns_to_plot,
         min_range=[0 for _ in columns_to_plot],
@@ -56,9 +67,8 @@ def generate_radar_chart():
     fig, ax = radar.setup_axis()
     fig.patch.set_facecolor('#f4f4f9')
     ax.set_facecolor('#f4f4f9')
-    
-    radar.draw_circles(ax=ax, facecolor='#f4f4f9', edgecolor='black', lw=1, zorder=1)
 
+    radar.draw_circles(ax=ax, facecolor='#f4f4f9', edgecolor='black', lw=1, zorder=1)
     radar.draw_radar_compare(
         ax=ax,
         values=player_stats,
@@ -70,25 +80,22 @@ def generate_radar_chart():
     radar.draw_range_labels(ax=ax, fontsize=15, fontproperties="monospace")
     radar.draw_param_labels(ax=ax, fontsize=15, fontproperties="monospace")
 
-    ax.text(0.2, 1.02, player_name, fontsize=15, ha='center', transform=ax.transAxes, color='#669bbc')
+    ax.text(0.2, 1.02, player_data["Player"].values[0], fontsize=15, ha='center', transform=ax.transAxes, color='#669bbc')
     ax.text(0.8, 1.02, 'League Avg', fontsize=15, ha='center', transform=ax.transAxes, color='#e63946')
 
-    # Additional info text
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        s='Metrics show per 90 stats\ncompared against all players\nin The Premier League\n\n@Five_Stat', 
         fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
-    # Save to BytesIO instead of file
+    # Output image
     img_io = BytesIO()
     plt.savefig(img_io, format='png', facecolor=fig.get_facecolor(), dpi=300)
     img_io.seek(0)
-
-    plt.close(fig)  # Free up memory
+    plt.close(fig)
 
     return send_file(img_io, mimetype='image/png')
-
 
 
 # Function to generate a radar chart comparing two players
