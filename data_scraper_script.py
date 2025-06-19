@@ -12,8 +12,8 @@ from mplsoccer import Pitch
 from mplsoccer import Radar
 from matplotlib.colors import LinearSegmentedColormap
 
-
-fixturedownload_url = "https://fixturedownload.com/download/epl-2024-GMTStandardTime.csv"
+'''
+fixturedownload_url = "https://fixturedownload.com/download/epl-2025-GMTStandardTime.csv"
 fixtures_df = pd.read_csv(fixturedownload_url)
 
 # Rename columns to match expected format
@@ -119,7 +119,69 @@ fixture_data.to_csv(file_path, index=False)
 
 print(f"✅ fixture data saved to: {file_path}")
 
+'''
 
+
+#TEMPORARILY USING THE FOLLOWING
+import pandas as pd
+import os
+
+# 1️⃣ Download 2025 fixture list from fixturedownload
+fixturedownload_url = "https://fixturedownload.com/download/epl-2025-GMTStandardTime.csv"
+fixtures_df = pd.read_csv(fixturedownload_url)
+
+# 2️⃣ Standardize column names
+fixtures_df = fixtures_df.rename(columns={
+    "Round Number": "round_number",
+    "Home Team": "home_team",
+    "Away Team": "away_team",
+    "Date": "date",
+    "Result": "result"
+})
+
+# 3️⃣ Normalize team names
+team_name_mapping = {
+    "Man City": "Manchester City",
+    "Newcastle": "Newcastle United",
+    "Spurs": "Tottenham Hotspur",
+    "Tottenham": "Tottenham Hotspur",
+    "Man Utd": "Manchester United",
+    "Wolves": "Wolverhampton Wanderers",
+    "Nott'm Forest": "Nottingham Forest"
+}
+fixtures_df["home_team"] = fixtures_df["home_team"].replace(team_name_mapping)
+fixtures_df["away_team"] = fixtures_df["away_team"].replace(team_name_mapping)
+
+# 4️⃣ Ensure numeric round column
+fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
+
+# 5️⃣ Add empty columns that Understat normally fills
+fixtures_df["id"] = None
+fixtures_df["isResult"] = False
+fixtures_df["home_goals"] = None
+fixtures_df["away_goals"] = None
+fixtures_df["home_xG"] = None
+fixtures_df["away_xG"] = None
+
+# 6️⃣ Rearrange to match expected structure
+columns_order = [
+    "id", "isResult", "round_number", "date", "home_team", "away_team", "result",
+    "home_goals", "away_goals", "home_xG", "away_xG"
+]
+fixtures_df = fixtures_df[columns_order]
+
+fixture_data = fixtures_df
+
+# 7️⃣ Save the merged file
+save_dir = "data/tables"
+os.makedirs(save_dir, exist_ok=True)
+file_path = os.path.join(save_dir, "fixture_data.csv")
+fixture_data.to_csv(file_path, index=False)
+
+print(f"✅ Fixture data saved (Understat skipped): {file_path}")
+
+
+#END OF TEMP
 
 
 
@@ -155,7 +217,7 @@ print(f"✅ next gw fixture data saved to: {next_gw_file_path}")
 
 # Load all seasons' data
 start_year=2016
-end_year=2024
+end_year=2025
 frames = [] 
 for year in range(start_year, end_year + 1):
     url = f"https://fixturedownload.com/download/epl-{year}-GMTStandardTime.csv"
@@ -272,6 +334,30 @@ print(f"✅ player data saved to: {player_file_path}")
 
 
 
+#TEMP USING THE FOLLOWING
+# ✅ Generate fresh league table (preseason alphabetical placeholder)
+
+# Get unique list of 2025 teams from fixtures
+teams_2025 = sorted(set(fixtures_df["home_team"]).union(set(fixtures_df["away_team"])))
+
+# Create empty table
+preseason_table = pd.DataFrame({
+    "Team": teams_2025,
+    "MP": 0, "W": 0, "D": 0, "L": 0, "G": 0, "GD": 0, "GA": 0,
+    "xG": 0.0, "npxG": 0.0, "xG +/-": 0.0,
+    "xGA": 0.0, "npxGA": 0.0, "xGA +/-": 0.0,
+    "PTS": 0, "xPTS": 0.0, "xPTS +/-": 0.0
+})
+
+# Save the preseason table
+league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
+preseason_table.to_csv(league_table_file_path, index=False)
+
+print("✅ League table reset for new season (preseason alphabetical order)")
+
+#END OF TEMP
+
+'''
 
 # Gathering league table data
 fixture_result_data = re.search("var teamsData .*= JSON.parse\('(.*)'\)", ugly_soup).group(1)
@@ -349,7 +435,7 @@ aggregated_results_df.to_csv(league_table_file_path, index=False)
 
 print(f"✅ League table data saved to: {league_table_file_path}")
 
-
+'''
 
 
 

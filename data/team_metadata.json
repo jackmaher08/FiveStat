@@ -2,101 +2,101 @@
   "Arsenal": {
     "manager": "Mikel Arteta",
     "stadium": "Emirates Stadium",
-    "logo": "arsenal.png"
+    "logo": "arsenal_logo.png"
   },
   "Aston Villa": {
     "manager": "Unai Emery",
     "stadium": "Villa Park",
-    "logo": "aston villa.png"
+    "logo": "aston villa_logo.png"
   },
   "Bournemouth": {
     "manager": "Andoni Iraola",
     "stadium": "Vitality Stadium",
-    "logo": "bournemouth.png"
+    "logo": "bournemouth_logo.png"
   },
   "Brentford": {
-    "manager": "Thomas Frank",
+    "manager": "TBC",
     "stadium": "Gtech Community Stadium",
-    "logo": "brentford.png"
+    "logo": "brentford_logo.png"
   },
   "Brighton": {
     "manager": "Fabian Hürzeler",
     "stadium": "Amex Stadium",
-    "logo": "brighton.png"
+    "logo": "brighton_logo.png"
+  },
+  "Burnley": {
+    "manager": "Scott Parker",
+    "stadium": "Turf Moor",
+    "logo": "burnley_logo.png"
   },
   "Chelsea": {
     "manager": "Enzo Maresca",
     "stadium": "Stamford Bridge",
-    "logo": "chelsea.png"
+    "logo": "chelsea_logo.png"
   },
   "Crystal Palace": {
     "manager": "Oliver Glasner",
     "stadium": "Selhurst Park",
-    "logo": "crystal palace.png"
+    "logo": "crystal palace_logo.png"
   },
   "Everton": {
     "manager": "David Moyes",
     "stadium": "Goodison Park",
-    "logo": "everton.png"
+    "logo": "everton_logo.png"
   },
   "Fulham": {
     "manager": "Marco Silva",
     "stadium": "Craven Cottage",
-    "logo": "fulham.png"
+    "logo": "fulham_logo.png"
+  },
+  "Leeds": {
+    "manager": "Daniel Farke",
+    "stadium": "Elland Road",
+    "logo": "leeds_logo.png"
   },
   "Liverpool": {
     "manager": "Arne Slot",
     "stadium": "Anfield",
-    "logo": "liverpool.png"
+    "logo": "liverpool_logo.png"
   },
   "Manchester City": {
     "manager": "Pep Guardiola",
     "stadium": "Etihad Stadium",
-    "logo": "manchester city.png"
+    "logo": "manchester city_logo.png"
   },
   "Manchester United": {
     "manager": "Ruben Amorim",
     "stadium": "Old Trafford",
-    "logo": "manchester united.png"
+    "logo": "manchester united_logo.png"
   },
   "Newcastle United": {
     "manager": "Eddie Howe",
     "stadium": "St. James' Park",
-    "logo": "newcastle.png"
+    "logo": "newcastle_logo.png"
   },
   "Nottingham Forest": {
     "manager": "Nuno Espírito Santo",
     "stadium": "City Ground",
-    "logo": "nottingham forest.png"
+    "logo": "nottingham forest_logo.png"
+  },
+  "Sunderland": {
+    "manager": "Régis Le Bris",
+    "stadium": "Stadium of Light",
+    "logo": "sunderland_logo.png"
   },
   "Tottenham Hotspur": {
-    "manager": "Ange Postecoglou",
+    "manager": "Thomas Frank",
     "stadium": "Tottenham Hotspur Stadium",
-    "logo": "tottenham.png"
+    "logo": "tottenham hotspur_logo.png"
   },
   "West Ham": {
     "manager": "Graham Potter",
     "stadium": "London Stadium",
-    "logo": "west ham.png"
+    "logo": "west ham_logo.png"
   },
   "Wolverhampton Wanderers": {
     "manager": "Vítor Pereira",
     "stadium": "Molineux Stadium",
-    "logo": "wolves.png"
-  },
-  "Ipswich": {
-    "manager": "Kieran McKenna",
-    "stadium": "Portman Road Stadium",
-    "logo": "ipswich.png"
-  },
-  "Leicester": {
-    "manager": "Ruud van Nistelrooy",
-    "stadium": "King Power",
-    "logo": "leicester.png"
-  },
-  "Southampton": {
-    "manager": "Ivan Jurić",
-    "stadium": "St Mary's Stadium",
-    "logo": "southampton.png"
+    "logo": "wolves_logo.png"
   }
 }

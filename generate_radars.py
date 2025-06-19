@@ -85,7 +85,7 @@ def generate_radar_chart():
 
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 stats\ncompared against all players\nin The Premier League\n\n@Five_Stat', 
+        s='Metrics show per 90 percentile\nstats compared against all players\nin The Premier League\n\n@Five_Stat', 
         fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
@@ -136,7 +136,7 @@ def generate_comparison_radar_chart(player1, player2, player1_stats, player2_sta
     # Additional info text
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        s='Metrics show per 90 percentile\nstats compared againt all players\nin The Premier League\n\n@Five_Stat', 
         fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 

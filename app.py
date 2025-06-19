@@ -306,7 +306,11 @@ def predict_player_goals_route(player_name):
 
         # Run prediction
         predictions = predict_player_goals(player_name=player_name, player_team=player["Team"])
+        if not predictions:
+            return jsonify({"error": "No goal data available for this player yet."}), 404
+
         return jsonify(predictions)
+
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -380,7 +384,7 @@ def get_fixtures_for_week(week_offset=0):
     completed_rounds.sort()  # Ensure they are sorted
 
     if not completed_rounds:
-        raise ValueError("No completed gameweeks with at least 10 results found in fixture_data.")
+        return [], 0, 0, 0  # 🧯 Fallback when no results yet
 
     # Determine the latest completed gameweek
     latest_round = max(completed_rounds)
@@ -404,9 +408,11 @@ def get_fixtures_for_week(week_offset=0):
 
 @app.route('/epl_results')
 def results_redirect():
-    """ Redirect to latest completed GW """
     _, current_week, *_ = get_fixtures_for_week(0)
+    if current_week == 0:
+        return redirect(url_for("epl_results", gw=0))
     return redirect(url_for("epl_results", gw=current_week))
+
 
 
 @app.route('/epl_results/<int:gw>')
@@ -415,7 +421,8 @@ def epl_results(gw):
     try:
         # ✅ Get all valid completed gameweeks
         weekly_fixtures, _, first_gw, last_gw = get_fixtures_for_week(0)
-        all_gws = list(range(first_gw, last_gw + 1))
+        all_gws = list(range(first_gw, last_gw + 1)) if last_gw > 0 else []
+
 
         # ✅ Force the selected week to stay within valid bounds
         gw = max(first_gw, min(last_gw, gw))
@@ -567,7 +574,7 @@ def generate_single_radar():
 
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 stats\ncompared againt all players\nin The Premier League\n\n@Five_Stat', 
+        s='Metrics show per 90 percentile\nstats compared againt all players\nin The Premier League\n\n@Five_Stat', 
         fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
