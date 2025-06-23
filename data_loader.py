@@ -125,12 +125,12 @@ def get_player_data():
 # Function to calculate team statistics
 def calculate_team_statistics(historical_fixture_data):
     team_names = historical_fixture_data['Home Team'].unique()
-    home_field_advantage = historical_fixture_data['home_goals'].mean() - historical_fixture_data['away_goals'].mean()
     team_data = {}
+    team_home_advantage = {}
 
     for team in team_names:
-        home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team]
-        away_games = historical_fixture_data[historical_fixture_data['Away Team'] == team]
+        home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20)
+        away_games = historical_fixture_data[historical_fixture_data['Away Team'] == team].tail(20)
 
         avg_home_goals_for = home_games['home_goals'].mean()
         avg_away_goals_for = away_games['away_goals'].mean()
@@ -140,6 +140,10 @@ def calculate_team_statistics(historical_fixture_data):
         att_rating = (avg_home_goals_for + avg_away_goals_for) / 2
         def_rating = (avg_home_goals_against + avg_away_goals_against) / 2
 
+        # Team-specific home advantage (attack boost at home vs away)
+        hfa = avg_home_goals_for - avg_away_goals_for
+        team_home_advantage[team] = hfa
+
         team_data[team] = {
             'Home Goals For': avg_home_goals_for,
             'Away Goals For': avg_away_goals_for,
@@ -148,16 +152,9 @@ def calculate_team_statistics(historical_fixture_data):
             'ATT Rating': att_rating,
             'DEF Rating': def_rating
         }
-        
-        #print(f"=== Overall Historical Stats for {team} ===")
-        #print(f"Avg Home Goals For: {avg_home_goals_for}")
-        #print(f"Avg Away Goals For: {avg_away_goals_for}")
-        #print(f"Avg Home Goals Against: {avg_home_goals_against}")
-        #print(f"Avg Away Goals Against: {avg_away_goals_against}")
-        #print(f"ATT Rating: {att_rating}")
-        #print(f"DEF Rating: {def_rating}\n")
 
-    return team_data, home_field_advantage
+    return team_data, team_home_advantage
+
 
 
 
@@ -390,8 +387,8 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, beta=0.8, home_field_advantage=0.15,
-    efficiency_factors=None, momentum_factors=None
+    alpha=0.65, beta=0.8, team_home_advantage=None,
+    efficiency_factors=None, momentum_factors=None,
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -431,9 +428,17 @@ def get_team_xg(
     # 4. Blend both
     true_xg = (1 - beta) * poisson_matched_xg + beta * multiplicative_xg
 
-    # 5. Home field bonus
-    if is_home:
-        true_xg += home_field_advantage
+    # 5. Home field bonus (Multiplicative instead of additive)
+    if is_home and team_home_advantage:
+        hfa_bonus = team_home_advantage.get(team, 0.0)
+        if hfa_bonus > 0:
+            att_base = team_stats[team]["ATT Rating"]
+            multiplier = 1 + (hfa_bonus / att_base)
+            true_xg *= np.clip(multiplier, 0.85, 1.15)
+
+
+
+
 
     # 6. Efficiency & momentum adjustments
     if efficiency_factors:
@@ -577,7 +582,8 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
                     is_home=is_home,
                     team_stats=team_stats,
                     recent_form_att=recent_form_att,
-                    recent_form_def=recent_form_def
+                    recent_form_def=recent_form_def,
+                    team_home_advantage=team_home_advantage
                 )
 
                 player_exp_xg = adjusted_xg_share * team_xg
@@ -672,13 +678,13 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors, team_home_advantage=team_home_advantage
         )
 
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors, team_home_advantage=team_home_advantage
         )
 
         # Capture the full result_matrix along with probabilities
@@ -1017,7 +1023,8 @@ if __name__ == "__main__":
 
     print("🔄 Loading match data...")
     historical_fixtures_df = load_match_data()
-    team_data, home_field_advantage = calculate_team_statistics(historical_fixtures_df)
+    team_data, team_home_advantage = calculate_team_statistics(historical_fixtures_df)
+
 
     print("🔄 Calculating recent form...")
     recent_form_att, recent_form_def = calculate_recent_form(
