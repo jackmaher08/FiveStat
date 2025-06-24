@@ -152,11 +152,9 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 
 df = pd.read_csv(LEAGUE_DATA_PATH)
 
-# Sort by PTS descending to simulate actual table position
-df = df.sort_values(by="PTS", ascending=False).reset_index(drop=True)
 
-# Assign position as index + 1
-df["Pos"] = df.index + 1
+df["Pos"] = df["PTS"].rank(method="min", ascending=False).astype(int)
+
 
 
 # Metrics to include and how to calculate them

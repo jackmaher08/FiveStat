@@ -561,7 +561,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
         ].sort_values("round_number").head(num_fixtures)
 
         print("🔄 Calculating team attack & defense ratings...")
-        team_stats, _ = calculate_team_statistics(historical_df)
+        team_stats, team_home_advantage = calculate_team_statistics(historical_df)
         print("✅ Base ratings calculated.")
         print("🔄 Calculating recent form (last 20 matches)...")
         recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats)
