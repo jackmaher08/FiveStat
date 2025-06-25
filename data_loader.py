@@ -122,11 +122,12 @@ def get_player_data():
 
 
 
-# Function to calculate team statistics
-def calculate_team_statistics(historical_fixture_data):
+def calculate_team_statistics(historical_fixture_data, save_csv_path="data/tables/team_stats.csv"):
     team_names = historical_fixture_data['Home Team'].unique()
     team_data = {}
     team_home_advantage = {}
+
+    rows = []  # collect all stats for CSV
 
     for team in team_names:
         home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20)
@@ -141,8 +142,9 @@ def calculate_team_statistics(historical_fixture_data):
         def_rating = (avg_home_goals_against + avg_away_goals_against) / 2
 
         # Team-specific home advantage (attack boost at home vs away)
-        hfa = avg_home_goals_for - avg_away_goals_for
-        team_home_advantage[team] = hfa
+        raw_hfa = avg_home_goals_for - avg_away_goals_for
+        capped_hfa = np.clip(raw_hfa, -0.3, 0.3)
+        team_home_advantage[team] = capped_hfa
 
         team_data[team] = {
             'Home Goals For': avg_home_goals_for,
@@ -153,8 +155,23 @@ def calculate_team_statistics(historical_fixture_data):
             'DEF Rating': def_rating
         }
 
-    return team_data, team_home_advantage
+        rows.append({
+            'Team': team,
+            'Home Goals For': avg_home_goals_for,
+            'Away Goals For': avg_away_goals_for,
+            'Home Goals Against': avg_home_goals_against,
+            'Away Goals Against': avg_away_goals_against,
+            'ATT Rating': att_rating,
+            'DEF Rating': def_rating,
+            'Team Home Advantage': capped_hfa
+        })
 
+    # ✅ Save to CSV
+    df = pd.DataFrame(rows)
+    df.to_csv(save_csv_path, index=False)
+    print(f"✅ Saved team stats to: {save_csv_path}")
+
+    return team_data, team_home_advantage
 
 
 
