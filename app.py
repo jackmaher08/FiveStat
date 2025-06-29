@@ -138,24 +138,28 @@ def epl_fixtures(gw):
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    gw_fixtures = fixtures[(fixtures["round_number"] == gw) & (fixtures["isResult"] == False)].copy()
+    gw_fixtures = fixtures[fixtures["round_number"] == gw].copy()
 
-    # Extract date-only from datetime string
-    gw_fixtures["match_date"] = gw_fixtures["date"].str[:10]  # e.g. '02/04/2025'
+    gw_fixtures["match_date"] = gw_fixtures["date"].str[:10]
 
-    # Load all fixtures
-    all_fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+    # Load all fixture results to calculate form
+    all_fixtures_df = pd.read_csv(fixture_path)
     all_fixtures_df["isResult"] = all_fixtures_df["isResult"].astype(str).str.lower() == "true"
     all_fixtures_df["date"] = pd.to_datetime(all_fixtures_df["date"], dayfirst=True)
 
     gw_fixtures["home_form"] = None
     gw_fixtures["away_form"] = None
 
-    # Add form to each fixture
-    for idx, fixture in gw_fixtures.iterrows():
-        gw_fixtures.at[idx, "home_form"] = get_team_form(all_fixtures_df, fixture["home_team"])
-        gw_fixtures.at[idx, "away_form"] = get_team_form(all_fixtures_df, fixture["away_team"])
+    for idx, row in gw_fixtures.iterrows():
+        gw_fixtures.at[idx, "home_form"] = get_team_form(all_fixtures_df, row["home_team"])
+        gw_fixtures.at[idx, "away_form"] = get_team_form(all_fixtures_df, row["away_team"])
 
+        if row["isResult"]:
+            gw_fixtures.at[idx, "asset_type"] = "shotmap"
+            gw_fixtures.at[idx, "asset_path"] = f"shotmaps/{row['home_team']}_{row['away_team']}_shotmap.png"
+        else:
+            gw_fixtures.at[idx, "asset_type"] = "heatmap"
+            gw_fixtures.at[idx, "asset_path"] = f"heatmaps/{row['home_team']}_{row['away_team']}_heatmap.png"
 
     # Group fixtures by match_date
     fixture_groups = defaultdict(list)
@@ -170,6 +174,9 @@ def epl_fixtures(gw):
     all_teams = list(team_metadata.keys())
     team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
 
+    league_table_path = "data/tables/league_table_data.csv"
+    league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
+
     return render_template(
         "epl_fixtures.html",
         fixture_groups=dict(fixture_groups),
@@ -177,8 +184,10 @@ def epl_fixtures(gw):
         gameweeks=gameweeks,
         last_updated=get_last_updated_time(),
         all_teams=all_teams,
-    team_display_names=team_display_names
+        team_display_names=team_display_names,
+        league_table=league_table  # ✅ THIS is what was missing
     )
+
 
 
 

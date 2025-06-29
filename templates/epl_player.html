@@ -36,7 +36,7 @@
                 <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
-                    <a href="/epl_results">Results</a>
+                    <!--<a href="/epl_results">Results</a>-->
                     <a href="/epl_table">League Tables</a>
                     <a href="/epl-players">Player Stats</a>
                 </div>
@@ -558,13 +558,17 @@
             const ctx = document.getElementById("goalOutcomeBarChart");
             if (window.goalOutcomeChart) window.goalOutcomeChart.destroy();
 
+            // Only take 1 Goal, 2 Goals, 3+ Goals (assumes original dist includes 0)
+            const trimmedDist = dist.slice(1, 4);
+            const labels = ["1 Goal", "2 Goals", "3+ Goals"];
+
             window.goalOutcomeChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["0 Goals", "1 Goal", "2 Goals", "3+ Goals"],
+                    labels: labels,
                     datasets: [{
                         label: "Probability (%)",
-                        data: dist,
+                        data: trimmedDist,
                         backgroundColor: 'rgba(0, 128, 255, 0.6)',
                         borderColor: 'rgba(0, 128, 255, 1)',
                         borderWidth: 1
@@ -575,7 +579,7 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            max: 100,
+                            max: 50,  // ✅ Y-axis limit
                             title: {
                                 display: true,
                                 text: 'Probability (%)'
@@ -593,6 +597,7 @@
                 }
             });
         }
+
 
 
 

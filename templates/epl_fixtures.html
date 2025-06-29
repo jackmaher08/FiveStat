@@ -35,7 +35,7 @@
                 <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
-                    <a href="/epl_results">Results</a>
+                    <!--<a href="/epl_results">Results</a>-->
                     <a href="/epl_table">League Tables</a>
                     <a href="/epl-players">Player Stats</a>
                 </div>
@@ -119,13 +119,24 @@
                                     </span>                                
                                 </div>                          
                                 <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
+                                {% if fixture.isResult %}
+                                    <span class="score">{{ fixture.home_goals }}</span>
+                                    <span class="versus">-</span>
+                                    <span class="score">{{ fixture.away_goals }}</span>
+                                {% else %}
+                                    <span class="versus">vs</span>
+                                {% endif %}
                             </div>
                             <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
                         </div>
-                        <div class="heatmap-container" id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}">
-                            <img class="heatmap" id="fixture-page-heatmap" src="{{ url_for('static', filename='heatmaps/' + fixture.home_team + '_' + fixture.away_team + '_heatmap.png') }}">
+                        <div class="heatmap-container" 
+                            id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}" 
+                            style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out;">
+                            <img class="heatmap" id="fixture-page-heatmap"
+                                src="{{ url_for('static', filename=fixture.asset_path) }}" 
+                                alt="{{ fixture.home_team }} vs {{ fixture.away_team }} {{ fixture.asset_type }}">
                         </div>
                     </div>
                 {% endfor %}
@@ -151,6 +162,48 @@
             {% endfor %}
         </select>          
     </div>
+
+    <br><br>
+    <h2>Premier League Table</h2>
+    <div class="table-container">
+        <table id="leagueTable">
+            <thead>
+                <tr>                    
+                    <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 3)">W <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 4)">D<span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 8)">GD <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 9)">PTS <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="leagueTable">
+                {% for team in league_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border">{{ team["MP"] }}</td>
+                    <td class="bold-left-border">{{ team["W"] }}</td>
+                    <td>{{ team["D"] }}</td>
+                    <td>{{ team["L"] }}</td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ team["GA"] }}</td>
+                    <td>{{ team["GD"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
     <script>
         function navigateToTeam(teamName) {
@@ -193,15 +246,18 @@
         function toggleHeatmap(homeTeam, awayTeam) {
             const container = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
             const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`).querySelector('i');
+            const img = container.querySelector('img');
 
-            if (container.classList.contains("open")) {
-                container.classList.remove("open");
-                icon.className = "fas fa-chevron-left";
-            } else {
-                container.classList.add("open");
+            if (container.style.maxHeight === "0px" || container.style.maxHeight === "0") {
+                const imgHeight = img.naturalHeight || 600;
+                container.style.maxHeight = imgHeight + "px";
                 icon.className = "fas fa-chevron-down";
+            } else {
+                container.style.maxHeight = "0";
+                icon.className = "fas fa-chevron-left";
             }
         }
+
 
 
         function toggleAllHeatmaps(expand = true) {
@@ -209,16 +265,14 @@
             const icons = document.querySelectorAll('.dropdown-icon i');
 
             containers.forEach((container, index) => {
+                const img = container.querySelector('img');
                 if (expand) {
-                    if (!container.classList.contains("open")) {
-                        container.classList.add("open");
-                        icons[index].className = "fas fa-chevron-down";
-                    }
+                    const imgHeight = img?.naturalHeight || 600;
+                    container.style.maxHeight = imgHeight + "px";
+                    icons[index].className = "fas fa-chevron-down";
                 } else {
-                    if (container.classList.contains("open")) {
-                        container.classList.remove("open");
-                        icons[index].className = "fas fa-chevron-left";
-                    }
+                    container.style.maxHeight = "0";
+                    icons[index].className = "fas fa-chevron-left";
                 }
             });
 
@@ -262,6 +316,19 @@
                 document.getElementById("cookieNotice").style.display = "block";
             }
         };
+
+        function toggleFixture(homeTeam, awayTeam) {
+            const container = document.getElementById(`asset_${homeTeam}_${awayTeam}`);
+            const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`).querySelector('i');
+
+            if (container.classList.contains("open")) {
+                container.classList.remove("open");
+                icon.className = "fas fa-chevron-left";
+            } else {
+                container.classList.add("open");
+                icon.className = "fas fa-chevron-down";
+            }
+        }
     </script>
     
         
