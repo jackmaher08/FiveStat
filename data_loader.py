@@ -32,6 +32,16 @@ TEAM_NAME_MAPPING = {
 }
 
 
+MANUAL_XG_ADJUSTMENTS = {
+    "Manchester City": -0.2,
+    "Brentford": -0.2,
+    "Leeds": +0.1,
+    "Liverpool": +0.1,
+    "Chelsea": +0.2
+}
+
+
+
 '''def run_data_scraper():
     """Runs data_scraper_script.py to update fixture data before loading."""
     script_path = os.path.join("data", "data_scraper_script.py") 
@@ -453,6 +463,9 @@ def get_team_xg(
             multiplier = 1 + (hfa_bonus / att_base)
             true_xg *= np.clip(multiplier, 0.85, 1.15)
 
+    # 6. Manual Adjustment (for transfer window etc.)
+    manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
+    true_xg += manual_boost
 
 
 

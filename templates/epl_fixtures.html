@@ -104,7 +104,13 @@
                                         </span>
                                     </span>
                                     
-                                    <span class="versus">vs</span>
+                                    {% if fixture.isResult %}
+                                        <span class="score">{{ fixture.home_goals }}</span>
+                                        <span class="versus">-</span>
+                                        <span class="score">{{ fixture.away_goals }}</span>
+                                    {% else %}
+                                        <span class="versus">vs</span>
+                                    {% endif %}
                                     
                                     <span class="team-name away">
                                         <span class="form-tooltip">
@@ -119,13 +125,7 @@
                                     </span>                                
                                 </div>                          
                                 <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
-                                {% if fixture.isResult %}
-                                    <span class="score">{{ fixture.home_goals }}</span>
-                                    <span class="versus">-</span>
-                                    <span class="score">{{ fixture.away_goals }}</span>
-                                {% else %}
-                                    <span class="versus">vs</span>
-                                {% endif %}
+                                
                             </div>
                             <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
                                 <i class="fas fa-chevron-left"></i>
