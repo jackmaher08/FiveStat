@@ -37,7 +37,7 @@
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
                     <!--<a href="/epl_results">Results</a>-->
-                    <a href="/epl_table">League Tables</a>
+                    <!--<a href="/epl_table">League Tables</a>-->
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
@@ -150,10 +150,11 @@
             </div>
         </div>
 
+        <!--
         <div class="fixture-toggle-wrapper">
-            <!-- Previous Fixture Section -->
+             Previous Fixture Section 
             <div class="fixture-header" onclick="toggleFixtureSection('prev')">
-                <span class="dropdown-spacer"></span> <!-- Left spacer to balance -->
+                <span class="dropdown-spacer"></span> <!-- Left spacer to balance 
                 <h3><i class="fa-regular fa-calendar-check"></i> Previous Fixtures</h3>
                 <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
@@ -170,7 +171,7 @@
                 <img id="prev-shotmap" class="shotmap" src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}" style="max-width: 600px;">
             </div>
         </div>
-
+        -->
         <div class="fixture-toggle-wrapper">
             <!-- Next Fixture Section -->
             <div class="fixture-header" onclick="toggleFixtureSection('next')">
@@ -249,14 +250,13 @@
                 <span class="dropdown-icon" id="player_shotmap-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div id="player_shotmap-section" class="fixture-body">
-                <select id="teamShotmapPlayerSelect">
-                    <option value="">Select a Player</option>
+                <select id="teamShotmapPlayerSelect" onchange="generateTeamShotmap()">
+                    <option value="" disabled selected>Select a Player</option>
                     {% for player in team_players %}
                         <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
                     {% endfor %}
                 </select>
                 <br><br>
-                <button onclick="generateTeamShotmap()">Generate Shotmap</button>
 
                 <div class="toggle-container" style="margin-top: 10px;">
                     <label class="switch">
@@ -351,26 +351,30 @@
         }
 
         function toggleAllSections(expand) {
-            const sections = ["prev", "next", "form", "radar", "simulated", "shotmap"];
+            const sections = ["form", "radar", "next", "simulated", "player_shotmap", "shotmap"];
             const label = document.getElementById("resultsToggleLabel");
 
             sections.forEach(section => {
                 const body = document.getElementById(`${section}-section`);
-                const icon = document.getElementById(`${section}-icon`).querySelector('i');
+                const iconWrap = document.getElementById(`${section}-icon`);
+                if (!body || !iconWrap) return;
+
+                const icon = iconWrap.querySelector('i');
 
                 if (expand) {
-                body.classList.add("open");
-                body.style.maxHeight = "1000px";
-                icon.className = "fas fa-chevron-down";
+                    body.classList.add("open");
+                    body.style.maxHeight = "1000px";
+                    icon.className = "fas fa-chevron-down";
                 } else {
-                body.classList.remove("open");
-                body.style.maxHeight = "0";
-                icon.className = "fas fa-chevron-left";
+                    body.classList.remove("open");
+                    body.style.maxHeight = "0";
+                    icon.className = "fas fa-chevron-left";
                 }
             });
 
             label.textContent = expand ? "Collapse All Sections" : "Expand All Sections";
-            }
+        }
+
 
 
         function openPlayerModal(playerName) {

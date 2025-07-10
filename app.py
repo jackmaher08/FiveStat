@@ -5,6 +5,7 @@ from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals, TEAM_NAME_MAPPING
+from data_loader import calculate_recent_form, get_team_xg
 from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
@@ -177,6 +178,29 @@ def epl_fixtures(gw):
     league_table_path = "data/tables/league_table_data.csv"
     league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
 
+    # Load simulated table data
+    sim_table_path = "data/tables/simulated_league_positions.csv"
+    simulated_table = pd.read_csv(sim_table_path)
+    simulated_table.rename(columns={"Unnamed: 0": "Team"}, inplace=True)
+    simulated_table.columns = simulated_table.columns.astype(str)
+    simulated_table = simulated_table.to_dict(orient="records")
+    num_positions = len(simulated_table[0]) - 2  # Assuming "Team" + "Final xPTS" are extra columns
+
+
+    # Construct team-by-team position probability data
+    sim_position_dist = []
+    for team in simulated_table:
+        sim_position_dist.append({
+            "team": team["Team"],
+            "distribution": [
+                {"position": int(pos), "probability": round(team[str(pos)] * 100, 2)}
+                for pos in range(1, num_positions + 1)
+            ]
+        })
+
+
+
+
     return render_template(
         "epl_fixtures.html",
         fixture_groups=dict(fixture_groups),
@@ -185,7 +209,10 @@ def epl_fixtures(gw):
         last_updated=get_last_updated_time(),
         all_teams=all_teams,
         team_display_names=team_display_names,
-        league_table=league_table  # ✅ THIS is what was missing
+        league_table=league_table,
+        simulated_table=simulated_table,
+        sim_position_dist=sim_position_dist,
+        num_positions=num_positions
     )
 
 

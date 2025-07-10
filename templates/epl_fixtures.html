@@ -21,6 +21,18 @@
 
     gtag('config', 'G-SQPCR3KM4Y');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sorted-column {
+            font-weight: bold;
+        }
+        .positive {
+            color: #d9534f;
+        }
+        .negative {
+            color: #5cb85c;
+        }
+    </style>
 </head>
 <body>
 
@@ -36,7 +48,7 @@
                 <div class="dropdown-content" id="eplDropdown">
                     <a href="/epl_fixtures">Fixtures</a>
                     <!--<a href="/epl_results">Results</a>-->
-                    <a href="/epl_table">League Tables</a>
+                    <!--<a href="/epl_table">League Tables</a>-->
                     <a href="/epl-players">Player Stats</a>
                 </div>
             </div>
@@ -130,6 +142,7 @@
                             <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
                                 <i class="fas fa-chevron-left"></i>
                             </span>
+                            
                         </div>
                         <div class="heatmap-container" 
                             id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}" 
@@ -142,6 +155,8 @@
                 {% endfor %}
         {% endfor %}
     </div>
+
+    
 
 
     <div class="centered-button">
@@ -162,6 +177,7 @@
             {% endfor %}
         </select>          
     </div>
+
 
     <br><br>
     <h2>Premier League Table</h2>
@@ -203,6 +219,117 @@
             </tbody>
         </table>
     </div>
+
+    <br><br><br>
+    <h2>xTable</h2>
+    <div class="table-container">
+        <table id="xTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('xTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 2)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 3)">xG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 4)">npxG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 5)">xG +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 6)">GA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 7)">xGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 8)">npxGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 9)">xGA +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 10)">PTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 11)">xPTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 12)">xPTS +/- <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="xTable">
+                {% for team in league_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ '%.1f' | format(team["xG"]) }}</td>
+                    <td>{{ team["npxG"] }}</td>
+                    <td class="{% if team['xG +/-'] > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["GA"] }}</td>
+                    <td>{{ team["xGA"] }}</td>
+                    <td>{{ team["npxGA"] }}</td>
+                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                    <td>{{ team["xPTS"] }}</td>
+                    <td class="{% if team['xPTS +/-'] > 0 %}positive{% elif team['xPTS +/-'] < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+    <h2>Simulated League Positions</h2>
+    <div class="centered-button">
+        <button class="info-button" onclick="toggleModal('siminfoModal'); trackRadarCompare()" title="More info">
+            <i class="fas fa-info-circle"></i>
+        </button>
+    </div>  
+    <!-- Dark Overlay --> 
+    <div class="modal-overlay" id="siminfoModalOverlay" onclick="toggleModal('siminfoModal')"></div>
+    <!-- Info Modal -->
+    <div class="modal" id="siminfoModal">
+        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a>to visualize how the final Premier League Table will look</p>
+    </div>
+    <div id="sim-league-table" class="table-container">
+        <table id="simulatedTable">
+            <thead>
+                <tr>
+                    <th >Rank </th>
+                    <th>Team</th>
+                    {% for position in range(1, num_positions + 1) %}
+                    <th>{{ position }}</th>
+                    {% endfor %}
+                    <th>Final xPTS</th>
+                </tr>
+            </thead>
+            <tbody id="simulatedTable">
+                {% for team in simulated_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    {% for position in range(1, num_positions + 1) %}
+                        {% set probability = team[position|string] * 100 %}
+                        {% set opacity = probability / 30 %} {# Scale from 0 to 1 #}
+                        <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
+                            {{ probability | round(1) }}%
+                        </td>
+                    {% endfor %}
+                    <td>{{ team["Final xPTS"] | round(1) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div><br>
+
+        <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2>Position Probability Distribution</h2>
+
+            <!-- Wrap the select in a block for consistent centering -->
+            <div style="margin-bottom: 20px;">
+                <select id="team-dist-select" onchange="renderPositionChart(this.value)" style="padding: 6px 10px;">
+                    <option value="" disabled selected>Select a team</option>
+                    {% for entry in sim_position_dist %}
+                        <option value="{{ entry.team }}">{{ entry.team }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Hide the canvas by default -->
+            <canvas id="positionBarChart" style="margin-top: 20px; display: none;"></canvas>
+        </div>
 
 
     <script>
@@ -329,6 +456,119 @@
                 icon.className = "fas fa-chevron-down";
             }
         }
+
+        let teamPositionData = {{ sim_position_dist | tojson }};
+        let positionChart;
+
+        function renderPositionChart(teamName) {
+            const teamEntry = teamPositionData.find(t => t.team === teamName);
+            if (!teamEntry) return;
+
+            const labels = teamEntry.distribution.map(d => d.position);
+            const data = teamEntry.distribution.map(d => d.probability);
+            const maxValue = Math.max(...data);
+            const yMax = Math.min(100, Math.ceil(maxValue * 1.1));
+
+            const ctx = document.getElementById("positionBarChart").getContext("2d");
+            if (positionChart) positionChart.destroy();
+
+            // ✅ Show canvas once chart is ready
+            document.getElementById("positionBarChart").style.display = "block";
+
+            positionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: "Probability (%)",
+                        data,
+                        backgroundColor: 'rgba(76, 0, 153, 0.7)',
+                        borderColor: '#4c0099',
+                        borderWidth: 1.5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: context => `${context.raw.toFixed(1)}%`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: yMax,
+                            title: {
+                                display: true,
+                                text: 'Probability (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function sortTable(tableId, columnIndex) {
+            const table = document.getElementById(tableId);
+            const rows = Array.from(table.tBodies[0].rows);
+            const header = table.tHead.rows[0].cells[columnIndex];
+            const isNumeric = !isNaN(rows[0].cells[columnIndex].innerText.trim());
+            const currentlySorted = header.classList.contains('sorted-column');
+
+            // Reset sort indicators
+            Array.from(table.tHead.rows[0].cells).forEach(cell => {
+                cell.classList.remove('sorted-column');
+                cell.querySelector('.sort-indicator').innerText = '';
+            });
+
+            let ascending = true;
+            if (currentlySorted) {
+                ascending = header.getAttribute('data-asc') !== 'true';
+            }
+
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].innerText.trim();
+                const bText = b.cells[columnIndex].innerText.trim();
+                const aVal = isNumeric ? parseFloat(aText) : aText.toLowerCase();
+                const bVal = isNumeric ? parseFloat(bText) : bText.toLowerCase();
+
+                return ascending ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
+            });
+
+            rows.forEach(row => table.tBodies[0].appendChild(row));
+
+            header.classList.add('sorted-column');
+            header.setAttribute('data-asc', ascending);
+            header.querySelector('.sort-indicator').innerText = ascending ? '▼' : '▲';
+        }
+
+        let xgChart, attChart, defChart;
+
+        function openModelModal(home, away) {
+            const id = `modelData_${home}_${away}`;
+            const raw = document.getElementById(id).textContent;
+            const data = JSON.parse(raw);
+
+            document.getElementById("modelModalTitle").innerText = `${home} vs ${away}`;
+            document.getElementById("modelModal").style.display = "block";
+            document.getElementById("modelModalOverlay").style.display = "block";
+
+            renderBarChart("xgChart", ["xG Prediction"], data.xG, home, away);
+            renderBarChart("attChart", ["Attack Rating"], data.ATT, home, away);
+            renderBarChart("defChart", ["Defence Rating"], data.DEF, home, away);
+        }
+
+        function closeModelModal() {
+            document.getElementById("modelModal").style.display = "none";
+            document.getElementById("modelModalOverlay").style.display = "none";
+        }
+
+
+
+
     </script>
     
         
