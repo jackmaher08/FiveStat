@@ -299,9 +299,6 @@ def epl_players():
         players = get_player_data()
         goal_dropdown_players = [p for p in players if p.get("POS") != "GK"]
 
-        # Load player data for the main table
-        players = get_player_data()
-
         next_gw_fixtures = load_next_gw_fixtures()
         current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
 
@@ -321,7 +318,12 @@ def epl_players():
 
     except Exception as e:
         print(f"❌ Error loading player data: {e}")
-        return render_template('epl_player.html', players=[], dropdown_players=[], positions=[], teams=[], current_gw="Unknown", last_updated=get_last_updated_time())
+        return render_template(
+            'epl_player.html',
+            players=[], dropdown_players=[], positions=[],
+            teams=[], current_gw="Unknown", last_updated=get_last_updated_time()
+        )
+
 
 
 @app.route("/predict_player_goals/<player_name>")
@@ -340,8 +342,25 @@ def predict_player_goals_route(player_name):
         if not player:
             return jsonify({"error": "Player not found"}), 404
 
-        # Run prediction
-        predictions = predict_player_goals(player_name=player_name, player_team=player["Team"])
+        # Override team manually if needed
+        manual_override = {
+            "Raheem Sterling": "Chelsea",
+            "Liam Delap": "Chelsea",
+            "Kepa Arrizabalaga": "Arsenal",
+            "Axel Disasi": "Chelsea",
+            "Caoimhin Kelleher": "Brentford",
+            "João Pedro": "Chelsea",
+            "Kyle Walker": "Burnley",
+            "Louis Enahoro-Marcus": "Leeds",
+            "Rayan Ait-Nouri": "Manchester City",
+            "Matheus Cunha": "Manchester United",
+            "Alex Moreno": "Nottingham"
+        }
+        player_team = manual_override.get(player["Name"], player["Team"])
+
+        # Run prediction with overridden team if applicable
+        predictions = predict_player_goals(player_name=player_name, player_team=player_team)
+
         if not predictions:
             return jsonify({"error": "No goal data available for this player yet."}), 404
 

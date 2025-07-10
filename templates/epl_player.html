@@ -173,14 +173,13 @@
                 <i class="fas fa-info-circle"></i>
             </button>
         </div>   
-        <select id="predictionPlayerSelect" onchange="trackTeamSelect(this.value)">
+        <select id="predictionPlayerSelect" onchange="trackTeamSelect(this.value); getGoalProjections()">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_goals %}
                 <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
             {% endfor %}
         </select>
         <br><br>
-        <button onclick="getGoalProjections()">Show Goal Projections</button>
         <p id="goalLoadingMessage" style="display:none; font-weight:bold;">Computing goal projections...</p>
         <div id="goalProjectionsTableWrapper">
             <div id="goalProjectionsTableContainer"></div>
@@ -208,14 +207,13 @@
     <!-- Player Shotmap Generator -->
     <div class="radarChartContainer">
         <h2>Player Shotmaps</h2>
-        <select id="shotmapPlayerSelect" onchange="trackTeamSelect(this.value)">
+        <select id="shotmapPlayerSelect" onchange="trackTeamSelect(this.value); generateShotmap()">
             <option value="">Select a Player</option>
             {% for player in dropdown_players_radar %}
                 <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
             {% endfor %}
         </select>
         <br><br>
-        <button onclick="generateShotmap()">Generate Shotmap</button>
     </div>
 
     <br>

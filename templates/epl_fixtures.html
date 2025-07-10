@@ -253,7 +253,7 @@
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ '%.1f' | format(team["xG"]) }}</td>
                     <td>{{ team["npxG"] }}</td>
-                    <td class="{% if team['xG +/-'] > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
+                    <td class="{% if team['xG +/-']|float > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
                     <td class="bold-left-border">{{ team["GA"] }}</td>
                     <td>{{ team["xGA"] }}</td>
                     <td>{{ team["npxGA"] }}</td>
