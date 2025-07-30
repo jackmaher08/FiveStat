@@ -33,16 +33,17 @@ TEAM_NAME_MAPPING = {
 
 
 MANUAL_XG_ADJUSTMENTS = {
-    "Manchester City": -0.1,
-    "Brentford": -0.4,
+    "Brentford": -0.3,
     "Leeds": +0.2,
-    "Liverpool": +0.2,
+    "Liverpool": +0.3,
     "Chelsea": +0.2,
     "Wolverhampton Wanderers": -0.1,
     "Bournemouth": -0.1,
     "Brighton": -0.1,
-    "Tottenham Hotspur": +0.1
-    
+    "Tottenham Hotspur": +0.1,
+    "Newcastle United": -0.2,
+    "Arsenal": +0.1,
+    "Manchester United": +0.3
 }
 
 
@@ -380,7 +381,7 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
     heatmap_filename = f"{home_team}_{away_team}_heatmap.png"
     heatmap_path = os.path.join(save_path, heatmap_filename)
     plt.savefig(heatmap_path)
-    print(f"📊 Saved heatmap for {home_team} vs {away_team} ➜ {heatmap_path}")
+    print(f"📊 {home_team} vs {away_team} Simulation Completed & Saved")
     plt.close()
 
 
@@ -470,7 +471,7 @@ def get_team_xg(
 
     # 6. Manual Adjustment (for transfer window etc.)
     manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
-    true_xg += manual_boost
+    true_xg += manual_boost * 1.0
 
 
 
