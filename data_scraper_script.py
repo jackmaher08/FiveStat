@@ -12,7 +12,7 @@ from mplsoccer import Pitch
 from mplsoccer import Radar
 from matplotlib.colors import LinearSegmentedColormap
 
-'''
+
 fixturedownload_url = "https://fixturedownload.com/download/epl-2025-GMTStandardTime.csv"
 fixtures_df = pd.read_csv(fixturedownload_url)
 
@@ -52,7 +52,7 @@ fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Newcastle": "Newca
 fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
 
 # 📌 **Second Source: Understat**
-understat_url = "https://understat.com/league/EPL/2024"
+understat_url = "https://understat.com/league/EPL/2025"
 response = requests.get(understat_url
                         )
 soup = BeautifulSoup(response.content, 'html.parser')
@@ -119,9 +119,9 @@ fixture_data.to_csv(file_path, index=False)
 
 print(f"✅ fixture data saved to: {file_path}")
 
+
+
 '''
-
-
 #TEMPORARILY USING THE FOLLOWING
 import pandas as pd
 import os
@@ -182,7 +182,7 @@ print(f"✅ Fixture data saved (Understat skipped): {file_path}")
 
 
 #END OF TEMP
-
+'''
 
 
 
@@ -289,7 +289,7 @@ print(f"✅ historical fixture data saved to: {historical_fixture_file_path}")
 
 # Player data
 
-player_url = 'https://understat.com/league/EPL/2024'
+player_url = 'https://understat.com/league/EPL/2025'
 response = requests.get(player_url)
 soup = BeautifulSoup(response.content, 'html.parser')
 ugly_soup = str(soup)
@@ -333,7 +333,7 @@ print(f"✅ player data saved to: {player_file_path}")
 
 
 
-
+'''
 #TEMP USING THE FOLLOWING
 # ✅ Generate fresh league table (preseason alphabetical placeholder)
 
@@ -435,12 +435,12 @@ aggregated_results_df.to_csv(league_table_file_path, index=False)
 
 print(f"✅ League table data saved to: {league_table_file_path}")
 
-'''
+
 
 
 
 # scraping fbref player data for player radar plots
-
+'''
 fbref_url = 'https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats'
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -537,3 +537,69 @@ player_stats_file_path = os.path.join(save_dir, "player_radar_data.csv")
 fbref_df.to_csv(player_stats_file_path, index=False)
 
 print(f"✅ Player Radar data saved to: {player_stats_file_path}")
+
+'''
+
+
+
+
+import pandas as pd
+
+# Paths
+HISTORICAL_PATH = "data/tables/historical_fixture_data.csv"
+CURR_FIXTURES_PATH = "data/tables/fixture_data.csv"                      # Season 2025
+LAST_FIXTURES_PATH = "data/tables/24-25/fixture_data.csv"               # Season 2024
+
+# Load historical data
+historical = pd.read_csv(HISTORICAL_PATH)
+
+# Create xG columns if not present
+if 'home_xG' not in historical.columns:
+    historical['home_xG'] = pd.NA
+if 'away_xG' not in historical.columns:
+    historical['away_xG'] = pd.NA
+
+# Load fixture files
+curr_fixtures = pd.read_csv(CURR_FIXTURES_PATH)
+curr_fixtures['Season'] = 2025
+
+last_fixtures = pd.read_csv(LAST_FIXTURES_PATH)
+last_fixtures['Season'] = 2024
+
+# Combine both seasons
+fixtures = pd.concat([curr_fixtures, last_fixtures], ignore_index=True)
+
+# Standardize column names
+fixtures = fixtures.rename(columns={
+    'home_team': 'Home Team',
+    'away_team': 'Away Team',
+    'Home Team': 'Home Team',
+    'Away Team': 'Away Team',
+    'home_xG': 'home_xG_temp',
+    'away_xG': 'away_xG_temp'
+})
+
+# Trim and match team names
+fixtures['Home Team'] = fixtures['Home Team'].str.strip()
+fixtures['Away Team'] = fixtures['Away Team'].str.strip()
+historical['Home Team'] = historical['Home Team'].str.strip()
+historical['Away Team'] = historical['Away Team'].str.strip()
+
+# Merge based on Home Team, Away Team and Season
+merged = pd.merge(
+    historical,
+    fixtures[['Home Team', 'Away Team', 'Season', 'home_xG_temp', 'away_xG_temp']],
+    on=['Home Team', 'Away Team', 'Season'],
+    how='left'
+)
+
+# Fill only where missing
+merged['home_xG'] = merged['home_xG'].combine_first(merged['home_xG_temp'])
+merged['away_xG'] = merged['away_xG'].combine_first(merged['away_xG_temp'])
+
+# Drop temp columns
+merged.drop(columns=['home_xG_temp', 'away_xG_temp'], inplace=True)
+
+# Save updated file
+merged.to_csv(HISTORICAL_PATH, index=False)
+print("✅ xG data merged and historical_fixture_data updated successfully.")

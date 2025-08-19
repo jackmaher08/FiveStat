@@ -49,7 +49,7 @@
                     <a href="/epl_fixtures">Fixtures</a>
                     <!--<a href="/epl_results">Results</a>-->
                     <!--<a href="/epl_table">League Tables</a>-->
-                    <a href="/epl-players">Player Stats</a>
+                    <!--<a href="/epl-players">Player Stats</a>-->
                 </div>
             </div>
         </div>        
@@ -105,35 +105,21 @@
                             <div class="fixture-info">
                                 <div class="fixture-row">
                                     <span class="team-name home">
-                                        <span class="form-tooltip">
-                                            {{ fixture.home_team }}
-                                            <div class="tooltip-content">
-                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                                {% for f in fixture.home_form %}
-                                                    <span class="{{ f }}">{{ f.upper() }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        </span>
+                                        {{ fixture.home_team }}
+                                    </span>
+                                        
                                     </span>
                                     
                                     {% if fixture.isResult %}
-                                        <span class="score">{{ fixture.home_goals }}</span>
+                                        <span class="score">{{ fixture.home_goals|int }}</span>
                                         <span class="versus">-</span>
-                                        <span class="score">{{ fixture.away_goals }}</span>
+                                        <span class="score">{{ fixture.away_goals|int }}</span>
                                     {% else %}
                                         <span class="versus">vs</span>
                                     {% endif %}
                                     
                                     <span class="team-name away">
-                                        <span class="form-tooltip">
-                                            {{ fixture.away_team }}
-                                            <div class="tooltip-content">
-                                                <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                                                {% for f in fixture.away_form %}
-                                                    <span class="{{ f }}">{{ f.upper() }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        </span>
+                                        {{ fixture.away_team }}
                                     </span>                                
                                 </div>                          
                                 <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>

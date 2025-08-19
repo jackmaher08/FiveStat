@@ -471,16 +471,16 @@ def get_team_xg(
 
     # 6. Manual Adjustment (for transfer window etc.)
     manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
-    true_xg += manual_boost * 1.0
+    true_xg += manual_boost * 0.9
 
 
 
 
     # 6. Efficiency & momentum adjustments
-    if efficiency_factors:
-        true_xg *= np.clip(efficiency_factors.get(team, 1.0), 0.75, 1.25)
-    if momentum_factors:
-        true_xg *= np.clip(momentum_factors.get(team, 1.0), 0.9, 1.15)
+    #if efficiency_factors:
+    #    true_xg *= np.clip(efficiency_factors.get(team, 1.0), 0.75, 1.25)
+    #if momentum_factors:
+    #    true_xg *= np.clip(momentum_factors.get(team, 1.0), 0.9, 1.15)
 
 
     return true_xg
@@ -682,8 +682,13 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     print("✅ Fixture file found, loading data...")
     fixtures_df = pd.read_csv(fixture_file_path)
 
+    # 🔒 Filter to simulate only unplayed matches
+    fixtures_df["isResult"] = fixtures_df["isResult"].astype(str).str.lower() == "true"
+    fixtures_df = fixtures_df[fixtures_df["isResult"] == False].copy()
+
     print("✅ Creating a new DataFrame for probabilities...")
     probabilities_df = fixtures_df[['home_team', 'away_team']].copy()
+
 
     print("✅ Initializing empty probability columns...")
     probabilities_df["home_win_prob"] = np.nan
@@ -714,13 +719,15 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors, team_home_advantage=team_home_advantage
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
+            team_home_advantage=team_home_advantage
         )
 
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors, team_home_advantage=team_home_advantage
+            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
+            team_home_advantage=team_home_advantage
         )
 
         # Capture the full result_matrix along with probabilities

@@ -39,6 +39,8 @@ TEAM_NAME_MAPPING = {
     "Wolves": "Wolverhampton Wanderers",
 }
 
+
+
     
 def get_last_updated_time():
     try:
@@ -167,7 +169,7 @@ def epl_fixtures(gw):
     for _, row in gw_fixtures.iterrows():
         fixture_groups[row["match_date"]].append(row.to_dict())
 
-    gameweeks = sorted(fixtures[fixtures["isResult"] == False]["round_number"].dropna().unique().tolist())
+    gameweeks = sorted(fixtures["round_number"].dropna().unique().tolist())
 
     with open("data/team_metadata.json", "r") as f:
         team_metadata = json.load(f)
@@ -197,9 +199,6 @@ def epl_fixtures(gw):
                 for pos in range(1, num_positions + 1)
             ]
         })
-
-
-
 
     return render_template(
         "epl_fixtures.html",
