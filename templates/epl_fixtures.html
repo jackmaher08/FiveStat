@@ -238,14 +238,14 @@
                     <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
                     <td class="bold-left-border">{{ team["G"] }}</td>
                     <td>{{ '%.1f' | format(team["xG"]) }}</td>
-                    <td>{{ team["npxG"] }}</td>
+                    <td>{{ '%.1f' | format(team["npxG"]) }}</td>
                     <td class="{% if team['xG +/-']|float > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
                     <td class="bold-left-border">{{ team["GA"] }}</td>
-                    <td>{{ team["xGA"] }}</td>
-                    <td>{{ team["npxGA"] }}</td>
+                    <td>{{ '%.1f' | format(team["xGA"]) }}</td>
+                    <td>{{ '%.1f' | format(team["npxGA"]) }}</td>
                     <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
                     <td class="bold-left-border">{{ team["PTS"] }}</td>
-                    <td>{{ team["xPTS"] }}</td>
+                    <td>{{ '%.1f' | format(team["xPTS"]) }}</td>
                     <td class="{% if team['xPTS +/-'] > 0 %}positive{% elif team['xPTS +/-'] < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
                 </tr>
                 {% endfor %}

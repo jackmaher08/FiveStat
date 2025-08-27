@@ -43,7 +43,7 @@ MANUAL_XG_ADJUSTMENTS = {
     "Tottenham Hotspur": +0.5,
     "Newcastle United": -0.2,
     "Arsenal": +0.1,
-    "Manchester United": +0.8
+    "Manchester United": +0.5
 }
 
 
@@ -471,7 +471,7 @@ def get_team_xg(
 
     # 6. Manual Adjustment (for transfer window etc.)
     manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
-    true_xg += manual_boost * 0.9
+    true_xg += manual_boost * 0.8
 
 
 

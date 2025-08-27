@@ -3429,3 +3429,13 @@ Match Number,Round Number,Date,Location,Home Team,Away Team,Result,Season,home_g
 8,1,17/08/2025 14:00,Stamford Bridge,Chelsea,Crystal Palace,0 - 0,2025,0.0,0.0,draw,8,9,1.37,1.03
 9,1,17/08/2025 16:30,Old Trafford,Manchester United,Arsenal,0 - 1,2025,0.0,1.0,away_win,20,1,1.38,1.33
 10,1,18/08/2025 20:00,Elland Road,Leeds,Everton,1 - 0,2025,1.0,0.0,home_win,15,10,2.38,0.67
+20,2,22/08/2025 20:00,London Stadium,West Ham,Chelsea,1 - 5,2025,1.0,5.0,away_win,33,8,0.98,3.95
+18,2,23/08/2025 12:30,Etihad Stadium,Manchester City,Tottenham Hotspur,0 - 2,2025,0.0,2.0,away_win,19,30,1.25,1.28
+12,2,23/08/2025 15:00,Vitality Stadium,Bournemouth,Wolverhampton Wanderers,1 - 0,2025,1.0,0.0,home_win,3,34,1.78,0.37
+13,2,23/08/2025 15:00,Gtech Community Stadium,Brentford,Aston Villa,1 - 0,2025,1.0,0.0,home_win,4,2,1.13,0.98
+14,2,23/08/2025 15:00,Turf Moor,Burnley,Sunderland,2 - 0,2025,2.0,0.0,home_win,6,28,1.0,1.12
+11,2,23/08/2025 17:30,Emirates Stadium,Arsenal,Leeds,5 - 0,2025,5.0,0.0,home_win,1,15,2.74,0.16
+15,2,24/08/2025 14:00,Selhurst Park,Crystal Palace,Nottingham Forest,1 - 1,2025,1.0,1.0,draw,9,24,1.1,1.33
+16,2,24/08/2025 14:00,Hill Dickinson Stadium,Everton,Brighton,2 - 0,2025,2.0,0.0,home_win,10,5,1.8,2.08
+17,2,24/08/2025 16:30,Craven Cottage,Fulham,Manchester United,1 - 1,2025,1.0,1.0,draw,11,20,1.65,1.55
+19,2,25/08/2025 20:00,St. James' Park,Newcastle United,Liverpool,2 - 3,2025,2.0,3.0,away_win,22,17,1.96,0.65

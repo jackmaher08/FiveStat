@@ -1,11 +1,11 @@
 round_number,date,home_team,away_team
-2,22/08/2025 20:00,West Ham,Chelsea
-2,23/08/2025 12:30,Manchester City,Tottenham Hotspur
-2,23/08/2025 15:00,Bournemouth,Wolverhampton Wanderers
-2,23/08/2025 15:00,Brentford,Aston Villa
-2,23/08/2025 15:00,Burnley,Sunderland
-2,23/08/2025 17:30,Arsenal,Leeds
-2,24/08/2025 14:00,Crystal Palace,Nottingham Forest
-2,24/08/2025 14:00,Everton,Brighton
-2,24/08/2025 16:30,Fulham,Manchester United
-2,25/08/2025 20:00,Newcastle United,Liverpool
+3,30/08/2025 12:30,Chelsea,Fulham
+3,30/08/2025 15:00,Manchester United,Burnley
+3,30/08/2025 15:00,Sunderland,Brentford
+3,30/08/2025 15:00,Tottenham Hotspur,Bournemouth
+3,30/08/2025 15:00,Wolverhampton Wanderers,Everton
+3,30/08/2025 17:30,Leeds,Newcastle United
+3,31/08/2025 14:00,Brighton,Manchester City
+3,31/08/2025 14:00,Nottingham Forest,West Ham
+3,31/08/2025 16:30,Liverpool,Arsenal
+3,31/08/2025 19:00,Aston Villa,Crystal Palace
