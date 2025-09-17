@@ -35,15 +35,15 @@ TEAM_NAME_MAPPING = {
 MANUAL_XG_ADJUSTMENTS = {
     "Brentford": -0.4,
     "Leeds": +0.2,
-    "Liverpool": +0.3,
+    "Liverpool": +0.2,
+    "Manchester City": +0.2,
     "Chelsea": +0.2,
     "Wolverhampton Wanderers": -0.2,
     "Bournemouth": -0.1,
     "Brighton": -0.1,
-    "Tottenham Hotspur": +0.5,
-    "Newcastle United": -0.2,
+    "Tottenham Hotspur": +0.4,
     "Arsenal": +0.1,
-    "Manchester United": +0.6
+    "Manchester United": +0.3
 }
 
 
@@ -471,12 +471,12 @@ def get_team_xg(
 
     # 6. Manual Adjustment (for transfer window etc.)
     manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
-    true_xg += manual_boost * 0.7
+    true_xg += manual_boost * 0.6
 
 
 
 
-    # 6. Efficiency & momentum adjustments
+    # 7. Efficiency & momentum adjustments
     #if efficiency_factors:
     #    true_xg *= np.clip(efficiency_factors.get(team, 1.0), 0.75, 1.25)
     #if momentum_factors:
