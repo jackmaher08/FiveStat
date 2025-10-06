@@ -216,6 +216,7 @@ print(f"✅ next gw fixture data saved to: {next_gw_file_path}")
 # Historical fixture data
 
 # Load all seasons' data
+'''
 start_year=2016
 end_year=2025
 frames = [] 
@@ -279,6 +280,78 @@ historical_fixture_file_path = os.path.join(save_dir, "historical_fixture_data.c
 df.to_csv(historical_fixture_file_path, index=False)
 
 print(f"✅ historical fixture data saved to: {historical_fixture_file_path}")
+'''
+
+import io, sys, requests
+import pandas as pd
+
+start_year = 2016
+end_year   = 2025
+
+frames   = []
+failures = []
+
+# small helper to fetch CSVs with browser-like headers
+def fetch_csv(url: str) -> pd.DataFrame:
+    headers = {
+        "User-Agent": ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                       "AppleWebKit/537.36 (KHTML, like Gecko) "
+                       "Chrome/126.0 Safari/126.0"),
+        "Accept": "text/csv,application/octet-stream,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+    r = requests.get(url.strip(), headers=headers, timeout=30, allow_redirects=True)
+    print(f"[debug] HTTP {r.status_code} | final_url={r.url} | redirects={len(r.history)}", file=sys.stderr)
+    r.raise_for_status()  # will raise on 4xx/5xx so we can catch it
+    # Try pandas from text; if it’s a binary CSV, fall back to content
+    try:
+        return pd.read_csv(io.StringIO(r.text))
+    except UnicodeDecodeError:
+        return pd.read_csv(io.BytesIO(r.content))
+
+for year in range(start_year, end_year + 1):
+    url = f"https://fixturedownload.com/download/epl-{year}-GMTStandardTime.csv"
+    print(f"[info] fetching season {year}: {url!r}")
+
+    try:
+        frame = fetch_csv(url)
+
+        # rename BEFORE appending (your previous code renamed after append)
+        frame = frame.rename(columns={
+            "Round Number": "round_number",
+            "Home Team": "home_team",
+            "Away Team": "away_team",
+            "Date": "date",
+            "Result": "result",
+        })
+
+        # sanity check: required columns present?
+        required = {"home_team", "away_team", "date", "result"}
+        missing  = required - set(map(str.lower, frame.columns))
+        if missing:
+            print(f"[warn] season {year}: missing expected columns: {missing}", file=sys.stderr)
+
+        frame["Season"] = year
+        frames.append(frame)
+
+        print(f"[ok] season {year} loaded: {len(frame)} rows")
+
+    except Exception as e:
+        print(f"[ERROR] season {year} failed: {e}", file=sys.stderr)
+        failures.append((year, url, repr(e)))
+        continue  # keep going
+
+# Merge all season data that succeeded
+if not frames:
+    raise RuntimeError("No seasons loaded; see failures above.")
+df = pd.concat(frames, ignore_index=True)
+print(f"[summary] loaded seasons: {len(frames)} ok, {len(failures)} failed")
+
+# If any failures, list them at the end (easy to scan)
+if failures:
+    print("\n[failed seasons]")
+    for yr, u, err in failures:
+        print(f" - {yr}: {u} -> {err}")
 
 
 

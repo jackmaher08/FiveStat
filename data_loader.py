@@ -1108,6 +1108,16 @@ if __name__ == "__main__":
     # Filter only games that haven't been played (where `result` column is NULL)
     remaining_fixtures = fixtures[fixtures["result"].isna()]
 
+    # Check for NaNs introduced by the merge (i.e., fixtures with no probability prediction)
+    nan_matches = remaining_fixtures[
+        remaining_fixtures[['home_win_prob', 'draw_prob', 'away_win_prob']].isnull().any(axis=1)
+    ]
+
+    if not nan_matches.empty:
+        print(f"[❌] {len(nan_matches)} remaining fixtures have missing probabilities!")
+        print(nan_matches[['home_team', 'away_team', 'home_win_prob', 'draw_prob', 'away_win_prob']])
+        raise ValueError("Simulation aborted: NaN probabilities detected in remaining fixtures.")
+
     # Load current league table
     league_table = pd.read_csv("data/tables/league_table_data.csv")
 
