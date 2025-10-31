@@ -471,7 +471,7 @@ def get_team_xg(
 
     # 6. Manual Adjustment (for transfer window etc.)
     manual_boost = MANUAL_XG_ADJUSTMENTS.get(team, 0.0)
-    true_xg += manual_boost * 0.35
+    true_xg += manual_boost * 0.2
 
 
 
