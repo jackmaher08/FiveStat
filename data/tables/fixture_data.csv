@@ -99,16 +99,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 10,02/11/2025 14:00,West Ham,Newcastle United,3 - 1,28877,True,3.0,1.0,1.41,0.52
 10,02/11/2025 16:30,Manchester City,Bournemouth,3 - 1,28873,True,3.0,1.0,2.49,0.9
 10,03/11/2025 20:00,Sunderland,Everton,1 - 1,28875,True,1.0,1.0,1.18,1.01
-11,08/11/2025 12:30,Tottenham Hotspur,Manchester United,,28886,False,,,,
-11,08/11/2025 15:00,Everton,Fulham,,28882,False,,,,
-11,08/11/2025 15:00,West Ham,Burnley,,28887,False,,,,
-11,08/11/2025 17:30,Sunderland,Arsenal,,28885,False,,,,
-11,08/11/2025 20:00,Chelsea,Wolverhampton Wanderers,,28880,False,,,,
-11,09/11/2025 14:00,Aston Villa,Bournemouth,,28878,False,,,,
-11,09/11/2025 14:00,Brentford,Newcastle United,,28879,False,,,,
-11,09/11/2025 14:00,Crystal Palace,Brighton,,28881,False,,,,
-11,09/11/2025 14:00,Nottingham Forest,Leeds,,28884,False,,,,
-11,09/11/2025 16:30,Manchester City,Liverpool,,28883,False,,,,
+11,08/11/2025 12:30,Tottenham Hotspur,Manchester United,2 - 2,28886,True,2.0,2.0,1.36,0.82
+11,08/11/2025 15:00,Everton,Fulham,2 - 0,28882,True,2.0,0.0,2.31,0.42
+11,08/11/2025 15:00,West Ham,Burnley,3 - 2,28887,True,3.0,2.0,2.97,1.87
+11,08/11/2025 17:30,Sunderland,Arsenal,2 - 2,28885,True,2.0,2.0,1.2,2.33
+11,08/11/2025 20:00,Chelsea,Wolverhampton Wanderers,3 - 0,28880,True,3.0,0.0,3.98,0.11
+11,09/11/2025 14:00,Aston Villa,Bournemouth,4 - 0,28878,True,4.0,0.0,1.88,2.01
+11,09/11/2025 14:00,Brentford,Newcastle United,3 - 1,28879,True,3.0,1.0,2.74,0.43
+11,09/11/2025 14:00,Crystal Palace,Brighton,0 - 0,28881,True,0.0,0.0,0.84,0.64
+11,09/11/2025 14:00,Nottingham Forest,Leeds,3 - 1,28884,True,3.0,1.0,2.49,0.42
+11,09/11/2025 16:30,Manchester City,Liverpool,3 - 0,28883,True,3.0,0.0,1.6,1.03
 12,22/11/2025 12:30,Burnley,Chelsea,,28891,False,,,,
 12,22/11/2025 15:00,Bournemouth,West Ham,,28888,False,,,,
 12,22/11/2025 15:00,Brighton,Brentford,,28890,False,,,,
@@ -165,8 +165,8 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 17,20/12/2025 15:00,Manchester City,West Ham,,28944,False,,,,
 17,20/12/2025 15:00,Wolverhampton Wanderers,Brentford,,28947,False,,,,
 17,20/12/2025 17:30,Tottenham Hotspur,Liverpool,,28946,False,,,,
-17,21/12/2025 14:00,Everton,Arsenal,,28941,False,,,,
-17,21/12/2025 14:00,Leeds,Crystal Palace,,28943,False,,,,
+17,20/12/2025 20:00,Everton,Arsenal,,28941,False,,,,
+17,20/12/2025 20:00,Leeds,Crystal Palace,,28943,False,,,,
 17,21/12/2025 16:30,Aston Villa,Manchester United,,28939,False,,,,
 17,22/12/2025 20:00,Fulham,Nottingham Forest,,28942,False,,,,
 18,26/12/2025 20:00,Manchester United,Newcastle United,,28954,False,,,,

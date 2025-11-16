@@ -35,15 +35,12 @@ TEAM_NAME_MAPPING = {
 MANUAL_XG_ADJUSTMENTS = {
     "Brentford": -0.4,
     "Leeds": +0.2,
-    "Liverpool": +0.2,
-    "Manchester City": +0.2,
+    "Manchester City": +0.3,
     "Chelsea": +0.2,
     "Wolverhampton Wanderers": -0.2,
     "Bournemouth": -0.1,
     "Brighton": -0.1,
-    "Tottenham Hotspur": +0.4,
-    "Arsenal": +0.1,
-    "Manchester United": +0.3
+    "Sunderland": +0.3
 }
 
 
