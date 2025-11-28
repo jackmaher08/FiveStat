@@ -40,7 +40,8 @@ MANUAL_XG_ADJUSTMENTS = {
     "Wolverhampton Wanderers": -0.2,
     "Bournemouth": -0.1,
     "Brighton": -0.1,
-    "Sunderland": +0.3
+    "Sunderland": +0.3,
+    "Liverpool": -0.3
 }
 
 
