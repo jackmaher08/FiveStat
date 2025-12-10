@@ -59,13 +59,34 @@ soup = BeautifulSoup(response.content, 'html.parser')
 ugly_soup = str(soup)
 
 # Extract JSON fixture data
-match = re.search("var datesData .*= JSON.parse\\('(.*)'\\)", ugly_soup)
-if match:
-    all_fixture_data = match.group(1).encode('utf8').decode('unicode_escape')
-    all_fixture_df = json.loads(all_fixture_data)
-else:
-    print("⚠️ No fixture data found on Understat")
+# Extract JSON fixture data from the <script> that contains datesData
+scripts = soup.find_all("script")
+dates_script = None
+
+for s in scripts:
+    if s.string and "datesData" in s.string:
+        dates_script = s.string
+        break
+
+if not dates_script:
+    print("⚠️ No fixture data found on Understat (datesData script missing)")
     all_fixture_df = []
+
+else:
+    # Pull out the JSON.parse('...') content
+    start = dates_script.find("JSON.parse('")
+    if start == -1:
+        print("⚠️ datesData found but JSON.parse(...) pattern not found")
+        all_fixture_df = []
+    else:
+        start += len("JSON.parse('")
+        end = dates_script.find("')", start)
+        json_str = dates_script[start:end]
+
+        # Decode the escaped string and load JSON
+        decoded = json_str.encode("utf8").decode("unicode_escape")
+        all_fixture_df = json.loads(decoded)
+
 
 # Team name mapping for consistency
 team_name_mapping = {
@@ -97,13 +118,27 @@ for fixture in all_fixture_df:
 # Convert Understat data to DataFrame
 fixture_data_df = pd.DataFrame(fixture_data_temp)
 
-# 🔄 **Merge DataFrames**
-fixture_data = pd.merge(
-    fixtures_df[["round_number", "date", "home_team", "away_team", "result"]],
-    fixture_data_df[["id", "home_team", "away_team", "isResult", "home_goals", "away_goals", "home_xG", "away_xG"]],
-    on=["home_team", "away_team"],  
-    how="left"  # Keep all fixtures even if no match in fixture_data_df
-)
+# Safety guard so the script doesn't crash if Understat returns nothing
+if fixture_data_df.empty:
+    print("⚠️ Understat fixture DataFrame is empty – skipping xG merge and using fixtures only.")
+
+    # Create the expected columns with empty values so downstream code still works
+    for col in ["id", "isResult", "home_goals", "away_goals", "home_xG", "away_xG"]:
+        fixtures_df[col] = None
+
+    fixture_data = fixtures_df[[
+        "round_number", "date", "home_team", "away_team", "result",
+        "id", "isResult", "home_goals", "away_goals", "home_xG", "away_xG"
+    ]]
+
+else:
+    fixture_data = pd.merge(
+        fixtures_df[["round_number", "date", "home_team", "away_team", "result"]],
+        fixture_data_df[["id", "home_team", "away_team", "isResult",
+                         "home_goals", "away_goals", "home_xG", "away_xG"]],
+        on=["home_team", "away_team"],
+        how="left"
+    )
 
 
 
@@ -433,7 +468,7 @@ print("✅ League table reset for new season (preseason alphabetical order)")
 '''
 
 # Gathering league table data
-fixture_result_data = re.search("var teamsData .*= JSON.parse\('(.*)'\)", ugly_soup).group(1)
+fixture_result_data = re.search(r"var teamsData .*= JSON.parse\('(.*)'\)", ugly_soup).group(1)
 fixture_results_df = fixture_result_data.encode('utf8').decode('unicode_escape')
 fixture_results_df = json.loads(fixture_results_df)
 
