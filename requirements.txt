@@ -16,3 +16,4 @@ gunicorn
 ipython
 lxml
 pyarrow
+understatapi
