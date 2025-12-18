@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from mplsoccer import Pitch
 from mplsoccer import Radar
 from matplotlib.colors import LinearSegmentedColormap
+from understatapi import UnderstatClient
 
 
 fixturedownload_url = "https://fixturedownload.com/download/epl-2025-GMTStandardTime.csv"
@@ -51,42 +52,8 @@ fixtures_df["away_team"] = fixtures_df["away_team"].replace({"Newcastle": "Newca
 # Convert 'round_number' to numeric
 fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
 
-# 📌 **Second Source: Understat**
-understat_url = "https://understat.com/league/EPL/2025"
-response = requests.get(understat_url
-                        )
-soup = BeautifulSoup(response.content, 'html.parser')
-ugly_soup = str(soup)
-
-# Extract JSON fixture data
-# Extract JSON fixture data from the <script> that contains datesData
-scripts = soup.find_all("script")
-dates_script = None
-
-for s in scripts:
-    if s.string and "datesData" in s.string:
-        dates_script = s.string
-        break
-
-if not dates_script:
-    print("⚠️ No fixture data found on Understat (datesData script missing)")
-    all_fixture_df = []
-
-else:
-    # Pull out the JSON.parse('...') content
-    start = dates_script.find("JSON.parse('")
-    if start == -1:
-        print("⚠️ datesData found but JSON.parse(...) pattern not found")
-        all_fixture_df = []
-    else:
-        start += len("JSON.parse('")
-        end = dates_script.find("')", start)
-        json_str = dates_script[start:end]
-
-        # Decode the escaped string and load JSON
-        decoded = json_str.encode("utf8").decode("unicode_escape")
-        all_fixture_df = json.loads(decoded)
-
+# 📌 **Second Source: Understat** – fixtures/xG via understatapi
+understat_season = "2025"  # corresponds to the 2024/25 EPL season
 
 # Team name mapping for consistency
 team_name_mapping = {
@@ -96,49 +63,81 @@ team_name_mapping = {
     "Tottenham": "Tottenham Hotspur",
     "Man Utd": "Manchester United",
     "Wolves": "Wolverhampton Wanderers",
-    "Nott'm Forest": "Nottingham Forest"
+    "Nott'm Forest": "Nottingham Forest",
 }
 
+# Pull all league matches from Understat
+with UnderstatClient() as understat_client:
+    league_matches = understat_client.league(league="EPL").get_match_data(
+        season=understat_season
+    )
 
 # Parse fixture data
 fixture_data_temp = []
-for fixture in all_fixture_df:
+for match in league_matches:
     fixture_entry = {
-        "id": fixture.get("id"),
-        "isResult": fixture.get("isResult"),
-        "home_team": team_name_mapping.get(fixture["h"]["title"], fixture["h"]["title"]),
-        "away_team": team_name_mapping.get(fixture["a"]["title"], fixture["a"]["title"]),
-        "home_goals": int(fixture["goals"]["h"]) if fixture.get("goals") and fixture["goals"].get("h") is not None else None,
-        "away_goals": int(fixture["goals"]["a"]) if fixture.get("goals") and fixture["goals"].get("a") is not None else None,
-        "home_xG": round(float(fixture["xG"]["h"]), 2) if fixture.get("xG") and fixture["xG"].get("h") is not None else None,
-        "away_xG": round(float(fixture["xG"]["a"]), 2) if fixture.get("xG") and fixture["xG"].get("a") is not None else None,
+        "id": match.get("id"),
+        "isResult": match.get("isResult"),
+        "home_team": team_name_mapping.get(
+            match["h"]["title"], match["h"]["title"]
+        ),
+        "away_team": team_name_mapping.get(
+            match["a"]["title"], match["a"]["title"]
+        ),
+        "home_goals": int(match["goals"]["h"])
+        if match.get("goals") and match["goals"].get("h") is not None
+        else None,
+        "away_goals": int(match["goals"]["a"])
+        if match.get("goals") and match["goals"].get("a") is not None
+        else None,
+        "home_xG": round(float(match["xG"]["h"]), 2)
+        if match.get("xG") and match["xG"].get("h") is not None
+        else None,
+        "away_xG": round(float(match["xG"]["a"]), 2)
+        if match.get("xG") and match["xG"].get("a") is not None
+        else None,
     }
     fixture_data_temp.append(fixture_entry)
 
-# Convert Understat data to DataFrame
-fixture_data_df = pd.DataFrame(fixture_data_temp)
+# Convert Understat data to DataFrame – make sure expected columns exist
+fixture_columns = [
+    "id",
+    "isResult",
+    "home_team",
+    "away_team",
+    "home_goals",
+    "away_goals",
+    "home_xG",
+    "away_xG",
+]
+fixture_data_df = pd.DataFrame(fixture_data_temp, columns=fixture_columns)
 
-# Safety guard so the script doesn't crash if Understat returns nothing
 if fixture_data_df.empty:
-    print("⚠️ Understat fixture DataFrame is empty – skipping xG merge and using fixtures only.")
-
-    # Create the expected columns with empty values so downstream code still works
-    for col in ["id", "isResult", "home_goals", "away_goals", "home_xG", "away_xG"]:
-        fixtures_df[col] = None
-
-    fixture_data = fixtures_df[[
-        "round_number", "date", "home_team", "away_team", "result",
-        "id", "isResult", "home_goals", "away_goals", "home_xG", "away_xG"
-    ]]
-
-else:
-    fixture_data = pd.merge(
-        fixtures_df[["round_number", "date", "home_team", "away_team", "result"]],
-        fixture_data_df[["id", "home_team", "away_team", "isResult",
-                         "home_goals", "away_goals", "home_xG", "away_xG"]],
-        on=["home_team", "away_team"],
-        how="left"
+    print(
+        "⚠️ Understat fixture DataFrame is empty – "
+        "continuing without Understat xG/goals."
     )
+
+# Merge fixturedownload fixtures with Understat xG/results
+fixture_data = pd.merge(
+    fixtures_df[["round_number", "date", "home_team", "away_team", "result"]],
+    fixture_data_df[
+        [
+            "id",
+            "home_team",
+            "away_team",
+            "isResult",
+            "home_goals",
+            "away_goals",
+            "home_xG",
+            "away_xG",
+        ]
+    ],
+    on=["home_team", "away_team"],
+    how="left",
+)
+
+
 
 
 
@@ -396,40 +395,39 @@ if failures:
 
 
 # Player data
+# 📌 Understat player stats via understatapi
+understat_season = "2025"  # same season as above
 
-player_url = 'https://understat.com/league/EPL/2025'
-response = requests.get(player_url)
-soup = BeautifulSoup(response.content, 'html.parser')
-ugly_soup = str(soup)
-
-# Extract JSON data
-player_data = re.search(r"var\s+playersData\s*=\s*JSON.parse\('(.*)'\);", ugly_soup).group(1)
-player_df = player_data.encode('utf8').decode('unicode_escape')
-player_df = json.loads(player_df)
+with UnderstatClient() as understat_client:
+    players_raw = understat_client.league(league="EPL").get_player_data(
+        season=understat_season
+    )
 
 # Parse data into a list of dicts
-player_data = [
+player_rows = [
     {
-        "Name": fixture.get("player_name"),
-        "POS": fixture.get("position", ""),
-        "Team": fixture.get("team_title", ""),
-        "MP": int(fixture["games"]) if fixture["games"] else 0,
-        "Mins": int(fixture["time"]) if fixture["time"] else 0,
-        "G": int(fixture["goals"]) if fixture["goals"] else 0,
-        "xG": round(float(fixture["xG"]), 2) if fixture["xG"] else 0.0,
-        "NPG": int(fixture["npg"]) if fixture["npg"] else 0.0,
-        "NPxG": round(float(fixture["npxG"]), 2) if fixture["npxG"] else 0.0,
-        "A": int(fixture["assists"]) if fixture["assists"] else 0,
-        "xA": round(float(fixture["xA"]), 2) if fixture["xA"] else 0.0,
-        "YC": int(fixture["yellow_cards"]) if fixture["yellow_cards"] else 0,
-        "RC": int(fixture["red_cards"]) if fixture["red_cards"] else 0,
+        "Name": p.get("player_name"),
+        "POS": p.get("position", ""),
+        "Team": p.get("team_title", ""),
+        "MP": int(p["games"]) if p.get("games") else 0,
+        "Mins": int(p["time"]) if p.get("time") else 0,
+        "G": int(p["goals"]) if p.get("goals") else 0,
+        "xG": round(float(p["xG"]), 2) if p.get("xG") else 0.0,
+        "NPG": int(p["npg"]) if p.get("npg") else 0,
+        "NPxG": round(float(p["npxG"]), 2) if p.get("npxG") else 0.0,
+        "A": int(p["assists"]) if p.get("assists") else 0,
+        "xA": round(float(p["xA"]), 2) if p.get("xA") else 0.0,
+        "YC": int(p["yellow_cards"]) if p.get("yellow_cards") else 0,
+        "RC": int(p["red_cards"]) if p.get("red_cards") else 0,
     }
-    for fixture in player_df
+    for p in players_raw
 ]
 
-player_data = pd.DataFrame(player_data)
+player_data = pd.DataFrame(player_rows)
 
-player_data["Team"] = player_data["Team"].replace({"Tottenham": "Tottenham Hotspur"})
+player_data["Team"] = player_data["Team"].replace(
+    {"Tottenham": "Tottenham Hotspur"}
+)
 
 # Define the file path
 player_file_path = os.path.join(save_dir, "player_data.csv")
@@ -468,9 +466,17 @@ print("✅ League table reset for new season (preseason alphabetical order)")
 '''
 
 # Gathering league table data
-fixture_result_data = re.search(r"var teamsData .*= JSON.parse\('(.*)'\)", ugly_soup).group(1)
-fixture_results_df = fixture_result_data.encode('utf8').decode('unicode_escape')
-fixture_results_df = json.loads(fixture_results_df)
+# Gathering league table data via understatapi (instead of scraping HTML)
+understat_season = "2025"  # same season you use elsewhere
+
+with UnderstatClient() as understat_client:
+    # This returns the same kind of structure you were previously getting
+    # from the `teamsData` JSON (teams with `history` lists etc.)
+    fixture_results_df = understat_client.league(league="EPL").get_team_data(
+        season=understat_season
+    )
+
+
 
 # Prepare the list to store extracted data
 team_stats = []

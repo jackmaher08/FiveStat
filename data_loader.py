@@ -16,6 +16,8 @@ import matplotlib.image as mpimg
 import seaborn as sns
 import subprocess
 import unicodedata
+from understatapi import UnderstatClient
+
 
 def normalize_name(s):
     return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8").lower()
@@ -764,20 +766,13 @@ all_shots_combined = []
 # Function to generate and save shot maps
 def generate_shot_map(understat_match_id, save_image=True):
     try:
-        url = f'https://understat.com/match/{understat_match_id}'
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        ugly_soup = str(soup)
-
-        # Extract JSON shot data
-        match = re.search("var shotsData .*= JSON.parse\\('(.*)'\\)", ugly_soup)
-        if not match:
-            print(f"Skipping match {understat_match_id}: No shot data found")
-            return
-
-        shots_data = match.group(1)
-        data = shots_data.encode('utf8').decode('unicode_escape')
-        data = json.loads(data)
+        # ✅ Fetch shot data via understatapi instead of scraping HTML
+        with UnderstatClient() as understat_client:
+            try:
+                data = understat_client.match(match=str(understat_match_id)).get_shot_data()
+            except Exception as e:
+                print(f"Skipping match {understat_match_id}: error fetching shot data from Understat ({e})")
+                return
 
         # Create DataFrames
         home_df = pd.DataFrame(data['h'])
