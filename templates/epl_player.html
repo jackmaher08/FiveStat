@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FiveStat - Player Stats, Projexted xG & Player xG Radar Charts</title>
+    <meta name="description" content="Compare players using radar charts, xG metrics, and goal-scoring probability.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="FiveStat - Football Analytics & EPL Predictions">
+    <meta property="og:description" content="Explore match predictions, player stats, and correct score forecasts powered by data.">
+    <meta property="og:url" content="https://www.fivestat.co.uk/">
+    <meta property="og:type" content="website"> 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SQPCR3KM4Y');
+    </script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">        
+            <div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <!--<a href="/epl_results">Results</a>-->
+                    <!--<a href="/epl_table">League Tables</a>-->
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+    
+    <br>
+    <h2>Premier League Player Stats</h2>
+    <br>
+    <!-- Player Table --> 
+     <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Name <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(2)">MP <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(3)">Mins <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(4)">G <span class="sort-indicator">▼</span></th> <!-- Default sorted -->
+                    <th onclick="sortTable(5)">xG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(6)">NPG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(7)">NPxG <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(8)">A <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(9)">xA <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable(10)">YC <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable(11)">RC <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="playerTable">
+                {% for player in players %}
+                    <tr>
+                        <td><a href="javascript:void(0);" onclick="openPlayerModal('{{ player['Name'] }}')">{{ player['Name'] }}</a></td>
+                        <td class="bold-left-border">
+                            {% for club in player['Team'].split(',') %}
+                                <a href="{{ url_for('team_page', team_name=club.strip()) }}">{{ club.strip() }}</a>{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td class="bold-left-border">{{ player['MP'] }}</td>
+                        <td>{{ player['Mins'] }}</td>
+                        <td class="bold-left-border">{{ player['G'] }}</td>
+                        <td>{{ player['xG'] }}</td>
+                        <td>{{ player['NPG'] }}</td>
+                        <td>{{ player['NPxG'] }}</td>
+                        <td class="bold-left-border">{{ player['A'] }}</td>
+                        <td>{{ player['xA'] }}</td>
+                        <td class="bold-left-border">{{ player['YC'] }}</td>
+                        <td>{{ player['RC'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Dark Overlay for Player Modal -->
+    <div class="modal-overlay" id="playerInfoModalOverlay" onclick="toggleModal('playerInfoModal')"></div>
+
+    <!-- Player Modal -->
+    <div class="modal" id="playerInfoModal">
+        <div id="playerRadarLoading" class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Computing Player Data...</p>
+        </div>
+        <img id="playerRadarImage" src="" alt="Player Radar" style="display: none;">
+    </div>
+    
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <button id="prevBtn" onclick="changePage(-1)" disabled>Previous</button>
+        <span id="pageInfo">Page 1</span>
+        <button id="nextBtn" onclick="changePage(1)">Next</button>
+    </div>
+    <br><br>
+    <hr class="fixture-divider">
+    <br><br>
+
+
+
+
+
+    <!-- Player comparison radar chart -->
+    <div class="radar-container">
+        <h2>Player Comparison Tool</h2>
+        <select id="player1" onchange="trackTeamSelect(this.value)">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <select id="player2" onchange="trackTeamSelect(this.value)">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
+            {% endfor %}
+        </select>        
+    <br><br>
+        <button onclick="generateRadar(); trackRadarCompare()">Compare Players</button>
+        <p id="loadingMessage" style="display:none; font-weight:bold;">Computing Player Data...</p>
+    </div>
+
+    <!-- Dark Overlay --> 
+    <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
+
+
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <p>These projections assume players will play 90 mins in the relevant fixtures.</p>
+        <p>This is a very early and basic version of the Player Goals Projection Model. I'll look to improve the accuracy of this model in the coming weeks but for now it is a solid representation of each players projected goals based off last seasons data.</p>
+    </div>
+    
+
+    <br><br>
+    <!-- Display the radar chart -->
+    <div id="radarChartContainer" style="text-align: center;">
+        <p id="radarPlaceholder">Select two players to generate a radar comparison</p>
+        <img id="radarChart" src="" style="display: none; max-width: 100%; height: auto;">
+    </div>
+    
+
+    <br><br>
+    <hr class="fixture-divider">
+    <br><br>
+
+
+
+    <!-- Player Goal Prediction Section -->
+    <div class="radar-container">
+        <h2 style="margin-bottom: 0px;">Player Goal Projections</h2>
+        <div class="centered-button">
+            <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>   
+        <select id="predictionPlayerSelect" onchange="trackTeamSelect(this.value); getGoalProjections()">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_goals %}
+                <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <p id="goalLoadingMessage" style="display:none; font-weight:bold;">Computing goal projections...</p>
+        <div id="goalProjectionsTableWrapper">
+            <div id="goalProjectionsTableContainer"></div>
+        </div>
+        <div id="playerChartsContainer" style="display:none; margin-top: 30px;">
+            <h3>Goal Distribution (Next Match)</h3>
+            <canvas id="goalOutcomeBarChart" width="400" height="200"></canvas>
+            <br><br>
+            <h3>xG Profile (Past 5 + Next 3 GWs)</h3>
+            <canvas id="xgRadarChart" width="400" height="400"></canvas>
+            <br><br>
+            <h3>Goal Scoring Probability (Next 3 GWs)</h3>
+            <canvas id="scoringBarChart" width="400" height="200"></canvas>
+        </div>
+        
+        
+    </div>
+    
+    <br><br>
+    <hr class="fixture-divider">
+    <br><br>
+
+      
+    
+    <!-- Player Shotmap Generator -->
+    <div class="radarChartContainer">
+        <h2>Player Shotmaps</h2>
+        <select id="shotmapPlayerSelect" onchange="trackTeamSelect(this.value); generateShotmap()">
+            <option value="">Select a Player</option>
+            {% for player in dropdown_players_radar %}
+                <option value="{{ player['Player'] }}">{{ player['Player'] }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+    </div>
+
+    <br>
+
+    <!-- Slider Toggle for All Shots / Only Goals -->
+    <div class="toggle-container">
+    <label class="switch">
+        <input type="checkbox" id="shotmapToggle" onchange="generateShotmap()">
+        <span class="slider round"></span>
+    </label>
+    <div class="toggle-labels">
+        <span id="allShotsLabel" class="active">All Shots</span>
+        <span id="goalsOnlyLabel">Goals Only</span>
+    </div>
+    </div>
+
+    <p id="shotmapLoadingMessage" style="display:none; font-weight:bold;">Generating shotmap...</p>
+
+
+    <div id="shotmapResultContainer" style="text-align:center; margin-top:20px;">
+        <img id="shotmapImage" src="" alt="Player Shotmap" style="display:none; max-width:100%;">
+    </div>
+
+
+    
+    <br><br>
+    <hr class="fixture-divider">
+
+    <script>
+        let currentSortColumn = 4; // Default sort by "Goals"
+        let ascending = false; // Default sort order is descending
+        let currentPage = 1;
+        const rowsPerPage = 15;
+        let allRows = Array.from(document.querySelector("#playerTable").rows);
+
+        function sortTable(columnIndex) {
+            if (currentSortColumn === columnIndex) {
+                ascending = !ascending;
+            } else {
+                ascending = false;
+                currentSortColumn = columnIndex;
+            }
+
+            allRows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim();
+                let valB = b.cells[columnIndex].innerText.trim();
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return ascending ? valA - valB : valB - valA;
+                } else {
+                    return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                }
+            });
+
+            updateSortingIndicator();
+            updateTable();
+        }
+
+        function updateSortingIndicator() {
+            document.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+            let header = document.querySelectorAll("th")[currentSortColumn];
+            header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector("#playerTable");
+            tableBody.innerHTML = "";
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const visibleRows = allRows.slice(start, end);
+
+            visibleRows.forEach(row => tableBody.appendChild(row));
+
+            document.querySelector("#prevBtn").disabled = currentPage === 1;
+            document.querySelector("#nextBtn").disabled = end >= allRows.length;
+            document.querySelector("#pageInfo").innerText = `Page ${currentPage}`;
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            updateTable();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            allRows.sort((a, b) => b.cells[4].innerText.trim() - a.cells[4].innerText.trim()); // Correctly sorting by "Goals"
+            updateSortingIndicator();
+            updateTable();
+        });
+
+        function openPlayerModal(playerName) {
+            const radarImage = document.getElementById("playerRadarImage");
+            const loadingSpinner = document.getElementById("playerRadarLoading");
+
+            // Show loading spinner and hide radar image
+            loadingSpinner.style.display = "flex";
+            radarImage.style.display = "none";
+            radarImage.src = "";
+
+            // Set radar image source
+            radarImage.onload = function() {
+                loadingSpinner.style.display = "none"; // Hide spinner
+                radarImage.style.display = "block";    // Show radar
+            };
+
+            radarImage.src = `/generate_single_radar?player=${encodeURIComponent(playerName)}`;
+            toggleModal('playerInfoModal');
+
+            gtag('event', 'player_radar_viewed', {
+                'event_category': 'Radar Chart',
+                'event_label': playerName,
+                'value': 1
+            });
+        }
+
+
+
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        // Close dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                let dropdowns = document.getElementsByClassName("dropdown");
+                for (let i = 0; i < dropdowns.length; i++) {
+                    let openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        };
+
+        function toggleMenu() {
+            let menu = document.querySelector('.menu');
+            menu.classList.toggle('show');
+        }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Dynamically find the correct overlay
+
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        let radarChartInstance;
+        let barChartInstance;
+
+        function getGoalProjections() {
+            const player = document.getElementById("predictionPlayerSelect").value;
+            const container = document.getElementById("goalProjectionsTableContainer");
+            const chartsContainer = document.getElementById("playerChartsContainer");
+            const loadingMsg = document.getElementById("goalLoadingMessage");
+
+            if (!player) {
+                container.innerHTML = "<p>Please select a player.</p>";
+                chartsContainer.style.display = "none";
+                loadingMsg.style.display = "none";
+                return;
+            }
+
+            // Show the loading message
+            loadingMsg.style.display = "block";
+
+            fetch(`/predict_player_goals/${encodeURIComponent(player)}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (!Array.isArray(data) || data.length === 0) {
+                        container.innerHTML = "<p>No data available for this player.</p>";
+                        chartsContainer.style.display = "none";
+                        loadingMsg.style.display = "none";
+                        return;
+                    }
+
+                    // Display Table
+                    const tableHtml = `
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>GW</th>
+                                    <th>Opponent</th>
+                                    <th>xG</th>
+                                    <th>Scoring Probability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${data
+                                    .filter(row => row.goal_probability !== null)
+                                    .map(row => `
+                                        <tr>
+                                            <td>${row.gameweek}</td>
+                                            <td>${row.opponent}</td>
+                                            <td>${row.expected_goals}</td>
+                                            <td>${row.goal_probability}%</td>
+                                        </tr>
+                                    `).join('')}
+                            </tbody>
+                        </table>
+                    `;
+                    container.innerHTML = tableHtml;
+                    chartsContainer.style.display = "block";
+
+                    // Chart Data
+                    const allGWs = data.map(row => `GW${row.gameweek}`);
+                    const xgData = data.map(row => row.expected_goals);
+                    const scoringLabels = allGWs.slice(-3);
+                    const scoringData = data.slice(-3).map(row => row.goal_probability);
+
+                    renderRadarChart(allGWs, xgData);
+                    renderBarChart(scoringLabels, scoringData);
+
+                    // Hide the loading message once everything is done
+                    loadingMsg.style.display = "none";
+
+                    // Show goal outcome chart for next fixture
+                    const firstFuture = data.find(row => row.goal_distribution && row.goal_distribution.length);
+                    if (firstFuture) {
+                        renderGoalOutcomeBarChart(firstFuture.goal_distribution);
+                    }
+                })
+                .catch(err => {
+                    container.innerHTML = `<p>Error fetching goal projection data: ${err}</p>`;
+                    chartsContainer.style.display = "none";
+                    loadingMsg.style.display = "none";
+                });
+        }
+
+        function renderRadarChart(labels, data) {
+            if (radarChartInstance) radarChartInstance.destroy();
+
+            // Detect screen size for mobile tweaks
+            const isMobile = window.innerWidth < 900;
+            const fontSize = isMobile ? 10 : 16;
+            const pointRadius = isMobile ? 5 : 8;
+            const pointHoverRadius = isMobile ? 8 : 12;
+
+            // Dynamically set axis max (only on desktop)
+            const maxXg = Math.max(...data);
+            const axisMax = isMobile ? undefined : Math.ceil(maxXg * 1.25 * 4) / 4;
+
+            radarChartInstance = new Chart(document.getElementById('xgRadarChart'), {
+                type: 'radar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'xG',
+                        data,
+                        fill: true,
+                        backgroundColor: 'rgba(0, 128, 255, 0.2)',
+                        borderColor: 'rgba(0, 128, 255, 1)',
+                        pointBackgroundColor: labels.map((_, i) => i >= 5 ? 'orange' : 'blue'),
+                        pointRadius: pointRadius,
+                        pointHoverRadius: pointHoverRadius
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true, // ✅ Prevent layout bugs
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `xG: ${context.raw}`
+                            }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: axisMax, // ✅ Only set max if not mobile
+                            pointLabels: {
+                                align: 'center',
+                                font: {
+                                    size: fontSize
+                                },
+                                callback: function(value, index) {
+                                    return (index >= 5 ? [value, '(projected)'] : [value]);
+                                }
+                            },
+                            ticks: {
+                                display: !isMobile, // Hide numeric ticks on mobile
+                                font: {
+                                    size: isMobile ? 8 : 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+        function renderBarChart(labels, data) {
+            if (barChartInstance) barChartInstance.destroy();
+
+            barChartInstance = new Chart(document.getElementById('scoringBarChart'), {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Goal Scoring Probability (%)',
+                        data,
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Probability %'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => `${context.raw}%`
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderGoalOutcomeBarChart(dist) {
+            const ctx = document.getElementById("goalOutcomeBarChart");
+            if (window.goalOutcomeChart) window.goalOutcomeChart.destroy();
+
+            // Only take 1 Goal, 2 Goals, 3+ Goals (assumes original dist includes 0)
+            const trimmedDist = dist.slice(1, 4);
+            const labels = ["1 Goal", "2 Goals", "3+ Goals"];
+
+            window.goalOutcomeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "Probability (%)",
+                        data: trimmedDist,
+                        backgroundColor: 'rgba(0, 128, 255, 0.6)',
+                        borderColor: 'rgba(0, 128, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 50,  // ✅ Y-axis limit
+                            title: {
+                                display: true,
+                                text: 'Probability (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: context => `${context.raw}%`
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+
+
+
+    let topXGTableLoaded = false;
+
+    function toggleTopXGTable() {
+        const wrapper = document.getElementById("topXGTableWrapper");
+
+        if (wrapper.style.display === "none") {
+            wrapper.style.display = "block";
+
+            if (!topXGTableLoaded) {
+                fetch("/top_projected_xg")
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data || data.length === 0) {
+                            wrapper.innerHTML = "<p>No projection data available.</p>";
+                            return;
+                        }
+
+                        let tableHtml = `
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Player</th>
+                                        <th>Team</th>
+                                        <th>Total xG (Next 3 GWs)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.map((player, index) => `
+                                        <tr>
+                                            <td>${index + 1}</td>
+                                            <td>${player.name}</td>
+                                            <td>${player.team}</td>
+                                            <td>${player.total_xg}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        wrapper.innerHTML = tableHtml;
+                        topXGTableLoaded = true;
+                    })
+                    .catch(err => {
+                        wrapper.innerHTML = `<p>Error loading top xG projections: ${err}</p>`;
+                    });
+            }
+        } else {
+            wrapper.style.display = "none";
+        }
+    }
+
+
+    function toggleFixtureSection(sectionId) {
+        const section = document.getElementById(`${sectionId}-section`);
+        const icon = document.getElementById(`${sectionId}-icon`);
+
+        if (section.style.display === "none" || section.style.display === "") {
+            section.style.display = "block";
+            icon.innerHTML = '<i class="fas fa-chevron-up"></i>';
+        } else {
+            section.style.display = "none";
+            icon.innerHTML = '<i class="fas fa-chevron-down"></i>';
+        }
+    }
+
+
+    function trackRadarCompare() {
+        let player1 = document.getElementById("player1").value;
+        let player2 = document.getElementById("player2").value;
+
+        if (player1 && player2) {
+            gtag('event', 'compare_clicked', {
+                'event_category': 'Radar Chart',
+                'event_label': `${player1} vs ${player2}`,
+                'value': 1
+            });
+        }
+    }
+
+    function trackTeamSelect(teamName) {
+        gtag('event', 'team_selected', {
+            'event_category': 'Dropdown',
+            'event_label': teamName,
+            'value': 1
+        });
+    }
+
+    function toggleModal(id) {
+        let modal = document.getElementById(id);
+        let overlay = document.getElementById(id + "Overlay");
+        let isVisible = modal.style.display === "block";
+
+        modal.style.display = isVisible ? "none" : "block";
+        overlay.style.display = isVisible ? "none" : "block";
+
+        if (id === 'feedbackModal') {
+            gtag('event', 'feedback_opened', {
+                'event_category': 'Engagement',
+                'event_label': 'Feedback Modal Opened',
+                'value': 1
+            });
+        }
+    }
+
+    function generateRadar() {
+        let player1 = document.getElementById("player1").value;
+        let player2 = document.getElementById("player2").value;
+        let radarImage = document.getElementById("radarChart");
+        let loadingMsg = document.getElementById("loadingMessage");
+        let radarPlaceholder = document.getElementById("radarPlaceholder");
+
+        if (!player1 || !player2) {
+            alert("Please select two players!");
+            return;
+        }
+
+        // Show loading message
+        loadingMsg.style.display = "block";
+        radarPlaceholder.style.display = "none";  // Hide placeholder when starting
+
+        radarImage.onload = function() {
+            loadingMsg.style.display = "none"; // Hide message when image has loaded
+            radarImage.style.display = "block"; // Show the radar image
+        };
+
+        radarImage.src = `/generate_radar?player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
+    }
+
+
+    </script>
+    
+
+    <!-- Feedback Modal Overlay -->
+    <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
+
+    <!-- Feedback Modal -->
+    <div class="modal" id="feedbackModal">
+        <button class="close-button" onclick="toggleModal('feedbackModal')">✖</button>
+        <h3>We'd love your feedback!</h3>
+        <p>Please take a moment to answer a few quick questions to help improve FiveStat.</p>
+
+        <iframe 
+            src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true" 
+            width="100%" 
+            height="600" 
+            frameborder="0" 
+            marginheight="0" 
+            marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <button id="backToTop" title="Back to Top">↑</button>
+
+    <script>
+        // Show/hide the back-to-top button
+        window.onscroll = function () {
+            const button = document.getElementById("backToTop");
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Scroll to top smoothly when clicked
+        document.getElementById("backToTop").addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function acceptCookies() {
+            localStorage.setItem("cookiesAccepted", "true");
+            document.getElementById("cookieNotice").style.display = "none";
+        }
+
+        window.onload = function () {
+            if (!localStorage.getItem("cookiesAccepted")) {
+                document.getElementById("cookieNotice").style.display = "block";
+            }
+        };
+
+        function generateShotmap() {
+            const player = document.getElementById("shotmapPlayerSelect").value;
+            const img = document.getElementById("shotmapImage");
+            const loading = document.getElementById("shotmapLoadingMessage");
+            const toggle = document.getElementById("shotmapToggle");
+
+            const allLabel = document.getElementById("allShotsLabel");
+            const goalsLabel = document.getElementById("goalsOnlyLabel");
+
+            const type = toggle.checked ? "goals" : "all";
+
+            // Update label appearance
+            allLabel.classList.toggle("active", !toggle.checked);
+            goalsLabel.classList.toggle("active", toggle.checked);
+
+            if (!player) {
+                alert("Please select a player.");
+                return;
+            }
+
+            loading.style.display = "block";
+            img.style.display = "none";
+
+            const encoded = encodeURIComponent(player);
+            img.onload = () => {
+                loading.style.display = "none";
+                img.style.display = "block";
+            };
+            img.onerror = () => {
+                loading.textContent = "Error loading shotmap.";
+            };
+            img.src = `/generate_player_shotmap?player=${encoded}&type=${type}&t=${Date.now()}`;
+        }
+
+
+
+    </script>
+
+    <footer class="footer">
+        <p>Last updated: {{ last_updated }}</p>
+        <a href="https://x.com/Five_Stat" target="_blank"><i class="fa-brands fa-square-x-twitter socials"></i></a> <a href="mailto:fivestatanalytics@gmail.com"><i class="fa-solid fa-envelope socials"></i></a>
+        <p>&copy; 2025 FiveStat</p>
+        <p><a href="/privacy.html" target="_blank">Privacy Policy</a></p>
+    </footer>
+
+    <div id="cookieNotice" style="display: none; position: fixed; bottom: 0; width: 100%; background: #f1f1f1; border-top: 1px solid #ccc; padding: 10px; text-align: center; font-size: 14px; z-index: 1000;">
+        🍪 This site uses cookies to analyze traffic and improve experience. By continuing, you agree to our <a href="/privacy.html" target="_blank">Privacy Policy</a>.
+        <button onclick="acceptCookies()" style="margin-left: 10px;">Got it</button>
+    </div>
+    
+
+</body>
+</html>

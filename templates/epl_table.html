@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FiveStat - Premier League Table with Projected Final League Positions</title>
+    <meta name="description" content="Updated league standings with simulated projections based on xG data.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="FiveStat - Football Analytics & EPL Predictions">
+    <meta property="og:description" content="Explore match predictions, player stats, and correct score forecasts powered by data.">
+    <meta property="og:url" content="https://www.fivestat.co.uk/">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .sorted-column {
+            font-weight: bold;
+        }
+        .positive {
+            color: #d9534f;
+        }
+        .negative {
+            color: #5cb85c;
+        }
+    </style>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-SQPCR3KM4Y');
+    </script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">
+            <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
+        </a>
+        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
+        <div class="menu">
+            <div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
+                <div class="dropdown-content" id="eplDropdown">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <!--<a href="/epl_results">Results</a>-->
+                    <!--<a href="/epl_table">League Tables</a>-->
+                    <a href="/epl-players">Player Stats</a>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <br><br><br>
+    <h2>Premier League Table</h2>
+    <div class="table-container">
+        <table id="leagueTable"> 
+            <thead>
+                <tr>                    
+                    <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">MP <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 3)">W <span class="sort-indicator"></span></th>
+                    <th class="hide-left-border" onclick="sortTable('leagueTable', 4)">D<span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 5)">L<span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('leagueTable', 8)">GD <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('leagueTable', 9)">PTS <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="leagueTable">
+                {% for team in league_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border">{{ team["MP"] }}</td>
+                    <td class="bold-left-border">{{ team["W"] }}</td>
+                    <td class="hide-left-border">{{ team["D"] }}</td>
+                    <td>{{ team["L"] }}</td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ team["GA"] }}</td>
+                    <td class="{% if team['GD']|float < 0 %}positive{% elif team['GD']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["GD"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+    <h2>xTable</h2>
+    <div class="table-container">
+        <table id="xTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('xTable', 0)">Rank <span class="sort-indicator">▼</span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 1)">Team <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 2)">G <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 3)">xG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 4)">npxG <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 5)">xG +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 6)">GA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 7)">xGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 8)">npxGA <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 9)">xGA +/- <span class="sort-indicator"></span></th>
+                    <th class="bold-left-border" onclick="sortTable('xTable', 10)">PTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 11)">xPTS <span class="sort-indicator"></span></th>
+                    <th onclick="sortTable('xTable', 12)">xPTS +/- <span class="sort-indicator"></span></th>
+                </tr>
+            </thead>
+            <tbody id="xTable">
+                {% for team in league_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    <td class="bold-left-border">{{ team["G"] }}</td>
+                    <td>{{ '%.1f' | format(team["xG"]) }}</td>
+                    <td>{{ team["npxG"] }}</td>
+                    <td class="{% if team['xG +/-'] > 0 %}positive{% elif team['xG +/-'] < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["GA"] }}</td>
+                    <td>{{ team["xGA"] }}</td>
+                    <td>{{ team["npxGA"] }}</td>
+                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% else %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
+                    <td class="bold-left-border">{{ team["PTS"] }}</td>
+                    <td>{{ team["xPTS"] }}</td>
+                    <td class="{% if team['xPTS +/-'] > 0 %}positive{% elif team['xPTS +/-'] < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br><br>
+    <h2>Simulated League Positions</h2>
+    <div class="centered-button">
+        <button class="info-button" onclick="toggleModal('infoModal'); trackRadarCompare()" title="More info">
+            <i class="fas fa-info-circle"></i>
+        </button>
+    </div>  
+    <!-- Dark Overlay --> 
+    <div class="modal-overlay" id="modalOverlay" onclick="toggleModal('infoModal')"></div>
+    <!-- Info Modal -->
+    <div class="modal" id="infoModal">
+        <p>We've simulated the remaining fixtures of the 24/25 season using our<a href="/methodology">Match Prediction Model</a>to visualize how the final Premier League Table will look</p>
+    </div>
+    <div id="sim-league-table" class="table-container">
+        <table id="simulatedTable">
+            <thead>
+                <tr>
+                    <th >Rank </th>
+                    <th>Team</th>
+                    {% for position in range(1, num_positions + 1) %}
+                    <th>{{ position }}</th>
+                    {% endfor %}
+                    <th>Final xPTS</th>
+                </tr>
+            </thead>
+            <tbody id="simulatedTable">
+                {% for team in simulated_table %}
+                <tr>
+                    <td class="position-cell">
+                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
+                          {{ loop.index }}
+                        </span>
+                    </td>
+                    <td><a href="{{ url_for('team_page', team_name=team["Team"]) }}">{{ team["Team"] }}</a></td>
+                    {% for position in range(1, num_positions + 1) %}
+                        {% set probability = team[position|string] * 100 %}
+                        {% set opacity = probability / 30 %} {# Scale from 0 to 1 #}
+                        <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
+                            {{ probability | round(1) }}%
+                        </td>
+                    {% endfor %}
+                    <td>{{ team["Final xPTS"] | round(1) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div><br>
+    
+
+    <!-- Dark Overlay for Team Modal -->
+    <div class="modal-overlay" id="infoModalOverlay"></div>
+    <div class="modal-overlay" id="teamShotmapModalOverlay"></div>
+
+    <!-- Team Modal -->
+    <div class="modal" id="teamInfoModal">
+        <h3>Team Pages Coming Soon</h3>
+        <p>We are currently working on individual team pages. Stay tuned for updates!</p>
+    </div>
+
+    <!-- Shotmap Modal -->
+    <div class="modal" id="teamShotmapModal">
+        <img id="teamShotmapImage" src="" alt="Team Shotmap">
+    </div>
+
+
+
+    <script>
+
+        const TEAM_NAME_MAPPING = {
+            "Arsenal": "Arsenal",
+            "Aston Villa": "Aston Villa",
+            "Bournemouth": "Bournemouth",
+            "Brentford": "Brentford",
+            "Brighton": "Brighton",
+            "Chelsea": "Chelsea",
+            "Crystal Palace": "Crystal Palace",
+            "Everton": "Everton",
+            "Fulham": "Fulham",
+            "Ipswich": "Ipswich",
+            "Leicester": "Leicester",
+            "Liverpool": "Liverpool",
+            "Man City": "Manchester City",
+            "Man Utd": "Manchester United",
+            "Newcastle": "Newcastle United",
+            "Nott'm Forest": "Nottingham Forest",
+            "Southampton": "Southampton",
+            "Spurs": "Tottenham",
+            "West Ham": "West Ham",
+            "Wolves": "Wolverhampton Wanderers"
+        };
+
+        function toggleDropdown(event) {
+            event.preventDefault();  // Prevents page from jumping
+            let dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        let currentSortColumn = -1;
+        let ascending = true;
+
+        let sortState = {}; // Track sorting state per table
+
+        function sortTable(tableId, columnIndex) {
+            let table = document.getElementById(tableId);
+            let tbody = table.querySelector("tbody");
+            let rows = Array.from(tbody.rows);
+
+            // Initialize sorting state for this table if not set
+            if (!sortState[tableId]) {
+                sortState[tableId] = { column: -1, ascending: true };
+            }
+
+            // Toggle sorting order if the same column is clicked
+            if (sortState[tableId].column === columnIndex) {
+                sortState[tableId].ascending = !sortState[tableId].ascending;
+            } else {
+                sortState[tableId].column = columnIndex;
+                sortState[tableId].ascending = false; // Default to ascending on new column click
+            }
+
+            let ascending = sortState[tableId].ascending;
+
+            rows.sort((a, b) => {
+                let valA = a.cells[columnIndex].innerText.trim();
+                let valB = b.cells[columnIndex].innerText.trim();
+
+                // Convert to numbers when possible
+                let numA = parseFloat(valA);
+                let numB = parseFloat(valB);
+
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return ascending ? numA - numB : numB - numA;
+                } else {
+                    return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                }
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach(row => tbody.appendChild(row));
+
+            updateSortingIndicator(tableId, columnIndex, ascending);
+        }
+
+        function updateSortingIndicator(tableId, columnIndex, ascending) {
+            let table = document.getElementById(tableId);
+
+            // Reset all indicators for this table
+            table.querySelectorAll(".sort-indicator").forEach(el => el.innerText = "");
+
+            // Set indicator for the currently sorted column
+            let header = table.querySelectorAll("th")[columnIndex];
+            if (header) {
+                header.querySelector(".sort-indicator").innerText = ascending ? "▲" : "▼";
+            }
+        }
+
+
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById("modalOverlay");
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+
+        function openTeamShotmapModal(teamName) {
+            // Use the mapping dictionary to standardize team names
+            let standardizedTeamName = TEAM_NAME_MAPPING[teamName] || teamName;
+
+            // Construct the image URL
+            let imageUrl = `/static/shotmaps/team/${standardizedTeamName}_shotmap.png`;
+
+            // Debugging: Log the generated image URL
+            console.log(`Looking for: ${imageUrl}`);
+
+            // Set the image source
+            document.getElementById("teamShotmapImage").src = imageUrl;
+            
+            // Show the modal
+            toggleModal('teamShotmapModal');
+        }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay"); // Use corresponding overlay
+
+            let isVisible = modal.style.display === "block";
+
+            // Toggle modal and overlay display
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+        }
+
+        // Close modal when clicking the overlay
+        document.querySelectorAll(".modal-overlay").forEach(overlay => {
+            overlay.addEventListener("click", function() {
+                let modalId = this.id.replace("Overlay", ""); // Extract corresponding modal ID
+                toggleModal(modalId);
+            });
+        });
+
+        function trackRadarCompare() {
+            let player1 = document.getElementById("player1").value;
+            let player2 = document.getElementById("player2").value;
+
+            if (player1 && player2) {
+                gtag('event', 'compare_clicked', {
+                    'event_category': 'Radar Chart',
+                    'event_label': `${player1} vs ${player2}`,
+                    'value': 1
+                });
+            }
+        }
+
+        function toggleModal(id) {
+            let modal = document.getElementById(id);
+            let overlay = document.getElementById(id + "Overlay");
+            let isVisible = modal.style.display === "block";
+
+            modal.style.display = isVisible ? "none" : "block";
+            overlay.style.display = isVisible ? "none" : "block";
+
+            if (id === 'feedbackModal') {
+                gtag('event', 'feedback_opened', {
+                    'event_category': 'Engagement',
+                    'event_label': 'Feedback Modal Opened',
+                    'value': 1
+                });
+            }
+        }
+
+    </script>
+
+    <button id="backToTop" title="Back to Top">↑</button>
+
+    <script>
+        // Show/hide the back-to-top button
+        window.onscroll = function () {
+            const button = document.getElementById("backToTop");
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                button.style.display = "block";
+            } else {
+                button.style.display = "none";
+            }
+        };
+
+        // Scroll to top smoothly when clicked
+        document.getElementById("backToTop").addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        function acceptCookies() {
+            localStorage.setItem("cookiesAccepted", "true");
+            document.getElementById("cookieNotice").style.display = "none";
+        }
+
+        window.onload = function () {
+            if (!localStorage.getItem("cookiesAccepted")) {
+                document.getElementById("cookieNotice").style.display = "block";
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash === "#league-table") {
+                const table = document.getElementById("league-table");
+                if (table) {
+                    table.classList.add("highlight");
+                    setTimeout(() => table.classList.remove("highlight"), 2000);
+                }
+            }
+        });
+    </script>
+
+    <footer class="footer">
+        <p>Last updated: {{ last_updated }}</p>
+        <a href="https://x.com/Five_Stat" target="_blank"><i class="fa-brands fa-square-x-twitter socials"></i></a> <a href="mailto:fivestatanalytics@gmail.com"><i class="fa-solid fa-envelope socials"></i></a>
+        <p>&copy; 2025 FiveStat</p>
+        <p><a href="/privacy.html" target="_blank">Privacy Policy</a></p>
+    </footer>
+
+    <div id="cookieNotice" style="display: none; position: fixed; bottom: 0; width: 100%; background: #f1f1f1; border-top: 1px solid #ccc; padding: 10px; text-align: center; font-size: 14px; z-index: 1000;">
+        🍪 This site uses cookies to analyze traffic and improve experience. By continuing, you agree to our <a href="/privacy.html" target="_blank">Privacy Policy</a>.
+        <button onclick="acceptCookies()" style="margin-left: 10px;">Got it</button>
+    </div>
+    
+
+</body>
+</html>

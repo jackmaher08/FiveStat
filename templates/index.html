@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat - Football Analytics & EPL Predictions{% endblock %}
+{% block meta_description %}FiveStat offers football fans correct score heatmaps, win probabilities, and xG analytics for every Premier League fixture.{% endblock %}
+
+
+{% block content %}
+
+    {# ── Hero ── #}
+    <div class="lp-hero">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Premier League · 2025/26</div>
+            <h1 class="lp-headline">Welcome to FiveStat<br>·<br>Data-driven EPL predictions</h1>
+            <p class="lp-subhead">Correct score heatmaps, win probabilities and xG analytics for all Premier League fixtures</p>
+            <div class="lp-cta-group">
+                <a href="/epl_fixtures" class="lp-cta-primary">View this week's predictions →</a>
+                <a href="/methodology" class="lp-cta-ghost">How it works</a>
+            </div>
+        </div>
+    </div>
+
+    {# ── Feature cards ── #}
+    <div class="lp-features">
+
+        <div class="lp-feat">
+            <div class="lp-feat-icon">
+                <svg viewBox="0 0 18 18" fill="none" width="18" height="18">
+                    <rect x="1" y="1" width="7" height="7" rx="1.5" fill="#1D9E75"/>
+                    <rect x="10" y="1" width="7" height="7" rx="1.5" fill="#0a2540" opacity=".5"/>
+                    <rect x="1" y="10" width="7" height="7" rx="1.5" fill="#0a2540" opacity=".28"/>
+                    <rect x="10" y="10" width="7" height="7" rx="1.5" fill="#0a2540" opacity=".1"/>
+                </svg>
+            </div>
+            <div class="lp-feat-title">Correct score heatmaps</div>
+            <p class="lp-feat-body">Our correct score heatmaps display the probability of every scoreline for each upcoming fixture. The darker the cell, the more likely that scoreline, giving you an instant read on how our model expects a match to play out.</p>
+        </div>
+
+        <div class="lp-feat">
+            <div class="lp-feat-icon">
+                <svg viewBox="0 0 18 18" fill="none" width="18" height="18">
+                    <rect x="2" y="10" width="3" height="6" rx="1" fill="#1D9E75"/>
+                    <rect x="7.5" y="6" width="3" height="10" rx="1" fill="#0a2540" opacity=".5"/>
+                    <rect x="13" y="2" width="3" height="14" rx="1" fill="#0a2540"/>
+                </svg>
+            </div>
+            <div class="lp-feat-title">Win, O/U &amp; clean sheet %</div>
+            <p class="lp-feat-body">Our model breaks down every fixture into three key metrics: who's most likely to win, whether the game will go over or under 2.5 goals, and the probability of each Team keeping a clean sheet.</p>
+        </div>
+
+        <div class="lp-feat">
+            <div class="lp-feat-icon">
+                <svg viewBox="0 0 18 18" fill="none" width="18" height="18">
+                    <circle cx="9" cy="9" r="7" stroke="#1D9E75" stroke-width="1.5"/>
+                    <path d="M5 9c1-2 2.5-3 4-3s3 1 4 3c-1 2-2.5 3-4 3s-3-1-4-3z" fill="#1D9E75" opacity=".2" stroke="#1D9E75" stroke-width="1"/>
+                    <circle cx="9" cy="9" r="1.5" fill="#1D9E75"/>
+                </svg>
+            </div>
+            <div class="lp-feat-title">xG &amp; simulated table</div>
+            <p class="lp-feat-body">Our xG table gives insight to how each team is performing, beyond just points. We use data from our match prediction model to run 10,000 Monte Carlo simulations of the remaining fixtures to show the probability of every team finishing in each position.</p>
+        </div>
+
+    </div>
+
+    {# ── All shots shotmap ── #}
+    <div class="lp-shotmap-section">
+        <div class="lp-shotmap-label">All Premier League shots · 2025/26 season</div>
+        <img src="{{ url_for('static', filename='shotmaps/all/all_shots.png') }}"
+             alt="All Premier League shots 2025/26"
+             class="lp-shotmap-img">
+    </div>
+
+    {# ── Feedback modal ── #}
+    <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
+    <div class="modal" id="feedbackModal">
+        <button class="close-button" onclick="toggleModal('feedbackModal')">✖</button>
+        <h3>We'd love your feedback!</h3>
+        <p>Please take a moment to answer a few quick questions to help improve FiveStat.</p>
+        <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true"
+            width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    function toggleModal(id) {
+        const modal   = document.getElementById(id);
+        const overlay = document.getElementById(id + 'Overlay');
+        const visible = modal.style.display === 'block';
+        modal.style.display   = visible ? 'none' : 'block';
+        overlay.style.display = visible ? 'none' : 'block';
+
+        if (id === 'feedbackModal' && !visible) {
+            gtag('event', 'feedback_opened', {
+                event_category: 'Engagement',
+                event_label: 'Feedback Modal Opened',
+                value: 1
+            });
+        }
+    }
+</script>
+{% endblock %}
