@@ -15,7 +15,7 @@
     "logo": "bournemouth_logo.png"
   },
   "Brentford": {
-    "manager": "TBC",
+    "manager": "Keith Andrews",
     "stadium": "Gtech Community Stadium",
     "logo": "brentford_logo.png"
   },
@@ -30,7 +30,7 @@
     "logo": "burnley_logo.png"
   },
   "Chelsea": {
-    "manager": "Enzo Maresca",
+    "manager": "Liam Rosenior",
     "stadium": "Stamford Bridge",
     "logo": "chelsea_logo.png"
   },
@@ -65,7 +65,7 @@
     "logo": "manchester city_logo.png"
   },
   "Manchester United": {
-    "manager": "Ruben Amorim",
+    "manager": "Michael Carrick",
     "stadium": "Old Trafford",
     "logo": "manchester united_logo.png"
   },
@@ -75,7 +75,7 @@
     "logo": "newcastle_logo.png"
   },
   "Nottingham Forest": {
-    "manager": "Nuno Espírito Santo",
+    "manager": "Vítor Pereira",
     "stadium": "City Ground",
     "logo": "nottingham forest_logo.png"
   },
@@ -85,17 +85,17 @@
     "logo": "sunderland_logo.png"
   },
   "Tottenham Hotspur": {
-    "manager": "Thomas Frank",
+    "manager": "Igor Tudor",
     "stadium": "Tottenham Hotspur Stadium",
     "logo": "tottenham hotspur_logo.png"
   },
   "West Ham": {
-    "manager": "Graham Potter",
+    "manager": "Nuno Espírito Santo",
     "stadium": "London Stadium",
     "logo": "west ham_logo.png"
   },
   "Wolverhampton Wanderers": {
-    "manager": "Vítor Pereira",
+    "manager": "Rob Edwards",
     "stadium": "Molineux Stadium",
     "logo": "wolves_logo.png"
   }

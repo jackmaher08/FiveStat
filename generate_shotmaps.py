@@ -136,7 +136,8 @@ def plot_team_shotmap(team_name):
     df.loc[df["h_a"] == "h", "x_scaled"] = 120 - df["x_scaled"]
     df.loc[df["h_a"] == "h", "y_scaled"] = 80 - df["y_scaled"]
 
-    deduped = all_shots_df.drop_duplicates(subset=["match_id", "x_scaled", "y_scaled", "team"])
+    dedup_cols = [c for c in ["match_id", "x_scaled", "y_scaled", "team"] if c in all_shots_df.columns]
+    deduped = all_shots_df.drop_duplicates(subset=dedup_cols)
 
     home_shots = len(df[(df["h_a"] == "h") & (df["h_team"] == standardized_team_name)])
     away_shots = len(df[(df["h_a"] == "a") & (df["a_team"] == standardized_team_name)])
@@ -155,60 +156,76 @@ def plot_team_shotmap(team_name):
     total_xg = float(team_row.iloc[0]["xG"]) if not team_row.empty else 0.0
 
 
+    BG = '#f5f5f0'
+
     # Draw pitch
-    pitch = VerticalPitch(pitch_type='statsbomb', pitch_color='#f4f4f9', line_color='black', line_zorder=2, half=True)
-    fig, ax = pitch.draw(figsize=(12, 9))
-    fig.patch.set_facecolor("#f4f4f9")
+    pitch = VerticalPitch(
+        pitch_type='statsbomb', pitch_color=BG,
+        line_color='#888882', line_zorder=2, line_alpha=0.5, half=True
+    )
+    fig, ax = pitch.draw(figsize=(8, 10))
+    fig.patch.set_facecolor(BG)
+    ax.set_facecolor(BG)
 
-    # Base path for logo location
+    # KDE density heatmap — matches home page style
+    cmap = LinearSegmentedColormap.from_list('fivestat', [BG, '#0a2540'])
+    if len(df) >= 5:
+        pitch.kdeplot(
+            df['x_scaled'], df['y_scaled'],
+            ax=ax, fill=True, cmap=cmap,
+            n_levels=100, thresh=0, zorder=1, alpha=0.85
+        )
+
+    # Club badge
     base_path = os.path.dirname(os.path.abspath(__file__))
-
     standardized_team = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
-    standardized_filename = standardized_team.lower().replace("’", "").replace("'", "")
+    standardized_filename = standardized_team.lower().replace("'", "").replace("'", "")
     logo_path = os.path.join(base_path, "static", "team_logos", f"{standardized_filename}_logo.png")
 
-    def add_team_logo(ax, logo_path, y_min, y_max, x_center):
-        if os.path.exists(logo_path):
-            logo_img = mpimg.imread(logo_path)
-            aspect_ratio = logo_img.shape[0] / logo_img.shape[1]
-            height = y_max - y_min
-            width = height / aspect_ratio
-            x_min = x_center - width / 2
-            x_max = x_center + width / 2
-            ax.imshow(logo_img, extent=(x_min, x_max, y_min, y_max), alpha=0.05, zorder=1)
-        else:
-            print(f"⚠️ Logo not found for team: {standardized_team} at {logo_path}")
-
-    # Call after pitch.draw
-    add_team_logo(ax, logo_path, y_min=60, y_max=110, x_center=40)
+    if os.path.exists(logo_path):
+        import matplotlib.image as mpimg
+        logo_img = mpimg.imread(logo_path)
+        aspect_ratio = logo_img.shape[0] / logo_img.shape[1]
+        height = 30
+        width  = height / aspect_ratio
+        ax.imshow(logo_img,
+                  extent=(40 - width/2, 40 + width/2, 75, 75 + height),
+                  alpha=0.08, zorder=2)
 
     # Remove duplicates
     subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in df.columns]
     if subset_columns:
         df = df.drop_duplicates(subset=subset_columns)
 
-    # Plot each shot
-    for _, shot in df.iterrows():
-        x, y = shot['x_scaled'], shot['y_scaled']
-        color = 'gold' if shot['result'].lower() == 'goal' else 'white'
-        zorder = 3 if shot['result'].lower() == 'goal' else 2
-        size = 500 * float(shot['xG']) if pd.notna(shot['xG']) else 100
-        pitch.scatter(x, y, s=size, c=color, edgecolors='black', ax=ax, zorder=zorder)
+    goals_df     = df[df['result'].str.lower().str.contains('goal')]
+    non_goals_df = df[~df['result'].str.lower().str.contains('goal')]
 
-    # Title and labels
-    ax.text(10, 55, f"Shots: {total_shots}", ha='left', va='center', fontsize=20)
-    ax.text(40, 55, f"Goals: {total_goals}", ha='center', va='center', fontsize=20)
-    ax.text(70, 55, f"xG: {total_xg:.2f}", ha='right', va='center', fontsize=20)
-    ax.text(4, 119, "FiveStat", ha='right', va='center', fontsize=8, alpha=0.3)
+    # Non-goal shots — small white dots
+    pitch.scatter(
+        non_goals_df['x_scaled'], non_goals_df['y_scaled'],
+        s=non_goals_df['xG'].fillna(0.05) * 120,
+        c='white', edgecolors='#888882', linewidths=0.4,
+        alpha=0.35, zorder=3, ax=ax
+    )
 
+    # Goals — gold, more prominent
+    pitch.scatter(
+        goals_df['x_scaled'], goals_df['y_scaled'],
+        s=goals_df['xG'].fillna(0.1) * 400,
+        c='#FFD700', edgecolors='#b8860b', linewidths=0.6,
+        alpha=0.9, zorder=4, ax=ax
+    )
+
+    # Watermark only
+    fig.text(0.92, 0.04, 'FiveStat', fontsize=8, color='#888882',
+             fontweight='bold', ha='right', va='bottom', alpha=0.5)
 
     # Save
-    shotmap_filename = f"{formatted_filename}_shotmap.png"
-    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename))
+    shotmap_filename = f"{standardized_team_name}_shotmap.png"
+    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename),
+                facecolor=BG, dpi=150, bbox_inches='tight')
     plt.close(fig)
     print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
-
-
 
 
 

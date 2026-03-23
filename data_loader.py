@@ -707,6 +707,8 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     probabilities_df["over_2_5_prob"] = np.nan
     probabilities_df["home_cs_prob"] = np.nan
     probabilities_df["away_cs_prob"] = np.nan
+    probabilities_df["home_xg"]      = np.nan
+    probabilities_df["away_xg"]      = np.nan
 
     # Normalize team keys in stats dictionaries
     team_stats = {TEAM_NAME_MAPPING.get(k, k): v for k, v in team_stats.items()}
@@ -770,6 +772,8 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         # Clean sheet: home keeps clean sheet when away scores 0 (col 0), and vice versa
         probabilities_df.at[index, "home_cs_prob"] = result_matrix[:, 0].sum()
         probabilities_df.at[index, "away_cs_prob"] = result_matrix[0, :].sum()
+        probabilities_df.at[index, "home_xg"]      = round(home_xg, 2)
+        probabilities_df.at[index, "away_xg"]      = round(away_xg, 2)
 
         # Call display_heatmap to generate and save the image (this will print a confirmation)
         display_heatmap(result_matrix, home_team, away_team, fixture.get('round_number', ''), home_prob, draw_prob, away_prob, save_path)

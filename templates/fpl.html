@@ -1,0 +1,283 @@
+{% extends "base.html" %}
+
+{% block title %}FPL Analytics — Clean Sheet & Fixture Planner | FiveStat{% endblock %}
+{% block meta_description %}Model-derived clean sheet probabilities and fixture difficulty ratings for FPL defensive planning.{% endblock %}
+
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    {# ── Header — full width outside container ── #}
+    <div class="lp-hero" style="margin-bottom:2rem;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">FPL Analytics · Gameweek {{ current_gw }}</div>
+            <h1 class="lp-headline" style="font-size:2rem;">Clean Sheet &amp; Fixture Planner</h1>
+            <p class="lp-subhead">Model-derived clean sheet probabilities and fixture difficulty ratings to guide your FPL defensive picks.</p>
+        </div>
+    </div>
+
+<div class="fpl-page">
+
+    {# ── Clean Sheet Chart ── #}
+    {% if cs_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Clean Sheet Probability</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn active" onclick="setWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn"        onclick="setWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn"        onclick="setWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <p class="fpl-note" id="csNote">Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="csChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Team xG Chart ── #}
+    {% if xg_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Team xG — Attacking Fixture Strength</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-xg active" onclick="setXgWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <p class="fpl-note" id="xgNote">Model xG for Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="xgChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Fixture Difficulty ── #}
+    {% if fixture_ticker %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Fixture Difficulty — Next 5 Gameweeks</div>
+        </div>
+        <div class="fpl-legend">
+            <span class="fpl-badge fpl-easy">Easy  (11–20)</span>
+            <span class="fpl-badge fpl-medium">Medium  (5–10)</span>
+            <span class="fpl-badge fpl-hard">Hard  (1–4)</span>
+            <span class="fpl-badge fpl-blank">BGW</span>
+        </div>
+        <p class="fpl-note">Difficulty based on opponent league position.</p>
+        <div class="fpl-table-wrap">
+            <table class="fpl-diff-table">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        {% for gw in gw_range %}<th>GW{{ gw }}</th>{% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in fixture_ticker %}
+                    <tr>
+                        <td class="fpl-team-cell">
+                            <a href="{{ url_for('team_page', team_name=row.team) }}">{{ row.team }}</a>
+                        </td>
+                        {% for fix in row.fixtures %}
+                            <td class="fpl-diff-cell fpl-{{ fix.difficulty }}">{{ fix.label }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+const csRaw = {{ cs_data | tojson }};
+
+const windows = {
+    gw1: {
+        sorted:  [...csRaw].sort((a,b) => b.gw1 - a.gw1),
+        key:     'gw1',
+        note:    'Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}.',
+        xLabel:  v => v.toFixed(1) + '%',
+        xMax:    60,
+        color:   v => v >= 35 ? '#1D9E75' : v >= 22 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(1) + '%'
+    },
+    gw3: {
+        sorted:  [...csRaw].sort((a,b) => b.gw3 - a.gw3),
+        key:     'gw3',
+        note:    'Expected clean sheets across the next 3 Gameweeks (sum of per-match probabilities).',
+        xLabel:  v => v.toFixed(2) + ' xCS',
+        xMax:    1.8,
+        color:   v => v >= 0.90 ? '#1D9E75' : v >= 0.60 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xCS'
+    },
+    gw5: {
+        sorted:  [...csRaw].sort((a,b) => b.gw5 - a.gw5),
+        key:     'gw5',
+        note:    'Expected clean sheets across the next 5 Gameweeks (sum of per-match probabilities).',
+        xLabel:  v => v.toFixed(2) + ' xCS',
+        xMax:    2.8,
+        color:   v => v >= 1.50 ? '#1D9E75' : v >= 1.00 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xCS'
+    }
+};
+
+const ctx = document.getElementById('csChart').getContext('2d');
+let csChart = new Chart(ctx, {
+    type: 'bar',
+    data: buildData('gw1'),
+    options: buildOptions('gw1')
+});
+
+function buildData(key) {
+    const w = windows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    return {
+        labels: w.sorted.map(d => d.team),
+        datasets: [{
+            data: vals,
+            backgroundColor: vals.map(w.color),
+            borderRadius: 3,
+            borderSkipped: false
+        }]
+    };
+}
+
+function buildOptions(key) {
+    const w = windows[key];
+    return {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => '  ' + w.tip(ctx.raw) } }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: w.xMax,
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    font: { family: 'Barlow, sans-serif', size: 11 },
+                    callback: w.xLabel
+                }
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' } }
+            }
+        }
+    };
+}
+
+function setWindow(key, btn) {
+    csChart.data    = buildData(key);
+    csChart.options = buildOptions(key);
+    csChart.update();
+    document.getElementById('csNote').textContent = windows[key].note;
+    document.querySelectorAll('.fpl-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+const xgRaw = {{ xg_data | tojson }};
+
+function xgMax(key) {
+    const max = Math.max(...xgRaw.map(d => d[key]));
+    return Math.ceil(max * 1.15 * 10) / 10;
+}
+
+const xgWindows = {
+    gw1: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw1 - a.gw1),
+        key:     'gw1',
+        note:    'Model xG for Gameweek {{ current_gw }} — higher means more attacking opportunity.',
+        color:   v => v >= 1.8 ? '#1D9E75' : v >= 1.2 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    },
+    gw3: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw3 - a.gw3),
+        key:     'gw3',
+        note:    'Total model xG across the next 3 Gameweeks.',
+        color:   v => v >= 4.0 ? '#1D9E75' : v >= 2.5 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    },
+    gw5: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw5 - a.gw5),
+        key:     'gw5',
+        note:    'Total model xG across the next 5 Gameweeks.',
+        color:   v => v >= 6.5 ? '#1D9E75' : v >= 4.0 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    }
+};
+
+const xgCtx = document.getElementById('xgChart').getContext('2d');
+let xgChart = new Chart(xgCtx, {
+    type: 'bar',
+    data: buildXgData('gw1'),
+    options: buildXgOptions('gw1')
+});
+
+function buildXgData(key) {
+    const w = xgWindows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    return {
+        labels: w.sorted.map(d => d.team),
+        datasets: [{
+            data: vals,
+            backgroundColor: vals.map(w.color),
+            borderRadius: 3,
+            borderSkipped: false
+        }]
+    };
+}
+
+function buildXgOptions(key) {
+    const w = xgWindows[key];
+    return {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => '  ' + w.tip(ctx.raw) } }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: xgMax(key),
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    font: { family: 'Barlow, sans-serif', size: 11 },
+                    callback: v => v.toFixed(1) + ' xG'
+                }
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' } }
+            }
+        }
+    };
+}
+
+function setXgWindow(key, btn) {
+    xgChart.data    = buildXgData(key);
+    xgChart.options = buildXgOptions(key);
+    xgChart.update();
+    document.getElementById('xgNote').textContent = xgWindows[key].note;
+    document.querySelectorAll('.fpl-btn-xg').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+</script>
+{% endblock %}

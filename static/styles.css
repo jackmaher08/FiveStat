@@ -1860,6 +1860,56 @@ input:checked + .slider:before {
 }
 
 /* ── GW fixture strip ── */
+/* ── Last GW results strip ── */
+.lp-results-strip {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1.5rem;
+}
+
+.lp-results-strip .lp-fixtures-label {
+  color: var(--text-secondary);
+}
+
+.lp-results-strip .lp-fixtures-link {
+  color: var(--accent);
+}
+
+.lp-result-score {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  padding: 0 0.25rem;
+}
+
+.lp-result-card {
+  min-width: 220px;
+  background: var(--surface-alt);
+  border-color: var(--border);
+}
+
+.lp-result-card:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.lp-result-card .lp-fix-team {
+  color: var(--text-primary);
+}
+
+.lp-result-score {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--nav-text);
+  flex-shrink: 0;
+  padding: 0 0.25rem;
+}
+
+/* ── GW fixture strip ── */
 .lp-fixtures-strip {
   background: var(--nav-bg);
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -2472,4 +2522,465 @@ input:checked + .slider:before {
   .meth-step {
     grid-template-columns: 36px 1fr;
   }
+}
+
+
+
+/* ============================================================
+   27. FPL PAGE
+   ============================================================ */
+
+.fpl-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+.fpl-hero {
+  background: var(--nav-bg);
+  border-bottom: 3px solid var(--accent);
+  margin: 0 -1.5rem 2rem;
+  padding: 2.5rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.fpl-hero-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nav-text);
+  margin: 0.4rem 0 0.6rem;
+}
+
+.fpl-hero-sub {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 auto;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.fpl-section {
+  margin-bottom: 2.5rem;
+}
+
+.fpl-section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.fpl-section-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.fpl-section-title span {
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.fpl-btn-group {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.fpl-btn {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.fpl-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--surface);
+}
+
+.fpl-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+.fpl-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+  font-style: italic;
+}
+
+.fpl-chart-wrap {
+  height: 540px;
+  position: relative;
+}
+
+/* ── Fixture difficulty table ── */
+.fpl-legend {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.fpl-badge {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: var(--radius-sm);
+}
+
+.fpl-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+
+.fpl-diff-table {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  background: var(--surface);
+  font-size: 0.82rem;
+}
+
+.fpl-diff-table thead th {
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.55rem 0.75rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fpl-diff-table thead th:first-child {
+  text-align: left;
+}
+
+.fpl-team-cell {
+  padding: 0.4rem 0.75rem;
+  border-top: 1px solid var(--border);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.fpl-team-cell a {
+  color: var(--text-primary);
+}
+
+.fpl-team-cell a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.fpl-diff-cell {
+  padding: 0.4rem 0.5rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.fpl-diff-table tr:nth-child(even) td {
+  background-color: unset;
+}
+
+.fpl-diff-table tr:nth-child(even) .fpl-easy   { background: #d4edda; }
+.fpl-diff-table tr:nth-child(even) .fpl-medium  { background: #fff3cd; }
+.fpl-diff-table tr:nth-child(even) .fpl-hard    { background: #f8d7da; }
+.fpl-diff-table tr:nth-child(even) .fpl-blank   { background: var(--surface-alt); }
+
+.fpl-easy   { background: #d4edda; color: #1a5c2a; }
+.fpl-medium { background: #fff3cd; color: #7d5a00; }
+.fpl-hard   { background: #f8d7da; color: #7c1c22; }
+.fpl-blank  { background: var(--surface-alt); color: var(--text-muted); }
+
+/* reuse badge colours */
+.fpl-badge.fpl-easy   { background: #d4edda; color: #1a5c2a; }
+.fpl-badge.fpl-medium { background: #fff3cd; color: #7d5a00; }
+.fpl-badge.fpl-hard   { background: #f8d7da; color: #7c1c22; }
+.fpl-badge.fpl-blank  { background: var(--surface-alt); color: var(--text-muted); border: 1px solid var(--border); }
+
+@media (max-width: 900px) {
+  .fpl-page  { padding: 0 0.75rem 2rem; }
+  .fpl-hero  { margin: 0 -0.75rem 1.5rem; padding: 2rem 1rem 1.5rem; }
+  .fpl-hero-title { font-size: 1.6rem; }
+  .fpl-chart-wrap { height: 480px; }
+  .fpl-section-row { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* ── Fixture card form + xG ── */
+.fix-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.25rem;
+  margin: 4px 0 2px;
+  gap: 0.5rem;
+}
+
+.fix-form-dots {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.fix-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fix-dot--w { background-color: var(--accent); }
+.fix-dot--d { background-color: #e4a400; }
+.fix-dot--l { background-color: var(--rel-red); }
+
+.fix-xg-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .fix-dot {
+    width: 6px;
+    height: 6px;
+  }
+  .fix-xg-label {
+    font-size: 0.65rem;
+  }
+}
+
+
+/* ============================================================
+   28. TEAM PAGE — IDENTITY CARD & SHOTMAP ENDING
+   ============================================================ */
+
+.team-identity-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 2rem;
+  max-width: 100%;
+}
+
+.team-identity-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.team-identity-logo {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.team-identity-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+  color: var(--text-primary);
+}
+
+.team-identity-meta {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0.1rem 0;
+}
+
+.team-stats-strip {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.team-stat {
+  text-align: center;
+  padding: 0 1.1rem;
+}
+
+.team-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.team-stat-label {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.team-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.team-page-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 1rem 1rem 2rem;
+}
+
+/* ── Previous + Upcoming side by side ── */
+.team-fixtures-split {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1rem 0.5rem;
+}
+
+.team-fixtures-col {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.team-fixtures-col-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.team-fixtures-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Team shotmap page ending ── */
+.team-shotmap-ending {
+  background: var(--nav-bg);
+  border-top: 3px solid var(--accent);
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.team-shotmap-ending-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0.85rem 1rem 0.4rem;
+}
+
+.team-shotmap-ending-img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  opacity: 0.88;
+}
+
+@media (max-width: 900px) {
+  .team-identity-card {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .team-stat {
+    padding: 0 0.65rem;
+  }
+
+  .team-stat-value {
+    font-size: 1.2rem;
+  }
+
+  .team-fixtures-split {
+    flex-direction: column;
+  }
+
+  .team-fixtures-divider {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .team-shotmap-ending-img {
+    max-width: 100%;
+  }
+}
+
+.team-section {
+  margin-bottom: 2.5rem;
+}
+
+.team-section-header {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
 }

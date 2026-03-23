@@ -17,6 +17,15 @@
 
 {% block content %}
 
+    <div class="lp-hero" style="margin-bottom:0;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Premier League · 2025/26</div>
+            <h1 class="lp-headline" style="font-size:2rem;">Fixtures &amp; Predictions</h1>
+            <p class="lp-subhead">Correct score heatmaps, win probabilities and xG for every upcoming Premier League fixture.</p>
+        </div>
+    </div>
+
     {# ── Gameweek selector ── #}
     <div class="gw-selector">
         <select id="gw-select" onchange="changeGameweek(this.value); trackTeamSelect(this.value)">
@@ -71,6 +80,27 @@
 
                                 <span class="team-name away">{{ fixture.away_team }}</span>
                             </div>
+                            <div class="fix-meta-row">
+                                <div class="fix-form-dots">
+                                    {% if fixture.home_form %}
+                                        {% for r in fixture.home_form[:5] %}
+                                            <span class="fix-dot fix-dot--{{ r.result }}"
+                                                  title="{{ r.h_team }} {{ r.h_score }}-{{ r.a_score }} {{ r.a_team }}"></span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                {% if not fixture.isResult and stats and stats.home_xg %}
+                                    <span class="fix-xg-label">{{ stats.home_xg }} xG — {{ stats.away_xg }} xG</span>
+                                {% endif %}
+                                <div class="fix-form-dots fix-form-dots--away">
+                                    {% if fixture.away_form %}
+                                        {% for r in fixture.away_form[:5] %}
+                                            <span class="fix-dot fix-dot--{{ r.result }}"
+                                                  title="{{ r.h_team }} {{ r.h_score }}-{{ r.a_score }} {{ r.a_team }}"></span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
                             <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
                         </div>
                         <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
@@ -113,6 +143,7 @@
                                         options: {
                                             responsive: false,
                                             maintainAspectRatio: false,
+                                            devicePixelRatio: window.devicePixelRatio || 1,
                                             plugins: {
                                                 legend: { display: false },
                                                 tooltip: { enabled: false },
@@ -287,174 +318,7 @@
         </button>
     </div>
 
-    {# ── Team pages dropdown ── #}
-    <div class="team-switcher" id="middle">
-        <select id="team-select" onchange="navigateToTeam(this.value); trackTeamSelect(this.value)">
-            <option value="" selected disabled>Team Pages</option>
-            {% for team_option in all_teams %}
-                <option value="{{ team_option }}">{{ team_display_names[team_option] }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <br><br>
-
-    {# ── Premier League Table ── #}
-    <h2>Premier League Table</h2>
-    <div class="table-container">
-        <table id="leagueTable">
-            <thead>
-                <tr>
-                    <th onclick="sortTable('leagueTable', 0)">Rank <span class="sort-indicator">▼</span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 1)">Team <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 2)">MP <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 3)">W <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 4)">D <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 5)">L <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 6)">G <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 7)">GA <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('leagueTable', 8)">GD <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('leagueTable', 9)">PTS <span class="sort-indicator"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for team in league_table %}
-                <tr>
-                    <td class="position-cell">
-                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
-                            {{ loop.index }}
-                        </span>
-                    </td>
-                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
-                    <td class="bold-left-border">{{ team["MP"] }}</td>
-                    <td class="bold-left-border">{{ team["W"] }}</td>
-                    <td>{{ team["D"] }}</td>
-                    <td>{{ team["L"] }}</td>
-                    <td class="bold-left-border">{{ team["G"] }}</td>
-                    <td>{{ team["GA"] }}</td>
-                    <td>{{ team["GD"] }}</td>
-                    <td class="bold-left-border">{{ team["PTS"] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <br><br>
-
-    {# ── xTable ── #}
-    <h2>xTable</h2>
-    <div class="table-container">
-        <table id="xTable">
-            <thead>
-                <tr>
-                    <th onclick="sortTable('xTable', 0)">Rank <span class="sort-indicator">▼</span></th>
-                    <th class="bold-left-border" onclick="sortTable('xTable', 1)">Team <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('xTable', 2)">G <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 3)">xG <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 4)">npxG <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 5)">xG +/- <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('xTable', 6)">GA <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 7)">xGA <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 8)">npxGA <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 9)">xGA +/- <span class="sort-indicator"></span></th>
-                    <th class="bold-left-border" onclick="sortTable('xTable', 10)">PTS <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 11)">xPTS <span class="sort-indicator"></span></th>
-                    <th onclick="sortTable('xTable', 12)">xPTS +/- <span class="sort-indicator"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for team in league_table %}
-                <tr>
-                    <td class="position-cell">
-                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
-                            {{ loop.index }}
-                        </span>
-                    </td>
-                    <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
-                    <td class="bold-left-border">{{ team["G"] }}</td>
-                    <td>{{ '%.1f' | format(team["xG"]) }}</td>
-                    <td>{{ '%.1f' | format(team["npxG"]) }}</td>
-                    <td class="{% if team['xG +/-']|float > 0 %}positive{% elif team['xG +/-']|float < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
-                    <td class="bold-left-border">{{ team["GA"] }}</td>
-                    <td>{{ '%.1f' | format(team["xGA"]) }}</td>
-                    <td>{{ '%.1f' | format(team["npxGA"]) }}</td>
-                    <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
-                    <td class="bold-left-border">{{ team["PTS"] }}</td>
-                    <td>{{ '%.1f' | format(team["xPTS"]) }}</td>
-                    <td class="{% if team['xPTS +/-']|float > 0 %}positive{% elif team['xPTS +/-']|float < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <br><br>
-
-    {# ── Simulated League Positions ── #}
-    <h2>Simulated League Positions</h2>
-    <div class="centered-button">
-        <button class="info-button" onclick="toggleModal('siminfoModal')" title="More info">
-            <i class="fas fa-info-circle"></i>
-        </button>
-    </div>
-
-    <div class="modal-overlay" id="siminfoModalOverlay" onclick="toggleModal('siminfoModal')"></div>
-    <div class="modal" id="siminfoModal">
-        <p>We've simulated the remaining fixtures of the 24/25 season using our
-           <a href="/methodology">Match Prediction Model</a> to visualize how the final Premier League Table will look.</p>
-    </div>
-
-    <div id="sim-league-table" class="table-container">
-        <table id="simulatedTable">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Team</th>
-                    {% for position in range(1, num_positions + 1) %}
-                        <th>{{ position }}</th>
-                    {% endfor %}
-                    <th>Final xPTS</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for team in simulated_table %}
-                <tr>
-                    <td class="position-cell">
-                        <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">
-                            {{ loop.index }}
-                        </span>
-                    </td>
-                    <td><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
-                    {% for position in range(1, num_positions + 1) %}
-                        {% set probability = team[position|string] * 100 %}
-                        {% set opacity = probability / 30 %}
-                        <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
-                            {{ probability | round(1) }}%
-                        </td>
-                    {% endfor %}
-                    <td>{{ team["Final xPTS"] | round(1) }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <br>
-
-    {# ── Position Probability Distribution chart ── #}
-    <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h2>Position Probability Distribution</h2>
-        <div style="margin-bottom: 20px;">
-            <select id="team-dist-select" onchange="renderPositionChart(this.value)" style="padding: 6px 10px;">
-                <option value="" disabled selected>Select a team</option>
-                {% for entry in sim_position_dist %}
-                    <option value="{{ entry.team }}">{{ entry.team }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <canvas id="positionBarChart" style="margin-top: 20px; display: none;"></canvas>
-    </div>
+    
 
     {# ── Back to top ── #}
     <button id="backToTop" title="Back to Top">↑</button>
@@ -550,33 +414,6 @@
                 }
             }
         });
-    }
-
-    /* ── Sortable tables ── */
-    function sortTable(tableId, columnIndex) {
-        const table  = document.getElementById(tableId);
-        const rows   = Array.from(table.tBodies[0].rows);
-        const header = table.tHead.rows[0].cells[columnIndex];
-        const isNumeric = !isNaN(rows[0].cells[columnIndex].innerText.trim());
-        const currentlySorted = header.classList.contains('sorted-column');
-
-        Array.from(table.tHead.rows[0].cells).forEach(cell => {
-            cell.classList.remove('sorted-column');
-            cell.querySelector('.sort-indicator').innerText = '';
-        });
-
-        const ascending = currentlySorted ? header.getAttribute('data-asc') !== 'true' : true;
-
-        rows.sort((a, b) => {
-            const aVal = isNumeric ? parseFloat(a.cells[columnIndex].innerText) : a.cells[columnIndex].innerText.toLowerCase();
-            const bVal = isNumeric ? parseFloat(b.cells[columnIndex].innerText) : b.cells[columnIndex].innerText.toLowerCase();
-            return ascending ? (aVal > bVal ? 1 : -1) : (aVal < bVal ? 1 : -1);
-        });
-
-        rows.forEach(row => table.tBodies[0].appendChild(row));
-        header.classList.add('sorted-column');
-        header.setAttribute('data-asc', ascending);
-        header.querySelector('.sort-indicator').innerText = ascending ? '▼' : '▲';
     }
 
     /* ── Back to top ── */

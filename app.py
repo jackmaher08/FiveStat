@@ -86,6 +86,18 @@ BOOKIE_TEAM_NAME_MAP = {
     "West Ham":        "West Ham",
 }
 
+TEAM_SHORT_NAMES = {
+    "Arsenal": "ARS", "Aston Villa": "AVL", "Bournemouth": "BOU",
+    "Brentford": "BRE", "Brighton": "BHA", "Chelsea": "CHE",
+    "Crystal Palace": "CRY", "Everton": "EVE", "Fulham": "FUL",
+    "Ipswich": "IPS", "Leicester": "LEI", "Liverpool": "LIV",
+    "Manchester City": "MCI", "Manchester United": "MUN",
+    "Newcastle United": "NEW", "Nottingham Forest": "NFO",
+    "Southampton": "SOU", "Tottenham Hotspur": "TOT",
+    "West Ham": "WHU", "Wolverhampton Wanderers": "WOL",
+    "Sunderland": "SUN", "Leeds": "LEE", "Burnley": "BUR",
+}
+
 def scrape_bookie_win_probs(gw):
     """Scrape win probabilities from checkthechance.com for a given gameweek."""
     try:
@@ -244,7 +256,11 @@ def index():
     except Exception as e:
         print(f"⚠️ Index fixture load failed: {e}")
 
-    return render_template("index.html", accuracy=accuracy, gw_fixtures=gw_fixtures, current_gw=current_gw)
+    return render_template("index.html",
+        accuracy=accuracy,
+        gw_fixtures=gw_fixtures,
+        current_gw=current_gw
+    )
 
 
 
@@ -334,6 +350,8 @@ def epl_fixtures(gw):
                 "over_2_5":  round(row.get("over_2_5_prob", 0) * 100, 1),
                 "home_cs":   round(row.get("home_cs_prob", 0) * 100, 1),
                 "away_cs":   round(row.get("away_cs_prob", 0) * 100, 1),
+                "home_xg":   round(float(row.get("home_xg", 0) or 0), 2),
+                "away_xg":   round(float(row.get("away_xg", 0) or 0), 2),
             }
 
     # Load simulated table data
@@ -893,15 +911,20 @@ def team_page(team_name):
     # === League table window for context ===
     table_path = "data/tables/league_table_data.csv"
     league_df = pd.read_csv(table_path)
-    team_row = league_df[league_df["Team"] == team_name]
+    league_df_reset = league_df.reset_index(drop=True)
+    team_row = league_df_reset[league_df_reset["Team"] == team_name]
     if not team_row.empty:
         position = team_row.index[0]
         start_position = max(0, position - 3)
         end_position = position + 4
-        partial_table = league_df.iloc[start_position:end_position].to_dict(orient="records")
+        partial_table = league_df_reset.iloc[start_position:end_position].to_dict(orient="records")
+        team_stats_row = team_row.iloc[0].to_dict()
+        team_position  = int(position) + 1
     else:
         start_position = 0
-        partial_table = []
+        partial_table  = []
+        team_stats_row = {}
+        team_position  = None
 
     # Form
     team_data["form"] = get_team_form(fixture_df, team_name)
@@ -952,6 +975,8 @@ def team_page(team_name):
         start_position=start_position,
         team_players=team_players,
         last_updated=get_last_updated_time(),
+        team_stats_row=team_stats_row,
+        team_position=team_position,
 
         # Fixture visual data
         prev_fixture_image=prev_fixture_image,
@@ -968,6 +993,123 @@ def team_page(team_name):
         sim_position_dist=sim_position_dist
     )
 
+
+
+@app.route("/teams")
+def teams_landing():
+    with open("data/team_metadata.json", "r") as f:
+        team_metadata = json.load(f)
+    all_teams = list(team_metadata.keys())
+    team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
+    return render_template("teams.html",
+        all_teams=all_teams,
+        team_display_names=team_display_names,
+        last_updated=get_last_updated_time()
+    )
+
+
+@app.route("/fpl")
+def fpl():
+    try:
+        fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+        fixtures_df["isResult"] = fixtures_df["isResult"].astype(str).str.lower() == "true"
+        fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
+
+        if GW_OVERRIDE is not None:
+            current_gw = GW_OVERRIDE
+        else:
+            upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
+            current_gw = int(upcoming.min()) if not upcoming.empty else 1
+
+        probs_df   = pd.read_csv("data/tables/fixture_probabilities.csv")
+        league_df  = pd.read_csv("data/tables/league_table_data.csv")
+        teams      = league_df["Team"].tolist()
+        team_rank  = {row["Team"]: idx + 1 for idx, row in league_df.iterrows()}
+
+        upcoming_df = fixtures_df[
+            (fixtures_df["isResult"] == False) &
+            (fixtures_df["round_number"] >= current_gw) &
+            (fixtures_df["round_number"] <  current_gw + 5)
+        ].merge(probs_df, on=["home_team", "away_team"], how="left")
+
+        cs_data = []
+        for team in teams:
+            home = upcoming_df[upcoming_df["home_team"] == team][["round_number", "home_cs_prob"]].rename(columns={"home_cs_prob": "cs_prob"})
+            away = upcoming_df[upcoming_df["away_team"] == team][["round_number", "away_cs_prob"]].rename(columns={"away_cs_prob": "cs_prob"})
+            tg   = pd.concat([home, away]).dropna(subset=["cs_prob"])
+
+            gw1 = tg[tg["round_number"] == current_gw]["cs_prob"].sum()
+            gw3 = tg[tg["round_number"] <  current_gw + 3]["cs_prob"].sum()
+            gw5 = tg["cs_prob"].sum()
+
+            cs_data.append({
+                "team": team,
+                "gw1": round(float(gw1) * 100, 1),
+                "gw3": round(float(gw3), 3),
+                "gw5": round(float(gw5), 3),
+            })
+
+        cs_data.sort(key=lambda x: x["gw1"], reverse=True)
+
+        xg_data = []
+        for team in teams:
+            home = upcoming_df[upcoming_df["home_team"] == team][["round_number", "home_xg"]].rename(columns={"home_xg": "xg"})
+            away = upcoming_df[upcoming_df["away_team"] == team][["round_number", "away_xg"]].rename(columns={"away_xg": "xg"})
+            tg   = pd.concat([home, away]).dropna(subset=["xg"])
+
+            xg1 = tg[tg["round_number"] == current_gw]["xg"].sum()
+            xg3 = tg[tg["round_number"] <  current_gw + 3]["xg"].sum()
+            xg5 = tg["xg"].sum()
+
+            xg_data.append({
+                "team": team,
+                "gw1": round(float(xg1), 2),
+                "gw3": round(float(xg3), 2),
+                "gw5": round(float(xg5), 2),
+            })
+
+        xg_data.sort(key=lambda x: x["gw1"], reverse=True)
+
+        fixture_ticker = []
+        for team in teams:
+            row_data = {"team": team, "fixtures": []}
+            for gw in range(current_gw, current_gw + 5):
+                gw_fix = fixtures_df[
+                    ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
+                    (fixtures_df["round_number"] == gw) &
+                    (fixtures_df["isResult"] == False)
+                ]
+                if gw_fix.empty:
+                    row_data["fixtures"].append({"gw": gw, "label": "BGW", "difficulty": "blank"})
+                else:
+                    fix     = gw_fix.iloc[0]
+                    is_home = fix["home_team"] == team
+                    opp     = fix["away_team"] if is_home else fix["home_team"]
+                    rank    = team_rank.get(opp, 10)
+                    diff    = "hard" if rank <= 4 else "medium" if rank <= 10 else "easy"
+                    short   = TEAM_SHORT_NAMES.get(opp, opp[:3].upper())
+                    row_data["fixtures"].append({
+                        "gw":         gw,
+                        "label":      f"{short} ({'H' if is_home else 'A'})",
+                        "difficulty": diff,
+                    })
+            fixture_ticker.append(row_data)
+
+        return render_template("fpl.html",
+            cs_data=cs_data,
+            xg_data=xg_data,
+            fixture_ticker=fixture_ticker,
+            current_gw=current_gw,
+            gw_range=list(range(current_gw, current_gw + 5)),
+            last_updated=get_last_updated_time()
+        )
+    except Exception as e:
+        print(f"❌ FPL page error: {e}")
+        import traceback; traceback.print_exc()
+        return render_template("fpl.html",
+            cs_data=[], xg_data=[], fixture_ticker=[], current_gw=1,
+            gw_range=[], last_updated=get_last_updated_time()
+        )
 
 
 @app.route("/ev_checker")

@@ -11,270 +11,222 @@
 
 {% block content %}
 
-    {# ── Team switcher dropdown ── #}
-    <div class="team-switcher">
-        <select id="team-select" onchange="navigateToTeam(this.value); trackTeamSelect(this.value)">
-            {% for team_option in all_teams %}
-                <option value="{{ team_option }}" {% if team_option == team.name %}selected{% endif %}>
-                    {{ team_display_names[team_option] }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    {# ── Team header ── #}
-    <div class="team-header">
-        <img src="{{ url_for('static', filename=('team_logos/' + team.name + '_logo.png')|lower) }}"
-             alt="{{ team.name }} Logo" class="team-logo">
-        <h1>{{ team.display_name }}</h1>
-        <p><strong>Manager:</strong> {{ team.manager }}</p>
-        <p><strong>Stadium:</strong> {{ team.stadium }}</p>
-    </div>
-
-    <hr class="fixture-divider">
-
-    <div class="section">
-
-        {# ── Partial league table ── #}
-        <div class="table-scroll">
-            <table class="league-table" id="teamLeagueTable">
-                <thead>
-                    <tr>
-                        <th>Pos</th>
-                        <th class="bold-left-border">Team</th>
-                        <th class="bold-left-border">MP</th>
-                        <th class="bold-left-border">W</th>
-                        <th class="hide-left-border">D</th>
-                        <th>L</th>
-                        <th class="bold-left-border">G</th>
-                        <th>GA</th>
-                        <th>GD</th>
-                        <th class="bold-left-border">PTS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for t in league_table %}
-                    <tr class="{% if t.Team == team.name %}highlight{% endif %}">
-                        <td>{{ loop.index0 + start_position + 1 }}</td>
-                        <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=t['Team']) }}">{{ t["Team"] }}</a></td>
-                        <td class="bold-left-border">{{ t["MP"] }}</td>
-                        <td class="bold-left-border">{{ t["W"] }}</td>
-                        <td class="hide-left-border">{{ t["D"] }}</td>
-                        <td>{{ t["L"] }}</td>
-                        <td class="bold-left-border">{{ t["G"] }}</td>
-                        <td>{{ t["GA"] }}</td>
-                        <td>{{ t["GD"] }}</td>
-                        <td class="bold-left-border">{{ t["PTS"] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        {# ── Expand / collapse all toggle ── #}
-        <div class="view-toggle">
-            <label class="switch">
-                <input type="checkbox" id="toggleResultsView" onchange="toggleAllSections(this.checked)">
-                <span class="slider round"></span>
-            </label>
-            <span id="resultsToggleLabel">Expand All Sections</span>
-        </div>
-
-        {# ── Recent Form ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('form')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-solid fa-chart-simple"></i> Recent Form</h3>
-                <span class="dropdown-icon" id="form-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="form-section" class="fixture-body">
-                <div class="form-display">
-                    <div class="form-arrow"><i class="fa-solid fa-arrow-left-long"></i> most recent</div>
-                    <div class="scroll-container">
-                        <div class="form-icons">
-                            {% for result in team.form %}
-                                <span class="form-circle {{ result.result }}"
-                                      title="{{ result.h_team }} {{ result.h_score }} - {{ result.a_score }} {{ result.a_team }}">
-                                    {{ result.result|upper }}
-                                </span>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {# ── Performance Radar ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('radar')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-solid fa-chart-line"></i> Performance Radar</h3>
-                <span class="dropdown-icon" id="radar-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="radar-section" class="fixture-body">
-                <div class="team_radar">
-                    <img src="{{ url_for('static', filename='radar/teams/' + team.name + '_team_radar.png') }}"
-                         alt="{{ team.display_name }} Radar Chart" class="team-radar-img">
-                </div>
-            </div>
-        </div>
-
-        {# ── Previous Fixtures ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('prev')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-regular fa-calendar-check"></i> Previous Fixtures</h3>
-                <span class="dropdown-icon" id="prev-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="prev-section" class="fixture-body">
-                <div class="gw-selector">
-                    <select id="prev-gw-select" onchange="updatePrevFixture(this.value); trackTeamSelect(this.value)">
-                        {% for gw in previous_gameweeks %}
-                            <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>
-                                Gameweek {{ gw }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <img id="prev-shotmap" class="shotmap"
-                     src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}"
-                     style="max-width: 600px;">
-            </div>
-        </div>
-
-        {# ── Upcoming Fixtures ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('next')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-regular fa-calendar"></i> Upcoming Fixtures</h3>
-                <span class="dropdown-icon" id="next-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="next-section" class="fixture-body">
-                <div class="gw-selector">
-                    <select id="next-gw-select" onchange="updateNextFixture(this.value); trackTeamSelect(this.value)">
-                        {% for gw in upcoming_gameweeks %}
-                            <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>
-                                Gameweek {{ gw }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <img id="next-heatmap" class="heatmap"
-                     src="{{ url_for('static', filename='heatmaps/' + next_fixture_image) }}">
-            </div>
-        </div>
-
-        {# ── Simulated Final League Table ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('simulated')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-solid fa-table-cells"></i> Simulated Final League Table</h3>
-                <span class="dropdown-icon" id="simulated-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="simulated-section" class="fixture-body">
-                <div class="table-container">
-                    <table id="simulatedTeamTable">
-                        <thead>
-                            <tr>
-                                <th>Pos</th>
-                                <th>Team</th>
-                                {% for p in range(1, num_sim_positions + 1) %}
-                                    <th>{{ p }}</th>
-                                {% endfor %}
-                                <th>Final xPTS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for t in simulated_table %}
-                            <tr class="{% if t.Team == team.name %}highlight{% endif %}">
-                                <td>{{ loop.index0 + sim_start + 1 }}</td>
-                                <td><a href="{{ url_for('team_page', team_name=t['Team']) }}">{{ t["Team"] }}</a></td>
-                                {% for p in range(1, num_sim_positions + 1) %}
-                                    {% set prob  = t[p|string] * 100 %}
-                                    {% set shade = prob / 50 %}
-                                    <td class="small-text" style="background-color: rgba(76, 0, 153, {{ shade }}); color: white;">
-                                        {{ prob | round(1) }}%
-                                    </td>
-                                {% endfor %}
-                                <td>{{ t["Final xPTS"] | round(1) }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <a href="/epl_fixtures#sim-league-table">View full Simulated League Table</a>
-                <div class="bar-chart-container" style="max-width: 800px; margin: 0 auto;">
-                    <h3 style="text-align: center; margin-top: 30px;">Position Probability Distribution</h3>
-                    <canvas id="positionBarChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        {# ── Player Shotmaps ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('player_shotmap')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-solid fa-bullseye"></i> Player Shotmaps - 24/25 Season</h3>
-                <span class="dropdown-icon" id="player_shotmap-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="player_shotmap-section" class="fixture-body">
-                <select id="teamShotmapPlayerSelect" onchange="generateTeamShotmap()">
-                    <option value="" disabled selected>Select a Player</option>
-                    {% for player in team_players %}
-                        <option value="{{ player['Name'] }}">{{ player['Name'] }}</option>
+    {# ── Hero banner ── #}
+    <div class="lp-hero" style="margin-bottom:0;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Premier League · 2025/26</div>
+            <h1 class="lp-headline" style="font-size:2rem;">Team Pages</h1>
+            <p class="lp-subhead">Form, fixtures, shotmaps and simulated league positions for every Premier League club.</p>
+            <div style="margin-top:1.5rem;">
+                <select onchange="if(this.value) window.location.href='/team/'+encodeURIComponent(this.value)"
+                        style="padding:0.65rem 1.25rem; font-size:1rem; border-radius:8px; border:1.5px solid #444; background:#1a1a1a; color:#f0f0ec; cursor:pointer; min-width:220px;">
+                    <option value="" disabled>Select a team →</option>
+                    {% for team_option in all_teams %}
+                        <option value="{{ team_option }}" {% if team_option == team.name %}selected{% endif %}>
+                            {{ team_display_names[team_option] }}
+                        </option>
                     {% endfor %}
                 </select>
-                <br><br>
-                <div class="toggle-container" style="margin-top: 10px;">
-                    <label class="switch">
-                        <input type="checkbox" id="teamShotmapToggle" onchange="generateTeamShotmap()">
-                        <span class="slider round"></span>
-                    </label>
-                    <div class="toggle-labels">
-                        <span id="teamAllShotsLabel" class="active">All Shots</span>
-                        <span id="teamGoalsOnlyLabel">Goals Only</span>
-                    </div>
-                </div>
-                <p id="teamShotmapLoadingMessage" style="display:none; font-weight:bold;">Generating shotmap...</p>
-                <div id="teamShotmapResultContainer" style="text-align:center; margin-top:20px;">
-                    <img id="teamShotmapImage" src="" alt="Player Shotmap" style="display:none; max-width:800px; width:100%;">
-                </div>
             </div>
         </div>
-
-        {# ── Team Shotmap ── #}
-        <div class="fixture-toggle-wrapper">
-            <div class="fixture-header" onclick="toggleFixtureSection('shotmap')">
-                <span class="dropdown-spacer"></span>
-                <h3><i class="fa-solid fa-users-viewfinder"></i> Team Shotmap - 24/25 Season</h3>
-                <span class="dropdown-icon" id="shotmap-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div id="shotmap-section" class="fixture-body">
-                <img class="shotmap"
-                     src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}"
-                     alt="Team Shotmap" style="max-width: 1000px;">
-            </div>
-        </div>
-
     </div>
 
-    {# ── Feedback modal ── #}
+    {# ── Team identity card ── #}
+    <div class="team-identity-card">
+        <div class="team-identity-left">
+            <img src="{{ url_for('static', filename=('team_logos/' + team.name + '_logo.png')|lower) }}"
+                 alt="{{ team.name }} Logo" class="team-identity-logo">
+            <div class="team-identity-info">
+                <h2 class="team-identity-name">{{ team.display_name }}</h2>
+                <p class="team-identity-meta"><strong>Manager:</strong> {{ team.manager }}</p>
+                <p class="team-identity-meta"><strong>Stadium:</strong> {{ team.stadium }}</p>
+            </div>
+        </div>
+        {% if team_stats_row %}
+        <div class="team-stats-strip">
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_position }}</div>
+                <div class="team-stat-label">Position</div>
+            </div>
+            <div class="team-stat-divider"></div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.PTS }}</div>
+                <div class="team-stat-label">Points</div>
+            </div>
+            <div class="team-stat-divider"></div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.W }}</div>
+                <div class="team-stat-label">Won</div>
+            </div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.D }}</div>
+                <div class="team-stat-label">Drawn</div>
+            </div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.L }}</div>
+                <div class="team-stat-label">Lost</div>
+            </div>
+            <div class="team-stat-divider"></div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.G }}</div>
+                <div class="team-stat-label">GF</div>
+            </div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ team_stats_row.GA }}</div>
+                <div class="team-stat-label">GA</div>
+            </div>
+            <div class="team-stat-divider"></div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ '%.1f' | format(team_stats_row.xG) }}</div>
+                <div class="team-stat-label">xG</div>
+            </div>
+            <div class="team-stat">
+                <div class="team-stat-value">{{ '%.1f' | format(team_stats_row.xGA) }}</div>
+                <div class="team-stat-label">xGA</div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="team-page-body">
+
+        {# ── Fixtures ── #}
+        <div class="team-section">
+            <div class="team-section-header">
+                <i class="fa-regular fa-calendar"></i> Fixtures
+            </div>
+            <div class="team-fixtures-split">
+                <div class="team-fixtures-col">
+                    <div class="team-fixtures-col-label">Previous</div>
+                    <div class="gw-selector">
+                        <select id="prev-gw-select" onchange="updatePrevFixture(this.value)">
+                            {% for gw in previous_gameweeks %}
+                                <option value="{{ gw }}" {% if gw == current_result_gw %}selected{% endif %}>GW {{ gw }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <img id="prev-shotmap" class="shotmap"
+                         src="{{ url_for('static', filename='shotmaps/' + prev_fixture_image) }}"
+                         style="max-width:100%;">
+                </div>
+                <div class="team-fixtures-divider"></div>
+                <div class="team-fixtures-col">
+                    <div class="team-fixtures-col-label">Upcoming</div>
+                    <div class="gw-selector">
+                        <select id="next-gw-select" onchange="updateNextFixture(this.value)">
+                            {% for gw in upcoming_gameweeks %}
+                                <option value="{{ gw }}" {% if gw == current_fixture_gw %}selected{% endif %}>GW {{ gw }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <img id="next-heatmap" class="heatmap"
+                         src="{{ url_for('static', filename='heatmaps/' + next_fixture_image) }}"
+                         style="max-width:100%;">
+                </div>
+            </div>
+        </div>
+
+        {# ── League Position ── #}
+        <div class="team-section">
+            <div class="team-section-header">
+                <i class="fa-solid fa-table-list"></i> League Position
+            </div>
+            <div class="table-scroll">
+                <table class="league-table" id="teamLeagueTable">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th class="bold-left-border">Team</th>
+                            <th class="bold-left-border">MP</th>
+                            <th class="bold-left-border">W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th class="bold-left-border">G</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th class="bold-left-border">PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in league_table %}
+                        <tr class="{% if t.Team == team.name %}highlight{% endif %}">
+                            <td>{{ loop.index0 + start_position + 1 }}</td>
+                            <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=t['Team']) }}">{{ t["Team"] }}</a></td>
+                            <td class="bold-left-border">{{ t["MP"] }}</td>
+                            <td class="bold-left-border">{{ t["W"] }}</td>
+                            <td>{{ t["D"] }}</td>
+                            <td>{{ t["L"] }}</td>
+                            <td class="bold-left-border">{{ t["G"] }}</td>
+                            <td>{{ t["GA"] }}</td>
+                            <td>{{ t["GD"] }}</td>
+                            <td class="bold-left-border">{{ t["PTS"] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# ── Simulated League Position ── #}
+        <div class="team-section">
+            <div class="team-section-header">
+                <i class="fa-solid fa-table-cells"></i> Simulated Final League Position
+            </div>
+            <div class="table-container">
+                <table id="simulatedTeamTable">
+                    <thead>
+                        <tr>
+                            <th>Pos</th>
+                            <th>Team</th>
+                            {% for p in range(1, num_sim_positions + 1) %}<th>{{ p }}</th>{% endfor %}
+                            <th>Final xPTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in simulated_table %}
+                        <tr class="{% if t.Team == team.name %}highlight{% endif %}">
+                            <td>{{ loop.index0 + sim_start + 1 }}</td>
+                            <td><a href="{{ url_for('team_page', team_name=t['Team']) }}">{{ t["Team"] }}</a></td>
+                            {% for p in range(1, num_sim_positions + 1) %}
+                                {% set prob  = t[p|string] * 100 %}
+                                {% set shade = prob / 50 %}
+                                <td class="small-text" style="background-color: rgba(76,0,153,{{ shade }}); color:white;">
+                                    {{ prob | round(1) }}%
+                                </td>
+                            {% endfor %}
+                            <td>{{ t["Final xPTS"] | round(1) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="/epl_table" style="font-size:0.85rem; color:var(--accent); display:block; margin:0.75rem 0 0.5rem;">View full simulated table →</a>
+            <div style="max-width:800px; margin:0 auto;">
+                <h3 style="text-align:center; margin-top:1.5rem; font-family:var(--font-display);">Position Probability Distribution</h3>
+                <canvas id="positionBarChart"></canvas>
+            </div>
+        </div>
+
+       {# ── Team Shotmap ── #}
+        <div class="team-section">
+            <div class="team-section-header">
+                <i class="fa-solid fa-users-viewfinder"></i> Team Shotmap
+            </div>
+            <img src="{{ url_for('static', filename='shotmaps/team/' + team.name + '_shotmap.png') }}"
+                 alt="{{ team.display_name }} Season Shotmap"
+                 style="width:100%; max-width:600px; display:block; margin:0 auto;">
+        </div>
+
+    </div>{# end team-page-body #}
+
     <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
     <div class="modal" id="feedbackModal">
         <button class="close-button" onclick="toggleModal('feedbackModal')">✖</button>
         <h3>We'd love your feedback!</h3>
         <p>Please take a moment to answer a few quick questions to help improve FiveStat.</p>
-        <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true"
-            width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
-    </div>
-
-    {# ── Player radar modal ── #}
-    <div class="modal-overlay" id="playerInfoModalOverlay" onclick="toggleModal('playerInfoModal')"></div>
-    <div class="modal" id="playerInfoModal">
-        <img id="playerRadarImage" src="" alt="Player Radar">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSesKNjoVAtzPk068PWblp627hMvFa0OpHpbThOkGgwezniPhA/viewform?embedded=true"
+                width="100%" height="600" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
     <button id="backToTop" title="Back to Top">↑</button>
@@ -288,45 +240,6 @@
     window.pastFixtures  = {{ past_fixtures_by_gw | tojson }};
     window.nextOpponents = {{ next_opponents_by_gw | tojson }};
 
-    /* ── Section accordion ── */
-    function toggleFixtureSection(section) {
-        const body = document.getElementById(`${section}-section`);
-        const icon = document.getElementById(`${section}-icon`).querySelector('i');
-        const isOpen = body.classList.contains('open');
-
-        if (isOpen) {
-            body.classList.remove('open');
-            body.style.maxHeight = '0';
-            icon.className = 'fas fa-chevron-left';
-        } else {
-            body.classList.add('open');
-            body.style.maxHeight = '1000px';
-            icon.className = 'fas fa-chevron-down';
-        }
-    }
-
-    function toggleAllSections(expand) {
-        const sections = ['form', 'radar', 'prev', 'next', 'simulated', 'player_shotmap', 'shotmap'];
-        sections.forEach(section => {
-            const body     = document.getElementById(`${section}-section`);
-            const iconWrap = document.getElementById(`${section}-icon`);
-            if (!body || !iconWrap) return;
-            const icon = iconWrap.querySelector('i');
-            if (expand) {
-                body.classList.add('open');
-                body.style.maxHeight = '1000px';
-                icon.className = 'fas fa-chevron-down';
-            } else {
-                body.classList.remove('open');
-                body.style.maxHeight = '0';
-                icon.className = 'fas fa-chevron-left';
-            }
-        });
-        document.getElementById('resultsToggleLabel').textContent =
-            expand ? 'Collapse All Sections' : 'Expand All Sections';
-    }
-
-    /* ── Fixture image swapping ── */
     function updatePrevFixture(gw) {
         const fixture = window.pastFixtures[gw];
         if (!fixture) return;
@@ -340,34 +253,21 @@
             `/static/heatmaps/${team}_${opp}_heatmap.png`;
     }
 
-    /* ── Modal ── */
     function toggleModal(id) {
         const modal   = document.getElementById(id);
         const overlay = document.getElementById(id + 'Overlay');
         const visible = modal.style.display === 'block';
         modal.style.display   = visible ? 'none' : 'block';
         overlay.style.display = visible ? 'none' : 'block';
-
-        if (id === 'feedbackModal' && !visible) {
-            gtag('event', 'feedback_opened', { event_category: 'Engagement', event_label: 'Feedback Modal Opened', value: 1 });
-        }
     }
 
-    function openPlayerModal(playerName) {
-        document.getElementById('playerRadarImage').src =
-            `/static/radar/${playerName}_radar.png`;
-        toggleModal('playerInfoModal');
-        gtag('event', 'player_radar_viewed', { event_category: 'Radar Chart', event_label: playerName, value: 1 });
-    }
-
-    /* ── Position probability chart ── */
     document.addEventListener('DOMContentLoaded', function() {
         const rawData = {{ sim_position_dist | tojson }};
         if (!rawData.length) return;
 
-        const labels  = rawData.map(d => `${d.position}`);
-        const data    = rawData.map(d => d.probability);
-        const yMax    = Math.min(100, Math.ceil(Math.max(...data) * 1.1));
+        const labels = rawData.map(d => `${d.position}`);
+        const data   = rawData.map(d => d.probability);
+        const yMax   = Math.min(100, Math.ceil(Math.max(...data) * 1.1));
 
         new Chart(document.getElementById('positionBarChart').getContext('2d'), {
             type: 'bar',
@@ -376,7 +276,7 @@
                 datasets: [{
                     label: 'Probability (%)',
                     data,
-                    backgroundColor: 'rgba(63, 0, 125, 0.7)',
+                    backgroundColor: 'rgba(63,0,125,0.7)',
                     borderColor: '#3f007d',
                     borderWidth: 1.5
                 }]
@@ -394,90 +294,6 @@
         });
     });
 
-    /* ── Player shotmap generator ── */
-    function generateTeamShotmap() {
-        const player  = document.getElementById('teamShotmapPlayerSelect').value;
-        const img     = document.getElementById('teamShotmapImage');
-        const loading = document.getElementById('teamShotmapLoadingMessage');
-        const toggle  = document.getElementById('teamShotmapToggle');
-        const type    = toggle.checked ? 'goals' : 'all';
-
-        document.getElementById('teamAllShotsLabel').classList.toggle('active', !toggle.checked);
-        document.getElementById('teamGoalsOnlyLabel').classList.toggle('active', toggle.checked);
-
-        if (!player) { alert('Please select a player.'); return; }
-
-        loading.style.display = 'block';
-        img.style.display = 'none';
-
-        img.onload  = () => { loading.style.display = 'none'; img.style.display = 'block'; };
-        img.onerror = () => { loading.textContent = 'Error loading shotmap.'; };
-        img.src = `/generate_player_shotmap?player=${encodeURIComponent(player)}&type=${type}&t=${Date.now()}`;
-    }
-
-    /* ── Team player charts ── */
-    let teamRadarChart, teamBarChart, teamGoalChart;
-
-    function generateTeamPlayerCharts() {
-        const player        = document.getElementById('teamChartsPlayerSelect').value;
-        const loadingMsg    = document.getElementById('chartsLoadingMessage');
-        const chartsContainer = document.getElementById('teamPlayerChartsContainer');
-
-        if (!player) { alert('Please select a player.'); return; }
-
-        loadingMsg.style.display    = 'block';
-        chartsContainer.style.display = 'none';
-
-        fetch(`/predict_player_goals/${encodeURIComponent(player)}`)
-            .then(res => res.json())
-            .then(data => {
-                if (!data || data.length === 0) { loadingMsg.textContent = 'No chart data available.'; return; }
-
-                const allGWs       = data.map(row => `GW${row.gameweek}`);
-                const xgData       = data.map(row => row.expected_goals);
-                const scoringLabels = allGWs.slice(-3);
-                const scoringData   = data.slice(-3).map(row => row.goal_probability);
-
-                renderTeamRadar(allGWs, xgData);
-                renderTeamBar(scoringLabels, scoringData);
-
-                const nextGame = data.find(row => row.goal_distribution);
-                if (nextGame) renderTeamGoalDist(nextGame.goal_distribution);
-
-                loadingMsg.style.display    = 'none';
-                chartsContainer.style.display = 'block';
-            })
-            .catch(err => { loadingMsg.textContent = `Error: ${err}`; });
-    }
-
-    function renderTeamRadar(labels, data) {
-        if (teamRadarChart) teamRadarChart.destroy();
-        teamRadarChart = new Chart(document.getElementById('teamXgRadarChart'), {
-            type: 'radar',
-            data: { labels, datasets: [{ label: 'xG', data, fill: true, backgroundColor: 'rgba(0,128,255,0.2)', borderColor: 'rgba(0,128,255,1)', pointBackgroundColor: labels.map((_, i) => i >= 5 ? 'orange' : 'blue') }] },
-            options: { responsive: true, maintainAspectRatio: false, layout: { padding: { top: 20, bottom: 40 } }, plugins: { legend: { display: false } }, scales: { r: { beginAtZero: true } } }
-        });
-    }
-
-    function renderTeamBar(labels, data) {
-        if (teamBarChart) teamBarChart.destroy();
-        teamBarChart = new Chart(document.getElementById('teamScoringBarChart'), {
-            type: 'bar',
-            data: { labels, datasets: [{ label: 'Scoring Probability (%)', data, backgroundColor: 'rgba(255,99,132,0.6)', borderColor: 'rgba(255,99,132,1)' }] },
-            options: { scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Probability (%)' } } }, plugins: { legend: { display: false } } }
-        });
-    }
-
-    function renderTeamGoalDist(dist) {
-        if (teamGoalChart) teamGoalChart.destroy();
-        teamGoalChart = new Chart(document.getElementById('teamGoalOutcomeBarChart'), {
-            type: 'bar',
-            data: { labels: ['0 Goals', '1 Goal', '2 Goals', '3+ Goals'], datasets: [{ label: 'Probability (%)', data: dist, backgroundColor: 'rgba(0,128,255,0.6)', borderColor: 'rgba(0,128,255,1)' }] },
-            options: { scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Probability (%)' } } }, plugins: { legend: { display: false } } }
-        });
-    }
-
-    /* ── Back to top ── */
     window.addEventListener('scroll', function() {
         document.getElementById('backToTop').style.display =
             document.documentElement.scrollTop > 400 ? 'block' : 'none';
