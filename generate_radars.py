@@ -150,95 +150,67 @@ LEAGUE_DATA_PATH = "data/tables/league_table_data.csv"
 SAVE_DIR = "static/radar/teams"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
-df = pd.read_csv(LEAGUE_DATA_PATH)
+if __name__ == "__main__":
+    df_league = pd.read_csv(LEAGUE_DATA_PATH)
+    df_league["Pos"] = df_league["PTS"].rank(method="min", ascending=False).astype(int)
 
+    METRICS = {
+        "Win%":        lambda row: row["W"]    / row["MP"] if row["MP"] else 0,
+        "Goals/Match": lambda row: float(row["G"])   / row["MP"] if row["MP"] else 0,
+        "xG/Match":    lambda row: float(row["xG"])  / row["MP"] if row["MP"] else 0,
+        "PTS/Match":   lambda row: row["PTS"]  / row["MP"] if row["MP"] else 0,
+        "xPTS/Match":  lambda row: row["xPTS"] / row["MP"] if row["MP"] else 0,
+        "Pos":         lambda row: row["Pos"]
+    }
 
-df["Pos"] = df["PTS"].rank(method="min", ascending=False).astype(int)
+    df_league.dropna(subset=["G", "xG", "MP"], inplace=True)
 
+    for label, func in METRICS.items():
+        df_league[label] = df_league.apply(func, axis=1)
 
+    for label in METRICS.keys():
+        if label == "Pos":
+            df_league[label + "_pct"] = df_league[label].rank(pct=True, ascending=False) * 100
+        else:
+            df_league[label + "_pct"] = df_league[label].rank(pct=True, ascending=True) * 100
 
-# Metrics to include and how to calculate them
-METRICS = {
-    "Win%": lambda row: row["W"] / row["MP"] if row["MP"] else 0,
-    "Goals/Match": lambda row: float(row["G"]) / row["MP"] if row["MP"] else 0,
-    "xG/Match": lambda row: float(row["xG"]) / row["MP"] if row["MP"] else 0,
-    "PTS/Match": lambda row: row["PTS"] / row["MP"] if row["MP"] else 0,
-    "xPTS/Match": lambda row: row["xPTS"] / row["MP"] if row["MP"] else 0,
-    "Pos": lambda row: row["Pos"]  
-}
+    for _, row in df_league.iterrows():
+        team = row["Team"]
 
-# Load data
-if not os.path.exists(LEAGUE_DATA_PATH):
-    raise FileNotFoundError("League table data not found.")
+        labels = list(METRICS.keys())
+        values = [row[m + "_pct"] for m in labels]
+        values += values[:1]
 
-df.dropna(subset=["G", "xG", "MP"], inplace=True)
+        angles = [n / float(len(labels)) * 2 * pi for n in range(len(labels))]
+        angles += angles[:1]
 
-# Compute raw metrics for all teams
-for label, func in METRICS.items():
-    df[label] = df.apply(func, axis=1)
+        fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+        fig.patch.set_facecolor("#f4f4f9")
+        ax.set_facecolor("#f4f4f9")
+        ax.set_ylim(0, 100)
 
-# Convert metrics to percentiles
-for label in METRICS.keys():
-    if label == "Pos":
-        df[label + "_pct"] = df[label].rank(pct=True, ascending=False) * 100
-    else:
-        df[label + "_pct"] = df[label].rank(pct=True, ascending=True) * 100
+        ax.plot(angles, values, linewidth=2, linestyle='solid', label=team, color='#669bbc')
+        ax.fill(angles, values, alpha=0.25)
 
+        avg_values = [50] * len(labels) + [50]
+        ax.plot(angles, avg_values, color='#e63946', linewidth=2, linestyle='solid', label='League Average')
+        ax.fill(angles, avg_values, color='#e63946', alpha=0.25)
 
-# Generate radar chart for each team
-for _, row in df.iterrows():
-    team = row["Team"]
+        ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), fontsize=8)
+        ax.set_xticks(angles[:-1])
+        ax.set_xticklabels(labels, fontsize=9)
+        ax.set_yticklabels([])
 
-    # 1. Define your labels and base values
-    labels = list(METRICS.keys())               # 6 metrics
-    values = [row[m + "_pct"] for m in labels]  # 6 values
+        ax.text(
+            x=-0.1, y=0.1,
+            s='Metrics show Percentile\nstats compared with the\nrest of the league\n\n@FiveStat',
+            fontsize=6, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
+        )
 
-    # 2. Close the loop for plotting
-    values += values[:1]  # 7 points for plotting only
-
-    # ✅ 3. Only create angles for 6 segments
-    angles = [n / float(len(labels)) * 2 * pi for n in range(len(labels))]
-    angles += angles[:1]  # 7 angles to match values
-
-    # Create the radar chart
-    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
-    fig.patch.set_facecolor("#f4f4f9")
-    ax.set_facecolor("#f4f4f9")
-    ax.set_ylim(0, 100)  # ✅ Fix the radar radius to full 0–100
-
-    ax.plot(angles, values, linewidth=2, linestyle='solid', label=team, color='#669bbc')
-    ax.fill(angles, values, alpha=0.25)
-
-    # Add League Average line at 50% (styled like team radar)
-    avg_values = [50] * len(labels)
-    avg_values += avg_values[:1]  # Close the loop
-
-    # Solid red line + filled area
-    ax.plot(angles, avg_values, color='#e63946', linewidth=2, linestyle='solid', label='League Average')
-    ax.fill(angles, avg_values, color='#e63946', alpha=0.25)
-
-    ax.legend(loc='lower center', bbox_to_anchor=(0.5, -0.15), fontsize=8)
-
-
-    # ✅ Only use first 6 angles for grid ticks and labels
-    ax.set_xticks(angles[:-1])
-    ax.set_xticklabels(labels, fontsize=9)
-
-    ax.set_yticklabels([])
-
-    # Additional info text
-    ax.text(
-        x=-0.1, y=0.1, 
-        s='Metrics show Percentile\nstats compared with the\nrest of the league\n\n@FiveStat', 
-        fontsize=6, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
-    )
-
-    # 5. Save the image
-    save_path = os.path.join(SAVE_DIR, f"{team}_team_radar.png")
-    plt.savefig(save_path, dpi=300, bbox_inches="tight", transparent=True)
-    plt.close()
-    print(f"✅ Saved: {save_path}")
-
+        save_path = os.path.join(SAVE_DIR, f"{team}_team_radar.png")
+        plt.savefig(save_path, dpi=300, bbox_inches="tight", transparent=True)
+        plt.close()
+        print(f"✅ Saved: {save_path}")
 
 
 #if __name__ == '__main__':

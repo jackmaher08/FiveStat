@@ -206,13 +206,51 @@ def index():
     if os.path.exists(accuracy_path):
         with open(accuracy_path, "r") as f:
             accuracy = json.load(f)
-    return render_template("index.html", accuracy=accuracy)
+
+    gw_fixtures = []
+    current_gw = None
+    try:
+        fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
+        fixtures_df["isResult"] = fixtures_df["isResult"].astype(str).str.lower() == "true"
+        fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
+
+        if GW_OVERRIDE is not None:
+            current_gw = GW_OVERRIDE
+        else:
+            upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
+            current_gw = int(upcoming.min()) if not upcoming.empty else None
+
+        if current_gw:
+            probs_lookup = {}
+            if os.path.exists("data/tables/fixture_probabilities.csv"):
+                for _, row in pd.read_csv("data/tables/fixture_probabilities.csv").iterrows():
+                    probs_lookup[f"{row['home_team']}|{row['away_team']}"] = {
+                        "home_win": int(round(row["home_win_prob"] * 100)),
+                        "draw":     int(round(row["draw_prob"]     * 100)),
+                        "away_win": int(round(row["away_win_prob"] * 100)),
+                    }
+
+            gw_df = fixtures_df[
+                (fixtures_df["round_number"] == current_gw) &
+                (fixtures_df["isResult"] == False)
+            ]
+            for _, row in gw_df.iterrows():
+                key = f"{row['home_team']}|{row['away_team']}"
+                if key not in probs_lookup:
+                    continue
+                entry = {"home_team": row["home_team"], "away_team": row["away_team"]}
+                entry.update(probs_lookup[key])
+                gw_fixtures.append(entry)
+    except Exception as e:
+        print(f"⚠️ Index fixture load failed: {e}")
+
+    return render_template("index.html", accuracy=accuracy, gw_fixtures=gw_fixtures, current_gw=current_gw)
 
 
 
 # Load data
 match_data = load_match_data()
-team_stats, home_field_advantage = calculate_team_statistics(match_data)
+team_stats, home_field_advantage = calculate_team_statistics(match_data, save_csv_path=None)
 fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a list of dictionaries
 
 

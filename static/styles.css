@@ -1859,6 +1859,145 @@ input:checked + .slider:before {
   }
 }
 
+/* ── GW fixture strip ── */
+.lp-fixtures-strip {
+  background: var(--nav-bg);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0.85rem 1.5rem;
+}
+
+.lp-fixtures-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 0.65rem;
+}
+
+.lp-fixtures-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.lp-fixtures-link {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+.lp-fixtures-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.lp-fixtures-scroll {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 0.1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.lp-fixtures-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.lp-fixtures-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.lp-fixtures-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 2px;
+}
+
+.lp-fixtures-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.lp-fix-card {
+  flex: 0 0 auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.9rem;
+  text-decoration: none;
+  transition: border-color var(--transition), background var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 190px;
+}
+
+.lp-fix-card:hover {
+  border-color: var(--accent);
+  background: rgba(29,158,117,0.08);
+  text-decoration: none;
+}
+
+.lp-fix-teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.lp-fix-team {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--nav-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 72px;
+}
+
+.lp-fix-team--home { text-align: left; }
+.lp-fix-team--away { text-align: right; }
+
+.lp-fix-vs {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.lp-fix-pills {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.lp-fix-pill {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 3px;
+  background: rgba(255,255,255,0.07);
+  color: #888882;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.lp-fix-pill--fav {
+  background: var(--accent);
+  color: #ffffff;
+}
+
 .lp-accuracy-strip {
   display: flex;
   align-items: center;

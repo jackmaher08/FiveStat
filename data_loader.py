@@ -998,34 +998,32 @@ def generate_shot_map(understat_match_id, save_image=True):
 
 
 # Loop through completed fixtures only and generate shotmaps
-print("🔄 Generating new shotmaps only (skipping existing ones)...")
-new_shotmaps = 0
-for _, row in completed_fixtures.iterrows():
-    home_team = row['home_team']
-    away_team = row['away_team']
-    match_id = row['id']
-    shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
+if __name__ == "__main__":
+    # Loop through completed fixtures only and generate shotmaps
+    print("🔄 Generating new shotmaps only (skipping existing ones)...")
+    new_shotmaps = 0
+    for _, row in completed_fixtures.iterrows():
+        home_team = row['home_team']
+        away_team = row['away_team']
+        match_id = row['id']
+        shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
 
-    # Skip if shotmap already exists
-    if os.path.exists(shotmap_file):
-        continue
+        if os.path.exists(shotmap_file):
+            continue
 
-    match_df = generate_shot_map(match_id)
-    if match_df is not None:
-        all_shots_combined.append(match_df)
-        new_shotmaps += 1  # optional: track how many were generated
+        match_df = generate_shot_map(match_id)
+        if match_df is not None:
+            all_shots_combined.append(match_df)
+            new_shotmaps += 1
 
-print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
+    print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
-if all_shots_combined:
-    full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
-
-    # ✅ Standardize team names before saving
-    full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
-    full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
-
-    full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
-    print("✅ All match shot data saved to data/tables/shots_data.csv")
+    if all_shots_combined:
+        full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
+        full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
+        full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
+        full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
+        print("✅ All match shot data saved to data/tables/shots_data.csv")
 
 
 
@@ -1035,26 +1033,48 @@ def collect_all_shot_data():
     print("✅ Match data loaded from data/tables/fixture_data.csv")
     completed_fixtures = fixtures_df[fixtures_df["isResult"] == True]
 
+    # Load existing shot data so we only fetch new matches
+    shots_path = "data/tables/shots_data.csv"
+    existing_ids = set()
+    existing_df = None
+    if os.path.exists(shots_path):
+        existing_df = pd.read_csv(shots_path)
+        if "match_id" in existing_df.columns:
+            existing_ids = set(existing_df["match_id"].astype(str).unique())
+
     all_shots_combined = []
+    new_count = 0
 
     for _, row in completed_fixtures.iterrows():
         match_id = row["id"]
+        if str(match_id) in existing_ids:
+            continue
         try:
             match_shots = generate_shot_map(match_id, save_image=False)
             if match_shots is not None:
+                match_shots["match_id"] = match_id
                 all_shots_combined.append(match_shots)
+                new_count += 1
         except Exception as e:
             print(f"❌ Failed to collect shots for match_id {match_id}: {e}")
             continue
 
-    if all_shots_combined:
-        full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
-        # ✅ Standardize team names before saving
-        full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
-        print("✅ All shot data saved to: data/tables/shots_data.csv")
+    if new_count == 0:
+        print("✅ Shot data already up to date — no new matches fetched")
+        return
 
+    new_df = pd.concat(all_shots_combined, ignore_index=True)
+    new_df["h_team"] = new_df["h_team"].replace(TEAM_NAME_MAPPING)
+    new_df["a_team"] = new_df["a_team"].replace(TEAM_NAME_MAPPING)
+
+    # Append to existing data rather than overwriting
+    if existing_df is not None:
+        full_shot_df = pd.concat([existing_df, new_df], ignore_index=True)
+    else:
+        full_shot_df = new_df
+
+    full_shot_df.to_csv(shots_path, index=False)
+    print(f"✅ Shot data updated — {new_count} new matches added to shots_data.csv")
 
 
 
