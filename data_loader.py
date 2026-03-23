@@ -35,14 +35,9 @@ TEAM_NAME_MAPPING = {
 
 
 MANUAL_XG_ADJUSTMENTS = {
-    "Leeds": +0.2,
-    "Liverpool": -0.2,
-    "Manchester United": +0.4
 }
 
 MANUAL_XGA_ADJUSTMENTS = {
-    "Sunderland": -0.6,
-    "Manchester United": -0.3
 }
 
 '''def run_data_scraper():
@@ -180,9 +175,11 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
         })
 
     # ✅ Save to CSV
+    # ✅ Save to CSV (skip during backtest when save_csv_path is None)
     df = pd.DataFrame(rows)
-    df.to_csv(save_csv_path, index=False)
-    print(f"✅ Saved team stats to: {save_csv_path}")
+    if save_csv_path is not None:
+        df.to_csv(save_csv_path, index=False)
+        print(f"✅ Saved team stats to: {save_csv_path}")
 
     return team_data, team_home_advantage
 
@@ -308,6 +305,47 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.1, max_goals=8):
 
 
 
+
+def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.0):
+    """
+    Apply Dixon-Coles low-score correction to a scoreline probability matrix.
+
+    Adjusts the four low-scoring cells (0-0, 1-0, 0-1, 1-1) which are
+    systematically mispriced by standard Poisson models.
+
+    Args:
+        result_matrix: numpy array from simulate_bivariate_poisson
+        home_xg: predicted home expected goals
+        away_xg: predicted away expected goals
+        rho: correction strength (negative = more draws). Default -0.13.
+
+    Returns:
+        Corrected and renormalised matrix.
+    """
+    matrix = result_matrix.copy()
+
+    def tau(x, y, lam_x, lam_y, rho):
+        if x == 0 and y == 0:
+            return 1 - lam_x * lam_y * rho
+        elif x == 1 and y == 0:
+            return 1 + lam_y * rho
+        elif x == 0 and y == 1:
+            return 1 + lam_x * rho
+        elif x == 1 and y == 1:
+            return 1 - rho
+        else:
+            return 1.0
+
+    for i in range(min(2, matrix.shape[0])):
+        for j in range(min(2, matrix.shape[1])):
+            matrix[i, j] *= tau(i, j, home_xg, away_xg, rho)
+
+    # Renormalise
+    matrix /= matrix.sum()
+    return matrix
+
+
+
 # Function to generate a heatmap
 def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, draw_prob, away_prob, save_path):
     bg_colour = "#f5f5f0"
@@ -360,7 +398,7 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
         home_xg = mid if is_home else opp_def
         away_xg = opp_def if is_home else mid
 
-        result_matrix, _, _, _ = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.1)
+        result_matrix, _, _, _ = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
 
         # Expected goals calculation
         expected_goals = 0.0
@@ -572,7 +610,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
         team_stats, team_home_advantage = calculate_team_statistics(historical_df)
         print("✅ Base ratings calculated.")
         print("🔄 Calculating recent form (last 20 matches)...")
-        recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats)
+        recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats, recent_matches=20, alpha=0.60)
         print("✅ Recent form ratings calculated.")
 
         for _, row in upcoming.iterrows():
@@ -694,6 +732,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
+            alpha=0.60, beta=0.30,
             efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
             team_home_advantage=team_home_advantage
         )
@@ -701,12 +740,19 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
+            alpha=0.60, beta=0.30,
             efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
             team_home_advantage=team_home_advantage
         )
 
         # Capture the full result_matrix along with probabilities
-        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.1)
+        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
+        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.05)
+
+        # Recalculate outcome probabilities from corrected matrix
+        home_prob  = float(np.sum(np.tril(result_matrix, -1)))
+        draw_prob  = float(np.sum(np.diag(result_matrix)))
+        away_prob  = float(np.sum(np.triu(result_matrix, 1)))
 
         probabilities_df.at[index, "home_win_prob"] = home_prob
         probabilities_df.at[index, "draw_prob"] = draw_prob
@@ -1052,7 +1098,7 @@ if __name__ == "__main__":
 
     print("🔄 Calculating recent form...")
     recent_form_att, recent_form_def = calculate_recent_form(
-        historical_fixtures_df, team_data, recent_matches=20, alpha=0.65
+        historical_fixtures_df, team_data, recent_matches=20, alpha=0.60
     )
 
     collect_all_shot_data()

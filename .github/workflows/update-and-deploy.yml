@@ -1,9 +1,12 @@
 name: Auto Update & Deploy
 
 on:
-  push:
-    branches-ignore:
-      - '**'  # ignore all pushes
+  # ── Runs every Friday at 07:00 UTC (08:00 UK time) ──
+  #schedule:
+  #  - cron: '1 5 * * 1'
+
+  # ── Manual trigger from GitHub Actions tab ──
+  workflow_dispatch:
 
 
 jobs:
@@ -11,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo (with PAT)
+      - name: Checkout repo
         uses: actions/checkout@v3
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Install System Packages for lxml
+      - name: Install system packages
         run: |
           sudo apt-get update
           sudo apt-get install -y libxml2-dev libxslt1-dev python3-dev
@@ -24,32 +27,39 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: '3.11'
 
-      - name: Install Python Dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Data Scripts
-        run: |
-          python data_scraper_script.py
-          python data_loader.py
-          python generate_radars.py
-          python generate_shotmaps.py
+      - name: Run data scraper
+        run: python data_scraper_script.py
 
-      - name: Commit & Push Changes
+      - name: Run data loader (heatmaps, probabilities, simulated table)
+        run: python data_loader.py
+
+      - name: Run radar generator
+        run: python generate_radars.py
+
+      - name: Run shotmap generator (match shotmaps)
+        run: python generate_shotmaps.py
+
+      - name: Run all-shots landing page image
+        run: python shotmap_script.py
+
+      - name: Commit and push updated assets
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "jackmaher08"
           git config user.email "jackmaher08@users.noreply.github.com"
 
-          git add -f static/shotmaps/team
-          git add -f static/shotmaps/all
-          git add -f static/heatmaps
-          git add -f data/tables
-          git commit -m "🔁 Auto update: fixtures, shotmaps, heatmaps, league tables" || echo "No changes to commit"
+          git add -f static/heatmaps/
+          git add -f static/shotmaps/
+          git add -f static/radar/
+          git add -f data/tables/
 
-          git remote -v  # 🐛 debug: show which remote is being used
+          git commit -m "🔁 Auto update: GW data, heatmaps, shotmaps, radar, tables" || echo "No changes to commit"
           git push origin main

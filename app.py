@@ -12,12 +12,18 @@ from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
 import json
 import unicodedata
+import requests
+from bs4 import BeautifulSoup
 from mplsoccer import Radar
 from io import BytesIO
 from generate_player_shots import create_player_shotmap_image
 
 # Flask app initialization
 app = Flask(__name__)
+
+
+# ── Manual GW override — set to an int to force a specific GW, None for auto ──
+GW_OVERRIDE = 32
 
 
 
@@ -55,6 +61,94 @@ def get_last_updated_time():
             return datetime.fromtimestamp(mtime).strftime('%d %b %Y at %H:%M')
         except Exception:
             return "Unknown"
+
+
+BOOKIE_TEAM_NAME_MAP = {
+    "Man Utd":         "Manchester United",
+    "Man City":        "Manchester City",
+    "Spurs":           "Tottenham Hotspur",
+    "Wolves":          "Wolverhampton Wanderers",
+    "Nott'm Forest":   "Nottingham Forest",
+    "Newcastle":       "Newcastle United",
+    "Brighton":        "Brighton",
+    "Leeds":           "Leeds",
+    "Sunderland":      "Sunderland",
+    "Bournemouth":     "Bournemouth",
+    "Brentford":       "Brentford",
+    "Burnley":         "Burnley",
+    "Chelsea":         "Chelsea",
+    "Crystal Palace":  "Crystal Palace",
+    "Everton":         "Everton",
+    "Fulham":          "Fulham",
+    "Liverpool":       "Liverpool",
+    "Arsenal":         "Arsenal",
+    "Aston Villa":     "Aston Villa",
+    "West Ham":        "West Ham",
+}
+
+def scrape_bookie_win_probs(gw):
+    """Scrape win probabilities from checkthechance.com for a given gameweek."""
+    try:
+        url = f"https://checkthechance.com/premier-league-round-{gw}/"
+        response = requests.get(url, timeout=10)
+        soup = BeautifulSoup(response.content, "html.parser")
+        headings = [h.get_text(strip=True) for h in soup.find_all(["h1","h2","h3","h4","h5","h6"])]
+
+        results = []
+        i = 0
+        while i < len(headings):
+            h = headings[i]
+            if "%" in h and "|" in h:
+                # Home team line: "Bournemouth | 31.0 %"
+                parts = h.split("|")
+                home_team_raw = parts[0].strip()
+                home_prob = float(parts[1].replace("%","").strip())
+                # Next heading is draw %
+                if i + 1 < len(headings) and "%" in headings[i+1] and "|" not in headings[i+1]:
+                    draw_prob = float(headings[i+1].replace("%","").strip())
+                    # Next is away team
+                    if i + 2 < len(headings) and "|" in headings[i+2]:
+                        away_parts = headings[i+2].split("|")
+                        away_team_raw = away_parts[0].strip()
+                        away_prob = float(away_parts[1].replace("%","").strip())
+                        home_team = BOOKIE_TEAM_NAME_MAP.get(home_team_raw, home_team_raw)
+                        away_team = BOOKIE_TEAM_NAME_MAP.get(away_team_raw, away_team_raw)
+                        results.append({
+                            "home_team": home_team,
+                            "away_team": away_team,
+                            "bookie_home_win": home_prob,
+                            "bookie_draw":     draw_prob,
+                            "bookie_away_win": away_prob,
+                        })
+                        i += 3
+                        continue
+            i += 1
+        return results
+    except Exception as e:
+        print(f"⚠️ Failed to scrape win probs: {e}")
+        return []
+
+
+def scrape_bookie_cs_probs(gw):
+    """Scrape clean sheet probabilities from checkthechance.com for a given gameweek."""
+    try:
+        url = f"https://checkthechance.com/fpl-clean-sheet-gameweek-{gw}/"
+        response = requests.get(url, timeout=10)
+        soup = BeautifulSoup(response.content, "html.parser")
+        headings = [h.get_text(strip=True) for h in soup.find_all(["h1","h2","h3","h4","h5","h6"])]
+
+        results = {}
+        for h in headings:
+            if "%" in h and "|" in h:
+                parts = h.split("|")
+                team_raw = parts[0].strip()
+                prob = float(parts[1].replace("%","").strip())
+                team = BOOKIE_TEAM_NAME_MAP.get(team_raw, team_raw)
+                results[team] = prob
+        return results
+    except Exception as e:
+        print(f"⚠️ Failed to scrape CS probs: {e}")
+        return {}
 
 
 def get_team_form(fixtures_df, team_name, max_matches=10):
@@ -107,7 +201,12 @@ def get_position_tooltip(pos):
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    accuracy = None
+    accuracy_path = "data/tables/model_accuracy.json"
+    if os.path.exists(accuracy_path):
+        with open(accuracy_path, "r") as f:
+            accuracy = json.load(f)
+    return render_template("index.html", accuracy=accuracy)
 
 
 
@@ -119,13 +218,16 @@ fixtures = load_fixtures().to_dict(orient="records")  # Convert DataFrame to a l
 
 @app.route("/epl_fixtures")
 def fixtures_redirect():
+    if GW_OVERRIDE is not None:
+        return redirect(url_for("epl_fixtures", gw=GW_OVERRIDE))
+
     fixture_path = "data/tables/fixture_data.csv"
     fixtures = pd.read_csv(fixture_path)
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
     upcoming_rounds = fixtures[fixtures["isResult"] == False]["round_number"]
-    next_gw = upcoming_rounds.min() if not upcoming_rounds.empty else 38  # Fallback to GW38 if all results are complete
+    next_gw = upcoming_rounds.min() if not upcoming_rounds.empty else 38
 
     return redirect(url_for("epl_fixtures", gw=int(next_gw)))
 
@@ -662,7 +764,12 @@ def generate_single_radar():
 
 @app.route("/methodology")
 def methodology():
-    return render_template("methodology.html")
+    accuracy = None
+    accuracy_path = "data/tables/model_accuracy.json"
+    if os.path.exists(accuracy_path):
+        with open(accuracy_path, "r") as f:
+            accuracy = json.load(f)
+    return render_template("methodology.html", accuracy=accuracy)
 
 
 
@@ -827,33 +934,99 @@ def team_page(team_name):
 
 @app.route("/ev_checker")
 def ev_checker():
+    # ── Fixture data ──
     fixture_path = "data/tables/fixture_data.csv"
-    fixtures = pd.read_csv(fixture_path)
-
-    fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
+    fixtures     = pd.read_csv(fixture_path)
+    fixtures["isResult"]     = fixtures["isResult"].astype(str).str.lower() == "true"
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
 
-    upcoming_fixtures = fixtures[fixtures["isResult"] == False].copy()
+    upcoming = fixtures[fixtures["isResult"] == False].copy()
+    upcoming["round_number"] = upcoming["round_number"].astype(int)
+    current_gw = GW_OVERRIDE if GW_OVERRIDE is not None else (int(upcoming["round_number"].min()) if not upcoming.empty else 1)
 
-    upcoming_fixtures["matchKey"] = upcoming_fixtures["home_team"] + " vs " + upcoming_fixtures["away_team"]
-    unique_gameweeks = sorted(upcoming_fixtures["round_number"].dropna().unique().tolist())
-
-    # Load model predictions (you need to precompute and save these, or pull from existing fixture_probabilities.csv)
+    # ── Model probabilities — current GW only ──
     probs_df = pd.read_csv("data/tables/fixture_probabilities.csv")
-    model_predictions = {}
+    current_gw_fixtures = upcoming[upcoming["round_number"] == current_gw][["home_team", "away_team"]]
+    probs_df = probs_df.merge(current_gw_fixtures, on=["home_team", "away_team"], how="inner")
+
+    # ── Bookie win probabilities ──
+    bookie_win_lookup = {}
+    win_path = "data/tables/bookie_win_by_gw.csv"
+    if os.path.exists(win_path):
+        win_df = pd.read_csv(win_path)
+        gw_label = f"GW{current_gw}"
+        gw_rows  = win_df[win_df["gw"] == gw_label]
+        for _, b in gw_rows.iterrows():
+            if pd.notna(b["home_team"]) and b["home_team"] != "":
+                key = f"{b['home_team']}|{b['away_team']}"
+                bookie_win_lookup[key] = {
+                    "bookie_home_win": float(b["bookie_home_win"]) if pd.notna(b["bookie_home_win"]) and b["bookie_home_win"] != "" else None,
+                    "bookie_draw":     float(b["bookie_draw"])     if pd.notna(b["bookie_draw"])     and b["bookie_draw"]     != "" else None,
+                    "bookie_away_win": float(b["bookie_away_win"]) if pd.notna(b["bookie_away_win"]) and b["bookie_away_win"] != "" else None,
+                }
+
+    # ── Bookie clean sheet probabilities ──
+    bookie_cs = {}
+    cs_path = "data/tables/bookie_cs_by_gw.csv"
+    if os.path.exists(cs_path):
+        cs_df  = pd.read_csv(cs_path)
+        gw_col = f"gw{current_gw}"
+        if gw_col in cs_df.columns:
+            for _, row in cs_df.iterrows():
+                val = row[gw_col]
+                if pd.notna(val) and val != "":
+                    bookie_cs[row["team"]] = float(val)
+
+    # ── Build EV data per fixture ──
+    def ev_val(model, bookie):
+        if model is None or bookie is None:
+            return None
+        return round(model - bookie, 1)
+
+    ev_fixtures = []
     for _, row in probs_df.iterrows():
-        key = row["home_team"] + " vs " + row["away_team"]
-        model_predictions[key] = {
-            "home": row["home_win_prob"],
-            "draw": row["draw_prob"],
-            "away": row["away_win_prob"],
-        }
+        home = row["home_team"]
+        away = row["away_team"]
+        key  = f"{home}|{away}"
+
+        model_home_win = round(float(row["home_win_prob"]) * 100, 1)
+        model_draw     = round(float(row["draw_prob"])     * 100, 1)
+        model_away_win = round(float(row["away_win_prob"]) * 100, 1)
+        model_home_cs  = round(float(row.get("home_cs_prob", 0)) * 100, 1)
+        model_away_cs  = round(float(row.get("away_cs_prob", 0)) * 100, 1)
+
+        bookie = bookie_win_lookup.get(key, {})
+        bookie_home_win = bookie.get("bookie_home_win")
+        bookie_draw     = bookie.get("bookie_draw")
+        bookie_away_win = bookie.get("bookie_away_win")
+        bookie_home_cs  = bookie_cs.get(home)
+        bookie_away_cs  = bookie_cs.get(away)
+
+        ev_fixtures.append({
+            "home_team":       home,
+            "away_team":       away,
+            "model_home_win":  model_home_win,
+            "model_draw":      model_draw,
+            "model_away_win":  model_away_win,
+            "model_home_cs":   model_home_cs,
+            "model_away_cs":   model_away_cs,
+            "bookie_home_win": bookie_home_win,
+            "bookie_draw":     bookie_draw,
+            "bookie_away_win": bookie_away_win,
+            "bookie_home_cs":  bookie_home_cs,
+            "bookie_away_cs":  bookie_away_cs,
+            "ev_home_win": ev_val(model_home_win, bookie_home_win),
+            "ev_draw":     ev_val(model_draw,     bookie_draw),
+            "ev_away_win": ev_val(model_away_win, bookie_away_win),
+            "ev_home_cs":  ev_val(model_home_cs,  bookie_home_cs),
+            "ev_away_cs":  ev_val(model_away_cs,  bookie_away_cs),
+        })
 
     return render_template(
         "ev_checker.html",
-        fixtures=upcoming_fixtures.to_dict(orient="records"),
-        unique_gameweeks=unique_gameweeks,
-        model_predictions=model_predictions
+        ev_fixtures=ev_fixtures,
+        current_gw=current_gw,
+        last_updated=get_last_updated_time()
     )
 
 

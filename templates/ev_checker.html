@@ -1,71 +1,147 @@
 {% extends "base.html" %}
 
-{% block title %}Bet EV Checker | FiveStat{% endblock %}
-{% block meta_description %}Check the Expected Value of your football bets using FiveStat's match prediction model.{% endblock %}
-{% block og_url %}https://www.fivestat.co.uk/ev_checker{% endblock %}
+{% block title %}Bet Value Finder | FiveStat{% endblock %}
+{% block meta_description %}Find value bets by comparing FiveStat model probabilities against bookie-implied odds.{% endblock %}
 
 
 {% block content %}
 
+
+    <div class="ev-page-header">
+        <h1 class="ev-page-title">
+            Bet Value Checker
+            <button class="info-button" onclick="toggleModal('infoModal')" title="What is EV?">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </h1>
+        <p class="ev-page-sub">Gameweek {{ current_gw }} · FiveStat model vs bookie probabilities</p>
+    </div>
+
     {# ── Info modal ── #}
     <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
     <div class="modal" id="infoModal">
-        <p>
-            <b>What is Expected Value (EV)?</b><br><br>
-            A bet's Expected Value tells you the average amount you can expect to win or lose per bet over the long run.
-            It uses the true probability of your bet winning (derived from our models) and compares it to the odds you are offered.<br><br>
-
-            <b>Positive EV</b> = Good Bet (profitable in the long term)<br>
-            <b>Negative EV</b> = Bad Bet (losses expected over time)<br><br>
-
-            <b>Formula:</b><br>
-            EV = (True Probability × (Odds - 1)) - (Lose Probability × 1)<br><br>
-
-            <b>How EV can assist you:</b><br>
-            • Helps identify "good value" bets.<br>
-            • Focuses on long-term profit, not maximizing short-term wins.<br>
-            • Even positive EV bets can lose - but win over many repetitions.<br><br>
-
-            The key is to seek bets where the true win probability is greater than what the bookmaker odds imply!
-        </p>
+        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
+        <p><b>What is Expected Value (EV)?</b><br><br>
+        EV measures the % advantage our model has against bookmaker prices. We compare our model's true probability against the bookie's implied probability from their odds.<br><br>
+        <b>Positive Value</b> implies the bookie is underestimating the probability, highlighting a potential value bet.<br>
     </div>
 
-    <br>
-    <h1>Check Your Bet's Expected Value (EV)</h1>
-    <button class="info-button" onclick="toggleModal('infoModal')" title="More info">
-        <i class="fas fa-info-circle"></i>
-    </button>
 
-    <p>1. Make your 1X2 selections</p>
-    <p>2. Input your BB/Acca odds</p>
-    <p>3. Check below to see the EV of your bet</p>
-    <br>
 
-    {# ── Gameweek selector ── #}
-    <div class="gw-selector">
-        <select id="gwSelector" onchange="filterFixturesByGW()">
-            {% for gw in unique_gameweeks %}
-                <option value="{{ gw }}">Gameweek {{ gw }}</option>
-            {% endfor %}
-        </select>
+    {# ── Legend ── #}
+    <div class="ev-legend">
+        <span class="ev-badge ev-badge-good">Strong value  &gt;+5%</span>
+        <span class="ev-badge ev-badge-low">Marginal  +1–5%</span>
+        <span class="ev-badge ev-badge-none">No value  ≤0%</span>
     </div>
 
-    <br>
-    <hr style="max-width: 50%;">
-
-    <div id="fixtures"></div>
-
-    <div id="accumulatedOdds" style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">
-        <h3>Accumulated Odds: -</h3>
+    {# ── Win probability table ── #}
+    <div class="ev-section">
+        <div class="ev-section-title"><span></span> Win probability</div>
+        <div class="ev-table-wrap">
+            <table class="ev-table">
+                <thead>
+                    <tr>
+                        <th>Fixture</th>
+                        <th>Market</th>
+                        <th>Our model</th>
+                        <th>Bookie</th>
+                        <th>Edge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ev_fixtures %}
+                        {% set markets = [
+                            (f.home_team ~ " win",  f.model_home_win, f.bookie_home_win, f.ev_home_win),
+                            ("Draw",                f.model_draw,     f.bookie_draw,     f.ev_draw),
+                            (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win)
+                        ] %}
+                        {% for market_label, model_p, bookie_p, ev in markets %}
+                        <tr class="{% if ev is not none %}{% if ev > 5 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                                   {% if loop.first %}ev-fixture-first{% endif %}">
+                            <td class="ev-fixture-cell">
+                                {% if loop.first %}
+                                    <span class="ev-fixture-name">{{ f.home_team }} vs {{ f.away_team }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="ev-market-cell">{{ market_label }}</td>
+                            <td>{{ model_p }}%</td>
+                            <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
+                            <td>
+                                {% if ev is not none %}
+                                    {% if ev > 5 %}
+                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
+                                    {% elif ev > 1 %}
+                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
+                                    {% elif ev > 0 %}
+                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
+                                    {% else %}
+                                        <span class="ev-edge-neg">{{ ev }}%</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="ev-edge-neutral">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div id="evResults" style="margin-top: 30px;"></div>
-
-    <div id="userOddsInput" style="margin-top: 30px; margin-bottom: 50px;">
-        <label for="userOdds" style="font-weight:bold;">
-            Enter your Bookies price (decimal odds) for these same selections to calculate your exact EV:
-        </label><br>
-        <input type="number" id="userOdds" step="0.01" min="1.01" placeholder="e.g. 12.5" style="margin-top: 20px;">
+    {# ── Clean sheet table ── #}
+    <div class="ev-section">
+        <div class="ev-section-title"><span></span> Clean sheet probability</div>
+        <div class="ev-table-wrap">
+            <table class="ev-table">
+                <thead>
+                    <tr>
+                        <th>Fixture</th>
+                        <th>Team</th>
+                        <th>Our model</th>
+                        <th>Bookie</th>
+                        <th>Edge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ev_fixtures %}
+                        {% set cs_markets = [
+                            (f.home_team, f.model_home_cs, f.bookie_home_cs, f.ev_home_cs),
+                            (f.away_team, f.model_away_cs, f.bookie_away_cs, f.ev_away_cs)
+                        ] %}
+                        {% for team, model_p, bookie_p, ev in cs_markets %}
+                        <tr class="{% if ev is not none %}{% if ev > 5 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                                   {% if loop.first %}ev-fixture-first{% endif %}">
+                            <td class="ev-fixture-cell">
+                                {% if loop.first %}
+                                    <span class="ev-fixture-name">{{ f.home_team }} vs {{ f.away_team }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="ev-market-cell">{{ team }}</td>
+                            <td>{{ model_p }}%</td>
+                            <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
+                            <td>
+                                {% if ev is not none %}
+                                    {% if ev > 5 %}
+                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
+                                    {% elif ev > 1 %}
+                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
+                                    {% elif ev > 0 %}
+                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
+                                    {% else %}
+                                        <span class="ev-edge-neg">{{ ev }}%</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="ev-edge-neutral">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 {% endblock %}
@@ -73,138 +149,6 @@
 
 {% block extra_scripts %}
 <script>
-    const fixtures         = {{ fixtures | tojson }};
-    const modelPredictions = {{ model_predictions | tojson }};
-    let selectedBets = {};
-
-    /* ── Render fixtures for selected gameweek ── */
-    function renderFixtures(gwFilter = 'all') {
-        const container = document.getElementById('fixtures');
-        container.innerHTML = '';
-
-        fixtures.forEach(match => {
-            if (gwFilter !== 'all' && match.round_number != gwFilter) return;
-            const matchKey = match.matchKey;
-
-            container.innerHTML += `
-                <div class="fixture" id="fixture-${matchKey}">
-                    <p><strong>${match.home_team} vs ${match.away_team}</strong></p>
-                    <p>${match.date}</p>
-                    <button style="border: 1px solid #444; border-radius: 5px;"
-                            id="home-${matchKey}"
-                            onclick="selectOutcome('${matchKey}', 'home', '${match.home_team}')">
-                        ${match.home_team}
-                    </button>
-                    <button style="border: 1px solid #444; border-radius: 5px;"
-                            id="draw-${matchKey}"
-                            onclick="selectOutcome('${matchKey}', 'draw', 'Draw')">
-                        Draw
-                    </button>
-                    <button style="border: 1px solid #444; border-radius: 5px;"
-                            id="away-${matchKey}"
-                            onclick="selectOutcome('${matchKey}', 'away', '${match.away_team}')">
-                        ${match.away_team}
-                    </button>
-                    <div id="oddsInput-${matchKey}" style="display:none; margin-top:10px;">
-                        <p id="minOdds-${matchKey}" style="font-size: 0.9rem;"></p>
-                    </div>
-                    <hr style="max-width: 50%;">
-                </div>
-            `;
-        });
-    }
-
-    function selectOutcome(fixtureId, outcome, label) {
-        const button = document.getElementById(`${outcome}-${fixtureId}`);
-
-        if (button.classList.contains('selected')) {
-            button.classList.remove('selected');
-            delete selectedBets[fixtureId];
-            document.getElementById(`oddsInput-${fixtureId}`).style.display = 'none';
-        } else {
-            ['home', 'draw', 'away'].forEach(opt => {
-                document.getElementById(`${opt}-${fixtureId}`)?.classList.remove('selected');
-            });
-
-            button.classList.add('selected');
-            selectedBets[fixtureId] = { outcome, label };
-            document.getElementById(`oddsInput-${fixtureId}`).style.display = 'block';
-
-            const prob    = modelPredictions[fixtureId][outcome];
-            const minOdds = (1 / prob).toFixed(2);
-            document.getElementById(`minOdds-${fixtureId}`).innerText =
-                `Minimum singles odds for positive EV: ${minOdds}`;
-        }
-
-        updateAccumulatedOdds();
-        autoCalculateEV();
-    }
-
-    function updateAccumulatedOdds() {
-        let totalProbability = 1;
-
-        for (const fixtureId in selectedBets) {
-            totalProbability *= modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
-        }
-
-        const accOddsDiv = document.getElementById('accumulatedOdds');
-
-        if (Object.keys(selectedBets).length === 0) {
-            accOddsDiv.innerHTML = 'Accumulated Odds: -';
-            return;
-        }
-
-        accOddsDiv.innerHTML = `Accumulated Odds: ${(1 / totalProbability).toFixed(2)}`;
-    }
-
-    function filterFixturesByGW() {
-        renderFixtures(document.getElementById('gwSelector').value);
-    }
-
-    function autoCalculateEV() {
-        let totalProbability = 1;
-        let resultsHTML = '<div class="ev-card">';
-
-        if (Object.keys(selectedBets).length === 0) {
-            document.getElementById('evResults').innerHTML = '';
-            return;
-        }
-
-        resultsHTML += '<div class="betslip-review"><h3>Your Bet Slip:</h3>';
-        for (const fixtureId in selectedBets) {
-            const modelProb = modelPredictions[fixtureId][selectedBets[fixtureId].outcome];
-            totalProbability *= modelProb;
-            resultsHTML += `<p>${selectedBets[fixtureId].label}: ${(modelProb * 100).toFixed(0)}% Win probability</p>`;
-        }
-        resultsHTML += '</div>';
-
-        const impliedOdds    = (1 / totalProbability).toFixed(2);
-        const minRequiredOdds = ((1 + 0.03) / totalProbability).toFixed(2);
-
-        resultsHTML += `<div class="accumulated-odds">Accumulated Odds: ${impliedOdds}</div>`;
-        resultsHTML += `<div class="min-odds">Min Price needed for &gt;3% EV: ${minRequiredOdds}</div>`;
-
-        const userOddsValue = parseFloat(document.getElementById('userOdds').value);
-        if (!isNaN(userOddsValue) && userOddsValue > 1) {
-            const ev = (totalProbability * (userOddsValue - 1)) - (1 - totalProbability);
-            resultsHTML += `<div class="ev-percentage">Your Betslip EV: ${(ev * 100).toFixed(2)}%</div>`;
-
-            if (ev > 0.03) {
-                resultsHTML += '<p class="ev-good">🟢 Good Value Bet</p>';
-            } else if (ev >= 0) {
-                resultsHTML += '<p class="ev-lowpositive">🟠 Low Positive Value Bet</p>';
-            } else {
-                resultsHTML += '<p class="ev-bad">🔴 Negative Value Bet</p>';
-            }
-        } else {
-            resultsHTML += '<p style="color:blue;">Enter your odds above to calculate EV!</p>';
-        }
-
-        resultsHTML += '</div>';
-        document.getElementById('evResults').innerHTML = resultsHTML;
-    }
-
-    /* ── Modal ── */
     function toggleModal(id) {
         const modal   = document.getElementById(id);
         const overlay = document.getElementById(id + 'Overlay');
@@ -212,16 +156,5 @@
         modal.style.display   = visible ? 'none' : 'block';
         overlay.style.display = visible ? 'none' : 'block';
     }
-
-    /* ── Init ── */
-    document.addEventListener('DOMContentLoaded', function() {
-        renderFixtures(document.getElementById('gwSelector').value);
-    });
-
-    document.getElementById('userOdds').addEventListener('input', autoCalculateEV);
 </script>
-
-<style>
-    button.selected { background-color: #3f007d; color: white; }
-</style>
 {% endblock %}

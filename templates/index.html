@@ -20,6 +20,26 @@
         </div>
     </div>
 
+    {# ── Accuracy strip — only renders once backtest JSON exists ── #}
+    {% if accuracy %}
+    <div class="lp-accuracy-strip">
+        <!--<div class="lp-acc-item">
+            <div class="lp-acc-value">{{ accuracy.outcome_accuracy }}%</div>
+            <div class="lp-acc-label">Outcome accuracy · 2024/25</div>
+        </div>
+        <div class="lp-acc-divider"></div>-->
+        <div class="lp-acc-item">
+            <div class="lp-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
+            <div class="lp-acc-label">Moneyline accuracy</div>
+        </div>
+        <div class="lp-acc-divider"></div>
+        <div class="lp-acc-item">
+            <div class="lp-acc-value">{{ accuracy.ou_accuracy }}%</div>
+            <div class="lp-acc-label">Over / under 2.5 accuracy</div>
+        </div>
+    </div>
+    {% endif %}
+
     {# ── Feature cards ── #}
     <div class="lp-features">
 

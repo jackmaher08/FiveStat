@@ -300,33 +300,33 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 30,15/03/2026 16:30,Liverpool,Tottenham Hotspur,1 - 1,29073,True,1.0,1.0,1.3,1.16
 30,16/03/2026 20:00,Brentford,Wolverhampton Wanderers,2 - 2,29069,True,2.0,2.0,2.8,1.8
 31,18/02/2026 20:00,Wolverhampton Wanderers,Arsenal,2 - 2,29087,True,2.0,2.0,0.17,2.01
-31,20/03/2026 20:00,Bournemouth,Manchester United,,29078,False,,,,
-31,21/03/2026 12:30,Brighton,Liverpool,,29080,False,,,,
-31,21/03/2026 15:00,Fulham,Burnley,,29082,False,,,,
+31,20/03/2026 20:00,Bournemouth,Manchester United,2 - 2,29078,True,2.0,2.0,1.77,1.75
+31,21/03/2026 12:45,Brighton,Liverpool,2 - 1,29080,True,2.0,1.0,3.43,0.96
+31,21/03/2026 15:00,Fulham,Burnley,3 - 1,29082,True,3.0,1.0,3.48,1.93
 31,21/03/2026 15:00,Manchester City,Crystal Palace,,29084,False,,,,
-31,21/03/2026 17:30,Everton,Chelsea,,29081,False,,,,
-31,21/03/2026 20:00,Leeds,Brentford,,29083,False,,,,
-31,22/03/2026 12:00,Newcastle United,Sunderland,,29085,False,,,,
-31,22/03/2026 14:15,Aston Villa,West Ham,,29079,False,,,,
-31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,,29086,False,,,,
+31,21/03/2026 17:30,Everton,Chelsea,3 - 0,29081,True,3.0,0.0,1.45,1.35
+31,21/03/2026 20:00,Leeds,Brentford,0 - 0,29083,True,0.0,0.0,0.42,0.3
+31,22/03/2026 12:00,Newcastle United,Sunderland,,29085,True,1.0,2.0,1.27,2.67
+31,22/03/2026 14:15,Aston Villa,West Ham,,29079,True,2.0,0.0,2.49,0.76
+31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,,29086,True,0.0,3.0,1.62,1.54
 32,10/04/2026 20:00,West Ham,Wolverhampton Wanderers,,29091,False,,,,
 32,11/04/2026 12:30,Arsenal,Bournemouth,,29092,False,,,,
 32,11/04/2026 15:00,Brentford,Everton,,29093,False,,,,
 32,11/04/2026 15:00,Burnley,Brighton,,29094,False,,,,
-32,11/04/2026 15:00,Crystal Palace,Newcastle United,,29096,False,,,,
-32,11/04/2026 15:00,Nottingham Forest,Aston Villa,,29089,False,,,,
 32,11/04/2026 17:30,Liverpool,Fulham,,29097,False,,,,
+32,12/04/2026 14:00,Crystal Palace,Newcastle United,,29096,False,,,,
+32,12/04/2026 14:00,Nottingham Forest,Aston Villa,,29089,False,,,,
 32,12/04/2026 14:00,Sunderland,Tottenham Hotspur,,29090,False,,,,
 32,12/04/2026 16:30,Chelsea,Manchester City,,29095,False,,,,
 32,13/04/2026 20:00,Manchester United,Leeds,,29088,False,,,,
 33,18/04/2026 12:30,Brentford,Fulham,,29099,False,,,,
-33,18/04/2026 15:00,Aston Villa,Sunderland,,29098,False,,,,
 33,18/04/2026 15:00,Leeds,Wolverhampton Wanderers,,29103,False,,,,
 33,18/04/2026 15:00,Newcastle United,Bournemouth,,29105,False,,,,
-33,18/04/2026 15:00,Nottingham Forest,Burnley,,29106,False,,,,
 33,18/04/2026 17:30,Tottenham Hotspur,Brighton,,29107,False,,,,
 33,18/04/2026 20:00,Chelsea,Manchester United,,29100,False,,,,
+33,19/04/2026 14:00,Aston Villa,Sunderland,,29098,False,,,,
 33,19/04/2026 14:00,Everton,Liverpool,,29102,False,,,,
+33,19/04/2026 14:00,Nottingham Forest,Burnley,,29106,False,,,,
 33,19/04/2026 16:30,Manchester City,Arsenal,,29104,False,,,,
 33,20/04/2026 20:00,Crystal Palace,West Ham,,29101,False,,,,
 34,24/04/2026 20:00,Sunderland,Nottingham Forest,,29115,False,,,,
