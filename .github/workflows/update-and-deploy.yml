@@ -1,65 +1,90 @@
-name: Auto Update & Deploy
+name: FiveStat Auto-Update
 
 on:
-  # ── Runs every Friday at 07:00 UTC (08:00 UK time) ──
-  #schedule:
-  #  - cron: '1 5 * * 1'
-
-  # ── Manual trigger from GitHub Actions tab ──
+  schedule:
+    # Run 1 — Mon 22:00 UTC: full pipeline (~6h after typical Sunday last fixture)
+    - cron: '0 22 * * 1'
+    # Run 2 — Tue 10:00 UTC: bookie win % (~18h after Sunday)
+    - cron: '0 10 * * 2'
+    # Run 3 — Tue 18:00 UTC: bookie CS % (~28h after Sunday)
+    - cron: '0 18 * * 2'
   workflow_dispatch:
-
+    inputs:
+      run_type:
+        description: 'Which run to execute'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - bookie_win
+          - bookie_cs
 
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PAT }}
-
-      - name: Install system packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libxml2-dev libxslt1-dev python3-dev
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Install Python dependencies
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Detect which scheduled run fired (manual runs use the input directly)
+      - name: Detect run type
+        id: run_type
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "type=${{ inputs.run_type }}" >> $GITHUB_OUTPUT
+          else
+            DAY=$(date -u +%u)   # 1=Mon, 2=Tue
+            HOUR=$(date -u +%H)
+            if [ "$DAY" = "1" ]; then
+              echo "type=full" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" -lt "14" ]; then
+              echo "type=bookie_win" >> $GITHUB_OUTPUT
+            else
+              echo "type=bookie_cs" >> $GITHUB_OUTPUT
+            fi
+          fi
 
-      - name: Run data scraper
-        run: python data_scraper_script.py
-
-      - name: Run data loader (heatmaps, probabilities, simulated table)
-        run: python data_loader.py
-
-      - name: Run radar generator
-        run: python generate_radars.py
-
-      - name: Run shotmap generator (match shotmaps)
-        run: python generate_shotmaps.py
-
-      - name: Run all-shots landing page image
-        run: python shotmap_script.py
-
-      - name: Commit and push updated assets
-        env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+      # ── Run 1: Full pipeline ──────────────────────────────────────────────
+      - name: Full pipeline
+        if: steps.run_type.outputs.type == 'full'
         run: |
-          git config user.name "jackmaher08"
-          git config user.email "jackmaher08@users.noreply.github.com"
+          python data_scraper_script.py
+          python data_loader.py
+          python generate_radars.py
+          python generate_shotmaps.py
+          python shotmap_script.py
 
-          git add -f static/heatmaps/
-          git add -f static/shotmaps/
-          git add -f static/radar/
-          git add -f data/tables/
+      # ── Run 2: Bookie win % only ──────────────────────────────────────────
+      - name: Scrape bookie win probabilities
+        if: steps.run_type.outputs.type == 'bookie_win'
+        run: python data_scraper_script.py --bookie-only
 
-          git commit -m "🔁 Auto update: GW data, heatmaps, shotmaps, radar, tables" || echo "No changes to commit"
-          git push origin main
+      # ── Run 3: Bookie CS % only ───────────────────────────────────────────
+      - name: Scrape bookie clean sheet probabilities
+        if: steps.run_type.outputs.type == 'bookie_cs'
+        run: python data_scraper_script.py --bookie-only
+
+      # ── Commit and push (triggers Railway redeploy) ───────────────────────
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet && echo "Nothing to commit" || \
+            git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
+          git push
