@@ -543,30 +543,55 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
 
         team_xg_total = team_shots["xG"].sum()
 
-        # xG share (fallback to 0 if no team xG)
+        # xG share — season total (fallback base)
         xg_share = player_xg_total / team_xg_total if team_xg_total > 0 else 0
-        season_share = xg_share
 
-        # === Recent Form Adjustment ===
+        # Restrict to last 10 GW shot data for season_share (reduces stale season drag)
+        if "match_id" in shots_df.columns:
+            last10_games = fixtures_df[
+                ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
+                (fixtures_df["isResult"] == True)
+            ].sort_values(by="date", ascending=False).head(10)
+
+            last10_ids = set(last10_games["id"].astype(str).dropna()) if "id" in last10_games.columns else set()
+
+            if last10_ids:
+                p_shots_10  = player_shots[player_shots["match_id"].astype(str).isin(last10_ids)]
+                t_shots_10  = team_shots[team_shots["match_id"].astype(str).isin(last10_ids)]
+                p_xg_10     = p_shots_10["xG"].sum()
+                t_xg_10     = t_shots_10["xG"].sum()
+                season_share = (p_xg_10 / t_xg_10) if t_xg_10 > 0 and p_xg_10 > 0 else xg_share
+            else:
+                season_share = xg_share
+        else:
+            season_share = xg_share
+
+        # === Recent Form Adjustment — uses actual shot data from recent matches ===
         recent_games = fixtures_df[
             ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
             (fixtures_df["isResult"] == True)
         ].sort_values(by="date", ascending=False).head(recent_matches)
 
-        recent_player_xg = 0
-        recent_player_minutes = 0
+        if not recent_games.empty and "id" in recent_games.columns:
+            recent_match_ids = set(recent_games["id"].astype(str).dropna())
 
-        if not recent_games.empty:
-            recent_player_xg = player_xg_total / 38 * len(recent_games)  # crude fallback: xG per match
-            recent_player_minutes = 90 * len(recent_games)
+            recent_player_shots = player_shots[
+                player_shots["match_id"].astype(str).isin(recent_match_ids)
+            ] if "match_id" in shots_df.columns else pd.DataFrame()
 
-        if recent_player_minutes > 0:
-            recent_xg_per_90 = (recent_player_xg / recent_player_minutes) * 90
+            recent_team_shots = team_shots[
+                team_shots["match_id"].astype(str).isin(recent_match_ids)
+            ] if "match_id" in shots_df.columns else pd.DataFrame()
+
+            recent_player_xg_sum = recent_player_shots["xG"].sum() if not recent_player_shots.empty else 0
+            recent_team_xg_sum   = recent_team_shots["xG"].sum()   if not recent_team_shots.empty else 0
+
+            if recent_team_xg_sum > 0 and recent_player_xg_sum > 0:
+                recent_xg_share = recent_player_xg_sum / recent_team_xg_sum
+            else:
+                recent_xg_share = season_share
         else:
-            recent_xg_per_90 = 0
-
-        team_xg_per_90 = team_xg_total / 38 if team_xg_total > 0 else 0.01
-        recent_xg_share = recent_xg_per_90 / team_xg_per_90 if team_xg_per_90 > 0 else season_share
+            recent_xg_share = season_share
 
         # Final share blending
         adjusted_xg_share = (1 - weight_recent_form) * season_share + weight_recent_form * recent_xg_share
@@ -632,7 +657,34 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
                     team_home_advantage=team_home_advantage
                 )
 
-                player_exp_xg = adjusted_xg_share * team_xg
+                # Minutes availability scaling — scale down if player averages < 90 mins
+                fpl_path = "data/tables/fpl_player_data.csv"
+                minutes_scale = 1.0
+                if os.path.exists(fpl_path):
+                    try:
+                        _fpl = pd.read_csv(fpl_path)
+                        _match = _fpl[_fpl["fpl_name"].apply(normalize_name) == normalized_input]
+                        if _match.empty:
+                            _match = _fpl[
+                                (_fpl["web_name"].apply(normalize_name) == normalized_input) &
+                                (_fpl["team"] == player_team)
+                            ]
+                        if not _match.empty:
+                            mins   = int(_match.iloc[0]["minutes"])
+                            status = _match.iloc[0]["status"]
+                            games  = fixtures_df[
+                                ((fixtures_df["home_team"] == player_team) | (fixtures_df["away_team"] == player_team)) &
+                                (fixtures_df["isResult"] == True)
+                            ].shape[0]
+                            if games > 0 and mins > 0:
+                                avg_mins = mins / games
+                                minutes_scale = np.clip(avg_mins / 90, 0.3, 1.0)
+                            if status in ("d", "i", "s", "u"):
+                                minutes_scale *= 0.5
+                    except Exception:
+                        pass
+
+                player_exp_xg = adjusted_xg_share * team_xg * minutes_scale
                 prob_score = simulate_player_goals_mc(player_exp_xg)
 
                 expected_goals = float(np.nan_to_num(player_exp_xg, nan=0.0, posinf=0.0, neginf=0.0))

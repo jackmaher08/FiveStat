@@ -2659,6 +2659,65 @@ input:checked + .slider:before {
   border: 1px solid var(--border);
 }
 
+.fpl-cap-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.fpl-cap-table thead th {
+  text-align: left;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-alt, #f9f9f6);
+}
+.fpl-cap-table tbody td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.fpl-cap-table tbody tr:last-child td { border-bottom: none; }
+.cap-main-row { cursor: pointer; }
+.cap-main-row:hover td { background: var(--accent-light); }
+.cap-expand-cell {
+  padding: 0 !important;
+  background: var(--surface-alt, #f9f9f6);
+}
+.cap-inner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+.cap-inner-table th {
+  padding: 0.35rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.cap-inner-table td {
+  padding: 0.35rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.cap-inner-table tr:last-child td { border-bottom: none; }
+.fpl-rank { font-weight: 700; color: var(--text-muted); width: 2rem; }
+.fpl-player-name { display: block; font-weight: 600; color: var(--text-primary); }
+.fpl-player-meta { display: block; font-size: 0.75rem; color: var(--text-muted); }
+.fpl-xg-val { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+.fpl-xa-val { font-family: var(--font-display); font-weight: 700; color: var(--text-muted); }
+.fpl-price { color: var(--text-muted); font-size: 0.82rem; }
+.fpl-own-chip {
+  font-size: 0.75rem; padding: 2px 8px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--text-muted);
+}
+.fpl-diff-chip {
+  font-size: 0.75rem; padding: 2px 8px; border-radius: 20px;
+  background: var(--accent-light); color: var(--accent-dark); font-weight: 600;
+}
+
 .fpl-diff-table {
   width: 100%;
   min-width: 480px;

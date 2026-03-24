@@ -450,146 +450,6 @@ def privacy():
     return render_template("privacy.html")
 
 
-
-
-
-
-
-@app.route('/epl-players')
-def epl_players():
-    try:
-        # Radar dropdown players (only those with full radar stats)
-        radar_players = get_player_radar_data()
-        required_stats = [
-            'Goals', 'Assists', 'Goals + Assists', 'Expected Goals',
-            'Expected Assists', 'Progressive Carries', 'Progressive Passes', 'Progressive Receptions'
-        ]
-        radar_dropdown_players = [
-            p for p in radar_players
-            if p.get("Pos") != "GK" and all(p.get(stat) not in [None, ""] for stat in required_stats)
-        ]
-
-        # Goal projection dropdown players (all outfield players)
-        players = get_player_data()
-        goal_dropdown_players = [p for p in players if p.get("POS") != "GK"]
-
-        next_gw_fixtures = load_next_gw_fixtures()
-        current_gw = next_gw_fixtures[0]["round_number"] if next_gw_fixtures else "Unknown"
-
-        unique_positions = sorted(set(p.get("Pos", "Unknown") for p in players))
-        unique_teams = sorted(set(p.get("Team", "Unknown") for p in players))
-
-        return render_template(
-            'epl_player.html',
-            players=players,
-            dropdown_players_radar=radar_dropdown_players,
-            dropdown_players_goals=goal_dropdown_players,
-            positions=unique_positions,
-            teams=unique_teams,
-            current_gw=current_gw,
-            last_updated=get_last_updated_time()
-        )
-
-    except Exception as e:
-        print(f"❌ Error loading player data: {e}")
-        return render_template(
-            'epl_player.html',
-            players=[], dropdown_players=[], positions=[],
-            teams=[], current_gw="Unknown", last_updated=get_last_updated_time()
-        )
-
-
-
-@app.route("/predict_player_goals/<player_name>")
-def predict_player_goals_route(player_name):
-    try:
-        # Load player data (same source as player stats page)
-        players = get_player_data()
-
-        # Find the selected player
-        def normalize_name(s):
-            return unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("utf-8").lower()
-
-        normalized_input = normalize_name(player_name)
-        player = next((p for p in players if normalize_name(p["Name"]) == normalized_input), None)
-
-        if not player:
-            return jsonify({"error": "Player not found"}), 404
-
-        # Override team manually if needed
-        manual_override = {
-            "Raheem Sterling": "Chelsea",
-            "Liam Delap": "Chelsea",
-            "Kepa Arrizabalaga": "Arsenal",
-            "Axel Disasi": "Chelsea",
-            "Caoimhin Kelleher": "Brentford",
-            "João Pedro": "Chelsea",
-            "Kyle Walker": "Burnley",
-            "Louis Enahoro-Marcus": "Leeds",
-            "Rayan Ait-Nouri": "Manchester City",
-            "Matheus Cunha": "Manchester United",
-            "Alex Moreno": "Nottingham"
-        }
-        player_team = manual_override.get(player["Name"], player["Team"])
-
-        # Run prediction with overridden team if applicable
-        predictions = predict_player_goals(player_name=player_name, player_team=player_team)
-
-        if not predictions:
-            return jsonify({"error": "No goal data available for this player yet."}), 404
-
-        return jsonify(predictions)
-
-
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-@app.route("/generate_player_shotmap", methods=["GET"])
-def generate_player_shotmap():
-    player_name = request.args.get("player")
-    shot_type = request.args.get("type", "all")
-
-    image_bytes = create_player_shotmap_image(player_name, shot_type)
-    if image_bytes is None:
-        return "No shotmap available for this player", 404
-
-    return send_file(image_bytes, mimetype="image/png")
-
-
-
-
-
-
-@app.route('/filter-players', methods=['POST'])
-def filter_players():
-    players = get_player_data()
-    
-    pos_filter = request.json.get("pos", "")
-    team_filter = request.json.get("team", "")
-
-    # Apply filtering
-    filtered_players = [
-        player for player in players 
-        if (not pos_filter or pos_filter in player["POS"]) and 
-           (not team_filter or team_filter == player["Team"])
-    ]
-
-    return jsonify(filtered_players)
-
-
-@app.route("/top_projected_xg")
-def top_projected_xg():
-    try:
-        df = pd.read_csv("data/top_projected_xg.csv")
-        return jsonify(df.to_dict(orient="records"))
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
-
-
-
 # Load fixtures
 fixtures_df = load_fixtures()
 
@@ -1070,7 +930,214 @@ def fpl():
 
         xg_data.sort(key=lambda x: x["gw1"], reverse=True)
 
+        # ── Captain picks — multi-GW projected xG ─────────────────────────
+        captain_picks = []
+        fpl_path    = "data/tables/fpl_player_data.csv"
+        player_path = "data/tables/player_data.csv"
+        shots_path  = "data/tables/shots_data.csv"
+
+        if os.path.exists(fpl_path) and os.path.exists(shots_path):
+            try:
+                import unicodedata as _ud
+                def _norm(s):
+                    return _ud.normalize("NFKD", str(s)).encode("ascii","ignore").decode().lower().strip()
+
+                fpl_df   = pd.read_csv(fpl_path)
+                shots_df = pd.read_csv(shots_path)
+                fpl_df["team"] = fpl_df["team"].replace(BOOKIE_TEAM_NAME_MAP)
+
+                # Upcoming fixtures for next 5 GWs with model xG
+                upcoming5_df = fixtures_df[
+                    (fixtures_df["isResult"] == False) &
+                    (fixtures_df["round_number"] >= current_gw) &
+                    (fixtures_df["round_number"] <  current_gw + 5)
+                ].merge(probs_df, on=["home_team","away_team"], how="left")
+
+                # Pre-build team fixture map: team -> [{gw, opp, is_home, fix_xg, fix_diff}]
+                team_fix_map = {}
+                for _, fix in upcoming5_df.iterrows():
+                    ht, at = fix["home_team"], fix["away_team"]
+                    gw_num = int(fix["round_number"])
+                    h_xg   = float(fix.get("home_xg", 0) or 0)
+                    a_xg   = float(fix.get("away_xg", 0) or 0)
+                    h_wp   = float(fix.get("home_win_prob", 0.5) or 0.5) * 100
+                    a_wp   = float(fix.get("away_win_prob", 0.5) or 0.5) * 100
+                    h_diff = "easy" if h_wp >= 60 else "hard" if h_wp < 40 else "medium"
+                    a_diff = "easy" if a_wp >= 60 else "hard" if a_wp < 40 else "medium"
+                    for team, opp, is_home, fix_xg, diff in [
+                        (ht, at, True,  h_xg, h_diff),
+                        (at, ht, False, a_xg, a_diff),
+                    ]:
+                        team_fix_map.setdefault(team, []).append({
+                            "gw":      gw_num,
+                            "opp":     TEAM_SHORT_NAMES.get(opp, opp[:3].upper()),
+                            "is_home": is_home,
+                            "fix_xg":  round(fix_xg, 2),
+                            "diff":    diff,
+                        })
+
+                # ── Build team totals from FPL (complete roster, no missing players) ──
+                if "xg" not in fpl_df.columns or "xa" not in fpl_df.columns:
+                    print("⚠️  fpl_player_data.csv missing xg/xa columns — re-run data_scraper_script.py --bookie-only")
+                    raise ValueError("fpl_player_data.csv outdated — missing xg/xa columns")
+                team_xg_totals = fpl_df.groupby("team")["xg"].sum().to_dict()
+                team_xa_totals = fpl_df.groupby("team")["xa"].sum().to_dict()
+
+                # ── Pre-compute shots lookups once — never re-scan inside the player loop ──
+                has_match_id = "match_id" in shots_df.columns
+
+                # Normalise shot player names once up front
+                if has_match_id:
+                    shots_df["player_norm"] = shots_df["player"].apply(_norm)
+                    shots_df["match_id_str"] = shots_df["match_id"].astype(str)
+
+                # Recent 5 GW match IDs per team
+                recent5_ids = {}
+                if has_match_id:
+                    for team in teams:
+                        r5 = fixtures_df[
+                            ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
+                            (fixtures_df["isResult"] == True)
+                        ].sort_values("round_number", ascending=False).head(5)
+                        if "id" in r5.columns:
+                            recent5_ids[team] = set(r5["id"].astype(str).dropna())
+
+                # Pre-group shots by team and by (player_norm, match_id_str) for O(1) lookup
+                # team_recent_xg[team] = total xG in recent 5 GWs for that team
+                # player_recent_xg[(player_norm, team)] = player xG in recent 5 GWs
+                team_recent_xg    = {}
+                player_recent_xg  = {}
+                if has_match_id:
+                    for team, ids in recent5_ids.items():
+                        t_shots_rec = shots_df[
+                            ((shots_df["h_team"] == team) | (shots_df["a_team"] == team)) &
+                            shots_df["match_id_str"].isin(ids)
+                        ]
+                        t_r = float(t_shots_rec["xG"].sum())
+                        team_recent_xg[team] = t_r
+                        if t_r > 0:
+                            for pnorm, grp in t_shots_rec.groupby("player_norm"):
+                                player_recent_xg[(pnorm, team)] = float(grp["xG"].sum())
+
+                # Build player map — no DataFrame scans inside this loop
+                player_xg_map = {}
+                for _, fp in fpl_df.iterrows():
+                    fteam = fp["team"]
+                    pname = _norm(fp["fpl_name"])
+                    web   = _norm(fp["web_name"])
+                    xg_s  = float(fp.get("xg", 0) or 0)
+                    xa_s  = float(fp.get("xa", 0) or 0)
+                    t_xg  = team_xg_totals.get(fteam, 0)
+                    t_xa  = team_xa_totals.get(fteam, 0)
+                    season_share    = xg_s / t_xg if t_xg > 0 and xg_s > 0 else 0
+                    season_xa_share = xa_s / t_xa if t_xa > 0 and xa_s > 0 else 0
+
+                    recently_active = True
+                    recent_share    = season_share
+                    t_r = team_recent_xg.get(fteam, 0)
+                    if t_r > 0:
+                        p_r = player_recent_xg.get((pname, fteam)) or \
+                              player_recent_xg.get((web, fteam), 0)
+                        if p_r > 0:
+                            recent_share = p_r / t_r
+                        else:
+                            recently_active = False
+
+                    adj_share = 0.7 * season_share + 0.3 * recent_share
+                    entry = {
+                        "adj_share":       adj_share,
+                        "xa_share":        season_xa_share,
+                        "team":            fteam,
+                        "recently_active": recently_active,
+                    }
+                    player_xg_map[pname] = entry
+                    if web != pname:
+                        player_xg_map[web] = entry
+
+                for _, fp in fpl_df.iterrows():
+                    if fp["status"] != "a":
+                        continue
+                    if int(fp["minutes"]) < 450:
+                        continue
+                    if fp["position"] not in ("MID", "FWD"):
+                        continue
+
+                    fpl_team = fp["team"]
+                    team_fixes = team_fix_map.get(fpl_team, [])
+                    if not team_fixes:
+                        continue
+
+                    # Name match
+                    match = player_xg_map.get(_norm(fp["fpl_name"]))
+                    if not match:
+                        web = _norm(fp["web_name"])
+                        match = next(
+                            (v for k, v in player_xg_map.items()
+                             if web in k and v["team"] == fpl_team),
+                            None
+                        )
+                    if not match or match["adj_share"] <= 0:
+                        continue
+                    if not match.get("recently_active", True):
+                        continue
+                    # Minutes availability scale
+                    games_played = fixtures_df[
+                        ((fixtures_df["home_team"] == fpl_team) | (fixtures_df["away_team"] == fpl_team)) &
+                        (fixtures_df["isResult"] == True)
+                    ].shape[0]
+                    avg_mins = int(fp["minutes"]) / games_played if games_played > 0 else 90
+                    mins_scale = float(np.clip(avg_mins / 90, 0.3, 1.0))
+
+                    # Per-fixture projections
+                    xa_share = match.get("xa_share", 0)
+                    fix_projections = []
+                    for fix in sorted(team_fixes, key=lambda x: x["gw"]):
+                        proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
+                        proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
+                        fix_projections.append({
+                            "gw":      fix["gw"],
+                            "label":   f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
+                            "proj_xg": proj_xg,
+                            "proj_xa": proj_xa,
+                            "diff":    fix["diff"],
+                        })
+
+                    gw1_xg = sum(f["proj_xg"] for f in fix_projections if f["gw"] == current_gw)
+                    gw3_xg = round(sum(f["proj_xg"] for f in fix_projections if f["gw"] < current_gw + 3), 3)
+                    gw5_xg = round(sum(f["proj_xg"] for f in fix_projections), 3)
+                    gw1_xa = round(sum(f["proj_xa"] for f in fix_projections if f["gw"] == current_gw), 3)
+                    gw3_xa = round(sum(f["proj_xa"] for f in fix_projections if f["gw"] < current_gw + 3), 3)
+                    gw5_xa = round(sum(f["proj_xa"] for f in fix_projections), 3)
+
+                    if gw1_xg <= 0:
+                        continue
+
+                    captain_picks.append({
+                        "name":         fp["web_name"],
+                        "team":         fpl_team,
+                        "position":     fp["position"],
+                        "price":        float(fp["price"]),
+                        "ownership":    float(fp["ownership"]),
+                        "gw1_xg":       round(gw1_xg, 3),
+                        "gw3_xg":       gw3_xg,
+                        "gw5_xg":       gw5_xg,
+                        "gw1_xa":       gw1_xa,
+                        "gw3_xa":       gw3_xa,
+                        "gw5_xa":       gw5_xa,
+                        "fixtures":     fix_projections,
+                        "gw1_fixture":  fix_projections[0]["label"] if fix_projections else "",
+                        "gw1_diff":     fix_projections[0]["diff"]  if fix_projections else "medium",
+                    })
+
+                captain_picks.sort(key=lambda x: x["gw1_xg"], reverse=True)
+                captain_picks = captain_picks[:20]
+
+            except Exception as e:
+                print(f"⚠️  Captain picks error: {e}")
+                import traceback; traceback.print_exc()
+
         fixture_ticker = []
+
         for team in teams:
             row_data = {"team": team, "fixtures": []}
             for gw in range(current_gw, current_gw + 5):
@@ -1085,8 +1152,13 @@ def fpl():
                     fix     = gw_fix.iloc[0]
                     is_home = fix["home_team"] == team
                     opp     = fix["away_team"] if is_home else fix["home_team"]
-                    rank    = team_rank.get(opp, 10)
-                    diff    = "hard" if rank <= 4 else "medium" if rank <= 10 else "easy"
+                    if is_home:
+                        prob_row = probs_df[(probs_df["home_team"] == team) & (probs_df["away_team"] == opp)]
+                        win_prob = float(prob_row["home_win_prob"].iloc[0]) * 100 if not prob_row.empty else 50.0
+                    else:
+                        prob_row = probs_df[(probs_df["home_team"] == opp) & (probs_df["away_team"] == team)]
+                        win_prob = float(prob_row["away_win_prob"].iloc[0]) * 100 if not prob_row.empty else 50.0
+                    diff    = "easy" if win_prob >= 60 else "hard" if win_prob < 40 else "medium"
                     short   = TEAM_SHORT_NAMES.get(opp, opp[:3].upper())
                     row_data["fixtures"].append({
                         "gw":         gw,
@@ -1099,6 +1171,7 @@ def fpl():
             cs_data=cs_data,
             xg_data=xg_data,
             fixture_ticker=fixture_ticker,
+            captain_picks=captain_picks,
             current_gw=current_gw,
             gw_range=list(range(current_gw, current_gw + 5)),
             last_updated=get_last_updated_time()
@@ -1107,8 +1180,8 @@ def fpl():
         print(f"❌ FPL page error: {e}")
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
-            cs_data=[], xg_data=[], fixture_ticker=[], current_gw=1,
-            gw_range=[], last_updated=get_last_updated_time()
+            cs_data=[], xg_data=[], fixture_ticker=[], captain_picks=[],
+            current_gw=1, gw_range=[], last_updated=get_last_updated_time()
         )
 
 

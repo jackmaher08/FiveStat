@@ -306,9 +306,9 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 31,21/03/2026 15:00,Manchester City,Crystal Palace,,29084,False,,,,
 31,21/03/2026 17:30,Everton,Chelsea,3 - 0,29081,True,3.0,0.0,1.45,1.35
 31,21/03/2026 20:00,Leeds,Brentford,0 - 0,29083,True,0.0,0.0,0.42,0.3
-31,22/03/2026 12:00,Newcastle United,Sunderland,,29085,True,1.0,2.0,1.27,2.67
-31,22/03/2026 14:15,Aston Villa,West Ham,,29079,True,2.0,0.0,2.49,0.76
-31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,,29086,True,0.0,3.0,1.62,1.54
+31,22/03/2026 12:00,Newcastle United,Sunderland,1 - 2,29085,True,1.0,2.0,1.27,2.67
+31,22/03/2026 14:15,Aston Villa,West Ham,2 - 0,29079,True,2.0,0.0,2.49,0.76
+31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,0 - 3,29086,True,0.0,3.0,1.62,1.54
 32,10/04/2026 20:00,West Ham,Wolverhampton Wanderers,,29091,False,,,,
 32,11/04/2026 12:30,Arsenal,Bournemouth,,29092,False,,,,
 32,11/04/2026 15:00,Brentford,Everton,,29093,False,,,,

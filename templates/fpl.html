@@ -21,24 +21,6 @@
 
 <div class="fpl-page">
 
-    {# ── Clean Sheet Chart ── #}
-    {% if cs_data %}
-    <div class="fpl-section">
-        <div class="fpl-section-row">
-            <div class="fpl-section-title"><span></span> Clean Sheet Probability</div>
-            <div class="fpl-btn-group">
-                <button class="fpl-btn active" onclick="setWindow('gw1', this)">GW{{ current_gw }}</button>
-                <button class="fpl-btn"        onclick="setWindow('gw3', this)">Next 3 GWs</button>
-                <button class="fpl-btn"        onclick="setWindow('gw5', this)">Next 5 GWs</button>
-            </div>
-        </div>
-        <p class="fpl-note" id="csNote">Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}</p>
-        <div class="fpl-chart-wrap">
-            <canvas id="csChart"></canvas>
-        </div>
-    </div>
-    {% endif %}
-
     {# ── Team xG Chart ── #}
     {% if xg_data %}
     <div class="fpl-section">
@@ -57,6 +39,99 @@
     </div>
     {% endif %}
 
+    {# ── Captain Picks ── #}
+    {% if captain_picks %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Captain Picks - Gameweek {{ current_gw }}</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw5', this)">Next 5 GWs</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('diff', this)">Differentials</button>
+            </div>
+        </div>
+        <p class="fpl-note" id="capNote">Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.</p>
+        <p class="fpl-note" id="capNote">Attacking Players only</p>
+        <div class="fpl-table-wrap">
+            <table class="fpl-cap-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>Fixture</th>
+                        <th id="capXgHeader">Proj. xG</th>
+                        <th id="capXaHeader">Proj. xA</th>
+                        <th>Price</th>
+                        <th>Ownership</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pick in captain_picks %}
+                    <tr class="cap-main-row" onclick="toggleCapRow({{ loop.index0 }})" data-idx="{{ loop.index0 }}">
+                        <td class="fpl-rank">{{ loop.index }}</td>
+                        <td>
+                            <span class="fpl-player-name">{{ pick.name }}</span>
+                            <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }}</span>
+                        </td>
+                        <td><span class="fpl-diff-cell fpl-{{ pick.gw1_diff }}">{{ pick.gw1_fixture }}</span></td>
+                        <td class="fpl-xg-val" data-gw1="{{ pick.gw1_xg }}" data-gw3="{{ pick.gw3_xg }}" data-gw5="{{ pick.gw5_xg }}">{{ "%.2f"|format(pick.gw1_xg) }}</td>
+                        <td class="fpl-xa-val" data-gw1="{{ pick.gw1_xa }}" data-gw3="{{ pick.gw3_xa }}" data-gw5="{{ pick.gw5_xa }}">{{ pick.gw1_xa }}</td>
+                        <td class="fpl-price">£{{ pick.price }}m</td>
+                        <td>
+                            {% if pick.ownership < 15 %}
+                                <span class="fpl-badge fpl-diff-chip">{{ pick.ownership }}%</span>
+                            {% else %}
+                                <span class="fpl-own-chip">{{ pick.ownership }}%</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="cap-expand-row" id="cap-expand-{{ loop.index0 }}" style="display:none">
+                        <td colspan="6" class="cap-expand-cell">
+                            <table class="cap-inner-table">
+                                <thead>
+                                    <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for fix in pick.fixtures %}
+                                    <tr>
+                                        <td>{{ fix.gw }}</td>
+                                        <td><span class="fpl-diff-cell fpl-{{ fix.diff }}">{{ fix.label }}</span></td>
+                                        <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
+                                        <td class="fpl-xa-val">{{ fix.proj_xa }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Clean Sheet Chart ── #}
+    {% if cs_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Clean Sheet Probability</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn active" onclick="setWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn"        onclick="setWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn"        onclick="setWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <p class="fpl-note" id="csNote">Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="csChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+
+
     {# ── Fixture Difficulty ── #}
     {% if fixture_ticker %}
     <div class="fpl-section">
@@ -64,12 +139,12 @@
             <div class="fpl-section-title"><span></span> Fixture Difficulty — Next 5 Gameweeks</div>
         </div>
         <div class="fpl-legend">
-            <span class="fpl-badge fpl-easy">Easy  (11–20)</span>
-            <span class="fpl-badge fpl-medium">Medium  (5–10)</span>
-            <span class="fpl-badge fpl-hard">Hard  (1–4)</span>
+            <span class="fpl-badge fpl-easy">Easy</span>
+            <span class="fpl-badge fpl-medium">Mid</span>
+            <span class="fpl-badge fpl-hard">Hard</span>
             <span class="fpl-badge fpl-blank">BGW</span>
         </div>
-        <p class="fpl-note">Difficulty based on opponent league position.</p>
+        <p class="fpl-note">Difficulty based on FiveStat model win probability for each fixture.</p>
         <div class="fpl-table-wrap">
             <table class="fpl-diff-table">
                 <thead>
@@ -100,6 +175,72 @@
 
 
 {% block extra_scripts %}
+<script>
+const capData = {{ captain_picks | tojson }};
+
+const capNotes = {
+    gw1:  'Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.',
+    gw3:  'Ranked by total projected xG across the next 3 Gameweeks. Click a row to see fixture breakdown.',
+    gw5:  'Ranked by total projected xG across the next 5 Gameweeks. Click a row to see fixture breakdown.',
+    diff: 'Differentials only (ownership under 15%), ranked by projected xG this Gameweek.',
+};
+const capHeaders = {
+    gw1: 'Proj. xG', gw3: 'xG (Next 3)', gw5: 'xG (Next 5)', diff: 'Proj. xG'
+};
+
+const capXaHeaders = {
+    gw1: 'Proj. xA', gw3: 'xA (Next 3)', gw5: 'xA (Next 5)', diff: 'Proj. xA'
+};
+
+function setCapWindow(mode, btn) {
+    document.getElementById('capNote').textContent = capNotes[mode];
+    document.getElementById('capXgHeader').textContent = capHeaders[mode];
+    document.getElementById('capXaHeader').textContent = capXaHeaders[mode];
+    document.querySelectorAll('.fpl-btn-cap').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const rows = document.querySelectorAll('.cap-main-row');
+    const key  = mode === 'diff' ? 'gw1' : mode;
+
+    let rowArr = Array.from(rows).map(r => {
+        const idx = parseInt(r.dataset.idx);
+        const p   = capData[idx];
+        return { row: r, val: p[`${key}_xg`], idx, ownership: p.ownership };
+    });
+
+    if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
+    rowArr.sort((a, b) => b.val - a.val);
+
+    const tbody = document.querySelector('.fpl-cap-table tbody');
+    rowArr.forEach((item, rank) => {
+        const mainRow   = item.row;
+        const expandRow = document.getElementById(`cap-expand-${item.idx}`);
+        const p = capData[item.idx];
+        mainRow.querySelector('.fpl-rank').textContent   = rank + 1;
+        mainRow.querySelector('.fpl-xg-val').textContent = parseFloat(item.val).toFixed(2);
+        mainRow.querySelector('.fpl-xa-val').textContent = p[`${key}_xa`];
+        tbody.appendChild(mainRow);
+        if (expandRow) { expandRow.style.display = 'none'; tbody.appendChild(expandRow); }
+        mainRow.style.display = '';
+    });
+
+    if (mode === 'diff') {
+        rows.forEach(r => {
+            const idx = parseInt(r.dataset.idx);
+            if (capData[idx].ownership >= 15) {
+                r.style.display = 'none';
+                const exp = document.getElementById(`cap-expand-${idx}`);
+                if (exp) exp.style.display = 'none';
+            }
+        });
+    }
+}
+
+function toggleCapRow(idx) {
+    const exp = document.getElementById(`cap-expand-${idx}`);
+    if (exp) exp.style.display = exp.style.display === 'none' ? '' : 'none';
+}
+</script>
 <script>
 const csRaw = {{ cs_data | tojson }};
 

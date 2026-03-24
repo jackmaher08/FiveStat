@@ -735,7 +735,19 @@ if not BOOKIE_ONLY:
 
 if not BOOKIE_ONLY:
     pass  # end of main scrape block
-    
+
+# ── Shared setup (runs in both full and bookie-only mode) ─────────────────────
+save_dir = "data/tables"
+os.makedirs(save_dir, exist_ok=True)
+
+if BOOKIE_ONLY:
+    _fix = pd.read_csv(os.path.join(save_dir, "fixture_data.csv"))
+    _fix["round_number"] = pd.to_numeric(_fix["round_number"], errors="coerce")
+    _upcoming = _fix[_fix["isResult"].astype(str).str.lower() != "true"]
+    _counts = _upcoming.groupby("round_number").size()
+    next_round_number = _counts[_counts >= 5].index.min()
+    print(f"🔄 Bookie-only mode — detected next GW: {int(next_round_number)}")
+
 # ── Scrape bookie probabilities from CheckTheChance ──────────────────────────
 # Runs automatically each week using next_round_number already computed above.
 # Win probs:  https://checkthechance.com/premier-league-round-{gw}/
@@ -816,7 +828,64 @@ try:
         print(f"⚠️  No win probability data scraped for {gw_label} — page may not be live yet")
 
 except Exception as e:
-    print(f"⚠️  Could not scrape win probabilities for {gw_label}: {e}")
+    print(f"⚠️  Could not scrape clean sheet probabilities for {gw_label}: {e}")
+
+
+# ── Fetch FPL player data (bootstrap-static) ──────────────────────────────────
+FPL_POSITION_MAP = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
+FPL_TEAM_NAME_MAP = {
+    "Man City":    "Manchester City",
+    "Man Utd":     "Manchester United",
+    "Spurs":       "Tottenham Hotspur",
+    "Wolves":      "Wolverhampton Wanderers",
+    "Nott'm Forest": "Nottingham Forest",
+    "Newcastle":   "Newcastle United",
+}
+
+print("🔄 Fetching FPL bootstrap data...")
+try:
+    fpl_resp = requests.get(
+        "https://fantasy.premierleague.com/api/bootstrap-static/",
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=15
+    )
+    fpl_resp.raise_for_status()
+    fpl_json = fpl_resp.json()
+
+    fpl_team_id_map = {
+        t["id"]: FPL_TEAM_NAME_MAP.get(t["name"], t["name"])
+        for t in fpl_json["teams"]
+    }
+
+    fpl_rows = []
+    for p in fpl_json["elements"]:
+        fpl_rows.append({
+            "fpl_id":       p["id"],
+            "fpl_name":     f"{p['first_name']} {p['second_name']}",
+            "web_name":     p["web_name"],
+            "team":         fpl_team_id_map.get(p["team"], str(p["team"])),
+            "position":     FPL_POSITION_MAP.get(p["element_type"], "UNK"),
+            "price":        round(p["now_cost"] / 10, 1),
+            "ownership":    float(p["selected_by_percent"]),
+            "form":         float(p["form"]) if p["form"] else 0.0,
+            "ep_next":      float(p["ep_next"]) if p["ep_next"] else 0.0,
+            "minutes":      int(p["minutes"]),
+            "goals":        int(p["goals_scored"]),
+            "assists":      int(p["assists"]),
+            "clean_sheets": int(p["clean_sheets"]),
+            "status":       p["status"],
+            "xg":           float(p.get("expected_goals", 0) or 0),
+            "xa":           float(p.get("expected_assists", 0) or 0),
+            "xgi":          float(p.get("expected_goal_involvements", 0) or 0),
+        })
+
+    fpl_df = pd.DataFrame(fpl_rows)
+    fpl_path = os.path.join(save_dir, "fpl_player_data.csv")
+    fpl_df.to_csv(fpl_path, index=False)
+    print(f"✅ FPL player data saved ({len(fpl_df)} players) to {fpl_path}")
+
+except Exception as e:
+    print(f"⚠️  Could not fetch FPL bootstrap data: {e}")
 
 
 # ── Clean sheet probabilities ─────────────────────────────────────────────────
