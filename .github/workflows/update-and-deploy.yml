@@ -2,12 +2,12 @@ name: FiveStat Auto-Update
 
 on:
   schedule:
-    # Run 1 — Mon 22:00 UTC: full pipeline (~6h after typical Sunday last fixture)
-    - cron: '0 22 * * 1'
-    # Run 2 — Tue 10:00 UTC: bookie win % (~18h after Sunday)
-    - cron: '0 10 * * 2'
-    # Run 3 — Tue 18:00 UTC: bookie CS % (~28h after Sunday)
-    - cron: '0 18 * * 2'
+    # Run 1 — Tue 14:00 UTC: full pipeline (~6h after last fixture)
+    - cron: '0 13 * * 2'
+    # Run 2 — Wed 01:00 UTC: bookie win % (~18h after Sunday)
+    - cron: '0 01 * * 3'
+    # Run 3 — Wed 13:00 UTC: bookie CS % (~30h after Sunday)
+    - cron: '0 13 * * 3'
   workflow_dispatch:
     inputs:
       run_type:

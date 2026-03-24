@@ -2238,6 +2238,16 @@ input:checked + .slider:before {
   background: #fafaf0;
 }
 
+/* Remove grey alternating rows from ev-table — all rows white */
+.ev-table tr:nth-child(even) td                  { background-color: var(--surface); }
+.ev-table tr.ev-row-good:nth-child(even) td      { background: #f0faf5; }
+.ev-table tr.ev-row-low:nth-child(even) td       { background: #fafaf0; }
+
+/* Hover highlights for all ev-table rows */
+.ev-table tr:hover td,
+.ev-table tr.ev-row-good:hover td,
+.ev-table tr.ev-row-low:hover td                 { background: var(--accent-light); }
+
 .ev-badge {
   display: inline-block;
   font-family: var(--font-display);
@@ -2781,6 +2791,12 @@ input:checked + .slider:before {
 .fpl-diff-table tr:nth-child(even) .fpl-medium  { background: #fff3cd; }
 .fpl-diff-table tr:nth-child(even) .fpl-hard    { background: #f8d7da; }
 .fpl-diff-table tr:nth-child(even) .fpl-blank   { background: var(--surface-alt); }
+
+.fpl-diff-table tr:hover td,
+.fpl-diff-table tr:hover .fpl-easy,
+.fpl-diff-table tr:hover .fpl-medium,
+.fpl-diff-table tr:hover .fpl-hard,
+.fpl-diff-table tr:hover .fpl-blank { background: var(--accent-light); }
 
 .fpl-easy   { background: #d4edda; color: #1a5c2a; }
 .fpl-medium { background: #fff3cd; color: #7d5a00; }

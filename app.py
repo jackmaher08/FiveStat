@@ -930,6 +930,26 @@ def fpl():
 
         xg_data.sort(key=lambda x: x["gw1"], reverse=True)
 
+        xga_data = []
+        for team in teams:
+            # xGA = goals opponent is expected to score, so home team's xGA = away_xg
+            home = upcoming_df[upcoming_df["home_team"] == team][["round_number", "away_xg"]].rename(columns={"away_xg": "xga"})
+            away = upcoming_df[upcoming_df["away_team"] == team][["round_number", "home_xg"]].rename(columns={"home_xg": "xga"})
+            tg   = pd.concat([home, away]).dropna(subset=["xga"])
+
+            xga1 = tg[tg["round_number"] == current_gw]["xga"].sum()
+            xga3 = tg[tg["round_number"] <  current_gw + 3]["xga"].sum()
+            xga5 = tg["xga"].sum()
+
+            xga_data.append({
+                "team": team,
+                "gw1": round(float(xga1), 2),
+                "gw3": round(float(xga3), 2),
+                "gw5": round(float(xga5), 2),
+            })
+
+        xga_data.sort(key=lambda x: x["gw1"])
+
         # ── Captain picks — multi-GW projected xG ─────────────────────────
         captain_picks = []
         fpl_path    = "data/tables/fpl_player_data.csv"
@@ -1170,6 +1190,7 @@ def fpl():
         return render_template("fpl.html",
             cs_data=cs_data,
             xg_data=xg_data,
+            xga_data=xga_data,
             fixture_ticker=fixture_ticker,
             captain_picks=captain_picks,
             current_gw=current_gw,
@@ -1180,7 +1201,7 @@ def fpl():
         print(f"❌ FPL page error: {e}")
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
-            cs_data=[], xg_data=[], fixture_ticker=[], captain_picks=[],
+            cs_data=[], xg_data=[], xga_data=[], fixture_ticker=[], captain_picks=[],
             current_gw=1, gw_range=[], last_updated=get_last_updated_time()
         )
 

@@ -266,7 +266,101 @@
         </div>
     </div> -->
 
-    {# ── Section 4: Data sources ── #}
+    {# ── Section 3: FPL Planner ── #}
+    <div class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-shirt"></i></div>
+            <h2 class="meth-section-title">FPL Planner</h2>
+        </div>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Player Picks — projected xG &amp; xA</div>
+                    <p>Attacking players are ranked by their projected xG for the upcoming gameweek. A player's projected xG is their adjusted xG share (season xG share blended with recent-form perfoemance) multiplied by the team xG the model has assigned to each fixture. Projected xA follows the same approach but uses a player's share of team shot-creating actions and expected assists from the shots data. Both metrics can be viewed across the next 1, 3, or 5 gameweeks, with the multi-GW values representing the sum across all fixtures in that window.</p>
+                    <div class="meth-formula">player_xG = adjusted_xg_share × team_xg_vs_opponent</div>
+                    <div class="meth-formula">player_xA = adjusted_xa_share × team_xg_vs_opponent</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Team xG — Attacking Fixture Strength</div>
+                    <p>Each team's expected goals output is taken directly from the match prediction model for their upcoming fixtures. Teams are ranked from highest to lowest xG, giving an at-a-glance view of which teams have the best attacking opportunity in the selected gameweek window. Green bars indicate a high expected output, yellow shows moderate, and grey shows poor.</p>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">03</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Team xGA — Defensive Fixture Strength</div>
+                    <p>xGA (expected goals against) is the xG the model assigns to a team's opponent, showing how many goals a team is expected to concede in a given fixture. It is derived by taking the opponent's model xG from the same match prediction. Teams are ranked from lowest to highest xGA, so the teams at the top of the chart face the easiest defensive fixtures. This is the defensive mirror of the Team xG chart and is most useful for identifying FPL defenders and goalkeepers with clean sheet potential.</p>
+                    <div class="meth-formula">team_xGA = opponent_xG (from match prediction model)</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">04</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Clean Sheet Probability</div>
+                    <p>Per-match clean sheet probabilities are taken directly from the scoreline matrix produced by the match prediction model, specifically P(opponent goals = 0). For multi-gameweek windows (Next 3, Next 5), these per-match probabilities are summed to give us expected clean sheets (xCS) in that window.</p>
+                    <div class="meth-formula">xCS (window) = Σ P(clean sheet) across fixtures in window</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">05</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Fixture Difficulty Rating (FDR)</div>
+                    <p>Each upcoming fixture is colour-coded by difficulty based on the model's win probability for the team in question. Easy (green) reflects a high win probability, Medium (yellow) a relatively competitive fixture, Hard (red) a low win probability, and Blank (grey) is a blank gameweek. Thresholds are set at win probability above 55% for Easy, 35–55% for Medium, and below 35% for Hard.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ── Section 4: Bet Value Finder ── #}
+    <div class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-percent"></i></div>
+            <h2 class="meth-section-title">Bet Value Finder</h2>
+        </div>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Bookie implied probability</div>
+                    <p>Decimal odds from bookmakers are converted to implied probabilities and then margin-adjusted to remove the overround, giving a fair representation of what the bookmaker believes the true probability to be. Odds are sourced from CheckTheChance and refreshed regularly. Important to note that each sportsbook will update and change prices as fixtures approach, so do not take these bookmaker prices as accurate as they will change.</p>
+                    <div class="meth-formula">implied_prob = (1 / decimal_odds) / Σ (1 / all_market_odds)</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Expected Value (EV) calculation</div>
+                    <p>EV expresses the percentage edge our model's probability has over the bookie's margin-adjusted implied probability. A positive EV means our model believes the true probability is higher than the bookie is pricing, suggesting the market may be undervaluing that outcome. A negative EV means the bookie's price implies a higher probability than our model estimates.</p>
+                    <div class="meth-formula">EV (%) = (model_prob − bookie_implied_prob) × 100</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">03</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Limitations</div>
+                    <p>EV is a model-driven signal and does not account for line movement or all bookmaker prices. It should be interpreted as an indicator of where our model disagrees with the market, not as a guarantee of profit. Gamble Responsibly!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ── Section 5: Data sources ── #}
     <div class="meth-section">
         <div class="meth-section-header">
             <div class="meth-section-icon"><i class="fa-solid fa-database"></i></div>
@@ -278,8 +372,8 @@
                 <div class="meth-source-desc">Match-level xG, shot coordinates, player shot data. Used for all xG-based calculations and shotmap generation.</div>
             </div>
             <div class="meth-source-card">
-                <div class="meth-source-name">FBref & StatsBomb</div>
-                <div class="meth-source-desc">Player-level statistics including goals, assists, npxG, xA, minutes played. Used for player radar charts and comparison tool.</div>
+                <div class="meth-source-name">FBref & FPL</div>
+                <div class="meth-source-desc">Player-level statistics including goals, assists, npxG, xA, FPL price & ownership and minutes played. Used for player radar charts and comparison tool.</div>
             </div>
             <div class="meth-source-card">
                 <div class="meth-source-name">CheckTheChance</div>
