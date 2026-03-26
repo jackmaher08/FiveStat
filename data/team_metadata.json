@@ -20,7 +20,7 @@
     "logo": "brentford_logo.png"
   },
   "Brighton": {
-    "manager": "Fabian Hürzeler",
+    "manager": "Fabian Hurzeler",
     "stadium": "Amex Stadium",
     "logo": "brighton_logo.png"
   },
@@ -75,12 +75,12 @@
     "logo": "newcastle_logo.png"
   },
   "Nottingham Forest": {
-    "manager": "Vítor Pereira",
+    "manager": "Vitor Pereira",
     "stadium": "City Ground",
     "logo": "nottingham forest_logo.png"
   },
   "Sunderland": {
-    "manager": "Régis Le Bris",
+    "manager": "Regis Le Bris",
     "stadium": "Stadium of Light",
     "logo": "sunderland_logo.png"
   },

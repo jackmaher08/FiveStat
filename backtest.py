@@ -46,8 +46,8 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2024-08-01"   # Start of 2024/25 season
-TEST_SEASON_END   = "2025-06-01"   # End of 2024/25 season
+TEST_SEASON_START = "2025-08-01"   # Start of 2024/25 season
+TEST_SEASON_END   = "2026-06-01"   # End of 2024/25 season
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.60           # Form blending weight — matches production

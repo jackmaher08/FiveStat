@@ -714,6 +714,42 @@ if not BOOKIE_ONLY:
     historical['Home Team'] = historical['Home Team'].str.strip()
     historical['Away Team'] = historical['Away Team'].str.strip()
 
+    # ── Add missing current-season completed rows to historical ──────────────
+    # fixture_data.csv has all completed 25/26 results from Understat;
+    # historical_fixture_data.csv may not have them if it was last rebuilt mid-season.
+    curr_completed = curr_fixtures[
+        curr_fixtures['isResult'].astype(str).str.lower() == 'true'
+    ].copy()
+    curr_completed = curr_completed.rename(columns={
+        'home_team':   'Home Team',
+        'away_team':   'Away Team',
+        'home_goals':  'home_goals',
+        'away_goals':  'away_goals',
+        'home_xG':     'home_xG',
+        'away_xG':     'away_xG',
+        'round_number':'Round Number',
+        'date':        'Date',
+    })
+    curr_completed['Season'] = 2025
+
+    existing_keys = set(
+        zip(historical['Home Team'], historical['Away Team'],
+            historical['Season'].astype(str))
+    )
+    new_rows = curr_completed[
+        ~curr_completed.apply(
+            lambda r: (r.get('Home Team', ''), r.get('Away Team', ''), str(r['Season']))
+                       in existing_keys, axis=1
+        )
+    ].copy()
+
+    if len(new_rows) > 0:
+        historical = pd.concat([historical, new_rows], ignore_index=True)
+        print(f"✅ Added {len(new_rows)} new 25/26 match rows to historical data")
+    else:
+        print("✅ Historical data already up to date — no new rows to add")
+    # ─────────────────────────────────────────────────────────────────────────
+
     # Merge based on Home Team, Away Team and Season
     merged = pd.merge(
         historical,
@@ -729,9 +765,10 @@ if not BOOKIE_ONLY:
     # Drop temp columns
     merged.drop(columns=['home_xG_temp', 'away_xG_temp'], inplace=True)
 
-    # Save updated file
+    # Dedup before saving — prevents double-rows from repeated runs
+    merged = merged.drop_duplicates(subset=['Home Team', 'Away Team', 'Season'], keep='last')
     merged.to_csv(HISTORICAL_PATH, index=False)
-    print("✅ xG data merged and historical_fixture_data updated successfully.")
+    print(f"✅ historical_fixture_data updated and deduped ({len(merged)} rows).")
 
 if not BOOKIE_ONLY:
     pass  # end of main scrape block
@@ -755,80 +792,139 @@ if BOOKIE_ONLY:
 # Both files are updated in-place; missing pages fail gracefully with a warning.
 
 BOOKIE_NAME_MAP = {
-    "Man Utd":        "Manchester United",
-    "Man City":       "Manchester City",
-    "Spurs":          "Tottenham Hotspur",
-    "Tottenham":      "Tottenham Hotspur",
-    "Wolves":         "Wolverhampton Wanderers",
-    "Nott'm Forest":  "Nottingham Forest",
-    "Newcastle":      "Newcastle United",
-    "Brighton":       "Brighton",
-    "Bournemouth":    "Bournemouth",
-    "Brentford":      "Brentford",
-    "Burnley":        "Burnley",
-    "Chelsea":        "Chelsea",
-    "Crystal Palace": "Crystal Palace",
-    "Everton":        "Everton",
-    "Fulham":         "Fulham",
-    "Liverpool":      "Liverpool",
-    "Arsenal":        "Arsenal",
-    "Aston Villa":    "Aston Villa",
-    "West Ham":       "West Ham",
-    "Leeds":          "Leeds",
-    "Sunderland":     "Sunderland",
-    "Ipswich":        "Ipswich",
-    "Leicester":      "Leicester",
-    "Southampton":    "Southampton",
+    "Man Utd":                    "Manchester United",
+    "Man City":                   "Manchester City",
+    "Spurs":                      "Tottenham Hotspur",
+    "Tottenham":                  "Tottenham Hotspur",
+    "Wolves":                     "Wolverhampton Wanderers",
+    "Nott'm Forest":              "Nottingham Forest",
+    "Newcastle":                  "Newcastle United",
+    "Brighton":                   "Brighton",
+    "Bournemouth":                "Bournemouth",
+    "Brentford":                  "Brentford",
+    "Burnley":                    "Burnley",
+    "Chelsea":                    "Chelsea",
+    "Crystal Palace":             "Crystal Palace",
+    "Everton":                    "Everton",
+    "Fulham":                     "Fulham",
+    "Liverpool":                  "Liverpool",
+    "Arsenal":                    "Arsenal",
+    "Aston Villa":                "Aston Villa",
+    "West Ham":                   "West Ham",
+    "Leeds":                      "Leeds",
+    "Sunderland":                 "Sunderland",
+    "Ipswich":                    "Ipswich",
+    "Leicester":                  "Leicester",
+    "Southampton":                "Southampton",
+    "Manchester City":            "Manchester City",
+    "Manchester United":          "Manchester United",
+    "Newcastle United":           "Newcastle United",
+    "Nottingham Forest":          "Nottingham Forest",
+    "Tottenham Hotspur":          "Tottenham Hotspur",
+    "Wolverhampton Wanderers":    "Wolverhampton Wanderers",
+    "Brighton and Hove Albion":   "Brighton",
+    "Ipswich Town":               "Ipswich",
+    "Leicester City":             "Leicester",
+    "West Ham United":            "West Ham",
 }
 
 gw_label = f"GW{int(next_round_number)}"
 
-# ── Win probabilities ──────────────────────────────────────────────────────────
-print(f"🔄 Scraping bookie win probabilities for {gw_label}...")
+ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
+
+print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
 try:
-    win_url = f"https://checkthechance.com/premier-league-round-{int(next_round_number)}/"
-    resp = requests.get(win_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
-    soup = BeautifulSoup(resp.content, "html.parser")
-    headings = [h.get_text(strip=True) for h in soup.find_all(["h1","h2","h3","h4","h5","h6"])]
+    odds_resp = requests.get(
+        "https://api.the-odds-api.com/v4/sports/soccer_epl/odds/",
+        params={
+            "apiKey":     ODDS_API_KEY,
+            "regions":    "uk",
+            "markets":    "h2h,totals",
+            "oddsFormat": "decimal",
+        },
+        timeout=15,
+    )
+    odds_resp.raise_for_status()
+    odds_data = odds_resp.json()
 
     win_rows = []
-    i = 0
-    while i < len(headings):
-        h = headings[i]
-        if "%" in h and "|" in h:
-            parts = h.split("|")
-            home_raw  = parts[0].strip()
-            home_prob = float(parts[1].replace("%", "").strip())
-            if i + 1 < len(headings) and "%" in headings[i + 1] and "|" not in headings[i + 1]:
-                draw_prob = float(headings[i + 1].replace("%", "").strip())
-                if i + 2 < len(headings) and "|" in headings[i + 2]:
-                    away_parts = headings[i + 2].split("|")
-                    away_raw   = away_parts[0].strip()
-                    away_prob  = float(away_parts[1].replace("%", "").strip())
-                    win_rows.append({
-                        "gw":              gw_label,
-                        "home_team":       BOOKIE_NAME_MAP.get(home_raw, home_raw),
-                        "away_team":       BOOKIE_NAME_MAP.get(away_raw, away_raw),
-                        "bookie_home_win": home_prob,
-                        "bookie_draw":     draw_prob,
-                        "bookie_away_win": away_prob,
-                    })
-                    i += 3
-                    continue
-        i += 1
+    ou_rows  = []
+
+    for game in odds_data:
+        home_raw  = game["home_team"]
+        away_raw  = game["away_team"]
+        home_team = BOOKIE_NAME_MAP.get(home_raw, home_raw)
+        away_team = BOOKIE_NAME_MAP.get(away_raw, away_raw)
+
+        h2h_home_probs, h2h_draw_probs, h2h_away_probs = [], [], []
+        over25_probs, under25_probs = [], []
+
+        for bk in game.get("bookmakers", []):
+            for market in bk.get("markets", []):
+                if market["key"] == "h2h":
+                    outcomes = {o["name"]: o["price"] for o in market["outcomes"]}
+                    if home_raw in outcomes and "Draw" in outcomes and away_raw in outcomes:
+                        raw_home = 1 / outcomes[home_raw]
+                        raw_draw = 1 / outcomes["Draw"]
+                        raw_away = 1 / outcomes[away_raw]
+                        total = raw_home + raw_draw + raw_away
+                        h2h_home_probs.append(raw_home / total * 100)
+                        h2h_draw_probs.append(raw_draw / total * 100)
+                        h2h_away_probs.append(raw_away / total * 100)
+                elif market["key"] == "totals":
+                    outcomes = {(o["name"], o.get("point")): o["price"] for o in market["outcomes"]}
+                    over_price  = outcomes.get(("Over",  2.5))
+                    under_price = outcomes.get(("Under", 2.5))
+                    if over_price and under_price:
+                        raw_over  = 1 / over_price
+                        raw_under = 1 / under_price
+                        total = raw_over + raw_under
+                        over25_probs.append(raw_over  / total * 100)
+                        under25_probs.append(raw_under / total * 100)
+
+        if h2h_home_probs:
+            win_rows.append({
+                "gw":              gw_label,
+                "home_team":       home_team,
+                "away_team":       away_team,
+                "bookie_home_win": round(sum(h2h_home_probs) / len(h2h_home_probs), 1),
+                "bookie_draw":     round(sum(h2h_draw_probs) / len(h2h_draw_probs), 1),
+                "bookie_away_win": round(sum(h2h_away_probs) / len(h2h_away_probs), 1),
+            })
+        if over25_probs:
+            ou_rows.append({
+                "gw":             gw_label,
+                "home_team":      home_team,
+                "away_team":      away_team,
+                "bookie_over25":  round(sum(over25_probs)  / len(over25_probs),  1),
+                "bookie_under25": round(sum(under25_probs) / len(under25_probs), 1),
+            })
 
     if win_rows:
         win_path = os.path.join(save_dir, "bookie_win_by_gw.csv")
         win_df   = pd.read_csv(win_path)
-        win_df   = win_df[win_df["gw"] != gw_label]          # remove stale rows if re-running
+        win_df   = win_df[win_df["gw"] != gw_label]
         win_df   = pd.concat([win_df, pd.DataFrame(win_rows)], ignore_index=True)
         win_df.to_csv(win_path, index=False)
         print(f"✅ Saved {len(win_rows)} win probability rows for {gw_label}")
     else:
-        print(f"⚠️  No win probability data scraped for {gw_label} — page may not be live yet")
+        print(f"⚠️  No win probability data from Odds API for {gw_label}")
+
+    if ou_rows:
+        ou_path = os.path.join(save_dir, "bookie_ou_by_gw.csv")
+        if os.path.exists(ou_path):
+            ou_df = pd.read_csv(ou_path)
+            ou_df = ou_df[ou_df["gw"] != gw_label]
+        else:
+            ou_df = pd.DataFrame(columns=["gw", "home_team", "away_team", "bookie_over25", "bookie_under25"])
+        ou_df = pd.concat([ou_df, pd.DataFrame(ou_rows)], ignore_index=True)
+        ou_df.to_csv(ou_path, index=False)
+        print(f"✅ Saved {len(ou_rows)} O/U 2.5 rows for {gw_label}")
+    else:
+        print(f"⚠️  No O/U 2.5 data from Odds API for {gw_label}")
 
 except Exception as e:
-    print(f"⚠️  Could not scrape clean sheet probabilities for {gw_label}: {e}")
+    print(f"⚠️  Could not fetch Odds API data for {gw_label}: {e}")
 
 
 # ── Fetch FPL player data (bootstrap-static) ──────────────────────────────────

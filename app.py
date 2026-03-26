@@ -1239,17 +1239,20 @@ def ev_checker():
                     "bookie_away_win": float(b["bookie_away_win"]) if pd.notna(b["bookie_away_win"]) and b["bookie_away_win"] != "" else None,
                 }
 
-    # ── Bookie clean sheet probabilities ──
-    bookie_cs = {}
-    cs_path = "data/tables/bookie_cs_by_gw.csv"
-    if os.path.exists(cs_path):
-        cs_df  = pd.read_csv(cs_path)
-        gw_col = f"gw{current_gw}"
-        if gw_col in cs_df.columns:
-            for _, row in cs_df.iterrows():
-                val = row[gw_col]
-                if pd.notna(val) and val != "":
-                    bookie_cs[row["team"]] = float(val)
+    # ── Bookie O/U 2.5 probabilities ──
+    bookie_ou_lookup = {}
+    ou_path = "data/tables/bookie_ou_by_gw.csv"
+    if os.path.exists(ou_path):
+        ou_df    = pd.read_csv(ou_path)
+        gw_label = f"GW{current_gw}"
+        ou_rows  = ou_df[ou_df["gw"] == gw_label]
+        for _, b in ou_rows.iterrows():
+            if pd.notna(b["home_team"]) and b["home_team"] != "":
+                key = f"{b['home_team']}|{b['away_team']}"
+                bookie_ou_lookup[key] = {
+                    "bookie_over25":  float(b["bookie_over25"])  if pd.notna(b["bookie_over25"])  and b["bookie_over25"]  != "" else None,
+                    "bookie_under25": float(b["bookie_under25"]) if pd.notna(b["bookie_under25"]) and b["bookie_under25"] != "" else None,
+                }
 
     # ── Build EV data per fixture ──
     def ev_val(model, bookie):
@@ -1266,15 +1269,17 @@ def ev_checker():
         model_home_win = round(float(row["home_win_prob"]) * 100, 1)
         model_draw     = round(float(row["draw_prob"])     * 100, 1)
         model_away_win = round(float(row["away_win_prob"]) * 100, 1)
-        model_home_cs  = round(float(row.get("home_cs_prob", 0)) * 100, 1)
-        model_away_cs  = round(float(row.get("away_cs_prob", 0)) * 100, 1)
+        model_over25   = round(float(row.get("over_2_5_prob", 0)) * 100, 1)
+        model_under25  = round(100 - model_over25, 1)
 
-        bookie = bookie_win_lookup.get(key, {})
-        bookie_home_win = bookie.get("bookie_home_win")
-        bookie_draw     = bookie.get("bookie_draw")
-        bookie_away_win = bookie.get("bookie_away_win")
-        bookie_home_cs  = bookie_cs.get(home)
-        bookie_away_cs  = bookie_cs.get(away)
+        bookie_win = bookie_win_lookup.get(key, {})
+        bookie_ou  = bookie_ou_lookup.get(key, {})
+
+        bookie_home_win = bookie_win.get("bookie_home_win")
+        bookie_draw     = bookie_win.get("bookie_draw")
+        bookie_away_win = bookie_win.get("bookie_away_win")
+        bookie_over25   = bookie_ou.get("bookie_over25")
+        bookie_under25  = bookie_ou.get("bookie_under25")
 
         ev_fixtures.append({
             "home_team":       home,
@@ -1282,18 +1287,18 @@ def ev_checker():
             "model_home_win":  model_home_win,
             "model_draw":      model_draw,
             "model_away_win":  model_away_win,
-            "model_home_cs":   model_home_cs,
-            "model_away_cs":   model_away_cs,
+            "model_over25":    model_over25,
+            "model_under25":   model_under25,
             "bookie_home_win": bookie_home_win,
             "bookie_draw":     bookie_draw,
             "bookie_away_win": bookie_away_win,
-            "bookie_home_cs":  bookie_home_cs,
-            "bookie_away_cs":  bookie_away_cs,
-            "ev_home_win": ev_val(model_home_win, bookie_home_win),
-            "ev_draw":     ev_val(model_draw,     bookie_draw),
-            "ev_away_win": ev_val(model_away_win, bookie_away_win),
-            "ev_home_cs":  ev_val(model_home_cs,  bookie_home_cs),
-            "ev_away_cs":  ev_val(model_away_cs,  bookie_away_cs),
+            "bookie_over25":   bookie_over25,
+            "bookie_under25":  bookie_under25,
+            "ev_home_win":  ev_val(model_home_win, bookie_home_win),
+            "ev_draw":      ev_val(model_draw,     bookie_draw),
+            "ev_away_win":  ev_val(model_away_win, bookie_away_win),
+            "ev_over25":    ev_val(model_over25,   bookie_over25),
+            "ev_under25":   ev_val(model_under25,  bookie_under25),
         })
 
     return render_template(

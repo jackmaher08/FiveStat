@@ -87,7 +87,7 @@ def load_fixtures():
     return fixtures_df
 
 # Function to load historical match data
-def load_match_data(start_year=2016, end_year=2024):
+def load_match_data():
     historical_fixture_file_path = "data/tables/historical_fixture_data.csv"
     
     if os.path.exists(historical_fixture_file_path):
@@ -207,13 +207,6 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         recent_form_att[team] = recent_att
         recent_form_def[team] = recent_def
 
-        #print(f"=== Recent Form Stats for {team} ===")
-        #print(f"Avg Home Att: {avg_home_att}")
-        #print(f"Avg Away Att: {avg_away_att}")
-        #print(f"Avg Home Def: {avg_home_def}")
-        #print(f"Avg Away Def: {avg_away_def}")
-        #print(f"Recent ATT: {recent_att}")
-        #print(f"Recent DEF: {recent_def}\n")
 
     return recent_form_att, recent_form_def
 
@@ -275,7 +268,7 @@ def simulate_poisson_distribution(home_xg, away_xg, max_goals=8):
 
     return result_matrix, home_win_prob, draw_prob, away_win_prob
 
-def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.1, max_goals=8):
+def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05, max_goals=8):
     result_matrix = np.zeros((max_goals, max_goals))
 
     # Adjust means
@@ -306,7 +299,7 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.1, max_goals=8):
 
 
 
-def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.0):
+def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.05):
     """
     Apply Dixon-Coles low-score correction to a scoreline probability matrix.
 
@@ -317,7 +310,7 @@ def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.0):
         result_matrix: numpy array from simulate_bivariate_poisson
         home_xg: predicted home expected goals
         away_xg: predicted away expected goals
-        rho: correction strength (negative = more draws). Default -0.13.
+        rho: correction strength (negative = more draws). Default -0.05.
 
     Returns:
         Corrected and renormalised matrix.
@@ -390,8 +383,6 @@ def display_heatmap(result_matrix, home_team, away_team, gw_number, home_prob, d
 # Calc the XG we need to keep a teams att rating the same
 def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, max_iter=100):
     """Binary search to find xG that gives expected goals ≈ target_att."""
-    from data_loader import simulate_bivariate_poisson
-
     low, high = 0.1, 5.0  # Reasonable xG bounds
     for _ in range(max_iter):
         mid = (low + high) / 2
@@ -422,7 +413,6 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
     alpha=0.65, beta=0.8, team_home_advantage=None,
-    efficiency_factors=None, momentum_factors=None,
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -437,9 +427,7 @@ def get_team_xg(
         recent_form_def (dict): Recent DEF ratings.
         alpha (float): Weight of recent form in ATT/DEF rating blend.
         beta (float): Weight of multiplicative xG vs Poisson-calibrated xG.
-        home_field_advantage (float): Additive bonus if team is at home.
-        efficiency_factors: 
-        momentum_factors:
+        team_home_advantage (dict): Per-team home field advantage multiplier.
 
     Returns:
         float: Blended xG value.
@@ -476,22 +464,12 @@ def get_team_xg(
 
 
 
-    # 7. Efficiency & momentum adjustments
-    #if efficiency_factors:
-    #    true_xg *= np.clip(efficiency_factors.get(team, 1.0), 0.75, 1.25)
-    #if momentum_factors:
-    #    true_xg *= np.clip(momentum_factors.get(team, 1.0), 0.9, 1.15)
-
-
     return true_xg
 
 
 
 
 # generate player goalscoring probs
-import numpy as np
-from scipy.stats import poisson
-
 def simulate_player_goals_mc(xg):
     """Returns probability of scoring at least 1 goal using Poisson distribution."""
     return 1 - poisson.pmf(0, xg)
@@ -723,7 +701,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
 
 
 
-def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.65, save_path="static/heatmaps/"):
+def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_home_advantage=None, alpha=0.65, save_path="static/heatmaps/"):
     print("🔄 Running generate_all_heatmaps()...")
 
     # 🔥 CLEANUP STEP: Delete old heatmaps before regenerating
@@ -767,8 +745,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
     recent_form_att = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_att.items()}
     recent_form_def = {TEAM_NAME_MAPPING.get(k, k): v for k, v in recent_form_def.items()}
 
-    efficiency_factors, momentum_factors = calculate_team_efficiency_and_momentum()
-
     print("✅ Processing matches to calculate probabilities and generate heatmaps...")
     for index, fixture in fixtures_df.iterrows():
         home_team = fixture['home_team']
@@ -787,7 +763,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
             alpha=0.60, beta=0.30,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
             team_home_advantage=team_home_advantage
         )
 
@@ -795,7 +770,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
             alpha=0.60, beta=0.30,
-            efficiency_factors=efficiency_factors, momentum_factors=momentum_factors,
             team_home_advantage=team_home_advantage
         )
 
@@ -812,13 +786,9 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
         probabilities_df.at[index, "draw_prob"] = draw_prob
         probabilities_df.at[index, "away_win_prob"] = away_prob
 
-        # Over 2.5 goals: sum all cells where total goals > 2
-        over_2_5 = sum(
-            result_matrix[i, j]
-            for i in range(result_matrix.shape[0])
-            for j in range(result_matrix.shape[1])
-            if i + j > 2
-        )
+        # Over 2.5 goals: vectorised numpy
+        goals_grid = np.add.outer(np.arange(result_matrix.shape[0]), np.arange(result_matrix.shape[1]))
+        over_2_5 = float(result_matrix[goals_grid > 2].sum())
         probabilities_df.at[index, "over_2_5_prob"] = over_2_5
 
         # Clean sheet: home keeps clean sheet when away scores 0 (col 0), and vice versa
@@ -841,14 +811,6 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, alpha=0.
 # Directory to save shotmaps
 shotmap_save_path = "static/shotmaps/"
 os.makedirs(shotmap_save_path, exist_ok=True)
-
-# Fetch the latest fixtures (Merged from FixtureDownload & Understat)
-fixtures_df = load_fixtures()
-
-# Filter only completed matches
-completed_fixtures = fixtures_df[(fixtures_df["isResult"] == True)]
-
-all_shots_combined = []
 
 
 
@@ -1056,6 +1018,9 @@ def generate_shot_map(understat_match_id, save_image=True):
 # Loop through completed fixtures only and generate shotmaps
 if __name__ == "__main__":
     # Loop through completed fixtures only and generate shotmaps
+    fixtures_df = load_fixtures()
+    completed_fixtures = fixtures_df[fixtures_df["isResult"] == True]
+    all_shots_combined = []
     print("🔄 Generating new shotmaps only (skipping existing ones)...")
     new_shotmaps = 0
     for _, row in completed_fixtures.iterrows():
@@ -1136,23 +1101,6 @@ def collect_all_shot_data():
 
 
 os.makedirs("data/tables", exist_ok=True)
-# Load remaining fixtures
-fixtures = pd.read_csv("data/tables/fixture_data.csv")
-
-# Load current league table
-league_table = pd.read_csv("data/tables/league_table_data.csv")
-
-# Extract necessary columns
-team_points = league_table.set_index("Team")["PTS"].to_dict()
-teams = list(team_points.keys())
-
-# Simulation Parameters
-num_simulations = 10000
-num_teams = len(teams)
-num_positions = num_teams  # Positions 1 to last place
-
-# Create a dictionary to store simulation results
-position_counts = {team: np.zeros(num_positions) for team in teams}
 
 
 
@@ -1181,7 +1129,7 @@ if __name__ == "__main__":
     print("✅ Saved shots_data.csv")
 
     print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
-    generate_all_heatmaps(team_data, recent_form_att, recent_form_def)
+    generate_all_heatmaps(team_data, recent_form_att, recent_form_def, team_home_advantage=team_home_advantage)
     print("✅ generate_all_heatmaps() executed successfully!")
 
     
@@ -1315,8 +1263,3 @@ if __name__ == "__main__":
     final_probabilities.to_csv(output_file_path, index=True, float_format="%.6f")
 
     print(f"✅ Simulation results saved to: {output_file_path}")
-
-
-
-
-   

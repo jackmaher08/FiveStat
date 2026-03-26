@@ -7,14 +7,18 @@
 {% block content %}
 
 
-    <div class="ev-page-header">
-        <h1 class="ev-page-title">
-            Bet Value Checker
-            <button class="info-button" onclick="toggleModal('infoModal')" title="What is EV?">
-                <i class="fas fa-info-circle"></i>
-            </button>
-        </h1>
-        <p class="ev-page-sub">Gameweek {{ current_gw }} · FiveStat model vs bookie probabilities</p>
+    <div class="lp-hero" style="margin-bottom:0;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Bet Value Checker · Gameweek {{ current_gw }}</div>
+            <h1 class="lp-headline" style="font-size:2rem;">
+                Bet Value Checker
+                <button class="info-button" onclick="toggleModal('infoModal')" title="What is EV?">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </h1>
+            <p class="lp-subhead">FiveStat model probabilities vs bookie-implied odds — find where the market undervalues an outcome.</p>
+        </div>
     </div>
 
     {# ── Info modal ── #}
@@ -30,8 +34,8 @@
 
     {# ── Legend ── #}
     <div class="ev-legend">
-        <span class="ev-badge ev-badge-good">Strong value  &gt;+5%</span>
-        <span class="ev-badge ev-badge-low">Marginal  +1–5%</span>
+        <span class="ev-badge ev-badge-good">Strong value  &gt;+10%</span>
+        <span class="ev-badge ev-badge-low">Marginal  +1–10%</span>
         <span class="ev-badge ev-badge-none">No value  ≤0%</span>
     </div>
 
@@ -57,7 +61,7 @@
                             (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win)
                         ] %}
                         {% for market_label, model_p, bookie_p, ev in markets %}
-                        <tr class="{% if ev is not none %}{% if ev > 5 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
                                 {% if loop.first %}
@@ -69,7 +73,7 @@
                             <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
                             <td>
                                 {% if ev is not none %}
-                                    {% if ev > 5 %}
+                                    {% if ev > 10 %}
                                         <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
                                     {% elif ev > 1 %}
                                         <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
@@ -90,15 +94,14 @@
         </div>
     </div>
 
-    {# ── Clean sheet table ── #}
     <div class="ev-section">
-        <div class="ev-section-title"><span></span> Clean sheet probability</div>
+        <div class="ev-section-title"><span></span> Over/Under 2.5 Goals</div>
         <div class="ev-table-wrap">
             <table class="ev-table">
                 <thead>
                     <tr>
                         <th>Fixture</th>
-                        <th>Team</th>
+                        <th>Market</th>
                         <th>Our model</th>
                         <th>Bookie</th>
                         <th>Edge</th>
@@ -106,24 +109,24 @@
                 </thead>
                 <tbody>
                     {% for f in ev_fixtures %}
-                        {% set cs_markets = [
-                            (f.home_team, f.model_home_cs, f.bookie_home_cs, f.ev_home_cs),
-                            (f.away_team, f.model_away_cs, f.bookie_away_cs, f.ev_away_cs)
+                        {% set ou_markets = [
+                            ("Over 2.5",  f.model_over25,  f.bookie_over25,  f.ev_over25),
+                            ("Under 2.5", f.model_under25, f.bookie_under25, f.ev_under25)
                         ] %}
-                        {% for team, model_p, bookie_p, ev in cs_markets %}
-                        <tr class="{% if ev is not none %}{% if ev > 5 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                        {% for market_label, model_p, bookie_p, ev in ou_markets %}
+                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
                                 {% if loop.first %}
                                     <span class="ev-fixture-name">{{ f.home_team }} vs {{ f.away_team }}</span>
                                 {% endif %}
                             </td>
-                            <td class="ev-market-cell">{{ team }}</td>
+                            <td class="ev-market-cell">{{ market_label }}</td>
                             <td>{{ model_p }}%</td>
                             <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
                             <td>
                                 {% if ev is not none %}
-                                    {% if ev > 5 %}
+                                    {% if ev > 10 %}
                                         <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
                                     {% elif ev > 1 %}
                                         <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
