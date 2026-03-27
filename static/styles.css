@@ -304,7 +304,37 @@ main {
    ============================================================ */
 .gw-selector {
   margin: 1rem 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.gw-nav-btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+  white-space: nowrap;
+}
+
+.gw-nav-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--surface);
+}
+
+.gw-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
 
 .view-toggle {
@@ -628,11 +658,86 @@ button:disabled:hover {
 }
 
 .fixture-main-img {
-  width: 72%;
-  max-width: 420px;
+  width: 80%;
   height: auto;
   display: block;
   border-radius: 6px;
+}
+
+.fixture-main-img--heatmap { width: 65%; }
+.fixture-main-img--shotmap { width: 80%; }
+
+.result-stats-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 0 1rem;
+}
+
+.result-stats-table {
+  width: 80%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  background-color: var(--bg);
+  min-width: unset;
+}
+
+.result-stats-table col.col-home,
+.result-stats-table col.col-away { width: 40%; }
+.result-stats-table col.col-label { width: 20%; }
+
+.result-stats-table thead th {
+  background-color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0.3rem 0.5rem;
+  cursor: default;
+  white-space: nowrap;
+  border: none;
+}
+
+.result-stats-table thead th:hover { background-color: var(--bg); }
+
+.result-stats-table thead th:first-child { text-align: left; }
+.result-stats-table thead th:last-child  { text-align: right; }
+.result-stats-table thead th:nth-child(2){ text-align: center; }
+
+.result-stats-table tbody tr,
+.result-stats-table tr:nth-child(even) td {
+  background-color: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.result-stats-table tr:hover td {
+  background-color: var(--bg);
+  color: var(--text-primary);
+}
+
+.result-stats-table tbody td {
+  padding: 0.35rem 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background-color: var(--bg);
+  border-right: none;
+  cursor: default;
+}
+
+.result-stats-table tbody td:first-child { text-align: left; }
+.result-stats-table tbody td:last-child  { text-align: right; }
+
+.result-stats-table td.stat-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--bg);
 }
 
 .fixture-charts-row {

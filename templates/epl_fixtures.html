@@ -26,23 +26,33 @@
         </div>
     </div>
 
-    {# ── Gameweek selector ── #}
+    {# ── Gameweek selector with prev/next ── #}
     <div class="gw-selector">
+        <button class="gw-nav-btn" id="gw-prev" title="Previous gameweek"
+            {% if current_gw <= gameweeks[0] %}disabled{% endif %}
+            onclick="changeGameweek({{ current_gw - 1 }})">&#8592; Prev</button>
         <select id="gw-select" onchange="changeGameweek(this.value); trackTeamSelect(this.value)">
             {% for gw in gameweeks %}
                 <option value="{{ gw }}" {% if gw == current_gw %}selected{% endif %}>Gameweek {{ gw }}</option>
             {% endfor %}
         </select>
+        <button class="gw-nav-btn" id="gw-next" title="Next gameweek"
+            {% if current_gw >= gameweeks[-1] %}disabled{% endif %}
+            onclick="changeGameweek({{ current_gw + 1 }})">Next &#8594;</button>
     </div>
 
-    {# ── Expand/collapse toggle + info button ── #}
+    {# ── Expand/collapse toggle ── #}
     <div class="view-toggle">
         <label class="switch">
             <input type="checkbox" id="toggleView" onchange="toggleAllHeatmaps(this.checked)">
             <span class="slider round"></span>
         </label>
         <span id="toggleLabel">Expanded View</span>
-        <button class="info-button" onclick="toggleModal('infoModal')" title="How to read the heatmaps" style="margin-left:0.75rem;">
+    </div>
+
+    {# ── Info button (below expanded view) ── #}
+    <div class="view-toggle" style="margin-top:-0.25rem;">
+        <button class="info-button" onclick="toggleModal('infoModal')" title="How to read the heatmaps">
             <i class="fas fa-info-circle"></i>
         </button>
     </div>
@@ -120,10 +130,55 @@
 
                         {# ── Heatmap image (upcoming) or shotmap (result) ── #}
                         <div class="fixture-visual-wrap">
-                            <img class="fixture-main-img"
+                            <img class="fixture-main-img fixture-main-img--{{ fixture.asset_type }}"
                                  src="{{ url_for('static', filename=fixture.asset_path) }}"
                                  alt="{{ fixture.home_team }} vs {{ fixture.away_team }} {{ fixture.asset_type }}">
                         </div>
+
+                        {# ── Result stats table (resulted fixtures only) ── #}
+                        {% if fixture.isResult %}
+                        {% set rs = result_stats.get(fixture.home_team ~ "|" ~ fixture.away_team, {}) %}
+                        {% if rs %}
+                        <div class="result-stats-wrap">
+                            <table class="result-stats-table">
+                                <colgroup>
+                                    <col class="col-home">
+                                    <col class="col-label">
+                                    <col class="col-away">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>{{ fixture.home_team }}</th>
+                                        <th></th>
+                                        <th>{{ fixture.away_team }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ rs.home_goals }}</td>
+                                        <td class="stat-label">Goals</td>
+                                        <td>{{ rs.away_goals }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_xg }}</td>
+                                        <td class="stat-label">xG</td>
+                                        <td>{{ rs.away_xg }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_shots }}</td>
+                                        <td class="stat-label">Shots</td>
+                                        <td>{{ rs.away_shots }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_sot }}</td>
+                                        <td class="stat-label">SOT</td>
+                                        <td>{{ rs.away_sot }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                        {% endif %}
 
                         {# ── Stat bar charts - upcoming fixtures only ── #}
                         {% if not fixture.isResult and stats %}
@@ -334,7 +389,14 @@
 
 {% block extra_scripts %}
 <script>
+    gtag('event', 'fixtures_view', { event_category: 'Engagement', event_label: 'GW{{ current_gw }}' });
+
     /* ── Gameweek navigation ── */
+```
+UTM template for Reddit posts
+
+Use this URL pattern whenever you post: https://www.fivestat.co.uk?utm_source=reddit&utm_medium=social&utm_campaign=fpl_gw{{ gw_number }}
+```
     function changeGameweek(gw) {
         window.location.href = `/epl_fixtures/${gw}`;
     }

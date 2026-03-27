@@ -166,6 +166,8 @@
 
 {% block extra_scripts %}
 <script>
+    gtag('event', 'ev_checker_view', { event_category: 'Engagement' });
+
     function toggleModal(id) {
         const modal   = document.getElementById(id);
         const overlay = document.getElementById(id + 'Overlay');

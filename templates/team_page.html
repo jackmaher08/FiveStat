@@ -236,6 +236,8 @@
 
 {% block extra_scripts %}
 <script>
+    gtag('event', 'team_page_view', { event_category: 'Engagement', event_label: '{{ team.name }}' });
+
     const team = "{{ team.name }}";
     window.pastFixtures  = {{ past_fixtures_by_gw | tojson }};
     window.nextOpponents = {{ next_opponents_by_gw | tojson }};

@@ -194,6 +194,8 @@
 
 {% block extra_scripts %}
 <script>
+gtag('event', 'fpl_view', { event_category: 'Engagement' });
+
 const capData = {{ captain_picks | tojson }};
 
 const capNotes = {

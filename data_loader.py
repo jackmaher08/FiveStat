@@ -932,7 +932,8 @@ def generate_shot_map(understat_match_id, save_image=True):
 
         # Initialize pitch
         pitch = Pitch(pitch_type='statsbomb', pitch_color='#f5f5f0', line_color='black', line_zorder=2)
-        fig, axs = plt.subplots(2, 1, figsize=(10, 10), gridspec_kw={'height_ratios': [3, 1]})
+        fig, axs = plt.subplots(1, 1, figsize=(10, 7))
+        axs = [axs]  # wrap so existing axs[0] references still work
 
 
         # Set background color
@@ -1013,45 +1014,6 @@ def generate_shot_map(understat_match_id, save_image=True):
         axs[0].text(90, 60, f"{total_xg_away:.2f}", ha='center', va='center', fontsize=45, fontweight='bold', color='black', alpha=0.6)
         axs[0].text(6,78,   f"FiveStat", ha='center', va='center', fontsize=8, fontweight='bold', color='black', alpha=0.4)
 
-
-        # Generate Table
-        ax_table = axs[1]
-        column_labels = [f"{standardized_home_team}", "", f"{standardized_away_team}"]
-        table_vals = [
-            [total_goals_home, 'Goals', total_goals_away],
-            [home_stats['xG'], 'xG', away_stats['xG']],  
-            [home_stats['Shots'], 'Shots', away_stats['Shots']],  
-            [home_stats['SOT'], 'SOT', away_stats['SOT']]  
-        ]
-        table = ax_table.table(
-            cellText=table_vals,
-            cellLoc='center',
-            colLabels=column_labels,
-            bbox=[0, 0, 1, 1]
-        )
-
-        for i in range(len(table_vals) + 1):  # +1 to include header row
-            for j in range(len(column_labels)):
-                cell = table[(i, j)]
-                cell.set_facecolor("#f5f5f0")  # Background color
-
-        column_widths = [0.4, 0.2, 0.4]
-
-        for j, width in enumerate(column_widths):
-            for i in range(len(table_vals) + 1):  # +1 includes header row
-                cell = table[i, j]
-                cell.set_width(width)
-
-        for (i, j), cell in table.get_celld().items():
-            if j == 0:
-                table.get_celld()[(i, j)].visible_edges = 'R'
-            elif j == 2:
-                table.get_celld()[(i, j)].visible_edges = 'L'
-            else:
-                table.get_celld()[(i, j)].visible_edges = 'LR'
-
-        ax_table.axis('off')  # Hide axes for the table
-        table.set_fontsize(16)
 
         # Save figure
         plt.tight_layout()

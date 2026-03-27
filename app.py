@@ -336,6 +336,30 @@ def epl_fixtures(gw):
     league_table_path = "data/tables/league_table_data.csv"
     league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
 
+    # Build result stats (Shots, SOT) for resulted fixtures from shots_data
+    result_stats = {}
+    shots_path = "data/tables/shots_data.csv"
+    if os.path.exists(shots_path):
+        shots_df = pd.read_csv(shots_path)
+        goal_kw = ['Goal', 'OwnGoal']
+        sot_kw  = ['Goal', 'SavedShot']
+        for _, fix in gw_fixtures[gw_fixtures["isResult"]].iterrows():
+            mid = str(fix["id"])
+            match_shots = shots_df[shots_df["match_id"].astype(str) == mid]
+            home_s = match_shots[match_shots["h_a"] == "h"]
+            away_s = match_shots[match_shots["h_a"] == "a"]
+            key = f"{fix['home_team']}|{fix['away_team']}"
+            result_stats[key] = {
+                "home_goals": int(fix["home_goals"]),
+                "away_goals": int(fix["away_goals"]),
+                "home_xg":   round(pd.to_numeric(home_s["xG"], errors="coerce").sum(), 2),
+                "away_xg":   round(pd.to_numeric(away_s["xG"], errors="coerce").sum(), 2),
+                "home_shots": len(home_s),
+                "away_shots": len(away_s),
+                "home_sot":  int(home_s["result"].isin(sot_kw).sum()),
+                "away_sot":  int(away_s["result"].isin(sot_kw).sum()),
+            }
+
     # Load fixture probabilities and build a lookup dict keyed by "home_team|away_team"
     fixture_stats = {}
     probs_path = "data/tables/fixture_probabilities.csv"
@@ -386,7 +410,8 @@ def epl_fixtures(gw):
         simulated_table=simulated_table,
         sim_position_dist=sim_position_dist,
         num_positions=num_positions,
-        fixture_stats=fixture_stats
+        fixture_stats=fixture_stats,
+        result_stats=result_stats
     )
 
 
