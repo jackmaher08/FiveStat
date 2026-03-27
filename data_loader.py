@@ -131,54 +131,111 @@ def get_player_data():
 
 
 def calculate_team_statistics(historical_fixture_data, save_csv_path="data/tables/team_stats.csv"):
-    team_names = historical_fixture_data['Home Team'].unique()
-    team_data = {}
+    """
+    Fit opponent-adjusted attack and defence ratings via Maximum Likelihood
+    Estimation. Each team's ATT and DEF are solved simultaneously so ratings
+    are automatically adjusted for schedule difficulty.
+
+    Model: E[goals] = ATT_team x DEF_opponent x home_advantage (if home)
+
+    Falls back to simple averaging if optimisation fails.
+    """
+    from scipy.optimize import minimize
+
+    historical_fixture_data = historical_fixture_data.dropna(subset=['Home Team', 'Away Team']).copy()
+    all_teams = sorted(set(historical_fixture_data['Home Team'].unique()) |
+                       set(historical_fixture_data['Away Team'].unique()))
+    n = len(all_teams)
+    team_idx = {t: i for i, t in enumerate(all_teams)}
+
+    # Collect recent rows: last 20 home + 20 away per team
+    recent_rows = set()
+    for team in all_teams:
+        home_ix = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20).index
+        away_ix = historical_fixture_data[historical_fixture_data['Away Team'] == team].tail(20).index
+        recent_rows.update(home_ix)
+        recent_rows.update(away_ix)
+
+    df_mle = historical_fixture_data.loc[sorted(recent_rows)].copy()
+    df_mle = df_mle.dropna(subset=['home_goals', 'away_goals'])
+
+    hg = df_mle['home_goals'].values.astype(float)
+    ag = df_mle['away_goals'].values.astype(float)
+    hi = df_mle['Home Team'].map(team_idx).values
+    ai = df_mle['Away Team'].map(team_idx).values
+
+    def neg_log_likelihood(params):
+        att  = np.exp(params[:n])
+        def_ = np.exp(params[n:2*n])
+        hfa  = np.exp(params[2*n])
+        mu_h = att[hi] * def_[ai] * hfa
+        mu_a = att[ai] * def_[hi]
+        ll = (hg * np.log(np.maximum(mu_h, 1e-6)) - mu_h +
+              ag * np.log(np.maximum(mu_a, 1e-6)) - mu_a)
+        return -ll.sum()
+
+    x0 = np.zeros(2 * n + 1)
+    x0[2 * n] = np.log(1.1)
+
+    try:
+        result = minimize(neg_log_likelihood, x0, method='L-BFGS-B',
+                          options={'maxiter': 500, 'ftol': 1e-9})
+        att_params = np.exp(result.x[:n])
+        def_params = np.exp(result.x[n:2*n])
+        # Scale to actual league average goals so ATT x DEF = expected goals
+        # rather than a dimensionless ratio
+        league_avg_goals = float(df_mle['home_goals'].mean() + df_mle['away_goals'].mean()) / 2
+        att_mean   = att_params.mean()
+        att_params = att_params / att_mean * league_avg_goals
+        def_params = def_params / att_mean
+        mle_ok = True
+    except Exception as e:
+        print(f"⚠️  MLE failed ({e}), falling back to simple averages")
+        mle_ok = False
+
+    team_data         = {}
     team_home_advantage = {}
+    rows              = []
 
-    rows = []  # collect all stats for CSV
-
-    for team in team_names:
+    for team in all_teams:
+        i = team_idx[team]
         home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20)
         away_games = historical_fixture_data[historical_fixture_data['Away Team'] == team].tail(20)
 
-        avg_home_goals_for = home_games['home_goals'].mean()
-        avg_away_goals_for = away_games['away_goals'].mean()
-        avg_home_goals_against = home_games['away_goals'].mean()
-        avg_away_goals_against = away_games['home_goals'].mean()
+        avg_hgf = home_games['home_goals'].mean()
+        avg_agf = away_games['away_goals'].mean()
+        avg_hga = home_games['away_goals'].mean()
+        avg_aga = away_games['home_goals'].mean()
 
-        att_rating = (avg_home_goals_for + avg_away_goals_for) / 2
-        def_rating = (avg_home_goals_against + avg_away_goals_against) / 2
+        att_rating = float(att_params[i]) if mle_ok else (avg_hgf + avg_agf) / 2
+        def_rating = float(def_params[i]) if mle_ok else (avg_hga + avg_aga) / 2
 
-        # Team-specific home advantage (attack boost at home vs away)
-        raw_hfa = avg_home_goals_for - avg_away_goals_for
-        capped_hfa = np.clip(raw_hfa, -0.3, 0.3)
+        raw_hfa    = avg_hgf - avg_agf
+        capped_hfa = float(np.clip(raw_hfa, -0.3, 0.3))
         team_home_advantage[team] = capped_hfa
 
         team_data[team] = {
-            'Home Goals For': avg_home_goals_for,
-            'Away Goals For': avg_away_goals_for,
-            'Home Goals Against': avg_home_goals_against,
-            'Away Goals Against': avg_away_goals_against,
-            'ATT Rating': att_rating,
-            'DEF Rating': def_rating
+            'Home Goals For':     avg_hgf,
+            'Away Goals For':     avg_agf,
+            'Home Goals Against': avg_hga,
+            'Away Goals Against': avg_aga,
+            'ATT Rating':         att_rating,
+            'DEF Rating':         def_rating,
         }
-
         rows.append({
-            'Team': team,
-            'Home Goals For': avg_home_goals_for,
-            'Away Goals For': avg_away_goals_for,
-            'Home Goals Against': avg_home_goals_against,
-            'Away Goals Against': avg_away_goals_against,
-            'ATT Rating': att_rating,
-            'DEF Rating': def_rating,
-            'Team Home Advantage': capped_hfa
+            'Team':               team,
+            'Home Goals For':     avg_hgf,
+            'Away Goals For':     avg_agf,
+            'Home Goals Against': avg_hga,
+            'Away Goals Against': avg_aga,
+            'ATT Rating':         att_rating,
+            'DEF Rating':         def_rating,
+            'Team Home Advantage': capped_hfa,
         })
 
-    # ✅ Save to CSV
-    # ✅ Save to CSV (skip during backtest when save_csv_path is None)
-    df = pd.DataFrame(rows)
+    df_out = pd.DataFrame(rows)
     if save_csv_path is not None:
-        df.to_csv(save_csv_path, index=False)
+        df_out.to_csv(save_csv_path, index=False)
         print(f"✅ Saved team stats to: {save_csv_path}")
 
     return team_data, team_home_advantage
@@ -190,7 +247,9 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
     recent_form_att = {}
     recent_form_def = {}
 
-    for team in historical_fixture_data['Home Team'].unique():
+    for team in historical_fixture_data['Home Team'].dropna().unique():
+        if team not in team_data:
+            continue
         recent_matches_df = historical_fixture_data[(historical_fixture_data['Home Team'] == team) | (historical_fixture_data['Away Team'] == team)].tail(recent_matches)
         
         home_matches = recent_matches_df[recent_matches_df['Home Team'] == team]
@@ -433,27 +492,22 @@ def get_team_xg(
         float: Blended xG value.
 
 
-    Tweaking beta
-    beta = 0.0: only Poisson logic (status quo)
-    beta = 1.0: only attack × defense model
+    xG = ATT_rating x DEF_rating, where MLE-fitted parameters normalised
+    to league mean=1.0 give expected goals directly in the correct scale.
     """
     # 1. Get blended ratings
     att_rating = (1 - alpha) * team_stats[team]['ATT Rating'] + alpha * recent_form_att[team]
     def_rating = (1 - alpha) * team_stats[opponent]['DEF Rating'] + alpha * recent_form_def[opponent]
 
-    # 2. Poisson-based xG to preserve ATT rating
-    poisson_matched_xg = find_xg_to_match_att_rating(att_rating, def_rating, is_home=is_home)
+    # 2. Expected goals — ATT x DEF (Dixon-Coles multiplicative model)
+    # MLE-fitted parameters are normalised to league mean=1.0 so the product
+    # directly gives expected goals in the correct scale without binary search
+    true_xg = att_rating * def_rating
 
-    # 3. Simple multiplicative xG model
-    multiplicative_xg = att_rating * def_rating
-
-    # 4. Blend both
-    true_xg = (1 - beta) * poisson_matched_xg + beta * multiplicative_xg
-
-    # 5. Home field bonus (Multiplicative instead of additive)
+    # 3. Home field bonus
     if is_home and team_home_advantage:
         hfa_bonus = team_home_advantage.get(team, 0.0)
-        if hfa_bonus > 0:
+        if hfa_bonus != 0:
             att_base = team_stats[team]["ATT Rating"]
             multiplier = 1 + (hfa_bonus / att_base)
             true_xg *= np.clip(multiplier, 0.85, 1.15)
@@ -762,14 +816,14 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.60, beta=0.30,
+            alpha=0.30, beta=0.30,
             team_home_advantage=team_home_advantage
         )
 
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.60, beta=0.30,
+            alpha=0.30, beta=0.30,
             team_home_advantage=team_home_advantage
         )
 
@@ -1122,7 +1176,7 @@ if __name__ == "__main__":
 
     print("🔄 Calculating recent form...")
     recent_form_att, recent_form_def = calculate_recent_form(
-        historical_fixtures_df, team_data, recent_matches=20, alpha=0.60
+        historical_fixtures_df, team_data, recent_matches=20, alpha=0.30
     )
 
     collect_all_shot_data()

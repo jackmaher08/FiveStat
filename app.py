@@ -424,6 +424,7 @@ def epl_table():
     
     # ✅ Load current league table
     league_table = pd.read_csv("data/tables/league_table_data.csv").to_dict(orient="records")
+    xg_table = sorted(league_table, key=lambda x: float(x.get("xPTS", 0)), reverse=True)
 
     # ✅ Load simulated league table
     simulated_table = pd.read_csv("data/tables/simulated_league_positions.csv")
@@ -440,7 +441,7 @@ def epl_table():
     # ✅ Get number of positions (1-20)
     num_positions = len(simulated_table[0]) - 2  # Exclude "Team" and "Final xPTS"
 
-    return render_template("epl_table.html", league_table=league_table, simulated_table=simulated_table, num_positions=num_positions, last_updated=get_last_updated_time())
+    return render_template("epl_table.html", league_table=league_table, xg_table=xg_table, simulated_table=simulated_table, num_positions=num_positions, last_updated=get_last_updated_time())
 
 
 
@@ -495,98 +496,8 @@ def get_fixtures_for_week(week_offset=0):
 
 
 
-@app.route('/epl_results')
-def results_redirect():
-    _, current_week, *_ = get_fixtures_for_week(0)
-    if current_week == 0:
-        return redirect(url_for("epl_results", gw=0))
-    return redirect(url_for("epl_results", gw=current_week))
 
 
-
-@app.route('/epl_results/<int:gw>')
-def epl_results(gw):
-    """ Renders the results page for a specific gameweek """
-    try:
-        # ✅ Get all valid completed gameweeks
-        weekly_fixtures, _, first_gw, last_gw = get_fixtures_for_week(0)
-        all_gws = list(range(first_gw, last_gw + 1)) if last_gw > 0 else []
-
-
-        # ✅ Force the selected week to stay within valid bounds
-        gw = max(first_gw, min(last_gw, gw))
-
-        # ✅ Get fixtures for selected week
-        weekly_fixtures, _, _, _ = get_fixtures_for_week(gw - last_gw)  # This reuses offset logic
-
-        # ✅ Filter for fixtures with existing shotmaps
-        shotmap_dir = os.path.join("static", "shotmaps")
-        filtered_fixtures = []
-        for fixture in weekly_fixtures:
-            shotmap_filename = f"{fixture['home_team']}_{fixture['away_team']}_shotmap.png"
-            shotmap_path = os.path.join(shotmap_dir, shotmap_filename)
-            if os.path.exists(shotmap_path):
-                filtered_fixtures.append(fixture)
-
-        # ✅ Load all fixture results to calculate form
-        all_results_df = pd.read_csv("data/tables/fixture_data.csv")
-        all_results_df["isResult"] = all_results_df["isResult"].astype(str).str.lower() == "true"
-        all_results_df["date"] = pd.to_datetime(all_results_df["date"], dayfirst=True)
-
-        # ✅ Add form data to each fixture in this GW
-        #for fixture in filtered_fixtures:
-        #   fixture["home_form"] = get_team_form(all_results_df, fixture["home_team"])
-        #  fixture["away_form"] = get_team_form(all_results_df, fixture["away_team"])
-
-        # ✅ Group fixtures by date (INSERT HERE)
-        fixture_groups = defaultdict(list)
-        for fixture in filtered_fixtures:
-            date_str = fixture['date'][:10] if fixture['date'] else 'Unknown'
-            fixture_groups[date_str].append(fixture)
-
-        # ✅ Load League Table
-        league_table_path = "data/tables/league_table_data.csv"
-        league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
-
-        with open("data/team_metadata.json", "r") as f:
-            team_metadata = json.load(f)
-
-        all_teams = list(team_metadata.keys())
-        team_display_names = {t: TEAM_NAME_MAPPING.get(t, t) for t in all_teams}
-
-        return render_template(
-            "epl_results.html",
-            fixture_groups=dict(fixture_groups),
-            current_gw=gw,
-            gameweeks=all_gws,
-            league_table=league_table,
-            last_updated=get_last_updated_time(),
-            all_teams=all_teams,
-            team_display_names=team_display_names
-        )
-
-
-
-    except Exception as e:
-        print(f"❌ Error loading data: {e}")
-        import traceback
-        traceback.print_exc()
-
-        return render_template(
-            "epl_results.html",
-            fixture_groups={},  # <-- key fix
-            current_gw=0,
-            gameweeks=[],
-            league_table=[],
-            last_updated=get_last_updated_time(),
-            all_teams=[],
-            team_display_names={}
-        )
-
-
-
-
-    
 
 @app.route('/generate_radar')
 def generate_radar():

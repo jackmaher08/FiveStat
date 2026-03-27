@@ -2137,6 +2137,14 @@ input:checked + .slider:before {
   margin: 0;
 }
 
+.ev-disclaimer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 0.5rem auto 1rem;
+  opacity: 0.75;
+}
+
 .ev-legend {
   display: flex;
   gap: 0.5rem;
@@ -2335,6 +2343,26 @@ input:checked + .slider:before {
   line-height: 1.6;
 }
 
+/* ── Accuracy section header ── */
+.meth-accuracy-header {
+  margin-bottom: 1rem;
+}
+
+.meth-accuracy-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.3rem;
+}
+
+.meth-accuracy-subtitle {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* ── Accuracy strip ── */
 .meth-accuracy-strip {
   display: grid;
@@ -2476,6 +2504,17 @@ input:checked + .slider:before {
 }
 
 /* ── Formula blocks ── */
+.meth-note {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--surface-alt);
+  border-left: 3px solid var(--border);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 0.5rem 0.75rem;
+  margin: 0.75rem 0 0;
+  line-height: 1.55;
+}
+
 .meth-formula {
   font-family: var(--font-body);
   font-size: 0.82rem;

@@ -260,6 +260,24 @@ function toggleCapRow(idx) {
 }
 </script>
 <script>
+// ── Watermark plugin - draws 'FiveStat' on every chart after render ──
+Chart.register({
+    id: 'fivestatWatermark',
+    afterDraw(chart) {
+        const ctx = chart.ctx;
+        const { width, height } = chart.chartArea || chart;
+        const x = chart.chartArea ? chart.chartArea.right - 6 : width - 6;
+        const y = chart.chartArea ? chart.chartArea.bottom - 6 : height - 6;
+        ctx.save();
+        ctx.font = 'bold 10px Barlow, sans-serif';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('FiveStat', x, y);
+        ctx.restore();
+    }
+});
+
 const csRaw = {{ cs_data | tojson }};
 
 const windows = {

@@ -2,14 +2,10 @@
 
 {% block title %}FiveStat - Premier League Tables{% endblock %}
 {% block meta_description %}Premier League table, xTable and simulated final league positions.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/epl_table{% endblock %}
+{% block og_title %}FiveStat - Premier League Table & Projected Standings{% endblock %}
 
-{% block extra_head %}
-<style>
-    .sorted-column { font-weight: bold; }
-    .positive { color: #d9534f; }
-    .negative { color: #5cb85c; }
-</style>
-{% endblock %}
+{% block extra_head %}{% endblock %}
 
 {% block content %}
 <div class="lp-hero" style="margin-bottom:2rem;">
@@ -61,6 +57,24 @@
 
 <br><br>
 <h2>xTable</h2>
+<div class="centered-button">
+    <button class="info-button" onclick="toggleModal('xTableModal')" title="More info">
+        <i class="fas fa-info-circle"></i>
+    </button>
+</div>
+
+<div class="modal-overlay" id="xTableModalOverlay" onclick="toggleModal('xTableModal')"></div>
+<div class="modal" id="xTableModal">
+    <p><strong>What is the xTable?</strong><br>
+    The xTable ranks teams by their <strong>Expected Points (xPTS)</strong> rather than actual points. Think of it as a "deserved" league table - stripping out the luck and showing which teams have genuinely been the best and worst performers based on the quality of chances created and conceded.</p>
+    <p><strong>How is xPTS calculated?</strong><br>
+    For every match played, we take the model's home win, draw and away win probabilities - based on both teams' xG - and calculate the expected points each team should have earned from that fixture. For example, if a team had a 60% chance of winning, a 25% chance of drawing and a 15% chance of losing, their xPTS for that game would be (0.60 × 3) + (0.25 × 1) + (0.15 × 0) = 2.05. Summed across the season, this gives each team's total xPTS.</p>
+    <p><strong>xG +/- and xGA +/-</strong><br>
+    These columns show the difference between actual goals and expected goals. A positive xG +/- means a team has scored more than their chances suggested - useful for spotting teams riding their luck in front of goal. A negative xGA +/- means a team has conceded fewer goals than expected - often a sign of a strong goalkeeper or some fortunate defending.</p>
+    <p><strong>npxG</strong><br>
+    Non-penalty xG. Penalties are relatively easy to score and can inflate a team's xG, so npxG strips those out to give a cleaner picture of a team's open-play attacking quality.</p>
+</div>
+
 <div class="table-container">
     <table id="xTable">
         <thead>
@@ -81,7 +95,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for team in league_table %}
+            {% for team in xg_table %}
             <tr>
                 <td class="position-cell">
                     <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">{{ loop.index }}</span>
@@ -114,7 +128,14 @@
 
 <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
 <div class="modal" id="infoModal">
-    <p>We've simulated the remaining fixtures using our <a href="/methodology">Match Prediction Model</a> to visualize how the final Premier League Table will look.</p>
+    <p><strong>What is this table?</strong><br>
+    The Simulated League Positions table shows the probability of each team finishing in every position from 1st to 20th. Each cell is the percentage of simulations in which that team ended the season in that position - so a team showing 45% in the "1st" column won the league in nearly half of all simulations.</p>
+    <p><strong>How does the simulation work?</strong><br>
+    Every remaining fixture is run through our <a href="/methodology">Match Prediction Model</a>, which produces a home win, draw and away win probability for each game. We then randomly sample an outcome for each fixture based on those probabilities, award points, and produce a final league table. We repeat this process 10,000 times. The spread of results across those 10,000 runs gives each team's finishing position probabilities.</p>
+    <p><strong>What does Final xPTS mean?</strong><br>
+    Final xPTS is each team's current points plus their average simulated points across the remaining fixtures. It represents the most likely points total a team will finish the season on, based on the strength of their remaining schedule and the model's assessment of each fixture.</p>
+    <p><strong>How should I read it?</strong><br>
+    Darker cells = higher probability. A team with a high concentration of dark cells in positions 1-4 is likely to finish in the Champions League spots. Spread-out probabilities across many positions indicate a team whose final standing is genuinely uncertain - tightly contested mid-table battles will look like this.</p>
 </div>
 
 <div class="table-container">
@@ -139,7 +160,7 @@
                 {% for position in range(1, num_positions + 1) %}
                     {% set probability = team[position|string] * 100 %}
                     {% set opacity = probability / 30 %}
-                    <td class="small-text" style="background-color: rgba(76, 0, 153, {{ opacity }}); color: white;">
+                    <td class="small-text" style="background-color: rgba(10, 37, 64, {{ opacity }}); color: white;">
                         {{ probability | round(1) }}%
                     </td>
                 {% endfor %}

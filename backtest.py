@@ -46,11 +46,11 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2025-08-01"   # Start of 2024/25 season
-TEST_SEASON_END   = "2026-06-01"   # End of 2024/25 season
+TEST_SEASON_START = "2024-08-01"   # Start of 2024/25 season
+TEST_SEASON_END   = "2025-06-01"   # End of 2024/25 season (all completed fixtures)
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
-ALPHA             = 0.60           # Form blending weight — matches production
+ALPHA             = 0.30           # Form blending weight — matches production
 BETA              = 0.30           # xG model blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = -0.05          # Dixon-Coles correction strength
