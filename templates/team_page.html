@@ -191,7 +191,7 @@
                             {% for p in range(1, num_sim_positions + 1) %}
                                 {% set prob  = t[p|string] * 100 %}
                                 {% set shade = prob / 50 %}
-                                <td class="small-text" style="background-color: rgba(76,0,153,{{ shade }}); color:white;">
+                                <td class="small-text" style="background-color: rgba(10,37,64,{{ shade }}); color:white;">
                                     {{ prob | round(1) }}%
                                 </td>
                             {% endfor %}
@@ -278,8 +278,8 @@
                 datasets: [{
                     label: 'Probability (%)',
                     data,
-                    backgroundColor: 'rgba(63,0,125,0.7)',
-                    borderColor: '#3f007d',
+                    backgroundColor: 'rgba(10,37,64,0.7)',
+                    borderColor: '#0a2540',
                     borderWidth: 1.5
                 }]
             },

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124 36" role="img" aria-label="FiveStat">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&amp;display=swap');</style>
+  </defs>
+  <line x1="18" y1="18" x2="18" y2="3"      stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+  <line x1="18" y1="18" x2="32.3" y2="13.4" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+  <line x1="18" y1="18" x2="26.8" y2="30.1" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+  <line x1="18" y1="18" x2="9.2"  y2="30.1" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+  <line x1="18" y1="18" x2="3.7"  y2="13.4" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+  <polygon points="18,3 32.3,13.4 26.8,30.1 9.2,30.1 3.7,13.4"
+    fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
+  <polygon points="18,4.8 27.3,15 25.5,28.3 13.6,24.05 7.7,14.7"
+    fill="#1D9E75" fill-opacity="0.28" stroke="#1D9E75" stroke-width="1"/>
+  <circle cx="18"   cy="4.8"   r="1.8" fill="#1D9E75"/>
+  <circle cx="27.3" cy="15"    r="1.8" fill="#1D9E75"/>
+  <circle cx="25.5" cy="28.3"  r="1.8" fill="#1D9E75"/>
+  <circle cx="13.6" cy="24.05" r="1.8" fill="#1D9E75"/>
+  <circle cx="7.7"  cy="14.7"  r="1.8" fill="#1D9E75"/>
+  <text x="44" y="25" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="20">
+    <tspan fill="#f0f0ec">FIVE</tspan><tspan fill="#1D9E75" dx="6">STAT</tspan>
+  </text>
+</svg>

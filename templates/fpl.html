@@ -189,6 +189,9 @@
     {% endif %}
 
 </div>
+
+<button id="backToTop" title="Back to Top">↑</button>
+
 {% endblock %}
 
 
@@ -547,5 +550,13 @@ function setXgaWindow(key, btn) {
     document.querySelectorAll('.fpl-btn-xga').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 }
+
+window.addEventListener('scroll', function() {
+    document.getElementById('backToTop').style.display =
+        document.documentElement.scrollTop > 400 ? 'block' : 'none';
+});
+document.getElementById('backToTop').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
 </script>
 {% endblock %}

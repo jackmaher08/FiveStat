@@ -364,7 +364,7 @@
         </div>
     </div>
 
-    {# ── Section 5: Data sources ── #}
+    <!--{# ── Section 5: Data sources ── #}
     <div class="meth-section">
         <div class="meth-section-header">
             <div class="meth-section-icon"><i class="fa-solid fa-database"></i></div>
@@ -384,7 +384,23 @@
                 <div class="meth-source-desc">Bookie-implied probabilities (margin-adjusted) for match result and o/u. Used in the bet value finder to calculate model edge.</div>
             </div>
         </div>
-    </div>
+    </div>-->
 
 </div>
+
+<button id="backToTop" title="Back to Top">↑</button>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    window.addEventListener('scroll', function() {
+        document.getElementById('backToTop').style.display =
+            document.documentElement.scrollTop > 400 ? 'block' : 'none';
+    });
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
 {% endblock %}

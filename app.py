@@ -686,7 +686,7 @@ def team_page(team_name):
         next_fixture_image = "placeholder.png"
 
     # === Create GW dropdown options ===
-    # === Previous gameweek mapping {gw: [home_team, away_team]} ===
+    # === Previous gameweek mapping {gw: {home, away, stats...}} ===
     past_fixtures_by_gw = {}
     for _, row in past_games.iterrows():
         gw = int(row["round_number"])
@@ -694,6 +694,53 @@ def team_page(team_name):
             "home": row["home_team"],
             "away": row["away_team"]
         }
+
+    # Enrich past fixtures with match stats from shots_data
+    shots_path = "data/tables/shots_data.csv"
+    if os.path.exists(shots_path):
+        shots_df = pd.read_csv(shots_path)
+        sot_kw = ["Goal", "SavedShot"]
+        for _, row in past_games.iterrows():
+            gw  = int(row["round_number"])
+            mid = str(row["id"])
+            match_shots = shots_df[shots_df["match_id"].astype(str) == mid]
+            home_s = match_shots[match_shots["h_a"] == "h"]
+            away_s = match_shots[match_shots["h_a"] == "a"]
+            if gw in past_fixtures_by_gw:
+                past_fixtures_by_gw[gw].update({
+                    "home_goals":  int(row["home_goals"]),
+                    "away_goals":  int(row["away_goals"]),
+                    "home_xg":     round(pd.to_numeric(home_s["xG"], errors="coerce").sum(), 2),
+                    "away_xg":     round(pd.to_numeric(away_s["xG"], errors="coerce").sum(), 2),
+                    "home_shots":  len(home_s),
+                    "away_shots":  len(away_s),
+                    "home_sot":    int(home_s["result"].isin(sot_kw).sum()),
+                    "away_sot":    int(away_s["result"].isin(sot_kw).sum()),
+                })
+
+    # Build next fixture stats for upcoming fixtures keyed by GW
+    next_fixture_stats_by_gw = {}
+    probs_path = "data/tables/fixture_probabilities.csv"
+    if os.path.exists(probs_path):
+        probs_df = pd.read_csv(probs_path)
+        for _, row in upcoming_games.iterrows():
+            gw       = int(row["round_number"])
+            prob_row = probs_df[
+                (probs_df["home_team"] == row["home_team"]) &
+                (probs_df["away_team"] == row["away_team"])
+            ]
+            if not prob_row.empty:
+                p = prob_row.iloc[0]
+                next_fixture_stats_by_gw[gw] = {
+                    "home_team": row["home_team"],
+                    "away_team": row["away_team"],
+                    "home_win":  round(float(p["home_win_prob"]) * 100, 1),
+                    "draw":      round(float(p["draw_prob"])     * 100, 1),
+                    "away_win":  round(float(p["away_win_prob"]) * 100, 1),
+                    "over_2_5":  round(float(p.get("over_2_5_prob", 0) or 0) * 100, 1),
+                    "home_cs":   round(float(p.get("home_cs_prob",   0) or 0) * 100, 1),
+                    "away_cs":   round(float(p.get("away_cs_prob",   0) or 0) * 100, 1),
+                }
 
     upcoming_gameweeks = sorted(upcoming_games["round_number"].dropna().astype(int).unique())
 
@@ -786,7 +833,8 @@ def team_page(team_name):
         sim_start=sim_start,
         simulated_table=simulated_partial,
         num_sim_positions=num_sim_positions,
-        sim_position_dist=sim_position_dist
+        sim_position_dist=sim_position_dist,
+        next_fixture_stats_by_gw=next_fixture_stats_by_gw
     )
 
 
@@ -1256,6 +1304,10 @@ def ev_checker():
 
 
 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

@@ -161,6 +161,8 @@
         </div>
     </div>
 
+<button id="backToTop" title="Back to Top">↑</button>
+
 {% endblock %}
 
 
@@ -175,5 +177,13 @@
         modal.style.display   = visible ? 'none' : 'block';
         overlay.style.display = visible ? 'none' : 'block';
     }
+
+    window.addEventListener('scroll', function() {
+        document.getElementById('backToTop').style.display =
+            document.documentElement.scrollTop > 400 ? 'block' : 'none';
+    });
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 </script>
 {% endblock %}
