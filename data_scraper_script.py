@@ -2,15 +2,7 @@ import os
 import re
 import json
 import requests
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-from scipy.stats import poisson
-import matplotlib.colors as mcolors
-from bs4 import BeautifulSoup
-from mplsoccer import Pitch
-from mplsoccer import Radar
-from matplotlib.colors import LinearSegmentedColormap
 from understatapi import UnderstatClient
 from io import StringIO
 
@@ -168,74 +160,6 @@ if not BOOKIE_ONLY:
 
     print(f"✅ fixture data saved to: {file_path}")
 
-
-
-    '''
-    #TEMPORARILY USING THE FOLLOWING
-    import pandas as pd
-    import os
-
-    # 1️⃣ Download 2025 fixture list from fixturedownload
-    fixturedownload_url = "https://fixturedownload.com/download/epl-2025-GMTStandardTime.csv"
-    fixtures_df = pd.read_csv(fixturedownload_url)
-
-    # 2️⃣ Standardize column names
-    fixtures_df = fixtures_df.rename(columns={
-        "Round Number": "round_number",
-        "Home Team": "home_team",
-        "Away Team": "away_team",
-        "Date": "date",
-        "Result": "result"
-    })
-
-    # 3️⃣ Normalize team names
-    team_name_mapping = {
-        "Man City": "Manchester City",
-        "Newcastle": "Newcastle United",
-        "Spurs": "Tottenham Hotspur",
-        "Tottenham": "Tottenham Hotspur",
-        "Man Utd": "Manchester United",
-        "Wolves": "Wolverhampton Wanderers",
-        "Nott'm Forest": "Nottingham Forest"
-    }
-    fixtures_df["home_team"] = fixtures_df["home_team"].replace(team_name_mapping)
-    fixtures_df["away_team"] = fixtures_df["away_team"].replace(team_name_mapping)
-
-    # 4️⃣ Ensure numeric round column
-    fixtures_df["round_number"] = pd.to_numeric(fixtures_df["round_number"], errors="coerce")
-
-    # 5️⃣ Add empty columns that Understat normally fills
-    fixtures_df["id"] = None
-    fixtures_df["isResult"] = False
-    fixtures_df["home_goals"] = None
-    fixtures_df["away_goals"] = None
-    fixtures_df["home_xG"] = None
-    fixtures_df["away_xG"] = None
-
-    # 6️⃣ Rearrange to match expected structure
-    columns_order = [
-        "id", "isResult", "round_number", "date", "home_team", "away_team", "result",
-        "home_goals", "away_goals", "home_xG", "away_xG"
-    ]
-    fixtures_df = fixtures_df[columns_order]
-
-    fixture_data = fixtures_df
-
-    # 7️⃣ Save the merged file
-    save_dir = "data/tables"
-    os.makedirs(save_dir, exist_ok=True)
-    file_path = os.path.join(save_dir, "fixture_data.csv")
-    fixture_data.to_csv(file_path, index=False)
-
-    print(f"✅ Fixture data saved (Understat skipped): {file_path}")
-
-
-    #END OF TEMP
-    '''
-
-
-
-
     # load next gw fixtures
     # Count how many fixtures per round have isResult == False
     round_counts = fixture_data[fixture_data["isResult"] == False].groupby("round_number").size()
@@ -257,79 +181,10 @@ if not BOOKIE_ONLY:
 
     print(f"✅ next gw fixture data saved to: {next_gw_file_path}")
 
-
-
-
-
-
     # Historical fixture data
 
     # Load all seasons' data
-    '''
-    start_year=2016
-    end_year=2025
-    frames = [] 
-    for year in range(start_year, end_year + 1):
-        url = f"https://fixturedownload.com/download/epl-{year}-GMTStandardTime.csv"
-        frame = pd.read_csv(url)
-        frame['Season'] = year
-        frames.append(frame)
 
-        frame = frame.rename(columns={
-            "Round Number": "round_number",
-            "Home Team": "home_team",
-            "Away Team": "away_team",
-            "Date": "date",
-            "Result": "result"
-        })
-
-    # Merge all season data
-    df = pd.concat(frames)
-
-    # correct team names
-    df["Home Team"] = df["Home Team"].replace({"Nott'm Forest": "Nottingham Forest"})
-    df["Away Team"] = df["Away Team"].replace({"Nott'm Forest": "Nottingham Forest"})
-                                            
-    df["Home Team"] = df["Home Team"].replace({"Spurs": "Tottenham Hotspur"})
-    df["Away Team"] = df["Away Team"].replace({"Spurs": "Tottenham Hotspur"})
-
-    df["Home Team"] = df["Home Team"].replace({"Man Utd": "Manchester United"})
-    df["Away Team"] = df["Away Team"].replace({"Man Utd": "Manchester United"})
-
-    df["Home Team"] = df["Home Team"].replace({"Man City": "Manchester City"})
-    df["Away Team"] = df["Away Team"].replace({"Man City": "Manchester City"})
-
-    df["Home Team"] = df["Home Team"].replace({"Newcastle": "Newcastle United"})
-    df["Away Team"] = df["Away Team"].replace({"Newcastle": "Newcastle United"})
-
-    df["Home Team"] = df["Home Team"].replace({"Wolves": "Wolverhampton Wanderers"})
-    df["Away Team"] = df["Away Team"].replace({"Wolves": "Wolverhampton Wanderers"})
-
-    df = df[pd.notnull(df["Result"])]  # Keep only matches with results
-
-    # Process result column
-    df[['home_goals', 'away_goals']] = df['Result'].str.split(' - ', expand=True).astype(float)
-    df['result'] = df.apply(lambda row: 'home_win' if row['home_goals'] > row['away_goals'] 
-                            else 'away_win' if row['home_goals'] < row['away_goals'] else 'draw', axis=1)
-
-    # 📌 **Generate Team ID Dictionary**
-    unique_teams = sorted(set(df['Home Team'].unique()) | set(df['Away Team'].unique()))  # Get all unique teams
-    team_id_dict = {team: idx + 1 for idx, team in enumerate(unique_teams)}  # Assign numeric IDs
-
-    # Assign team IDs to DataFrame
-    df['home_team_id'] = df['Home Team'].map(team_id_dict)
-    df['away_team_id'] = df['Away Team'].map(team_id_dict)
-
-
-
-    # Define the file path
-    historical_fixture_file_path = os.path.join(save_dir, "historical_fixture_data.csv")
-
-    # ✅ Save the DataFrame as a CSV file
-    df.to_csv(historical_fixture_file_path, index=False)
-
-    print(f"✅ historical fixture data saved to: {historical_fixture_file_path}")
-    '''
 
     import io, sys, requests
     import pandas as pd
@@ -568,108 +423,6 @@ if not BOOKIE_ONLY:
 
 
 
-    # scraping fbref player data for player radar plots
-    '''
-    fbref_url = 'https://fbref.com/en/comps/Big5/stats/players/Big-5-European-Leagues-Stats'
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Connection": "keep-alive",
-        "Referer": "https://www.google.com"
-    }
-
-    session = requests.Session()
-    response = session.get(fbref_url, headers=headers)
-    response.raise_for_status()
-
-    from io import StringIO
-    html_data = StringIO(response.text)
-    fbref_df = pd.read_html(html_data, attrs={"id": "stats_standard"})[0]
-
-
-    print(f"🔍 Status code: {response.status_code}")
-
-
-    # getting rid of the per 90 columns and will recalculate the ones we're interested in
-    columns_to_drop = fbref_df.columns.get_level_values(0) == 'Per 90 Minutes'
-    fbref_df = fbref_df.drop(columns=fbref_df.columns[columns_to_drop])
-
-
-    # get rid of the first level of the multiindex on the columns
-    fbref_df = fbref_df.droplevel(0, axis=1)
-
-    # Convert the 'Min' column to numeric, coercing any non-numeric entries to NaN
-    fbref_df['Min'] = pd.to_numeric(fbref_df['Min'], errors='coerce')
-
-    # Drop rows where 'Min' is NaN (i.e., non-numeric values)
-    fbref_df = fbref_df.dropna(subset=['Min'])
-
-    # Convert 'Min' to integers
-    fbref_df['Min'] = fbref_df['Min'].astype(int)
-
-    # Filter for players who have played more than 400 minutes
-    fbref_df = fbref_df[fbref_df['Min'] > 400]
-
-    # Drop GKs
-    fbref_df = fbref_df[fbref_df['Pos'] != 'GK']
-
-
-
-
-
-    # let's also make sure that the columns are of the correct type
-    fbref_df[['90s', 'xG', 'xAG']] = fbref_df[['90s', 'xG', 'xAG']].astype(float)
-    fbref_df[['Gls', 'Ast', 'G+A', 'PrgC', 'PrgP', 'PrgR']] = fbref_df[['Gls', 'Ast', 'G+A', 'PrgC', 'PrgP', 'PrgR']].astype(int)
-
-    # Now let's calculate the per 90 stats for each of these columns
-    # name them as we want to see them in the radar plot
-    fbref_df['goals_per_90'] = fbref_df['Gls'] / fbref_df['90s']
-    fbref_df['assists_per_90'] = fbref_df['Ast'] / fbref_df['90s']
-    fbref_df['goals_assists_per_90'] = fbref_df['G+A'] / fbref_df['90s']
-    fbref_df['expected_goals_per_90'] = fbref_df['xG'] / fbref_df['90s']
-    fbref_df['expected_assists_per_90'] = fbref_df['xAG'] / fbref_df['90s']
-    fbref_df['progressive_carries_per_90'] = fbref_df['PrgC'] / fbref_df['90s']
-    fbref_df['progressive_passes_per_90'] = fbref_df['PrgP'] / fbref_df['90s']
-    fbref_df['progressive_receptions_per_90'] = fbref_df['PrgR'] / fbref_df['90s']
-
-    # We'll calculate the percentiles for each of these columns
-    # We will also name them as we want to see them in the radar plot
-    fbref_df['Goals'] = (fbref_df['goals_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Assists'] = (fbref_df['assists_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Goals + Assists'] = (fbref_df['goals_assists_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Expected Goals'] = (fbref_df['expected_goals_per_90'].rank(pct=True)  * 100).astype(int)
-    fbref_df['Expected Assists'] = (fbref_df['expected_assists_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Progressive Carries'] = (fbref_df['progressive_carries_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Progressive Passes'] = (fbref_df['progressive_passes_per_90'].rank(pct=True) * 100).astype(int)
-    fbref_df['Progressive Receptions'] = (fbref_df['progressive_receptions_per_90'].rank(pct=True) * 100).astype(int)
-
-    # ensure we only keep players who have per 90 stats populated
-
-    fbref_df = fbref_df[fbref_df['goals_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['assists_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['goals_assists_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['expected_goals_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['expected_assists_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['progressive_carries_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['progressive_passes_per_90'] > 0]
-    fbref_df = fbref_df[fbref_df['progressive_receptions_per_90'] > 0]
-
-    # sort df by goals desc
-    fbref_df = fbref_df.sort_values(by='Gls', ascending=False)
-
-
-    # ✅ Save final league table
-    player_stats_file_path = os.path.join(save_dir, "player_radar_data.csv")
-    fbref_df.to_csv(player_stats_file_path, index=False)
-
-    print(f"✅ Player Radar data saved to: {player_stats_file_path}")
-
-    '''
-
-
 
 
     import pandas as pd
@@ -785,12 +538,6 @@ if BOOKIE_ONLY:
     next_round_number = _counts[_counts >= 5].index.min()
     print(f"🔄 Bookie-only mode — detected next GW: {int(next_round_number)}")
 
-# ── Scrape bookie probabilities from CheckTheChance ──────────────────────────
-# Runs automatically each week using next_round_number already computed above.
-# Win probs:  https://checkthechance.com/premier-league-round-{gw}/
-# CS probs:   https://checkthechance.com/fpl-clean-sheet-gameweek-{gw}/
-# Both files are updated in-place; missing pages fail gracefully with a warning.
-
 BOOKIE_NAME_MAP = {
     "Man Utd":                    "Manchester United",
     "Man City":                   "Manchester City",
@@ -830,7 +577,7 @@ BOOKIE_NAME_MAP = {
 
 gw_label = f"GW{int(next_round_number)}"
 
-ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
+ODDS_API_KEY = os.environ.get("ODDS_API_KEY")
 
 print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
 try:
@@ -845,6 +592,8 @@ try:
         timeout=15,
     )
     odds_resp.raise_for_status()
+    remaining = odds_resp.headers.get("x-requests-remaining", "unknown")
+    print(f"📊 Odds API credits remaining: {remaining}")
     odds_data = odds_resp.json()
 
     win_rows = []
@@ -982,40 +731,3 @@ try:
 
 except Exception as e:
     print(f"⚠️  Could not fetch FPL bootstrap data: {e}")
-
-
-# ── Clean sheet probabilities ─────────────────────────────────────────────────
-print(f"🔄 Scraping bookie clean sheet probabilities for {gw_label}...")
-try:
-    cs_url = f"https://checkthechance.com/fpl-clean-sheet-gameweek-{int(next_round_number)}/"
-    resp   = requests.get(cs_url, headers={"User-Agent": "Mozilla/5.0"}, timeout=10)
-    soup   = BeautifulSoup(resp.content, "html.parser")
-    headings = [h.get_text(strip=True) for h in soup.find_all(["h1","h2","h3","h4","h5","h6"])]
-
-    cs_data = {}
-    for h in headings:
-        if "%" in h and "|" in h:
-            parts    = h.split("|")
-            team_raw = parts[0].strip()
-            prob     = float(parts[1].replace("%", "").strip())
-            cs_data[BOOKIE_NAME_MAP.get(team_raw, team_raw)] = prob
-
-    if cs_data:
-        cs_path = os.path.join(save_dir, "bookie_cs_by_gw.csv")
-        cs_df   = pd.read_csv(cs_path)
-        gw_col  = f"gw{int(next_round_number)}"
-        if gw_col not in cs_df.columns:
-            cs_df[gw_col] = ""
-        for team, prob in cs_data.items():
-            mask = cs_df["team"] == team
-            if mask.any():
-                cs_df.loc[mask, gw_col] = prob
-            else:
-                print(f"  ⚠️  Team not in CS file: '{team}' — add a row manually if needed")
-        cs_df.to_csv(cs_path, index=False)
-        print(f"✅ Saved clean sheet probabilities for {gw_label} ({len(cs_data)} teams)")
-    else:
-        print(f"⚠️  No clean sheet data scraped for {gw_label} — page may not be live yet")
-
-except Exception as e:
-    print(f"⚠️  Could not scrape clean sheet probabilities for {gw_label}: {e}")

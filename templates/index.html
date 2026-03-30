@@ -28,15 +28,20 @@
             <div class="lp-acc-label">Outcome accuracy · 2024/25</div>
         </div>
         <div class="lp-acc-divider"></div>-->
-        <div class="lp-acc-item">
-            <div class="lp-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
-            <div class="lp-acc-label">Moneyline accuracy</div>
+        <div class="lp-acc-items-row">
+            <div class="lp-acc-item">
+                <div class="lp-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
+                <div class="lp-acc-label">Moneyline accuracy</div>
+            </div>
+            <div class="lp-acc-divider"></div>
+            <div class="lp-acc-item">
+                <div class="lp-acc-value">{{ accuracy.ou_accuracy }}%</div>
+                <div class="lp-acc-label">Over / under 2.5 accuracy</div>
+            </div>
         </div>
-        <div class="lp-acc-divider"></div>
-        <div class="lp-acc-item">
-            <div class="lp-acc-value">{{ accuracy.ou_accuracy }}%</div>
-            <div class="lp-acc-label">Over / under 2.5 accuracy</div>
-        </div>
+        <button class="info-button" onclick="toggleModal('resultsInfoModal')" title="What do these numbers mean?">
+            <i class="fas fa-info-circle"></i>
+        </button>
     </div>
     {% endif %}
 
@@ -116,6 +121,21 @@
              class="lp-shotmap-img">
     </div>
 
+    {# ── Results info modal ── #}
+    <div class="modal-overlay" id="resultsInfoModalOverlay" onclick="toggleModal('resultsInfoModal')"></div>
+    <div class="modal" id="resultsInfoModal">
+        <button class="close-button" onclick="toggleModal('resultsInfoModal')">✖</button>
+        <h3>What do these results mean?</h3>
+        <p><strong>Are these numbers actually good?</strong><br>
+        Yes - and they're harder to achieve than they look. Football is one of the most unpredictable sports in the world. A coin flip gives you 50% accuracy; a model that always picks the home team gets around 45%. Consistently beating those baselines with a statistical model is genuinely difficult.</p>
+        <p><strong>Moneyline accuracy (~67%)</strong><br>
+        This measures how often the model correctly identifies the winner in matches that have a winner (i.e. excluding draws). Professional betting models and bookmakers typically sit in the 65–70% range for this metric. Reaching 67% on a full season of Premier League fixtures is a strong result.</p>
+        <p><strong>Over / Under 2.5 accuracy (~57%)</strong><br>
+        The over/under 2.5 goals market is one of the most efficient in football betting - bookmakers price it very tightly. A model hitting 57%+ on this market over a full season is performing above the level needed to find consistent value against the market.</p>
+        <p><strong>How was it measured?</strong><br>
+        These figures come from a walk-forward backtest on the full 2024/25 Premier League season (380 matches). Walk-forward means the model only used data available at the time of each prediction - no future data was used. This mirrors exactly how it works in production. <a href="/methodology">Read the full methodology →</a></p>
+    </div>
+
     {# ── Feedback modal ── #}
     <div class="modal-overlay" id="feedbackModalOverlay" onclick="toggleModal('feedbackModal')"></div>
     <div class="modal" id="feedbackModal">
@@ -137,6 +157,7 @@
     function toggleModal(id) {
         const modal   = document.getElementById(id);
         const overlay = document.getElementById(id + 'Overlay');
+        if (!modal || !overlay) return;
         const visible = modal.style.display === 'block';
         modal.style.display   = visible ? 'none' : 'block';
         overlay.style.display = visible ? 'none' : 'block';

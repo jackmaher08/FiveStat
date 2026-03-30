@@ -1,16 +1,16 @@
 fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goals,assists,clean_sheets,status,xg,xa,xgi
-1,David Raya Martín,Raya,Arsenal,GK,6.0,34.5,5.7,6.7,2790,0,0,15,a,0.0,0.06,0.06
+1,David Raya Martín,Raya,Arsenal,GK,6.0,34.6,5.7,6.7,2790,0,0,15,a,0.0,0.06,0.06
 2,Kepa Arrizabalaga Revuelta,Arrizabalaga,Arsenal,GK,4.0,0.4,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
 3,Karl Hein,Hein,Arsenal,GK,4.0,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 4,Tommy Setford,Setford,Arsenal,GK,3.9,0.2,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
 5,Gabriel dos Santos Magalhães,Gabriel,Arsenal,DEF,7.2,43.1,9.7,8.0,2165,3,4,14,d,1.9,1.65,3.55
 6,William Saliba,Saliba,Arsenal,DEF,6.1,13.2,7.0,6.0,2074,1,0,11,d,0.88,0.7,1.58
 7,Riccardo Calafiori,Calafiori,Arsenal,DEF,5.6,6.0,2.3,3.3,1446,1,2,11,a,2.92,0.49,3.41
-8,Jurriën Timber,J.Timber,Arsenal,DEF,6.3,26.9,7.3,6.2,2452,3,6,13,d,4.71,1.53,6.24
+8,Jurriën Timber,J.Timber,Arsenal,DEF,6.3,26.8,7.3,6.2,2452,3,6,13,d,4.71,1.53,6.24
 9,Jakub Kiwior,Kiwior,Arsenal,DEF,5.4,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 10,Myles Lewis-Skelly,Lewis-Skelly,Arsenal,DEF,5.1,1.4,0.0,1.0,311,0,0,0,a,0.05,0.06,0.11
 11,Benjamin White,White,Arsenal,DEF,5.1,0.5,0.0,1.0,409,0,1,3,a,0.43,0.49,0.92
-13,Brayden Clarke,Clarke,Arsenal,DEF,3.8,0.4,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
+13,Brayden Clarke,Clarke,Arsenal,DEF,3.7,0.4,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
 14,Maldini Kacurri,Kacurri,Arsenal,DEF,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 15,Josh Nichols,Nichols,Arsenal,DEF,3.7,0.2,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
 16,Bukayo Saka,Saka,Arsenal,MID,9.8,8.0,4.7,5.7,1995,6,8,10,a,6.99,5.75,12.74
@@ -30,48 +30,48 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 31,Gabriel Fernando de Jesus,G.Jesus,Arsenal,FWD,6.4,0.3,0.0,1.0,304,2,0,0,a,1.75,0.19,1.94
 266,Eberechi Eze,Eze,Arsenal,MID,7.2,7.9,2.7,2.8,1494,6,3,8,d,3.88,2.23,6.11
 662,Cristhian Mosquera,Mosquera,Arsenal,DEF,5.3,0.1,2.0,3.0,667,0,0,2,a,0.0,0.49,0.49
-666,Viktor Gyökeres,Gyökeres,Arsenal,FWD,8.8,11.5,3.3,4.3,1888,11,0,10,a,9.23,1.76,10.98
+666,Viktor Gyökeres,Gyökeres,Arsenal,FWD,8.8,11.6,3.3,4.3,1888,11,0,10,a,9.23,1.76,10.98
 700,Max Dowman,Dowman,Arsenal,MID,4.2,0.6,2.0,3.0,43,1,1,0,a,1.11,0.04,1.15
 711,Andre Harriman-Annous,Harriman-Annous,Arsenal,MID,4.4,0.0,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
 725,Piero Hincapié,Hincapie,Arsenal,DEF,5.1,0.9,4.3,5.3,1499,1,2,4,a,0.33,1.39,1.72
 759,Marli Salmon,Salmon,Arsenal,DEF,4.0,0.0,0.0,1.0,0,0,0,0,a,0.0,0.0,0.0
-32,Emiliano Martínez Romero,Martinez,Aston Villa,GK,5.1,4.8,2.5,2.5,2385,0,0,7,a,0.0,0.06,0.06
+32,Emiliano Martínez Romero,Martinez,Aston Villa,GK,5.1,4.8,3.0,3.0,2385,0,0,7,a,0.0,0.06,0.06
 33,Marco Bizot,M.Bizot,Aston Villa,GK,4.2,0.4,0.0,0.0,405,0,0,1,a,0.0,0.0,0.0
 34,Joe Gauci,Gauci,Aston Villa,GK,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 35,Filip Marschall,Marschall,Aston Villa,GK,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-36,Matty Cash,Cash,Aston Villa,DEF,4.7,8.6,1.2,1.2,2442,3,2,8,a,1.09,2.68,3.77
-37,Lucas Digne,Digne,Aston Villa,DEF,4.5,1.6,3.2,3.2,1549,0,5,7,a,0.61,2.73,3.34
-38,Ezri Konsa Ngoyo,Konsa,Aston Villa,DEF,4.4,8.2,2.0,2.0,2675,0,1,9,a,1.27,0.56,1.83
-39,Ian Maatsen,Maatsen,Aston Villa,DEF,4.2,0.6,0.5,0.5,1251,0,0,2,a,1.05,1.85,2.9
-40,Tyrone Mings,Mings,Aston Villa,DEF,4.3,0.7,0.8,0.8,962,0,1,3,a,1.01,0.37,1.38
-41,Pau Torres,Pau,Aston Villa,DEF,4.3,0.3,1.8,1.8,1386,0,1,5,a,0.63,0.36,0.99
-42,Andrés García,A.García,Aston Villa,DEF,3.9,0.2,0.2,0.2,37,0,0,0,a,0.0,0.01,0.01
+36,Matty Cash,Cash,Aston Villa,DEF,4.7,8.6,1.7,1.7,2442,3,2,8,a,1.09,2.68,3.77
+37,Lucas Digne,Digne,Aston Villa,DEF,4.5,1.6,3.7,3.7,1549,0,5,7,a,0.61,2.73,3.34
+38,Ezri Konsa Ngoyo,Konsa,Aston Villa,DEF,4.4,8.2,2.3,2.3,2675,0,1,9,a,1.27,0.56,1.83
+39,Ian Maatsen,Maatsen,Aston Villa,DEF,4.2,0.6,0.3,0.3,1251,0,0,2,a,1.05,1.85,2.9
+40,Tyrone Mings,Mings,Aston Villa,DEF,4.3,0.7,1.0,1.0,962,0,1,3,a,1.01,0.37,1.38
+41,Pau Torres,Pau,Aston Villa,DEF,4.3,0.3,2.0,2.0,1386,0,1,5,a,0.63,0.36,0.99
+42,Andrés García,A.García,Aston Villa,DEF,3.9,0.2,0.3,0.3,37,0,0,0,a,0.0,0.01,0.01
 43,Álex Moreno Lopera,Alex Moreno,Aston Villa,DEF,4.0,1.6,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-44,Lamare Bogarde,Bogarde,Aston Villa,DEF,4.0,0.5,0.2,0.2,797,0,0,2,a,0.0,0.19,0.19
+44,Lamare Bogarde,Bogarde,Aston Villa,DEF,4.0,0.5,0.3,0.3,797,0,0,2,a,0.0,0.19,0.19
 45,Lino da Cruz Sousa,Sousa,Aston Villa,DEF,3.8,0.3,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 46,Yasin Özcan,Yasin,Aston Villa,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-47,Morgan Rogers,Rogers,Aston Villa,MID,7.5,24.3,2.8,2.8,2753,8,6,9,a,5.79,3.48,9.27
-48,Youri Tielemans,Tielemans,Aston Villa,MID,5.9,0.6,0.2,0.2,1318,0,4,4,a,0.97,2.53,3.5
-49,Leon Bailey,Bailey,Aston Villa,MID,5.5,0.1,1.8,1.8,334,0,1,0,a,0.31,1.21,1.52
-50,Emiliano Buendía Stati,Buendía,Aston Villa,MID,5.3,0.4,1.8,1.8,1453,5,2,3,a,2.9,1.87,4.77
+47,Morgan Rogers,Rogers,Aston Villa,MID,7.5,24.3,3.0,3.0,2753,8,6,9,a,5.79,3.48,9.27
+48,Youri Tielemans,Tielemans,Aston Villa,MID,5.9,0.6,0.3,0.3,1318,0,4,4,a,0.97,2.53,3.5
+49,Leon Bailey,Bailey,Aston Villa,MID,5.5,0.1,2.3,2.3,334,0,1,0,a,0.31,1.21,1.52
+50,Emiliano Buendía Stati,Buendía,Aston Villa,MID,5.3,0.4,2.0,2.0,1453,5,2,3,a,2.9,1.87,4.77
 51,Samuel Iling-Junior,Iling Jr,Aston Villa,MID,5.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 53,Donyell Malen,Malen,Aston Villa,MID,5.1,0.4,0.0,0.0,640,4,2,1,u,4.03,0.35,4.38
-54,John McGinn,McGinn,Aston Villa,MID,5.3,0.5,3.0,3.0,1717,4,2,8,a,2.62,2.25,4.87
-55,Ross Barkley,Barkley,Aston Villa,MID,4.8,0.1,4.2,4.2,390,2,1,1,a,0.73,1.07,1.8
+54,John McGinn,McGinn,Aston Villa,MID,5.3,0.5,4.0,4.0,1717,4,2,8,a,2.62,2.25,4.87
+55,Ross Barkley,Barkley,Aston Villa,MID,4.8,0.1,5.3,5.3,390,2,1,1,a,0.73,1.07,1.8
 56,Enzo Barrenechea,Barrenechea,Aston Villa,MID,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 57,Lewis Dobbin,Dobbin,Aston Villa,MID,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 58,Boubacar Kamara,Kamara,Aston Villa,MID,4.9,0.2,0.0,0.0,1410,1,3,5,i,0.53,0.84,1.36
-59,Amadou Onana,Onana,Aston Villa,MID,4.8,0.7,2.8,2.8,1558,2,0,6,a,1.38,0.64,2.02
+59,Amadou Onana,Onana,Aston Villa,MID,4.8,0.7,3.0,3.0,1558,2,0,6,a,1.38,0.64,2.02
 60,Ben Broggio,Broggio,Aston Villa,MID,4.4,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 61,Leander Dendoncker,Dendoncker,Aston Villa,MID,4.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 62,Jamaldeen Jimoh-Aloba,Jimoh-Aloba,Aston Villa,MID,4.5,0.1,0.0,0.0,8,0,0,0,u,0.0,0.0,0.0
 63,Kadan Young,Young,Aston Villa,MID,4.3,0.5,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-64,Ollie Watkins,Watkins,Aston Villa,FWD,8.5,8.1,3.0,3.0,2289,9,2,9,a,10.61,1.06,11.67
+64,Ollie Watkins,Watkins,Aston Villa,FWD,8.5,8.2,3.3,3.3,2289,9,2,9,a,10.61,1.06,11.67
 65,Zépiqueno Redmond,Redmond,Aston Villa,FWD,4.5,0.3,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 389,Harvey Elliott,Elliott,Aston Villa,MID,5.1,0.2,0.0,0.0,110,0,0,0,a,0.29,0.08,0.37
-456,Jadon Sancho,Sancho,Aston Villa,MID,5.8,0.2,2.0,2.0,752,0,2,2,a,0.61,1.82,2.43
+456,Jadon Sancho,Sancho,Aston Villa,MID,5.8,0.2,2.3,1.7,752,0,2,2,d,0.61,1.82,2.43
 688,James Wright,Wright,Aston Villa,GK,3.9,0.6,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
-699,Douglas Luiz Soares de Paulo,Douglas Luiz,Aston Villa,MID,4.9,0.1,2.5,2.5,801,1,1,1,a,0.5,1.38,1.88
+699,Douglas Luiz Soares de Paulo,Douglas Luiz,Aston Villa,MID,4.9,0.1,3.0,3.0,801,1,1,1,a,0.5,1.38,1.88
 701,Triston Rowe,Rowe,Aston Villa,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 702,Bradley Burrowes,Burrowes,Aston Villa,MID,4.4,0.1,0.0,0.0,16,0,0,0,a,0.0,0.0,0.0
 703,Sam Proctor,Proctor,Aston Villa,GK,3.9,0.6,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
@@ -81,8 +81,8 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 757,Ronnie Hollingshead,Hollingshead,Aston Villa,GK,4.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 768,Leon Routh,Leon Routh,Aston Villa,DEF,4.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 781,TJ Carroll,Carroll,Aston Villa,DEF,4.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
-792,Alysson Edward Franco da Rocha dos Santos,Alysson,Aston Villa,MID,5.0,0.0,0.5,0.5,47,0,0,0,a,0.05,0.05,0.1
-808,Tammy Abraham,Abraham,Aston Villa,FWD,6.0,0.2,1.0,1.0,196,1,0,0,a,1.26,0.36,1.62
+792,Alysson Edward Franco da Rocha dos Santos,Alysson,Aston Villa,MID,5.0,0.0,0.3,0.3,47,0,0,0,a,0.05,0.05,0.1
+808,Tammy Abraham,Abraham,Aston Villa,FWD,5.9,0.2,1.0,1.0,196,1,0,0,a,1.26,0.36,1.62
 183,Max Weiß,Weiss,Burnley,GK,4.3,0.1,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 184,Etienne Green,Green,Burnley,GK,4.0,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 185,Václav Hladký,Hladký,Burnley,GK,3.9,0.2,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
@@ -98,7 +98,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 195,Lucas Pires Silva,Lucas Pires,Burnley,DEF,3.8,0.3,0.5,0.0,1102,0,0,1,a,0.33,1.2,1.53
 196,Shurandy Sambo,Sambo,Burnley,DEF,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 197,Oliver Sonne,Sonne,Burnley,DEF,3.8,0.2,0.0,0.0,164,1,0,0,u,0.55,0.08,0.63
-198,Axel Tuanzebe,Tuanzebe,Burnley,DEF,3.9,0.9,0.0,-0.2,931,1,0,1,d,0.61,0.11,0.72
+198,Axel Tuanzebe,Tuanzebe,Burnley,DEF,3.9,0.9,0.0,-0.5,931,1,0,1,a,0.61,0.11,0.72
 199,Joe Worrall,Worrall,Burnley,DEF,3.8,0.2,1.5,1.0,496,0,0,0,a,0.08,0.02,0.1
 200,Jaidon Anthony,Anthony,Burnley,MID,5.0,2.0,4.8,4.3,2108,7,3,4,a,3.97,2.55,6.52
 201,Manuel Benson Hedilazio,Benson,Burnley,MID,5.4,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -134,15 +134,15 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 69,Callan McKenna,McKenna,Bournemouth,GK,3.9,0.3,0.0,-1.0,0,0,0,0,a,0.0,0.0,0.0
 70,Alex Paulsen,Paulsen,Bournemouth,GK,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 71,Illia Zabarnyi,Zabarnyi,Bournemouth,DEF,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-72,Marcos Senesi Barón,Senesi,Bournemouth,DEF,5.1,19.8,6.5,5.5,2658,0,4,9,a,1.4,4.09,5.49
+72,Marcos Senesi Barón,Senesi,Bournemouth,DEF,5.1,19.9,6.5,5.5,2658,0,4,9,a,1.4,4.09,5.49
 73,Adam Smith,Smith,Bournemouth,DEF,4.4,0.2,2.0,1.0,804,0,1,4,a,0.0,0.2,0.2
-74,Adrien Truffert,Truffert,Bournemouth,DEF,4.7,3.2,6.8,5.8,2748,0,3,9,a,0.43,2.44,2.87
+74,Adrien Truffert,Truffert,Bournemouth,DEF,4.7,3.3,6.8,5.8,2748,0,3,9,a,0.43,2.44,2.87
 75,Matai Akinmboni,Akinmboni,Bournemouth,DEF,3.8,0.2,0.0,-1.0,0,0,0,0,a,0.0,0.0,0.0
 76,Owen Bevan,Bevan,Bournemouth,DEF,3.8,0.2,0.0,-1.0,0,0,0,0,a,0.0,0.0,0.0
-77,James Hill,Hill,Bournemouth,DEF,4.2,7.7,4.2,3.2,1472,0,3,6,a,0.67,1.05,1.71
+77,James Hill,Hill,Bournemouth,DEF,4.2,7.6,4.2,3.2,1472,0,3,6,a,0.67,1.05,1.71
 78,Julián Araujo Zúñiga,J.Araujo,Bournemouth,DEF,3.8,0.5,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 79,Chris Mepham,Mepham,Bournemouth,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-80,Julio Soler Barreto,Soler,Bournemouth,DEF,4.0,0.2,0.0,0.0,34,0,0,0,i,0.0,0.0,0.0
+80,Julio Soler Barreto,Soler,Bournemouth,DEF,3.9,0.2,0.0,0.0,34,0,0,0,i,0.0,0.0,0.0
 81,Justin Kluivert,Kluivert,Bournemouth,MID,6.9,0.6,0.0,0.0,914,2,0,4,i,2.24,1.54,3.78
 84,Marcus Tavernier,Tavernier,Bournemouth,MID,5.4,2.1,3.5,2.5,2122,5,4,9,a,7.21,3.18,10.39
 85,Tyler Adams,Adams,Bournemouth,MID,4.9,0.3,1.2,0.1,1412,2,1,6,d,0.56,0.37,0.93
@@ -160,7 +160,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 97,Francisco Evanilson de Lima Barbosa,Evanilson,Bournemouth,FWD,6.8,2.2,3.8,2.8,2193,6,4,9,a,8.29,1.14,9.43
 98,Enes Ünal,Enes Ünal,Bournemouth,FWD,5.4,0.0,0.8,-0.2,173,1,0,0,a,1.85,0.06,1.91
 99,Daniel Adu-Adjei,Adu-Adjei,Bournemouth,FWD,4.4,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-100,Junior Kroupi,Kroupi.Jr,Bournemouth,FWD,4.7,6.1,2.5,1.5,1148,9,0,6,a,5.85,0.99,6.84
+100,Junior Kroupi,Kroupi.Jr,Bournemouth,FWD,4.7,6.1,2.5,1.1,1148,9,0,6,d,5.85,0.99,6.84
 391,Ben Gannon-Doak,Gannon-Doak,Bournemouth,MID,4.8,0.0,0.2,-0.8,56,0,1,0,a,0.09,0.1,0.19
 685,Bafodé Diakité,Diakité,Bournemouth,DEF,4.2,0.3,0.0,-1.0,1275,0,0,4,a,0.02,0.19,0.21
 687,Remy Rees-Dottin,Rees-Dottin,Bournemouth,MID,4.3,0.2,0.0,-1.0,0,0,0,0,a,0.0,0.0,0.0
@@ -193,8 +193,8 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 116,Aaron Hickey,Hickey,Brentford,DEF,4.0,0.4,0.0,0.0,588,0,0,2,d,0.4,0.17,0.57
 117,Kim Ji-soo,Ji-soo,Brentford,DEF,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 118,Jayden Meghoma,Meghoma,Brentford,DEF,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-120,Kevin Schade,Schade,Brentford,MID,6.9,2.0,3.8,3.8,2206,7,4,9,a,9.86,1.86,11.72
-121,Mikkel Damsgaard,Damsgaard,Brentford,MID,5.6,0.9,5.8,4.3,1566,3,4,3,d,1.85,4.13,5.98
+120,Kevin Schade,Schade,Brentford,MID,7.0,2.0,3.8,3.8,2206,7,4,9,a,9.86,1.86,11.72
+121,Mikkel Damsgaard,Damsgaard,Brentford,MID,5.6,0.9,5.8,5.8,1566,3,4,3,a,1.85,4.13,5.98
 122,Antoni Milambo,Milambo,Brentford,MID,5.2,0.0,0.0,0.0,45,0,0,0,i,0.0,0.01,0.01
 123,Fábio Freitas Gouveia Carvalho,Carvalho,Brentford,MID,4.6,0.1,0.0,0.0,100,1,0,0,i,0.7,0.03,0.73
 124,Jordan Henderson,Henderson,Brentford,MID,5.0,0.3,2.8,2.8,1814,1,3,6,a,0.33,2.25,2.58
@@ -229,7 +229,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 148,Ferdi Kadıoğlu,F.Kadıoğlu,Brighton,DEF,4.4,0.4,3.2,3.7,2500,0,2,7,a,1.58,2.4,3.98
 149,Igor Julio dos Santos de Paulo,Igor,Brighton,DEF,4.5,0.1,0.0,0.5,103,0,0,0,a,0.0,0.0,0.0
 150,Tariq Lamptey,Lamptey,Brighton,DEF,4.4,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-151,Jan Paul van Hecke,Van Hecke,Brighton,DEF,4.5,5.0,4.8,5.3,2580,3,2,7,a,2.18,1.16,3.33
+151,Jan Paul van Hecke,Van Hecke,Brighton,DEF,4.5,5.1,4.8,5.3,2580,3,2,7,a,2.18,1.16,3.33
 152,Joël Veltman,Veltman,Brighton,DEF,4.3,0.1,1.0,1.5,842,1,0,1,a,0.99,0.12,1.11
 153,Adam Webster,Webster,Brighton,DEF,4.4,0.0,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 154,Eiran Cashin,Cashin,Brighton,DEF,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -255,7 +255,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 175,Joe Knight,Knight,Brighton,MID,4.4,0.1,0.0,0.0,1,0,0,0,u,0.0,0.0,0.0
 176,Adrian Mazilu,Mazilu,Brighton,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 177,Andrew Moran,Moran,Brighton,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-178,Danny Welbeck,Welbeck,Brighton,FWD,6.2,4.8,6.0,6.5,1817,12,0,7,a,10.28,1.28,11.56
+178,Danny Welbeck,Welbeck,Brighton,FWD,6.2,4.9,6.0,6.5,1817,12,0,7,a,10.28,1.28,11.56
 179,Evan Ferguson,Ferguson,Brighton,FWD,5.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 180,Stefanos Tzimas,Tzimas,Brighton,FWD,5.2,0.1,0.0,0.0,132,1,1,0,i,0.44,0.11,0.55
 181,Charalampos Kostoulas,Kostoulas,Brighton,FWD,4.8,0.3,0.0,0.5,292,2,1,1,a,1.7,0.23,1.93
@@ -269,7 +269,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 223,Gabriel Słonina,Slonina,Chelsea,GK,3.9,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 224,Marc Cucurella Saseta,Cucurella,Chelsea,DEF,6.0,14.2,1.0,1.0,2076,1,3,9,a,1.72,2.98,4.7
 225,Reece James,James,Chelsea,DEF,5.6,7.4,2.5,1.2,1892,2,6,8,d,1.02,3.15,4.17
-226,Trevoh Chalobah,Chalobah,Chelsea,DEF,5.5,14.0,1.2,0.0,2550,3,1,9,i,1.3,1.01,2.31
+226,Trevoh Chalobah,Chalobah,Chelsea,DEF,5.4,13.8,1.2,0.0,2550,3,1,9,i,1.3,1.01,2.31
 227,Levi Samuels Colwill,Colwill,Chelsea,DEF,4.7,0.1,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 228,Malo Gusto,Gusto,Chelsea,DEF,4.9,1.9,2.0,2.0,1734,2,3,7,a,1.46,1.88,3.34
 229,Benoît Badiashile Mukinayi,B.Badiashile,Chelsea,DEF,4.4,0.0,0.0,0.0,470,0,0,0,d,0.0,0.06,0.06
@@ -278,7 +278,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 232,Tosin Adarabioyo,Tosin,Chelsea,DEF,4.0,0.3,0.8,0.8,743,0,0,2,a,0.11,0.4,0.5
 233,Josh Acheampong,Acheampong,Chelsea,DEF,3.7,1.7,0.0,0.0,567,1,0,2,a,0.6,0.13,0.73
 234,Aarón Anselmino,Anselmino,Chelsea,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-235,Cole Palmer,Palmer,Chelsea,MID,10.6,16.4,3.5,3.5,1416,9,2,3,a,8.59,1.89,10.48
+235,Cole Palmer,Palmer,Chelsea,MID,10.6,16.3,3.5,3.5,1416,9,2,3,a,8.59,1.89,10.48
 236,Pedro Lomba Neto,Neto,Chelsea,MID,7.0,4.1,0.2,0.2,2207,5,5,11,a,4.33,5.66,9.99
 237,Enzo Fernández,Enzo,Chelsea,MID,6.6,14.8,2.2,2.2,2577,8,4,8,a,10.39,5.98,16.37
 238,Estêvão Almeida de Oliveira Gonçalves,Estêvão,Chelsea,MID,6.4,1.7,0.2,0.2,758,2,5,4,a,2.82,2.13,4.95
@@ -290,7 +290,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 246,Andrey Nascimento dos Santos,Andrey Santos,Chelsea,MID,4.5,0.3,1.0,1.0,997,0,0,1,a,1.7,0.81,2.51
 247,Dário Luís Essugo,D.Essugo,Chelsea,MID,4.3,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 248,Kendry Páez Andrade,Paez,Chelsea,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-249,João Pedro Junqueira de Jesus,João Pedro,Chelsea,FWD,7.8,50.5,6.2,6.2,2307,14,9,10,a,13.51,1.88,15.39
+249,João Pedro Junqueira de Jesus,João Pedro,Chelsea,FWD,7.8,50.4,6.2,6.2,2307,14,9,10,a,13.51,1.88,15.39
 250,Liam Delap,Delap,Chelsea,FWD,6.2,0.9,1.0,1.0,784,1,2,2,a,3.97,0.2,4.16
 251,Nicolas Jackson,N.Jackson,Chelsea,FWD,6.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 252,Marc Guiu Paz,Marc Guiu,Chelsea,FWD,4.1,5.4,0.0,0.0,247,0,1,0,a,1.46,0.29,1.75
@@ -336,7 +336,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 677,Evann Guessand,Guessand,Crystal Palace,MID,6.2,0.1,2.0,2.0,880,1,3,2,a,1.56,0.75,2.31
 690,Rio Cardines,Cardines,Crystal Palace,MID,4.4,0.3,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 712,Yéremy Pino Santos,Yeremy,Crystal Palace,MID,5.8,0.2,0.7,0.7,1716,2,1,7,a,3.96,4.78,8.74
-723,Jaydee Canvot,Canvot,Crystal Palace,DEF,4.5,0.0,5.3,5.3,701,0,0,4,a,0.79,0.23,1.02
+723,Jaydee Canvot,Canvot,Crystal Palace,DEF,4.5,0.1,5.3,5.3,701,0,0,4,a,0.79,0.23,1.02
 732,Christantus Uche,Uche,Crystal Palace,FWD,5.5,0.1,0.3,0.3,159,0,1,0,a,0.49,0.01,0.5
 762,Joél Drakes-Thomas,Drakes-Thomas,Crystal Palace,MID,4.5,0.0,0.0,0.0,7,0,0,0,a,0.0,0.0,0.0
 773,Dean Benamar,Benamar,Crystal Palace,DEF,4.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
@@ -349,7 +349,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 288,Mark Travers,Travers,Everton,GK,4.3,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 289,Harry Tyrer,Tyrer,Everton,GK,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 290,Jarrad Branthwaite,Branthwaite,Everton,DEF,5.3,0.5,4.0,4.0,502,1,1,1,a,0.28,0.09,0.37
-291,James Tarkowski,Tarkowski,Everton,DEF,5.7,11.3,6.0,6.0,2700,1,1,11,a,2.08,1.32,3.4
+291,James Tarkowski,Tarkowski,Everton,DEF,5.7,11.4,6.0,6.0,2700,1,1,11,a,2.08,1.32,3.4
 292,Vitalii Mykolenko,Mykolenko,Everton,DEF,4.9,0.6,4.2,4.2,2329,0,1,9,a,0.28,2.3,2.58
 293,Jake O'Brien,O'Brien,Everton,DEF,4.9,0.7,4.0,4.0,2546,0,2,10,a,0.83,0.84,1.67
 294,Séamus Coleman,Coleman,Everton,DEF,4.2,0.1,0.0,0.0,11,0,0,0,a,0.0,0.0,0.0
@@ -357,11 +357,11 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 296,Nathan Patterson,Patterson,Everton,DEF,4.4,0.0,0.0,0.0,237,0,0,2,a,0.03,0.04,0.07
 297,Roman Dixon,Dixon,Everton,DEF,3.8,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 298,Reece Welch,Welch,Everton,DEF,3.8,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
-299,Iliman Ndiaye,Ndiaye,Everton,MID,6.2,4.3,5.5,5.5,2151,6,3,8,a,4.99,4.17,9.16
+299,Iliman Ndiaye,Ndiaye,Everton,MID,6.2,4.3,5.5,4.1,2151,6,3,8,d,4.99,4.17,9.16
 300,Dwight McNeil,McNeil,Everton,MID,5.5,0.2,4.2,4.2,943,0,3,6,a,1.07,0.84,1.91
 301,Carlos Alcaraz Durán,Alcaraz,Everton,MID,5.2,0.1,0.0,0.0,667,0,1,3,d,1.04,0.44,1.48
 302,Idrissa Gana Gueye,Gana,Everton,MID,5.4,0.1,4.2,4.2,1846,2,2,5,a,1.49,1.09,2.58
-303,James Garner,Garner,Everton,MID,5.2,4.2,6.5,6.5,2783,2,6,11,a,1.97,4.99,6.96
+303,James Garner,Garner,Everton,MID,5.2,4.3,6.5,6.5,2783,2,6,11,a,1.97,4.99,6.96
 304,Tim Iroegbunam,Iroegbunam,Everton,MID,4.8,0.0,1.2,1.2,1101,0,3,8,a,0.41,0.61,1.02
 305,Harrison Armstrong,Armstrong,Everton,MID,4.5,0.1,0.5,0.5,495,0,0,1,a,0.79,0.21,1.0
 306,Callum Bates,Bates,Everton,MID,4.3,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
@@ -372,7 +372,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 311,Norberto Bercique Gomes Betuncal,Beto,Everton,FWD,5.0,2.6,7.2,7.2,1196,6,1,5,a,7.16,0.21,7.37
 312,Youssef Ramalho Chermiti,Y.Chermiti,Everton,FWD,4.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 313,Martin Sherif,Sherif,Everton,FWD,4.4,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-419,Jack Grealish,Grealish,Everton,MID,6.3,5.8,0.0,0.0,1627,2,6,7,i,2.05,3.37,5.41
+419,Jack Grealish,Grealish,Everton,MID,6.3,5.7,0.0,0.0,1627,2,6,7,i,2.05,3.37,5.41
 630,Tom King,King,Everton,GK,3.9,1.2,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 667,Adam Aznou,Aznou,Everton,DEF,4.2,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 704,Tyler Onyango,Onyango,Everton,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -383,8 +383,8 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 314,Bernd Leno,Leno,Fulham,GK,4.9,2.0,3.8,3.3,2790,0,0,6,a,0.0,0.0,0.0
 315,Steven Benda,Benda,Fulham,GK,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 316,Antonee Robinson,Robinson,Fulham,DEF,4.9,0.9,1.8,1.3,1041,0,0,3,a,0.22,1.3,1.52
-317,Joachim Andersen,Andersen,Fulham,DEF,4.6,6.8,2.8,2.3,2471,0,1,6,a,1.26,1.57,2.83
-318,Calvin Bassey,Bassey,Fulham,DEF,4.4,0.8,3.2,2.7,1902,1,1,4,a,1.64,0.27,1.9
+317,Joachim Andersen,Andersen,Fulham,DEF,4.6,6.7,2.8,2.3,2471,0,1,6,a,1.26,1.57,2.83
+318,Calvin Bassey,Bassey,Fulham,DEF,4.4,0.8,3.2,2.0,1902,1,1,4,d,1.64,0.27,1.9
 319,Timothy Castagne,Castagne,Fulham,DEF,4.3,0.1,0.8,0.3,1216,0,1,0,a,1.19,0.67,1.86
 320,Issa Diop,Diop,Fulham,DEF,4.3,0.1,0.8,0.3,592,0,0,0,a,0.02,0.04,0.06
 321,Jorge Cuenca Barreno,J.Cuenca,Fulham,DEF,4.3,0.1,0.2,-0.3,931,0,0,2,a,0.05,0.53,0.58
@@ -440,7 +440,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 364,Mateo Joseph Fernández-Regatillo,Mateo Joseph,Leeds,FWD,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 365,Lukas Nmecha,Nmecha,Leeds,FWD,5.0,0.6,1.2,0.7,866,6,1,3,a,6.22,0.92,7.14
 493,Sean Longstaff,Longstaff,Leeds,MID,4.8,0.2,0.0,-0.5,943,1,2,1,a,0.83,1.48,2.31
-660,Anton Stach,Stach,Leeds,MID,4.7,2.8,3.5,3.0,2135,4,6,6,a,2.5,4.29,6.79
+660,Anton Stach,Stach,Leeds,MID,4.8,2.8,3.5,3.0,2135,4,6,6,a,2.5,4.29,6.79
 665,Lucas Estella Perri,Perri,Leeds,GK,4.4,0.2,0.0,-0.5,1440,0,0,3,a,0.0,0.0,0.0
 691,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,5.6,7.9,1.5,1.0,2113,10,2,6,a,11.35,0.98,12.32
 698,Noah Okafor,Okafor,Leeds,MID,5.5,0.1,0.2,-0.3,1287,4,2,4,a,4.22,0.98,5.2
@@ -454,10 +454,10 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 370,Jeremie Frimpong,Frimpong,Liverpool,DEF,5.7,5.2,4.2,4.7,747,0,5,4,a,0.43,1.24,1.67
 371,Milos Kerkez,Kerkez,Liverpool,DEF,5.6,3.1,3.5,4.0,2026,2,1,6,a,1.47,0.65,2.12
 372,Andrew Robertson,Robertson,Liverpool,DEF,5.7,1.0,0.8,1.3,764,0,0,3,a,0.32,1.03,1.34
-373,Virgil van Dijk,Virgil,Liverpool,DEF,6.3,34.9,3.2,3.7,2790,3,1,9,a,2.65,1.19,3.84
+373,Virgil van Dijk,Virgil,Liverpool,DEF,6.3,35.0,3.2,3.7,2790,3,1,9,a,2.65,1.19,3.84
 374,Ibrahima Konaté,Konaté,Liverpool,DEF,5.5,4.4,0.8,1.3,2480,1,0,9,a,1.05,0.91,1.96
 375,Conor Bradley,Bradley,Liverpool,DEF,4.9,0.1,0.0,0.0,928,0,2,4,i,0.18,0.84,1.02
-376,Joe Gomez,Gomez,Liverpool,DEF,4.9,0.1,0.8,1.3,491,0,2,2,a,0.23,0.62,0.85
+376,Joe Gomez,Gomez,Liverpool,DEF,4.9,0.2,0.8,1.3,491,0,2,2,a,0.23,0.62,0.85
 377,Konstantinos Tsimikas,Tsimikas,Liverpool,DEF,4.8,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 378,Amara Nallo,Nallo,Liverpool,DEF,3.7,1.0,0.0,0.5,0,0,0,0,a,0.0,0.0,0.0
 379,Rhys Williams,R.Williams,Liverpool,DEF,3.7,0.6,0.0,0.5,0,0,0,0,a,0.0,0.0,0.0
@@ -479,7 +479,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 397,Darwin Núñez Ribeiro,Darwin,Liverpool,FWD,6.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 398,Jayden Danns,Danns,Liverpool,FWD,4.3,0.1,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 499,Alexander Isak,Isak,Liverpool,FWD,10.3,3.5,0.0,0.2,501,2,1,1,d,2.04,0.07,2.11
-661,Hugo Ekitiké,Ekitiké,Liverpool,FWD,9.3,35.6,4.8,5.3,1797,11,4,7,a,10.1,2.45,12.55
+661,Hugo Ekitiké,Ekitiké,Liverpool,FWD,9.3,35.5,4.8,5.3,1797,11,4,7,a,10.1,2.45,12.55
 686,Rio Ngumoha,Ngumoha,Liverpool,MID,4.3,0.8,1.5,2.0,218,1,0,1,a,0.82,1.31,2.13
 692,Giovanni Leoni,Leoni,Liverpool,DEF,4.9,0.0,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 746,Kieran Morrison,Morrison,Liverpool,MID,4.5,0.0,0.0,0.5,0,0,0,0,a,0.0,0.0,0.0
@@ -495,13 +495,13 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 405,Nathan Aké,Aké,Manchester City,DEF,5.2,0.6,0.3,0.3,487,0,0,2,a,0.28,0.44,0.72
 406,Abdukodir Khusanov,Khusanov,Manchester City,DEF,5.4,0.4,1.0,1.0,887,0,0,3,a,0.44,0.13,0.57
 407,Matheus Nunes,Matheus N.,Manchester City,DEF,5.3,3.0,3.7,3.7,2264,1,7,9,a,0.34,1.83,2.17
-408,Rúben dos Santos Gato Alves Dias,Rúben,Manchester City,DEF,5.5,3.4,3.3,3.3,2049,2,0,12,a,0.57,0.63,1.2
+408,Rúben dos Santos Gato Alves Dias,Rúben,Manchester City,DEF,5.5,3.4,3.3,2.5,2049,2,0,12,d,0.57,0.63,1.2
 409,John Stones,Stones,Manchester City,DEF,5.4,0.6,0.0,0.0,351,0,0,1,a,0.0,0.06,0.06
 410,Rico Lewis,Lewis,Manchester City,DEF,4.6,1.2,0.0,0.0,311,0,1,1,a,0.11,1.31,1.42
-411,Nico O'Reilly,O'Reilly,Manchester City,DEF,5.0,9.0,2.7,2.7,2130,4,3,11,a,3.98,1.72,5.7
+411,Nico O'Reilly,O'Reilly,Manchester City,DEF,5.0,9.1,2.7,2.7,2130,4,3,11,a,3.98,1.72,5.7
 412,Vitor de Oliveira Nunes dos Reis,Vitor Reis,Manchester City,DEF,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 413,Omar Marmoush,Marmoush,Manchester City,MID,8.3,2.5,2.0,2.0,566,1,3,3,a,2.22,0.68,2.9
-414,Phil Foden,Foden,Manchester City,MID,8.0,8.1,1.0,1.0,1808,7,3,10,a,5.34,3.98,9.32
+414,Phil Foden,Foden,Manchester City,MID,8.0,8.0,1.0,1.0,1808,7,3,10,a,5.34,3.98,9.32
 415,Sávio Moreira de Oliveira,Savinho,Manchester City,MID,6.9,0.4,0.3,0.3,561,0,2,2,a,1.77,1.19,2.96
 416,Bernardo Mota Veiga de Carvalho e Silva,Bernardo,Manchester City,MID,6.2,0.6,4.7,4.7,2242,2,4,9,a,1.63,3.37,4.99
 417,Rayan Cherki,Cherki,Manchester City,MID,6.3,6.9,3.0,3.0,1297,3,9,6,a,2.55,6.88,9.43
@@ -514,7 +514,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 427,Tijjani Reijnders,Reijnders,Manchester City,MID,5.0,9.3,0.7,0.7,1488,5,2,7,a,3.96,2.27,6.23
 428,Sverre Nypan,Nypan,Manchester City,MID,5.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 429,Kalvin Phillips,Phillips,Manchester City,MID,4.7,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-430,Erling Haaland,Haaland,Manchester City,FWD,14.5,54.9,1.3,1.3,2413,22,7,10,a,21.06,1.94,23.0
+430,Erling Haaland,Haaland,Manchester City,FWD,14.4,54.9,1.3,1.3,2413,22,7,10,a,21.06,1.94,23.0
 736,Gianluigi Donnarumma,Donnarumma,Manchester City,GK,5.6,9.3,2.7,2.7,2430,0,0,11,a,0.0,0.0,0.0
 739,Divine Mukasa,Mukasa,Manchester City,MID,4.4,0.0,0.0,0.0,25,0,0,0,u,0.0,0.21,0.21
 740,Stephen Mfuni,Mfuni,Manchester City,DEF,3.9,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -541,7 +541,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 446,Tyler Fredricson,Fredricson,Manchester United,DEF,3.7,0.1,0.0,0.5,2,0,0,0,a,0.0,0.0,0.0
 447,Ayden Heaven,Heaven,Manchester United,DEF,3.7,2.1,0.2,0.7,650,0,1,1,a,0.34,0.17,0.51
 448,Tyrell Malacia,Malacia,Manchester United,DEF,3.8,0.4,0.2,0.7,7,0,0,0,a,0.0,0.0,0.0
-449,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,10.3,44.3,11.0,11.5,2435,8,17,4,a,10.32,9.03,19.35
+449,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,10.3,44.4,11.0,11.5,2435,8,17,4,a,10.32,9.03,19.35
 450,Matheus Santos Carneiro da Cunha,Cunha,Manchester United,MID,8.0,8.3,5.2,5.7,2068,7,4,6,a,5.8,2.65,8.45
 451,Marcus Rashford,Rashford,Manchester United,MID,7.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 452,Amad Diallo,Amad,Manchester United,MID,6.2,1.4,1.5,2.0,1916,2,4,4,a,4.57,3.51,8.08
@@ -571,7 +571,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 471,Mark Gillespie,Gillespie,Newcastle United,GK,3.9,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 472,Odysseas Vlachodimos,Odysseas,Newcastle United,GK,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 473,Lewis Hall,Hall,Newcastle United,DEF,5.4,4.3,2.2,2.2,1749,1,2,4,a,0.81,2.47,3.28
-474,Fabian Schär,Schär,Newcastle United,DEF,5.2,1.2,0.0,0.0,1089,0,0,4,d,0.97,0.6,1.57
+474,Fabian Schär,Schär,Newcastle United,DEF,5.2,1.1,0.0,0.0,1089,0,0,4,d,0.97,0.6,1.57
 475,Sven Botman,Botman,Newcastle United,DEF,4.9,0.4,3.0,0.8,1204,1,1,5,d,1.42,0.36,1.78
 476,Dan Burn,Burn,Newcastle United,DEF,5.0,3.5,1.5,1.5,1811,0,3,6,a,0.39,0.32,0.71
 477,Tino Livramento,Livramento,Newcastle United,DEF,4.9,1.9,1.8,1.8,1163,0,1,6,a,0.13,0.83,0.96
@@ -582,13 +582,13 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 482,Harrison Ashby,Ashby,Newcastle United,DEF,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 483,Miodrag Pivaš,Pivas,Newcastle United,DEF,3.8,0.4,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 484,Matt Targett,Targett,Newcastle United,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-485,Anthony Gordon,Gordon,Newcastle United,MID,7.4,7.3,7.5,7.5,1728,6,4,7,a,8.73,3.35,12.08
+485,Anthony Gordon,Gordon,Newcastle United,MID,7.4,7.4,7.5,7.5,1728,6,4,7,a,8.73,3.35,12.08
 486,Anthony Elanga,Elanga,Newcastle United,MID,6.5,2.7,1.5,1.5,1207,0,1,2,a,1.44,1.68,3.12
 487,Harvey Barnes,Barnes,Newcastle United,MID,6.1,1.2,1.8,1.8,1648,5,0,5,a,5.93,2.16,8.09
 488,Bruno Guimarães Rodriguez Moura,Bruno G.,Newcastle United,MID,6.8,4.5,0.0,0.0,2019,9,6,6,d,4.82,3.62,8.44
 489,Jacob Murphy,J.Murphy,Newcastle United,MID,5.9,0.6,2.8,2.8,1236,3,1,7,a,2.92,2.4,5.32
 490,Joelinton Cássio Apolinário de Lira,Joelinton,Newcastle United,MID,5.9,0.3,2.5,2.5,1687,2,1,5,a,2.09,1.14,3.23
-491,Sandro Tonali,Tonali,Newcastle United,MID,5.3,1.1,2.0,1.5,2037,0,2,7,d,1.56,2.35,3.91
+491,Sandro Tonali,Tonali,Newcastle United,MID,5.3,1.1,2.0,2.0,2037,0,2,7,a,1.56,2.35,3.91
 492,Antoñito Cordero Campillo,Antoñito C.,Newcastle United,MID,4.9,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 494,Joe Willock,Willock,Newcastle United,MID,5.0,0.1,2.0,2.0,693,0,1,3,a,0.81,0.64,1.45
 495,Isaac Hayden,Hayden,Newcastle United,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -613,7 +613,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 505,Nikola Milenković,Milenković,Nottingham Forest,DEF,5.1,3.2,4.0,4.0,2790,0,0,8,a,0.81,0.46,1.27
 506,Murillo Costa dos Santos,Murillo,Nottingham Forest,DEF,5.2,2.1,4.2,4.2,1999,1,0,6,a,0.6,0.46,1.06
 507,Ola Aina,Aina,Nottingham Forest,DEF,4.7,2.4,4.5,4.5,1319,0,1,5,a,0.36,0.69,1.05
-508,Neco Williams,N.Williams,Nottingham Forest,DEF,4.7,2.9,5.2,5.2,2618,1,3,8,a,1.68,3.32,5.0
+508,Neco Williams,N.Williams,Nottingham Forest,DEF,4.7,3.0,5.2,5.2,2618,1,3,8,a,1.68,3.32,5.0
 509,David Mota Veiga Teixeira do Carmo,David Carmo,Nottingham Forest,DEF,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 510,Jair Paula da Cunha Filho,Jair Cunha,Nottingham Forest,DEF,4.2,0.1,0.5,0.2,214,0,0,0,d,0.14,0.0,0.14
 511,Felipe Rodrigues da Silva,Morato,Nottingham Forest,DEF,4.3,0.1,0.2,0.2,938,0,0,2,a,0.83,0.08,0.91
@@ -681,7 +681,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 563,Luís Hemir Silva Semedo,Luís Hemir,Sunderland,FWD,4.4,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 564,Nazarii Rusyn,Rusyn,Sunderland,FWD,4.4,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 668,Granit Xhaka,Xhaka,Sunderland,MID,5.1,3.3,2.0,2.0,2271,1,5,7,a,0.7,2.38,3.08
-670,Robin Roefs,Roefs,Sunderland,GK,4.8,8.2,0.5,0.4,2520,0,0,8,d,0.0,0.1,0.1
+670,Robin Roefs,Roefs,Sunderland,GK,4.8,8.1,0.5,0.4,2520,0,0,8,d,0.0,0.1,0.1
 678,Arthur Masuaku,Masuaku,Sunderland,DEF,3.9,0.5,0.0,0.0,125,0,0,0,u,0.07,0.08,0.15
 683,Omar Alderete,Alderete,Sunderland,DEF,4.1,6.6,3.5,3.5,2353,1,1,8,a,1.37,0.87,2.23
 694,Nordi Mukiele,Mukiele,Sunderland,DEF,4.5,7.1,0.0,0.0,2163,1,5,7,a,1.02,2.01,3.03
@@ -782,24 +782,24 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 815,Axel Disasi,Disasi,West Ham,DEF,4.5,0.1,1.8,2.3,630,0,0,3,a,1.1,0.01,1.11
 825,Finlay Herrick,Herrick,West Ham,GK,4.0,0.0,0.0,2.0,0,0,0,0,a,0.0,0.0,0.0
 627,Sam Johnstone,Johnstone,Wolverhampton Wanderers,GK,4.4,0.1,0.0,-0.5,1080,0,0,0,a,0.0,0.02,0.02
-628,José Malheiro de Sá,José Sá,Wolverhampton Wanderers,GK,4.2,1.2,3.7,3.2,1710,0,0,4,a,0.0,0.03,0.03
+628,José Malheiro de Sá,José Sá,Wolverhampton Wanderers,GK,4.2,1.2,1.5,1.0,1710,0,0,4,a,0.0,0.03,0.03
 629,Daniel Bentley,Bentley,Wolverhampton Wanderers,GK,3.9,0.5,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 631,Emmanuel Agbadou,Agbadou,Wolverhampton Wanderers,DEF,4.2,0.1,0.0,0.0,1100,0,0,0,u,0.57,0.4,0.97
-632,Matt Doherty,Doherty,Wolverhampton Wanderers,DEF,4.4,0.1,0.3,-0.2,702,0,0,1,a,0.09,0.19,0.28
-633,Hugo Bueno López,H.Bueno,Wolverhampton Wanderers,DEF,4.3,0.2,2.7,2.2,1946,1,2,4,a,0.5,2.87,3.37
-634,Yerson Mosquera Valdelamar,Mosquera,Wolverhampton Wanderers,DEF,4.3,0.1,3.7,3.2,1707,0,0,4,a,1.57,0.47,2.04
-635,Rodrigo Martins Gomes,R.Gomes,Wolverhampton Wanderers,DEF,4.4,0.1,5.0,4.5,599,3,0,0,a,1.69,0.31,2.0
-636,Santiago Ignacio Bueno,S.Bueno,Wolverhampton Wanderers,DEF,4.4,0.1,2.7,2.2,1922,2,2,4,a,1.67,1.04,2.71
-637,Toti Gomes,Toti,Wolverhampton Wanderers,DEF,4.2,0.1,2.7,2.2,1039,0,0,1,a,0.22,0.21,0.43
+632,Matt Doherty,Doherty,Wolverhampton Wanderers,DEF,4.4,0.1,0.5,0.0,702,0,0,1,a,0.09,0.19,0.28
+633,Hugo Bueno López,H.Bueno,Wolverhampton Wanderers,DEF,4.3,0.2,1.0,0.5,1946,1,2,4,a,0.5,2.87,3.37
+634,Yerson Mosquera Valdelamar,Mosquera,Wolverhampton Wanderers,DEF,4.3,0.1,1.0,0.5,1707,0,0,4,a,1.57,0.47,2.04
+635,Rodrigo Martins Gomes,R.Gomes,Wolverhampton Wanderers,DEF,4.4,0.1,4.0,3.5,599,3,0,0,a,1.69,0.31,2.0
+636,Santiago Ignacio Bueno,S.Bueno,Wolverhampton Wanderers,DEF,4.4,0.1,1.0,0.5,1922,2,2,4,a,1.67,1.04,2.71
+637,Toti Gomes,Toti,Wolverhampton Wanderers,DEF,4.2,0.1,0.0,-0.5,1039,0,0,1,a,0.22,0.21,0.43
 638,Ki-Jana Hoever,Hoever,Wolverhampton Wanderers,DEF,3.8,0.9,0.0,0.0,423,0,0,0,u,0.02,0.36,0.38
 639,Bastien Meupiyou Menadjou,Meupiyou,Wolverhampton Wanderers,DEF,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 640,Pedro Cardoso de Lima,Pedro Lima,Wolverhampton Wanderers,DEF,4.0,0.4,0.0,-0.5,3,0,0,0,a,0.0,0.0,0.0
-641,Alfie Pond,Pond,Wolverhampton Wanderers,DEF,3.9,1.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
+641,Alfie Pond,Pond,Wolverhampton Wanderers,DEF,3.9,0.9,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 642,Hwang Hee-chan,Hee Chan,Wolverhampton Wanderers,MID,5.6,0.1,0.0,-0.5,1144,2,1,2,a,2.1,0.92,3.02
-643,André Trindade da Costa Neto,André,Wolverhampton Wanderers,MID,5.2,0.1,6.3,5.8,2130,1,0,2,a,0.43,0.76,1.19
-644,Jean-Ricner Bellegarde,Bellegarde,Wolverhampton Wanderers,MID,5.1,0.0,2.7,2.2,1079,1,1,3,a,1.03,0.95,1.98
+643,André Trindade da Costa Neto,André,Wolverhampton Wanderers,MID,5.2,0.1,7.0,6.5,2130,1,0,2,a,0.43,0.76,1.19
+644,Jean-Ricner Bellegarde,Bellegarde,Wolverhampton Wanderers,MID,5.1,0.0,3.0,2.5,1079,1,1,3,a,1.03,0.95,1.98
 645,Fer López González,Fer López,Wolverhampton Wanderers,MID,5.1,0.0,0.0,0.0,228,0,1,0,u,0.16,0.61,0.77
-646,João Victor Gomes da Silva,J.Gomes,Wolverhampton Wanderers,MID,5.3,0.3,8.0,7.5,2297,1,2,4,a,1.15,1.85,3.0
+646,João Victor Gomes da Silva,J.Gomes,Wolverhampton Wanderers,MID,5.3,0.4,5.0,4.5,2297,1,2,4,a,1.15,1.85,3.0
 647,Gonçalo Manuel Ganchinho Guedes,Guedes,Wolverhampton Wanderers,MID,5.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 648,Marshall Munetsi,Munetsi,Wolverhampton Wanderers,MID,5.3,0.0,0.0,0.0,872,1,2,0,u,1.64,0.38,2.02
 649,Boubacar Traoré,B.Traore,Wolverhampton Wanderers,MID,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -812,15 +812,15 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 657,Leon Chiwome,Chiwome,Wolverhampton Wanderers,FWD,4.4,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 658,Nathan Fraser,Fraser,Wolverhampton Wanderers,FWD,4.2,1.8,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 663,Jhon Arias,J.Arias,Wolverhampton Wanderers,MID,4.9,0.1,0.0,0.0,1117,1,0,2,u,3.38,0.62,4.0
-682,David Møller Wolfe,Møller Wolfe,Wolverhampton Wanderers,DEF,4.2,0.1,2.0,1.5,839,0,2,1,a,0.13,1.04,1.17
-695,Jackson Tchatchoua,Tchatchoua,Wolverhampton Wanderers,DEF,4.4,0.0,4.0,3.5,1695,0,1,3,a,0.33,1.49,1.82
-709,Ladislav Krejcí,Krejčí,Wolverhampton Wanderers,DEF,4.5,0.1,1.3,0.8,2037,2,1,3,a,2.01,1.35,3.36
-720,Tolu Arokodare,Tolu,Wolverhampton Wanderers,FWD,5.3,0.1,3.3,2.8,1231,3,2,3,a,4.63,0.36,4.99
-749,Mateus Mané,Mané,Wolverhampton Wanderers,FWD,4.4,1.7,1.7,1.2,1280,2,2,5,a,1.35,1.66,3.01
+682,David Møller Wolfe,Møller Wolfe,Wolverhampton Wanderers,DEF,4.2,0.1,3.0,2.5,839,0,2,1,a,0.13,1.04,1.17
+695,Jackson Tchatchoua,Tchatchoua,Wolverhampton Wanderers,DEF,4.4,0.0,3.0,2.5,1695,0,1,3,a,0.33,1.49,1.82
+709,Ladislav Krejcí,Krejčí,Wolverhampton Wanderers,DEF,4.5,0.1,2.0,1.5,2037,2,1,3,a,2.01,1.35,3.36
+720,Tolu Arokodare,Tolu,Wolverhampton Wanderers,FWD,5.3,0.1,4.5,4.0,1231,3,2,3,a,4.63,0.36,4.99
+749,Mateus Mané,Mané,Wolverhampton Wanderers,FWD,4.4,1.7,1.5,1.0,1280,2,2,5,a,1.35,1.66,3.01
 766,Saheed Olagunju,Olagunju,Wolverhampton Wanderers,DEF,4.0,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 767,Luke Rawlings,Rawlings,Wolverhampton Wanderers,MID,4.5,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 777,Temple Ojinnaka,Ojinnaka,Wolverhampton Wanderers,MID,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 778,Ethan Sutherland,Sutherland,Wolverhampton Wanderers,MID,4.5,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
 809,Jerome Abbey,Abbey,Wolverhampton Wanderers,MID,4.5,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
-816,Angel Gomes,Angel,Wolverhampton Wanderers,MID,4.7,0.0,0.7,0.2,282,0,0,1,a,0.11,0.16,0.27
-817,Adam Armstrong,Armstrong,Wolverhampton Wanderers,FWD,5.2,0.1,3.3,2.8,567,1,2,3,a,0.65,0.62,1.27
+816,Angel Gomes,Angel,Wolverhampton Wanderers,MID,4.7,0.0,0.5,0.0,282,0,0,1,a,0.11,0.16,0.27
+817,Adam Armstrong,Armstrong,Wolverhampton Wanderers,FWD,5.2,0.1,3.0,2.5,567,1,2,3,a,0.65,0.62,1.27
