@@ -23,12 +23,12 @@
     {# ── Accuracy strip - only renders once backtest JSON exists ── #}
     {% if accuracy %}
     <div class="lp-accuracy-strip">
-        <!--<div class="lp-acc-item">
-            <div class="lp-acc-value">{{ accuracy.outcome_accuracy }}%</div>
-            <div class="lp-acc-label">Outcome accuracy · 2024/25</div>
-        </div>
-        <div class="lp-acc-divider"></div>-->
         <div class="lp-acc-items-row">
+            <div class="lp-acc-item">
+                <div class="lp-acc-value">{{ accuracy.outcome_accuracy }}%</div>
+                <div class="lp-acc-label">Outcome accuracy · 2024/25</div>
+            </div>
+            <div class="lp-acc-divider"></div>
             <div class="lp-acc-item">
                 <div class="lp-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
                 <div class="lp-acc-label">Moneyline accuracy</div>
@@ -39,9 +39,7 @@
                 <div class="lp-acc-label">Over / under 2.5 accuracy</div>
             </div>
         </div>
-        <button class="info-button" onclick="toggleModal('resultsInfoModal')" title="What do these numbers mean?">
-            <i class="fas fa-info-circle"></i>
-        </button>
+        <span onclick="toggleModal('resultsInfoModal')" style="cursor:pointer; font-size:0.8rem; color:#888;">What do these results mean?</span>
     </div>
     {% endif %}
 
@@ -128,8 +126,10 @@
         <h3>What do these results mean?</h3>
         <p><strong>Are these numbers actually good?</strong><br>
         Yes - and they're harder to achieve than they look. Football is one of the most unpredictable sports in the world. A coin flip gives you 50% accuracy; a model that always picks the home team gets around 45%. Consistently beating those baselines with a statistical model is genuinely difficult.</p>
-        <p><strong>Moneyline accuracy (~67%)</strong><br>
-        This measures how often the model correctly identifies the winner in matches that have a winner (i.e. excluding draws). Professional betting models and bookmakers typically sit in the 65–70% range for this metric. Reaching 67% on a full season of Premier League fixtures is a strong result.</p>
+        <p><strong>Outcome accuracy (~52%)</strong><br>
+        This measures how often the model correctly predicted the match result across all three outcomes - home win, draw or away win. Predicting the right outcome from three equal possibilities by chance gives you 33%; a naive model that always picks the most common result in football (home win) lands around 45%. Consistently outperforming those baselines across a full season reflects a positive predictive signal.</p>
+        <p><strong>Moneyline accuracy (~68%)</strong><br>
+        This measures how often the model correctly identifies the winner in matches that have a winner (i.e. excluding draws). Professional betting models and bookmakers typically sit in the 65–70% range for this metric. Reaching 68%+ on a full season of Premier League fixtures is a strong result.</p>
         <p><strong>Over / Under 2.5 accuracy (~57%)</strong><br>
         The over/under 2.5 goals market is one of the most efficient in football betting - bookmakers price it very tightly. A model hitting 57%+ on this market over a full season is performing above the level needed to find consistent value against the market.</p>
         <p><strong>How was it measured?</strong><br>

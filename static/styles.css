@@ -3090,6 +3090,10 @@ input:checked + .slider:before {
   flex-shrink: 0;
 }
 
+.team-identity-info {
+  text-align: left;
+}
+
 .team-identity-name {
   font-family: var(--font-display);
   font-size: 1.6rem;
@@ -3204,6 +3208,12 @@ input:checked + .slider:before {
   display: block;
   margin: 0 auto;
   opacity: 0.88;
+}
+
+@media (min-width: 900px) {
+  #prev-shotmap {
+    margin-top: 70px;
+  }
 }
 
 @media (max-width: 900px) {
