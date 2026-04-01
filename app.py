@@ -72,6 +72,7 @@ BOOKIE_TEAM_NAME_MAP = {
     "Newcastle":       "Newcastle United",
     "Brighton":        "Brighton",
     "Leeds":           "Leeds",
+    "Leeds United":    "Leeds",
     "Sunderland":      "Sunderland",
     "Bournemouth":     "Bournemouth",
     "Brentford":       "Brentford",
@@ -1151,7 +1152,9 @@ def ev_checker():
         gw_rows  = win_df[win_df["gw"] == gw_label]
         for _, b in gw_rows.iterrows():
             if pd.notna(b["home_team"]) and b["home_team"] != "":
-                key = f"{b['home_team']}|{b['away_team']}"
+                bh = BOOKIE_TEAM_NAME_MAP.get(b["home_team"], b["home_team"])
+                ba = BOOKIE_TEAM_NAME_MAP.get(b["away_team"], b["away_team"])
+                key = f"{bh}|{ba}"
                 bookie_win_lookup[key] = {
                     "bookie_home_win": float(b["bookie_home_win"]) if pd.notna(b["bookie_home_win"]) and b["bookie_home_win"] != "" else None,
                     "bookie_draw":     float(b["bookie_draw"])     if pd.notna(b["bookie_draw"])     and b["bookie_draw"]     != "" else None,
@@ -1167,7 +1170,9 @@ def ev_checker():
         ou_rows  = ou_df[ou_df["gw"] == gw_label]
         for _, b in ou_rows.iterrows():
             if pd.notna(b["home_team"]) and b["home_team"] != "":
-                key = f"{b['home_team']}|{b['away_team']}"
+                bh = BOOKIE_TEAM_NAME_MAP.get(b["home_team"], b["home_team"])
+                ba = BOOKIE_TEAM_NAME_MAP.get(b["away_team"], b["away_team"])
+                key = f"{bh}|{ba}"
                 bookie_ou_lookup[key] = {
                     "bookie_over25":  float(b["bookie_over25"])  if pd.notna(b["bookie_over25"])  and b["bookie_over25"]  != "" else None,
                     "bookie_under25": float(b["bookie_under25"]) if pd.notna(b["bookie_under25"]) and b["bookie_under25"] != "" else None,

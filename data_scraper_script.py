@@ -577,7 +577,7 @@ BOOKIE_NAME_MAP = {
 
 gw_label = f"GW{int(next_round_number)}"
 
-ODDS_API_KEY = os.environ.get("ODDS_API_KEY")
+ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
 
 print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
 try:
