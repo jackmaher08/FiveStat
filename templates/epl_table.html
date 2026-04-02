@@ -40,7 +40,7 @@
                 <td class="position-cell">
                     <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">{{ loop.index }}</span>
                 </td>
-                <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
+                <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team_display_names.get(team["Team"], team["Team"]) }}</a></td>
                 <td class="bold-left-border">{{ team["MP"] }}</td>
                 <td class="bold-left-border">{{ team["W"] }}</td>
                 <td>{{ team["D"] }}</td>
@@ -101,7 +101,7 @@
                 <td class="position-cell">
                     <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">{{ loop.index }}</span>
                 </td>
-                <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
+                <td class="bold-left-border"><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team_display_names.get(team["Team"], team["Team"]) }}</a></td>
                 <td class="bold-left-border">{{ team["G"] }}</td>
                 <td>{{ '%.1f' | format(team["xG"]) }}</td>
                 <td>{{ '%.1f' | format(team["npxG"]) }}</td>
@@ -158,7 +158,7 @@
                 <td class="position-cell">
                     <span class="position-badge" data-tooltip="{{ loop.index | get_position_tooltip }}">{{ loop.index }}</span>
                 </td>
-                <td><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team["Team"] }}</a></td>
+                <td><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team_display_names.get(team["Team"], team["Team"]) }}</a></td>
                 {% for position in range(1, num_positions + 1) %}
                     {% set probability = team[position|string] * 100 %}
                     {% set opacity = probability / 30 %}

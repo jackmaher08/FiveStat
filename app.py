@@ -186,7 +186,10 @@ def index():
                 key = f"{row['home_team']}|{row['away_team']}"
                 if key not in probs_lookup:
                     continue
-                entry = {"home_team": row["home_team"], "away_team": row["away_team"]}
+                entry = {
+                    "home_team": TEAM_NAME_MAPPING.get(row["home_team"], row["home_team"]),
+                    "away_team": TEAM_NAME_MAPPING.get(row["away_team"], row["away_team"]),
+                }
                 entry.update(probs_lookup[key])
                 gw_fixtures.append(entry)
     except Exception as e:
@@ -256,6 +259,10 @@ def epl_fixtures(gw):
             gw_fixtures.at[idx, "asset_type"] = "heatmap"
             gw_fixtures.at[idx, "asset_path"] = f"heatmaps/{row['home_team']}_{row['away_team']}_heatmap.png"
 
+    # Apply display name mapping before grouping
+    gw_fixtures["home_team"] = gw_fixtures["home_team"].apply(lambda t: TEAM_NAME_MAPPING.get(t, t))
+    gw_fixtures["away_team"] = gw_fixtures["away_team"].apply(lambda t: TEAM_NAME_MAPPING.get(t, t))
+
     # Group fixtures by match_date
     fixture_groups = defaultdict(list)
     for _, row in gw_fixtures.iterrows():
@@ -313,6 +320,12 @@ def epl_fixtures(gw):
                 "home_xg":   round(float(row.get("home_xg", 0) or 0), 2),
                 "away_xg":   round(float(row.get("away_xg", 0) or 0), 2),
             }
+
+    # Remap fixture_stats keys to use display names
+    fixture_stats = {
+        f"{TEAM_NAME_MAPPING.get(k.split('|')[0], k.split('|')[0])}|{TEAM_NAME_MAPPING.get(k.split('|')[1], k.split('|')[1])}": v
+        for k, v in fixture_stats.items()
+    }
 
     # Load simulated table data
     sim_table_path = "data/tables/simulated_league_positions.csv"
@@ -402,7 +415,8 @@ def epl_table():
     # ✅ Get number of positions (1-20)
     num_positions = len(simulated_table[0]) - 2  # Exclude "Team" and "Final xPTS"
 
-    return render_template("epl_table.html", league_table=league_table, xg_table=xg_table, simulated_table=simulated_table, num_positions=num_positions, last_updated=get_last_updated_time())
+    team_display_names = {row["Team"]: TEAM_NAME_MAPPING.get(row["Team"], row["Team"]) for row in league_table}
+    return render_template("epl_table.html", league_table=league_table, xg_table=xg_table, simulated_table=simulated_table, num_positions=num_positions, last_updated=get_last_updated_time(), team_display_names=team_display_names)
 
 
 
@@ -823,7 +837,7 @@ def fpl():
             gw5 = tg["cs_prob"].sum()
 
             cs_data.append({
-                "team": team,
+                "team": TEAM_NAME_MAPPING.get(team, team),
                 "gw1": round(float(gw1) * 100, 1),
                 "gw3": round(float(gw3), 3),
                 "gw5": round(float(gw5), 3),
@@ -842,7 +856,7 @@ def fpl():
             xg5 = tg["xg"].sum()
 
             xg_data.append({
-                "team": team,
+                "team": TEAM_NAME_MAPPING.get(team, team),
                 "gw1": round(float(xg1), 2),
                 "gw3": round(float(xg3), 2),
                 "gw5": round(float(xg5), 2),
@@ -862,7 +876,7 @@ def fpl():
             xga5 = tg["xga"].sum()
 
             xga_data.append({
-                "team": team,
+                "team": TEAM_NAME_MAPPING.get(team, team),
                 "gw1": round(float(xga1), 2),
                 "gw3": round(float(xga3), 2),
                 "gw5": round(float(xga5), 2),
@@ -1054,7 +1068,7 @@ def fpl():
 
                     captain_picks.append({
                         "name":         fp["web_name"],
-                        "team":         fpl_team,
+                        "team":         TEAM_NAME_MAPPING.get(fpl_team, fpl_team),
                         "position":     fp["position"],
                         "price":        float(fp["price"]),
                         "ownership":    float(fp["ownership"]),
@@ -1079,7 +1093,7 @@ def fpl():
         fixture_ticker = []
 
         for team in teams:
-            row_data = {"team": team, "fixtures": []}
+            row_data = {"team": team, "display_team": TEAM_NAME_MAPPING.get(team, team), "fixtures": []}
             for gw in range(current_gw, current_gw + 5):
                 gw_fix = fixtures_df[
                     ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
@@ -1186,9 +1200,9 @@ def ev_checker():
 
     ev_fixtures = []
     for _, row in probs_df.iterrows():
-        home = row["home_team"]
-        away = row["away_team"]
-        key  = f"{home}|{away}"
+        home = TEAM_NAME_MAPPING.get(row["home_team"], row["home_team"])
+        away = TEAM_NAME_MAPPING.get(row["away_team"], row["away_team"])
+        key  = f"{row['home_team']}|{row['away_team']}"
 
         model_home_win = round(float(row["home_win_prob"]) * 100, 1)
         model_draw     = round(float(row["draw_prob"])     * 100, 1)

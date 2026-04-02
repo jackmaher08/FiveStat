@@ -3050,6 +3050,12 @@ input:checked + .slider:before {
   white-space: nowrap;
 }
 
+.fix-xg-sep {
+  display: inline-block;
+  width: 22px;
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   .fix-dot {
     width: 6px;

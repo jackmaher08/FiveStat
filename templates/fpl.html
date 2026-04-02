@@ -175,7 +175,7 @@
                     {% for row in fixture_ticker %}
                     <tr>
                         <td class="fpl-team-cell">
-                            <a href="{{ url_for('team_page', team_name=row.team) }}">{{ row.team }}</a>
+                            <a href="{{ url_for('team_page', team_name=row.team) }}">{{ row.display_team }}</a>
                         </td>
                         {% for fix in row.fixtures %}
                             <td class="fpl-diff-cell fpl-{{ fix.difficulty }}">{{ fix.label }}</td>
