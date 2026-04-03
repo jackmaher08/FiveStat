@@ -26,17 +26,17 @@
         <div class="lp-acc-items-row">
             <div class="lp-acc-item">
                 <div class="lp-acc-value">{{ accuracy.outcome_accuracy }}%</div>
-                <div class="lp-acc-label">Match Result accuracy</div>
+                <div class="lp-acc-label">1X2</div>
             </div>
             <div class="lp-acc-divider"></div>
             <div class="lp-acc-item">
                 <div class="lp-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
-                <div class="lp-acc-label">Moneyline accuracy</div>
+                <div class="lp-acc-label">Moneyline</div>
             </div>
             <div class="lp-acc-divider"></div>
             <div class="lp-acc-item">
                 <div class="lp-acc-value">{{ accuracy.ou_accuracy }}%</div>
-                <div class="lp-acc-label">Over/Under 2.5 accuracy</div>
+                <div class="lp-acc-label">O/U 2.5</div>
             </div>
         </div>
         <span onclick="toggleModal('resultsInfoModal')" style="cursor:pointer; font-size:0.8rem; color:#888;">What do these results mean?</span>
@@ -50,13 +50,20 @@
             <span class="lp-fixtures-label">Gameweek {{ current_gw }} predictions</span>
             <a href="/epl_fixtures/{{ current_gw }}" class="lp-fixtures-link">Full Fixture list →</a>
         </div>
+        {% set strip_names = {
+            "Crystal Palace": "C.Palace",
+            "Nottingham Forest": "N.Forest",
+            "Tottenham Hotspur": "Spurs",
+            "Manchester City": "Man City",
+            "Manchester United": "Man Utd"
+        } %}
         <div class="lp-fixtures-scroll">
             {% for f in gw_fixtures %}
             <a href="/epl_fixtures/{{ current_gw }}" class="lp-fix-card">
                 <div class="lp-fix-teams">
-                    <span class="lp-fix-team lp-fix-team--home">{{ f.home_team }}</span>
+                    <span class="lp-fix-team lp-fix-team--home">{{ strip_names.get(f.home_team, f.home_team) }}</span>
                     <span class="lp-fix-vs">vs</span>
-                    <span class="lp-fix-team lp-fix-team--away">{{ f.away_team }}</span>
+                    <span class="lp-fix-team lp-fix-team--away">{{ strip_names.get(f.away_team, f.away_team) }}</span>
                 </div>
                 <div class="lp-fix-pills">
                     <span class="lp-fix-pill {% if f.home_win > f.draw and f.home_win > f.away_win %}lp-fix-pill--fav{% endif %}">H {{ f.home_win }}%</span>
@@ -126,11 +133,11 @@
         <h3>What do these results mean?</h3>
         <p><strong>Are these numbers actually good?</strong><br>
         Yes - and they're harder to achieve than they look. Football is one of the most unpredictable sports in the world. A coin flip gives you 50% accuracy; a model that always picks the home team gets around 45%. Consistently beating those baselines with a statistical model is genuinely difficult.</p>
-        <p><strong>Outcome accuracy (~52%)</strong><br>
+        <p><strong>Match Result accuracy (~52%)</strong><br>
         This measures how often the model correctly predicted the match result across all three outcomes - home win, draw or away win. Predicting the right outcome from three equal possibilities by chance gives you 33%; a naive model that always picks the most common result in football (home win) lands around 45%. Consistently outperforming those baselines across a full season reflects a positive predictive signal.</p>
         <p><strong>Moneyline accuracy (~68%)</strong><br>
         This measures how often the model correctly identifies the winner in matches that have a winner (i.e. excluding draws). Professional betting models and bookmakers typically sit in the 65–70% range for this metric. Reaching 68%+ on a full season of Premier League fixtures is a strong result.</p>
-        <p><strong>Over / Under 2.5 accuracy (~57%)</strong><br>
+        <p><strong>Over / Under 2.5 Goals accuracy (~57%)</strong><br>
         The over/under 2.5 goals market is one of the most efficient in football betting - bookmakers price it very tightly. A model hitting 57%+ on this market over a full season is performing above the level needed to find consistent value against the market.</p>
         <p><strong>How was it measured?</strong><br>
         These figures come from a walk-forward backtest on the full 2024/25 Premier League season (380 matches). Walk-forward means the model only used data available at the time of each prediction - no future data was used. This mirrors exactly how it works in production. <a href="/methodology">Read the full methodology →</a></p>

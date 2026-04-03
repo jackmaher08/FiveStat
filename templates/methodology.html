@@ -22,7 +22,7 @@
     {% if accuracy %}
     <div class="meth-accuracy-header">
         <h2 class="meth-accuracy-title">2024/25 Backtest Results</h2>
-        <p class="meth-accuracy-subtitle">Walk-forward accuracy metrics across the full 2024/25 Premier League season - {{ accuracy.matches_predicted }} matches, no future data used.</p>
+        <p class="meth-accuracy-subtitle">Our walk-forward accuracy metrics across the full 2024/25 Premier League season - {{ accuracy.matches_predicted }} matches, no future data used.</p>
     </div>
     <div class="meth-accuracy-strip">
         <div class="meth-acc-card">
@@ -38,7 +38,7 @@
         <div class="meth-acc-card">
             <div class="meth-acc-label">Avg RPS</div>
             <div class="meth-acc-value">{{ accuracy.avg_rps }}</div>
-            <div class="meth-acc-sub">vs {{ accuracy.baseline_rps }} naive · +{{ accuracy.rps_improvement }} improvement</div>
+            <div class="meth-acc-sub">vs {{ accuracy.baseline_rps }} naive · +{{ accuracy.rps_improvement }} gained</div>
         </div>
         <div class="meth-acc-card">
             <div class="meth-acc-label">O/U 2.5 accuracy</div>

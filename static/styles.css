@@ -2140,11 +2140,11 @@ input:checked + .slider:before {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 72px;
+  flex: 1;
 }
 
-.lp-fix-team--home { text-align: left; }
-.lp-fix-team--away { text-align: right; }
+.lp-fix-team--home { text-align: right; }
+.lp-fix-team--away { text-align: left; }
 
 .lp-fix-vs {
   font-family: var(--font-display);
