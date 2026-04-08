@@ -1,0 +1,102 @@
+{
+  "Arsenal": {
+    "manager": "Mikel Arteta",
+    "stadium": "Emirates Stadium",
+    "logo": "arsenal_logo.png"
+  },
+  "Aston Villa": {
+    "manager": "Unai Emery",
+    "stadium": "Villa Park",
+    "logo": "aston villa_logo.png"
+  },
+  "Bournemouth": {
+    "manager": "Andoni Iraola",
+    "stadium": "Vitality Stadium",
+    "logo": "bournemouth_logo.png"
+  },
+  "Brentford": {
+    "manager": "Keith Andrews",
+    "stadium": "Gtech Community Stadium",
+    "logo": "brentford_logo.png"
+  },
+  "Brighton": {
+    "manager": "Fabian Hurzeler",
+    "stadium": "Amex Stadium",
+    "logo": "brighton_logo.png"
+  },
+  "Burnley": {
+    "manager": "Scott Parker",
+    "stadium": "Turf Moor",
+    "logo": "burnley_logo.png"
+  },
+  "Chelsea": {
+    "manager": "Liam Rosenior",
+    "stadium": "Stamford Bridge",
+    "logo": "chelsea_logo.png"
+  },
+  "Crystal Palace": {
+    "manager": "Oliver Glasner",
+    "stadium": "Selhurst Park",
+    "logo": "crystal palace_logo.png"
+  },
+  "Everton": {
+    "manager": "David Moyes",
+    "stadium": "Goodison Park",
+    "logo": "everton_logo.png"
+  },
+  "Fulham": {
+    "manager": "Marco Silva",
+    "stadium": "Craven Cottage",
+    "logo": "fulham_logo.png"
+  },
+  "Leeds": {
+    "manager": "Daniel Farke",
+    "stadium": "Elland Road",
+    "logo": "leeds_logo.png"
+  },
+  "Liverpool": {
+    "manager": "Arne Slot",
+    "stadium": "Anfield",
+    "logo": "liverpool_logo.png"
+  },
+  "Manchester City": {
+    "manager": "Pep Guardiola",
+    "stadium": "Etihad Stadium",
+    "logo": "manchester city_logo.png"
+  },
+  "Manchester United": {
+    "manager": "Michael Carrick",
+    "stadium": "Old Trafford",
+    "logo": "manchester united_logo.png"
+  },
+  "Newcastle United": {
+    "manager": "Eddie Howe",
+    "stadium": "St. James' Park",
+    "logo": "newcastle_logo.png"
+  },
+  "Nottingham Forest": {
+    "manager": "Vitor Pereira",
+    "stadium": "City Ground",
+    "logo": "nottingham forest_logo.png"
+  },
+  "Sunderland": {
+    "manager": "Regis Le Bris",
+    "stadium": "Stadium of Light",
+    "logo": "sunderland_logo.png"
+  },
+  "Tottenham Hotspur": {
+    "manager": "TBC",
+    "stadium": "Tottenham Hotspur Stadium",
+    "logo": "tottenham hotspur_logo.png"
+  },
+  "West Ham": {
+    "manager": "Nuno Espírito Santo",
+    "stadium": "London Stadium",
+    "logo": "west ham_logo.png"
+  },
+  "Wolverhampton Wanderers": {
+    "manager": "Rob Edwards",
+    "stadium": "Molineux Stadium",
+    "logo": "wolves_logo.png"
+  }
+}

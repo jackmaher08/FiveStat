@@ -21,7 +21,7 @@ app = Flask(__name__)
 
 
 # ── Manual GW override — set to an int to force a specific GW, None for auto ──
-GW_OVERRIDE = 32
+GW_OVERRIDE = None
 
 
 
