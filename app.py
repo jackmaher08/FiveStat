@@ -4,20 +4,17 @@ import numpy as np
 from scipy.stats import poisson
 import os
 import matplotlib.pyplot as plt
-from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals, TEAM_NAME_MAPPING
+from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, predict_player_goals, TEAM_NAME_MAPPING
 from data_loader import calculate_recent_form, get_team_xg
 #from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from collections import defaultdict
 from datetime import datetime
-from generate_radars import generate_comparison_radar_chart, columns_to_plot
 import subprocess
 import json
 import unicodedata
 import requests
 from bs4 import BeautifulSoup
-from mplsoccer import Radar
 from io import BytesIO
-from generate_player_shots import create_player_shotmap_image
 
 # Flask app initialization
 app = Flask(__name__)
