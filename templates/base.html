@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# ── Page title: child templates override with {% block title %} ── #}
+    <title>{% block title %}FiveStat - Football Analytics & EPL Predictions{% endblock %}</title>
+
+    {# ── Meta description ── #}
+    <meta name="description" content="{% block meta_description %}FiveStat offers football fans correct score heatmaps, player radar charts, match predictions, and xG analytics.{% endblock %}">
+
+    {# ── Open Graph ── #}
+    <meta property="og:title"       content="{% block og_title %}FiveStat - Football Analytics & EPL Predictions{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Explore match predictions, player stats, and correct score forecasts powered by data.{% endblock %}">
+    <meta property="og:url"         content="{% block og_url %}https://www.fivestat.co.uk/{% endblock %}">
+    <meta property="og:type"        content="website">
+
+    {# ── Favicon ── #}
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon-192.png') }}">
+
+    {# ── Google Analytics ── #}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-SQPCR3KM4Y');
+    </script>
+
+    {# ── Global stylesheets ── #}
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    {# ── Per-page extra <head> content (additional CSS, Chart.js, etc.) ── #}
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    {# ════════════════════════════════════════
+       NAVBAR
+       ════════════════════════════════════════ #}
+    <nav class="navbar">
+        <a href="/" class="navbar-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 0 124 36" aria-label="FiveStat" style="display:block">
+                <line x1="18" y1="18" x2="18" y2="3"      stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                <line x1="18" y1="18" x2="32.3" y2="13.4" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                <line x1="18" y1="18" x2="26.8" y2="30.1" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                <line x1="18" y1="18" x2="9.2"  y2="30.1" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                <line x1="18" y1="18" x2="3.7"  y2="13.4" stroke="rgba(255,255,255,0.18)" stroke-width="0.6"/>
+                <polygon points="18,3 32.3,13.4 26.8,30.1 9.2,30.1 3.7,13.4" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="0.7"/>
+                <polygon points="18,4.8 27.3,15 25.5,28.3 13.6,24.05 7.7,14.7" fill="#1D9E75" fill-opacity="0.28" stroke="#1D9E75" stroke-width="1"/>
+                <circle cx="18"   cy="4.8"   r="1.8" fill="#1D9E75"/>
+                <circle cx="27.3" cy="15"    r="1.8" fill="#1D9E75"/>
+                <circle cx="25.5" cy="28.3"  r="1.8" fill="#1D9E75"/>
+                <circle cx="13.6" cy="24.05" r="1.8" fill="#1D9E75"/>
+                <circle cx="7.7"  cy="14.7"  r="1.8" fill="#1D9E75"/>
+                <text x="44" y="25" font-family="'Barlow Condensed', sans-serif" font-weight="700" font-size="20">
+                    <tspan fill="#f0f0ec">FIVE</tspan><tspan fill="#1D9E75">STAT</tspan>
+                </text>
+            </svg>
+        </a>
+
+        <div class="menu" id="mainMenu">
+
+            <div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
+                <div class="dropdown-content">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_table">Tables</a>
+                    <a href="/teams">Teams</a>
+                </div>
+            </div>
+
+            <a href="/fpl" class="nav-link">FPL Planner</a>
+
+            <a href="/ev_checker" class="nav-link">Bet Value Checker</a>
+
+            <!--<div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Formula 1 <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
+                <div class="dropdown-content">
+                    <a href="/f1">F1 Hub</a>
+                    <a href="/f1/drivers">Driver Ratings</a>
+                    <a href="/f1/predictions">Next Race Predictions</a>
+                    <a href="/f1/fantasy">F1 Fantasy</a>
+                </div>
+            </div>-->
+
+            <a href="/methodology" class="nav-link">Read Me</a>
+
+            {# ── Future: auth links ──
+            {% if current_user.is_authenticated %}
+                <a href="/account" class="nav-link">Account</a>
+                <a href="/logout"  class="nav-link">Log out</a>
+            {% else %}
+                <a href="/login"   class="nav-link">Log in</a>
+                <a href="/signup"  class="nav-link nav-cta">Get Pro</a>
+            {% endif %}
+            #}
+        </div>
+
+        {# Hamburger - shown on mobile via CSS #}
+        <button class="menu-icon" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+    </nav>
+
+    {# ════════════════════════════════════════
+       MAIN PAGE CONTENT
+       ════════════════════════════════════════ #}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    {# ════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════ #}
+    <footer class="footer">
+        {% if last_updated is defined and last_updated %}
+            <p>Last updated: {{ last_updated }}</p>
+        {% endif %}
+        <div class="footer-links">
+            <a href="https://x.com/Five_Stat" target="_blank" rel="noopener">
+                <i class="fa-brands fa-square-x-twitter socials"></i>
+            </a>
+            <a href="mailto:fivestatanalytics@gmail.com">
+                <i class="fa-solid fa-envelope socials"></i>
+            </a>
+        </div>
+        <p>&copy; 2025 FiveStat</p>
+        <p><a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></p>
+    </footer>
+
+    {# ════════════════════════════════════════
+       COOKIE BANNER
+       ════════════════════════════════════════ #}
+    <div id="cookieNotice" style="display:none;">
+        🍪 This site uses cookies to analyse traffic and improve your experience.
+        By continuing, you agree to our
+        <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+        <button onclick="acceptCookies()">Got it</button>
+    </div>
+
+    {# ════════════════════════════════════════
+       GLOBAL JAVASCRIPT
+       ════════════════════════════════════════ #}
+    <script>
+        /* ── Dropdown nav ── */
+        function toggleDropdown(event) {
+            event.preventDefault();
+            const thisDropdown = event.target.closest('.dropdown');
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== thisDropdown) d.classList.remove('show');
+            });
+            thisDropdown.classList.toggle('show');
+        }
+
+        /* Close dropdown when clicking outside */
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+            }
+        });
+
+        /* ── Mobile hamburger ── */
+        function toggleMobileMenu() {
+            document.getElementById('mainMenu').classList.toggle('show');
+        }
+
+        /* ── Cookie banner ── */
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieNotice').style.display = 'none';
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookieNotice').style.display = 'block';
+            }
+        });
+
+        /* ── GA helper: track select interactions ── */
+        function trackTeamSelect(value) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'team_selected', {
+                    event_category: 'Dropdown',
+                    event_label: value,
+                    value: 1
+                });
+            }
+        }
+
+        /* ── Navigate to team page ── */
+        function navigateToTeam(teamName) {
+            if (teamName) window.location.href = '/team/' + encodeURIComponent(teamName);
+        }
+    </script>
+
+    {# ── Per-page scripts ── #}
+    {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

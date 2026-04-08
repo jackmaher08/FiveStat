@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}Bet Value Finder | FiveStat{% endblock %}
+{% block meta_description %}Find value bets by comparing FiveStat model probabilities against bookie-implied odds.{% endblock %}
+
+
+{% block content %}
+
+
+    <div class="lp-hero" style="margin-bottom:0;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Bet Value Checker · Gameweek {{ current_gw }}</div>
+            <h1 class="lp-headline" style="font-size:2rem;">
+                Bet Value Checker
+                <button class="info-button" onclick="toggleModal('infoModal')" title="What is EV?">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+            </h1>
+            <p class="lp-subhead">FiveStat model probabilities vs bookie-implied odds - find where the market undervalues an outcome (in our opinion...)</p>
+        </div>
+    </div>
+
+    {# ── Info modal ── #}
+    <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
+    <div class="modal" id="infoModal">
+        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
+        <p><strong>What is Expected Value (EV)?</strong><br>
+        EV is the edge our model's probability has over what the bookmaker is implying with their odds. A positive EV means our model thinks an outcome is more likely than the bookie is pricing it - suggesting the market may be undervaluing that result. A negative EV means the bookie is pricing the outcome higher than our model estimates.</p>
+        <p><strong>How is bookie probability calculated?</strong><br>
+        Bookmakers build a margin (overround) into their odds so that the implied probabilities across all outcomes add up to more than 100%. We strip that margin out to get a fair, margin-adjusted implied probability - giving a like-for-like comparison against our model.</p>
+        <p><strong>How to read the table</strong><br>
+        <strong>Model %</strong> - our model's probability for that outcome.<br>
+        <strong>Bookie %</strong> - the margin-adjusted implied probability from the bookmaker's odds.<br>
+        <strong>EV</strong> - the difference. Positive = potential value, negative = bookie prices it higher than we do.</p>
+        <p><strong>Value thresholds</strong><br>
+        <strong>Strong value (&gt;+10%)</strong> - a meaningful gap between model and market, worth paying attention to.<br>
+        <strong>Marginal (+1-10%)</strong> - a slight edge, but within the range of normal model uncertainty.<br>
+        <strong>No value (≤0%)</strong> - the bookie's price is fair or short relative to our model.</p>
+        <p><strong>Important</strong><br>
+        EV is a model-driven signal, not a guarantee of profit. Bookmaker odds move constantly as fixtures approach, so treat this as a guide to where the model disagrees with the market - not as betting advice. Gamble responsibly.</p>
+    </div>
+
+
+
+    {# ── Disclaimer ── #}
+    <p class="ev-disclaimer">This tool is for informational purposes only. Nothing on this page constitutes betting advice. Gamble responsibly!</p>
+
+    {# ── Legend ── #}
+    <div class="ev-legend">
+        <span class="ev-badge ev-badge-good">Strong value  &gt;+10%</span>
+        <span class="ev-badge ev-badge-low">Marginal  +1-10%</span>
+        <span class="ev-badge ev-badge-none">No value  ≤0%</span>
+    </div>
+
+    {# ── Win probability table ── #}
+    <div class="ev-section">
+        <div class="ev-section-title"><span></span> Win probability</div>
+        <div class="ev-table-wrap">
+            <table class="ev-table">
+                <thead>
+                    <tr>
+                        <th>Fixture</th>
+                        <th>Market</th>
+                        <th>Our model</th>
+                        <th>Bookie</th>
+                        <th>Edge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ev_fixtures %}
+                        {% set markets = [
+                            (f.home_team ~ " win",  f.model_home_win, f.bookie_home_win, f.ev_home_win),
+                            ("Draw",                f.model_draw,     f.bookie_draw,     f.ev_draw),
+                            (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win)
+                        ] %}
+                        {% for market_label, model_p, bookie_p, ev in markets %}
+                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                                   {% if loop.first %}ev-fixture-first{% endif %}">
+                            <td class="ev-fixture-cell">
+                                {% if loop.first %}
+                                    <span class="ev-fixture-name">{{ f.home_team }} vs {{ f.away_team }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="ev-market-cell">{{ market_label }}</td>
+                            <td>{{ model_p }}%</td>
+                            <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
+                            <td>
+                                {% if ev is not none %}
+                                    {% if ev > 10 %}
+                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
+                                    {% elif ev > 1 %}
+                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
+                                    {% elif ev > 0 %}
+                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
+                                    {% else %}
+                                        <span class="ev-edge-neg">{{ ev }}%</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="ev-edge-neutral">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="ev-section">
+        <div class="ev-section-title"><span></span> Over/Under 2.5 Goals</div>
+        <div class="ev-table-wrap">
+            <table class="ev-table">
+                <thead>
+                    <tr>
+                        <th>Fixture</th>
+                        <th>Market</th>
+                        <th>Our model</th>
+                        <th>Bookie</th>
+                        <th>Edge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in ev_fixtures %}
+                        {% set ou_markets = [
+                            ("Over 2.5",  f.model_over25,  f.bookie_over25,  f.ev_over25),
+                            ("Under 2.5", f.model_under25, f.bookie_under25, f.ev_under25)
+                        ] %}
+                        {% for market_label, model_p, bookie_p, ev in ou_markets %}
+                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                                   {% if loop.first %}ev-fixture-first{% endif %}">
+                            <td class="ev-fixture-cell">
+                                {% if loop.first %}
+                                    <span class="ev-fixture-name">{{ f.home_team }} vs {{ f.away_team }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="ev-market-cell">{{ market_label }}</td>
+                            <td>{{ model_p }}%</td>
+                            <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
+                            <td>
+                                {% if ev is not none %}
+                                    {% if ev > 10 %}
+                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
+                                    {% elif ev > 1 %}
+                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
+                                    {% elif ev > 0 %}
+                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
+                                    {% else %}
+                                        <span class="ev-edge-neg">{{ ev }}%</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="ev-edge-neutral">-</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<button id="backToTop" title="Back to Top">↑</button>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    gtag('event', 'ev_checker_view', { event_category: 'Engagement' });
+
+    function toggleModal(id) {
+        const modal   = document.getElementById(id);
+        const overlay = document.getElementById(id + 'Overlay');
+        const visible = modal.style.display === 'block';
+        modal.style.display   = visible ? 'none' : 'block';
+        overlay.style.display = visible ? 'none' : 'block';
+    }
+
+    window.addEventListener('scroll', function() {
+        document.getElementById('backToTop').style.display =
+            document.documentElement.scrollTop > 400 ? 'block' : 'none';
+    });
+    document.getElementById('backToTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+{% endblock %}

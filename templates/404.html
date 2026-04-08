@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found | FiveStat{% endblock %}
+{% block meta_description %}Sorry, this page doesn't exist on FiveStat.{% endblock %}
+
+{% block content %}
+<div class="lp-hero">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">404 · Page Not Found</div>
+        <h1 class="lp-headline" style="font-size:2rem;">Nothing to see here</h1>
+        <p class="lp-subhead">This page doesn't exist — but the data does.</p>
+        <div class="lp-cta-group">
+            <a href="/epl_fixtures" class="lp-cta-primary">View this week's predictions →</a>
+            <a href="/" class="lp-cta-ghost">Back to home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

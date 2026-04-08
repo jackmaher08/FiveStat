@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat - Premier League Team Pages{% endblock %}
+{% block meta_description %}Form, fixtures, shotmaps and simulated positions for every Premier League club.{% endblock %}
+
+{% block content %}
+<div class="lp-hero">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Premier League · 2025/26</div>
+        <h1 class="lp-headline" style="font-size:2rem;">Team Pages</h1>
+        <p class="lp-subhead">Form, fixtures, shotmaps and simulated league positions for every Premier League club.</p>
+        <div style="margin-top:1.5rem;">
+            <select onchange="if(this.value) window.location.href='/team/'+encodeURIComponent(this.value)"
+                    style="padding:0.65rem 1.25rem; font-size:1rem; border-radius:8px; border:1.5px solid #444; background:#1a1a1a; color:#f0f0ec; cursor:pointer; min-width:220px;">
+                <option value="" selected disabled>Select a team →</option>
+                {% for team_option in all_teams %}
+                    <option value="{{ team_option }}">{{ team_display_names[team_option] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</div>
+{% endblock %}

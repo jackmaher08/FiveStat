@@ -1,0 +1,605 @@
+{% extends "base.html" %}
+
+{% block title %}FPL Analytics - Clean Sheet & Fixture Planner | FiveStat{% endblock %}
+{% block meta_description %}Model-backed captain and defensive picks - so now you know exactly why you made the call, whatever happens in the GW.{% endblock %}
+
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    {# ── Header - full width outside container ── #}
+    <div class="lp-hero" style="margin-bottom:2rem;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">FPL Analytics · Gameweek {{ current_gw }}</div>
+            <h1 class="lp-headline" style="font-size:2rem;">FPL Planner</h1>
+            <p class="lp-subhead">Model-backed captaincy picks and transfer targets - so now you know exactly why you made the call, whatever happens in the GW.</p>
+        </div>
+    </div>
+
+<div class="fpl-page">
+
+    {# ── Team xG Chart ── #}
+    {% if xg_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Team xG</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-xg active" onclick="setXgWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="fpl-note" id="xgNote">Model xG for Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="xgChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Captain Picks ── #}
+    {% if captain_picks %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Captain Picks <button class="info-button" onclick="toggleModal('playerWatchModal')" title="How is this list built?"><i class="fas fa-info-circle"></i></button></div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw5', this)">Next 5 GWs</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('diff', this)">Differentials</button>
+            </div>
+        </div>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="fpl-note" id="capNote">Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.</p>
+        <p class="fpl-note" id="capNote">Attacking Players only - Defend your picks!</p>
+        <div class="fpl-table-wrap">
+            <table class="fpl-cap-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>Fixture</th>
+                        <th id="capXgHeader">Proj. xG</th>
+                        <th id="capXaHeader">Proj. xA</th>
+                        <th>Price</th>
+                        <th>Ownership</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pick in captain_picks %}
+                    <tr class="cap-main-row" onclick="toggleCapRow({{ loop.index0 }})" data-idx="{{ loop.index0 }}">
+                        <td class="fpl-rank">{{ loop.index }}</td>
+                        <td>
+                            <span class="fpl-player-name">{{ pick.name }}</span>
+                            <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }}</span>
+                            {% if pick.ownership >= 25 %}
+                            <span class="fpl-badge fpl-easy" style="font-size:10px;margin-top:2px;">Safe - popular pick</span>
+                            {% elif pick.ownership >= 10 %}
+                            <span class="fpl-badge" style="font-size:10px;margin-top:2px;background:var(--accent-light);color:var(--accent-dark);">Balanced - provides cover</span>
+                            {% else %}
+                            <span class="fpl-badge fpl-diff-chip" style="font-size:10px;margin-top:2px;">Bold! - low ownership</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="fpl-diff-cell fpl-{{ pick.gw1_diff }}">{{ pick.gw1_fixture }}</span></td>
+                        <td class="fpl-xg-val" data-gw1="{{ pick.gw1_xg }}" data-gw3="{{ pick.gw3_xg }}" data-gw5="{{ pick.gw5_xg }}">{{ "%.2f"|format(pick.gw1_xg) }}</td>
+                        <td class="fpl-xa-val" data-gw1="{{ pick.gw1_xa }}" data-gw3="{{ pick.gw3_xa }}" data-gw5="{{ pick.gw5_xa }}">{{ "%.2f"|format(pick.gw1_xa) }}</td>
+                        <td class="fpl-price">£{{ pick.price }}m</td>
+                        <td>
+                            {% if pick.ownership < 15 %}
+                                <span class="fpl-badge fpl-diff-chip">{{ pick.ownership }}%</span>
+                            {% else %}
+                                <span class="fpl-own-chip">{{ pick.ownership }}%</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr class="cap-expand-row" id="cap-expand-{{ loop.index0 }}" style="display:none">
+                        <td colspan="6" class="cap-expand-cell">
+                            <table class="cap-inner-table">
+                                <thead>
+                                    <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th></tr>
+                                </thead>
+                                <tbody>
+                                    {% for fix in pick.fixtures %}
+                                    <tr>
+                                        <td>{{ fix.gw }}</td>
+                                        <td><span class="fpl-diff-cell fpl-{{ fix.diff }}">{{ fix.label }}</span></td>
+                                        <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
+                                        <td class="fpl-xa-val">{{ "%.2f"|format(fix.proj_xa) }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Team xGA Chart ── #}
+    {% if xga_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Team xGA</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-xga active" onclick="setXgaWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-xga"        onclick="setXgaWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-xga"        onclick="setXgaWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="fpl-note" id="xgaNote">Model xGA for Gameweek {{ current_gw }} - lower means fewer goals expected to concede</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="xgaChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+    {# ── Clean Sheet Chart ── #}
+    {% if cs_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Clean Sheet Probability</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn active" onclick="setWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn"        onclick="setWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn"        onclick="setWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="fpl-note" id="csNote">Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="csChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
+
+
+
+    {# ── Fixture Difficulty ── #}
+    {% if fixture_ticker %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Fixture Difficulty - Next 5 Gameweeks</div>
+        </div>
+        <div class="fpl-legend">
+            <span class="fpl-badge fpl-easy">Easy</span>
+            <span class="fpl-badge fpl-medium">Mid</span>
+            <span class="fpl-badge fpl-hard">Hard</span>
+            <span class="fpl-badge fpl-blank">BGW</span>
+        </div>
+        <p class="fpl-note">Difficulty based on FiveStat model win probability for each fixture.</p>
+        <div class="fpl-table-wrap">
+            <table class="fpl-diff-table">
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        {% for gw in gw_range %}<th>GW{{ gw }}</th>{% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in fixture_ticker %}
+                    <tr>
+                        <td class="fpl-team-cell">
+                            <a href="{{ url_for('team_page', team_name=row.team) }}">{{ row.display_team }}</a>
+                        </td>
+                        {% for fix in row.fixtures %}
+                            {% if fix.is_dgw %}
+                            <td class="fpl-diff-cell fpl-dgw-cell">
+                                {% for part in fix.parts %}
+                                <span class="fpl-dgw-half fpl-{{ part.difficulty }}">{{ part.label }}</span>
+                                {% endfor %}
+                            </td>
+                            {% else %}
+                            <td class="fpl-diff-cell fpl-{{ fix.difficulty }}">{{ fix.label }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<button id="backToTop" title="Back to Top">↑</button>
+
+{# ── Player watch info modal ── #}
+<div class="modal-overlay" id="playerWatchModalOverlay" onclick="toggleModal('playerWatchModal')"></div>
+<div class="modal" id="playerWatchModal">
+    <button class="close-button" onclick="toggleModal('playerWatchModal')">✖</button>
+    <h3>How is the Player Watch list built?</h3>
+    <p><strong>Who is included?</strong><br>
+    Only outfield attacking players (Midfielders and Forwards) who are currently available (no injury or suspension flag) are considered. Players must have accumulated at least 450 minutes of game time during the current season to be included - this filters out rotation risks and players without enough data to project reliably.</p>
+    <p><strong>Why might a player be missing?</strong><br>
+    A player may be absent if they have fewer than 450 minutes played, are marked as unavailable or doubtful, play for a team with no upcoming fixture data, or have insufficient recent shot data for the model to calculate a meaningful xG share.</p>
+    <p><strong>How are projections calculated?</strong><br>
+    Each player's projected xG is based on their share of their team's total xG this season, weighted 70% on the full-season average and 30% on their share over the most recent 5 gameweeks. This share is then multiplied by the team's model-projected xG for the upcoming fixture, scaled by the player's average minutes per game.</p>
+    <p><strong>What does the Differentials tab show?</strong><br>
+    The Differentials tab filters the list to players with an FPL ownership below 15% — useful for identifying high-upside picks that most managers won't have.</p>
+</div>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+gtag('event', 'fpl_view', { event_category: 'Engagement' });
+
+const capData = {{ captain_picks | tojson }};
+
+const capNotes = {
+    gw1:  'Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.',
+    gw3:  'Ranked by total projected xG across the next 3 Gameweeks. Click a row to see fixture breakdown.',
+    gw5:  'Ranked by total projected xG across the next 5 Gameweeks. Click a row to see fixture breakdown.',
+    diff: 'Differentials only (ownership under 15%), ranked by projected xG this Gameweek.',
+};
+const capHeaders = {
+    gw1: 'Proj. xG', gw3: 'xG (Next 3)', gw5: 'xG (Next 5)', diff: 'Proj. xG'
+};
+
+const capXaHeaders = {
+    gw1: 'Proj. xA', gw3: 'xA (Next 3)', gw5: 'xA (Next 5)', diff: 'Proj. xA'
+};
+
+function setCapWindow(mode, btn) {
+    document.getElementById('capNote').textContent = capNotes[mode];
+    document.getElementById('capXgHeader').textContent = capHeaders[mode];
+    document.getElementById('capXaHeader').textContent = capXaHeaders[mode];
+    document.querySelectorAll('.fpl-btn-cap').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const rows = document.querySelectorAll('.cap-main-row');
+    const key  = mode === 'diff' ? 'gw1' : mode;
+
+    let rowArr = Array.from(rows).map(r => {
+        const idx = parseInt(r.dataset.idx);
+        const p   = capData[idx];
+        return { row: r, val: p[`${key}_xg`], idx, ownership: p.ownership };
+    });
+
+    if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
+    rowArr.sort((a, b) => b.val - a.val);
+
+    const tbody = document.querySelector('.fpl-cap-table tbody');
+    rowArr.forEach((item, rank) => {
+        const mainRow   = item.row;
+        const expandRow = document.getElementById(`cap-expand-${item.idx}`);
+        const p = capData[item.idx];
+        mainRow.querySelector('.fpl-rank').textContent   = rank + 1;
+        mainRow.querySelector('.fpl-xg-val').textContent = parseFloat(item.val).toFixed(2);
+        mainRow.querySelector('.fpl-xa-val').textContent = parseFloat(p[`${key}_xa`]).toFixed(2);
+        tbody.appendChild(mainRow);
+        if (expandRow) { expandRow.style.display = 'none'; tbody.appendChild(expandRow); }
+        mainRow.style.display = '';
+    });
+
+    if (mode === 'diff') {
+        rows.forEach(r => {
+            const idx = parseInt(r.dataset.idx);
+            if (capData[idx].ownership >= 15) {
+                r.style.display = 'none';
+                const exp = document.getElementById(`cap-expand-${idx}`);
+                if (exp) exp.style.display = 'none';
+            }
+        });
+    }
+}
+
+function toggleCapRow(idx) {
+    const exp = document.getElementById(`cap-expand-${idx}`);
+    if (exp) exp.style.display = exp.style.display === 'none' ? '' : 'none';
+}
+</script>
+<script>
+// ── Watermark plugin - draws 'FiveStat' on every chart after render ──
+Chart.register({
+    id: 'fivestatWatermark',
+    afterDraw(chart) {
+        const ctx = chart.ctx;
+        const { width, height } = chart.chartArea || chart;
+        const x = chart.chartArea ? chart.chartArea.right - 6 : width - 6;
+        const y = chart.chartArea ? chart.chartArea.bottom - 6 : height - 6;
+        ctx.save();
+        ctx.font = 'bold 10px Barlow, sans-serif';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.12)';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('FiveStat', x, y);
+        ctx.restore();
+    }
+});
+
+const csRaw = {{ cs_data | tojson }};
+
+const windows = {
+    gw1: {
+        sorted:  [...csRaw].sort((a,b) => b.gw1 - a.gw1),
+        key:     'gw1',
+        note:    'Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}.',
+        xLabel:  v => v.toFixed(1) + '%',
+        xMax:    60,
+        color:   v => v >= 35 ? '#1D9E75' : v >= 22 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(1) + '%'
+    },
+    gw3: {
+        sorted:  [...csRaw].sort((a,b) => b.gw3 - a.gw3),
+        key:     'gw3',
+        note:    'Expected clean sheets across the next 3 Gameweeks (sum of per-match probabilities).',
+        xLabel:  v => v.toFixed(2) + ' xCS',
+        xMax:    1.8,
+        color:   v => v >= 0.90 ? '#1D9E75' : v >= 0.60 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xCS'
+    },
+    gw5: {
+        sorted:  [...csRaw].sort((a,b) => b.gw5 - a.gw5),
+        key:     'gw5',
+        note:    'Expected clean sheets across the next 5 Gameweeks (sum of per-match probabilities).',
+        xLabel:  v => v.toFixed(2) + ' xCS',
+        xMax:    2.8,
+        color:   v => v >= 1.50 ? '#1D9E75' : v >= 1.00 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xCS'
+    }
+};
+
+const ctx = document.getElementById('csChart').getContext('2d');
+let csChart = new Chart(ctx, {
+    type: 'bar',
+    data: buildData('gw1'),
+    options: buildOptions('gw1')
+});
+
+function buildData(key) {
+    const w = windows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    return {
+        labels: w.sorted.map(d => d.team),
+        datasets: [{
+            data: vals,
+            backgroundColor: vals.map(w.color),
+            borderRadius: 3,
+            borderSkipped: false
+        }]
+    };
+}
+
+function buildOptions(key) {
+    const w = windows[key];
+    return {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => '  ' + w.tip(ctx.raw) } }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: w.xMax,
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    font: { family: 'Barlow, sans-serif', size: 11 },
+                    callback: w.xLabel
+                }
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' } }
+            }
+        }
+    };
+}
+
+function setWindow(key, btn) {
+    csChart.data    = buildData(key);
+    csChart.options = buildOptions(key);
+    csChart.update();
+    document.getElementById('csNote').textContent = windows[key].note;
+    document.querySelectorAll('.fpl-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+const xgRaw = {{ xg_data | tojson }};
+
+function xgMax(key) {
+    const max = Math.max(...xgRaw.map(d => d[key]));
+    return Math.ceil(max * 1.15 * 10) / 10;
+}
+
+const xgWindows = {
+    gw1: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw1 - a.gw1),
+        key:     'gw1',
+        note:    'Model xG for Gameweek {{ current_gw }} - higher means more attacking opportunity.',
+        color:   v => v >= 1.8 ? '#1D9E75' : v >= 1.2 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    },
+    gw3: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw3 - a.gw3),
+        key:     'gw3',
+        note:    'Total model xG across the next 3 Gameweeks.',
+        color:   v => v >= 4.0 ? '#1D9E75' : v >= 2.5 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    },
+    gw5: {
+        sorted:  [...xgRaw].sort((a,b) => b.gw5 - a.gw5),
+        key:     'gw5',
+        note:    'Total model xG across the next 5 Gameweeks.',
+        color:   v => v >= 6.5 ? '#1D9E75' : v >= 4.0 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xG'
+    }
+};
+
+const xgCtx = document.getElementById('xgChart').getContext('2d');
+let xgChart = new Chart(xgCtx, {
+    type: 'bar',
+    data: buildXgData('gw1'),
+    options: buildXgOptions('gw1')
+});
+
+function buildXgData(key) {
+    const w = xgWindows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    return {
+        labels: w.sorted.map(d => d.team),
+        datasets: [{
+            data: vals,
+            backgroundColor: vals.map(w.color),
+            borderRadius: 3,
+            borderSkipped: false
+        }]
+    };
+}
+
+function buildXgOptions(key) {
+    const w = xgWindows[key];
+    return {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => '  ' + w.tip(ctx.raw) } }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: xgMax(key),
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    font: { family: 'Barlow, sans-serif', size: 11 },
+                    callback: v => v.toFixed(1) + ' xG'
+                }
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' } }
+            }
+        }
+    };
+}
+
+function setXgWindow(key, btn) {
+    xgChart.data    = buildXgData(key);
+    xgChart.options = buildXgOptions(key);
+    xgChart.update();
+    document.getElementById('xgNote').textContent = xgWindows[key].note;
+    document.querySelectorAll('.fpl-btn-xg').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+const xgaRaw = {{ xga_data | tojson }};
+
+function xgaMax(key) {
+    const max = Math.max(...xgaRaw.map(d => d[key]));
+    return Math.ceil(max * 1.15 * 10) / 10;
+}
+
+const xgaWindows = {
+    gw1: {
+        sorted:  [...xgaRaw].sort((a,b) => a.gw1 - b.gw1),
+        key:     'gw1',
+        note:    'Model xGA for Gameweek {{ current_gw }} - lower means fewer goals expected to concede.',
+        color:   v => v <= 0.9 ? '#1D9E75' : v <= 1.3 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xGA'
+    },
+    gw3: {
+        sorted:  [...xgaRaw].sort((a,b) => a.gw3 - b.gw3),
+        key:     'gw3',
+        note:    'Total model xGA across the next 3 Gameweeks - lower is better for defenders.',
+        color:   v => v <= 2.5 ? '#1D9E75' : v <= 3.5 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xGA'
+    },
+    gw5: {
+        sorted:  [...xgaRaw].sort((a,b) => a.gw5 - b.gw5),
+        key:     'gw5',
+        note:    'Total model xGA across the next 5 Gameweeks - lower is better for defenders.',
+        color:   v => v <= 4.0 ? '#1D9E75' : v <= 5.5 ? '#e4a400' : '#888882',
+        tip:     v => v.toFixed(2) + ' xGA'
+    }
+};
+
+const xgaCtx = document.getElementById('xgaChart').getContext('2d');
+let xgaChart = new Chart(xgaCtx, {
+    type: 'bar',
+    data: buildXgaData('gw1'),
+    options: buildXgaOptions('gw1')
+});
+
+function buildXgaData(key) {
+    const w = xgaWindows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    return {
+        labels: w.sorted.map(d => d.team),
+        datasets: [{
+            data: vals,
+            backgroundColor: vals.map(w.color),
+            borderRadius: 3,
+            borderSkipped: false
+        }]
+    };
+}
+
+function buildXgaOptions(key) {
+    const w = xgaWindows[key];
+    return {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => '  ' + w.tip(ctx.raw) } }
+        },
+        scales: {
+            x: {
+                beginAtZero: true,
+                max: xgaMax(key),
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                ticks: {
+                    font: { family: 'Barlow, sans-serif', size: 11 },
+                    callback: v => v.toFixed(1) + ' xGA'
+                }
+            },
+            y: {
+                grid: { display: false },
+                ticks: { font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' } }
+            }
+        }
+    };
+}
+
+function setXgaWindow(key, btn) {
+    xgaChart.data    = buildXgaData(key);
+    xgaChart.options = buildXgaOptions(key);
+    xgaChart.update();
+    document.getElementById('xgaNote').textContent = xgaWindows[key].note;
+    document.querySelectorAll('.fpl-btn-xga').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function toggleModal(id) {
+    const modal   = document.getElementById(id);
+    const overlay = document.getElementById(id + 'Overlay');
+    if (!modal || !overlay) return;
+    const visible = modal.style.display === 'block';
+    modal.style.display   = visible ? 'none' : 'block';
+    overlay.style.display = visible ? 'none' : 'block';
+}
+
+window.addEventListener('scroll', function() {
+    document.getElementById('backToTop').style.display =
+        document.documentElement.scrollTop > 400 ? 'block' : 'none';
+});
+document.getElementById('backToTop').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+{% endblock %}

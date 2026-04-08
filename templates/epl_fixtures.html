@@ -1,0 +1,496 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat - EPL Fixtures & Score Predictions{% endblock %}
+{% block meta_description %}Correct score heatmaps and xG-based predictions for upcoming EPL matches.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/epl_fixtures{% endblock %}
+
+{% block extra_head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .sorted-column { font-weight: bold; }
+        .positive { color: #d9534f; }
+        .negative { color: #5cb85c; }
+        .small-text { font-size: 0.75rem; }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="lp-hero" style="margin-bottom:0;">
+        <div class="lp-hero-bg"></div>
+        <div class="lp-hero-inner">
+            <div class="lp-eyebrow">Premier League · 2025/26</div>
+            <h1 class="lp-headline" style="font-size:2rem;">Fixtures &amp; Predictions</h1>
+            <p class="lp-subhead">Correct score heatmaps, win probabilities and projected xG for every upcoming Premier League fixture.<br><br>This tool is free. It's also the same model we'll eventually charge you for, but we're building the audience first.</p>
+        </div>
+    </div>
+
+    {# ── Gameweek selector with prev/next ── #}
+    <div class="gw-selector">
+        <button class="gw-nav-btn" id="gw-prev" title="Previous gameweek"
+            {% if current_gw <= gameweeks[0] %}disabled{% endif %}
+            onclick="changeGameweek({{ current_gw - 1 }})">&#8592; Prev</button>
+        <select id="gw-select" onchange="changeGameweek(this.value); trackTeamSelect(this.value)">
+            {% for gw in gameweeks %}
+                <option value="{{ gw }}" {% if gw == current_gw %}selected{% endif %}>Gameweek {{ gw }}</option>
+            {% endfor %}
+        </select>
+        <button class="gw-nav-btn" id="gw-next" title="Next gameweek"
+            {% if current_gw >= gameweeks[-1] %}disabled{% endif %}
+            onclick="changeGameweek({{ current_gw + 1 }})">Next &#8594;</button>
+    </div>
+
+    {# ── Expand/collapse toggle ── #}
+    <div class="view-toggle">
+        <label class="switch">
+            <input type="checkbox" id="toggleView" onchange="toggleAllHeatmaps(this.checked)">
+            <span class="slider round"></span>
+        </label>
+        <span id="toggleLabel">Expanded View</span>
+    </div>
+
+    {# ── Info button (below expanded view) ── #}
+    <div class="view-toggle" style="margin-top:-0.25rem;">
+        <button class="info-button" onclick="toggleModal('infoModal')" title="How to read the heatmaps">
+            <i class="fas fa-info-circle"></i>
+        </button>
+    </div>
+
+    {# ── Info modal overlay & modal ── #}
+    <div class="modal-overlay" id="infoModalOverlay" onclick="toggleModal('infoModal')"></div>
+    <div class="modal" id="infoModal">
+        <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
+        <p><strong>What is the correct score heatmap?</strong><br>
+        The heatmap shows the probability of every possible scoreline for a given fixture. Each cell represents a home score (rows) vs away score (columns) combination - the darker the cell, the more likely that scoreline is according to the model. The most probable scoreline is highlighted.</p>
+        <p><strong>How is it generated?</strong><br>
+        We use each team's attack and defence ratings - built from historical Premier League data and recent form - to estimate the expected goals (xG) for each side. Those xG values are then run through a Bivariate Poisson simulation, which produces a full probability distribution across all scorelines up to 7-7. A Dixon-Coles correction is applied to fine-tune the probabilities of low-scoring results like 0-0 and 1-1, which tend to be slightly underestimated by standard Poisson models.</p>
+        <p><strong>How should I read it?</strong><br>
+        The win, draw and away win probabilities shown beneath each fixture are derived directly from the heatmap - summing all cells where the home team wins, all cells where the scores are level, and all cells where the away team wins. The xG figures show how many goals each team is expected to score on average.</p>
+        <p><strong>A note on correct scores</strong><br>
+        Football is a low-scoring game with a lot of variance, so even the most probable scoreline in any given match rarely exceeds 15-20% probability. The heatmap is best used to understand the shape of a game - whether it's likely to be a high-scoring affair or a tight, low-scoring contest - rather than as a single-score prediction. You can read more about how the model works on the <a href="/methodology">Methodology page</a>.</p>
+    </div>
+
+    {# ── Fixtures ── #}
+    <div class="fixtures-container">
+        {% for date, fixtures in fixture_groups.items() %}
+            <hr class="fixture-divider">
+            <div class="date-header">
+                <h3>{{ date | format_date }}</h3>
+            </div>
+            <hr class="fixture-divider">
+            {% for fixture in fixtures %}
+                {% set stats_key = fixture.home_team ~ "|" ~ fixture.away_team %}
+                {% set stats = fixture_stats.get(stats_key, {}) %}
+                <div class="fixture">
+                    <div class="fixture-header" onclick="toggleHeatmap('{{ fixture.home_team }}', '{{ fixture.away_team }}')">
+                        <div class="fixture-info">
+                            <div class="fixture-row">
+                                <span class="team-name home">{{ fixture.home_team }}</span>
+
+                                {% if fixture.isResult %}
+                                    <span class="score">{{ fixture.home_goals|int }}</span>
+                                    <span class="versus">-</span>
+                                    <span class="score">{{ fixture.away_goals|int }}</span>
+                                {% else %}
+                                    <span class="versus">vs</span>
+                                {% endif %}
+
+                                <span class="team-name away">{{ fixture.away_team }}</span>
+                            </div>
+                            <div class="fix-meta-row">
+                                <div class="fix-form-dots">
+                                    {% if fixture.home_form %}
+                                        {% for r in fixture.home_form[:5] %}
+                                            <span class="fix-dot fix-dot--{{ r.result }}"
+                                                  title="{{ r.h_team }} {{ r.h_score }}-{{ r.a_score }} {{ r.a_team }}"></span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                                {% if fixture.isResult %}
+                                    {% set rs_head = result_stats.get(fixture.home_team ~ "|" ~ fixture.away_team, {}) %}
+                                    {% if rs_head %}
+                                        <span class="fix-xg-label"><span class="fix-xg-val">{{ rs_head.home_xg }}xG</span><span class="fix-xg-sep">-</span><span class="fix-xg-val">{{ rs_head.away_xg }}xG</span></span>
+                                    {% endif %}
+                                {% elif stats and stats.home_xg %}
+                                    <span class="fix-xg-label"><span class="fix-xg-val">{{ stats.home_xg }}xG</span><span class="fix-xg-sep">-</span><span class="fix-xg-val">{{ stats.away_xg }}xG</span></span>
+                                {% endif %}
+                                <div class="fix-form-dots fix-form-dots--away">
+                                    {% if fixture.away_form %}
+                                        {% for r in fixture.away_form[:5] %}
+                                            <span class="fix-dot fix-dot--{{ r.result }}"
+                                                  title="{{ r.h_team }} {{ r.h_score }}-{{ r.a_score }} {{ r.a_team }}"></span>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <h5 class="fixture-date">{{ fixture.date[-5:] }}</h5>
+                        </div>
+                        <span class="dropdown-icon" id="icon_{{ fixture.home_team }}_{{ fixture.away_team }}">
+                        </span>
+                    </div>
+
+                    <div class="heatmap-container"
+                         id="heatmap_{{ fixture.home_team }}_{{ fixture.away_team }}"
+                         style="max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out;">
+
+                        {# ── Heatmap image (upcoming) or shotmap (result) ── #}
+                        <div class="fixture-visual-wrap">
+                            <img class="fixture-main-img fixture-main-img--{{ fixture.asset_type }}"
+                                 src="{{ url_for('static', filename=fixture.asset_path) }}"
+                                 alt="{{ fixture.home_team }} vs {{ fixture.away_team }} {{ fixture.asset_type }}">
+                        </div>
+
+                        {# ── Result stats table (resulted fixtures only) ── #}
+                        {% if fixture.isResult %}
+                        {% set rs = result_stats.get(fixture.home_team ~ "|" ~ fixture.away_team, {}) %}
+                        {% if rs %}
+                        <div class="result-stats-wrap">
+                            <table class="result-stats-table">
+                                <colgroup>
+                                    <col class="col-home">
+                                    <col class="col-label">
+                                    <col class="col-away">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>{{ fixture.home_team }}</th>
+                                        <th></th>
+                                        <th>{{ fixture.away_team }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ rs.home_goals }}</td>
+                                        <td class="stat-label">Goals</td>
+                                        <td>{{ rs.away_goals }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_xg }}</td>
+                                        <td class="stat-label">xG</td>
+                                        <td>{{ rs.away_xg }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_shots }}</td>
+                                        <td class="stat-label">Shots</td>
+                                        <td>{{ rs.away_shots }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ rs.home_sot }}</td>
+                                        <td class="stat-label">SOT</td>
+                                        <td>{{ rs.away_sot }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+
+                        {# ── Stat bar charts - upcoming fixtures only ── #}
+                        {% if not fixture.isResult and stats %}
+                        <div class="fixture-charts-row">
+
+                            <div class="fixture-chart-card">
+                                <div class="fixture-chart-label">Win probability</div>
+                                <canvas id="chart_win_{{ fixture.home_team }}_{{ fixture.away_team }}"></canvas>
+                                <script>
+                                (function() {
+                                    var ctx = document.getElementById('chart_win_{{ fixture.home_team }}_{{ fixture.away_team }}').getContext('2d');
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Home', 'Draw', 'Away'],
+                                            datasets: [{
+                                                data: [{{ stats.home_win }}, {{ stats.draw }}, {{ stats.away_win }}],
+                                                backgroundColor: ['#0a2540', '#888882', '#0a2540'],
+                                                borderRadius: 4,
+                                                borderSkipped: false
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: false,
+                                            maintainAspectRatio: false,
+                                            devicePixelRatio: window.devicePixelRatio || 1,
+                                            plugins: {
+                                                legend: { display: false },
+                                                tooltip: { enabled: false },
+                                                datalabels: { display: false }
+                                            },
+                                            animation: {
+                                                onComplete: function() {
+                                                    var chart = this;
+                                                    var ctx = chart.ctx;
+                                                    ctx.font = '700 11px Barlow Condensed, sans-serif';
+                                                    ctx.fillStyle = '#888882';
+                                                    ctx.textAlign = 'center';
+                                                    chart.data.datasets.forEach(function(dataset, i) {
+                                                        var meta = chart.getDatasetMeta(i);
+                                                        meta.data.forEach(function(bar, index) {
+                                                            var value = parseFloat(dataset.data[index]).toFixed(1) + '%';
+                                                            ctx.fillText(value, bar.x, bar.y - 4);
+                                                        });
+                                                    });
+                                                }
+                                            },
+                                            scales: {
+                                                y: { display: false, beginAtZero: true, max: Math.max({{ stats.home_win }}, {{ stats.draw }}, {{ stats.away_win }}) * 1.25 },
+                                                x: {
+                                                    grid: { display: false },
+                                                    ticks: {
+                                                        font: { size: 12, family: 'Barlow Condensed, sans-serif', weight: '300' },
+                                                        color: '#888882',
+                                                        maxRotation: 0,
+                                                        minRotation: 0,
+                                                        autoSkip: false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                })();
+                                </script>
+                            </div>
+
+                            <div class="fixture-chart-card">
+                                <div class="fixture-chart-label">Over / under 2.5 goals</div>
+                                <canvas id="chart_ou_{{ fixture.home_team }}_{{ fixture.away_team }}"></canvas>
+                                <script>
+                                (function() {
+                                    var ctx = document.getElementById('chart_ou_{{ fixture.home_team }}_{{ fixture.away_team }}').getContext('2d');
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Over 2.5', 'Under 2.5'],
+                                            datasets: [{
+                                                data: [{{ stats.over_2_5 }}, {{ (100 - stats.over_2_5)|round(1) }}],
+                                                backgroundColor: ['#0a2540', '#0a2540'],
+                                                borderRadius: 4,
+                                                borderSkipped: false
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: false,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: { display: false },
+                                                tooltip: { enabled: false }
+                                            },
+                                            animation: {
+                                                onComplete: function() {
+                                                    var chart = this;
+                                                    var ctx = chart.ctx;
+                                                    ctx.font = '700 11px Barlow Condensed, sans-serif';
+                                                    ctx.fillStyle = '#888882';
+                                                    ctx.textAlign = 'center';
+                                                    chart.data.datasets.forEach(function(dataset, i) {
+                                                        var meta = chart.getDatasetMeta(i);
+                                                        meta.data.forEach(function(bar, index) {
+                                                            var value = parseFloat(dataset.data[index]).toFixed(1) + '%';
+                                                            ctx.fillText(value, bar.x, bar.y - 4);
+                                                        });
+                                                    });
+                                                }
+                                            },
+                                            scales: {
+                                                y: { display: false, beginAtZero: true, max: Math.max({{ stats.over_2_5 }}, {{ 100 - stats.over_2_5 }}) * 1.25 },
+                                                x: {
+                                                    grid: { display: false },
+                                                    ticks: {
+                                                        font: { size: 12, family: 'Barlow Condensed, sans-serif', weight: '300' },
+                                                        color: '#888882',
+                                                        maxRotation: 0,
+                                                        minRotation: 0,
+                                                        autoSkip: false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                })();
+                                </script>
+                            </div>
+
+                            <div class="fixture-chart-card">
+                                <div class="fixture-chart-label">Clean sheet probability</div>
+                                <canvas id="chart_cs_{{ fixture.home_team }}_{{ fixture.away_team }}"></canvas>
+                                <script>
+                                (function() {
+                                    var ctx = document.getElementById('chart_cs_{{ fixture.home_team }}_{{ fixture.away_team }}').getContext('2d');
+                                    new Chart(ctx, {
+                                        type: 'bar',
+                                        data: {
+                                            labels: ['Home', 'Away'],
+                                            datasets: [{
+                                                data: [{{ stats.home_cs }}, {{ stats.away_cs }}],
+                                                backgroundColor: ['#0a2540', '#0a2540'],
+                                                borderRadius: 4,
+                                                borderSkipped: false
+                                            }]
+                                        },
+                                        options: {
+                                            responsive: false,
+                                            maintainAspectRatio: false,
+                                            plugins: {
+                                                legend: { display: false },
+                                                tooltip: { enabled: false }
+                                            },
+                                            animation: {
+                                                onComplete: function() {
+                                                    var chart = this;
+                                                    var ctx = chart.ctx;
+                                                    ctx.font = '700 11px Barlow Condensed, sans-serif';
+                                                    ctx.fillStyle = '#888882';
+                                                    ctx.textAlign = 'center';
+                                                    chart.data.datasets.forEach(function(dataset, i) {
+                                                        var meta = chart.getDatasetMeta(i);
+                                                        meta.data.forEach(function(bar, index) {
+                                                            var value = parseFloat(dataset.data[index]).toFixed(1) + '%';
+                                                            ctx.fillText(value, bar.x, bar.y - 4);
+                                                        });
+                                                    });
+                                                }
+                                            },
+                                            scales: {
+                                                y: { display: false, beginAtZero: true, max: Math.max({{ stats.home_cs }}, {{ stats.away_cs }}) * 1.25 },
+                                                x: {
+                                                    grid: { display: false },
+                                                    ticks: {
+                                                        font: { size: 12, family: 'Barlow Condensed, sans-serif', weight: '300' },
+                                                        color: '#888882',
+                                                        maxRotation: 0,
+                                                        minRotation: 0,
+                                                        autoSkip: false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
+                                })();
+                                </script>
+                            </div>
+
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    
+
+    {# ── Back to top ── #}
+    <button id="backToTop" title="Back to Top">↑</button>
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    gtag('event', 'fixtures_view', { event_category: 'Engagement', event_label: 'GW{{ current_gw }}' });
+
+    /* ── Gameweek navigation ── */
+```
+UTM template for Reddit posts
+
+Use this URL pattern whenever you post: https://www.fivestat.co.uk?utm_source=reddit&utm_medium=social&utm_campaign=fpl_gw{{ gw_number }}
+```
+    function changeGameweek(gw) {
+        window.location.href = `/epl_fixtures/${gw}`;
+    }
+
+    /* ── Heatmap toggle (single fixture) ── */
+    function toggleHeatmap(homeTeam, awayTeam) {
+        const container = document.getElementById(`heatmap_${homeTeam}_${awayTeam}`);
+        const icon = document.getElementById(`icon_${homeTeam}_${awayTeam}`).querySelector('i');
+
+        if (container.style.maxHeight === "0px" || container.style.maxHeight === "0") {
+            container.style.maxHeight = container.scrollHeight + "px";
+            icon.className = "fas fa-chevron-down";
+        } else {
+            container.style.maxHeight = "0";
+            icon.className = "fas fa-chevron-left";
+        }
+    }
+
+    /* ── Expand / collapse all heatmaps ── */
+    function toggleAllHeatmaps(expand) {
+        document.querySelectorAll('.heatmap-container').forEach((container, index) => {
+            const icons = document.querySelectorAll('.dropdown-icon i');
+            if (expand) {
+                container.style.maxHeight = container.scrollHeight + "px";
+                if (icons[index]) icons[index].className = "fas fa-chevron-down";
+            } else {
+                container.style.maxHeight = "0";
+                if (icons[index]) icons[index].className = "fas fa-chevron-left";
+            }
+        });
+        document.getElementById("toggleLabel").innerText = expand ? "Expanded View" : "Compact View";
+    }
+
+    /* ── Modal helper ── */
+    function toggleModal(id) {
+        const modal   = document.getElementById(id);
+        const overlay = document.getElementById(id + "Overlay");
+        const visible = modal.style.display === "block";
+        modal.style.display   = visible ? "none" : "block";
+        overlay.style.display = visible ? "none" : "block";
+    }
+
+    /* ── Position probability chart ── */
+    let teamPositionData = {{ sim_position_dist | tojson }};
+    let positionChart;
+
+    function renderPositionChart(teamName) {
+        const teamEntry = teamPositionData.find(t => t.team === teamName);
+        if (!teamEntry) return;
+
+        const labels  = teamEntry.distribution.map(d => d.position);
+        const data    = teamEntry.distribution.map(d => d.probability);
+        const yMax    = Math.min(100, Math.ceil(Math.max(...data) * 1.1));
+        const canvas  = document.getElementById("positionBarChart");
+
+        canvas.style.display = "block";
+        if (positionChart) positionChart.destroy();
+
+        positionChart = new Chart(canvas.getContext("2d"), {
+            type: 'bar',
+            data: {
+                labels,
+                datasets: [{
+                    label: "Probability (%)",
+                    data,
+                    backgroundColor: 'rgba(76, 0, 153, 0.7)',
+                    borderColor: '#4c0099',
+                    borderWidth: 1.5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: ctx => `${ctx.raw.toFixed(1)}%` } }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: yMax,
+                        title: { display: true, text: 'Probability (%)' }
+                    }
+                }
+            }
+        });
+    }
+
+    /* ── Back to top ── */
+    window.addEventListener('scroll', function() {
+        document.getElementById("backToTop").style.display =
+            (document.documentElement.scrollTop > 400) ? "block" : "none";
+    });
+
+    document.getElementById("backToTop").addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+{% endblock %}

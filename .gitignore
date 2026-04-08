@@ -1,0 +1,15 @@
+﻿venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+data/f1/
+static/radar/
+static/chart_images/
+f1_scraper.py
+f1_data_loader.py
+templates/f1_hub.html
+templates/f1_drivers.html
+templates/f1_race.html
+templates/f1_predictions.html
+templates/f1_fantasy.html
