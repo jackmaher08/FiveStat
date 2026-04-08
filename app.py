@@ -6,7 +6,7 @@ import os
 import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, get_player_radar_data, predict_player_goals, TEAM_NAME_MAPPING
 from data_loader import calculate_recent_form, get_team_xg
-from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
+#from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from collections import defaultdict
 from datetime import datetime
 from generate_radars import generate_comparison_radar_chart, columns_to_plot
@@ -1241,8 +1241,8 @@ def ev_checker():
 
 
 
-@app.route("/f1")
-def f1_hub():
+#@app.route("/f1")
+#def f1_hub():
     try:
         data = get_f1_hub_data()
         next_pred = get_next_race_predictions()
@@ -1270,8 +1270,8 @@ def f1_hub():
         )
 
 
-@app.route("/f1/drivers")
-def f1_drivers():
+#@app.route("/f1/drivers")
+#def f1_drivers():
     try:
         data = get_f1_drivers_data()
         return render_template("f1_drivers.html",
@@ -1292,8 +1292,8 @@ def f1_drivers():
         )
 
 
-@app.route("/f1/race/<int:year>/<int:round_num>")
-def f1_race(year, round_num):
+#@app.route("/f1/race/<int:year>/<int:round_num>")
+#def f1_race(year, round_num):
     try:
         data = get_race_report(year, round_num)
         return render_template("f1_race.html",
@@ -1330,16 +1330,16 @@ def f1_race(year, round_num):
 
 
 
-@app.route("/f1/predictions")
-def f1_predictions_redirect():
+#@app.route("/f1/predictions")
+#def f1_predictions_redirect():
     from f1_data_loader import get_next_race_info
     next_race = get_next_race_info()
     if next_race:
         return redirect(f"/f1/predictions/{next_race.get('season', 2026)}/{next_race['round']}")
     return redirect("/f1")
 
-@app.route("/f1/predictions/<int:year>/<int:round_num>")
-def f1_predictions(year, round_num):
+#@app.route("/f1/predictions/<int:year>/<int:round_num>")
+#def f1_predictions(year, round_num):
     try:
         data = get_f1_predictions_data(year, round_num)
         return render_template("f1_predictions.html",
@@ -1368,8 +1368,8 @@ def f1_predictions(year, round_num):
         )
 
 
-@app.route("/f1/fantasy")
-def f1_fantasy():
+#@app.route("/f1/fantasy")
+#def f1_fantasy():
     try:
         data = get_f1_fantasy_data()
         return render_template("f1_fantasy.html",
@@ -1399,4 +1399,4 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     if port is None:
         raise RuntimeError("PORT environment variable is not set.")
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=True) 
