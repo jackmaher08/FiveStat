@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – {{ meta.name if meta else 'Race Report' }} {{ year }}{% endblock %}
+{% block meta_description %}Race results, tyre strategy, teammate pace deltas and stint efficiency for the {{ meta.name if meta else 'race' }} – FiveStat F1 Analytics.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/f1/race/{{ year }}/{{ round }}{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Round {{ round }} · {{ year }} Season</div>
+        <h1 class="lp-headline" style="font-size:2rem;">{{ meta.name if meta else 'Race Report' }}</h1>
+        {% if meta %}
+        <p class="lp-subhead">{{ meta.circuit_name }} · {{ meta.country }}{% if meta.date %} · {{ meta.date }}{% endif %}</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="f1-race-nav">
+    <a href="/f1" class="f1-race-nav-btn">← Back to F1 Hub</a>
+</div>
+
+<div class="f1-race-nav">
+    {% if round > 1 %}
+    <a href="/f1/race/{{ year }}/{{ round - 1 }}" class="f1-race-nav-btn">← Prev Race</a>
+    {% else %}
+    <span></span>
+    {% endif %}
+    <a href="/f1/race/{{ year }}/{{ round + 1 }}" class="f1-race-nav-btn">Next Race →</a>
+</div>
+
+<div class="f1-report-grid">
+
+    {% if qualifying %}
+    <div class="f1-report-section">
+        <h2 class="f1-section-title">Qualifying</h2>
+        <div class="table-container">
+            <table class="league-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th style="text-align:left;">Driver</th>
+                        <th>Team</th>
+                        <th>Q1</th>
+                        <th>Q2</th>
+                        <th>Q3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for q in qualifying %}
+                    <tr>
+                        <td style="font-weight:700;">{{ q.position }}</td>
+                        <td style="text-align:left;font-weight:600;">
+                            <span class="f1-constructor-dot" data-constructor="{{ q.constructor_id }}"></span>
+                            {{ q.name }}
+                        </td>
+                        <td style="color:var(--text-muted);font-size:0.78rem;">{{ q.constructor }}</td>
+                        <td style="font-family:var(--font-display);font-size:0.85rem;">{{ q.q1 or '–' }}</td>
+                        <td style="font-family:var(--font-display);font-size:0.85rem;">{{ q.q2 or '–' }}</td>
+                        <td style="font-family:var(--font-display);font-size:0.85rem;font-weight:{% if q.position == 1 %}700{% else %}400{% endif %};color:{% if q.position == 1 %}var(--accent){% else %}inherit{% endif %};">{{ q.q3 or '–' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if results %}
+    <div class="f1-report-section">
+        <h2 class="f1-section-title">Race Result</h2>
+        <div class="table-container">
+            <table class="league-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th style="text-align:left;">Driver</th>
+                        <th>Team</th>
+                        <th>Grid</th>
+                        <th>Laps</th>
+                        <th>Status</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr class="{% if r.position_text == 'R' %}f1-row--dnf{% endif %}">
+                        <td style="font-weight:700;">
+                            {% if r.position_text == 'R' %}DNF
+                            {% elif r.position_text == 'D' %}DSQ
+                            {% else %}{{ r.position }}{% endif %}
+                        </td>
+                        <td style="text-align:left;font-weight:600;">
+                            <span class="f1-constructor-dot" data-constructor="{{ r.constructor_id }}"></span>
+                            {{ r.name }}
+                            {% if r.fastest_lap_rank == '1' %}<span class="f1-fl-badge" title="Fastest Lap">⚡</span>{% endif %}
+                        </td>
+                        <td style="color:var(--text-muted);font-size:0.78rem;">{{ r.constructor }}</td>
+                        <td style="color:var(--text-muted);">{{ r.grid }}</td>
+                        <td>{{ r.laps }}</td>
+                        <td style="font-size:0.78rem;color:var(--text-muted);">
+                            {% if r.status == 'Finished' or '+' in (r.status or '') %}
+                                {% if r.finish_time %}{{ r.finish_time }}{% else %}Finished{% endif %}
+                            {% else %}
+                                {{ r.status }}
+                            {% endif %}
+                        </td>
+                        <td style="font-weight:600;color:{% if r.points > 0 %}var(--accent){% else %}var(--text-muted){% endif %};">
+                            {{ r.points | int if r.points else '–' }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+{% if has_lap_data %}
+
+    {% if teammate_deltas %}
+    <div class="section">
+        <h2 class="f1-section-title">Teammate Pace Delta</h2>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="f1-section-desc">Median clean lap time gap between teammates. Isolates driver pace from car performance.</p>
+        <div class="f1-delta-grid">
+            {% for pair in teammate_deltas %}
+            <div class="f1-delta-card">
+                <div class="f1-delta-constructor">{{ pair.constructor }}</div>
+                <div class="f1-delta-row">
+                    <div class="f1-delta-driver {% if pair.delta_pct < 0 %}f1-delta-driver--faster{% endif %}">
+                        <span class="f1-delta-code">{{ pair.driver_a }}</span>
+                        <span class="f1-delta-time">{{ "%.3f"|format(pair.driver_a_median_s) }}s</span>
+                    </div>
+                    <div class="f1-delta-gap {% if pair.delta_pct < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                        {{ "%+.3f"|format(pair.delta_pct) }}%
+                    </div>
+                    <div class="f1-delta-driver {% if pair.delta_pct > 0 %}f1-delta-driver--faster{% endif %}">
+                        <span class="f1-delta-code">{{ pair.driver_b }}</span>
+                        <span class="f1-delta-time">{{ "%.3f"|format(pair.driver_b_median_s) }}s</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if stints %}
+    <div class="section">
+        <h2 class="f1-section-title">Tyre Strategy</h2>
+        <div class="f1-stint-chart" id="stintChart"></div>
+    </div>
+    {% endif %}
+
+    {% if stint_efficiency %}
+    <div class="section">
+        <h2 class="f1-section-title">Stint Efficiency</h2>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="f1-section-desc">One row per stint. Seconds gained or lost vs compound degradation model. Positive = faster than expected. Negative = degrading harder than peers on same compound.</p>
+        <div class="table-container">
+            <table class="league-table">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;">Driver</th>
+                        <th>Team</th>
+                        <th>Stint</th>
+                        <th>Compound</th>
+                        <th>Laps</th>
+                        <th>Efficiency</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in stint_efficiency %}
+                    <tr>
+                        <td style="text-align:left;font-weight:600;">{{ s.name }}</td>
+                        <td style="color:var(--text-muted);font-size:0.78rem;">{{ s.constructor }}</td>
+                        <td>{{ s.stint }}</td>
+                        <td><span class="f1-compound-pill f1-compound--{{ s.compound | lower }}">{{ s.compound }}</span></td>
+                        <td>{{ s.lap_count }}</td>
+                        <td>
+                            <span class="f1-eff-value {% if s.efficiency_s > 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                                {{ "%+.3f"|format(s.efficiency_s) }}s
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+{% else %}
+<div class="section">
+    <p class="f1-no-data-note">Detailed lap data is not yet available for this race. Check back soon!</p>
+</div>
+{% endif %}
+
+{% if weather %}
+<div class="section">
+    <h2 class="f1-section-title">Race Weather</h2>
+    {% set w_start = weather[0] %}
+    {% set w_end = weather[-1] %}
+    <div class="f1-weather-strip">
+        <div class="f1-weather-item">
+            <span class="f1-weather-label">Air Temp</span>
+            <span class="f1-weather-value">{{ w_start.AirTemp | round(1) }}°C → {{ w_end.AirTemp | round(1) }}°C</span>
+        </div>
+        <div class="f1-weather-item">
+            <span class="f1-weather-label">Track Temp</span>
+            <span class="f1-weather-value">{{ w_start.TrackTemp | round(1) }}°C → {{ w_end.TrackTemp | round(1) }}°C</span>
+        </div>
+        <div class="f1-weather-item">
+            <span class="f1-weather-label">Humidity</span>
+            <span class="f1-weather-value">{{ w_start.Humidity | round(0) | int }}%</span>
+        </div>
+        <div class="f1-weather-item">
+            <span class="f1-weather-label">Wind Speed</span>
+            <span class="f1-weather-value">{{ w_start.WindSpeed | round(1) }} m/s</span>
+        </div>
+        <div class="f1-weather-item">
+            <span class="f1-weather-label">Rainfall</span>
+            <span class="f1-weather-value">{{ 'Yes' if w_start.Rainfall else 'No' }}</span>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const constructorColours = {
+        "red_bull":    "#3671C6",
+        "ferrari":     "#E8002D",
+        "mercedes":    "#27F4D2",
+        "mclaren":     "#FF8000",
+        "aston_martin":"#229971",
+        "alpine":      "#FF87BC",
+        "williams":    "#64C4FF",
+        "rb":          "#6692FF",
+        "haas":        "#B6BABD",
+        "sauber":      "#52E252",
+        "cadillac":    "#C5A028",
+    };
+
+    const compoundColours = {
+        "soft":         "#E8002D",
+        "medium":       "#FFF200",
+        "hard":         "#EBEBEB",
+        "intermediate": "#39B54A",
+        "wet":          "#0067FF",
+    };
+
+    const compoundText = {
+        "soft": "#fff", "medium": "#111", "hard": "#111",
+        "intermediate": "#fff", "wet": "#fff",
+    };
+
+    document.querySelectorAll('.f1-constructor-dot').forEach(el => {
+        const cid = el.dataset.constructor;
+        el.style.background = constructorColours[cid] || 'var(--text-muted)';
+    });
+
+    const stints = {{ stints | tojson }};
+    const results = {{ results | tojson }};
+    const chartEl = document.getElementById('stintChart');
+
+    if (chartEl && stints && stints.length > 0) {
+        const totalLaps = results.length > 0 ? Math.max(...results.map(r => r.laps || 0)) : 60;
+        const driverOrder = results.map(r => r.code).filter(Boolean);
+
+        const stintsByDriver = {};
+        stints.forEach(s => {
+            if (!stintsByDriver[s.Driver]) stintsByDriver[s.Driver] = [];
+            stintsByDriver[s.Driver].push(s);
+        });
+
+        const ordered = driverOrder.filter(d => stintsByDriver[d]);
+
+        ordered.forEach(driver => {
+            const row = document.createElement('div');
+            row.className = 'f1-stint-row';
+
+            const label = document.createElement('div');
+            label.className = 'f1-stint-label';
+            label.textContent = driver;
+            row.appendChild(label);
+
+            const bar = document.createElement('div');
+            bar.className = 'f1-stint-bar';
+
+            let covered = 0;
+            const driverStints = stintsByDriver[driver].sort((a, b) => a.start_lap - b.start_lap);
+
+            driverStints.forEach(s => {
+                if (s.start_lap > covered + 1) {
+                    const gap = document.createElement('div');
+                    gap.className = 'f1-stint-segment';
+                    gap.style.width = ((s.start_lap - 1 - covered) / totalLaps * 100) + '%';
+                    gap.style.background = 'var(--border)';
+                    bar.appendChild(gap);
+                }
+                const seg = document.createElement('div');
+                seg.className = 'f1-stint-segment';
+                const laps = s.end_lap - s.start_lap + 1;
+                seg.style.width = (laps / totalLaps * 100) + '%';
+                const compound = (s.Compound || s.compound || 'unknown').toLowerCase();
+                seg.style.background = compoundColours[compound] || '#888';
+                seg.style.color = compoundText[compound] || '#fff';
+                seg.title = `${s.Compound || s.compound} · Laps ${s.start_lap}–${s.end_lap} (${laps} laps)`;
+                if (laps / totalLaps > 0.08) {
+                    seg.textContent = (s.Compound || s.compound || '').slice(0, 1);
+                }
+                bar.appendChild(seg);
+                covered = s.end_lap;
+            });
+
+            row.appendChild(bar);
+            chartEl.appendChild(row);
+        });
+
+        const legend = document.createElement('div');
+        legend.className = 'f1-stint-legend';
+        [['SOFT','soft'],['MEDIUM','medium'],['HARD','hard'],['INTER','intermediate'],['WET','wet']].forEach(([label, key]) => {
+            const item = document.createElement('div');
+            item.className = 'f1-stint-legend-item';
+            const dot = document.createElement('span');
+            dot.className = 'f1-stint-legend-dot';
+            dot.style.background = compoundColours[key];
+            dot.style.border = key === 'hard' ? '1px solid #ccc' : 'none';
+            const txt = document.createElement('span');
+            txt.textContent = label;
+            item.appendChild(dot);
+            item.appendChild(txt);
+            legend.appendChild(item);
+        });
+        chartEl.appendChild(legend);
+    }
+</script>
+{% endblock %}

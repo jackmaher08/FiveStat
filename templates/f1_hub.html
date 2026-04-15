@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – Formula 1 Analytics & Race Predictions{% endblock %}
+{% block meta_description %}Driver pace ratings, constructor rankings, and race analysis for the 2026 F1 season - powered by FiveStat's pace model.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/f1{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Formula 1 · 2026 Season</div>
+        <h1  class="lp-headline" style="font-size:2rem;">F1 Analytics</h1>
+        <p class="lp-subhead">Teammate-normalised pace ratings, constructor performance, and tyre strategy analysis - built on F1 timing data.</p>
+    </div>
+</div>
+
+<div class="hub-back-bar">
+    <a href="/f1/drivers" class="hub-back-link">Driver Ratings</a>
+    <span class="hub-back-divider"></span>
+    <a href="/f1/predictions" class="hub-back-link">Race Predictions</a>
+    <span class="hub-back-divider"></span>
+    <a href="/f1/fantasy" class="hub-back-link">F1 Fantasy</a>
+</div>
+
+<div class="f1-race-cards">
+
+    {% if last_race %}
+    <div class="f1-race-card f1-race-card--last">
+        <div class="f1-race-card-label">Last Race</div>
+        <div class="f1-race-card-name">{{ last_race.name }}</div>
+        <div class="f1-race-card-circuit">{{ last_race.circuit }} · {{ last_race.country }}</div>
+        <div class="f1-race-card-date">{{ last_race.date }}</div>
+        {% if last_race.winner %}
+        <div class="f1-race-card-winner">
+            <span class="f1-winner-label">Winner</span>
+            <span class="f1-winner-name">{{ last_race.winner.name }}</span>
+            <span class="f1-winner-team">{{ last_race.winner.constructor }}</span>
+        </div>
+        {% endif %}
+        <a href="/f1/race/{{ last_race.year }}/{{ last_race.round }}" class="f1-race-card-link">Race Report →</a>
+    </div>
+    {% endif %}
+
+    {% if next_race %}
+    <div class="f1-race-card f1-race-card--next">
+        <div class="f1-race-card-label">Next Race</div>
+        <div class="f1-race-card-name">{{ next_race.name }}</div>
+        <div class="f1-race-card-circuit">{{ next_race.circuit_name }} · {{ next_race.country }}</div>
+        <div class="f1-race-card-date" id="nextRaceDate" data-date="{{ next_race.date }}T{% if next_race.time %}{{ next_race.time | replace('Z', '') }}{% else %}12:00:00{% endif %}Z"">{{ next_race.date }}</div>
+        <div class="f1-countdown" id="countdown"></div>
+        {% if next_race_predictions %}
+        <a href="/f1/predictions/{{ next_race_predictions.race_meta.season }}/{{ next_race_predictions.race_meta.round }}" class="f1-race-card-link">Race Predictions →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+
+{% if schedule %}
+<div class="section">
+    <h2 class="f1-section-title">2026 Season Calendar</h2>
+    <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th>Rnd</th>
+                    <th style="text-align:left;">Race</th>
+                    <th>Circuit</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for race in schedule %}
+                <tr class="{% if race.date < today %}f1-row--past{% endif %}">
+                    <td>{{ race.round }}</td>
+                    <td style="text-align:left;font-weight:600;">{{ race.name }}</td>
+                    <td>{{ race.circuit_name }}</td>
+                    <td>{{ race.country }}</td>
+                    <td>{{ race.date }}</td>
+                    <td>
+                        {% if race.date < today %}
+                        <a href="/f1/race/{{ race.season }}/{{ race.round }}" class="f1-report-link">View →</a>
+                        {% else %}
+                        <span style="color:var(--text-muted);">–</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<div class="f1-standings-grid">
+
+    {% if driver_standings %}
+    <div class="f1-standings-panel">
+        <h2 class="f1-section-title">Driver Championship</h2>
+        <div class="table-container">
+            <table class="league-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th style="text-align:left;">Driver</th>
+                        <th>Team</th>
+                        <th>Pts</th>
+                        <th>Wins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in driver_standings %}
+                    <tr>
+                        <td>{{ d.position }}</td>
+                        <td style="text-align:left;font-weight:600;">{{ d.name }}</td>
+                        <td style="color:var(--text-muted);font-size:0.78rem;">{{ d.constructor }}</td>
+                        <td style="font-weight:700;color:var(--accent);">{{ d.points | int }}</td>
+                        <td>{{ d.wins }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if constructor_standings %}
+    <div class="f1-standings-panel">
+        <h2 class="f1-section-title">Constructor Championship</h2>
+        <div class="table-container">
+            <table class="league-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th style="text-align:left;">Constructor</th>
+                        <th>Pts</th>
+                        <th>Wins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in constructor_standings %}
+                    <tr>
+                        <td>{{ c.position }}</td>
+                        <td style="text-align:left;font-weight:600;">
+                            <span class="f1-constructor-dot" data-constructor="{{ c.constructor_id }}"></span>
+                            {{ c.name }}
+                        </td>
+                        <td style="font-weight:700;color:var(--accent);">{{ c.points | int }}</td>
+                        <td>{{ c.wins }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const today = "{{ today }}";
+
+    const constructorColours = {
+        "red_bull":    "#3671C6",
+        "ferrari":     "#E8002D",
+        "mercedes":    "#27F4D2",
+        "mclaren":     "#FF8000",
+        "aston_martin":"#229971",
+        "alpine":      "#FF87BC",
+        "williams":    "#64C4FF",
+        "rb":          "#6692FF",
+        "haas":        "#B6BABD",
+        "sauber":      "#52E252",
+        "cadillac":    "#C5A028",
+    };
+
+    document.querySelectorAll('.f1-constructor-dot').forEach(el => {
+        const cid = el.dataset.constructor;
+        const colour = constructorColours[cid] || 'var(--text-muted)';
+        el.style.background = colour;
+    });
+
+    const dateEl = document.getElementById('nextRaceDate');
+    const countdownEl = document.getElementById('countdown');
+
+    if (dateEl && countdownEl) {
+        function updateCountdown() {
+            const target = new Date(dateEl.dataset.date);
+            const now = new Date();
+            const diff = target - now;
+            if (diff <= 0) {
+                countdownEl.textContent = 'Race weekend underway';
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            countdownEl.textContent = `${d}d ${h}h ${m}m`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 60000);
+    }
+
+    document.querySelectorAll('tr[class=""]').forEach(row => {
+        const dateCell = row.cells[4];
+        if (dateCell) {
+            const d = dateCell.textContent.trim();
+            if (d && d < new Date().toISOString().slice(0, 10)) {
+                row.classList.add('f1-row--past');
+            }
+        }
+    });
+</script>
+{% endblock %}

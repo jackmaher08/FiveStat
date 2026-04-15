@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – F1 Race Predictions · {{ race_meta.name if race_meta else 'Race' }} {{ year }}{% endblock %}
+{% block meta_description %}Win probability, podium odds and expected finishing positions for the {{ race_meta.name if race_meta else 'race' }} - FiveStat's F1 pace model.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/f1/predictions/{{ year }}/{{ round }}{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Round {{ round }} · {{ year }} Season</div>
+        <h1 class="lp-headline" style="font-size:2rem;">
+            {{ race_meta.name if race_meta else 'Race Predictions' }}
+        </h1>
+        {% if race_meta %}
+        <p class="lp-subhead">
+            {{ race_meta.circuit_name }} · {{ race_meta.country }}
+            {% if race_meta.date %} · {{ race_meta.date }}{% endif %}
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="f1-race-nav">
+    <a href="/f1" class="f1-race-nav-btn">← Back to F1 Hub</a>
+</div>
+
+<div class="f1-pred-meta-strip">
+    <div class="f1-pred-meta-item">
+        <span class="f1-pred-meta-label">Mode</span>
+        <span class="f1-pred-meta-value">
+            {% if mode == 'post_quali' %}Post-Qualifying{% else %}Pre-Qualifying (pace estimate){% endif %}
+        </span>
+    </div>
+    <div class="f1-pred-meta-item">
+        <span class="f1-pred-meta-label">Overtaking Index</span>
+        <span class="f1-pred-meta-value">
+            {{ overtaking_index }}
+            <span class="f1-pred-meta-hint">({{ '%.0f'|format(overtaking_index * 100) }}% pace / {{ '%.0f'|format((1 - overtaking_index) * 100) }}% grid)</span>
+        </span>
+    </div>
+    {% if is_completed %}
+    <div class="f1-pred-meta-item">
+        <span class="f1-pred-badge f1-pred-badge--completed">Race Completed</span>
+    </div>
+    {% endif %}
+</div>
+
+{% if mode == 'pre_quali' %}
+<div class="f1-pred-notice">
+    Qualifying has not yet taken place. Grid positions are estimated from pace rankings. Predictions will update automatically once qualifying results are available.
+</div>
+{% endif %}
+
+{% if predictions %}
+
+<div class="section">
+    <h2 class="f1-section-title">Race Predictions</h2>
+     <span class="f1-section-badge">FiveStat Model</span>
+
+    <div class="f1-pred-podium">
+        {% for d in predictions[:3] %}
+        <div class="f1-pred-podium-card f1-pred-podium-card--{{ loop.index }}">
+            <div class="f1-pred-podium-pos">{{ loop.index }}</div>
+            <div class="f1-pred-podium-driver">
+                <span class="f1-constructor-dot" data-constructor="{{ d.constructor_id }}"></span>
+                {{ d.name }}
+            </div>
+            <div class="f1-pred-podium-team">{{ d.constructor }}</div>
+            <div class="f1-pred-podium-win">{{ d.win_prob }}%</div>
+            <div class="f1-pred-podium-win-label">win probability</div>
+            <div class="f1-pred-podium-stats">
+                <span>Podium {{ d.podium_prob }}%</span>
+                <span>Points {{ d.points_prob }}%</span>
+            </div>
+            {% if is_completed and d.actual_position %}
+            <div class="f1-pred-actual">
+                Finished P{{ d.actual_position }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="table-container">
+        <table class="league-table" id="predTable">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">Driver</th>
+                    <th>Team</th>
+                    <th>Grid</th>
+                    <th title="Driver Pace Rating">DPR</th>
+                    <th title="Constructor Pace Index">CPI</th>
+                    <th>Win %</th>
+                    <th>Podium %</th>
+                    <th>Points %</th>
+                    <th>xPos</th>
+                    <th title="Expected Fantasy Points">xFP</th>
+                    {% if is_completed %}<th>Result</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in predictions %}
+                <tr class="{% if is_completed and d.actual_position and d.actual_position|int <= 3 %}f1-pred-row--podium{% endif %}">
+                    <td style="text-align:left;font-weight:600;">
+                        <span class="f1-constructor-dot" data-constructor="{{ d.constructor_id }}"></span>
+                        {{ d.name }}
+                    </td>
+                    <td style="color:var(--text-muted);font-size:0.78rem;">{{ d.constructor }}</td>
+                    <td style="font-weight:600;">P{{ d.grid }}</td>
+                    <td>
+                        <span class="f1-dpr-value {% if d.dpr < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                            {{ "%+.3f"|format(d.dpr) }}%
+                        </span>
+                    </td>
+                    <td>
+                        <span class="f1-dpr-value {% if d.cpi < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                            {{ "%+.3f"|format(d.cpi) }}%
+                        </span>
+                    </td>
+                    <td>
+                        <div class="f1-prob-bar-wrap">
+                            <div class="f1-prob-bar" style="width:{{ [d.win_prob * 2.5, 100]|min }}%;"></div>
+                            <span class="f1-prob-label">{{ d.win_prob }}%</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="f1-prob-bar-wrap">
+                            <div class="f1-prob-bar f1-prob-bar--podium" style="width:{{ [d.podium_prob, 100]|min }}%;"></div>
+                            <span class="f1-prob-label">{{ d.podium_prob }}%</span>
+                        </div>
+                    </td>
+                    <td>{{ d.points_prob }}%</td>
+                    <td style="color:var(--text-muted);">{{ d.expected_pos }}</td>
+                    <td style="font-weight:700;color:var(--accent);">{{ d.xfp if d.xfp else '–' }}</td>
+                    {% if is_completed %}
+                    <td style="font-weight:{% if d.actual_position and d.actual_position|int <= 3 %}700{% else %}400{% endif %};color:{% if d.actual_position and d.actual_position|int <= 3 %}var(--accent){% else %}var(--text-secondary){% endif %};">
+                        {% if d.actual_position %}P{{ d.actual_position }}{% else %}–{% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="f1-pred-methodology">
+    <h3 class="f1-pred-methodology-title">How this works</h3>
+    <p>Each driver's pace score combines their Constructor Pace Index (car speed vs field) and Driver Pace Rating (speed vs teammate). This is blended with their qualifying grid position using a circuit-specific overtaking index - circuits like Monaco weight grid position heavily; circuits like Monza weight pure pace. 10,000 race simulations are run, each drawing from a normal distribution of race randomness with an 8% DNF probability per driver. Win, podium and points probabilities are tallied across all simulations.</p>
+    <p>When qualifying has not yet taken place, grid positions are estimated from pace rankings.</p>
+</div>
+
+{% else %}
+<div class="section">
+    <p class="f1-no-data-note">No prediction data available for this race. Driver pace ratings require at least one completed race with lap data.</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const constructorColours = {
+        "red_bull":    "#3671C6",
+        "ferrari":     "#E8002D",
+        "mercedes":    "#27F4D2",
+        "mclaren":     "#FF8000",
+        "aston_martin":"#229971",
+        "alpine":      "#FF87BC",
+        "williams":    "#64C4FF",
+        "rb":          "#6692FF",
+        "haas":        "#B6BABD",
+        "sauber":      "#52E252",
+        "cadillac":    "#C5A028",
+        "audi":        "#FF0000",
+    };
+
+    document.querySelectorAll('.f1-constructor-dot').forEach(el => {
+        const cid = el.dataset.constructor;
+        el.style.background = constructorColours[cid] || 'var(--text-muted)';
+    });
+</script>
+{% endblock %}

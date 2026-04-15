@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – F1 Driver Pace Ratings 2026{% endblock %}
+{% block meta_description %}Driver Pace Rating and Constructor Pace Index for the 2026 F1 season - FiveStat's teammate-normalised pace model.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/f1/drivers{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Formula 1 · 2026 Season</div>
+        <h1  class="lp-headline" style="font-size:2rem;">Driver Ratings</h1>
+        <p class="lp-subhead">FiveStat's Driver Pace Rating (DPR) strips out car performance by anchoring each driver against their teammate. What's left is the driver.</p>
+    </div>
+</div>
+
+<div class="f1-race-nav">
+    <a href="/f1" class="f1-race-nav-btn">← Back to F1 Hub</a>
+</div>
+
+
+
+{% if drivers %}
+<div class="section">
+    <h2 class="f1-section-title">Driver Pace Rating</h2>
+     <span class="f1-section-badge">FiveStat Model</span>
+    <p class="f1-section-desc">DPR - % gap vs teammate median pace · negative = faster · recency-weighted</p>
+    <div class="table-container">
+        <table class="league-table" id="dprTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable('dprTable', 0)">Rank</th>
+                    <th style="text-align:left;" onclick="sortTable('dprTable', 1)">Driver</th>
+                    <th onclick="sortTable('dprTable', 2)">Team</th>
+                    <th onclick="sortTable('dprTable', 3)">DPR</th>
+                    <th onclick="sortTable('dprTable', 4)">Champ Pos</th>
+                    <th onclick="sortTable('dprTable', 5)">Points</th>
+                    <th onclick="sortTable('dprTable', 6)">Races</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in drivers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="text-align:left;font-weight:600;">
+                        <span class="f1-constructor-dot" data-constructor="{{ d.constructor_id }}"></span>
+                        {{ d.name }}
+                    </td>
+                    <td style="color:var(--text-muted);font-size:0.78rem;">{{ d.constructor }}</td>
+                    <td>
+                        <span class="f1-dpr-value {% if d.dpr < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                            {{ "%+.3f"|format(d.dpr) }}%
+                        </span>
+                    </td>
+                    <td>{{ d.championship_position if d.championship_position else '–' }}</td>
+                    <td style="font-weight:600;">{{ d.championship_points | int if d.championship_points else '–' }}</td>
+                    <td>
+                        {{ d.races_counted }}
+                        {% if d.reliability == 'low' %}
+                        <span class="f1-reliability-badge f1-reliability--low" title="Fewer than 4 races - treat with caution">!</span>
+                        {% elif d.reliability == 'caution' %}
+                        <span class="f1-reliability-badge f1-reliability--caution" title="Fewer than 8 races - building confidence">~</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% if cpi %}
+<div class="section">
+    <h2 class="f1-section-title">Constructor Pace Index</h2>
+     <span class="f1-section-badge">FiveStat Model</span>
+    <p class="f1-section-desc">CPI - team median pace vs field median · negative = faster · isolates car performance from driver skill</p>
+    <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th style="text-align:left;">Constructor</th>
+                    <th>CPI</th>
+                    <th>Races</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set cpi_list = cpi.values() | list %}
+                {% for cid, c in cpi.items() %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="text-align:left;font-weight:600;">
+                        <span class="f1-constructor-dot" data-constructor="{{ cid }}"></span>
+                        {{ c.name }}
+                    </td>
+                    <td>
+                        <span class="f1-dpr-value {% if c.cpi < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                            {{ "%+.3f"|format(c.cpi) }}%
+                        </span>
+                    </td>
+                    <td style="color:var(--text-muted);">{{ c.races_counted }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    const constructorColours = {
+        "red_bull":    "#3671C6",
+        "ferrari":     "#E8002D",
+        "mercedes":    "#27F4D2",
+        "mclaren":     "#FF8000",
+        "aston_martin":"#229971",
+        "alpine":      "#FF87BC",
+        "williams":    "#64C4FF",
+        "rb":          "#6692FF",
+        "haas":        "#B6BABD",
+        "sauber":      "#52E252",
+        "cadillac":    "#C5A028",
+    };
+
+    document.querySelectorAll('.f1-constructor-dot').forEach(el => {
+        const cid = el.dataset.constructor;
+        el.style.background = constructorColours[cid] || 'var(--text-muted)';
+    });
+
+    function sortTable(tableId, col) {
+        const table = document.getElementById(tableId);
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        const asc = table.dataset.sortCol == col && table.dataset.sortDir === 'asc';
+        table.dataset.sortCol = col;
+        table.dataset.sortDir = asc ? 'desc' : 'asc';
+        rows.sort((a, b) => {
+            const av = a.cells[col].textContent.trim().replace(/[^0-9.\-+]/g, '');
+            const bv = b.cells[col].textContent.trim().replace(/[^0-9.\-+]/g, '');
+            const an = parseFloat(av);
+            const bn = parseFloat(bv);
+            if (!isNaN(an) && !isNaN(bn)) return asc ? bn - an : an - bn;
+            return asc ? bv.localeCompare(av) : av.localeCompare(bv);
+        });
+        rows.forEach(r => tbody.appendChild(r));
+    }
+</script>
+{% endblock %}
