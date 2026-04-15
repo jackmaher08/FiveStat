@@ -57,43 +57,7 @@
 
 </div>
 
-{% if schedule %}
-<div class="section">
-    <h2 class="f1-section-title">2026 Season Calendar</h2>
-    <div class="table-container">
-        <table class="league-table">
-            <thead>
-                <tr>
-                    <th>Rnd</th>
-                    <th style="text-align:left;">Race</th>
-                    <th>Circuit</th>
-                    <th>Country</th>
-                    <th>Date</th>
-                    <th>Report</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for race in schedule %}
-                <tr class="{% if race.date < today %}f1-row--past{% endif %}">
-                    <td>{{ race.round }}</td>
-                    <td style="text-align:left;font-weight:600;">{{ race.name }}</td>
-                    <td>{{ race.circuit_name }}</td>
-                    <td>{{ race.country }}</td>
-                    <td>{{ race.date }}</td>
-                    <td>
-                        {% if race.date < today %}
-                        <a href="/f1/race/{{ race.season }}/{{ race.round }}" class="f1-report-link">View →</a>
-                        {% else %}
-                        <span style="color:var(--text-muted);">–</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-{% endif %}
+
 
 <div class="f1-standings-grid">
 
@@ -159,6 +123,45 @@
     {% endif %}
 
 </div>
+
+
+{% if schedule %}
+<div class="section">
+    <h2 class="f1-section-title">2026 Season Calendar</h2>
+    <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th>Rnd</th>
+                    <th style="text-align:left;">Race</th>
+                    <th>Circuit</th>
+                    <th>Country</th>
+                    <th>Date</th>
+                    <th>Report</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for race in schedule %}
+                <tr class="{% if race.date < today %}f1-row--past{% endif %}">
+                    <td>{{ race.round }}</td>
+                    <td style="text-align:left;font-weight:600;">{{ race.name }}</td>
+                    <td>{{ race.circuit_name }}</td>
+                    <td>{{ race.country }}</td>
+                    <td>{{ race.date }}</td>
+                    <td>
+                        {% if race.date < today %}
+                        <a href="/f1/race/{{ race.season }}/{{ race.round }}" class="f1-report-link">View →</a>
+                        {% else %}
+                        <span style="color:var(--text-muted);">–</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
 
 
 
