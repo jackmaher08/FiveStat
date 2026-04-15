@@ -44,7 +44,7 @@
     {% if captain_picks %}
     <div class="fpl-section">
         <div class="fpl-section-row">
-            <div class="fpl-section-title"><span></span> Captain Picks <button class="info-button" onclick="toggleModal('playerWatchModal')" title="How is this list built?"><i class="fas fa-info-circle"></i></button></div>
+            <div class="fpl-section-title"><span></span> Captaincy Picks & Transfer Targets<button class="info-button" onclick="toggleModal('playerWatchModal')" title="How is this list built?"><i class="fas fa-info-circle"></i></button></div>
             <div class="fpl-btn-group">
                 <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">GW{{ current_gw }}</button>
                 <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">Next 3 GWs</button>
@@ -53,8 +53,8 @@
             </div>
         </div>
         <span class="f1-section-badge">FiveStat Model</span>
-        <p class="fpl-note" id="capNote">Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.</p>
-        <p class="fpl-note" id="capNote">Attacking Players only - Defend your picks!</p>
+        <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.</p>
+        <p class="fpl-note" id="capNote">Defend your picks!</p>
         <div class="fpl-table-wrap">
             <table class="fpl-cap-table">
                 <thead>
@@ -64,6 +64,8 @@
                         <th>Fixture</th>
                         <th id="capXgHeader">Proj. xG</th>
                         <th id="capXaHeader">Proj. xA</th>
+                        <th id="capCsHeader">Proj. CS</th>
+                        <th id="capPtsHeader">Proj. Pts</th>
                         <th>Price</th>
                         <th>Ownership</th>
                     </tr>
@@ -86,6 +88,12 @@
                         <td><span class="fpl-diff-cell fpl-{{ pick.gw1_diff }}">{{ pick.gw1_fixture }}</span></td>
                         <td class="fpl-xg-val" data-gw1="{{ pick.gw1_xg }}" data-gw3="{{ pick.gw3_xg }}" data-gw5="{{ pick.gw5_xg }}">{{ "%.2f"|format(pick.gw1_xg) }}</td>
                         <td class="fpl-xa-val" data-gw1="{{ pick.gw1_xa }}" data-gw3="{{ pick.gw3_xa }}" data-gw5="{{ pick.gw5_xa }}">{{ "%.2f"|format(pick.gw1_xa) }}</td>
+                        {% if pick.position in ("DEF", "MID") %}
+                        <td class="fpl-cs-val" data-gw1="{{ pick.gw1_cs }}" data-gw3="{{ pick.gw3_cs }}" data-gw5="{{ pick.gw5_cs }}">{{ "%.2f"|format(pick.gw1_cs) }}</td>
+                        {% else %}
+                        <td class="fpl-cs-val" data-gw1="-" data-gw3="-" data-gw5="-">-</td>
+                        {% endif %}
+                        <td class="fpl-pts-val" data-gw1="{{ pick.gw1_pts }}" data-gw3="{{ pick.gw3_pts }}" data-gw5="{{ pick.gw5_pts }}">{{ "%.1f"|format(pick.gw1_pts) }}</td>
                         <td class="fpl-price">£{{ pick.price }}m</td>
                         <td>
                             {% if pick.ownership < 15 %}
@@ -96,10 +104,10 @@
                         </td>
                     </tr>
                     <tr class="cap-expand-row" id="cap-expand-{{ loop.index0 }}" style="display:none">
-                        <td colspan="6" class="cap-expand-cell">
+                        <td colspan="8" class="cap-expand-cell">
                             <table class="cap-inner-table">
                                 <thead>
-                                    <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th></tr>
+                                    <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th><th>Proj. CS</th><th>Proj. Pts</th></tr>
                                 </thead>
                                 <tbody>
                                     {% for fix in pick.fixtures %}
@@ -108,6 +116,12 @@
                                         <td><span class="fpl-diff-cell fpl-{{ fix.diff }}">{{ fix.label }}</span></td>
                                         <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
                                         <td class="fpl-xa-val">{{ "%.2f"|format(fix.proj_xa) }}</td>
+                                        {% if pick.position in ("DEF", "MID") %}
+                                        <td>{{ "%.2f"|format(fix.proj_cs) }}</td>
+                                        {% else %}
+                                        <td>-</td>
+                                        {% endif %}
+                                        <td class="fpl-pts-val">{{ "%.1f"|format(fix.proj_fpl) }}</td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -234,12 +248,16 @@
 gtag('event', 'fpl_view', { event_category: 'Engagement' });
 
 const capData = {{ captain_picks | tojson }};
+document.addEventListener('DOMContentLoaded', function() {
+    const defaultBtn = document.querySelector('.fpl-btn-cap.active');
+    if (defaultBtn) setCapWindow('gw1', defaultBtn);
+});
 
 const capNotes = {
-    gw1:  'Ranked by projected xG for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.',
-    gw3:  'Ranked by total projected xG across the next 3 Gameweeks. Click a row to see fixture breakdown.',
-    gw5:  'Ranked by total projected xG across the next 5 Gameweeks. Click a row to see fixture breakdown.',
-    diff: 'Differentials only (ownership under 15%), ranked by projected xG this Gameweek.',
+    gw1:  'Ranked by projected FPL points for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.',
+    gw3:  'Ranked by projected FPL points across the next 3 Gameweeks. Click a row to see fixture breakdown.',
+    gw5:  'Ranked by projected FPL points across the next 5 Gameweeks. Click a row to see fixture breakdown.',
+    diff: 'Differentials only (ownership under 15%), ranked by projected FPL points this Gameweek.',
 };
 const capHeaders = {
     gw1: 'Proj. xG', gw3: 'xG (Next 3)', gw5: 'xG (Next 5)', diff: 'Proj. xG'
@@ -248,11 +266,19 @@ const capHeaders = {
 const capXaHeaders = {
     gw1: 'Proj. xA', gw3: 'xA (Next 3)', gw5: 'xA (Next 5)', diff: 'Proj. xA'
 };
+const capPtsHeaders = {
+    gw1: 'Proj. Pts', gw3: 'Pts (Next 3)', gw5: 'Pts (Next 5)', diff: 'Proj. Pts'
+};
+const capCsHeaders = {
+    gw1: 'Proj. CS', gw3: 'CS (Next 3)', gw5: 'CS (Next 5)', diff: 'Proj. CS'
+};
 
 function setCapWindow(mode, btn) {
     document.getElementById('capNote').textContent = capNotes[mode];
-    document.getElementById('capXgHeader').textContent = capHeaders[mode];
-    document.getElementById('capXaHeader').textContent = capXaHeaders[mode];
+    document.getElementById('capXgHeader').textContent  = capHeaders[mode];
+    document.getElementById('capXaHeader').textContent  = capXaHeaders[mode];
+    document.getElementById('capPtsHeader').textContent = capPtsHeaders[mode];
+    document.getElementById('capCsHeader').textContent  = capCsHeaders[mode];
     document.querySelectorAll('.fpl-btn-cap').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
@@ -262,7 +288,7 @@ function setCapWindow(mode, btn) {
     let rowArr = Array.from(rows).map(r => {
         const idx = parseInt(r.dataset.idx);
         const p   = capData[idx];
-        return { row: r, val: p[`${key}_xg`], idx, ownership: p.ownership };
+        return { row: r, val: p[`${key}_pts`], idx, ownership: p.ownership };
     });
 
     if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
@@ -274,8 +300,14 @@ function setCapWindow(mode, btn) {
         const expandRow = document.getElementById(`cap-expand-${item.idx}`);
         const p = capData[item.idx];
         mainRow.querySelector('.fpl-rank').textContent   = rank + 1;
-        mainRow.querySelector('.fpl-xg-val').textContent = parseFloat(item.val).toFixed(2);
-        mainRow.querySelector('.fpl-xa-val').textContent = parseFloat(p[`${key}_xa`]).toFixed(2);
+        mainRow.querySelector('.fpl-xg-val').textContent  = parseFloat(p[`${key}_xg`]).toFixed(2);
+        mainRow.querySelector('.fpl-xa-val').textContent  = parseFloat(p[`${key}_xa`]).toFixed(2);
+        mainRow.querySelector('.fpl-pts-val').textContent = parseFloat(p[`${key}_pts`]).toFixed(1);
+        const csCell = mainRow.querySelector('.fpl-cs-val');
+        if (csCell) {
+            const csVal = p[`${key}_cs`];
+            csCell.textContent = (csVal !== null && csVal !== undefined && p.position !== 'FWD') ? parseFloat(csVal).toFixed(2) : '-';
+        }
         tbody.appendChild(mainRow);
         if (expandRow) { expandRow.style.display = 'none'; tbody.appendChild(expandRow); }
         mainRow.style.display = '';

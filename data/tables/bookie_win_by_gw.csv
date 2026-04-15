@@ -38,7 +38,6 @@ GW31,Leeds,Brentford,38.0,27.5,34.5
 GW31,Newcastle United,Sunderland,57.0,24.5,18.5
 GW31,Aston Villa,West Ham,52.0,25.0,23.0
 GW31,Tottenham Hotspur,Nottingham Forest,38.0,28.0,34.0
-GW33,,,,,
 GW34,,,,,
 GW35,,,,,
 GW36,,,,,
@@ -64,3 +63,23 @@ GW32,Nottingham Forest,Burnley,61.6,22.8,15.7
 GW32,Everton,Liverpool,28.1,26.4,45.5
 GW32,Manchester City,Arsenal,46.3,26.7,27.0
 GW32,Crystal Palace,West Ham,44.3,28.6,27.1
+GW33,Brentford,Fulham,45.1,26.2,28.7
+GW33,Newcastle United,Bournemouth,48.6,24.4,27.0
+GW33,Leeds United,Wolverhampton Wanderers,58.5,24.0,17.4
+GW33,Tottenham Hotspur,Brighton,34.8,26.2,39.0
+GW33,Chelsea,Manchester United,41.7,26.7,31.5
+GW33,Aston Villa,Sunderland,56.9,24.9,18.2
+GW33,Nottingham Forest,Burnley,62.2,22.4,15.4
+GW33,Everton,Liverpool,29.4,27.1,43.5
+GW33,Manchester City,Arsenal,50.8,26.1,23.1
+GW33,Crystal Palace,West Ham,42.4,28.7,28.9
+GW33,Brighton,Chelsea,38.1,26.1,35.8
+GW33,Bournemouth,Leeds United,45.7,26.7,27.5
+GW33,Burnley,Manchester City,8.0,14.4,77.6
+GW33,Sunderland,Nottingham Forest,32.7,29.3,37.9
+GW33,Fulham,Aston Villa,34.8,27.1,38.1
+GW33,Liverpool,Crystal Palace,63.4,20.8,15.8
+GW33,West Ham,Everton,37.1,27.8,35.0
+GW33,Wolverhampton Wanderers,Tottenham Hotspur,27.3,26.3,46.4
+GW33,Arsenal,Newcastle United,62.0,21.0,17.0
+GW33,Manchester United,Brentford,53.6,23.7,22.7

@@ -308,16 +308,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 31,22/03/2026 12:00,Newcastle United,Sunderland,1 - 2,29085,True,1.0,2.0,1.27,2.67
 31,22/03/2026 14:15,Aston Villa,West Ham,2 - 0,29079,True,2.0,0.0,2.49,0.76
 31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,0 - 3,29086,True,0.0,3.0,1.62,1.54
-32,10/04/2026 19:00,West Ham,Wolverhampton Wanderers,,29091,False,,,,
-32,11/04/2026 11:30,Arsenal,Bournemouth,,29092,False,,,,
-32,11/04/2026 14:00,Brentford,Everton,,29093,False,,,,
-32,11/04/2026 14:00,Burnley,Brighton,,29094,False,,,,
-32,11/04/2026 16:30,Liverpool,Fulham,,29097,False,,,,
-32,12/04/2026 13:00,Crystal Palace,Newcastle United,,29096,False,,,,
-32,12/04/2026 13:00,Nottingham Forest,Aston Villa,,29089,False,,,,
-32,12/04/2026 13:00,Sunderland,Tottenham Hotspur,,29090,False,,,,
-32,12/04/2026 15:30,Chelsea,Manchester City,,29095,False,,,,
-32,13/04/2026 19:00,Manchester United,Leeds,,29088,False,,,,
+32,10/04/2026 19:00,West Ham,Wolverhampton Wanderers,4 - 0,29091,True,4.0,0.0,2.54,0.57
+32,11/04/2026 11:30,Arsenal,Bournemouth,1 - 2,29092,True,1.0,2.0,3.16,1.39
+32,11/04/2026 14:00,Brentford,Everton,2 - 2,29093,True,2.0,2.0,2.26,1.57
+32,11/04/2026 14:00,Burnley,Brighton,0 - 2,29094,True,0.0,2.0,0.81,1.07
+32,11/04/2026 16:30,Liverpool,Fulham,2 - 0,29097,True,2.0,0.0,2.01,1.42
+32,12/04/2026 13:00,Crystal Palace,Newcastle United,2 - 1,29096,True,2.0,1.0,3.14,1.27
+32,12/04/2026 13:00,Nottingham Forest,Aston Villa,1 - 1,29089,True,1.0,1.0,0.85,1.36
+32,12/04/2026 13:00,Sunderland,Tottenham Hotspur,1 - 0,29090,True,1.0,0.0,1.78,1.02
+32,12/04/2026 15:30,Chelsea,Manchester City,0 - 3,29095,True,0.0,3.0,1.22,2.41
+32,13/04/2026 19:00,Manchester United,Leeds,1 - 2,29088,True,1.0,2.0,1.37,2.95
 33,18/04/2026 11:30,Brentford,Fulham,,29099,False,,,,
 33,18/04/2026 14:00,Leeds,Wolverhampton Wanderers,,29103,False,,,,
 33,18/04/2026 14:00,Newcastle United,Bournemouth,,29105,False,,,,

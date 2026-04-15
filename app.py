@@ -6,7 +6,7 @@ import os
 import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, predict_player_goals, TEAM_NAME_MAPPING
 from data_loader import calculate_recent_form, get_team_xg
-#from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
+from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from collections import defaultdict
 from datetime import datetime
 import subprocess
@@ -873,15 +873,19 @@ def fpl():
                     a_wp   = float(fix.get("away_win_prob", 0.5) or 0.5) * 100
                     h_diff = "easy" if h_wp >= 60 else "hard" if h_wp < 40 else "medium"
                     a_diff = "easy" if a_wp >= 60 else "hard" if a_wp < 40 else "medium"
-                    for team, opp, is_home, fix_xg, diff in [
-                        (ht, at, True,  h_xg, h_diff),
-                        (at, ht, False, a_xg, a_diff),
+                    h_cs = float(fix.get("home_cs_prob", 0) or 0)
+                    a_cs = float(fix.get("away_cs_prob", 0) or 0)
+                    for team, opp, is_home, fix_xg, fix_xga, cs_prob, diff in [
+                        (ht, at, True,  h_xg, a_xg, h_cs, h_diff),
+                        (at, ht, False, a_xg, h_xg, a_cs, a_diff),
                     ]:
                         team_fix_map.setdefault(team, []).append({
                             "gw":      gw_num,
                             "opp":     TEAM_SHORT_NAMES.get(opp, opp[:3].upper()),
                             "is_home": is_home,
                             "fix_xg":  round(fix_xg, 2),
+                            "fix_xga": round(fix_xga, 2),
+                            "cs_prob": round(cs_prob, 3),
                             "diff":    diff,
                         })
 
@@ -932,12 +936,33 @@ def fpl():
                     "smith rowe":    "emile smith-rowe",
                     "hee chan":      "hee-chan hwang",
                     "b.fernandes":   "bruno fernandes",
+                    "bruno borges fernandes":   "bruno fernandes",
                     "m.fernandes":   "mateus fernandes",
                     "j.palhinha":    "joao palhinha",
                     "j.gomes":       "joao gomes",
                     "p.m.sarr":      "pape sarr",
                     "n.gonzalez":    "nico gonzalez",
                     "savinho":       "savio",
+                    "martinelli":    "gabriel martinelli",
+                    "zubimendi":     "martin zubimendi",
+                    "buend\u00eda":  "emiliano buendia",
+                    "mitoma":        "kaoru mitoma",
+                    "gomez":         "diego gomez",
+                    "florentino":    "florentino luis",
+                    "neto":          "pedro neto",
+                    "caicedo":       "moises caicedo",
+                    "garnacho":      "alejandro garnacho",
+                    "lerma":         "jefferson lerma",
+                    "gana":          "idrissa gueye",
+                    "ra\u00fal":     "raul jimenez",
+                    "muniz":         "rodrigo muniz",
+                    "tanaka":        "ao tanaka",
+                    "bernardo":      "bernardo silva",
+                    "rodrigo":       "rodri",
+                    "cunha":         "matheus cunha",
+                    "ugarte":        "manuel ugarte",
+                    "mayenda":       "eliezer mayenda",
+                    "solanke":       "dominic solanke",
                 }
 
                 # Build player map — no DataFrame scans inside this loop
@@ -963,8 +988,7 @@ def fpl():
                             player_recent_xg.get((remapped, fteam), 0)
                         if p_r > 0:
                             recent_share = p_r / t_r
-                        else:
-                            recently_active = False
+                        # recently_active stays True — fall back to season_share
 
                     adj_share = 0.7 * season_share + 0.3 * recent_share
                     entry = {
@@ -978,11 +1002,15 @@ def fpl():
                         player_xg_map[web] = entry
 
                 for _, fp in fpl_df.iterrows():
-                    if fp["status"] != "a":
+                    if fp["status"] not in ("a", "d"):
                         continue
                     if int(fp["minutes"]) < 450:
                         continue
-                    if fp["position"] not in ("MID", "FWD"):
+                    if fp["position"] not in ("MID", "FWD", "DEF"):
+                        continue
+                    if fp["position"] == "DEF" and int(fp["minutes"]) < 900:
+                        continue
+                    if fp["position"] == "DEF" and float(fp["price"]) < 4.4:
                         continue
 
                     fpl_team = fp["team"]
@@ -1000,10 +1028,11 @@ def fpl():
                              if web in k and v["team"] == fpl_team),
                             None
                         )
-                    if not match or match["adj_share"] <= 0:
+                    if not match:
                         continue
-                    if not match.get("recently_active", True):
+                    if fp["position"] != "DEF" and match["adj_share"] <= 0:
                         continue
+                    # recently_active flag removed — season_share used as fallback
                     # Minutes availability scale
                     games_played = fixtures_df[
                         ((fixtures_df["home_team"] == fpl_team) | (fixtures_df["away_team"] == fpl_team)) &
@@ -1015,15 +1044,28 @@ def fpl():
                     # Per-fixture projections
                     xa_share = match.get("xa_share", 0)
                     fix_projections = []
+                    p_full = float(np.clip(avg_mins / 60, 0, 1))
+                    p_partial = float(np.clip(1 - p_full, 0, 1)) * mins_scale
+                    appearance_pts = p_full * 2 + p_partial * 1
+                    is_def = fp["position"] == "DEF"
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
                         proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
                         proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
+                        proj_cs = round(fix.get("cs_prob", 0), 3)
+                        if is_def:
+                            fix_xga  = fix.get("fix_xga", 0)
+                            proj_fpl = round(appearance_pts + 6 * proj_cs + 6 * proj_xg + 3 * proj_xa + (-0.5 * fix_xga), 2)
+                        else:
+                            goal_pts = 5 if fp["position"] == "MID" else 4
+                            proj_fpl = round(appearance_pts + goal_pts * proj_xg + 3 * proj_xa, 2)
                         fix_projections.append({
-                            "gw":      fix["gw"],
-                            "label":   f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
-                            "proj_xg": proj_xg,
-                            "proj_xa": proj_xa,
-                            "diff":    fix["diff"],
+                            "gw":       fix["gw"],
+                            "label":    f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
+                            "proj_xg":  proj_xg,
+                            "proj_xa":  proj_xa,
+                            "proj_cs":  proj_cs,
+                            "proj_fpl": proj_fpl,
+                            "diff":     fix["diff"],
                         })
 
                     gw1_xg = sum(f["proj_xg"] for f in fix_projections if f["gw"] == current_gw)
@@ -1032,8 +1074,14 @@ def fpl():
                     gw1_xa = round(sum(f["proj_xa"] for f in fix_projections if f["gw"] == current_gw), 3)
                     gw3_xa = round(sum(f["proj_xa"] for f in fix_projections if f["gw"] < current_gw + 3), 3)
                     gw5_xa = round(sum(f["proj_xa"] for f in fix_projections), 3)
-
-                    if gw1_xg <= 0:
+                    gw1_pts = round(sum(f["proj_fpl"] for f in fix_projections if f["gw"] == current_gw), 2)
+                    gw3_pts = round(sum(f["proj_fpl"] for f in fix_projections if f["gw"] < current_gw + 3), 2)
+                    gw5_pts = round(sum(f["proj_fpl"] for f in fix_projections), 2)
+                    gw1_cs  = round(sum(f["proj_cs"] for f in fix_projections if f["gw"] == current_gw), 3)
+                    gw3_cs  = round(sum(f["proj_cs"] for f in fix_projections if f["gw"] < current_gw + 3), 3)
+                    gw5_cs  = round(sum(f["proj_cs"] for f in fix_projections), 3)
+                        
+                    if gw5_pts <= 0:
                         continue
 
                     captain_picks.append({
@@ -1048,13 +1096,20 @@ def fpl():
                         "gw1_xa":       gw1_xa,
                         "gw3_xa":       gw3_xa,
                         "gw5_xa":       gw5_xa,
+                        "gw1_pts":      gw1_pts,
+                        "gw3_pts":      gw3_pts,
+                        "gw5_pts":      gw5_pts,
+                        "gw1_cs":       gw1_cs,
+                        "gw3_cs":       gw3_cs,
+                        "gw5_cs":       gw5_cs,
                         "fixtures":     fix_projections,
                         "gw1_fixture":  " + ".join(f["label"] for f in fix_projections if f["gw"] == current_gw) or "",
                         "gw1_diff":     "easy" if all(f["diff"] == "easy" for f in fix_projections if f["gw"] == current_gw) else "hard" if all(f["diff"] == "hard" for f in fix_projections if f["gw"] == current_gw) else "medium",
                     })
 
-                captain_picks.sort(key=lambda x: x["gw1_xg"], reverse=True)
+                captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
                 captain_picks = captain_picks[:20]
+                captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
 
             except Exception as e:
                 print(f"⚠️  Captain picks error: {e}")
@@ -1238,8 +1293,8 @@ def ev_checker():
 
 
 
-#@app.route("/f1")
-#def f1_hub():
+@app.route("/f1")
+def f1_hub():
     try:
         data = get_f1_hub_data()
         next_pred = get_next_race_predictions()
@@ -1267,8 +1322,8 @@ def ev_checker():
         )
 
 
-#@app.route("/f1/drivers")
-#def f1_drivers():
+@app.route("/f1/drivers")
+def f1_drivers():
     try:
         data = get_f1_drivers_data()
         return render_template("f1_drivers.html",
@@ -1289,8 +1344,8 @@ def ev_checker():
         )
 
 
-#@app.route("/f1/race/<int:year>/<int:round_num>")
-#def f1_race(year, round_num):
+@app.route("/f1/race/<int:year>/<int:round_num>")
+def f1_race(year, round_num):
     try:
         data = get_race_report(year, round_num)
         return render_template("f1_race.html",
@@ -1327,16 +1382,16 @@ def ev_checker():
 
 
 
-#@app.route("/f1/predictions")
-#def f1_predictions_redirect():
+@app.route("/f1/predictions")
+def f1_predictions_redirect():
     from f1_data_loader import get_next_race_info
     next_race = get_next_race_info()
     if next_race:
         return redirect(f"/f1/predictions/{next_race.get('season', 2026)}/{next_race['round']}")
     return redirect("/f1")
 
-#@app.route("/f1/predictions/<int:year>/<int:round_num>")
-#def f1_predictions(year, round_num):
+@app.route("/f1/predictions/<int:year>/<int:round_num>")
+def f1_predictions(year, round_num):
     try:
         data = get_f1_predictions_data(year, round_num)
         return render_template("f1_predictions.html",
@@ -1365,8 +1420,8 @@ def ev_checker():
         )
 
 
-#@app.route("/f1/fantasy")
-#def f1_fantasy():
+@app.route("/f1/fantasy")
+def f1_fantasy():
     try:
         data = get_f1_fantasy_data()
         return render_template("f1_fantasy.html",

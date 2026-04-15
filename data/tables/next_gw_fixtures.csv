@@ -1,11 +1,14 @@
 round_number,date,home_team,away_team
-32,10/04/2026 19:00,West Ham,Wolverhampton Wanderers
-32,11/04/2026 11:30,Arsenal,Bournemouth
-32,11/04/2026 14:00,Brentford,Everton
-32,11/04/2026 14:00,Burnley,Brighton
-32,11/04/2026 16:30,Liverpool,Fulham
-32,12/04/2026 13:00,Crystal Palace,Newcastle United
-32,12/04/2026 13:00,Nottingham Forest,Aston Villa
-32,12/04/2026 13:00,Sunderland,Tottenham Hotspur
-32,12/04/2026 15:30,Chelsea,Manchester City
-32,13/04/2026 19:00,Manchester United,Leeds
+33,18/04/2026 11:30,Brentford,Fulham
+33,18/04/2026 14:00,Leeds,Wolverhampton Wanderers
+33,18/04/2026 14:00,Newcastle United,Bournemouth
+33,18/04/2026 16:30,Tottenham Hotspur,Brighton
+33,18/04/2026 19:00,Chelsea,Manchester United
+33,19/04/2026 13:00,Aston Villa,Sunderland
+33,19/04/2026 13:00,Everton,Liverpool
+33,19/04/2026 13:00,Nottingham Forest,Burnley
+33,19/04/2026 15:30,Manchester City,Arsenal
+33,20/04/2026 19:00,Crystal Palace,West Ham
+33,21/04/2026 19:00,Brighton,Chelsea
+33,22/04/2026 19:00,Bournemouth,Leeds
+33,22/04/2026 19:00,Burnley,Manchester City

@@ -773,5 +773,10 @@ try:
     fpl_df.to_csv(fpl_path, index=False)
     print(f"✅ FPL player data saved ({len(fpl_df)} players) to {fpl_path}")
 
+
+
 except Exception as e:
     print(f"⚠️  Could not fetch FPL bootstrap data: {e}")
+
+from data_loader import collect_all_shot_data
+collect_all_shot_data()

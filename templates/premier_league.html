@@ -25,10 +25,12 @@
     </div>
 </div>
 
-<div class="hub-tab-bar">
-    <button class="hub-tab" data-tab="fixtures" onclick="switchTab('fixtures')">Fixtures</button>
-    <button class="hub-tab" data-tab="table" onclick="switchTab('table')">Table</button>
-    <button class="hub-tab" data-tab="teams" onclick="switchTab('teams')">Teams</button>
+<div class="hub-back-bar">
+    <a class="hub-back-link" data-tab="fixtures" href="#" onclick="switchTab('fixtures'); return false;">Fixtures</a>
+    <span class="hub-back-divider"></span>
+    <a class="hub-back-link" data-tab="table" href="#" onclick="switchTab('table'); return false;">Table</a>
+    <span class="hub-back-divider"></span>
+    <a class="hub-back-link" data-tab="teams" href="#" onclick="switchTab('teams'); return false;">Teams</a>
 </div>
 
 <div id="panel-fixtures" class="pl-tab-panel">
@@ -570,8 +572,8 @@
 {% block extra_scripts %}
 <script>
     function switchTab(tab) {
-        document.querySelectorAll('.hub-tab').forEach(function(btn) {
-            btn.classList.toggle('active', btn.dataset.tab === tab);
+        document.querySelectorAll('.hub-back-link').forEach(function(btn) {
+            btn.classList.toggle('hub-back-link--active', btn.dataset.tab === tab);
         });
         document.querySelectorAll('.pl-tab-panel').forEach(function(panel) {
             panel.classList.toggle('active', panel.id === 'panel-' + tab);

@@ -1017,10 +1017,10 @@ def generate_shot_map(understat_match_id, save_image=True):
 
         # Save figure
         plt.tight_layout()
-        shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
+        shotmap_file = os.path.join(shotmap_save_path, f"{home_team_name}_{away_team_name}_shotmap.png")
         if save_image:
             plt.savefig(shotmap_file, facecolor='#f5f5f0')
-            print(f"✅ Saved shotmap for {home_team} vs {away_team} to: {shotmap_file}")
+            print(f"✅ Saved shotmap for {home_team_name} vs {away_team_name} to: {shotmap_file}")
 
         plt.close(fig)
 
@@ -1101,8 +1101,7 @@ def collect_all_shot_data():
         return
 
     new_df = pd.concat(all_shots_combined, ignore_index=True)
-    new_df["h_team"] = new_df["h_team"].replace(TEAM_NAME_MAPPING)
-    new_df["a_team"] = new_df["a_team"].replace(TEAM_NAME_MAPPING)
+    # Do not remap team names — shots_data must use the same names as league_table_data
 
     # Append to existing data rather than overwriting
     if existing_df is not None:
@@ -1141,8 +1140,7 @@ if __name__ == "__main__":
         historical_fixtures_df, team_data, recent_matches=20, alpha=0.30
     )
 
-    collect_all_shot_data()
-    print("✅ Saved shots_data.csv")
+    print("ℹ️  Shot data fetched by data_scraper_script.py — skipping here")
 
     print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
     generate_all_heatmaps(team_data, recent_form_att, recent_form_def, team_home_advantage=team_home_advantage)

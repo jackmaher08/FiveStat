@@ -78,7 +78,7 @@
 
             <a href="/ev_checker" class="nav-link">Bet Value Checker</a>
 
-            <!--<div class="dropdown">
+            <div class="dropdown">
                 <span class="dropbtn" onclick="toggleDropdown(event)">Formula 1 <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
                 <div class="dropdown-content">
                     <a href="/f1">F1 Hub</a>
@@ -86,7 +86,7 @@
                     <a href="/f1/predictions">Next Race Predictions</a>
                     <a href="/f1/fantasy">F1 Fantasy</a>
                 </div>
-            </div>-->
+            </div>
 
             <a href="/methodology" class="nav-link">Read Me</a>
 
@@ -102,7 +102,9 @@
         </div>
 
         {# Hamburger - shown on mobile via CSS #}
-        <button class="menu-icon" onclick="toggleMobileMenu()" aria-label="Toggle menu">☰</button>
+        <button class="menu-icon" id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
     </nav>
 
     {# ════════════════════════════════════════
@@ -164,7 +166,10 @@
 
         /* ── Mobile hamburger ── */
         function toggleMobileMenu() {
-            document.getElementById('mainMenu').classList.toggle('show');
+            const menu = document.getElementById('mainMenu');
+            const icon = document.querySelector('#menuToggle i');
+            menu.classList.toggle('show');
+            icon.className = menu.classList.contains('show') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
         }
 
         /* ── Cookie banner ── */

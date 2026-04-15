@@ -1,0 +1,90 @@
+name: FiveStat Auto-Update
+
+on:
+  schedule:
+    # Run 1 — Tue 13:00 UTC: full pipeline (~6h after last fixture)
+    - cron: '0 13 * * 2'
+    # Run 2 — Wed 01:00 UTC: bookie win % (~18h after Sunday)
+    #- cron: '0 01 * * 3'
+    # Run 3 — Wed 13:00 UTC: bookie CS % (~30h after Sunday)
+    #- cron: '0 13 * * 3'
+  workflow_dispatch:
+    inputs:
+      run_type:
+        description: 'Which run to execute'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - bookie_win
+          - bookie_cs
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Detect which scheduled run fired (manual runs use the input directly)
+      - name: Detect run type
+        id: run_type
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "type=${{ inputs.run_type }}" >> $GITHUB_OUTPUT
+          else
+            DAY=$(date -u +%u)   # 1=Mon, 2=Tue
+            HOUR=$(date -u +%H)
+            if [ "$DAY" = "1" ]; then
+              echo "type=full" >> $GITHUB_OUTPUT
+            elif [ "$HOUR" -lt "14" ]; then
+              echo "type=bookie_win" >> $GITHUB_OUTPUT
+            else
+              echo "type=bookie_cs" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+      # ── Run 1: Full pipeline ──────────────────────────────────────────────
+      - name: Full pipeline
+        if: steps.run_type.outputs.type == 'full'
+        run: |
+          python data_scraper_script.py
+          python data_loader.py
+          python generate_radars.py
+          python generate_shotmaps.py
+          python shotmap_script.py
+
+      # ── Run 2: Bookie win % only ──────────────────────────────────────────
+      - name: Scrape bookie win probabilities
+        if: steps.run_type.outputs.type == 'bookie_win'
+        run: python data_scraper_script.py --bookie-only
+
+      # ── Run 3: Bookie CS % only ───────────────────────────────────────────
+      - name: Scrape bookie clean sheet probabilities
+        if: steps.run_type.outputs.type == 'bookie_cs'
+        run: python data_scraper_script.py --bookie-only
+
+      # ── Commit and push (triggers Railway redeploy) ───────────────────────
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --staged --quiet && echo "Nothing to commit" || \
+            git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
+          git push

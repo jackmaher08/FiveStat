@@ -1678,26 +1678,68 @@ input:checked + .slider:before {
   }
 
   .menu {
-    display: none;
+    display: flex;
     flex-direction: column;
-    width: 100%;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    background: var(--nav-bg);
+    border-bottom: 2px solid var(--accent);
+    padding: 0.5rem 0 1.5rem;
     gap: 0;
-    padding-bottom: 0.5rem;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 999;
   }
 
   .menu.show {
-    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .menu-icon {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: none;
+    background: var(--nav-bg);
+    font-size: 1rem;
+    transition: background var(--transition);
+  }
+
+  .menu-icon:hover {
+    background: var(--nav-bg);
   }
 
   .dropbtn,
   .nav-link {
     width: 100%;
     text-align: center;
-    padding: 0.6rem 1rem;
+    padding: 0.85rem 1.5rem;
+    font-size: 1.05rem;
+    border-radius: 0;
+  }
+
+  .dropbtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .dropdown {
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .dropdown-content {
@@ -1705,8 +1747,14 @@ input:checked + .slider:before {
     transform: none;
     border-radius: 0;
     border-top: none;
-    border-left: 2px solid var(--accent);
-    margin-left: 1rem;
+    border-left: none;
+    margin-left: 0;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .dropdown-content a {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.95rem;
   }
 
   /* Typography */
@@ -2931,8 +2979,9 @@ input:checked + .slider:before {
 .fpl-rank { font-weight: 700; color: var(--text-muted); width: 2rem; }
 .fpl-player-name { display: block; font-weight: 600; color: var(--text-primary); }
 .fpl-player-meta { display: block; font-size: 0.75rem; color: var(--text-muted); }
-.fpl-xg-val { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+.fpl-xg-val { font-family: var(--font-display); font-weight: 700; color: var(--text-muted); }
 .fpl-xa-val { font-family: var(--font-display); font-weight: 700; color: var(--text-muted); }
+.fpl-pts-val { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
 .fpl-price { color: var(--text-muted); font-size: 0.82rem; }
 .fpl-own-chip {
   font-size: 0.75rem; padding: 2px 8px; border-radius: 20px;
@@ -3469,6 +3518,12 @@ input:checked + .slider:before {
   overflow: hidden;
 }
 
+@media (max-width: 767px) {
+  .f1-standings-grid {
+    flex-direction: column;
+  }
+}
+
 .f1-standings-panel .table-container table,
 .f1-standings-panel .league-table,
 .f1-report-section .table-container table,
@@ -3526,6 +3581,14 @@ input:checked + .slider:before {
   flex: 1;
   min-width: 0;
   overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .f1-report-grid {
+    flex-direction: column;
+  }
+  .f1-report-section:first-child { order: 2; }
+  .f1-report-section:last-child  { order: 1; }
 }
 
 .f1-race-nav {
@@ -3882,6 +3945,21 @@ input:checked + .slider:before {
 .f1-pred-podium-card--3 {
   border-top: 4px solid #CD7F32;
   order: 3;
+}
+
+@media (max-width: 767px) {
+  .f1-pred-podium {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .f1-pred-podium-card {
+    max-width: 100%;
+  }
+  .f1-pred-podium-card--1 { order: 1; }
+  .f1-pred-podium-card--2 { order: 2; }
+  .f1-pred-podium-card--3 { order: 3; }
+
+
 }
 
 .f1-pred-podium-pos {
