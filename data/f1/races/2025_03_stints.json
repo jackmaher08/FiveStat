@@ -1,0 +1,371 @@
+[
+  {
+    "Driver": "ALB",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 24,
+    "lap_count": 24,
+    "tyre_life_at_end": 23
+  },
+  {
+    "Driver": "ALB",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 25,
+    "end_lap": 53,
+    "lap_count": 29,
+    "tyre_life_at_end": 28
+  },
+  {
+    "Driver": "ALO",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 24,
+    "lap_count": 24,
+    "tyre_life_at_end": 24
+  },
+  {
+    "Driver": "ALO",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 25,
+    "end_lap": 53,
+    "lap_count": 29,
+    "tyre_life_at_end": 29
+  },
+  {
+    "Driver": "ANT",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 31,
+    "lap_count": 31,
+    "tyre_life_at_end": 30
+  },
+  {
+    "Driver": "ANT",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 32,
+    "end_lap": 53,
+    "lap_count": 22,
+    "tyre_life_at_end": 21
+  },
+  {
+    "Driver": "BEA",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 23,
+    "lap_count": 23,
+    "tyre_life_at_end": 22
+  },
+  {
+    "Driver": "BEA",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 24,
+    "end_lap": 53,
+    "lap_count": 30,
+    "tyre_life_at_end": 30
+  },
+  {
+    "Driver": "BOR",
+    "Stint": 1,
+    "Compound": "HARD",
+    "start_lap": 1,
+    "end_lap": 31,
+    "lap_count": 31,
+    "tyre_life_at_end": 30
+  },
+  {
+    "Driver": "BOR",
+    "Stint": 2,
+    "Compound": "MEDIUM",
+    "start_lap": 32,
+    "end_lap": 53,
+    "lap_count": 22,
+    "tyre_life_at_end": 21
+  },
+  {
+    "Driver": "DOO",
+    "Stint": 1,
+    "Compound": "SOFT",
+    "start_lap": 1,
+    "end_lap": 15,
+    "lap_count": 15,
+    "tyre_life_at_end": 14
+  },
+  {
+    "Driver": "DOO",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 16,
+    "end_lap": 53,
+    "lap_count": 38,
+    "tyre_life_at_end": 37
+  },
+  {
+    "Driver": "GAS",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 24,
+    "lap_count": 24,
+    "tyre_life_at_end": 23
+  },
+  {
+    "Driver": "GAS",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 25,
+    "end_lap": 53,
+    "lap_count": 29,
+    "tyre_life_at_end": 28
+  },
+  {
+    "Driver": "HAD",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 25,
+    "lap_count": 25,
+    "tyre_life_at_end": 24
+  },
+  {
+    "Driver": "HAD",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 26,
+    "end_lap": 53,
+    "lap_count": 28,
+    "tyre_life_at_end": 27
+  },
+  {
+    "Driver": "HAM",
+    "Stint": 1,
+    "Compound": "HARD",
+    "start_lap": 1,
+    "end_lap": 30,
+    "lap_count": 30,
+    "tyre_life_at_end": 29
+  },
+  {
+    "Driver": "HAM",
+    "Stint": 2,
+    "Compound": "MEDIUM",
+    "start_lap": 31,
+    "end_lap": 53,
+    "lap_count": 23,
+    "tyre_life_at_end": 22
+  },
+  {
+    "Driver": "HUL",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 22,
+    "lap_count": 22,
+    "tyre_life_at_end": 21
+  },
+  {
+    "Driver": "HUL",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 23,
+    "end_lap": 53,
+    "lap_count": 31,
+    "tyre_life_at_end": 30
+  },
+  {
+    "Driver": "LAW",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 33,
+    "lap_count": 33,
+    "tyre_life_at_end": 32
+  },
+  {
+    "Driver": "LAW",
+    "Stint": 2,
+    "Compound": "SOFT",
+    "start_lap": 34,
+    "end_lap": 53,
+    "lap_count": 20,
+    "tyre_life_at_end": 19
+  },
+  {
+    "Driver": "LEC",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 21,
+    "lap_count": 21,
+    "tyre_life_at_end": 20
+  },
+  {
+    "Driver": "LEC",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 22,
+    "end_lap": 53,
+    "lap_count": 32,
+    "tyre_life_at_end": 31
+  },
+  {
+    "Driver": "NOR",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 21,
+    "lap_count": 21,
+    "tyre_life_at_end": 20
+  },
+  {
+    "Driver": "NOR",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 22,
+    "end_lap": 53,
+    "lap_count": 32,
+    "tyre_life_at_end": 31
+  },
+  {
+    "Driver": "OCO",
+    "Stint": 1,
+    "Compound": "HARD",
+    "start_lap": 1,
+    "end_lap": 32,
+    "lap_count": 32,
+    "tyre_life_at_end": 32
+  },
+  {
+    "Driver": "OCO",
+    "Stint": 2,
+    "Compound": "MEDIUM",
+    "start_lap": 33,
+    "end_lap": 53,
+    "lap_count": 21,
+    "tyre_life_at_end": 20
+  },
+  {
+    "Driver": "PIA",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 20,
+    "lap_count": 20,
+    "tyre_life_at_end": 19
+  },
+  {
+    "Driver": "PIA",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 21,
+    "end_lap": 53,
+    "lap_count": 33,
+    "tyre_life_at_end": 32
+  },
+  {
+    "Driver": "RUS",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 19,
+    "lap_count": 19,
+    "tyre_life_at_end": 18
+  },
+  {
+    "Driver": "RUS",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 20,
+    "end_lap": 53,
+    "lap_count": 34,
+    "tyre_life_at_end": 33
+  },
+  {
+    "Driver": "SAI",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 33,
+    "lap_count": 33,
+    "tyre_life_at_end": 32
+  },
+  {
+    "Driver": "SAI",
+    "Stint": 2,
+    "Compound": "SOFT",
+    "start_lap": 34,
+    "end_lap": 53,
+    "lap_count": 20,
+    "tyre_life_at_end": 19
+  },
+  {
+    "Driver": "STR",
+    "Stint": 1,
+    "Compound": "SOFT",
+    "start_lap": 1,
+    "end_lap": 9,
+    "lap_count": 9,
+    "tyre_life_at_end": 8
+  },
+  {
+    "Driver": "STR",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 10,
+    "end_lap": 30,
+    "lap_count": 21,
+    "tyre_life_at_end": 21
+  },
+  {
+    "Driver": "STR",
+    "Stint": 3,
+    "Compound": "MEDIUM",
+    "start_lap": 31,
+    "end_lap": 52,
+    "lap_count": 22,
+    "tyre_life_at_end": 21
+  },
+  {
+    "Driver": "TSU",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 23,
+    "lap_count": 23,
+    "tyre_life_at_end": 22
+  },
+  {
+    "Driver": "TSU",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 24,
+    "end_lap": 53,
+    "lap_count": 30,
+    "tyre_life_at_end": 29
+  },
+  {
+    "Driver": "VER",
+    "Stint": 1,
+    "Compound": "MEDIUM",
+    "start_lap": 1,
+    "end_lap": 21,
+    "lap_count": 21,
+    "tyre_life_at_end": 20
+  },
+  {
+    "Driver": "VER",
+    "Stint": 2,
+    "Compound": "HARD",
+    "start_lap": 22,
+    "end_lap": 53,
+    "lap_count": 32,
+    "tyre_life_at_end": 31
+  }
+]

@@ -5,3 +5,4 @@ __pycache__/
 .DS_Store
 static/radar/
 static/chart_images/
+data/f1/cache/
