@@ -131,9 +131,9 @@ def get_team_form(fixtures_df, team_name, max_matches=10):
 # league position visuals
 @app.template_filter('get_position_tooltip')
 def get_position_tooltip(pos):
-    if 1 <= pos <= 4:
+    if 1 <= pos <= 5:
         return "Champions League"
-    elif 5 <= pos <= 6:
+    elif 6 <= pos <= 6:
         return "Europa League"
     elif pos == 7:
         return "Conference League"

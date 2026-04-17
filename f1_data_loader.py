@@ -82,6 +82,10 @@ def load_f1_qualifying_laps(year, round_num):
     return _load_race_file(year, round_num, "qualifying_laps", fallback=[])
 
 
+def load_f1_sprint(year, round_num):
+    return _load_race_file(year, round_num, "sprint", fallback=[])
+
+
 def load_f1_laps(year, round_num):
     return _load_race_file(year, round_num, "laps", fallback=[])
 
@@ -869,11 +873,23 @@ F1F_POINTS_FINISH = {
     6: 8,  7: 6,  8: 4,  9: 2,  10: 1,
 }
 F1F_POINTS_DNF        = -20
-F1F_POINTS_FASTEST_LAP = 5
-F1F_POINTS_PER_PLACE_GAINED = 2
+F1F_POINTS_FASTEST_LAP = 10
+F1F_POINTS_PER_PLACE_GAINED = 1
 F1F_POINTS_PER_PLACE_LOST   = -1
 F1F_POINTS_CONSTRUCTOR_WIN  = 10
 F1F_FASTEST_LAP_PROB        = 0.05
+
+F1F_SPRINT_POINTS_FINISH = {
+    1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1,
+}
+F1F_SPRINT_POINTS_DNF              = -10
+F1F_SPRINT_POINTS_PER_PLACE_GAINED = 1
+F1F_SPRINT_POINTS_PER_PLACE_LOST   = -1
+F1F_QUALI_POINTS = {
+    1: 10, 2: 9, 3: 8, 4: 7, 5: 6,
+    6: 5,  7: 4, 8: 3, 9: 2, 10: 1,
+}
+F1F_QUALI_NO_TIME = -5
 
 
 def calculate_xfp(predictions, race_round=None):
@@ -937,9 +953,16 @@ def calculate_xfp(predictions, race_round=None):
 
 def calculate_actual_fantasy_points(year, round_num):
     """
-    Calculate actual F1 Fantasy points from race results.
-    Uses real finishing positions, grid positions, and fastest lap.
+    Returns official F1 Fantasy points for a completed race weekend.
+    Reads from fantasy_points.json if available (source of truth).
+    Falls back to calculated values if the race isn't yet in the manual file.
     """
+    manual_path = os.path.join(F1_DATA_DIR, "fantasy_points.json")
+    manual_data = _load_json(manual_path, fallback={})
+    race_key = _race_key(year, round_num)
+    if race_key in manual_data:
+        return {code: float(pts) for code, pts in manual_data[race_key].items()}
+
     results = load_f1_race_results(year, round_num)
     if not results:
         return {}
@@ -975,6 +998,52 @@ def calculate_actual_fantasy_points(year, round_num):
                 pts += places * abs(F1F_POINTS_PER_PLACE_LOST)
 
         driver_points[code] = round(pts, 1)
+
+    quali = load_f1_qualifying(year, round_num)
+    for q in quali:
+        code = q.get("code", "")
+        if not code:
+            continue
+        try:
+            pos = int(q.get("position", 99))
+        except (ValueError, TypeError):
+            pos = 99
+        q_pts = F1F_QUALI_POINTS.get(pos, 0)
+        if not q.get("q1"):
+            q_pts = F1F_QUALI_NO_TIME
+        if code in driver_points:
+            driver_points[code] = round(driver_points[code] + q_pts, 1)
+
+    schedule = load_f1_schedule()
+    race_info = next((r for r in schedule if r.get("round") == round_num), None)
+    if race_info and race_info.get("has_sprint"):
+        sprint = load_f1_sprint(year, round_num)
+        for s in sprint:
+            code = s.get("code", "")
+            if not code:
+                continue
+            s_pos_text = s.get("position_text", "")
+            try:
+                s_pos = int(s.get("position", 99))
+            except (ValueError, TypeError):
+                s_pos = 99
+            s_grid = int(s.get("grid", 0) or 0)
+            s_is_dnf = s_pos_text in ("R", "D", "E", "W", "F", "N")
+
+            if s_is_dnf:
+                s_pts = F1F_SPRINT_POINTS_DNF
+            else:
+                s_pts = F1F_SPRINT_POINTS_FINISH.get(s_pos, 0)
+
+            if not s_is_dnf and s_grid > 0 and s_pos > 0:
+                s_places = s_grid - s_pos
+                if s_places > 0:
+                    s_pts += s_places * F1F_SPRINT_POINTS_PER_PLACE_GAINED
+                elif s_places < 0:
+                    s_pts += s_places * abs(F1F_SPRINT_POINTS_PER_PLACE_LOST)
+
+            if code in driver_points:
+                driver_points[code] = round(driver_points[code] + s_pts, 1)
 
     return driver_points
 

@@ -117,9 +117,9 @@
                                         <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
                                         <td class="fpl-xa-val">{{ "%.2f"|format(fix.proj_xa) }}</td>
                                         {% if pick.position in ("DEF", "MID") %}
-                                        <td>{{ "%.2f"|format(fix.proj_cs) }}</td>
+                                        <td class="fpl-cs-val">{{ "%.2f"|format(fix.proj_cs) }}</td>
                                         {% else %}
-                                        <td>-</td>
+                                        <td class="fpl-cs-val">-</td>
                                         {% endif %}
                                         <td class="fpl-pts-val">{{ "%.1f"|format(fix.proj_fpl) }}</td>
                                     </tr>
