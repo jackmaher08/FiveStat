@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}FiveStat - Model Methodology{% endblock %}
-{% block meta_description %}Technical breakdown of FiveStat's match prediction model, league simulation, and player projection methodology.{% endblock %}
+{% block meta_description %}Technical breakdown of FiveStat's match prediction model, F1 race prediction model, league simulation, and player projection methodology.{% endblock %}
 {% block og_url %}https://www.fivestat.co.uk/methodology{% endblock %}
 
 
@@ -11,8 +11,8 @@
         <div class="lp-hero-bg"></div>
         <div class="lp-hero-inner">
             <div class="lp-eyebrow">Model Methodology · FiveStat</div>
-            <h1 class="lp-headline" style="font-size:2rem;">How our Model was built.</h1>
-            <p class="lp-subhead">How our model works, what it gets right, and exactly where we know it'll go wrong. No disclaimers - just the specifics.</p>
+            <h1 class="lp-headline" style="font-size:2rem;">How our Models were built.</h1>
+            <p class="lp-subhead">How our models work, what they get right, and exactly where we know they'll go wrong. No disclaimers - just the specifics.</p>
         </div>
     </div>
 
@@ -200,7 +200,7 @@
                 <div class="meth-step-num">01</div>
                 <div class="meth-step-body">
                     <div class="meth-step-title">Monte Carlo simulation</div>
-                    <p>The remaining unplayedfixtures are simulated by generating a random outcome from the model's home win / draw / away win probability distribution. Points are awarded per team off the back of these simulated results and stored.</p>
+                    <p>The remaining unplayed fixtures are simulated by generating a random outcome from the model's home win / draw / away win probability distribution. Points are awarded per team off the back of these simulated results and stored.</p>
                 </div>
             </div>
 
@@ -283,7 +283,7 @@
                 <div class="meth-step-num">01</div>
                 <div class="meth-step-body">
                     <div class="meth-step-title">Player Picks - projected xG &amp; xA</div>
-                    <p>Attacking players are ranked by their projected xG for the upcoming gameweek. A player's projected xG is their adjusted xG share (season xG share blended with recent-form perfoemance) multiplied by the team xG the model has assigned to each fixture. Projected xA follows the same approach but uses a player's share of team shot-creating actions and expected assists from the shots data. Both metrics can be viewed across the next 1, 3, or 5 gameweeks, with the multi-GW values representing the sum across all fixtures in that window.</p>
+                    <p>Attacking players are ranked by their projected xG for the upcoming gameweek. A player's projected xG is their adjusted xG share (season xG share blended with recent-form performance) multiplied by the team xG the model has assigned to each fixture. Projected xA follows the same approach but uses a player's share of team shot-creating actions and expected assists from the shots data. Both metrics can be viewed across the next 1, 3, or 5 gameweeks, with the multi-GW values representing the sum across all fixtures in that window.</p>
                     <div class="meth-formula">player_xG = adjusted_xg_share × team_xg_vs_opponent</div>
                     <div class="meth-formula">player_xA = adjusted_xa_share × team_xg_vs_opponent</div>
                 </div>
@@ -357,7 +357,134 @@
                 <div class="meth-step-num">03</div>
                 <div class="meth-step-body">
                     <div class="meth-step-title">Limitations</div>
-                    <p>EV is a model-driven signal and does not account for line movement or all bookmaker prices. It should be interpreted as an indicator of where our model disagrees with the market, not as a guarantee of profit. Gamble Responsibly!</p>
+                    <p>EV is a model-driven signal and does not account for line movement or all bookmaker prices. It should be interpreted as an indicator of where our model disagrees with the market, not as a guarantee of profit. Critically, a positive EV bet losing - or even losing several times in a row - does not mean the signal was wrong. Short-run variance dominates any small sample of bets, and a genuine edge only becomes statistically meaningful across hundreds of outcomes. If you are using this tool for any real-money purpose, that distinction matters. Gamble Responsibly!</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ── Section 5: F1 Race Prediction Model ── #}
+    <div class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-flag-checkered"></i></div>
+            <h2 class="meth-section-title">F1 race prediction model</h2>
+        </div>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Driver Pace Rating (DPR)</div>
+                    <p>DPR measures a driver's true pace independent of the car they are in, using only intra-team comparisons. For each completed race with valid lap data, the model filters to clean representative laps (removing lap 1, pit entry/exit laps, and outliers via IQR per driver), takes each driver's median clean lap time, and computes the percentage delta versus their teammate. Because both drivers share the same car and the same circuit conditions on the same day, this removes the majority of equipment bias from the comparison.</p>
+                    <div class="meth-formula">per_race_delta = (driver_median − teammate_median) / teammate_median × 100</div>
+                    <p style="margin-top:0.5rem;">Negative = faster than teammate (better). These per-race deltas are then aggregated across the current season plus the two prior seasons, weighted by recency decay (0.85 per race back in time), to produce a single DPR value per driver. Reliability bands are applied: 8+ races = high confidence, 4–7 = caution, fewer than 4 = low.</p>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Constructor Pace Index (CPI)</div>
+                    <p>CPI measures each constructor's outright pace relative to the full field. For each race, the field median lap time is computed from all clean laps. Each constructor's two drivers' medians are averaged to produce a constructor median. The delta versus the field median is then recency-weighted using the same 0.85 decay as DPR. A negative CPI means the team is running faster than the field average - lower is better.</p>
+                    <div class="meth-formula">CPI_delta = (constructor_median − field_median) / field_median × 100</div>
+                    <p style="margin-top:0.5rem;">CPI captures overall car performance across a season and is the primary input representing team competitiveness in the race prediction model.</p>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">03</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Blending pace with grid position</div>
+                    <p>For each driver, a combined pace score is derived by blending DPR and CPI. This score is then blended with the driver's qualifying grid position using a circuit-specific overtaking index. The overtaking index runs from 0.0 (grid position almost entirely determines result, e.g. Monaco at 0.10) to 1.0 (pure pace dominates, e.g. Monza at 0.80). This reflects the real-world constraint that a fast driver starting 15th at Monaco has far less opportunity to recover position than the same driver at Spa.</p>
+                    <div class="meth-formula">race_score = (1 − OI) × grid_score + OI × pace_score</div>
+                    <p style="margin-top:0.5rem;">When qualifying data is not yet available (pre-qualifying mode), grid positions are estimated from the pace ranking directly.</p>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">04</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Monte Carlo simulation</div>
+                    <p>The race is simulated 5,000 times. In each run, each driver draws a pace sample from a normal distribution centred on their race score with a standard deviation of 0.18, representing the inherent randomness of race conditions, safety car timing, tactical strategy, and general chaos. An 8% DNF probability is applied per driver per simulation, reflecting the historical F1 mechanical and incident failure rate. Win, podium (top 3), and points finish (top 10) probabilities are calculated as the proportion of simulations in which each driver achieves each outcome.</p>
+                    <div class="meth-formula">P(win) = simulations where driver finishes 1st / N_simulations</div>
+                </div>
+            </div>
+
+            <div class="meth-step" style="border-bottom:none;">
+                <div class="meth-step-num">05</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Limitations</div>
+                    <p>The model has no visibility of race strategy, weather forecasts, tyre allocation, or team orders. DPR reliability is lower for drivers new to a team or in their first season, since the teammate comparison requires both drivers to have raced in comparable conditions. Safety cars, VSC periods, and red flags introduce variance the model cannot price in pre-race. Treat the output as a pace-and-grid-based prior that will be overridden by race-day information the model cannot see.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ── Section 6: F1 Race Analysis ── #}
+    <div class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-gauge-high"></i></div>
+            <h2 class="meth-section-title">F1 race analysis</h2>
+        </div>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Stint Efficiency Score</div>
+                    <p>Stint efficiency measures how much faster or slower each driver ran relative to what the tyre compound would predict at that age. For each compound used in the race, a linear degradation model is fitted across all drivers' clean laps on that compound: lap time as a function of tyre age. Each driver's actual lap times are then compared to the model's predicted times lap-by-lap. The mean residual (predicted minus actual) gives the efficiency score for that stint - positive means the driver is outperforming the tyre model, negative means they are underperforming it.</p>
+                    <div class="meth-formula">efficiency = mean(predicted_lap_time − actual_lap_time) per stint</div>
+                    <p style="margin-top:0.5rem;">This separates tyre management skill from raw pace: a driver who consistently extracts more from an ageing tyre than the compound average will show a positive score regardless of their outright lap time.</p>
+                </div>
+            </div>
+
+            <div class="meth-step" style="border-bottom:none;">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Teammate pace delta</div>
+                    <p>The per-race teammate comparison used to compute DPR is also surfaced directly on the race report page. This gives the raw head-to-head median clean lap delta for that specific race, independent of the multi-race weighted average. It provides a single-race lens on intra-team performance that the aggregate DPR smooths over.</p>
+                    <div class="meth-formula">race_delta = (driver_median − teammate_median) / teammate_median × 100</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {# ── Section 7: F1 Fantasy ── #}
+    <div class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-trophy"></i></div>
+            <h2 class="meth-section-title">F1 Fantasy Planner</h2>
+        </div>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Expected Fantasy Points (xFP)</div>
+                    <p>xFP projects a driver's expected fantasy points for an upcoming race using the race prediction model. Win, podium, and points-finish probabilities from the simulation are multiplied by the standard F1 fantasy scoring weights for each outcome and summed to produce a single expected points value per driver. xFP is not a guarantee of score - it represents the probability-weighted average outcome across all simulated races.</p>
+                    <div class="meth-formula">xFP = Σ (outcome_probability × fantasy_points_for_outcome)</div>
+                </div>
+            </div>
+
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Season projection</div>
+                    <p>Season xFP sums actual fantasy points earned in completed races with projected xFP across all remaining races. This gives a full-season expected points total per driver, combining what has already happened with what the model expects to happen. Transfer targets over the next 1, 3, or 5 races are derived from xFP over that horizon, providing a window-adjusted view of who offers the best projected return in each planning period.</p>
+                </div>
+            </div>
+
+            <div class="meth-step" style="border-bottom:none;">
+                <div class="meth-step-num">03</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Limitations</div>
+                    <p>xFP inherits all of the race prediction model's limitations - it does not know about weather, strategy, or team orders. Fantasy scoring can also be affected by fastest lap bonuses and qualifying positions which the model only partially captures. Treat xFP as a starting point for decision-making, not a definitive ranking.</p>
                 </div>
             </div>
 
@@ -395,6 +522,14 @@
         </div>
 
         <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">→</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Probability is not a promise</div>
+                    <p>A prediction of 65% does not mean the favoured outcome will happen. It means that across a large number of similar matches, the favoured side wins roughly 65% of the time - and loses 35%. A single match resolving against the model's favourite is not evidence the model is wrong any more than a coin landing tails is evidence the coin is biased. The correct way to evaluate probabilistic predictions is over many outcomes, not individual ones. The xTable makes this explicit: teams sitting below their expected position are not necessarily being unlucky this week - they may simply be in the 35% of simulations where their opponents performed above expectation. Any match, betting decision, or fantasy pick that uses a model probability should be understood in those terms.</p>
+                </div>
+            </div>
 
             <div class="meth-step">
                 <div class="meth-step-num">→</div>

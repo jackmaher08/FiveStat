@@ -1122,8 +1122,7 @@ def fpl():
             for gw in range(current_gw, current_gw + 5):
                 gw_fix = fixtures_df[
                     ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
-                    (fixtures_df["round_number"] == gw) &
-                    (fixtures_df["isResult"] == False)
+                    (fixtures_df["round_number"] == gw)
                 ]
                 if gw_fix.empty:
                     row_data["fixtures"].append({"gw": gw, "label": "BGW", "difficulty": "blank", "is_dgw": False, "parts": []})

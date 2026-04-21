@@ -3113,6 +3113,8 @@ input:checked + .slider:before {
 .fix-dot--l { background-color: var(--rel-red); }
 
 .fix-xg-label {
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-display);
   font-size: 0.72rem;
   font-weight: 700;
