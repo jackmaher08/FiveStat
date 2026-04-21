@@ -328,7 +328,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 33,19/04/2026 13:00,Nottingham Forest,Burnley,4 - 1,29106,True,4.0,1.0,1.44,0.6
 33,19/04/2026 15:30,Manchester City,Arsenal,2 - 1,29104,True,2.0,1.0,2.62,2.29
 33,20/04/2026 19:00,Crystal Palace,West Ham,0 - 0,29101,True,0.0,0.0,0.73,0.62
-33,21/04/2026 19:00,Brighton,Chelsea,,29110,False,,,,
+33,21/04/2026 19:00,Brighton,Chelsea,3 - 0,29110,True,3.0,0.0,2.52,0.3
 33,22/04/2026 19:00,Bournemouth,Leeds,,29108,False,,,,
 33,22/04/2026 19:00,Burnley,Manchester City,,29111,False,,,,
 34,24/04/2026 19:00,Sunderland,Nottingham Forest,,29115,False,,,,
