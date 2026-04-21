@@ -68,10 +68,7 @@ def plot_team_shotmap(team_name):
         print(f"No shots found for {team_name}")
         return
 
-    # Flip home team shots
-    df.loc[df["h_a"] == "h", "x_scaled"] = 120 - df["x_scaled"]
-    df.loc[df["h_a"] == "h", "y_scaled"] = 80 - df["y_scaled"]
-
+    
     BG = '#f5f5f0'
 
     # Draw pitch

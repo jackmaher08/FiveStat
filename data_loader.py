@@ -888,15 +888,14 @@ def generate_shot_map(understat_match_id, save_image=True):
         home_team_name = home_df.iloc[0]['h_team'] if not home_df.empty else "Unknown"
         away_team_name = away_df.iloc[0]['a_team'] if not away_df.empty else "Unknown"
 
-        # Scale coordinates to StatsBomb pitch (120x80)
         home_df['x_scaled'] = home_df['X'].astype(float) * 120
         home_df['y_scaled'] = home_df['Y'].astype(float) * 80
         away_df['x_scaled'] = away_df['X'].astype(float) * 120
         away_df['y_scaled'] = away_df['Y'].astype(float) * 80
 
-        # Adjust positions for correct plotting
-        home_df['x_scaled'] = 120 - home_df['x_scaled']
-        away_df['y_scaled'] = 80 - away_df['y_scaled']
+        # Normalise so all shots attack the same direction (high x = attacking end)
+        away_df['x_scaled'] = 120 - away_df['x_scaled']
+        away_df['y_scaled'] = 80  - away_df['y_scaled']
 
         # Calculate total goals and xG
         goal_keywords = ['Goal', 'PenaltyGoal']
