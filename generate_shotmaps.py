@@ -68,7 +68,10 @@ def plot_team_shotmap(team_name):
         print(f"No shots found for {team_name}")
         return
 
-    
+    # Normalise away shots to attack same direction as home (toward x=120)
+    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
+    df.loc[df["h_a"] == "a", "y_scaled"] = 80  - df["y_scaled"]
+
     BG = '#f5f5f0'
 
     # Draw pitch

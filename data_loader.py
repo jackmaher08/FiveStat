@@ -893,9 +893,9 @@ def generate_shot_map(understat_match_id, save_image=True):
         away_df['x_scaled'] = away_df['X'].astype(float) * 120
         away_df['y_scaled'] = away_df['Y'].astype(float) * 80
 
-        # Normalise so all shots attack the same direction (high x = attacking end)
-        away_df['x_scaled'] = 120 - away_df['x_scaled']
-        away_df['y_scaled'] = 80  - away_df['y_scaled']
+        # Home attacks right (x=120), away attacks left (x=0)
+        home_df['x_scaled'] = 120 - home_df['x_scaled']
+        home_df['y_scaled'] = 80  - home_df['y_scaled']
 
         # Calculate total goals and xG
         goal_keywords = ['Goal', 'PenaltyGoal']
