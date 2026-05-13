@@ -69,8 +69,9 @@ def plot_team_shotmap(team_name):
         return
 
     # Normalise away shots to attack same direction as home (toward x=120)
-    df.loc[df["h_a"] == "a", "x_scaled"] = 120 - df["x_scaled"]
-    df.loc[df["h_a"] == "a", "y_scaled"] = 80  - df["y_scaled"]
+    away_mask = df["h_a"] == "a"
+    df.loc[away_mask, "x_scaled"] = 120 - df.loc[away_mask, "x_scaled"]
+    df.loc[away_mask, "y_scaled"] = 80  - df.loc[away_mask, "y_scaled"]
 
     BG = '#f5f5f0'
 
