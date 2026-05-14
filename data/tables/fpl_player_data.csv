@@ -3,12 +3,12 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 2,Kepa Arrizabalaga Revuelta,Arrizabalaga,Arsenal,GK,4.0,0.4,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
 3,Karl Hein,Hein,Arsenal,GK,4.0,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 4,Tommy Setford,Setford,Arsenal,GK,3.9,0.2,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
-5,Gabriel dos Santos Magalhães,Gabriel,Arsenal,DEF,7.3,45.4,6.2,7.7,2615,3,5,17,a,2.94,1.71,4.65
+5,Gabriel dos Santos Magalhães,Gabriel,Arsenal,DEF,7.3,45.5,6.2,7.7,2615,3,5,17,a,2.94,1.71,4.65
 6,William Saliba,Saliba,Arsenal,DEF,6.2,16.2,5.2,6.7,2524,1,0,14,a,0.88,1.2,2.08
 7,Riccardo Calafiori,Calafiori,Arsenal,DEF,5.6,5.9,1.8,2.5,1581,1,2,12,d,3.36,0.53,3.89
 8,Jurriën Timber,J.Timber,Arsenal,DEF,6.0,15.8,0.0,0.0,2452,3,6,13,i,4.71,1.53,6.24
 9,Jakub Kiwior,Kiwior,Arsenal,DEF,5.4,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-10,Myles Lewis-Skelly,Lewis-Skelly,Arsenal,DEF,5.0,1.5,3.2,4.7,590,0,0,2,a,0.1,0.18,0.28
+10,Myles Lewis-Skelly,Lewis-Skelly,Arsenal,DEF,5.0,1.6,3.2,4.7,590,0,0,2,a,0.1,0.18,0.28
 11,Benjamin White,White,Arsenal,DEF,5.1,0.6,3.5,0.0,699,0,1,5,i,0.45,0.69,1.14
 13,Brayden Clarke,Clarke,Arsenal,DEF,3.7,0.4,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
 14,Maldini Kacurri,Kacurri,Arsenal,DEF,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
@@ -30,7 +30,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 31,Gabriel Fernando de Jesus,G.Jesus,Arsenal,FWD,6.4,0.3,0.2,1.7,344,2,0,0,a,1.83,0.23,2.06
 266,Eberechi Eze,Eze,Arsenal,MID,7.3,8.9,3.5,5.0,1798,7,3,10,a,4.41,2.61,7.02
 662,Cristhian Mosquera,Mosquera,Arsenal,DEF,5.3,0.2,0.2,1.7,806,0,0,2,a,0.1,0.54,0.64
-666,Viktor Gyökeres,Gyökeres,Arsenal,FWD,9.0,15.9,5.0,6.5,2193,14,1,12,a,12.1,1.83,13.92
+666,Viktor Gyökeres,Gyökeres,Arsenal,FWD,9.0,16.0,5.0,6.5,2193,14,1,12,a,12.1,1.83,13.92
 700,Max Dowman,Dowman,Arsenal,MID,4.2,0.8,0.2,1.7,91,1,1,0,a,1.19,0.14,1.33
 711,Andre Harriman-Annous,Harriman-Annous,Arsenal,MID,4.4,0.0,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
 725,Piero Hincapié,Hincapie,Arsenal,DEF,5.1,0.9,2.5,4.0,1679,1,2,5,a,0.33,1.65,1.98
@@ -447,7 +447,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 660,Anton Stach,Stach,Leeds,MID,4.8,2.0,3.0,2.5,2296,5,6,6,a,2.82,4.4,7.22
 665,Lucas Estella Perri,Perri,Leeds,GK,4.4,0.3,0.0,-0.5,1440,0,0,3,a,0.0,0.0,0.0
 691,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,5.8,12.9,5.2,4.7,2563,13,2,7,a,15.02,1.03,16.04
-698,Noah Okafor,Okafor,Leeds,MID,5.5,2.0,6.5,0.0,1553,8,3,6,i,5.25,1.32,6.57
+698,Noah Okafor,Okafor,Leeds,MID,5.5,1.9,6.5,0.0,1553,8,3,6,i,5.25,1.32,6.57
 706,James Justin,Justin,Leeds,DEF,4.0,2.1,6.2,5.7,1713,2,1,5,a,1.65,1.13,2.78
 741,Harry Gray,Gray,Leeds,FWD,4.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 787,Sam Chambers,Chambers,Leeds,MID,4.4,0.0,0.0,-0.5,0,0,0,0,a,0.0,0.0,0.0
@@ -629,7 +629,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 512,Omar Richards,O.Richards,Nottingham Forest,DEF,4.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 513,Zach Abbott,Abbott,Nottingham Forest,DEF,3.8,0.2,0.2,-0.1,165,0,0,0,d,0.0,0.01,0.01
 514,Willy Boly,Boly,Nottingham Forest,DEF,3.8,0.3,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
-515,Morgan Gibbs-White,Gibbs-White,Nottingham Forest,MID,7.5,8.1,9.2,4.3,2921,13,4,10,d,9.44,2.83,12.27
+515,Morgan Gibbs-White,Gibbs-White,Nottingham Forest,MID,7.5,8.0,9.2,4.3,2921,13,4,10,d,9.44,2.83,12.27
 516,Callum Hudson-Odoi,Hudson-Odoi,Nottingham Forest,MID,5.7,0.6,0.0,0.0,1838,3,4,6,i,2.77,3.02,5.79
 517,Elliot Anderson,Anderson,Nottingham Forest,MID,5.6,7.2,6.0,5.5,3178,4,3,10,a,2.93,3.72,6.65
 518,João Pedro Ferreira da Silva,Jota,Nottingham Forest,MID,5.4,0.0,0.0,0.0,11,0,0,0,u,0.0,0.0,0.0
