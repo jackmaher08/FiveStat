@@ -329,45 +329,46 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 33,19/04/2026 15:30,Manchester City,Arsenal,2 - 1,29104,True,2.0,1.0,2.62,2.29
 33,20/04/2026 19:00,Crystal Palace,West Ham,0 - 0,29101,True,0.0,0.0,0.73,0.62
 33,21/04/2026 19:00,Brighton,Chelsea,3 - 0,29110,True,3.0,0.0,2.52,0.3
-33,22/04/2026 19:00,Bournemouth,Leeds,,29108,False,,,,
-33,22/04/2026 19:00,Burnley,Manchester City,,29111,False,,,,
-34,24/04/2026 19:00,Sunderland,Nottingham Forest,,29115,False,,,,
-34,25/04/2026 11:30,Fulham,Aston Villa,,29112,False,,,,
-34,25/04/2026 14:00,Liverpool,Crystal Palace,,29113,False,,,,
-34,25/04/2026 14:00,West Ham,Everton,,29116,False,,,,
-34,25/04/2026 14:00,Wolverhampton Wanderers,Tottenham Hotspur,,29117,False,,,,
-34,25/04/2026 16:30,Arsenal,Newcastle United,,29109,False,,,,
-34,27/04/2026 19:00,Manchester United,Brentford,,29114,False,,,,
-35,01/05/2026 19:00,Leeds,Burnley,,29124,False,,,,
-35,02/05/2026 14:00,Brentford,West Ham,,29121,False,,,,
-35,02/05/2026 14:00,Newcastle United,Brighton,,29126,False,,,,
-35,02/05/2026 14:00,Wolverhampton Wanderers,Sunderland,,29127,False,,,,
-35,02/05/2026 16:30,Arsenal,Fulham,,29119,False,,,,
-35,03/05/2026 13:00,Bournemouth,Crystal Palace,,29118,False,,,,
-35,03/05/2026 14:30,Manchester United,Liverpool,,29125,False,,,,
-35,03/05/2026 18:00,Aston Villa,Tottenham Hotspur,,29120,False,,,,
-35,04/05/2026 14:00,Chelsea,Nottingham Forest,,29122,False,,,,
-35,04/05/2026 19:00,Everton,Manchester City,,29123,False,,,,
-36,09/05/2026 11:30,Liverpool,Chelsea,,29132,False,,,,
-36,09/05/2026 14:00,Brighton,Wolverhampton Wanderers,,29128,False,,,,
-36,09/05/2026 14:00,Fulham,Bournemouth,,29131,False,,,,
-36,09/05/2026 14:00,Sunderland,Manchester United,,29135,False,,,,
-36,09/05/2026 16:30,Manchester City,Brentford,,29133,False,,,,
-36,10/05/2026 13:00,Burnley,Aston Villa,,29129,False,,,,
-36,10/05/2026 13:00,Crystal Palace,Everton,,29130,False,,,,
-36,10/05/2026 13:00,Nottingham Forest,Newcastle United,,29134,False,,,,
-36,10/05/2026 15:30,West Ham,Arsenal,,29137,False,,,,
-36,11/05/2026 19:00,Tottenham Hotspur,Leeds,,29136,False,,,,
-37,17/05/2026 14:00,Arsenal,Burnley,,29139,False,,,,
-37,17/05/2026 14:00,Aston Villa,Liverpool,,29140,False,,,,
-37,17/05/2026 14:00,Bournemouth,Manchester City,,29138,False,,,,
+33,22/04/2026 19:00,Bournemouth,Leeds,2 - 2,29108,True,2.0,2.0,1.91,1.22
+33,22/04/2026 19:00,Burnley,Manchester City,0 - 1,29111,True,0.0,1.0,0.97,3.41
+34,24/04/2026 19:00,Sunderland,Nottingham Forest,0 - 5,29115,True,0.0,5.0,0.61,1.54
+34,25/04/2026 11:30,Fulham,Aston Villa,1 - 0,29112,True,1.0,0.0,1.24,0.91
+34,25/04/2026 14:00,Liverpool,Crystal Palace,3 - 1,29113,True,3.0,1.0,1.45,2.2
+34,25/04/2026 14:00,West Ham,Everton,2 - 1,29116,True,2.0,1.0,1.84,1.11
+34,25/04/2026 14:00,Wolverhampton Wanderers,Tottenham Hotspur,0 - 1,29117,True,0.0,1.0,0.76,1.06
+34,25/04/2026 16:30,Arsenal,Newcastle United,1 - 0,29109,True,1.0,0.0,0.64,0.87
+34,27/04/2026 19:00,Manchester United,Brentford,2 - 1,29114,True,2.0,1.0,1.85,1.3
+35,01/05/2026 19:00,Leeds,Burnley,3 - 1,29124,True,3.0,1.0,2.1,0.43
+35,02/05/2026 14:00,Brentford,West Ham,3 - 0,29121,True,3.0,0.0,2.27,0.75
+35,02/05/2026 14:00,Newcastle United,Brighton,3 - 1,29126,True,3.0,1.0,3.13,1.87
+35,02/05/2026 14:00,Wolverhampton Wanderers,Sunderland,1 - 1,29127,True,1.0,1.0,1.96,0.92
+35,02/05/2026 16:30,Arsenal,Fulham,3 - 0,29119,True,3.0,0.0,4.09,0.7
+35,03/05/2026 13:00,Bournemouth,Crystal Palace,3 - 0,29118,True,3.0,0.0,2.3,0.68
+35,03/05/2026 14:30,Manchester United,Liverpool,3 - 2,29125,True,3.0,2.0,2.56,1.03
+35,03/05/2026 18:00,Aston Villa,Tottenham Hotspur,1 - 2,29120,True,1.0,2.0,0.61,1.12
+35,04/05/2026 14:00,Chelsea,Nottingham Forest,1 - 3,29122,True,1.0,3.0,2.17,2.31
+35,04/05/2026 19:00,Everton,Manchester City,3 - 3,29123,True,3.0,3.0,1.69,1.42
+36,09/05/2026 11:30,Liverpool,Chelsea,1 - 1,29132,True,1.0,1.0,0.62,0.6
+36,09/05/2026 14:00,Brighton,Wolverhampton Wanderers,3 - 0,29128,True,3.0,0.0,2.22,0.52
+36,09/05/2026 14:00,Fulham,Bournemouth,0 - 1,29131,True,0.0,1.0,1.24,1.0
+36,09/05/2026 14:00,Sunderland,Manchester United,0 - 0,29135,True,0.0,0.0,1.24,0.54
+36,09/05/2026 16:30,Manchester City,Brentford,3 - 0,29133,True,3.0,0.0,4.37,0.67
+36,10/05/2026 13:00,Burnley,Aston Villa,2 - 2,29129,True,2.0,2.0,1.71,1.75
+36,10/05/2026 13:00,Crystal Palace,Everton,2 - 2,29130,True,2.0,2.0,3.29,2.1
+36,10/05/2026 13:00,Nottingham Forest,Newcastle United,1 - 1,29134,True,1.0,1.0,1.46,1.65
+36,10/05/2026 15:30,West Ham,Arsenal,0 - 1,29137,True,0.0,1.0,1.32,1.43
+36,11/05/2026 19:00,Tottenham Hotspur,Leeds,1 - 1,29136,True,1.0,1.0,1.49,1.87
+36,13/05/2026 19:00,Manchester City,Crystal Palace,3 - 0,29084,True,3.0,0.0,1.96,0.43
+37,15/05/2026 19:00,Aston Villa,Liverpool,,29140,False,,,,
+37,17/05/2026 11:30,Manchester United,Nottingham Forest,,29145,False,,,,
 37,17/05/2026 14:00,Brentford,Crystal Palace,,29141,False,,,,
-37,17/05/2026 14:00,Chelsea,Tottenham Hotspur,,29142,False,,,,
 37,17/05/2026 14:00,Everton,Sunderland,,29143,False,,,,
 37,17/05/2026 14:00,Leeds,Brighton,,29144,False,,,,
-37,17/05/2026 14:00,Manchester United,Nottingham Forest,,29145,False,,,,
-37,17/05/2026 14:00,Newcastle United,West Ham,,29146,False,,,,
 37,17/05/2026 14:00,Wolverhampton Wanderers,Fulham,,29147,False,,,,
+37,17/05/2026 16:30,Newcastle United,West Ham,,29146,False,,,,
+37,18/05/2026 19:00,Arsenal,Burnley,,29139,False,,,,
+37,19/05/2026 18:30,Bournemouth,Manchester City,,29138,False,,,,
+37,19/05/2026 19:15,Chelsea,Tottenham Hotspur,,29142,False,,,,
 38,24/05/2026 15:00,Brighton,Manchester United,,29148,False,,,,
 38,24/05/2026 15:00,Burnley,Wolverhampton Wanderers,,29149,False,,,,
 38,24/05/2026 15:00,Crystal Palace,Arsenal,,29150,False,,,,

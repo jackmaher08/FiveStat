@@ -1,0 +1,3242 @@
+[
+  {
+    "Driver": "ANT",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.904,
+    "Sector3Time_s": 31.471
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.158,
+    "Sector1Time_s": 30.138,
+    "Sector2Time_s": 33.991,
+    "Sector3Time_s": 25.029
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 124.672,
+    "Sector1Time_s": 36.511,
+    "Sector2Time_s": 47.737,
+    "Sector3Time_s": 40.424
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.641,
+    "Sector3Time_s": 33.604
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.653,
+    "Sector1Time_s": 29.817,
+    "Sector2Time_s": 34.062,
+    "Sector3Time_s": 24.774
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.406,
+    "Sector1Time_s": 36.767,
+    "Sector2Time_s": 40.627,
+    "Sector3Time_s": 40.012
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.595,
+    "Sector3Time_s": 34.592
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.352,
+    "Sector1Time_s": 29.969,
+    "Sector2Time_s": 33.555,
+    "Sector3Time_s": 24.828
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 109.868,
+    "Sector1Time_s": 34.704,
+    "Sector2Time_s": 39.196,
+    "Sector3Time_s": 35.968
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.886,
+    "Sector3Time_s": 31.522
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.289,
+    "Sector1Time_s": 29.879,
+    "Sector2Time_s": 33.658,
+    "Sector3Time_s": 24.752
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 155.972,
+    "Sector1Time_s": 40.928,
+    "Sector2Time_s": 41.371,
+    "Sector3Time_s": 73.673
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.431,
+    "Sector3Time_s": 33.021
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 87.798,
+    "Sector1Time_s": 29.743,
+    "Sector2Time_s": 33.431,
+    "Sector3Time_s": 24.624
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 108.971,
+    "Sector1Time_s": 33.955,
+    "Sector2Time_s": 37.286,
+    "Sector3Time_s": 37.73
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.505,
+    "Sector3Time_s": 31.629
+  },
+  {
+    "Driver": "ANT",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 35.112,
+    "Sector2Time_s": 44.348,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 38.549,
+    "Sector3Time_s": 35.91
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.099,
+    "Sector1Time_s": 30.369,
+    "Sector2Time_s": 33.772,
+    "Sector3Time_s": 24.958
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 108.451,
+    "Sector1Time_s": 34.388,
+    "Sector2Time_s": 38.203,
+    "Sector3Time_s": 35.86
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.073,
+    "Sector3Time_s": 30.431
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.931,
+    "Sector1Time_s": 30.398,
+    "Sector2Time_s": 33.765,
+    "Sector3Time_s": 24.768
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 112.631,
+    "Sector1Time_s": 36.138,
+    "Sector2Time_s": 40.227,
+    "Sector3Time_s": 36.266
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.716,
+    "Sector3Time_s": 30.037
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.116,
+    "Sector1Time_s": 30.072,
+    "Sector2Time_s": 33.382,
+    "Sector3Time_s": 24.662
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 107.818,
+    "Sector1Time_s": 34.162,
+    "Sector2Time_s": 38.847,
+    "Sector3Time_s": 34.809
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.632,
+    "Sector3Time_s": 30.936
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.181,
+    "Sector1Time_s": 30.279,
+    "Sector2Time_s": 33.256,
+    "Sector3Time_s": 24.646
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 108.0,
+    "Sector1Time_s": 34.377,
+    "Sector2Time_s": 39.248,
+    "Sector3Time_s": 34.375
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.347,
+    "Sector3Time_s": 30.871
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 87.964,
+    "Sector1Time_s": 30.09,
+    "Sector2Time_s": 33.172,
+    "Sector3Time_s": 24.701999999999998
+  },
+  {
+    "Driver": "VER",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 38.826,
+    "Sector2Time_s": 43.175,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 47.383,
+    "Sector3Time_s": 31.926
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.436,
+    "Sector1Time_s": 30.42,
+    "Sector2Time_s": 34.124,
+    "Sector3Time_s": 24.892
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.394,
+    "Sector1Time_s": 37.571,
+    "Sector2Time_s": 43.285,
+    "Sector3Time_s": 35.538
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.24,
+    "Sector3Time_s": 30.304
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 97.594,
+    "Sector1Time_s": 30.207,
+    "Sector2Time_s": 34.682,
+    "Sector3Time_s": 32.705
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 128.157,
+    "Sector1Time_s": 51.359,
+    "Sector2Time_s": 42.834,
+    "Sector3Time_s": 33.964
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 125.72,
+    "Sector1Time_s": 40.326,
+    "Sector2Time_s": 46.857,
+    "Sector3Time_s": 38.537
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.938,
+    "Sector1Time_s": 30.225,
+    "Sector2Time_s": 33.814,
+    "Sector3Time_s": 24.899
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 125.19,
+    "Sector1Time_s": 38.936,
+    "Sector2Time_s": 44.342,
+    "Sector3Time_s": 41.912
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.465,
+    "Sector3Time_s": 31.124
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.542,
+    "Sector1Time_s": 29.929,
+    "Sector2Time_s": 33.809,
+    "Sector3Time_s": 24.804
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.87,
+    "Sector1Time_s": 41.928,
+    "Sector2Time_s": 39.459,
+    "Sector3Time_s": 36.483
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.299,
+    "Sector3Time_s": 31.932
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.315,
+    "Sector1Time_s": 29.861,
+    "Sector2Time_s": 33.71,
+    "Sector3Time_s": 24.744
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 126.99,
+    "Sector1Time_s": 39.673,
+    "Sector2Time_s": 43.401,
+    "Sector3Time_s": 43.916
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.602,
+    "Sector3Time_s": 33.484
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.143,
+    "Sector1Time_s": 29.98,
+    "Sector2Time_s": 33.339,
+    "Sector3Time_s": 24.824
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 119.088,
+    "Sector1Time_s": 37.668,
+    "Sector2Time_s": 40.368,
+    "Sector3Time_s": 41.052
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.262,
+    "Sector3Time_s": 30.326
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 88.203,
+    "Sector1Time_s": 29.923000000000002,
+    "Sector2Time_s": 33.435,
+    "Sector3Time_s": 24.845
+  },
+  {
+    "Driver": "LEC",
+    "LapNumber": 21.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 38.075,
+    "Sector2Time_s": 45.463,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.36,
+    "Sector3Time_s": 35.175
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.183,
+    "Sector1Time_s": 30.478,
+    "Sector2Time_s": 33.827,
+    "Sector3Time_s": 24.878
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 149.268,
+    "Sector1Time_s": 39.791,
+    "Sector2Time_s": 42.974,
+    "Sector3Time_s": 66.503
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.488,
+    "Sector3Time_s": 29.671
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 89.809,
+    "Sector1Time_s": 30.352,
+    "Sector2Time_s": 34.236,
+    "Sector3Time_s": 25.221
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 145.625,
+    "Sector1Time_s": 45.773,
+    "Sector2Time_s": 42.023,
+    "Sector3Time_s": 57.829
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.449,
+    "Sector3Time_s": 30.497
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 100.95,
+    "Sector1Time_s": 30.624,
+    "Sector2Time_s": 35.081,
+    "Sector3Time_s": 35.245
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.435,
+    "Sector3Time_s": 31.489
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.04,
+    "Sector1Time_s": 30.053,
+    "Sector2Time_s": 33.796,
+    "Sector3Time_s": 25.191
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 124.485,
+    "Sector1Time_s": 47.045,
+    "Sector2Time_s": 42.581,
+    "Sector3Time_s": 34.859
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 127.721,
+    "Sector1Time_s": 48.065,
+    "Sector2Time_s": 46.963,
+    "Sector3Time_s": 32.693
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.92,
+    "Sector1Time_s": 30.262,
+    "Sector2Time_s": 33.707,
+    "Sector3Time_s": 24.951
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.237,
+    "Sector1Time_s": 38.401,
+    "Sector2Time_s": 40.856,
+    "Sector3Time_s": 37.98
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.764,
+    "Sector3Time_s": 30.848
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.183,
+    "Sector1Time_s": 30.111,
+    "Sector2Time_s": 33.258,
+    "Sector3Time_s": 24.814
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 118.039,
+    "Sector1Time_s": 37.512,
+    "Sector2Time_s": 41.429,
+    "Sector3Time_s": 39.098
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.995,
+    "Sector3Time_s": 29.161
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 88.527,
+    "Sector1Time_s": 30.12,
+    "Sector2Time_s": 33.435,
+    "Sector3Time_s": 24.972
+  },
+  {
+    "Driver": "NOR",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 37.931,
+    "Sector2Time_s": 44.126,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.983,
+    "Sector3Time_s": 31.013
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.076,
+    "Sector1Time_s": 30.673000000000002,
+    "Sector2Time_s": 34.265,
+    "Sector3Time_s": 25.138
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 121.583,
+    "Sector1Time_s": 37.938,
+    "Sector2Time_s": 45.335,
+    "Sector3Time_s": 38.31
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.433,
+    "Sector3Time_s": 31.985
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.492,
+    "Sector1Time_s": 30.297,
+    "Sector2Time_s": 34.292,
+    "Sector3Time_s": 24.903
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 146.439,
+    "Sector1Time_s": 35.748,
+    "Sector2Time_s": 37.884,
+    "Sector3Time_s": 72.807
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.527,
+    "Sector3Time_s": 36.721
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.477,
+    "Sector1Time_s": 29.971,
+    "Sector2Time_s": 33.648,
+    "Sector3Time_s": 24.858
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.422,
+    "Sector1Time_s": 38.87,
+    "Sector2Time_s": 39.416,
+    "Sector3Time_s": 36.136
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.369,
+    "Sector3Time_s": 30.009
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 88.822,
+    "Sector1Time_s": 30.547,
+    "Sector2Time_s": 33.5,
+    "Sector3Time_s": 24.775
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.494,
+    "Sector1Time_s": 39.056,
+    "Sector2Time_s": 37.865,
+    "Sector3Time_s": 37.573
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.723,
+    "Sector3Time_s": 30.559
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.197,
+    "Sector1Time_s": 29.977,
+    "Sector2Time_s": 33.559,
+    "Sector3Time_s": 24.661
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 106.727,
+    "Sector1Time_s": 35.171,
+    "Sector2Time_s": 36.491,
+    "Sector3Time_s": 35.065
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.756,
+    "Sector3Time_s": 31.218
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 88.367,
+    "Sector1Time_s": 29.806,
+    "Sector2Time_s": 33.544,
+    "Sector3Time_s": 25.017
+  },
+  {
+    "Driver": "RUS",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 41.962,
+    "Sector2Time_s": 42.526,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.475,
+    "Sector3Time_s": 31.796
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.51,
+    "Sector1Time_s": 30.429,
+    "Sector2Time_s": 34.139,
+    "Sector3Time_s": 24.942
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 119.607,
+    "Sector1Time_s": 40.303,
+    "Sector2Time_s": 38.316,
+    "Sector3Time_s": 40.988
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.456,
+    "Sector3Time_s": 30.49
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.483,
+    "Sector1Time_s": 30.555,
+    "Sector2Time_s": 34.098,
+    "Sector3Time_s": 24.83
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 123.605,
+    "Sector1Time_s": 40.8,
+    "Sector2Time_s": 43.746,
+    "Sector3Time_s": 39.059
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 141.565,
+    "Sector1Time_s": 47.861,
+    "Sector2Time_s": 46.142,
+    "Sector3Time_s": 47.562
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 90.6,
+    "Sector1Time_s": 31.102,
+    "Sector2Time_s": 34.542,
+    "Sector3Time_s": 24.956
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 121.013,
+    "Sector1Time_s": 38.639,
+    "Sector2Time_s": 42.201,
+    "Sector3Time_s": 40.173
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.542,
+    "Sector3Time_s": 30.33
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.477,
+    "Sector1Time_s": 30.091,
+    "Sector2Time_s": 33.566,
+    "Sector3Time_s": 24.82
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 146.67,
+    "Sector1Time_s": 39.463,
+    "Sector2Time_s": 40.672,
+    "Sector3Time_s": 66.535
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.816,
+    "Sector3Time_s": 32.124
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 88.83,
+    "Sector1Time_s": 30.163,
+    "Sector2Time_s": 33.89,
+    "Sector3Time_s": 24.777
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 122.164,
+    "Sector1Time_s": 39.065,
+    "Sector2Time_s": 41.365,
+    "Sector3Time_s": 41.734
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.623,
+    "Sector3Time_s": 30.995
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.376,
+    "Sector1Time_s": 30.231,
+    "Sector2Time_s": 33.402,
+    "Sector3Time_s": 24.743
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 120.559,
+    "Sector1Time_s": 35.201,
+    "Sector2Time_s": 39.934,
+    "Sector3Time_s": 45.424
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.279,
+    "Sector3Time_s": 29.865
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.319,
+    "Sector1Time_s": 29.907,
+    "Sector2Time_s": 33.504,
+    "Sector3Time_s": 24.908
+  },
+  {
+    "Driver": "HAM",
+    "LapNumber": 21.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 41.145,
+    "Sector2Time_s": 44.57,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.704,
+    "Sector3Time_s": 30.359
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.04,
+    "Sector1Time_s": 30.662,
+    "Sector2Time_s": 34.169,
+    "Sector3Time_s": 25.209
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 39.596,
+    "Sector2Time_s": 42.242,
+    "Sector3Time_s": 68.383
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.486,
+    "Sector3Time_s": 31.931
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 90.066,
+    "Sector1Time_s": 30.479,
+    "Sector2Time_s": 34.359,
+    "Sector3Time_s": 25.228
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 133.107,
+    "Sector1Time_s": 44.252,
+    "Sector2Time_s": 47.377,
+    "Sector3Time_s": 41.478
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.92,
+    "Sector1Time_s": 30.845,
+    "Sector2Time_s": 33.916,
+    "Sector3Time_s": 25.159
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 36.441,
+    "Sector2Time_s": 40.252,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 83.313,
+    "Sector2Time_s": 47.186,
+    "Sector3Time_s": 32.652
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.902,
+    "Sector1Time_s": 30.091,
+    "Sector2Time_s": 33.687,
+    "Sector3Time_s": 25.124
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 38.911,
+    "Sector2Time_s": 39.327,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.883,
+    "Sector3Time_s": 33.54
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.332,
+    "Sector1Time_s": 29.945,
+    "Sector2Time_s": 33.51,
+    "Sector3Time_s": 24.877
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 37.876,
+    "Sector2Time_s": 42.485,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 134.884,
+    "Sector1Time_s": 61.323,
+    "Sector2Time_s": 43.21,
+    "Sector3Time_s": 30.351
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.687,
+    "Sector1Time_s": 30.087,
+    "Sector2Time_s": 33.618,
+    "Sector3Time_s": 24.982
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 36.806,
+    "Sector2Time_s": 40.356,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 143.625,
+    "Sector1Time_s": 69.629,
+    "Sector2Time_s": 43.157,
+    "Sector3Time_s": 30.839
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.5,
+    "Sector1Time_s": 30.228,
+    "Sector2Time_s": 33.248,
+    "Sector3Time_s": 25.024
+  },
+  {
+    "Driver": "PIA",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 40.848,
+    "Sector2Time_s": 43.172,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.268,
+    "Sector3Time_s": 38.666
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 97.067,
+    "Sector1Time_s": 31.353,
+    "Sector2Time_s": 33.871,
+    "Sector3Time_s": 31.843
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.938,
+    "Sector3Time_s": 30.91
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.917,
+    "Sector1Time_s": 30.506,
+    "Sector2Time_s": 34.168,
+    "Sector3Time_s": 25.243
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 130.089,
+    "Sector1Time_s": 49.344,
+    "Sector2Time_s": 43.022,
+    "Sector3Time_s": 37.723
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 136.95,
+    "Sector1Time_s": 54.771,
+    "Sector2Time_s": 43.312,
+    "Sector3Time_s": 38.867
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.584,
+    "Sector1Time_s": 30.593,
+    "Sector2Time_s": 33.942,
+    "Sector3Time_s": 25.049
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.988,
+    "Sector1Time_s": 38.153,
+    "Sector2Time_s": 41.457,
+    "Sector3Time_s": 37.378
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.091,
+    "Sector3Time_s": 36.843
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.975,
+    "Sector1Time_s": 30.454,
+    "Sector2Time_s": 33.624,
+    "Sector3Time_s": 24.897
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 119.516,
+    "Sector1Time_s": 38.63,
+    "Sector2Time_s": 42.54,
+    "Sector3Time_s": 38.346
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.704,
+    "Sector3Time_s": 31.246
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 89.123,
+    "Sector1Time_s": 30.38,
+    "Sector2Time_s": 33.883,
+    "Sector3Time_s": 24.86
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 123.328,
+    "Sector1Time_s": 40.883,
+    "Sector2Time_s": 47.6,
+    "Sector3Time_s": 34.845
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.081,
+    "Sector3Time_s": 33.776
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.762,
+    "Sector1Time_s": 30.247,
+    "Sector2Time_s": 33.686,
+    "Sector3Time_s": 24.829
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 112.069,
+    "Sector1Time_s": 36.872,
+    "Sector2Time_s": 38.327,
+    "Sector3Time_s": 36.87
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.784,
+    "Sector3Time_s": 32.137
+  },
+  {
+    "Driver": "COL",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 30.518,
+    "Sector2Time_s": 35.672,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.543,
+    "Sector3Time_s": 38.272
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 103.256,
+    "Sector1Time_s": 31.814,
+    "Sector2Time_s": 35.88,
+    "Sector3Time_s": 35.562
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.353,
+    "Sector3Time_s": 30.303
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.092,
+    "Sector1Time_s": 30.888,
+    "Sector2Time_s": 33.958,
+    "Sector3Time_s": 25.246
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 125.59,
+    "Sector1Time_s": 48.07,
+    "Sector2Time_s": 42.025,
+    "Sector3Time_s": 35.495
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 132.59,
+    "Sector1Time_s": 56.422,
+    "Sector2Time_s": 46.31,
+    "Sector3Time_s": 29.858
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.914,
+    "Sector1Time_s": 30.893,
+    "Sector2Time_s": 33.849,
+    "Sector3Time_s": 25.172
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 126.842,
+    "Sector1Time_s": 48.142,
+    "Sector2Time_s": 39.656,
+    "Sector3Time_s": 39.044
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.189,
+    "Sector3Time_s": 37.035
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.161,
+    "Sector1Time_s": 30.497,
+    "Sector2Time_s": 33.765,
+    "Sector3Time_s": 24.899
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 126.417,
+    "Sector1Time_s": 40.315,
+    "Sector2Time_s": 45.751,
+    "Sector3Time_s": 40.351
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.648,
+    "Sector3Time_s": 32.974
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.07,
+    "Sector1Time_s": 30.523,
+    "Sector2Time_s": 33.743,
+    "Sector3Time_s": 24.804
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 129.452,
+    "Sector1Time_s": 46.341,
+    "Sector2Time_s": 45.175,
+    "Sector3Time_s": 37.936
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.689,
+    "Sector3Time_s": 29.863
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.988,
+    "Sector1Time_s": 30.236,
+    "Sector2Time_s": 33.805,
+    "Sector3Time_s": 24.947
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 123.008,
+    "Sector1Time_s": 39.056,
+    "Sector2Time_s": 43.673,
+    "Sector3Time_s": 40.279
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.664,
+    "Sector3Time_s": 30.965
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.81,
+    "Sector1Time_s": 30.194,
+    "Sector2Time_s": 33.64,
+    "Sector3Time_s": 24.976
+  },
+  {
+    "Driver": "GAS",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 39.981,
+    "Sector2Time_s": 44.635,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 1.0,
+    "Compound": "MEDIUM",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.402,
+    "Sector3Time_s": 30.698
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 2.0,
+    "Compound": "MEDIUM",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.503,
+    "Sector1Time_s": 31.355,
+    "Sector2Time_s": 34.234,
+    "Sector3Time_s": 25.914
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 3.0,
+    "Compound": "MEDIUM",
+    "IsPersonalBest": false,
+    "LapTime_s": 140.248,
+    "Sector1Time_s": 35.251,
+    "Sector2Time_s": 37.577,
+    "Sector3Time_s": 67.42
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 74.927,
+    "Sector2Time_s": 42.579,
+    "Sector3Time_s": 32.597
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.645,
+    "Sector1Time_s": 30.595,
+    "Sector2Time_s": 33.891,
+    "Sector3Time_s": 25.159
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 115.162,
+    "Sector1Time_s": 36.634,
+    "Sector2Time_s": 38.636,
+    "Sector3Time_s": 39.892
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 45.164,
+    "Sector3Time_s": 45.374
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 104.841,
+    "Sector1Time_s": 30.492,
+    "Sector2Time_s": 35.455,
+    "Sector3Time_s": 38.894
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.661,
+    "Sector3Time_s": 31.857
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.915,
+    "Sector1Time_s": 30.635,
+    "Sector2Time_s": 33.875,
+    "Sector3Time_s": 25.405
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.234,
+    "Sector1Time_s": 39.797,
+    "Sector2Time_s": 42.365,
+    "Sector3Time_s": 34.072
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.497,
+    "Sector3Time_s": 32.973
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.439,
+    "Sector1Time_s": 30.216,
+    "Sector2Time_s": 34.089,
+    "Sector3Time_s": 25.134
+  },
+  {
+    "Driver": "HUL",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 123.45,
+    "Sector1Time_s": 42.615,
+    "Sector2Time_s": 42.725,
+    "Sector3Time_s": 38.11
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.913,
+    "Sector3Time_s": 34.669
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 96.044,
+    "Sector1Time_s": 30.946,
+    "Sector2Time_s": 33.94,
+    "Sector3Time_s": 31.158
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.231,
+    "Sector3Time_s": 32.045
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.909,
+    "Sector1Time_s": 30.733,
+    "Sector2Time_s": 33.934,
+    "Sector3Time_s": 25.242
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.981,
+    "Sector1Time_s": 35.761,
+    "Sector2Time_s": 42.536,
+    "Sector3Time_s": 36.684
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.29,
+    "Sector3Time_s": 38.404
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.595,
+    "Sector1Time_s": 30.709,
+    "Sector2Time_s": 33.81,
+    "Sector3Time_s": 25.076
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.101,
+    "Sector1Time_s": 36.085,
+    "Sector2Time_s": 40.829,
+    "Sector3Time_s": 39.187
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.633,
+    "Sector3Time_s": 34.447
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.583,
+    "Sector1Time_s": 30.682,
+    "Sector2Time_s": 33.903,
+    "Sector3Time_s": 24.998
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 35.783,
+    "Sector2Time_s": 40.984,
+    "Sector3Time_s": 77.052
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.598,
+    "Sector3Time_s": 34.911
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.499,
+    "Sector1Time_s": 30.53,
+    "Sector2Time_s": 33.843,
+    "Sector3Time_s": 25.126
+  },
+  {
+    "Driver": "LAW",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 128.02,
+    "Sector1Time_s": 36.975,
+    "Sector2Time_s": 45.546,
+    "Sector3Time_s": 45.499
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.971,
+    "Sector3Time_s": 31.595
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.203,
+    "Sector1Time_s": 31.173,
+    "Sector2Time_s": 33.879,
+    "Sector3Time_s": 25.151
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 115.504,
+    "Sector1Time_s": 37.949,
+    "Sector2Time_s": 41.793,
+    "Sector3Time_s": 35.762
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.523,
+    "Sector3Time_s": 33.625
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.34,
+    "Sector1Time_s": 30.728,
+    "Sector2Time_s": 33.723,
+    "Sector3Time_s": 24.889
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.187,
+    "Sector1Time_s": 42.539,
+    "Sector2Time_s": 38.063,
+    "Sector3Time_s": 36.585
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.552,
+    "Sector3Time_s": 29.375
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.022,
+    "Sector1Time_s": 30.943,
+    "Sector2Time_s": 34.103,
+    "Sector3Time_s": 24.976
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 119.814,
+    "Sector1Time_s": 38.401,
+    "Sector2Time_s": 42.137,
+    "Sector3Time_s": 39.276
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.847,
+    "Sector3Time_s": 34.743
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.567,
+    "Sector1Time_s": 30.787,
+    "Sector2Time_s": 33.937,
+    "Sector3Time_s": 24.843
+  },
+  {
+    "Driver": "BEA",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 122.916,
+    "Sector1Time_s": 40.767,
+    "Sector2Time_s": 44.572,
+    "Sector3Time_s": 37.577
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.425,
+    "Sector3Time_s": 38.097
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 92.426,
+    "Sector1Time_s": 32.611,
+    "Sector2Time_s": 34.425,
+    "Sector3Time_s": 25.39
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.924,
+    "Sector1Time_s": 38.849,
+    "Sector2Time_s": 43.014,
+    "Sector3Time_s": 36.061
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 146.324,
+    "Sector1Time_s": 69.472,
+    "Sector2Time_s": 46.439,
+    "Sector3Time_s": 30.413
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.21,
+    "Sector1Time_s": 30.946,
+    "Sector2Time_s": 34.134,
+    "Sector3Time_s": 25.13
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 115.738,
+    "Sector1Time_s": 39.555,
+    "Sector2Time_s": 41.835,
+    "Sector3Time_s": 34.348
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 53.771,
+    "Sector3Time_s": 37.925
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.54,
+    "Sector1Time_s": 30.761,
+    "Sector2Time_s": 33.763,
+    "Sector3Time_s": 25.016
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.705,
+    "Sector1Time_s": 40.238,
+    "Sector2Time_s": 40.074,
+    "Sector3Time_s": 36.393
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.263,
+    "Sector3Time_s": 29.381
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.224,
+    "Sector1Time_s": 30.914,
+    "Sector2Time_s": 34.091,
+    "Sector3Time_s": 25.219
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 118.056,
+    "Sector1Time_s": 40.753,
+    "Sector2Time_s": 42.739,
+    "Sector3Time_s": 34.564
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.688,
+    "Sector3Time_s": 29.766
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.568,
+    "Sector1Time_s": 30.677,
+    "Sector2Time_s": 33.907,
+    "Sector3Time_s": 24.984
+  },
+  {
+    "Driver": "SAI",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 120.206,
+    "Sector1Time_s": 41.379,
+    "Sector2Time_s": 40.874,
+    "Sector3Time_s": 37.953
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.599,
+    "Sector3Time_s": 34.034
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.783,
+    "Sector1Time_s": 31.511,
+    "Sector2Time_s": 34.107,
+    "Sector3Time_s": 25.165
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 113.371,
+    "Sector1Time_s": 38.452,
+    "Sector2Time_s": 39.933,
+    "Sector3Time_s": 34.986
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.854,
+    "Sector3Time_s": 32.081
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.293,
+    "Sector1Time_s": 31.131,
+    "Sector2Time_s": 33.96,
+    "Sector3Time_s": 25.202
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 43.083,
+    "Sector2Time_s": 37.746,
+    "Sector3Time_s": 71.424
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.906,
+    "Sector3Time_s": 34.025
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.838,
+    "Sector1Time_s": 30.805,
+    "Sector2Time_s": 33.978,
+    "Sector3Time_s": 25.055
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 120.809,
+    "Sector1Time_s": 38.631,
+    "Sector2Time_s": 42.691,
+    "Sector3Time_s": 39.487
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.988,
+    "Sector3Time_s": 31.474
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.911,
+    "Sector1Time_s": 30.841,
+    "Sector2Time_s": 33.885,
+    "Sector3Time_s": 25.185
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 122.969,
+    "Sector1Time_s": 39.853,
+    "Sector2Time_s": 43.259,
+    "Sector3Time_s": 39.857
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.624,
+    "Sector3Time_s": 37.735
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.772,
+    "Sector1Time_s": 30.786,
+    "Sector2Time_s": 33.795,
+    "Sector3Time_s": 25.191
+  },
+  {
+    "Driver": "OCO",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 124.091,
+    "Sector1Time_s": 41.455,
+    "Sector2Time_s": 45.675,
+    "Sector3Time_s": 36.961
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 47.617,
+    "Sector3Time_s": 30.189
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 102.439,
+    "Sector1Time_s": 31.413,
+    "Sector2Time_s": 44.105,
+    "Sector3Time_s": 26.921
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 106.414,
+    "Sector1Time_s": 34.355,
+    "Sector2Time_s": 36.591,
+    "Sector3Time_s": 35.468
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 132.423,
+    "Sector1Time_s": 58.765,
+    "Sector2Time_s": 43.047,
+    "Sector3Time_s": 30.611
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.143,
+    "Sector1Time_s": 30.762,
+    "Sector2Time_s": 34.098,
+    "Sector3Time_s": 25.283
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 110.992,
+    "Sector1Time_s": 36.149,
+    "Sector2Time_s": 40.473,
+    "Sector3Time_s": 34.37
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 51.686,
+    "Sector3Time_s": 33.437
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.72,
+    "Sector1Time_s": 30.595,
+    "Sector2Time_s": 33.955,
+    "Sector3Time_s": 25.17
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.189,
+    "Sector1Time_s": 38.739,
+    "Sector2Time_s": 40.675,
+    "Sector3Time_s": 36.775
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 47.792,
+    "Sector3Time_s": 30.328
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.129,
+    "Sector1Time_s": 30.622,
+    "Sector2Time_s": 33.998,
+    "Sector3Time_s": 25.509
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 115.166,
+    "Sector1Time_s": 40.483,
+    "Sector2Time_s": 40.136,
+    "Sector3Time_s": 34.547
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 48.73,
+    "Sector3Time_s": 32.92
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.946,
+    "Sector1Time_s": 31.087,
+    "Sector2Time_s": 33.748,
+    "Sector3Time_s": 25.111
+  },
+  {
+    "Driver": "ALB",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 45.485,
+    "Sector2Time_s": 41.732,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.675,
+    "Sector3Time_s": 32.65
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.276,
+    "Sector1Time_s": 31.519,
+    "Sector2Time_s": 34.388,
+    "Sector3Time_s": 25.369
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 108.079,
+    "Sector1Time_s": 36.059,
+    "Sector2Time_s": 37.663,
+    "Sector3Time_s": 34.357
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 135.522,
+    "Sector1Time_s": 64.122,
+    "Sector2Time_s": 40.997,
+    "Sector3Time_s": 30.403
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.341,
+    "Sector1Time_s": 30.913,
+    "Sector2Time_s": 34.176,
+    "Sector3Time_s": 25.252
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 147.065,
+    "Sector1Time_s": 33.884,
+    "Sector2Time_s": 41.389,
+    "Sector3Time_s": 71.792
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 41.379,
+    "Sector3Time_s": 40.056
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 90.133,
+    "Sector1Time_s": 30.998,
+    "Sector2Time_s": 34.184,
+    "Sector3Time_s": 24.951
+  },
+  {
+    "Driver": "LIN",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 123.308,
+    "Sector1Time_s": 41.516,
+    "Sector2Time_s": 43.932,
+    "Sector3Time_s": 37.86
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.376,
+    "Sector3Time_s": 31.493
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.661,
+    "Sector1Time_s": 31.417,
+    "Sector2Time_s": 34.532,
+    "Sector3Time_s": 25.712
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.768,
+    "Sector1Time_s": 35.113,
+    "Sector2Time_s": 41.512,
+    "Sector3Time_s": 38.143
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 38.569,
+    "Sector3Time_s": 39.04
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.098,
+    "Sector1Time_s": 31.073,
+    "Sector2Time_s": 34.339,
+    "Sector3Time_s": 25.686
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 112.461,
+    "Sector1Time_s": 35.446,
+    "Sector2Time_s": 38.818,
+    "Sector3Time_s": 38.197
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 38.01,
+    "Sector3Time_s": 52.189
+  },
+  {
+    "Driver": "ALO",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 98.137,
+    "Sector1Time_s": 31.233,
+    "Sector2Time_s": 34.061,
+    "Sector3Time_s": 32.843
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.068,
+    "Sector3Time_s": 33.65
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 92.308,
+    "Sector1Time_s": 31.857,
+    "Sector2Time_s": 34.633,
+    "Sector3Time_s": 25.818
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 111.932,
+    "Sector1Time_s": 38.295,
+    "Sector2Time_s": 38.363,
+    "Sector3Time_s": 35.274
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.792,
+    "Sector3Time_s": 32.04
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.164,
+    "Sector1Time_s": 31.125,
+    "Sector2Time_s": 34.539,
+    "Sector3Time_s": 25.5
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 117.054,
+    "Sector1Time_s": 39.06,
+    "Sector2Time_s": 41.326,
+    "Sector3Time_s": 36.668
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.232,
+    "Sector3Time_s": 57.243
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 91.389,
+    "Sector1Time_s": 31.414,
+    "Sector2Time_s": 34.552,
+    "Sector3Time_s": 25.423
+  },
+  {
+    "Driver": "STR",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 36.846,
+    "Sector2Time_s": 42.769,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.144,
+    "Sector3Time_s": 30.156
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 92.698,
+    "Sector1Time_s": 31.832,
+    "Sector2Time_s": 35.164,
+    "Sector3Time_s": 25.701999999999998
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 35.751,
+    "Sector2Time_s": 37.736,
+    "Sector3Time_s": 78.961
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 43.436,
+    "Sector3Time_s": 30.228
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 92.36,
+    "Sector1Time_s": 31.244,
+    "Sector2Time_s": 35.457,
+    "Sector3Time_s": 25.659
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 112.401,
+    "Sector1Time_s": 38.263,
+    "Sector2Time_s": 38.243,
+    "Sector3Time_s": 35.895
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.461,
+    "Sector3Time_s": 41.06
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.629,
+    "Sector1Time_s": 31.243,
+    "Sector2Time_s": 34.756,
+    "Sector3Time_s": 25.63
+  },
+  {
+    "Driver": "BOT",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 127.65,
+    "Sector1Time_s": 41.191,
+    "Sector2Time_s": 44.292,
+    "Sector3Time_s": 42.167
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.733,
+    "Sector3Time_s": 32.704
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 92.103,
+    "Sector1Time_s": 31.645,
+    "Sector2Time_s": 34.53,
+    "Sector3Time_s": 25.928
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.236,
+    "Sector1Time_s": 39.531,
+    "Sector2Time_s": 38.79,
+    "Sector3Time_s": 37.915
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 40.192,
+    "Sector3Time_s": 31.038
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 98.224,
+    "Sector1Time_s": 32.271,
+    "Sector2Time_s": 36.321,
+    "Sector3Time_s": 29.632
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.384,
+    "Sector1Time_s": 38.575,
+    "Sector2Time_s": 38.553,
+    "Sector3Time_s": 37.256
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.765,
+    "Sector3Time_s": 32.321
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 91.967,
+    "Sector1Time_s": 31.197,
+    "Sector2Time_s": 35.478,
+    "Sector3Time_s": 25.292
+  },
+  {
+    "Driver": "PER",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 131.008,
+    "Sector1Time_s": 41.557,
+    "Sector2Time_s": 44.838,
+    "Sector3Time_s": 44.613
+  },
+  {
+    "Driver": "BOR",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 52.48,
+    "Sector3Time_s": 48.222
+  },
+  {
+    "Driver": "BOR",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 93.737,
+    "Sector1Time_s": 31.944,
+    "Sector2Time_s": 34.988,
+    "Sector3Time_s": 26.805
+  },
+  {
+    "Driver": "BOR",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 50.619,
+    "Sector2Time_s": 51.226,
+    "Sector3Time_s": NaN
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 1.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.627,
+    "Sector3Time_s": 37.731
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 2.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.978,
+    "Sector1Time_s": 30.919,
+    "Sector2Time_s": 33.99,
+    "Sector3Time_s": 25.069
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 3.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 114.024,
+    "Sector1Time_s": 36.828,
+    "Sector2Time_s": 40.608,
+    "Sector3Time_s": 36.588
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 4.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 42.168,
+    "Sector3Time_s": 37.86
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 5.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.863,
+    "Sector1Time_s": 30.467,
+    "Sector2Time_s": 34.287,
+    "Sector3Time_s": 25.109
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 6.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 121.785,
+    "Sector1Time_s": 40.306,
+    "Sector2Time_s": 46.582,
+    "Sector3Time_s": 34.897
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 7.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 121.135,
+    "Sector1Time_s": 45.145,
+    "Sector2Time_s": 45.252,
+    "Sector3Time_s": 30.738
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 8.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 89.324,
+    "Sector1Time_s": 30.576,
+    "Sector2Time_s": 33.78,
+    "Sector3Time_s": 24.968
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 9.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 108.441,
+    "Sector1Time_s": 35.727,
+    "Sector2Time_s": 38.3,
+    "Sector3Time_s": 34.414
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 10.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 39.879,
+    "Sector3Time_s": 30.091
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 11.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.941,
+    "Sector1Time_s": 30.272,
+    "Sector2Time_s": 33.777,
+    "Sector3Time_s": 24.892
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 12.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 36.502,
+    "Sector2Time_s": 45.291,
+    "Sector3Time_s": 75.267
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 13.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 44.733,
+    "Sector3Time_s": 30.649
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 14.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 89.259,
+    "Sector1Time_s": 30.462,
+    "Sector2Time_s": 33.937,
+    "Sector3Time_s": 24.86
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 15.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 116.909,
+    "Sector1Time_s": 36.482,
+    "Sector2Time_s": 42.132,
+    "Sector3Time_s": 38.295
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 16.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.627,
+    "Sector3Time_s": 31.178
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 17.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": true,
+    "LapTime_s": 88.789,
+    "Sector1Time_s": 30.364,
+    "Sector2Time_s": 33.545,
+    "Sector3Time_s": 24.88
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 18.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 112.369,
+    "Sector1Time_s": 34.546,
+    "Sector2Time_s": 40.665,
+    "Sector3Time_s": 37.158
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 19.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": NaN,
+    "Sector2Time_s": 46.796,
+    "Sector3Time_s": 30.987
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 20.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": 89.302,
+    "Sector1Time_s": 31.055,
+    "Sector2Time_s": 33.398,
+    "Sector3Time_s": 24.849
+  },
+  {
+    "Driver": "HAD",
+    "LapNumber": 21.0,
+    "Compound": "SOFT",
+    "IsPersonalBest": false,
+    "LapTime_s": NaN,
+    "Sector1Time_s": 36.953,
+    "Sector2Time_s": 39.173,
+    "Sector3Time_s": NaN
+  }
+]
