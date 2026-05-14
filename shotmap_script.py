@@ -15,11 +15,6 @@ shots_df['x_scaled'] = pd.to_numeric(shots_df['x_scaled'], errors='coerce')
 shots_df['y_scaled'] = pd.to_numeric(shots_df['y_scaled'], errors='coerce')
 shots_df = shots_df.dropna(subset=['x_scaled', 'y_scaled', 'xG'])
 
-# Normalise away shots to attack same direction as home (toward x=120)
-home_mask = shots_df['h_a'] == 'h'
-shots_df.loc[home_mask, 'x_scaled'] = 120 - shots_df.loc[home_mask, 'x_scaled']
-shots_df.loc[home_mask, 'y_scaled'] = 80  - shots_df.loc[home_mask, 'y_scaled']
-
 
 goals_df    = shots_df[shots_df['result'].str.contains('Goal', case=False, na=False)]
 non_goals_df = shots_df[~shots_df['result'].str.contains('Goal', case=False, na=False)]
