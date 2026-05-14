@@ -1056,11 +1056,17 @@ if __name__ == "__main__":
     print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
     if all_shots_combined:
-        full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
-        full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
-        print("✅ All match shot data saved to data/tables/shots_data.csv")
+        new_df = pd.concat(all_shots_combined, ignore_index=True)
+        new_df["h_team"] = new_df["h_team"].replace(TEAM_NAME_MAPPING)
+        new_df["a_team"] = new_df["a_team"].replace(TEAM_NAME_MAPPING)
+        shots_path = "data/tables/shots_data.csv"
+        if os.path.exists(shots_path):
+            existing = pd.read_csv(shots_path)
+            full_shot_df = pd.concat([existing, new_df], ignore_index=True)
+        else:
+            full_shot_df = new_df
+        full_shot_df.to_csv(shots_path, index=False)
+        print(f"✅ Shot data updated — {len(new_df)} new rows appended to shots_data.csv")
 
 
 
