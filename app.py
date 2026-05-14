@@ -1108,7 +1108,7 @@ def fpl():
                     })
 
                 captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
-                captain_picks = captain_picks[:20]
+                captain_picks = captain_picks[:100]
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
 
             except Exception as e:
