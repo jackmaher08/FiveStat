@@ -1,5 +1,5 @@
 fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goals,assists,clean_sheets,status,xg,xa,xgi
-1,David Raya Martín,Raya,Arsenal,GK,6.1,35.7,6.5,8.0,3240,0,0,18,a,0.0,0.06,0.06
+1,David Raya Martín,Raya,Arsenal,GK,6.1,35.8,6.5,8.0,3240,0,0,18,a,0.0,0.06,0.06
 2,Kepa Arrizabalaga Revuelta,Arrizabalaga,Arsenal,GK,4.0,0.4,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
 3,Karl Hein,Hein,Arsenal,GK,4.0,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 4,Tommy Setford,Setford,Arsenal,GK,3.9,0.2,0.0,1.5,0,0,0,0,a,0.0,0.0,0.0
@@ -303,7 +303,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 829,Jesse Derry,Derry,Chelsea,MID,4.5,0.0,0.2,0.0,45,0,0,0,i,0.1,0.02,0.12
 833,Mathis Eboué,Eboué,Chelsea,MID,4.5,0.0,0.0,1.3,0,0,0,0,a,0.0,0.0,0.0
 834,Ryan Kavuma-McQueen,Kavuma-McQueen,Chelsea,MID,4.5,0.0,0.0,1.3,0,0,0,0,a,0.0,0.0,0.0
-253,Dean Henderson,Henderson,Crystal Palace,GK,5.1,9.6,2.4,2.4,3150,0,0,11,a,0.0,0.11,0.11
+253,Dean Henderson,Henderson,Crystal Palace,GK,5.1,9.5,2.4,2.4,3150,0,0,11,a,0.0,0.11,0.11
 254,Walter Benítez,Benitez,Crystal Palace,GK,3.9,0.3,0.0,0.0,90,0,0,1,a,0.0,0.0,0.0
 255,Remi Matthews,Matthews,Crystal Palace,GK,3.9,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 256,Daniel Muñoz Mejía,Muñoz,Crystal Palace,DEF,5.9,10.0,3.2,3.2,2265,4,3,10,a,2.34,3.9,6.24
@@ -591,7 +591,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 482,Harrison Ashby,Ashby,Newcastle United,DEF,3.9,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 483,Miodrag Pivaš,Pivas,Newcastle United,DEF,3.8,0.4,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 484,Matt Targett,Targett,Newcastle United,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-485,Anthony Gordon,Gordon,Newcastle United,MID,7.3,3.5,0.0,0.0,1798,6,4,8,a,8.77,3.38,12.15
+485,Anthony Gordon,Gordon,Newcastle United,MID,7.3,3.4,0.0,0.0,1798,6,4,8,a,8.77,3.38,12.15
 486,Anthony Elanga,Elanga,Newcastle United,MID,6.5,2.6,0.8,0.8,1273,0,1,2,a,1.44,1.71,3.15
 487,Harvey Barnes,Barnes,Newcastle United,MID,6.1,1.1,4.0,4.0,1832,7,0,5,a,6.65,2.44,9.09
 488,Bruno Guimarães Rodriguez Moura,Bruno G.,Newcastle United,MID,6.8,5.3,3.8,3.8,2301,9,7,6,a,5.48,4.55,10.03
