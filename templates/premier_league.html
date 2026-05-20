@@ -535,7 +535,7 @@
                 <td><a href="{{ url_for('team_page', team_name=team['Team']) }}">{{ team_display_names.get(team["Team"], team["Team"]) }}</a></td>
                 {% for position in range(1, num_positions + 1) %}
                     {% set probability = team[position|string] * 100 %}
-                    {% set opacity = probability / 30 %}
+                    {% set opacity = [0.05, (probability / 100) ** 0.5] | max %}
                     <td class="small-text" style="background-color: rgba(10, 37, 64, {{ opacity }}); color: white;">
                         {{ probability | round(1) }}%
                     </td>
