@@ -133,9 +133,9 @@ def get_team_form(fixtures_df, team_name, max_matches=10):
 def get_position_tooltip(pos):
     if 1 <= pos <= 5:
         return "Champions League"
-    elif 6 <= pos <= 6:
+    elif 6 <= pos <= 7:
         return "Europa League"
-    elif pos == 7:
+    elif pos == 8:
         return "Conference League"
     elif pos >= 18:
         return "Relegation"
