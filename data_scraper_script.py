@@ -580,7 +580,10 @@ if BOOKIE_ONLY:
     _upcoming = _fix[_fix["isResult"].astype(str).str.lower() != "true"]
     _counts = _upcoming.groupby("round_number").size()
     next_round_number = _counts[_counts >= 5].index.min()
-    print(f"🔄 Bookie-only mode — detected next GW: {int(next_round_number)}")
+    if pd.isna(next_round_number):
+        print("ℹ️  Season complete — no upcoming gameweeks detected in bookie-only mode.")
+    else:
+        print(f"🔄 Bookie-only mode — detected next GW: {int(next_round_number)}")
 
 BOOKIE_NAME_MAP = {
     "Man Utd":                    "Manchester United",
@@ -619,9 +622,12 @@ BOOKIE_NAME_MAP = {
     "West Ham United":            "West Ham",
 }
 
-gw_label = f"GW{int(next_round_number)}"
+if pd.isna(next_round_number):
+    print("ℹ️  Season complete — skipping Odds API fetch (no upcoming fixtures).")
+else:
+    gw_label = f"GW{int(next_round_number)}"
 
-ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
+    ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
 
 print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
 try:
