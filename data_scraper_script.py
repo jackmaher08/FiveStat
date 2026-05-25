@@ -629,101 +629,101 @@ else:
 
     ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
 
-print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
-try:
-    odds_resp = requests.get(
+    print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
+    try:
+        odds_resp = requests.get(
         "https://api.the-odds-api.com/v4/sports/soccer_epl/odds/",
-        params={
-            "apiKey":     ODDS_API_KEY,
-            "regions":    "uk",
-            "markets":    "h2h,totals",
-            "oddsFormat": "decimal",
-        },
-        timeout=15,
-    )
-    odds_resp.raise_for_status()
-    remaining = odds_resp.headers.get("x-requests-remaining", "unknown")
-    print(f"📊 Odds API credits remaining: {remaining}")
-    odds_data = odds_resp.json()
+            params={
+                "apiKey":     ODDS_API_KEY,
+                "regions":    "uk",
+                "markets":    "h2h,totals",
+                "oddsFormat": "decimal",
+            },
+            timeout=15,
+        )
+        odds_resp.raise_for_status()
+        remaining = odds_resp.headers.get("x-requests-remaining", "unknown")
+        print(f"📊 Odds API credits remaining: {remaining}")
+        odds_data = odds_resp.json()
 
     win_rows = []
-    ou_rows  = []
+        ou_rows  = []
 
-    for game in odds_data:
-        home_raw  = game["home_team"]
-        away_raw  = game["away_team"]
-        home_team = BOOKIE_NAME_MAP.get(home_raw, home_raw)
-        away_team = BOOKIE_NAME_MAP.get(away_raw, away_raw)
+        for game in odds_data:
+            home_raw  = game["home_team"]
+            away_raw  = game["away_team"]
+            home_team = BOOKIE_NAME_MAP.get(home_raw, home_raw)
+            away_team = BOOKIE_NAME_MAP.get(away_raw, away_raw)
 
-        h2h_home_probs, h2h_draw_probs, h2h_away_probs = [], [], []
-        over25_probs, under25_probs = [], []
+            h2h_home_probs, h2h_draw_probs, h2h_away_probs = [], [], []
+            over25_probs, under25_probs = [], []
 
-        for bk in game.get("bookmakers", []):
-            for market in bk.get("markets", []):
-                if market["key"] == "h2h":
-                    outcomes = {o["name"]: o["price"] for o in market["outcomes"]}
-                    if home_raw in outcomes and "Draw" in outcomes and away_raw in outcomes:
-                        raw_home = 1 / outcomes[home_raw]
-                        raw_draw = 1 / outcomes["Draw"]
-                        raw_away = 1 / outcomes[away_raw]
-                        total = raw_home + raw_draw + raw_away
-                        h2h_home_probs.append(raw_home / total * 100)
-                        h2h_draw_probs.append(raw_draw / total * 100)
-                        h2h_away_probs.append(raw_away / total * 100)
-                elif market["key"] == "totals":
-                    outcomes = {(o["name"], o.get("point")): o["price"] for o in market["outcomes"]}
-                    over_price  = outcomes.get(("Over",  2.5))
-                    under_price = outcomes.get(("Under", 2.5))
-                    if over_price and under_price:
-                        raw_over  = 1 / over_price
-                        raw_under = 1 / under_price
-                        total = raw_over + raw_under
-                        over25_probs.append(raw_over  / total * 100)
-                        under25_probs.append(raw_under / total * 100)
+            for bk in game.get("bookmakers", []):
+                for market in bk.get("markets", []):
+                    if market["key"] == "h2h":
+                        outcomes = {o["name"]: o["price"] for o in market["outcomes"]}
+                        if home_raw in outcomes and "Draw" in outcomes and away_raw in outcomes:
+                            raw_home = 1 / outcomes[home_raw]
+                            raw_draw = 1 / outcomes["Draw"]
+                            raw_away = 1 / outcomes[away_raw]
+                            total = raw_home + raw_draw + raw_away
+                            h2h_home_probs.append(raw_home / total * 100)
+                            h2h_draw_probs.append(raw_draw / total * 100)
+                            h2h_away_probs.append(raw_away / total * 100)
+                    elif market["key"] == "totals":
+                        outcomes = {(o["name"], o.get("point")): o["price"] for o in market["outcomes"]}
+                        over_price  = outcomes.get(("Over",  2.5))
+                        under_price = outcomes.get(("Under", 2.5))
+                        if over_price and under_price:
+                            raw_over  = 1 / over_price
+                            raw_under = 1 / under_price
+                            total = raw_over + raw_under
+                            over25_probs.append(raw_over  / total * 100)
+                            under25_probs.append(raw_under / total * 100)
 
-        if h2h_home_probs:
-            win_rows.append({
-                "gw":              gw_label,
-                "home_team":       home_team,
-                "away_team":       away_team,
-                "bookie_home_win": round(sum(h2h_home_probs) / len(h2h_home_probs), 1),
-                "bookie_draw":     round(sum(h2h_draw_probs) / len(h2h_draw_probs), 1),
-                "bookie_away_win": round(sum(h2h_away_probs) / len(h2h_away_probs), 1),
-            })
-        if over25_probs:
-            ou_rows.append({
-                "gw":             gw_label,
-                "home_team":      home_team,
-                "away_team":      away_team,
-                "bookie_over25":  round(sum(over25_probs)  / len(over25_probs),  1),
-                "bookie_under25": round(sum(under25_probs) / len(under25_probs), 1),
-            })
+            if h2h_home_probs:
+                win_rows.append({
+                    "gw":              gw_label,
+                    "home_team":       home_team,
+                    "away_team":       away_team,
+                    "bookie_home_win": round(sum(h2h_home_probs) / len(h2h_home_probs), 1),
+                    "bookie_draw":     round(sum(h2h_draw_probs) / len(h2h_draw_probs), 1),
+                    "bookie_away_win": round(sum(h2h_away_probs) / len(h2h_away_probs), 1),
+                })
+            if over25_probs:
+                ou_rows.append({
+                    "gw":             gw_label,
+                    "home_team":      home_team,
+                    "away_team":      away_team,
+                    "bookie_over25":  round(sum(over25_probs)  / len(over25_probs),  1),
+                    "bookie_under25": round(sum(under25_probs) / len(under25_probs), 1),
+                })
 
-    if win_rows:
-        win_path = os.path.join(save_dir, "bookie_win_by_gw.csv")
-        win_df   = pd.read_csv(win_path)
-        win_df   = win_df[win_df["gw"] != gw_label]
-        win_df   = pd.concat([win_df, pd.DataFrame(win_rows)], ignore_index=True)
-        win_df.to_csv(win_path, index=False)
-        print(f"✅ Saved {len(win_rows)} win probability rows for {gw_label}")
-    else:
-        print(f"⚠️  No win probability data from Odds API for {gw_label}")
-
-    if ou_rows:
-        ou_path = os.path.join(save_dir, "bookie_ou_by_gw.csv")
-        if os.path.exists(ou_path):
-            ou_df = pd.read_csv(ou_path)
-            ou_df = ou_df[ou_df["gw"] != gw_label]
+        if win_rows:
+            win_path = os.path.join(save_dir, "bookie_win_by_gw.csv")
+            win_df   = pd.read_csv(win_path)
+            win_df   = win_df[win_df["gw"] != gw_label]
+            win_df   = pd.concat([win_df, pd.DataFrame(win_rows)], ignore_index=True)
+            win_df.to_csv(win_path, index=False)
+            print(f"✅ Saved {len(win_rows)} win probability rows for {gw_label}")
         else:
-            ou_df = pd.DataFrame(columns=["gw", "home_team", "away_team", "bookie_over25", "bookie_under25"])
-        ou_df = pd.concat([ou_df, pd.DataFrame(ou_rows)], ignore_index=True)
-        ou_df.to_csv(ou_path, index=False)
-        print(f"✅ Saved {len(ou_rows)} O/U 2.5 rows for {gw_label}")
-    else:
-        print(f"⚠️  No O/U 2.5 data from Odds API for {gw_label}")
+            print(f"⚠️  No win probability data from Odds API for {gw_label}")
 
-except Exception as e:
-    print(f"⚠️  Could not fetch Odds API data for {gw_label}: {e}")
+        if ou_rows:
+            ou_path = os.path.join(save_dir, "bookie_ou_by_gw.csv")
+            if os.path.exists(ou_path):
+                ou_df = pd.read_csv(ou_path)
+                ou_df = ou_df[ou_df["gw"] != gw_label]
+            else:
+                ou_df = pd.DataFrame(columns=["gw", "home_team", "away_team", "bookie_over25", "bookie_under25"])
+            ou_df = pd.concat([ou_df, pd.DataFrame(ou_rows)], ignore_index=True)
+            ou_df.to_csv(ou_path, index=False)
+            print(f"✅ Saved {len(ou_rows)} O/U 2.5 rows for {gw_label}")
+        else:
+            print(f"⚠️  No O/U 2.5 data from Odds API for {gw_label}")
+
+    except Exception as e:
+        print(f"⚠️  Could not fetch Odds API data for {gw_label}: {e}")
 
 
 # ── Fetch FPL player data (bootstrap-static) ──────────────────────────────────
