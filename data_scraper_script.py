@@ -632,7 +632,7 @@ else:
     print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
     try:
         odds_resp = requests.get(
-        "https://api.the-odds-api.com/v4/sports/soccer_epl/odds/",
+            "https://api.the-odds-api.com/v4/sports/soccer_epl/odds/",
             params={
                 "apiKey":     ODDS_API_KEY,
                 "regions":    "uk",
@@ -646,7 +646,7 @@ else:
         print(f"📊 Odds API credits remaining: {remaining}")
         odds_data = odds_resp.json()
 
-    win_rows = []
+        win_rows = []
         ou_rows  = []
 
         for game in odds_data:
