@@ -59,6 +59,16 @@ jobs:
           python shotmap_script.py
 
       # ── F1: current season only ───────────────────────────────────────────
+      - name: Clear stale F1 sentinels
+        if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
+        run: |
+          find data/f1/races -name "*_laps.json" -o -name "*_stints.json" | while read f; do
+            if [ "$(cat "$f")" = "[]" ]; then
+              echo "Removing stale sentinel: $f"
+              rm "$f"
+            fi
+          done
+
       - name: F1 pipeline
         if: steps.run_type.outputs.type == 'f1'
         run: python f1_scraper.py
