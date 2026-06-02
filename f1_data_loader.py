@@ -961,7 +961,7 @@ def calculate_actual_fantasy_points(year, round_num):
     manual_data = _load_json(manual_path, fallback={})
     race_key = _race_key(year, round_num)
     if race_key in manual_data:
-        return {code: float(pts) for code, pts in manual_data[race_key].items()}
+        return {code: float(pts) for code, pts in manual_data[race_key].items() if pts is not None}
 
     results = load_f1_race_results(year, round_num)
     if not results:

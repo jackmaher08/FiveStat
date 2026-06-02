@@ -293,7 +293,6 @@ function setCapWindow(mode, btn) {
 
     if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
     rowArr.sort((a, b) => b.val - a.val);
-
     const tbody = document.querySelector('.fpl-cap-table tbody');
     rowArr.forEach((item, rank) => {
         const mainRow   = item.row;
@@ -310,7 +309,7 @@ function setCapWindow(mode, btn) {
         }
         tbody.appendChild(mainRow);
         if (expandRow) { expandRow.style.display = 'none'; tbody.appendChild(expandRow); }
-        mainRow.style.display = '';
+        mainRow.style.display = rank < 20 ? '' : 'none';
     });
 
     if (mode === 'diff') {

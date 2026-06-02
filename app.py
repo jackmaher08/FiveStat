@@ -133,9 +133,9 @@ def get_team_form(fixtures_df, team_name, max_matches=10):
 def get_position_tooltip(pos):
     if 1 <= pos <= 5:
         return "Champions League"
-    elif 6 <= pos <= 6:
+    elif 6 <= pos <= 7:
         return "Europa League"
-    elif pos == 7:
+    elif pos == 8:
         return "Conference League"
     elif pos >= 18:
         return "Relegation"
@@ -1108,7 +1108,7 @@ def fpl():
                     })
 
                 captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
-                captain_picks = captain_picks[:20]
+                captain_picks = captain_picks[:100]
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
 
             except Exception as e:

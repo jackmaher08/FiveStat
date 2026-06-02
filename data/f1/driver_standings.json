@@ -7,8 +7,8 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 100.0,
-    "wins": 3
+    "points": 131.0,
+    "wins": 4
   },
   {
     "position": 2,
@@ -18,7 +18,7 @@
     "nationality": "British",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 80.0,
+    "points": 88.0,
     "wins": 1
   },
   {
@@ -29,29 +29,29 @@
     "nationality": "Monegasque",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 59.0,
+    "points": 75.0,
     "wins": 0
   },
   {
     "position": 4,
-    "driver_id": "norris",
-    "code": "NOR",
-    "name": "Lando Norris",
-    "nationality": "British",
-    "constructor": "McLaren",
-    "constructor_id": "mclaren",
-    "points": 51.0,
-    "wins": 0
-  },
-  {
-    "position": 5,
     "driver_id": "hamilton",
     "code": "HAM",
     "name": "Lewis Hamilton",
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 51.0,
+    "points": 72.0,
+    "wins": 0
+  },
+  {
+    "position": 5,
+    "driver_id": "norris",
+    "code": "NOR",
+    "name": "Lando Norris",
+    "nationality": "British",
+    "constructor": "McLaren",
+    "constructor_id": "mclaren",
+    "points": 58.0,
     "wins": 0
   },
   {
@@ -62,7 +62,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 43.0,
+    "points": 48.0,
     "wins": 0
   },
   {
@@ -73,29 +73,29 @@
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 26.0,
+    "points": 43.0,
     "wins": 0
   },
   {
     "position": 8,
-    "driver_id": "bearman",
-    "code": "BEA",
-    "name": "Oliver Bearman",
-    "nationality": "British",
-    "constructor": "Haas F1 Team",
-    "constructor_id": "haas",
-    "points": 17.0,
-    "wins": 0
-  },
-  {
-    "position": 9,
     "driver_id": "gasly",
     "code": "GAS",
     "name": "Pierre Gasly",
     "nationality": "French",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 16.0,
+    "points": 20.0,
+    "wins": 0
+  },
+  {
+    "position": 9,
+    "driver_id": "bearman",
+    "code": "BEA",
+    "name": "Oliver Bearman",
+    "nationality": "British",
+    "constructor": "Haas F1 Team",
+    "constructor_id": "haas",
+    "points": 18.0,
     "wins": 0
   },
   {
@@ -106,7 +106,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 10.0,
+    "points": 16.0,
     "wins": 0
   },
   {
@@ -117,40 +117,40 @@
     "nationality": "Argentine",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 7.0,
+    "points": 15.0,
     "wins": 0
   },
   {
     "position": 12,
-    "driver_id": "arvid_lindblad",
-    "code": "LIN",
-    "name": "Arvid Lindblad",
-    "nationality": "British",
-    "constructor": "RB F1 Team",
-    "constructor_id": "rb",
-    "points": 4.0,
-    "wins": 0
-  },
-  {
-    "position": 13,
     "driver_id": "hadjar",
     "code": "HAD",
     "name": "Isack Hadjar",
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 4.0,
+    "points": 14.0,
     "wins": 0
   },
   {
-    "position": 14,
+    "position": 13,
     "driver_id": "sainz",
     "code": "SAI",
     "name": "Carlos Sainz",
     "nationality": "Spanish",
     "constructor": "Williams",
     "constructor_id": "williams",
-    "points": 4.0,
+    "points": 6.0,
+    "wins": 0
+  },
+  {
+    "position": 14,
+    "driver_id": "arvid_lindblad",
+    "code": "LIN",
+    "name": "Arvid Lindblad",
+    "nationality": "British",
+    "constructor": "RB F1 Team",
+    "constructor_id": "rb",
+    "points": 5.0,
     "wins": 0
   },
   {
@@ -221,10 +221,10 @@
   },
   {
     "position": 21,
-    "driver_id": "alonso",
-    "code": "ALO",
-    "name": "Fernando Alonso",
-    "nationality": "Spanish",
+    "driver_id": "stroll",
+    "code": "STR",
+    "name": "Lance Stroll",
+    "nationality": "Canadian",
     "constructor": "Aston Martin",
     "constructor_id": "aston_martin",
     "points": 0.0,
@@ -232,10 +232,10 @@
   },
   {
     "position": 22,
-    "driver_id": "stroll",
-    "code": "STR",
-    "name": "Lance Stroll",
-    "nationality": "Canadian",
+    "driver_id": "alonso",
+    "code": "ALO",
+    "name": "Fernando Alonso",
+    "nationality": "Spanish",
     "constructor": "Aston Martin",
     "constructor_id": "aston_martin",
     "points": 0.0,

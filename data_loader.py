@@ -1056,11 +1056,17 @@ if __name__ == "__main__":
     print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
     if all_shots_combined:
-        full_shot_df = pd.concat(all_shots_combined, ignore_index=True)
-        full_shot_df["h_team"] = full_shot_df["h_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df["a_team"] = full_shot_df["a_team"].replace(TEAM_NAME_MAPPING)
-        full_shot_df.to_csv("data/tables/shots_data.csv", index=False)
-        print("✅ All match shot data saved to data/tables/shots_data.csv")
+        new_df = pd.concat(all_shots_combined, ignore_index=True)
+        new_df["h_team"] = new_df["h_team"].replace(TEAM_NAME_MAPPING)
+        new_df["a_team"] = new_df["a_team"].replace(TEAM_NAME_MAPPING)
+        shots_path = "data/tables/shots_data.csv"
+        if os.path.exists(shots_path):
+            existing = pd.read_csv(shots_path)
+            full_shot_df = pd.concat([existing, new_df], ignore_index=True)
+        else:
+            full_shot_df = new_df
+        full_shot_df.to_csv(shots_path, index=False)
+        print(f"✅ Shot data updated — {len(new_df)} new rows appended to shots_data.csv")
 
 
 
@@ -1190,6 +1196,7 @@ if __name__ == "__main__":
 
     # Extract current points for each team
     team_points = league_table.set_index("Team")["PTS"].to_dict()
+    team_gd = league_table.set_index("Team")["GD"].to_dict()
     teams = list(team_points.keys())
 
     # Simulation Parameters
@@ -1205,40 +1212,40 @@ if __name__ == "__main__":
 
     # Monte Carlo Simulation (Simulating Remaining Fixtures Only)
     for _ in range(num_simulations):
-        simulated_points = team_points.copy()  # ✅ Start with real league points
+        simulated_points = team_points.copy()
+        simulated_gd_sim = team_gd.copy()
 
-        for _, match in remaining_fixtures.iterrows():  # ✅ Use only unplayed matches
+        for _, match in remaining_fixtures.iterrows():
             home_team = TEAM_NAME_MAPPING.get(match["home_team"], match["home_team"])
             away_team = TEAM_NAME_MAPPING.get(match["away_team"], match["away_team"])
 
-
-            # Ensure team exists before simulating
             if home_team not in simulated_points or away_team not in simulated_points:
                 print(f"⚠️ Warning: {home_team} or {away_team} not found in league table! Skipping match.")
                 continue
 
-            home_prob = match["home_win_prob"]
-            draw_prob = match["draw_prob"]
-            away_prob = match["away_win_prob"]
+            home_xg = match.get("home_xg", 1.2)
+            away_xg = match.get("away_xg", 1.0)
+            hg = np.random.poisson(max(home_xg, 0.01))
+            ag = np.random.poisson(max(away_xg, 0.01))
 
-            # Simulate match result
-            outcome = np.random.choice(["home_win", "draw", "away_win"], p=[home_prob, draw_prob, away_prob])
+            gd_delta = hg - ag
+            simulated_gd_sim[home_team] += gd_delta
+            simulated_gd_sim[away_team] -= gd_delta
 
-            # Update points only for remaining fixtures
-            if outcome == "home_win":
+            if hg > ag:
                 simulated_points[home_team] += 3
                 simulated_remaining_points[home_team] += 3
-            elif outcome == "draw":
+            elif hg == ag:
                 simulated_points[home_team] += 1
                 simulated_points[away_team] += 1
                 simulated_remaining_points[home_team] += 1
                 simulated_remaining_points[away_team] += 1
-            else:  # away win
+            else:
                 simulated_points[away_team] += 3
                 simulated_remaining_points[away_team] += 3
 
         # Rank teams based on final simulated points
-        sorted_teams = sorted(simulated_points.items(), key=lambda x: x[1], reverse=True)
+        sorted_teams = sorted(simulated_points.items(), key=lambda x: (x[1], simulated_gd_sim.get(x[0], 0)), reverse=True)
 
         # Record finishing positions
         for rank, (team, _) in enumerate(sorted_teams):

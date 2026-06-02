@@ -18,3 +18,4 @@ lxml
 pyarrow
 understatapi
 fastf1>=3.5.0
+scipy
