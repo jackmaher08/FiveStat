@@ -19,6 +19,9 @@ from io import BytesIO
 # Flask app initialization
 app = Flask(__name__)
 
+from fpl_review import fpl_review_bp
+app.register_blueprint(fpl_review_bp)
+
 
 # ── Manual GW override — set to an int to force a specific GW, None for auto ──
 GW_OVERRIDE = None
