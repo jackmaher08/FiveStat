@@ -1,0 +1,39 @@
+﻿gw,active_chip,gw_pts,gw_pts_gross,total_pts,xi_pts,bench_pts,overall_rank,transfers_made,hit_cost,bank,squad_value,captain,captain_pos,cap_raw_pts,cap_mult,cap_contribution,armband_bonus,vice,vc_raw_pts,vc_better_than_cap,optimal_cap,optimal_cap_pts,optimal_contrib,cap_differential
+1,,55,55,55,55,12,4223898,0,0,0.0,100.0,M.Salah,MID,8,2,16,8,Palmer,3,False,Reijnders,10,20,-4
+2,,68,68,123,68,12,1303815,0,0,0.0,100.1,Watkins,FWD,2,2,4,2,Reijnders,2,False,João Pedro,15,30,-26
+3,,53,53,176,53,13,1162239,2,0,2.8,100.2,Haaland,FWD,9,2,18,9,João Pedro,9,False,Diouf,10,20,-2
+4,,83,83,259,83,12,434853,0,0,2.8,100.3,Haaland,FWD,13,2,26,13,Kudus,3,False,Van de Ven,14,28,-2
+5,,37,37,296,37,16,915157,2,0,0.3,100.3,M.Salah,MID,5,2,10,5,Wood,2,False,Reijnders,9,18,-8
+6,3xc,80,84,372,80,1,388552,2,4,0.4,99.9,Haaland,FWD,16,3,48,32,Wood,2,False,Haaland,16,48,0
+7,freehit,71,71,443,71,10,385475,0,0,0.4,100.1,Haaland,FWD,8,2,16,8,Gabriel,9,True,Semenyo,18,36,-20
+8,wildcard,78,78,521,78,16,220324,0,0,0.9,100.2,Haaland,FWD,13,2,26,13,João Pedro,2,False,Haaland,13,26,0
+9,,35,35,556,35,5,466876,0,0,0.9,100.4,Haaland,FWD,2,2,4,2,João Pedro,2,False,Gabriel,9,18,-14
+10,,79,79,635,79,6,377751,1,0,0.9,100.4,Haaland,FWD,13,2,26,13,Gabriel,12,False,Haaland,13,26,0
+11,,39,39,674,39,6,415052,1,0,0.3,100.3,Haaland,FWD,4,2,8,4,Gabriel,1,False,João Pedro,7,14,-6
+12,,40,40,714,40,8,473895,2,0,1.1,100.3,Haaland,FWD,2,2,4,2,João Pedro,1,False,Enzo,11,22,-18
+13,,40,40,754,40,7,508147,1,0,2.1,100.3,Haaland,FWD,2,2,4,2,Thiago,13,True,Thiago,13,26,-22
+14,,88,88,842,88,10,243027,1,0,0.6,100.1,Haaland,FWD,14,2,28,14,Mateta,2,False,Foden,17,34,-6
+15,,50,50,892,50,15,285777,0,0,0.6,100.4,Haaland,FWD,2,2,4,2,Mateta,2,False,Foden,12,24,-20
+16,,66,66,958,66,6,388534,4,0,1.9,100.6,Haaland,FWD,13,2,26,13,Raúl,2,False,Haaland,13,26,0
+17,,91,91,1049,91,10,278596,0,0,1.9,100.9,Haaland,FWD,16,2,32,16,Thiago,2,False,Haaland,16,32,0
+18,bboost,80,80,1129,59,0,71897,3,0,0.3,100.8,Haaland,FWD,2,2,4,2,Virgil,2,False,Dúbravka,11,22,-18
+19,,31,31,1160,31,2,110460,0,0,0.3,101.1,Woltemade,FWD,1,2,2,1,Haaland,2,True,Virgil,6,12,-10
+20,,51,51,1211,51,9,110542,1,0,2.9,100.7,Haaland,FWD,2,2,4,2,Woltemade,1,False,Rice,17,34,-30
+21,,42,42,1253,42,13,193661,2,0,1.4,100.4,Haaland,FWD,6,2,12,6,Palmer,1,False,Raya,6,12,0
+22,,49,49,1302,49,9,139585,1,0,0.0,100.5,Haaland,FWD,2,2,4,2,Gabriel,8,True,Thiaw,9,18,-14
+23,,30,30,1332,30,8,219934,1,0,1.7,100.1,Haaland,FWD,1,2,2,1,Rice,1,False,Andersen,8,16,-14
+24,freehit,54,54,1386,54,7,289120,0,0,1.7,100.0,Haaland,FWD,5,2,10,5,Mbeumo,2,False,Mukiele,9,18,-8
+25,,90,94,1472,90,8,166513,2,4,0.6,100.1,Palmer,MID,20,2,40,20,Mbeumo,8,False,Palmer,20,40,0
+26,3xc,78,78,1550,78,7,112246,0,0,0.6,100.4,Gabriel,DEF,7,3,21,14,Raya,3,False,Rice,14,42,-21
+27,,42,42,1592,42,17,134420,1,0,0.8,100.3,Palmer,MID,3,2,6,3,Haaland,6,True,Raúl,11,22,-16
+28,,57,57,1649,57,0,209126,2,0,0.6,100.2,Haaland,FWD,0,0,0,0,Thiago,6,False,Wilson,12,0,0
+29,,60,60,1709,60,3,228559,0,0,0.6,100.2,Haaland,FWD,2,2,4,2,Thiago,2,False,Gabriel,11,22,-18
+30,,59,59,1768,59,19,197672,0,0,0.6,100.2,Thiago,FWD,6,2,12,6,Palmer,2,False,Senesi,10,20,-8
+31,,47,47,1815,47,3,260149,2,0,0.0,100.1,Palmer,MID,2,2,4,2,Gordon,10,True,Gordon,10,20,-16
+32,,53,53,1868,53,11,283103,2,0,0.1,100.0,B.Fernandes,MID,4,2,8,4,Thiago,13,True,O'Reilly,14,28,-20
+33,,77,77,1945,77,10,428770,1,0,1.9,99.5,Guéhi,DEF,8,2,16,8,Haaland,13,True,O'Reilly,13,26,-10
+34,,48,52,1989,48,0,490981,2,4,6.5,99.5,B.Fernandes,MID,5,2,10,5,Thiago,1,False,Andersen,11,22,-12
+35,,41,41,2030,41,9,624646,0,0,6.5,99.6,B.Fernandes,MID,5,2,10,5,Thiago,6,True,Raya,6,12,-2
+36,wildcard,89,89,2119,89,10,562289,0,0,0.1,98.8,Haaland,FWD,11,2,22,11,O'Reilly,5,False,Tarkowski,15,30,-8
+37,,73,73,2192,73,13,485713,1,0,1.1,98.9,Haaland,FWD,9,2,18,9,Gabriel,6,False,Enzo,13,26,-8
+38,bboost,52,52,2244,52,0,498205,2,0,0.0,99.3,Haaland,FWD,0,1,0,0,B.Fernandes,14,True,B.Fernandes,14,14,-14

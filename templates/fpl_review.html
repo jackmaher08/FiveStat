@@ -1,0 +1,909 @@
+{% extends "base.html" %}
+{% block title %}FPL Season Review | FiveStat{% endblock %}
+
+{% block content %}
+<style>
+  /* ── Page wrapper ─────────────────────────────────────────────────── */
+  .rv-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* ── Hero ─────────────────────────────────────────────────────────── */
+  .rv-hero {
+    background: var(--nav-bg);
+    border-bottom: 3px solid var(--accent);
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    width: 100%;
+  }
+  .rv-eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .rv-hero h1 {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--nav-text);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.01em;
+  }
+  .rv-hero h1 span { color: var(--accent); }
+  .rv-hero p {
+    color: rgba(240,240,236,0.55);
+    margin: 0 auto;
+    font-size: 0.95rem;
+    max-width: 520px;
+  }
+
+  /* ── Input ────────────────────────────────────────────────────────── */
+  .rv-input-wrap {
+    max-width: 480px;
+    margin: 2rem auto 2.5rem;
+    text-align: center;
+  }
+  .rv-input-row {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .rv-input-row input[type="number"] {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .rv-input-row input[type="number"]:focus { border-color: var(--accent); }
+  .rv-input-row input[type="number"]::placeholder { color: var(--text-muted); }
+  .rv-btn {
+    padding: 0.7rem 1.4rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.18s;
+  }
+  .rv-btn:hover    { background: var(--accent-dark); }
+  .rv-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .rv-hint { font-size: 0.78rem; color: var(--text-muted); }
+  .rv-hint strong { color: var(--text-secondary); }
+
+  /* ── Loading ──────────────────────────────────────────────────────── */
+  .rv-loading {
+    display: none;
+    text-align: center;
+    padding: 3rem 0;
+  }
+  .rv-spinner {
+    width: 36px; height: 36px;
+    border: 3px solid rgba(29,158,117,0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: rv-spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+  @keyframes rv-spin { to { transform: rotate(360deg); } }
+  .rv-loading p { color: var(--text-secondary); margin: 0.2rem 0; font-size: 0.9rem; }
+  .rv-loading .rv-load-sub { font-size: 0.8rem; color: var(--text-muted); }
+
+  /* ── Error ────────────────────────────────────────────────────────── */
+  .rv-error {
+    display: none;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1.25rem;
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── Results wrapper ──────────────────────────────────────────────── */
+  #rv-results { display: none; }
+
+  /* ── Manager banner ───────────────────────────────────────────────── */
+  .rv-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .rv-banner-name h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 2px;
+  }
+  .rv-banner-name p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .rv-banner-divider {
+    width: 1px; height: 36px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .rv-banner-stat { text-align: center; }
+  .rv-banner-stat .rv-bval {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .rv-banner-stat .rv-bval.accent { color: var(--accent); }
+  .rv-banner-stat .rv-blbl {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Stat cards ───────────────────────────────────────────────────── */
+  .rv-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  .rv-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+    text-align: left;
+  }
+  .rv-card-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-muted);
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .rv-card-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.1;
+  }
+  .rv-card-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+  }
+  .rv-card-sub.pos { color: var(--accent); }
+  .rv-card-sub.neg { color: var(--rel-red); }
+  .rv-card-value.neg { color: var(--rel-red); }
+
+  /* ── Section ──────────────────────────────────────────────────────── */
+  .rv-section { margin-bottom: 2.5rem; }
+  .rv-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.1rem;
+  }
+  .rv-section-head h2 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  .rv-section-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Charts ───────────────────────────────────────────────────────── */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+  }
+  .banner-stats {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .banner-stat .val {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+  }
+  .banner-stat .lbl {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .banner-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .chart-scroll-outer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .chart-scroll-inner {
+    position: relative;
+    min-width: 560px;
+    height: 220px;
+  }
+  .chart-scroll-inner.tall { height: 260px; }
+  @media (max-width: 600px) {
+    .banner-divider { display: none; }
+    .banner-stats { gap: 0.75rem; }
+  }
+  .rv-chart-wrap.tall { height: 260px; }
+  .rv-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+  .rv-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* ── Summary blocks ───────────────────────────────────────────────── */
+  .rv-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .rv-sblock {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1rem;
+    text-align: left;
+  }
+  .rv-sval {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+  .rv-sval.pos { color: var(--accent); }
+  .rv-sval.neg { color: var(--rel-red); }
+  .rv-slbl {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin: 4px 0 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  /* ── Tables ───────────────────────────────────────────────────────── */
+  .rv-table-wrap { overflow-x: auto; margin-bottom: 1rem; }
+  .rv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.84rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .rv-table th {
+    background: var(--nav-bg);
+    color: var(--nav-text);
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .rv-table td {
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .rv-table tr:hover td { background: var(--surface-alt); }
+  .rv-table .rv-strong  { color: var(--text-primary); font-weight: 600; }
+  .rv-table .rv-pos     { color: var(--accent); font-weight: 600; }
+  .rv-table .rv-neg     { color: var(--rel-red); font-weight: 600; }
+  .rv-table .rv-dim     { color: var(--text-muted); }
+  .rv-sub-label {
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 1.1rem 0 0.5rem;
+  }
+
+  /* ── Chip badges ──────────────────────────────────────────────────── */
+  .cbadge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .cb-3xc      { background: #fef3c7; color: #92400e; }
+  .cb-freehit  { background: #ede9fe; color: #5b21b6; }
+  .cb-wildcard { background: #dbeafe; color: #1e40af; }
+  .cb-bboost   { background: #d1fae5; color: #065f46; }
+
+  /* ── Verdict badges ───────────────────────────────────────────────── */
+  .vbadge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--font-display);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+  .vb-great  { background: #d1fae5; color: #065f46; }
+  .vb-good   { background: #e1f5ee; color: var(--accent-text); }
+  .vb-ok     { background: #fef3c7; color: #92400e; }
+  .vb-poor   { background: #fee2e2; color: #dc2626; }
+
+  /* ── VC callout ───────────────────────────────────────────────────── */
+  .rv-vc-callout {
+    background: #fff7ed;
+    border: 1px solid #fed7aa;
+    border-left: 4px solid #f97316;
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1.1rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #7c2d12;
+  }
+
+  /* ── History highlight ────────────────────────────────────────────── */
+  .rv-current-season td {
+    background: var(--accent-light) !important;
+    color: var(--accent-text) !important;
+    font-weight: 600;
+  }
+  .rv-current-season td.rv-pos { color: var(--accent) !important; }
+</style>
+
+<!-- ── Hero ──────────────────────────────────────────────────────────── -->
+<div class="rv-hero">
+  <div class="rv-eyebrow">FPL Analytics · 2025/26</div>
+  <h1>FPL <span>Season Review</span></h1>
+  <p>Enter your FPL manager ID for a full season breakdown.</p>
+</div>
+
+<div class="rv-page">
+
+<!-- ── Input ─────────────────────────────────────────────────────────── -->
+<div class="rv-input-wrap">
+  <div class="rv-input-row">
+    <input type="number" id="managerInput" placeholder="Manager ID  (e.g. 980868)" min="1" />
+    <button class="rv-btn" id="analyseBtn" onclick="runAnalysis()">Analyse →</button>
+  </div>
+  <p class="rv-hint">Find your ID in the FPL URL: fantasy.premierleague.com/entry/<strong>{your-id}</strong>/</p>
+</div>
+
+<!-- ── Loading ───────────────────────────────────────────────────────── -->
+<div class="rv-loading" id="rvLoading">
+  <div class="rv-spinner"></div>
+  <p>Fetching your season data…</p>
+  <p class="rv-load-sub">Pulling 38 gameweeks from the FPL API - takes ~10 seconds</p>
+</div>
+
+<!-- ── Error ──────────────────────────────────────────────────────────── -->
+<div class="rv-error" id="rvError"></div>
+
+<!-- ── Results ───────────────────────────────────────────────────────── -->
+<div id="rv-results">
+
+  <!-- Manager banner -->
+  <div class="rv-banner" id="rvBanner"></div>
+
+  <!-- Stat cards -->
+  <div class="rv-cards" id="rvCards"></div>
+
+  <!-- 1. Overall Rank by Gameweek -->
+  <div class="rv-section">
+    <div class="rv-section-head">
+      <h2>Overall Rank by Gameweek</h2>
+      <span class="rv-section-sub">Higher = better - line rises as rank improves</span>
+    </div>
+    <div class="rv-legend" id="rankLegend"></div>
+    <div class="chart-scroll-outer"><div class="chart-scroll-inner tall"><canvas id="rankChart" role="img" aria-label="Overall rank line chart"></canvas></div></div>
+  </div>
+
+  <!-- 2. Points by Gameweek -->
+  <div class="rv-section">
+    <div class="rv-section-head">
+      <h2>Points by Gameweek</h2>
+      <span class="rv-section-sub" id="gwChartSub"></span>
+    </div>
+    <div class="rv-legend" id="gwLegend"></div>
+    <div class="chart-scroll-outer"><div class="chart-scroll-inner"><canvas id="gwChart" role="img" aria-label="Gameweek points bar chart"></canvas></div></div>
+  </div>
+
+  <!-- 3. Captaincy Analysis -->
+  <div class="rv-section">
+    <div class="rv-section-head">
+      <h2>Captaincy Analysis</h2>
+    </div>
+    <div class="rv-summary" id="capSummary"></div>
+    <p class="rv-sub-label">Captain record</p>
+    <div class="rv-table-wrap">
+      <table class="rv-table" id="capTable"></table>
+    </div>
+    <p class="rv-sub-label">Biggest missed opportunities</p>
+    <div class="rv-table-wrap">
+      <table class="rv-table" id="capErrorTable"></table>
+    </div>
+    <div class="rv-vc-callout" id="vcCallout" style="display:none"></div>
+  </div>
+
+  <!-- 4. Chip Performance -->
+  <div class="rv-section">
+    <div class="rv-section-head">
+      <h2>Chip Performance</h2>
+    </div>
+    <div class="rv-table-wrap">
+      <table class="rv-table" id="chipTable"></table>
+    </div>
+  </div>
+
+  <!-- 5. Bench & Transfers -->
+  <div class="rv-section">
+    <div class="rv-section-head">
+      <h2>Bench &amp; Transfers</h2>
+    </div>
+    <div class="rv-summary" id="benchSummary"></div>
+    <p class="rv-sub-label">Top bench haul weeks</p>
+    <div class="rv-table-wrap">
+      <table class="rv-table" id="benchTable"></table>
+    </div>
+  </div>
+
+  <!-- 6. Season History -->
+  <div class="rv-section" id="historySect" style="display:none">
+    <div class="rv-section-head">
+      <h2>Season History</h2>
+    </div>
+    <div class="rv-table-wrap">
+      <table class="rv-table" id="historyTable"></table>
+    </div>
+  </div>
+
+</div><!-- /rv-results -->
+</div><!-- /rv-page -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const TOTAL_PLAYERS = 13107732;
+const CHIP_LABELS = { "3xc":"Triple Captain","freehit":"Free Hit","wildcard":"Wildcard","bboost":"Bench Boost" };
+const CHIP_COLORS = { "3xc":"#f59e0b","freehit":"#8b5cf6","wildcard":"#3b82f6","bboost":"#10b981" };
+const CHIP_CSS    = { "3xc":"cb-3xc","freehit":"cb-freehit","wildcard":"cb-wildcard","bboost":"cb-bboost" };
+
+const GRID_COLOR  = "#e2e2da";
+const TICK_COLOR  = "#888882";
+
+let gwChartInst = null, rankChartInst = null;
+
+const pct    = rank => ((1 - rank / TOTAL_PLAYERS) * 100);
+const topPct = rank => ((rank / TOTAL_PLAYERS) * 100).toFixed(1);
+const fmtR   = r    => Number(r).toLocaleString();
+const fmtPts = p    => Number(p).toLocaleString();
+
+function cbadge(chip) {
+  if (!chip) return "";
+  return `<span class="cbadge ${CHIP_CSS[chip]||""}">${CHIP_LABELS[chip]||chip}</span>`;
+}
+
+function vbadge(gwRank) {
+  const p = (gwRank / TOTAL_PLAYERS) * 100;
+  if (p <= 5)  return '<span class="vbadge vb-great">Excellent</span>';
+  if (p <= 20) return '<span class="vbadge vb-good">Good</span>';
+  if (p <= 50) return '<span class="vbadge vb-ok">Average</span>';
+  return '<span class="vbadge vb-poor">Poor</span>';
+}
+
+function thead(...cols) {
+  return "<thead><tr>" + cols.map(c=>`<th>${c}</th>`).join("") + "</tr></thead>";
+}
+
+const show  = id => { const el = document.getElementById(id); if(el) { el.style.display = "block"; console.log("[FPL] show:", id); } };
+const hide  = id => { const el = document.getElementById(id); if(el) el.style.display = "none"; };
+const block = id => { const el = document.getElementById(id); if(el) el.style.display = "block"; };
+
+// ── Main ─────────────────────────────────────────────────────────────────────
+async function runAnalysis() {
+  const id = document.getElementById("managerInput").value.trim();
+  if (!id || isNaN(id)) { alert("Please enter a valid manager ID."); return; }
+  const btn = document.getElementById("analyseBtn");
+  btn.disabled = true; btn.textContent = "Fetching…";
+  hide("rv-results"); hide("rvError"); block("rvLoading");
+  try {
+    const res  = await fetch(`/api/fpl/review/${id}`);
+    const data = await res.json();
+    if (!data.success) throw new Error(data.error || "Unknown error");
+    console.log("[FPL] gw_results length:", data.gw_results?.length);
+    console.log("[FPL] analysis:", data.analysis);
+    renderAll(data.gw_results, data.analysis);
+    show("rv-results");
+    console.log("[FPL] rv-results display after show:", document.getElementById("rv-results").style.display);
+    console.log("[FPL] rv-results computed:", window.getComputedStyle(document.getElementById("rv-results")).display);
+  } catch(e) {
+    const el = document.getElementById("rvError");
+    el.textContent = e.message; block("rvError");
+  } finally {
+    hide("rvLoading"); btn.disabled = false; btn.textContent = "Analyse →";
+  }
+}
+
+document.getElementById("managerInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") runAnalysis();
+});
+
+function renderAll(gw, a) {
+  const steps = [
+    ["banner",    () => renderBanner(a)],
+    ["cards",     () => renderCards(a)],
+    ["rankChart", () => renderRankChart(gw)],
+    ["gwChart",   () => renderGWChart(gw)],
+    ["captaincy", () => renderCaptaincy(a)],
+    ["chips",     () => renderChips(a)],
+    ["bench",     () => renderBench(a)],
+    ["history",   () => renderHistory(a)],
+  ];
+  for (const [name, fn] of steps) {
+    try { fn(); }
+    catch(e) { console.error(`[FPL] renderAll - ${name} failed:`, e); }
+  }
+}
+
+// ── Banner ────────────────────────────────────────────────────────────────────
+function renderBanner(a) {
+  const topP = topPct(a.final_rank);
+  document.getElementById("rvBanner").innerHTML = `
+    <div>
+      <p class="team-name">${a.team_name || "Your Team"}</p>
+      <p class="manager-name">${a.manager_name || ""} · ${a.season}</p>
+    </div>
+    <div class="banner-divider"></div>
+    <div class="banner-stats">
+      <div class="banner-stat"><div class="val">${a.final_pts.toLocaleString()}</div><div class="lbl">Points</div></div>
+      <div class="banner-stat"><div class="val">${fmtR(a.final_rank)}</div><div class="lbl">Overall Rank</div></div>
+      <div class="banner-stat"><div class="val" style="color:#1D9E75">Top ${topP}%</div><div class="lbl">Percentile</div></div>
+      <div class="banner-stat"><div class="val">${fmtR(a.peak_rank)}</div><div class="lbl">Peak Rank · GW${a.peak_rank_gw}</div></div>
+    </div>
+  `;
+}
+
+// ── Stat cards ────────────────────────────────────────────────────────────────
+function renderCards(a) {
+  const cards = [
+    { lbl:"Total points",     val: fmtPts(a.final_pts),           sub:`${a.total_gws} gameweeks` },
+    { lbl:"Captain pts",      val: a.total_cap_pts,                sub:`+${a.total_armband_bonus} from doubling/tripling`, scls:"pos" },
+    { lbl:"Cap pts lost",     val: a.total_cap_differential,       sub:`vs optimal pick each week`, vcls:"neg", scls:"neg" },
+    { lbl:"Bench total",      val: a.total_bench_pts,              sub:`pts left uncounted` },
+    { lbl:"Hit deductions",   val: `−${a.total_hits} pts`,         sub:`${a.hit_gws.length} hit GW${a.hit_gws.length!==1?"s":""}`, scls: a.total_hits>0?"neg":"" },
+    { lbl:"Best GW",          val: `${a.best_gw_pts} pts`,         sub:`GW${a.best_gw_num}` },
+  ];
+  document.getElementById("rvCards").innerHTML = cards.map(c=>`
+    <div class="rv-card">
+      <p class="rv-card-label">${c.lbl}</p>
+      <p class="rv-card-value ${c.vcls||""}">${c.val}</p>
+      <p class="rv-card-sub ${c.scls||""}">${c.sub}</p>
+    </div>`).join("");
+}
+
+// ── Rank chart (line) ─────────────────────────────────────────────────────────
+function renderRankChart(gw) {
+  const labels = gw.map(r=>`GW${r.gw}`);
+  const data   = gw.map(r => parseFloat(pct(r.overall_rank).toFixed(2)));
+
+  // Annotate chip GWs and hit GWs as coloured points
+  const pointR  = gw.map(r => (r.active_chip || r.hit_cost > 0) ? 5 : 0);
+  const pointBg = gw.map(r => {
+    if (r.active_chip && CHIP_COLORS[r.active_chip]) return CHIP_COLORS[r.active_chip];
+    if (r.hit_cost > 0) return "#ef4444";
+    return "#1D9E75";
+  });
+
+  const legendItems = [
+    ["#1D9E75","Normal"], ["#f59e0b","Triple Captain"],
+    ["#8b5cf6","Free Hit"], ["#3b82f6","Wildcard"],
+    ["#10b981","Bench Boost"], ["#ef4444","Hit (−4 pts)"],
+  ];
+  document.getElementById("rankLegend").innerHTML = legendItems.map(([c,l])=>
+    `<span><span class="rv-dot" style="background:${c}"></span>${l}</span>`
+  ).join("");
+
+  const minPct = Math.max(0, Math.floor((Math.min(...data) - 5) / 5) * 5);
+  if (rankChartInst) rankChartInst.destroy();
+  rankChartInst = new Chart(document.getElementById("rankChart"), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [{
+        data,
+        borderColor:     "#1D9E75",
+        backgroundColor: "rgba(29,158,117,0.08)",
+        fill:            true,
+        pointRadius:     pointR,
+        pointBackgroundColor: pointBg,
+        pointHoverRadius: 5,
+        borderWidth: 2,
+        tension: 0.3,
+        clip: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      layout: { padding: { top: 8 } },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const r = gw[ctx.dataIndex];
+              let s = `Top ${(100 - ctx.raw).toFixed(1)}%  (rank ${fmtR(r.overall_rank)})`;
+              if (r.active_chip) s += `  · ${CHIP_LABELS[r.active_chip]}`;
+              if (r.hit_cost > 0) s += `  · Hit (−${r.hit_cost} pts)`;
+              return s;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: TICK_COLOR, font:{ size:9 }, maxRotation:0, autoSkip:true, maxTicksLimit:20 }
+        },
+        y: {
+          grid: { color: GRID_COLOR },
+          min: minPct, max: 100,
+          ticks: {
+            color: TICK_COLOR,
+            font: { size:10 },
+            callback: v => `Top ${(100-v).toFixed(0)}%`
+          }
+        }
+      }
+    }
+  });
+}
+
+// ── GW points chart (bar) ────────────────────────────────────────────────────
+function renderGWChart(gw) {
+  const labels = gw.map(r=>`GW${r.gw}`);
+  const pts    = gw.map(r=>r.gw_pts);
+  const avgs   = gw.map(r=>r.avg_gw_pts || null);
+  const colors = gw.map(r => {
+    if (r.active_chip && CHIP_COLORS[r.active_chip]) return CHIP_COLORS[r.active_chip];
+    if (r.hit_cost > 0) return "#ef4444";
+    return "#1D9E75";
+  });
+
+  const legendItems = [
+    ["#1D9E75","Normal"], ["#f59e0b","Triple Captain"],
+    ["#8b5cf6","Free Hit"], ["#3b82f6","Wildcard"],
+    ["#10b981","Bench Boost"], ["#ef4444","Hit (−4 pts)"],
+    ["#f97316","GW Average"],
+  ];
+  document.getElementById("gwLegend").innerHTML = legendItems.map(([c,l])=>
+    `<span><span class="rv-dot" style="background:${c}"></span>${l}</span>`
+  ).join("");
+  document.getElementById("gwChartSub").textContent =
+    `Best ${Math.max(...pts)} pts · Worst ${Math.min(...pts)} pts`;
+
+  if (gwChartInst) gwChartInst.destroy();
+  gwChartInst = new Chart(document.getElementById("gwChart"), {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [
+        { data:pts, backgroundColor:colors, borderRadius:2, borderSkipped:false },
+        {
+          type: "line",
+          data: avgs,
+          borderColor: "#f97316",
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          pointRadius: 3,
+          pointBackgroundColor: "#f97316",
+          pointHoverRadius: 5,
+          fill: false,
+          tension: 0,
+          order: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          mode: "index",
+          intersect: false,
+          callbacks: {
+            label: ctx => {
+              if (ctx.datasetIndex === 1) return `GW avg: ${ctx.raw} pts`;
+              const r = gw[ctx.dataIndex];
+              let s = `Your pts: ${ctx.raw}`;
+              if (r.active_chip) s += `  [${CHIP_LABELS[r.active_chip]}]`;
+              if (r.hit_cost > 0) s += `  (−${r.hit_cost} hit)`;
+              return s;
+            },
+            afterLabel: ctx => {
+              if (ctx.datasetIndex !== 0) return;
+              return `Captain: ${gw[ctx.dataIndex].captain} (${gw[ctx.dataIndex].cap_contribution} pts)`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid:{display:false}, ticks:{ color:TICK_COLOR, font:{size:9}, maxRotation:0, autoSkip:true, maxTicksLimit:20 } },
+        y: { grid:{ color:GRID_COLOR }, ticks:{ color:TICK_COLOR, font:{size:10} }, min:0 }
+      }
+    }
+  });
+}
+
+// ── Captaincy ─────────────────────────────────────────────────────────────────
+function renderCaptaincy(a) {
+  document.getElementById("capSummary").innerHTML = [
+    { val: a.total_cap_pts,                              lbl:"Total from armband" },
+    { val:`+${a.total_armband_bonus}`,                   lbl:"Bonus from doubling/tripling", cls:"pos" },
+    { val: a.total_cap_differential,                     lbl:"Pts lost vs optimal pick", cls:"neg" },
+    { val:`${a.optimal_gws}/${a.total_gws} GWs`,         lbl:"Optimal captain chosen" },
+    { val: a.vc_better_gws.length,                       lbl:"GWs VC outscored captain", cls: a.vc_better_gws.length>5?"neg":"" },
+  ].map(b=>`
+    <div class="rv-sblock">
+      <p class="rv-sval ${b.cls||""}">${b.val}</p>
+      <p class="rv-slbl">${b.lbl}</p>
+    </div>`).join("");
+
+  // Captain record
+  document.getElementById("capTable").innerHTML =
+    thead("Player","Times capped","Total pts","Avg / GW","Total differential") +
+    "<tbody>" + a.most_captained.map(c=>`
+      <tr>
+        <td class="rv-strong">${c.name}</td>
+        <td>${c.count}×</td>
+        <td>${c.total_pts}</td>
+        <td>${c.avg_pts}</td>
+        <td class="${c.total_diff<0?"rv-neg":"rv-pos"}">${c.total_diff>0?"+":""}${c.total_diff}</td>
+      </tr>`).join("") + "</tbody>";
+
+  // Biggest errors
+  document.getElementById("capErrorTable").innerHTML =
+    thead("GW","Captained","Pts","Most Optimal Pick","Pot. Pts"," PTS Lost") +
+    "<tbody>" + a.biggest_cap_errors.map(e=>`
+      <tr>
+        <td class="rv-dim">GW${e.gw}</td>
+        <td>${e.captain}</td>
+        <td>${e.cap_contribution}</td>
+        <td class="rv-pos">${e.optimal_cap}</td>
+        <td class="rv-pos">${e.optimal_contrib}</td>
+        <td class="rv-neg">${e.lost}</td>
+      </tr>`).join("") + "</tbody>";
+}
+
+// ── Chips ────────────────────────────────────────────────────────────────────
+function renderChips(a) {
+  document.getElementById("chipTable").innerHTML =
+    thead("GW","Chip","Points","GW Rank","Captain","Cap pts","Bench pts","Verdict") +
+    "<tbody>" + a.chip_summary.map(c=>`
+      <tr>
+        <td class="rv-dim">GW${c.gw}</td>
+        <td>${cbadge(c.chip)}</td>
+        <td class="rv-strong">${c.gw_pts}</td>
+        <td class="rv-dim">${fmtR(c.gw_rank)}</td>
+        <td>${c.captain}</td>
+        <td>${c.cap_contribution}</td>
+        <td>${c.bench_pts}</td>
+        <td>${vbadge(c.gw_rank)}</td>
+      </tr>`).join("") + "</tbody>";
+}
+
+// ── Bench & Transfers ────────────────────────────────────────────────────────
+function renderBench(a) {
+  document.getElementById("benchSummary").innerHTML = [
+    { val: a.total_bench_pts,                                      lbl:"Pts left on bench",     cls:"neg" },
+    { val: a.total_transfers,                                      lbl:"Total transfers made" },
+    { val:`−${a.total_hits} pts`,                                  lbl:"Total hit cost",        cls: a.total_hits>0?"neg":"" },
+    { val: a.hit_gws.map(h=>`GW${h.gw}`).join(", ") || "None",   lbl:"Hit gameweeks" },
+  ].map(b=>`
+    <div class="rv-sblock">
+      <p class="rv-sval ${b.cls||""}">${b.val}</p>
+      <p class="rv-slbl">${b.lbl}</p>
+    </div>`).join("");
+
+  document.getElementById("benchTable").innerHTML =
+    thead("GW","Bench pts","Captain","GW total") +
+    "<tbody>" + a.top_bench_gws.map(r=>`
+      <tr>
+        <td class="rv-dim">GW${r.gw}${r.active_chip?" "+cbadge(r.active_chip):""}</td>
+        <td class="rv-neg">${r.bench_pts} pts</td>
+        <td>${r.captain}</td>
+        <td>${r.gw_pts}</td>
+      </tr>`).join("") + "</tbody>";
+}
+
+// ── History ───────────────────────────────────────────────────────────────────
+function renderHistory(a) {
+  if (!a.prev_seasons || !a.prev_seasons.length) return;
+  show("historySect");
+  const prevRows = a.prev_seasons.slice().reverse().map(s => {
+    const tp = ((s.rank / 13107732) * 100).toFixed(1);
+    return `<tr>
+      <td>${s.season_name}</td>
+      <td>${fmtPts(s.total_points)}</td>
+      <td>${fmtR(s.rank)}</td>
+      <td class="rv-dim">Top ${tp}%</td>
+    </tr>`;
+  }).join("");
+  const cur = `<tr class="rv-current-season">
+    <td>${a.season} <span style="font-size:0.7rem;color:var(--accent);margin-left:4px">▶ Current</span></td>
+    <td class="rv-pos">${fmtPts(a.final_pts)}</td>
+    <td class="rv-pos">${fmtR(a.final_rank)}</td>
+    <td class="rv-pos">Top ${topPct(a.final_rank)}%</td>
+  </tr>`;
+  document.getElementById("historyTable").innerHTML =
+    thead("Season","Points","Rank","Top %") +
+    `<tbody>${prevRows}${cur}</tbody>`;
+}
+</script>
+{% endblock %}
