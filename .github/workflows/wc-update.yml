@@ -35,7 +35,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add static/data/wc_elo.json static/data/wc_matches.json
+          git add data/wc_elo.json data/wc_matches.json
           git diff --staged --quiet && echo "Nothing to commit" || \
             git commit -m "WC data update: $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
