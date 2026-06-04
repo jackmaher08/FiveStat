@@ -8,7 +8,7 @@ FD_API_KEY = os.environ.get("FOOTBALL_DATA_API_KEY", "b888513f418f4173a75525dc0b
 FD_BASE    = "https://api.football-data.org/v4"
 FD_HEADERS = {"X-Auth-Token": FD_API_KEY}
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "static", "data")
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 WC_ELO_PATH     = os.path.join(DATA_DIR, "wc_elo.json")
