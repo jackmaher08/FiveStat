@@ -51,8 +51,8 @@ R32_BRACKET = [
 
 
 def load_data():
-    with open(WC_ELO_PATH) as f:
-        elo_data = json.load(f)
+    #with open(WC_ELO_PATH) as f:
+        #elo_data = json.load(f)
     with open(WC_MATCHES_PATH) as f:
         match_data = json.load(f)
     return elo_data["ratings"], match_data["matches"]
