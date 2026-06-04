@@ -3,7 +3,7 @@ import json
 import random
 from datetime import datetime, timezone
 
-DATA_DIR        = os.path.join(os.path.dirname(__file__), "static", "data")
+DATA_DIR        = os.path.join(os.path.dirname(__file__), "data")
 WC_ELO_PATH     = os.path.join(DATA_DIR, "wc_elo.json")
 WC_MATCHES_PATH = os.path.join(DATA_DIR, "wc_matches.json")
 
