@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-04T02:27:23.562846+00:00",
+  "scraped_at": "2026-06-04T04:33:56.883499+00:00",
   "matches": [
     {
       "id": 537327,
@@ -127,7 +127,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "SCHEDULED",
       "home": "Ivory Coast",
       "away": "Ecuador",
       "home_goals": null,
