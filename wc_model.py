@@ -2,6 +2,7 @@ import os
 import json
 import random
 from datetime import datetime, timezone
+from wc_scraper import BASELINE_ELO
 
 DATA_DIR        = os.path.join(os.path.dirname(__file__), "data")
 WC_ELO_PATH     = os.path.join(DATA_DIR, "wc_elo.json")
@@ -51,8 +52,8 @@ R32_BRACKET = [
 
 
 def load_data():
-    #with open(WC_ELO_PATH) as f:
-        #elo_data = json.load(f)
+    with open(WC_ELO_PATH) as f:
+        elo_data = json.load(f)
     with open(WC_MATCHES_PATH) as f:
         match_data = json.load(f)
     return elo_data["ratings"], match_data["matches"]
