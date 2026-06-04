@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, predict_player_goals, TEAM_NAME_MAPPING
 from data_loader import calculate_recent_form, get_team_xg
 from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
+from wc_model import get_wc_data
 from collections import defaultdict
 from datetime import datetime
 import subprocess
@@ -1444,6 +1445,42 @@ def f1_fantasy():
             last_updated=get_last_updated_time()
         )
 
+
+@app.route("/world-cup")
+def wc_hub():
+    try:
+        data = get_wc_data()
+        return render_template("wc_hub.html",
+            winner_table=data["winner_table"],
+            groups=data["groups"],
+            probs=data["probs"],
+            last_updated=get_last_updated_time()
+        )
+    except Exception as e:
+        print(f"❌ WC hub error: {e}")
+        import traceback; traceback.print_exc()
+        return render_template("wc_hub.html",
+            winner_table=[], groups={}, probs={},
+            last_updated=get_last_updated_time()
+        )
+
+@app.route("/world-cup/group/<group_id>")
+def wc_group(group_id):
+    try:
+        data = get_wc_data()
+        group_id = group_id.upper()
+        if group_id not in data["groups"]:
+            return redirect("/world-cup")
+        return render_template("wc_group.html",
+            group_id=group_id,
+            group=data["groups"][group_id],
+            probs=data["probs"],
+            last_updated=get_last_updated_time()
+        )
+    except Exception as e:
+        print(f"❌ WC group error: {e}")
+        import traceback; traceback.print_exc()
+        return redirect("/world-cup")
 
 @app.errorhandler(404)
 def page_not_found(e):
