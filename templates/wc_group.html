@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – World Cup 2026 Group {{ group_id }}{% endblock %}
+{% block meta_description %}Match predictions and qualification probabilities for World Cup 2026 Group {{ group_id }}.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/world-cup/group/{{ group_id }}{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">FIFA World Cup 2026 · Group Stage</div>
+        <h1 class="lp-headline" style="font-size:2rem;">Group {{ group_id }}</h1>
+        <p class="lp-subhead">Match predictions and qualification probabilities from 10,000 Monte Carlo simulations.</p>
+    </div>
+</div>
+
+<div class="hub-back-bar">
+    <a href="/world-cup" class="hub-back-link">← WC Hub</a>
+    <span class="hub-back-divider"></span>
+    {% for g in ['A','B','C','D','E','F','G','H','I','J','K','L'] %}
+    <a href="/world-cup/group/{{ g }}" class="hub-back-link {% if g == group_id %}hub-back-link--active{% endif %}">{{ g }}</a>
+    {% if not loop.last %}<span class="hub-back-divider"></span>{% endif %}
+    {% endfor %}
+</div>
+
+<div class="wc-group-layout">
+
+    <section class="wc-standings-section">
+        <div class="wc-section-header">
+            <span class="wc-section-icon"><i class="fa-solid fa-list-ol"></i></span>
+            <h2 class="wc-section-title">Group {{ group_id }} Standings</h2>
+        </div>
+
+        <div class="wc-standings-table">
+            <div class="wc-standings-head">
+                <span class="wc-st-team">Team</span>
+                <span class="wc-st-cell">Pld</span>
+                <span class="wc-st-cell">Pts</span>
+                <span class="wc-st-cell">ELO</span>
+                <span class="wc-st-cell">Qualify%</span>
+                <span class="wc-st-cell">Win%</span>
+            </div>
+            {% for team in group.teams %}
+            <div class="wc-standings-row {% if loop.index <= 2 %}wc-standings-row--qualify{% endif %}">
+                <span class="wc-st-pos">{{ loop.index }}</span>
+                <span class="wc-st-team">{{ team.team }}</span>
+                <span class="wc-st-cell">{{ team.played }}</span>
+                <span class="wc-st-cell wc-st-pts">{{ team.pts }}</span>
+                <span class="wc-st-cell wc-st-elo">{{ team.elo if team.elo > 0 else '—' }}</span>
+                <div class="wc-st-qualify">
+                    <div class="wc-qualify-bar-wrap">
+                        <div class="wc-qualify-bar" style="width:{{ team.qualify }}%"></div>
+                    </div>
+                    <span class="wc-qualify-pct">{{ team.qualify }}%</span>
+                </div>
+                <span class="wc-st-cell wc-st-win">{{ team.win }}%</span>
+            </div>
+            {% endfor %}
+        </div>
+        <p class="wc-table-note">Top 2 qualify automatically. 8 best third-place teams also advance.</p>
+    </section>
+
+    <section class="wc-fixtures-section">
+        <div class="wc-section-header">
+            <span class="wc-section-icon"><i class="fa-solid fa-calendar-days"></i></span>
+            <h2 class="wc-section-title">Fixtures & Predictions</h2>
+        </div>
+
+        <div class="wc-fixtures-list">
+            {% for match in group.matches %}
+            <div class="wc-fixture {% if match.status == 'FINISHED' %}wc-fixture--finished{% endif %}">
+                <div class="wc-fixture-date">
+                    {{ match.utcDate[:10] }}
+                </div>
+                <div class="wc-fixture-teams">
+                    {% if match.status == 'FINISHED' %}
+                    <span class="wc-fixture-team {% if match.home_goals > match.away_goals %}wc-fixture-team--winner{% endif %}">{{ match.home }}</span>
+                    <span class="wc-fixture-score">{{ match.home_goals }} – {{ match.away_goals }}</span>
+                    <span class="wc-fixture-team {% if match.away_goals > match.home_goals %}wc-fixture-team--winner{% endif %}">{{ match.away }}</span>
+                    {% else %}
+                    <span class="wc-fixture-team">{{ match.home }}</span>
+                    <span class="wc-fixture-vs">vs</span>
+                    <span class="wc-fixture-team">{{ match.away }}</span>
+                    {% endif %}
+                </div>
+                {% if match.status != 'FINISHED' and match.predicted %}
+                <div class="wc-fixture-probs">
+                    <div class="wc-prob-block">
+                        <span class="wc-prob-label">{{ match.home[:3] | upper }}</span>
+                        <span class="wc-prob-val">{{ match.prob_home }}%</span>
+                    </div>
+                    <div class="wc-prob-block wc-prob-block--draw">
+                        <span class="wc-prob-label">Draw</span>
+                        <span class="wc-prob-val">{{ match.prob_draw }}%</span>
+                    </div>
+                    <div class="wc-prob-block">
+                        <span class="wc-prob-label">{{ match.away[:3] | upper }}</span>
+                        <span class="wc-prob-val">{{ match.prob_away }}%</span>
+                    </div>
+                </div>
+                <div class="wc-prob-bar">
+                    <div class="wc-prob-bar-home" style="width:{{ match.prob_home }}%"></div>
+                    <div class="wc-prob-bar-draw" style="width:{{ match.prob_draw }}%"></div>
+                    <div class="wc-prob-bar-away" style="width:{{ match.prob_away }}%"></div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}

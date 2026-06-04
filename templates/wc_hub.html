@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}FiveStat – World Cup 2026 Predictions{% endblock %}
+{% block meta_description %}Monte Carlo tournament simulation for the 2026 FIFA World Cup. Winner probabilities, group qualify chances and match predictions for all 48 teams.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/world-cup{% endblock %}
+
+{% block content %}
+
+<div class="lp-hero" style="margin-bottom:0;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">FIFA World Cup · 2026</div>
+        <h1 class="lp-headline" style="font-size:2rem;">World Cup 2026 Predictions</h1>
+        <p class="lp-subhead">ELO-based match probabilities w/ 10,000-simulation Monte Carlo tournament model for all 48 nations.</p>
+    </div>
+</div>
+
+<div class="hub-back-bar">
+    {% for group_id in ['A','B','C','D','E','F','G','H','I','J','K','L'] %}
+    <a href="/world-cup/group/{{ group_id }}" class="hub-back-link">Group {{ group_id }}</a>
+    {% if not loop.last %}<span class="hub-back-divider"></span>{% endif %}
+    {% endfor %}
+</div>
+
+<div class="wc-hub-layout">
+
+    <section class="wc-winner-section">
+        <div class="wc-section-header">
+            <span class="wc-section-icon"><i class="fa-solid fa-trophy"></i></span>
+            <h2 class="wc-section-title">Tournament Winner Probability</h2>
+        </div>
+        <p class="wc-section-sub">Percentage of 10,000 simulations each nation wins the tournament outright.</p>
+
+        <div class="wc-winner-table">
+            {% for row in winner_table %}
+            <div class="wc-winner-row {% if loop.index == 1 %}wc-winner-row--gold{% elif loop.index == 2 %}wc-winner-row--silver{% elif loop.index == 3 %}wc-winner-row--bronze{% endif %}">
+                <span class="wc-winner-rank">{{ loop.index }}</span>
+                <span class="wc-winner-name">{{ row.team }}</span>
+                <div class="wc-winner-bar-wrap">
+                    <div class="wc-winner-bar" style="width:{{ [row.pct * 4.5, 100] | min }}%"></div>
+                </div>
+                <span class="wc-winner-pct">{{ row.pct }}%</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <details class="wc-explainer">
+            <summary class="wc-explainer-summary">
+                <span class="wc-explainer-icon"><i class="fa-solid fa-rotate"></i></span>
+                Why do these numbers change on refresh?
+                <i class="fa-solid fa-chevron-down wc-explainer-chevron"></i>
+            </summary>
+            <div class="wc-explainer-body">
+                <p>Refresh this page and the probabilities will shift. Argentina might go from 19.4% to 20.1%. England might drop half a point. This is intentional.</p>
+                <p>The model runs 10,000 simulations of the entire tournament on every page load. Each simulation samples from the probability distributions we've built — it doesn't pick a single "most likely" outcome and report it back to you. It plays the whole tournament ten thousand times and counts how often each team wins.</p>
+                <p>Nassim Taleb's central argument in <em>Fooled by Randomness</em> is that we systematically confuse the map for the territory — treating a model's output as a fact about the world rather than one draw from a distribution of possible worlds. A number that subtly shifts on each visit is a reminder that 19.7% is not Argentina's probability of winning. It's our best estimate of it, with all the uncertainty that implies.</p>
+                <p>A number that never changes signals false confidence. A number that moves slightly on each visit is the model being honest about what it knows and doesn't know. The instability <em>is</em> the information.</p>
+                <p>The variance between refreshes is also a rough proxy for uncertainty. Groups that are genuinely competitive produce wider swings — a qualify probability bouncing between 58% and 64% is telling you something the headline figure doesn't: this group is close, and the outcome is sensitive to how a few 50/50 matches fall. We could run 100,000 simulations and pin the numbers down tighter. We've chosen not to. The flicker is an honest signal of a genuinely uncertain world.</p>
+            </div>
+        </details>
+    </section>
+
+    <section class="wc-groups-section">
+        <div class="wc-section-header">
+            <span class="wc-section-icon"><i class="fa-solid fa-table-cells"></i></span>
+            <h2 class="wc-section-title">Group Stage Overview</h2>
+        </div>
+        <p class="wc-section-sub">Qualification probability per team across all 12 groups. Click a group for fixtures and match predictions.</p>
+
+        <div class="wc-groups-grid">
+            {% for group_id, group in groups.items() %}
+            <a href="/world-cup/group/{{ group_id }}" class="wc-group-card">
+                <div class="wc-group-card-label">Group {{ group_id }}</div>
+                {% for team in group.teams %}
+                <div class="wc-group-card-row">
+                    <span class="wc-group-card-team">{{ team.team }}</span>
+                    <div class="wc-group-card-bar-wrap">
+                        <div class="wc-group-card-bar" style="width:{{ team.qualify }}%"></div>
+                    </div>
+                    <span class="wc-group-card-pct">{{ team.qualify }}%</span>
+                </div>
+                {% endfor %}
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+
+{% endblock %}
