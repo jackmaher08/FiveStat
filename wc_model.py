@@ -15,17 +15,17 @@ DRAW_DECAY  = 0.002   # draw probability falls as ELO gap widens
 
 WC_GROUPS = {
     "A": ["Mexico", "South Africa", "South Korea", "Czech Republic"],
-    "B": ["Canada", "Sweden", "Qatar", "Switzerland"],
+    "B": ["Canada", "Bosnia and Herzegovina", "Qatar", "Switzerland"],
     "C": ["Brazil", "Morocco", "Haiti", "Scotland"],
     "D": ["USA", "Paraguay", "Australia", "Turkey"],
-    "E": ["Germany", "Ivory Coast", "Curacao", "Ecuador"],
-    "F": ["Netherlands", "Japan", "Bosnia and Herzegovina", "Tunisia"],
+    "E": ["Germany", "Curacao", "Ivory Coast", "Ecuador"],
+    "F": ["Netherlands", "Japan", "Sweden", "Tunisia"],
     "G": ["Belgium", "Egypt", "Iran", "New Zealand"],
     "H": ["Spain", "Cabo Verde", "Saudi Arabia", "Uruguay"],
-    "I": ["France", "Senegal", "Congo DR", "Norway"],
+    "I": ["France", "Senegal", "Iraq", "Norway"],
     "J": ["Argentina", "Algeria", "Austria", "Jordan"],
-    "K": ["Portugal", "Iraq", "Serbia", "Croatia"],
-    "L": ["England", "Colombia", "Denmark", "Venezuela"],
+    "K": ["Portugal", "Congo DR", "Uzbekistan", "Colombia"],
+    "L": ["England", "Croatia", "Ghana", "Panama"],
 }
 
 # Knockout bracket seeding: which groups feed into which R32 slots
