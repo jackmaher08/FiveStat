@@ -70,6 +70,8 @@ BASELINE_ELO = {
     "Curacao":                1433,
     "Qatar":                  1423,
     "Kenya":                  1356,
+    "Uzbekistan":             1718,
+    "Ghana":                  1510,
 }
 
 K_FACTOR = 40
