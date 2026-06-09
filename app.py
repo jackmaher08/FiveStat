@@ -1482,6 +1482,28 @@ def wc_group(group_id):
         import traceback; traceback.print_exc()
         return redirect("/world-cup")
 
+
+@app.route("/wc-debug")
+def wc_debug():
+    import json
+    elo = json.load(open("data/wc_elo.json"))
+    matches = json.load(open("data/wc_matches.json"))
+    spain_elo = elo["ratings"].get("Spain", "NOT FOUND")
+    arg_elo = elo["ratings"].get("Argentina", "NOT FOUND")
+    group_h = list(set(
+        [m["home"] for m in matches["matches"] if m.get("group") == "GROUP_H"] +
+        [m["away"] for m in matches["matches"] if m.get("group") == "GROUP_H"]
+    ))
+    all_keys = list(elo["ratings"].keys())
+    return {
+        "spain_elo": spain_elo,
+        "argentina_elo": arg_elo,
+        "group_h_teams_in_matches": group_h,
+        "elo_keys_sample": sorted(all_keys)[:20]
+    }
+
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
