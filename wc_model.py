@@ -2,7 +2,7 @@ import os
 import json
 import random
 from datetime import datetime, timezone
-from wc_scraper import BASELINE_ELO
+
 
 DATA_DIR        = os.path.join(os.path.dirname(__file__), "data")
 WC_ELO_PATH     = os.path.join(DATA_DIR, "wc_elo.json")
@@ -28,7 +28,65 @@ WC_GROUPS = {
     "L": ["England", "Croatia", "Ghana", "Panama"],
 }
 
-
+BASELINE_ELO = {
+    "Spain":                  2165,
+    "Argentina":              2113,
+    "France":                 2081,
+    "England":                2020,
+    "Brazil":                 1988,
+    "Portugal":               1984,
+    "Colombia":               1977,
+    "Netherlands":            1944,
+    "Ecuador":                1935,
+    "Germany":                1925,
+    "Norway":                 1917,
+    "Croatia":                1908,
+    "Turkey":                 1906,
+    "Japan":                  1906,
+    "Switzerland":            1894,
+    "Uruguay":                1892,
+    "Belgium":                1888,
+    "Mexico":                 1867,
+    "Senegal":                1867,
+    "Denmark":                1864,
+    "Paraguay":               1832,
+    "Austria":                1830,
+    "Morocco":                1824,
+    "Canada":                 1793,
+    "Ukraine":                1785,
+    "Australia":              1774,
+    "Scotland":               1770,
+    "Nigeria":                1770,
+    "Iran":                   1764,
+    "Algeria":                1760,
+    "South Korea":            1756,
+    "Serbia":                 1742,
+    "Czech Republic":         1733,
+    "USA":                    1733,
+    "Panama":                 1733,
+    "Venezuela":              1727,
+    "Sweden":                 1714,
+    "Egypt":                  1699,
+    "Slovenia":               1694,
+    "Jordan":                 1685,
+    "Ivory Coast":            1676,
+    "Slovakia":               1674,
+    "Congo DR":               1661,
+    "Romania":                1630,
+    "Cameroon":               1613,
+    "Iraq":                   1608,
+    "Bosnia and Herzegovina": 1591,
+    "Cabo Verde":             1576,
+    "Saudi Arabia":           1566,
+    "New Zealand":            1563,
+    "Haiti":                  1554,
+    "South Africa":           1518,
+    "Uzbekistan":             1718,
+    "Ghana":                  1510,
+    "Curacao":                1433,
+    "Qatar":                  1423,
+    "Kenya":                  1356,
+}
 
 
 def load_data():
