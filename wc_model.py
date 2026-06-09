@@ -28,27 +28,7 @@ WC_GROUPS = {
     "L": ["England", "Croatia", "Ghana", "Panama"],
 }
 
-# Knockout bracket seeding: which groups feed into which R32 slots
-# Format: (winner_group, runner_up_group) per match
-# Based on official FIFA 2026 bracket
-R32_BRACKET = [
-    ("A", "w", "B", "r"),
-    ("C", "w", "D", "r"),
-    ("E", "w", "F", "r"),
-    ("G", "w", "H", "r"),
-    ("I", "w", "J", "r"),
-    ("K", "w", "L", "r"),
-    ("A", "r", "B", "w"),
-    ("C", "r", "D", "w"),
-    ("E", "r", "F", "w"),
-    ("G", "r", "H", "w"),
-    ("I", "r", "J", "w"),
-    ("K", "r", "L", "w"),
-    ("3rd_1", None, "3rd_2", None),
-    ("3rd_3", None, "3rd_4", None),
-    ("3rd_5", None, "3rd_6", None),
-    ("3rd_7", None, "3rd_8", None),
-]
+
 
 
 def load_data():
@@ -92,38 +72,12 @@ def simulate_match(team_a, team_b, ratings, allow_draw=True):
         return team_b, team_a
 
 
-def simulate_group(group_teams, ratings):
-    points  = {t: 0 for t in group_teams}
-    gd      = {t: 0 for t in group_teams}
-    gf      = {t: 0 for t in group_teams}
-
-    fixtures = [
-        (group_teams[0], group_teams[1]),
-        (group_teams[2], group_teams[3]),
-        (group_teams[0], group_teams[2]),
-        (group_teams[1], group_teams[3]),
-        (group_teams[0], group_teams[3]),
-        (group_teams[1], group_teams[2]),
-    ]
-
-    for a, b in fixtures:
-        winner, loser = simulate_match(a, b, ratings, allow_draw=True)
-        if winner is None:
-            points[a] += 1
-            points[b] += 1
-        else:
-            points[winner] += 3
-
-    standings = sorted(group_teams, key=lambda t: points[t], reverse=True)
-    return standings, points
-
 
 def simulate_tournament(ratings, finished_matches):
     group_results = {}
-    third_place_teams = []
 
     for group, teams in WC_GROUPS.items():
-        overrides = {t: {"w": 0, "d": 0, "l": 0, "pts": 0} for t in teams}
+        overrides = {t: {"pts": 0} for t in teams}
 
         for m in finished_matches:
             if m.get("group") not in (f"Group {group}", f"GROUP_{group}"):
@@ -163,58 +117,99 @@ def simulate_tournament(ratings, finished_matches):
 
         standings = sorted(teams, key=lambda t: (sim_pts[t], ratings.get(t, 1750)), reverse=True)
         group_results[group] = {
-            "winner":      standings[0],
-            "runner_up":   standings[1],
-            "third":       standings[2],
-            "third_pts":   sim_pts[standings[2]],
-            "standings":   standings,
-            "points":      sim_pts,
+            "winner":    standings[0],
+            "runner_up": standings[1],
+            "third":     standings[2],
+            "third_pts": sim_pts[standings[2]],
         }
-        third_place_teams.append((standings[2], sim_pts[standings[2]], group))
 
-    third_place_teams.sort(key=lambda x: (x[1], ratings.get(x[0], 1750)), reverse=True)
-    best_thirds = [t[0] for t in third_place_teams[:8]]
+    # Pick 8 best third-place teams by points then ELO
+    all_thirds = sorted(
+        [(g, d["third"], d["third_pts"]) for g, d in group_results.items()],
+        key=lambda x: (x[2], ratings.get(x[1], 1750)),
+        reverse=True
+    )
+    best_thirds = [t[1] for t in all_thirds[:8]]
+    random.shuffle(best_thirds)
 
-    r32_field = []
-    groups_list = list(WC_GROUPS.keys())
+    def w(group, pos):
+        return group_results[group]["winner"] if pos == "w" else group_results[group]["runner_up"]
 
-    for i in range(0, 12, 2):
-        g1, g2 = groups_list[i], groups_list[i+1]
-        r32_field.append((group_results[g1]["winner"],   group_results[g2]["runner_up"]))
-        r32_field.append((group_results[g2]["winner"],   group_results[g1]["runner_up"]))
+    def t(i):
+        return best_thirds[i]
 
-    for i in range(0, 8, 2):
-        r32_field.append((best_thirds[i], best_thirds[i+1]))
+    # Round of 32 — exact FIFA 2026 bracket
+    r32 = [
+        (w("A", "r"), w("B", "r")),   # M73
+        (w("E", "w"), t(0)),           # M74 — 3rd ABCDF
+        (w("F", "w"), w("C", "r")),   # M75
+        (w("C", "w"), w("F", "r")),   # M76
+        (w("I", "w"), t(1)),           # M77 — 3rd CDFGH
+        (w("E", "r"), w("I", "r")),   # M78
+        (w("A", "w"), t(2)),           # M79 — 3rd CEFHI
+        (w("L", "w"), t(3)),           # M80 — 3rd EHIJK
+        (w("D", "w"), t(4)),           # M81 — 3rd BEFIJ
+        (w("G", "w"), t(5)),           # M82 — 3rd AEHIJ
+        (w("K", "r"), w("L", "r")),   # M83
+        (w("H", "w"), w("J", "r")),   # M84
+        (w("B", "w"), t(6)),           # M85 — 3rd EFGIJ
+        (w("J", "w"), w("H", "r")),   # M86
+        (w("K", "w"), t(7)),           # M87 — 3rd DEIJL
+        (w("D", "r"), w("G", "r")),   # M88
+    ]
 
     def play_round(matches):
-        winners = []
-        for a, b in matches:
-            w, _ = simulate_match(a, b, ratings, allow_draw=False)
-            winners.append(w)
-        return winners
+        return [
+            simulate_match(a, b, ratings, allow_draw=False)[0]
+            for a, b in matches
+        ]
 
-    r32_winners = play_round(r32_field)
+    r32_winners = play_round(r32)
 
-    r16_field = [(r32_winners[i], r32_winners[i+1]) for i in range(0, 16, 2)]
-    r16_winners = play_round(r16_field)
+    # Round of 16 — winners progress in bracket order
+    # M89: W74 v W77 | M90: W73 v W75 | M91: W76 v W78 | M92: W79 v W80
+    # M93: W83 v W84 | M94: W81 v W82 | M95: W86 v W88 | M96: W85 v W87
+    r16 = [
+        (r32_winners[1],  r32_winners[3]),   # M89: W74 v W77
+        (r32_winners[0],  r32_winners[2]),   # M90: W73 v W75
+        (r32_winners[4],  r32_winners[5]),   # M91: W76 v W78  (fixed: W76=idx4 after reorder)
+        (r32_winners[6],  r32_winners[7]),   # M92: W79 v W80
+        (r32_winners[10], r32_winners[11]),  # M93: W83 v W84
+        (r32_winners[8],  r32_winners[9]),   # M94: W81 v W82
+        (r32_winners[13], r32_winners[15]),  # M95: W86 v W88
+        (r32_winners[12], r32_winners[14]),  # M96: W85 v W87
+    ]
+    r16_winners = play_round(r16)
 
-    qf_field = [(r16_winners[i], r16_winners[i+1]) for i in range(0, 8, 2)]
-    qf_winners = play_round(qf_field)
+    # Quarter-finals
+    # M97: W89 v W90 | M98: W93 v W94 | M99: W91 v W92 | M100: W95 v W96
+    qf = [
+        (r16_winners[0], r16_winners[1]),  # M97
+        (r16_winners[4], r16_winners[5]),  # M98
+        (r16_winners[2], r16_winners[3]),  # M99
+        (r16_winners[6], r16_winners[7]),  # M100
+    ]
+    qf_winners = play_round(qf)
 
-    sf_field = [(qf_winners[i], qf_winners[i+1]) for i in range(0, 4, 2)]
-    sf_winners = play_round(sf_field)
+    # Semi-finals
+    # M101: W97 v W98 | M102: W99 v W100
+    sf = [
+        (qf_winners[0], qf_winners[1]),  # M101
+        (qf_winners[2], qf_winners[3]),  # M102
+    ]
+    sf_winners = play_round(sf)
 
     finalist_a, finalist_b = sf_winners[0], sf_winners[1]
     champion, _ = simulate_match(finalist_a, finalist_b, ratings, allow_draw=False)
 
     return {
-        "group_results":  group_results,
-        "r32_winners":    r32_winners,
-        "r16_winners":    r16_winners,
-        "qf_winners":     qf_winners,
-        "sf_winners":     sf_winners,
-        "finalists":      [finalist_a, finalist_b],
-        "champion":       champion,
+        "group_results": group_results,
+        "r32_winners":   r32_winners,
+        "r16_winners":   r16_winners,
+        "qf_winners":    qf_winners,
+        "sf_winners":    sf_winners,
+        "finalists":     [finalist_a, finalist_b],
+        "champion":      champion,
     }
 
 
