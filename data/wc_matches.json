@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-09T09:31:47.140575+00:00",
+  "scraped_at": "2026-06-09T21:17:03.996626+00:00",
   "matches": [
     {
       "id": 537327,
@@ -941,6 +941,18 @@
       "id": 537389,
       "utcDate": "2026-07-18T21:00:00Z",
       "stage": "THIRD_PLACE",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537390,
+      "utcDate": "2026-07-19T19:00:00Z",
+      "stage": "FINAL",
       "group": null,
       "matchday": null,
       "status": "TIMED",
