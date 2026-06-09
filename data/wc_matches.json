@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-09T05:24:00.798350+00:00",
+  "scraped_at": "2026-06-09T09:31:47.140575+00:00",
   "matches": [
     {
       "id": 537327,
@@ -127,7 +127,7 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 1,
-      "status": "SCHEDULED",
+      "status": "TIMED",
       "home": "Ivory Coast",
       "away": "Ecuador",
       "home_goals": null,
@@ -862,6 +862,78 @@
       "status": "TIMED",
       "home": "Algeria",
       "away": "Austria",
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537383,
+      "utcDate": "2026-07-09T20:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537384,
+      "utcDate": "2026-07-10T19:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537385,
+      "utcDate": "2026-07-11T21:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537386,
+      "utcDate": "2026-07-12T01:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537387,
+      "utcDate": "2026-07-14T19:00:00Z",
+      "stage": "SEMI_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537388,
+      "utcDate": "2026-07-15T19:00:00Z",
+      "stage": "SEMI_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
       "home_goals": null,
       "away_goals": null
     },
