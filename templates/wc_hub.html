@@ -37,7 +37,7 @@
                 <span class="wc-winner-rank">{{ loop.index }}</span>
                 <span class="wc-winner-name">{{ row.team }}</span>
                 <div class="wc-winner-bar-wrap">
-                    <div class="wc-winner-bar" style="width:{{ [row.pct * 4.5, 100] | min }}%"></div>
+                    <div class="wc-winner-bar" style="width:{{ [row.pct * 1, 100] | min }}%"></div>
                 </div>
                 <span class="wc-winner-pct">{{ row.pct }}%</span>
             </div>
