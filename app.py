@@ -8,6 +8,7 @@ from data_loader import load_fixtures, load_match_data, calculate_team_statistic
 from data_loader import calculate_recent_form, get_team_xg
 from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from wc_model import get_wc_data
+from gaa_model import get_gaa_data
 from collections import defaultdict
 from datetime import datetime
 import subprocess
@@ -1501,6 +1502,26 @@ def wc_debug():
         "group_h_teams_in_matches": group_h,
         "elo_keys_sample": sorted(all_keys)[:20]
     }
+
+
+@app.route("/gaa")
+def gaa_hub():
+    try:
+        data = get_gaa_data()
+        return render_template("gaa.html",
+            r1_results=data["r1_results"],
+            r2_fixtures=data["r2_fixtures"],
+            winner_table=data["winner_table"],
+            elo_table=data["elo_table"],
+            last_updated=get_last_updated_time()
+        )
+    except Exception as e:
+        print(f"❌ GAA hub error: {e}")
+        import traceback; traceback.print_exc()
+        return render_template("gaa.html",
+            r1_results=[], r2_fixtures=[], winner_table=[], elo_table=[],
+            last_updated=get_last_updated_time()
+        )
 
 
 
