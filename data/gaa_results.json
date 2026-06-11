@@ -1,0 +1,1745 @@
+{
+  "scraped_at": "2026-06-11T04:38:20.196350+00:00",
+  "results": [
+    {
+      "date": "24/1/2026",
+      "grade": "League",
+      "team1": "Dublin",
+      "team2": "Donegal",
+      "sc1": 20,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/1/2026",
+      "grade": "League",
+      "team1": "Meath",
+      "team2": "Derry",
+      "sc1": 19,
+      "sc2": 16,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "24/1/2026",
+      "grade": "League",
+      "team1": "Tyrone",
+      "team2": "Kildare",
+      "sc1": 22,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/1/2026",
+      "grade": "League",
+      "team1": "Down",
+      "team2": "Clare",
+      "sc1": 25,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/1/2026",
+      "grade": "League",
+      "team1": "Laois",
+      "team2": "Limerick",
+      "sc1": 13,
+      "sc2": 13,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Galway",
+      "team2": "Mayo",
+      "sc1": 24,
+      "sc2": 27,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Kerry",
+      "team2": "Roscommon",
+      "sc1": 24,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Monaghan",
+      "team2": "Armagh",
+      "sc1": 18,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Cork",
+      "team2": "Cavan",
+      "sc1": 24,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Offaly",
+      "team2": "Louth",
+      "sc1": 19,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Fermanagh",
+      "team2": "Wexford",
+      "sc1": 12,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Westmeath",
+      "team2": "Sligo",
+      "sc1": 20,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Antrim",
+      "team2": "Carlow",
+      "sc1": 18,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "London",
+      "team2": "Tipperary",
+      "sc1": 21,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/1/2026",
+      "grade": "League",
+      "team1": "Wicklow",
+      "team2": "Leitrim",
+      "sc1": 20,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Armagh",
+      "team2": "Galway",
+      "sc1": 20,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Kildare",
+      "team2": "Offaly",
+      "sc1": 26,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Derry",
+      "team2": "Tyrone",
+      "sc1": 18,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Limerick",
+      "team2": "Down",
+      "sc1": 17,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Wexford",
+      "team2": "Laois",
+      "sc1": 23,
+      "sc2": 9,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "31/1/2026",
+      "grade": "League",
+      "team1": "Carlow",
+      "team2": "Wicklow",
+      "sc1": 18,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Donegal",
+      "team2": "Kerry",
+      "sc1": 25,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Mayo",
+      "team2": "Dublin",
+      "sc1": 21,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Roscommon",
+      "team2": "Monaghan",
+      "sc1": 25,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Louth",
+      "team2": "Cork",
+      "sc1": 15,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Cavan",
+      "team2": "Meath",
+      "sc1": 21,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Clare",
+      "team2": "Westmeath",
+      "sc1": 20,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Sligo",
+      "team2": "Fermanagh",
+      "sc1": 22,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Leitrim",
+      "team2": "Waterford",
+      "sc1": 19,
+      "sc2": 14,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Longford",
+      "team2": "London",
+      "sc1": 14,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/2/2026",
+      "grade": "League",
+      "team1": "Tipperary",
+      "team2": "Antrim",
+      "sc1": 16,
+      "sc2": 12,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "8/2/2026",
+      "grade": "League",
+      "team1": "Waterford",
+      "team2": "Longford",
+      "sc1": 23,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Kerry",
+      "team2": "Galway",
+      "sc1": 23,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Dublin",
+      "team2": "Monaghan",
+      "sc1": 21,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Meath",
+      "team2": "Louth",
+      "sc1": 23,
+      "sc2": 22,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Kildare",
+      "team2": "Derry",
+      "sc1": 21,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Down",
+      "team2": "Westmeath",
+      "sc1": 21,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Laois",
+      "team2": "Sligo",
+      "sc1": 18,
+      "sc2": 11,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/2/2026",
+      "grade": "League",
+      "team1": "Waterford",
+      "team2": "Wicklow",
+      "sc1": 9,
+      "sc2": 14,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Donegal",
+      "team2": "Mayo",
+      "sc1": 22,
+      "sc2": 14,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Roscommon",
+      "team2": "Armagh",
+      "sc1": 27,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Offaly",
+      "team2": "Cork",
+      "sc1": 19,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Tyrone",
+      "team2": "Cavan",
+      "sc1": 29,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Fermanagh",
+      "team2": "Clare",
+      "sc1": 18,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Limerick",
+      "team2": "Wexford",
+      "sc1": 18,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "London",
+      "team2": "Leitrim",
+      "sc1": 23,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Antrim",
+      "team2": "Longford",
+      "sc1": 17,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/2/2026",
+      "grade": "League",
+      "team1": "Tipperary",
+      "team2": "Carlow",
+      "sc1": 17,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "21/2/2026",
+      "grade": "League",
+      "team1": "Dublin",
+      "team2": "Kerry",
+      "sc1": 13,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "21/2/2026",
+      "grade": "League",
+      "team1": "Galway",
+      "team2": "Roscommon",
+      "sc1": 21,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "21/2/2026",
+      "grade": "League",
+      "team1": "Derry",
+      "team2": "Offaly",
+      "sc1": 31,
+      "sc2": 8,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "21/2/2026",
+      "grade": "League",
+      "team1": "Carlow",
+      "team2": "Waterford",
+      "sc1": 29,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Monaghan",
+      "team2": "Mayo",
+      "sc1": 17,
+      "sc2": 36,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Armagh",
+      "team2": "Donegal",
+      "sc1": 19,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Cork",
+      "team2": "Meath",
+      "sc1": 26,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Louth",
+      "team2": "Tyrone",
+      "sc1": 18,
+      "sc2": 13,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Cavan",
+      "team2": "Kildare",
+      "sc1": 16,
+      "sc2": 13,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Westmeath",
+      "team2": "Fermanagh",
+      "sc1": 29,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Clare",
+      "team2": "Laois",
+      "sc1": 24,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Sligo",
+      "team2": "Limerick",
+      "sc1": 21,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Wexford",
+      "team2": "Down",
+      "sc1": 22,
+      "sc2": 32,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Wicklow",
+      "team2": "London",
+      "sc1": 32,
+      "sc2": 16,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Leitrim",
+      "team2": "Antrim",
+      "sc1": 18,
+      "sc2": 26,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/2/2026",
+      "grade": "League",
+      "team1": "Longford",
+      "team2": "Tipperary",
+      "sc1": 18,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Cavan",
+      "team2": "Louth",
+      "sc1": 15,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Tyrone",
+      "team2": "Offaly",
+      "sc1": 28,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Kildare",
+      "team2": "Meath",
+      "sc1": 10,
+      "sc2": 24,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Down",
+      "team2": "Fermanagh",
+      "sc1": 21,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Laois",
+      "team2": "Westmeath",
+      "sc1": 25,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Limerick",
+      "team2": "Clare",
+      "sc1": 15,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/2/2026",
+      "grade": "League",
+      "team1": "Antrim",
+      "team2": "Wicklow",
+      "sc1": 24,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Kerry",
+      "team2": "Monaghan",
+      "sc1": 21,
+      "sc2": 7,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Mayo",
+      "team2": "Armagh",
+      "sc1": 23,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Donegal",
+      "team2": "Galway",
+      "sc1": 20,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Roscommon",
+      "team2": "Dublin",
+      "sc1": 13,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Derry",
+      "team2": "Cork",
+      "sc1": 34,
+      "sc2": 14,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Wexford",
+      "team2": "Sligo",
+      "sc1": 16,
+      "sc2": 10,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "London",
+      "team2": "Waterford",
+      "sc1": 25,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Longford",
+      "team2": "Carlow",
+      "sc1": 22,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "1/3/2026",
+      "grade": "League",
+      "team1": "Tipperary",
+      "team2": "Leitrim",
+      "sc1": 21,
+      "sc2": 8,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Kerry",
+      "team2": "Mayo",
+      "sc1": 35,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Dublin",
+      "team2": "Armagh",
+      "sc1": 4,
+      "sc2": 30,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Louth",
+      "team2": "Derry",
+      "sc1": 22,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Cork",
+      "team2": "Kildare",
+      "sc1": 34,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Meath",
+      "team2": "Tyrone",
+      "sc1": 33,
+      "sc2": 28,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Fermanagh",
+      "team2": "Laois",
+      "sc1": 19,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/3/2026",
+      "grade": "League",
+      "team1": "Carlow",
+      "team2": "London",
+      "sc1": 18,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Roscommon",
+      "team2": "Donegal",
+      "sc1": 26,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Monaghan",
+      "team2": "Galway",
+      "sc1": 15,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Offaly",
+      "team2": "Cavan",
+      "sc1": 24,
+      "sc2": 26,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Clare",
+      "team2": "Wexford",
+      "sc1": 23,
+      "sc2": 26,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Sligo",
+      "team2": "Down",
+      "sc1": 21,
+      "sc2": 31,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Westmeath",
+      "team2": "Limerick",
+      "sc1": 33,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Waterford",
+      "team2": "Antrim",
+      "sc1": 11,
+      "sc2": 30,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Leitrim",
+      "team2": "Longford",
+      "sc1": 28,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "15/3/2026",
+      "grade": "League",
+      "team1": "Wicklow",
+      "team2": "Tipperary",
+      "sc1": 28,
+      "sc2": 13,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Armagh",
+      "team2": "Kerry",
+      "sc1": 24,
+      "sc2": 24,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Galway",
+      "team2": "Dublin",
+      "sc1": 20,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Mayo",
+      "team2": "Roscommon",
+      "sc1": 38,
+      "sc2": 17,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Monaghan",
+      "team2": "Donegal",
+      "sc1": 25,
+      "sc2": 29,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Derry",
+      "team2": "Cavan",
+      "sc1": 23,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Kildare",
+      "team2": "Louth",
+      "sc1": 25,
+      "sc2": 28,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Offaly",
+      "team2": "Meath",
+      "sc1": 18,
+      "sc2": 28,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Tyrone",
+      "team2": "Cork",
+      "sc1": 19,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Down",
+      "team2": "Laois",
+      "sc1": 24,
+      "sc2": 28,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Limerick",
+      "team2": "Fermanagh",
+      "sc1": 21,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Sligo",
+      "team2": "Clare",
+      "sc1": 29,
+      "sc2": 28,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Wexford",
+      "team2": "Westmeath",
+      "sc1": 22,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Antrim",
+      "team2": "London",
+      "sc1": 31,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Carlow",
+      "team2": "Leitrim",
+      "sc1": 34,
+      "sc2": 11,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Longford",
+      "team2": "Wicklow",
+      "sc1": 27,
+      "sc2": 26,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "22/3/2026",
+      "grade": "League",
+      "team1": "Tipperary",
+      "team2": "Waterford",
+      "sc1": 31,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "28/3/2026",
+      "grade": "League",
+      "team1": "Carlow",
+      "team2": "Longford",
+      "sc1": 27,
+      "sc2": 24,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "28/3/2026",
+      "grade": "League",
+      "team1": "Down",
+      "team2": "Wexford",
+      "sc1": 21,
+      "sc2": 18,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "29/3/2026",
+      "grade": "League",
+      "team1": "Cork",
+      "team2": "Meath",
+      "sc1": 23,
+      "sc2": 25,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "29/3/2026",
+      "grade": "League",
+      "team1": "Kerry",
+      "team2": "Donegal",
+      "sc1": 16,
+      "sc2": 29,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "11/4/2026",
+      "grade": "Provincial",
+      "team1": "Offaly",
+      "team2": "Laois",
+      "sc1": 12,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "11/4/2026",
+      "grade": "Provincial",
+      "team1": "London",
+      "team2": "Mayo",
+      "sc1": 18,
+      "sc2": 31,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Armagh",
+      "team2": "Tyrone",
+      "sc1": 20,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Waterford",
+      "team2": "Tipperary",
+      "sc1": 10,
+      "sc2": 15,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Cork",
+      "team2": "Limerick",
+      "sc1": 28,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Carlow",
+      "team2": "Wicklow",
+      "sc1": 10,
+      "sc2": 21,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Longford",
+      "team2": "Westmeath",
+      "sc1": 19,
+      "sc2": 40,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "Sligo",
+      "team2": "Leitrim",
+      "sc1": 23,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "12/4/2026",
+      "grade": "Provincial",
+      "team1": "New York",
+      "team2": "Roscommon",
+      "sc1": 13,
+      "sc2": 37,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "18/4/2026",
+      "grade": "Provincial",
+      "team1": "Derry",
+      "team2": "Antrim",
+      "sc1": 26,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "19/4/2026",
+      "grade": "Provincial",
+      "team1": "Monaghan",
+      "team2": "Cavan",
+      "sc1": 27,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "19/4/2026",
+      "grade": "Provincial",
+      "team1": "Louth",
+      "team2": "Wexford",
+      "sc1": 28,
+      "sc2": 11,
+      "home": false,
+      "weight": 2
+    },
+    {
+      "date": "19/4/2026",
+      "grade": "Provincial",
+      "team1": "Wicklow",
+      "team2": "Dublin",
+      "sc1": 20,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "19/4/2026",
+      "grade": "Provincial",
+      "team1": "Meath",
+      "team2": "Westmeath",
+      "sc1": 25,
+      "sc2": 30,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "19/4/2026",
+      "grade": "Provincial",
+      "team1": "Kildare",
+      "team2": "Laois",
+      "sc1": 26,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/4/2026",
+      "grade": "Provincial",
+      "team1": "Fermanagh",
+      "team2": "Armagh",
+      "sc1": 27,
+      "sc2": 38,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/4/2026",
+      "grade": "Provincial",
+      "team1": "Clare",
+      "team2": "Kerry",
+      "sc1": 17,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "25/4/2026",
+      "grade": "Provincial",
+      "team1": "Tipperary",
+      "team2": "Cork",
+      "sc1": 15,
+      "sc2": 30,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "25/4/2026",
+      "grade": "Provincial",
+      "team1": "Leitrim",
+      "team2": "Galway",
+      "sc1": 18,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "26/4/2026",
+      "grade": "Provincial",
+      "team1": "Donegal",
+      "team2": "Down",
+      "sc1": 24,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "26/4/2026",
+      "grade": "Provincial",
+      "team1": "Mayo",
+      "team2": "Roscommon",
+      "sc1": 21,
+      "sc2": 31,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "2/5/2026",
+      "grade": "Provincial",
+      "team1": "Derry",
+      "team2": "Monaghan",
+      "sc1": 32,
+      "sc2": 33,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "2/5/2026",
+      "grade": "Provincial",
+      "team1": "Louth",
+      "team2": "Dublin",
+      "sc1": 10,
+      "sc2": 20,
+      "home": false,
+      "weight": 2
+    },
+    {
+      "date": "3/5/2026",
+      "grade": "Provincial",
+      "team1": "Armagh",
+      "team2": "Down",
+      "sc1": 42,
+      "sc2": 14,
+      "home": false,
+      "weight": 2
+    },
+    {
+      "date": "3/5/2026",
+      "grade": "Provincial",
+      "team1": "Westmeath",
+      "team2": "Kildare",
+      "sc1": 27,
+      "sc2": 23,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "9/5/2026",
+      "grade": "Tailteann",
+      "team1": "Clare",
+      "team2": "Offaly",
+      "sc1": 17,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "9/5/2026",
+      "grade": "Tailteann",
+      "team1": "Wexford",
+      "team2": "Limerick",
+      "sc1": 25,
+      "sc2": 14,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Provincial",
+      "team1": "Kerry",
+      "team2": "Cork",
+      "sc1": 26,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Provincial",
+      "team1": "Roscommon",
+      "team2": "Galway",
+      "sc1": 30,
+      "sc2": 28,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Tailteann",
+      "team1": "Carlow",
+      "team2": "Antrim",
+      "sc1": 32,
+      "sc2": 35,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Tailteann",
+      "team1": "Fermanagh",
+      "team2": "Longford",
+      "sc1": 27,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Tailteann",
+      "team1": "Laois",
+      "team2": "Wicklow",
+      "sc1": 26,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Tailteann",
+      "team1": "Sligo",
+      "team2": "Tipperary",
+      "sc1": 15,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "10/5/2026",
+      "grade": "Tailteann",
+      "team1": "Waterford",
+      "team2": "London",
+      "sc1": 10,
+      "sc2": 27,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "16/5/2026",
+      "grade": "Tailteann",
+      "team1": "Down",
+      "team2": "Leitrim",
+      "sc1": 30,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "17/5/2026",
+      "grade": "Provincial",
+      "team1": "Monaghan",
+      "team2": "Armagh",
+      "sc1": 25,
+      "sc2": 34,
+      "home": false,
+      "weight": 1
+    },
+    {
+      "date": "17/5/2026",
+      "grade": "Provincial",
+      "team1": "Dublin",
+      "team2": "Westmeath",
+      "sc1": 26,
+      "sc2": 34,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Kerry",
+      "team2": "Donegal",
+      "sc1": 16,
+      "sc2": 26,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Cork",
+      "team2": "Meath",
+      "sc1": 30,
+      "sc2": 27,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Galway",
+      "team2": "Kildare",
+      "sc1": 30,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Roscommon",
+      "team2": "Tyrone",
+      "sc1": 24,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/5/2026",
+      "grade": "Tailteann",
+      "team1": "Antrim",
+      "team2": "Tipperary",
+      "sc1": 24,
+      "sc2": 18,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/5/2026",
+      "grade": "Tailteann",
+      "team1": "Fermanagh",
+      "team2": "Wexford",
+      "sc1": 26,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "Tailteann",
+      "team1": "Offaly",
+      "team2": "Down",
+      "sc1": 31,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "Tailteann",
+      "team1": "London",
+      "team2": "Laois",
+      "sc1": 17,
+      "sc2": 32,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "Tailteann",
+      "team1": "Wicklow",
+      "team2": "Limerick",
+      "sc1": 29,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "Tailteann",
+      "team1": "Clare",
+      "team2": "Longford",
+      "sc1": 21,
+      "sc2": 23,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "24/5/2026",
+      "grade": "Tailteann",
+      "team1": "Waterford",
+      "team2": "Sligo",
+      "sc1": 21,
+      "sc2": 29,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "23/5/2026",
+      "grade": "Tailteann",
+      "team1": "Leitrim",
+      "team2": "Carlow",
+      "sc1": 22,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "30/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Armagh",
+      "team2": "Derry",
+      "sc1": 21,
+      "sc2": 16,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "30/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Westmeath",
+      "team2": "Cavan",
+      "sc1": 34,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Monaghan",
+      "team2": "Mayo",
+      "sc1": 26,
+      "sc2": 27,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "31/5/2026",
+      "grade": "All-Ireland",
+      "team1": "Dublin",
+      "team2": "Louth",
+      "sc1": 27,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "6/6/2026",
+      "grade": "Tailteann",
+      "team1": "Fermanagh",
+      "team2": "New York",
+      "sc1": 36,
+      "sc2": 19,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "6/6/2026",
+      "grade": "Tailteann",
+      "team1": "Leitrim",
+      "team2": "Wexford",
+      "sc1": 15,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "6/6/2026",
+      "grade": "Tailteann",
+      "team1": "Wicklow",
+      "team2": "Tipperary",
+      "sc1": 20,
+      "sc2": 12,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "6/6/2026",
+      "grade": "Tailteann",
+      "team1": "Longford",
+      "team2": "Down",
+      "sc1": 17,
+      "sc2": 30,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "6/6/2026",
+      "grade": "Tailteann",
+      "team1": "London",
+      "team2": "Sligo",
+      "sc1": 16,
+      "sc2": 22,
+      "home": true,
+      "weight": 1
+    }
+  ]
+}
