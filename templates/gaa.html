@@ -108,24 +108,7 @@
             </div>
         </section>
 
-        <section class="gaa-section">
-            <div class="wc-section-header">
-                <span class="wc-section-icon"><i class="fa-solid fa-rotate-left"></i></span>
-                <h2 class="wc-section-title">Round 1 Results</h2>
-            </div>
-            <div class="gaa-fixtures-list">
-                {% for m in r1_results %}
-                <div class="wc-fixture wc-fixture--finished">
-                    <div class="wc-fixture-date">Round 1</div>
-                    <div class="wc-fixture-teams">
-                        <span class="wc-fixture-team {% if m.winner == m.home %}wc-fixture-team--winner{% endif %}" style="text-align:right;">{{ m.home }}</span>
-                        <span class="wc-fixture-score">{{ m.home_score }} – {{ m.away_score }}</span>
-                        <span class="wc-fixture-team {% if m.winner == m.away %}wc-fixture-team--winner{% endif %}" style="text-align:left;">{{ m.away }}</span>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
+        
 
     </div>
 
@@ -152,26 +135,7 @@
             </div>
         </section>
 
-        <section class="gaa-section">
-            <div class="wc-section-header">
-                <span class="wc-section-icon"><i class="fa-solid fa-signal"></i></span>
-                <h2 class="wc-section-title">ELO Rankings</h2>
-            </div>
-            <p class="wc-section-sub">Current county ratings. Source: <a href="https://docs.google.com/spreadsheets/d/1y5VpAqogmLXSVOBYKaGLKX2YOaAOZOJK2SYIN2SpgrA" target="_blank" style="color:var(--accent);">GAA ELO ratings sheet</a>.</p>
-
-            <div class="gaa-elo-table">
-                {% for row in elo_table[:16] %}
-                <div class="gaa-elo-row">
-                    <span class="gaa-elo-rank">{{ loop.index }}</span>
-                    <span class="gaa-elo-team">{{ row.team }}</span>
-                    <div class="gaa-elo-bar-wrap">
-                        <div class="gaa-elo-bar" style="width:{{ ((row.elo - 1000) / 1200 * 100) | round }}%"></div>
-                    </div>
-                    <span class="gaa-elo-val">{{ row.elo }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
+        
 
     </div>
 
