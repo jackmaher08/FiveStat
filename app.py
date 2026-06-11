@@ -1524,6 +1524,27 @@ def gaa_hub():
         )
 
 
+@app.route("/gaa-debug")
+def gaa_debug():
+    from flask import jsonify
+    import traceback
+    try:
+        data = get_gaa_data()
+        return jsonify({
+            "status": "ok",
+            "winner_table_count": len(data["winner_table"]),
+            "r2_fixtures_count": len(data["r2_fixtures"]),
+            "elo_table_count": len(data["elo_table"]),
+            "top_3": data["winner_table"][:3],
+            "sample_fixture": data["r2_fixtures"][0] if data["r2_fixtures"] else None,
+        })
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "error": str(e),
+            "traceback": traceback.format_exc()
+        })
+
 
 @app.errorhandler(404)
 def page_not_found(e):
