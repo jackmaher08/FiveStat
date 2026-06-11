@@ -2,7 +2,7 @@ name: GAA Weekly Update
 
 on:
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: '0 5 * * 1'
   workflow_dispatch:
 
 jobs:
