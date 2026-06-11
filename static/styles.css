@@ -4692,3 +4692,131 @@ details.wc-explainer[open] .wc-explainer-chevron {
   .wc-fixture-teams { gap: 0.4rem; }
   .wc-fixture-team { min-width: 80px; font-size: 0.85rem; }
 }
+
+
+/* ============================================================
+   GAA ALL-IRELAND SFC
+   ============================================================ */
+
+.gaa-hub-layout {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.gaa-main-col,
+.gaa-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gaa-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.gaa-stream-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 1rem 0 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.gaa-stream-label--b {
+  color: var(--cl-blue);
+  margin-top: 1.5rem;
+}
+
+.gaa-fixtures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.gaa-elo-badge {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0 4px;
+  margin: 0 4px;
+  vertical-align: middle;
+}
+
+/* ── ELO table ── */
+
+.gaa-elo-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.gaa-elo-row {
+  display: grid;
+  grid-template-columns: 1.5rem 8rem 1fr 3.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.gaa-elo-rank {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.gaa-elo-team {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.gaa-elo-bar-wrap {
+  height: 5px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gaa-elo-bar {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.gaa-elo-val {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .gaa-hub-layout {
+    grid-template-columns: 1fr;
+    padding: 0 0.5rem;
+  }
+
+  .gaa-side-col {
+    order: -1;
+  }
+}
