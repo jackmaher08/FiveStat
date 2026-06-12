@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-11T10:14:42.728908+00:00",
+  "scraped_at": "2026-06-12T10:02:19.095513+00:00",
   "matches": [
     {
       "id": 537327,
@@ -7,11 +7,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Mexico",
       "away": "South Africa",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 0
     },
     {
       "id": 537328,
@@ -19,11 +19,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "South Korea",
       "away": "Czechia",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 1
     },
     {
       "id": 537333,
