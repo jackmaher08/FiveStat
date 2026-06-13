@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-13T01:29:40.899557+00:00",
+  "scraped_at": "2026-06-13T08:51:25.385019+00:00",
   "matches": [
     {
       "id": 537327,
@@ -43,11 +43,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "matchday": 1,
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "home": "USA",
       "away": "Paraguay",
-      "home_goals": 1,
-      "away_goals": 0
+      "home_goals": 4,
+      "away_goals": 1
     },
     {
       "id": 537334,
@@ -862,6 +862,54 @@
       "status": "TIMED",
       "home": "Algeria",
       "away": "Austria",
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537383,
+      "utcDate": "2026-07-09T20:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537384,
+      "utcDate": "2026-07-10T19:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537385,
+      "utcDate": "2026-07-11T21:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
+      "home_goals": null,
+      "away_goals": null
+    },
+    {
+      "id": 537386,
+      "utcDate": "2026-07-12T01:00:00Z",
+      "stage": "QUARTER_FINALS",
+      "group": null,
+      "matchday": null,
+      "status": "TIMED",
+      "home": null,
+      "away": null,
       "home_goals": null,
       "away_goals": null
     },
