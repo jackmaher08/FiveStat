@@ -358,8 +358,10 @@ def get_wc_data():
             if m["status"] != "FINISHED":
                 continue
             h, a, hg, ag = m["home"], m["away"], m["home_goals"], m["away_goals"]
-            played[h] += 1
-            played[a] += 1
+            if h in played:
+                played[h] += 1
+            if a in played:
+                played[a] += 1
             if hg > ag:
                 pts[h] += 3
             elif hg == ag:
