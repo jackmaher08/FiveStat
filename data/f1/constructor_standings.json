@@ -20,7 +20,7 @@
     "constructor_id": "mclaren",
     "name": "McLaren",
     "nationality": "British",
-    "points": 118.0,
+    "points": 116.0,
     "wins": 0
   },
   {
@@ -28,7 +28,7 @@
     "constructor_id": "red_bull",
     "name": "Red Bull",
     "nationality": "Austrian",
-    "points": 72.0,
+    "points": 69.0,
     "wins": 0
   },
   {
@@ -36,7 +36,7 @@
     "constructor_id": "alpine",
     "name": "Alpine F1 Team",
     "nationality": "French",
-    "points": 41.0,
+    "points": 50.0,
     "wins": 0
   },
   {
@@ -44,7 +44,7 @@
     "constructor_id": "rb",
     "name": "RB F1 Team",
     "nationality": "Italian",
-    "points": 39.0,
+    "points": 35.0,
     "wins": 0
   },
   {

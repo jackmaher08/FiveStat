@@ -51,7 +51,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 60.0,
+    "points": 58.0,
     "wins": 0
   },
   {
@@ -78,35 +78,35 @@
   },
   {
     "position": 8,
-    "driver_id": "hadjar",
-    "code": "HAD",
-    "name": "Isack Hadjar",
-    "nationality": "French",
-    "constructor": "Red Bull",
-    "constructor_id": "red_bull",
-    "points": 29.0,
-    "wins": 0
-  },
-  {
-    "position": 9,
-    "driver_id": "lawson",
-    "code": "LAW",
-    "name": "Liam Lawson",
-    "nationality": "New Zealander",
-    "constructor": "RB F1 Team",
-    "constructor_id": "rb",
-    "points": 26.0,
-    "wins": 0
-  },
-  {
-    "position": 10,
     "driver_id": "gasly",
     "code": "GAS",
     "name": "Pierre Gasly",
     "nationality": "French",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
+    "points": 35.0,
+    "wins": 0
+  },
+  {
+    "position": 9,
+    "driver_id": "hadjar",
+    "code": "HAD",
+    "name": "Isack Hadjar",
+    "nationality": "French",
+    "constructor": "Red Bull",
+    "constructor_id": "red_bull",
     "points": 26.0,
+    "wins": 0
+  },
+  {
+    "position": 10,
+    "driver_id": "lawson",
+    "code": "LAW",
+    "name": "Liam Lawson",
+    "nationality": "New Zealander",
+    "constructor": "RB F1 Team",
+    "constructor_id": "rb",
+    "points": 24.0,
     "wins": 0
   },
   {
@@ -139,7 +139,7 @@
     "nationality": "British",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 13.0,
+    "points": 11.0,
     "wins": 0
   },
   {
