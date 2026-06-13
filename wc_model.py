@@ -363,12 +363,12 @@ def get_wc_data():
             if a in played:
                 played[a] += 1
             if hg > ag:
-                pts[h] += 3
+                if h in pts: pts[h] += 3
             elif hg == ag:
-                pts[h] += 1
-                pts[a] += 1
+                if h in pts: pts[h] += 1
+                if a in pts: pts[a] += 1
             else:
-                pts[a] += 3
+                if a in pts: pts[a] += 3
 
         for team in teams:
             standings.append({
