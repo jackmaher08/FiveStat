@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-13T08:51:25.385019+00:00",
+  "scraped_at": "2026-06-14T09:24:22.937740+00:00",
   "matches": [
     {
       "id": 537327,
@@ -55,11 +55,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Qatar",
       "away": "Switzerland",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537339,
@@ -67,11 +67,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Brazil",
       "away": "Morocco",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537340,
@@ -79,11 +79,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Haiti",
       "away": "Scotland",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 1
     },
     {
       "id": 537346,
@@ -91,11 +91,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Australia",
       "away": "Turkey",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 0
     },
     {
       "id": 537351,
