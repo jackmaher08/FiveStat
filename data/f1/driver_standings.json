@@ -18,8 +18,8 @@
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 90.0,
-    "wins": 0
+    "points": 115.0,
+    "wins": 1
   },
   {
     "position": 3,
@@ -29,7 +29,7 @@
     "nationality": "British",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 88.0,
+    "points": 106.0,
     "wins": 1
   },
   {
@@ -45,24 +45,24 @@
   },
   {
     "position": 5,
-    "driver_id": "piastri",
-    "code": "PIA",
-    "name": "Oscar Piastri",
-    "nationality": "Australian",
-    "constructor": "McLaren",
-    "constructor_id": "mclaren",
-    "points": 58.0,
-    "wins": 0
-  },
-  {
-    "position": 6,
     "driver_id": "norris",
     "code": "NOR",
     "name": "Lando Norris",
     "nationality": "British",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 58.0,
+    "points": 73.0,
+    "wins": 0
+  },
+  {
+    "position": 6,
+    "driver_id": "piastri",
+    "code": "PIA",
+    "name": "Oscar Piastri",
+    "nationality": "Australian",
+    "constructor": "McLaren",
+    "constructor_id": "mclaren",
+    "points": 68.0,
     "wins": 0
   },
   {
@@ -73,7 +73,7 @@
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 43.0,
+    "points": 55.0,
     "wins": 0
   },
   {
@@ -84,7 +84,7 @@
     "nationality": "French",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 35.0,
+    "points": 41.0,
     "wins": 0
   },
   {
@@ -95,7 +95,7 @@
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 26.0,
+    "points": 34.0,
     "wins": 0
   },
   {
@@ -106,7 +106,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 24.0,
+    "points": 28.0,
     "wins": 0
   },
   {
@@ -128,7 +128,7 @@
     "nationality": "Argentine",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 15.0,
+    "points": 16.0,
     "wins": 0
   },
   {
@@ -139,7 +139,7 @@
     "nationality": "British",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 11.0,
+    "points": 13.0,
     "wins": 0
   },
   {
