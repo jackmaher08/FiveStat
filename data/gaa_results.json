@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-11T04:38:20.196350+00:00",
+  "scraped_at": "2026-06-14T20:36:46.118754+00:00",
   "results": [
     {
       "date": "24/1/2026",
@@ -1740,6 +1740,96 @@
       "sc2": 22,
       "home": true,
       "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "All-Ireland",
+      "team1": "Donegal",
+      "team2": "Cork",
+      "sc1": 16,
+      "sc2": 17,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "All-Ireland",
+      "team1": "Derry",
+      "team2": "Meath",
+      "sc1": 23,
+      "sc2": 27,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "All-Ireland",
+      "team1": "Kildare",
+      "team2": "Kerry",
+      "sc1": 17,
+      "sc2": 31,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "All-Ireland",
+      "team1": "Monaghan",
+      "team2": "Roscommon",
+      "sc1": 23,
+      "sc2": 14,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "Tailteann",
+      "team1": "Fermanagh",
+      "team2": "Sligo",
+      "sc1": 30,
+      "sc2": 9,
+      "home": true,
+      "weight": 2
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "Tailteann",
+      "team1": "Antrim",
+      "team2": "Wicklow",
+      "sc1": 24,
+      "sc2": 25,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "Tailteann",
+      "team1": "Offaly",
+      "team2": "Wexford",
+      "sc1": 25,
+      "sc2": 20,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "13/6/2026",
+      "grade": "Tailteann",
+      "team1": "Laois",
+      "team2": "Down",
+      "sc1": 15,
+      "sc2": 21,
+      "home": true,
+      "weight": 1
+    },
+    {
+      "date": "14/6/2026",
+      "grade": "All-Ireland",
+      "team1": "Louth",
+      "team2": "Armagh",
+      "sc1": 6,
+      "sc2": 25,
+      "home": false,
+      "weight": 2
     }
   ]
 }
