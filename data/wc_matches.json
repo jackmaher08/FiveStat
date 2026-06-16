@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-15T11:53:28.791953+00:00",
+  "scraped_at": "2026-06-16T11:01:14.956027+00:00",
   "matches": [
     {
       "id": 537327,
@@ -151,11 +151,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Spain",
       "away": "Cape Verde Islands",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 0
     },
     {
       "id": 537363,
@@ -163,11 +163,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Belgium",
       "away": "Egypt",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537370,
@@ -175,11 +175,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Saudi Arabia",
       "away": "Uruguay",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537364,
@@ -187,11 +187,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Iran",
       "away": "New Zealand",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 2
     },
     {
       "id": 537391,
