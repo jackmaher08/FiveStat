@@ -3,6 +3,11 @@ import json
 import random
 from datetime import datetime, timezone
 
+DISPLAY_NAME_MAP = {
+    "Cape Verde Islands": "Cabo Verde",
+    "Czechia":            "Czech Republic",
+}
+
 
 DATA_DIR        = os.path.join(os.path.dirname(__file__), "data")
 WC_ELO_PATH     = os.path.join(DATA_DIR, "wc_elo.json")
@@ -320,6 +325,9 @@ def run_simulation(ratings, finished_matches):
 def get_match_predictions(ratings, matches):
     predictions = []
     for m in matches:
+        m = {**m,
+             "home": DISPLAY_NAME_MAP.get(m["home"], m["home"]),
+             "away": DISPLAY_NAME_MAP.get(m["away"], m["away"])}
         if m["status"] == "FINISHED":
             predictions.append({**m, "predicted": False})
             continue
