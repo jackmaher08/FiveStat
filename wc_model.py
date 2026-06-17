@@ -379,8 +379,7 @@ def get_wc_data():
                 "qualify": qualify_probs[group].get(team, 0),
                 "win":     probs["winner"].get(team, 0),
             })
-        standings.sort(key=lambda x: (x["pts"], x["elo"]), reverse=True)
-
+        standings.sort(key=lambda x: (x["pts"], x["played"], x["elo"]), reverse=True)
         groups_out[group] = {
             "teams":   standings,
             "matches": group_matches,
