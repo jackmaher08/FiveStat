@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-17T00:46:16.494050+00:00",
+  "scraped_at": "2026-06-17T10:45:27.027243+00:00",
   "matches": [
     {
       "id": 537327,
@@ -223,11 +223,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Argentina",
       "away": "Algeria",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 0
     },
     {
       "id": 537398,
@@ -235,11 +235,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Austria",
       "away": "Jordan",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 1
     },
     {
       "id": 537403,
