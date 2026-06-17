@@ -16,10 +16,15 @@ SHEET_ID    = "1y5VpAqogmLXSVOBYKaGLKX2YOaAOZOJK2SYIN2SpgrA"
 ELO_GID     = 887483570   # "Elo values" tab
 SEASON_GID  = 1607142428  # "2026" tab - match results
 
-HOME_ADV    = 79    # from Mangan & Collins (2016)
-K_LEAGUE    = 50
+HOME_ADV    = 130   # from Rules tab
+K_AI        = 80
 K_PROVINCE  = 70
-K_AI        = 100
+K_QUALIFIER = 60
+K_LEAGUE    = 45
+K_TAILTEANN = 80
+K_OTHER     = 15
+D_FACTOR    = 500   # predictive multiplier
+MAX_MARGIN  = 2.0   # margin cap
 
 COUNTIES = {
     'Dublin', 'Kerry', 'Galway', 'Mayo', 'Tyrone', 'Donegal', 'Armagh',
@@ -33,13 +38,13 @@ COMP_WEIGHTS = {
     'All-Ireland SFC':          K_AI,
     'All-Ireland SFC Round':    K_AI,
     'All-Ireland SFC round':    K_AI,
-    'All-Ireland SFC Qualifier':K_AI,
-    'All-Ireland SFC qualifier':K_AI,
+    'All-Ireland SFC Qualifier':K_QUALIFIER,
+    'All-Ireland SFC qualifier':K_QUALIFIER,
     'Ulster SFC':               K_PROVINCE,
     'Munster SFC':              K_PROVINCE,
     'Leinster SFC':             K_PROVINCE,
     'Connacht SFC':             K_PROVINCE,
-    'Tailteann Cup':            K_PROVINCE,
+    'Tailteann Cup':            K_TAILTEANN,
     'Allianz Football':         K_LEAGUE,
     'National Football League': K_LEAGUE,
     'Lidl National Football':   K_LEAGUE,
@@ -157,7 +162,7 @@ def update_elo_from_results(ratings, results):
         r2 = updated[t2]
         home_bonus = HOME_ADV if m['home'] else 0
 
-        oe = 1 / (1 + 10 ** (-((r1 + home_bonus) - r2) / 400))
+        oe = 1 / (1 + 10 ** (-((r1 + home_bonus) - r2) / D_FACTOR))
 
         sc1, sc2 = m['sc1'], m['sc2']
         if sc1 > sc2:
@@ -167,7 +172,7 @@ def update_elo_from_results(ratings, results):
         else:
             o = 0.5
 
-        margin_ratio = min(max(sc1, sc2) / max(min(sc1, sc2), 1), 2.5)
+        margin_ratio = min(max(sc1, sc2) / max(min(sc1, sc2), 1), MAX_MARGIN)
         k = m['weight'] * margin_ratio
 
         updated[t1] = updated[t1] + k * (o - oe)
