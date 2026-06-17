@@ -1509,8 +1509,9 @@ def gaa_hub():
     try:
         data = get_gaa_data()
         return render_template("gaa.html",
-            r1_results=data["r1_results"],
-            r2_fixtures=data["r2_fixtures"],
+            current_label=data["current_label"],
+            cur_fixtures=data["cur_fixtures"],
+            recent_results=data["recent_results"],
             winner_table=data["winner_table"],
             elo_table=data["elo_table"],
             last_updated=get_last_updated_time()
@@ -1519,7 +1520,8 @@ def gaa_hub():
         print(f"❌ GAA hub error: {e}")
         import traceback; traceback.print_exc()
         return render_template("gaa.html",
-            r1_results=[], r2_fixtures=[], winner_table=[], elo_table=[],
+            current_label="Championship", cur_fixtures=[], recent_results=[],
+            winner_table=[], elo_table=[],
             last_updated=get_last_updated_time()
         )
 
