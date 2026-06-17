@@ -33,7 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/gaa_elo.json data/gaa_results.json
+          git add data/gaa_elo.json data/gaa_results.json data/gaa_fixtures.json
           git diff --staged --quiet && echo "Nothing to commit" || \
             git commit -m "GAA data update: $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
