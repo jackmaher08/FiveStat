@@ -22,18 +22,15 @@
         <section class="gaa-section">
             <div class="wc-section-header">
                 <span class="wc-section-icon"><i class="fa-solid fa-calendar-days"></i></span>
-                <h2 class="wc-section-title">Round 2 Predictions</h2>
+                <h2 class="wc-section-title">{{ current_label }} Predictions</h2>
             </div>
-            <p class="wc-section-sub">Match probabilities for this weekend's fixtures. 2A = winners' stream, 2B = second chance stream.</p>
+            <p class="wc-section-sub">Match probabilities for the current round of fixtures.</p>
 
-            {% set r2a = r2_fixtures | selectattr("stream", "equalto", "2A") | list %}
-            {% set r2b = r2_fixtures | selectattr("stream", "equalto", "2B") | list %}
-
-            <div class="gaa-stream-label">Stream 2A — Winners</div>
+            {% if cur_fixtures %}
             <div class="gaa-fixtures-list">
-                {% for match in r2a %}
+                {% for match in cur_fixtures %}
                 <div class="wc-fixture">
-                    <div class="wc-fixture-date">{{ match.date }} · {{ match.stream }}</div>
+                    <div class="wc-fixture-date">{{ match.date }} · {{ match.round_label }}{% if match.neutral %} · Neutral{% endif %}</div>
                     <div class="wc-fixture-teams">
                         <span class="wc-fixture-team" style="text-align:right;">
                             {{ match.home }}
@@ -67,48 +64,29 @@
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+            <p class="wc-table-note">No upcoming fixtures — the championship may be complete or awaiting the next draw.</p>
+            {% endif %}
+        </section>
 
-            <div class="gaa-stream-label gaa-stream-label--b">Stream 2B — Second Chance</div>
+        <section class="gaa-section">
+            <div class="wc-section-header">
+                <span class="wc-section-icon"><i class="fa-solid fa-rotate-left"></i></span>
+                <h2 class="wc-section-title">Recent Results</h2>
+            </div>
             <div class="gaa-fixtures-list">
-                {% for match in r2b %}
-                <div class="wc-fixture">
-                    <div class="wc-fixture-date">{{ match.date }} · {{ match.stream }}</div>
+                {% for m in recent_results %}
+                <div class="wc-fixture wc-fixture--finished">
+                    <div class="wc-fixture-date">{{ m.round_label }}</div>
                     <div class="wc-fixture-teams">
-                        <span class="wc-fixture-team" style="text-align:right;">
-                            {{ match.home }}
-                            <span class="gaa-elo-badge">{{ match.home_elo }}</span>
-                        </span>
-                        <span class="wc-fixture-vs">vs</span>
-                        <span class="wc-fixture-team" style="text-align:left;">
-                            <span class="gaa-elo-badge">{{ match.away_elo }}</span>
-                            {{ match.away }}
-                        </span>
-                    </div>
-                    <div class="wc-fixture-probs">
-                        <div class="wc-prob-block">
-                            <span class="wc-prob-label">{{ match.home[:3] | upper }}</span>
-                            <span class="wc-prob-val">{{ match.prob_home }}%</span>
-                        </div>
-                        <div class="wc-prob-block wc-prob-block--draw">
-                            <span class="wc-prob-label">Draw</span>
-                            <span class="wc-prob-val">{{ match.prob_draw }}%</span>
-                        </div>
-                        <div class="wc-prob-block">
-                            <span class="wc-prob-label">{{ match.away[:3] | upper }}</span>
-                            <span class="wc-prob-val">{{ match.prob_away }}%</span>
-                        </div>
-                    </div>
-                    <div class="wc-prob-bar">
-                        <div class="wc-prob-bar-home" style="width:{{ match.prob_home }}%"></div>
-                        <div class="wc-prob-bar-draw" style="width:{{ match.prob_draw }}%"></div>
-                        <div class="wc-prob-bar-away" style="width:{{ match.prob_away }}%"></div>
+                        <span class="wc-fixture-team {% if m.winner == m.home %}wc-fixture-team--winner{% endif %}" style="text-align:right;">{{ m.home }}</span>
+                        <span class="wc-fixture-score">{{ m.home_score }} – {{ m.away_score }}</span>
+                        <span class="wc-fixture-team {% if m.winner == m.away %}wc-fixture-team--winner{% endif %}" style="text-align:left;">{{ m.away }}</span>
                     </div>
                 </div>
                 {% endfor %}
             </div>
         </section>
-
-        
 
     </div>
 
@@ -135,7 +113,26 @@
             </div>
         </section>
 
-        
+        <section class="gaa-section">
+            <div class="wc-section-header">
+                <span class="wc-section-icon"><i class="fa-solid fa-signal"></i></span>
+                <h2 class="wc-section-title">ELO Rankings</h2>
+            </div>
+            <p class="wc-section-sub">Current county ratings. Source: <a href="https://docs.google.com/spreadsheets/d/1y5VpAqogmLXSVOBYKaGLKX2YOaAOZOJK2SYIN2SpgrA" target="_blank" style="color:var(--accent);">GAA ELO ratings sheet</a>.</p>
+
+            <div class="gaa-elo-table">
+                {% for row in elo_table[:16] %}
+                <div class="gaa-elo-row">
+                    <span class="gaa-elo-rank">{{ loop.index }}</span>
+                    <span class="gaa-elo-team">{{ row.team }}</span>
+                    <div class="gaa-elo-bar-wrap">
+                        <div class="gaa-elo-bar" style="width:{{ ((row.elo - 1000) / 1200 * 100) | round }}%"></div>
+                    </div>
+                    <span class="gaa-elo-val">{{ row.elo }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
 
     </div>
 
