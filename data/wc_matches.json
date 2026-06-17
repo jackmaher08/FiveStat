@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-16T11:01:14.956027+00:00",
+  "scraped_at": "2026-06-17T00:46:16.494050+00:00",
   "matches": [
     {
       "id": 537327,
@@ -199,11 +199,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "France",
       "away": "Senegal",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 1
     },
     {
       "id": 537392,
@@ -211,11 +211,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "matchday": 1,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Iraq",
       "away": "Norway",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 4
     },
     {
       "id": 537397,
