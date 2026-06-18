@@ -149,6 +149,8 @@ def simulate_tournament(ratings, finished_matches):
             hg, ag = m["home_goals"], m["away_goals"]
             if h not in overrides or a not in overrides:
                 continue
+            if hg is None or ag is None:
+                continue
             if hg > ag:
                 overrides[h]["pts"] += 3
             elif hg == ag:
@@ -160,6 +162,8 @@ def simulate_tournament(ratings, finished_matches):
         played_pairs = set()
         for m in finished_matches:
             if m.get("group") in (f"Group {group}", f"GROUP_{group}"):
+                if m.get("home_goals") is None or m.get("away_goals") is None:
+                    continue
                 played_pairs.add((m["home"], m["away"]))
 
         sim_pts = {t: overrides[t]["pts"] for t in teams}
@@ -366,6 +370,8 @@ def get_wc_data():
             if m["status"] != "FINISHED":
                 continue
             h, a, hg, ag = m["home"], m["away"], m["home_goals"], m["away_goals"]
+            if hg is None or ag is None:
+                continue
             if h in played:
                 played[h] += 1
             if a in played:
