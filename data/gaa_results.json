@@ -1,1865 +1,2237 @@
 {
-  "scraped_at": "2026-06-19T22:20:48.620119+00:00",
+  "scraped_at": "2026-06-19T23:17:01.722722+00:00",
   "results": [
     {
       "date": "24/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Dublin",
       "team2": "Donegal",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "24/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Meath",
       "team2": "Derry",
+      "home": false,
+      "weight": 1,
       "sc1": 19,
       "sc2": 16,
-      "home": false,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "24/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tyrone",
       "team2": "Kildare",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "24/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Down",
       "team2": "Clare",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "24/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Laois",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 13,
       "sc2": 13,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Galway",
       "team2": "Mayo",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 27,
-      "home": true,
-      "weight": 1
+      "winner": "Mayo"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kerry",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Armagh",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Armagh"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cork",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Offaly",
       "team2": "Louth",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 12,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Westmeath",
       "team2": "Sligo",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Antrim",
       "team2": "Carlow",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Carlow"
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "London",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "25/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wicklow",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Wicklow"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Armagh",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kildare",
       "team2": "Offaly",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Kildare"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Derry",
       "team2": "Tyrone",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Derry"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Limerick",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wexford",
       "team2": "Laois",
+      "home": true,
+      "weight": 2,
       "sc1": 23,
       "sc2": 9,
-      "home": true,
-      "weight": 2
+      "winner": "Wexford"
     },
     {
       "date": "31/1/2026",
       "grade": "League",
+      "round": "",
       "team1": "Carlow",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Carlow"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Donegal",
       "team2": "Kerry",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Mayo",
       "team2": "Dublin",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Mayo"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Monaghan",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Louth",
       "team2": "Cork",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cavan",
       "team2": "Meath",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Clare",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Sligo",
       "team2": "Fermanagh",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Leitrim",
       "team2": "Waterford",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 14,
-      "home": true,
-      "weight": 1
+      "winner": "Leitrim"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Longford",
       "team2": "London",
+      "home": true,
+      "weight": 1,
       "sc1": 14,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "London"
     },
     {
       "date": "1/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tipperary",
       "team2": "Antrim",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 12,
-      "home": true,
-      "weight": 1
+      "winner": "Tipperary"
     },
     {
       "date": "8/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Waterford",
       "team2": "Longford",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kerry",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Dublin",
       "team2": "Monaghan",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Dublin"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Meath",
       "team2": "Louth",
+      "home": false,
+      "weight": 1,
       "sc1": 23,
       "sc2": 22,
-      "home": false,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kildare",
       "team2": "Derry",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Derry"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Down",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Laois",
       "team2": "Sligo",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 11,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "14/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Waterford",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 9,
       "sc2": 14,
-      "home": true,
-      "weight": 1
+      "winner": "Wicklow"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Donegal",
       "team2": "Mayo",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 14,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Armagh",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Offaly",
       "team2": "Cork",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tyrone",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Tyrone"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Clare",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Clare"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Limerick",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Limerick"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "London",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Leitrim"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Antrim",
       "team2": "Longford",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "15/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tipperary",
       "team2": "Carlow",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Carlow"
     },
     {
       "date": "21/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Dublin",
       "team2": "Kerry",
+      "home": true,
+      "weight": 1,
       "sc1": 13,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "21/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Galway",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "21/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Derry",
       "team2": "Offaly",
+      "home": true,
+      "weight": 2,
       "sc1": 31,
       "sc2": 8,
-      "home": true,
-      "weight": 2
+      "winner": "Derry"
     },
     {
       "date": "21/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Carlow",
       "team2": "Waterford",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Carlow"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Mayo",
+      "home": true,
+      "weight": 2,
       "sc1": 17,
       "sc2": 36,
-      "home": true,
-      "weight": 2
+      "winner": "Mayo"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Armagh",
       "team2": "Donegal",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cork",
       "team2": "Meath",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Louth",
       "team2": "Tyrone",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 13,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cavan",
       "team2": "Kildare",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 13,
-      "home": true,
-      "weight": 1
+      "winner": "Cavan"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Westmeath",
       "team2": "Fermanagh",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Clare",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Clare"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Sligo",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wexford",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 32,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wicklow",
       "team2": "London",
+      "home": true,
+      "weight": 2,
       "sc1": 32,
       "sc2": 16,
-      "home": true,
-      "weight": 2
+      "winner": "Wicklow"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Leitrim",
       "team2": "Antrim",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Antrim"
     },
     {
       "date": "22/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Longford",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cavan",
       "team2": "Louth",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tyrone",
       "team2": "Offaly",
+      "home": true,
+      "weight": 1,
       "sc1": 28,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Tyrone"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kildare",
       "team2": "Meath",
+      "home": true,
+      "weight": 2,
       "sc1": 10,
       "sc2": 24,
-      "home": true,
-      "weight": 2
+      "winner": "Meath"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Down",
       "team2": "Fermanagh",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Laois",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Limerick",
       "team2": "Clare",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Clare"
     },
     {
       "date": "28/2/2026",
       "grade": "League",
+      "round": "",
       "team1": "Antrim",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Antrim"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kerry",
       "team2": "Monaghan",
+      "home": true,
+      "weight": 2,
       "sc1": 21,
       "sc2": 7,
-      "home": true,
-      "weight": 2
+      "winner": "Kerry"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Mayo",
       "team2": "Armagh",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Mayo"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Donegal",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Dublin",
+      "home": true,
+      "weight": 1,
       "sc1": 13,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": "Dublin"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Derry",
       "team2": "Cork",
+      "home": true,
+      "weight": 2,
       "sc1": 34,
       "sc2": 14,
-      "home": true,
-      "weight": 2
+      "winner": "Derry"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wexford",
       "team2": "Sligo",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 10,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "London",
       "team2": "Waterford",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "London"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Longford",
       "team2": "Carlow",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "1/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tipperary",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 2,
       "sc1": 21,
       "sc2": 8,
-      "home": true,
-      "weight": 2
+      "winner": "Tipperary"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kerry",
       "team2": "Mayo",
+      "home": true,
+      "weight": 1,
       "sc1": 35,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Dublin",
       "team2": "Armagh",
+      "home": true,
+      "weight": 2,
       "sc1": 4,
       "sc2": 30,
-      "home": true,
-      "weight": 2
+      "winner": "Armagh"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Louth",
       "team2": "Derry",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cork",
       "team2": "Kildare",
+      "home": true,
+      "weight": 1,
       "sc1": 34,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Meath",
       "team2": "Tyrone",
+      "home": false,
+      "weight": 1,
       "sc1": 33,
       "sc2": 28,
-      "home": false,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Fermanagh"
     },
     {
       "date": "14/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Carlow",
       "team2": "London",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "London"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Donegal",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Offaly",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Cavan"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Clare",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Sligo",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 31,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Westmeath",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 33,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Waterford",
       "team2": "Antrim",
+      "home": true,
+      "weight": 2,
       "sc1": 11,
       "sc2": 30,
-      "home": true,
-      "weight": 2
+      "winner": "Antrim"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Leitrim",
       "team2": "Longford",
+      "home": true,
+      "weight": 1,
       "sc1": 28,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Leitrim"
     },
     {
       "date": "15/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wicklow",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 2,
       "sc1": 28,
       "sc2": 13,
-      "home": true,
-      "weight": 2
+      "winner": "Wicklow"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Armagh",
       "team2": "Kerry",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 24,
-      "home": true,
-      "weight": 1
+      "winner": null
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Galway",
       "team2": "Dublin",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Mayo",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 2,
       "sc1": 38,
       "sc2": 17,
-      "home": true,
-      "weight": 2
+      "winner": "Mayo"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Donegal",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 29,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Derry",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Derry"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kildare",
       "team2": "Louth",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 28,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Offaly",
       "team2": "Meath",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 28,
-      "home": true,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tyrone",
       "team2": "Cork",
+      "home": true,
+      "weight": 1,
       "sc1": 19,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Down",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 28,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Limerick",
       "team2": "Fermanagh",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Limerick"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Sligo",
       "team2": "Clare",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 28,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Wexford",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Antrim",
       "team2": "London",
+      "home": true,
+      "weight": 1,
       "sc1": 31,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Antrim"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Carlow",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 2,
       "sc1": 34,
       "sc2": 11,
-      "home": true,
-      "weight": 2
+      "winner": "Carlow"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Longford",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "22/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Tipperary",
       "team2": "Waterford",
+      "home": true,
+      "weight": 1,
       "sc1": 31,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Tipperary"
     },
     {
       "date": "28/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Carlow",
       "team2": "Longford",
+      "home": false,
+      "weight": 1,
       "sc1": 27,
       "sc2": 24,
-      "home": false,
-      "weight": 1
+      "winner": "Carlow"
     },
     {
       "date": "28/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Down",
       "team2": "Wexford",
+      "home": false,
+      "weight": 1,
       "sc1": 21,
       "sc2": 18,
-      "home": false,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "29/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Cork",
       "team2": "Meath",
+      "home": false,
+      "weight": 1,
       "sc1": 23,
       "sc2": 25,
-      "home": false,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "29/3/2026",
       "grade": "League",
+      "round": "",
       "team1": "Kerry",
       "team2": "Donegal",
+      "home": false,
+      "weight": 1,
       "sc1": 16,
       "sc2": 29,
-      "home": false,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "11/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Offaly",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 12,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "11/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "London",
       "team2": "Mayo",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 31,
-      "home": true,
-      "weight": 1
+      "winner": "Mayo"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Armagh",
       "team2": "Tyrone",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Armagh"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Waterford",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 10,
       "sc2": 15,
-      "home": true,
-      "weight": 1
+      "winner": "Tipperary"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Cork",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 28,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Carlow",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 2,
       "sc1": 10,
       "sc2": 21,
-      "home": true,
-      "weight": 2
+      "winner": "Wicklow"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Longford",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 2,
       "sc1": 19,
       "sc2": 40,
-      "home": true,
-      "weight": 2
+      "winner": "Westmeath"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Sligo",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "12/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "New York",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 2,
       "sc1": 13,
       "sc2": 37,
-      "home": true,
-      "weight": 2
+      "winner": "Roscommon"
     },
     {
       "date": "18/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Derry",
       "team2": "Antrim",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Derry"
     },
     {
       "date": "19/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Monaghan"
     },
     {
       "date": "19/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Louth",
       "team2": "Wexford",
+      "home": false,
+      "weight": 2,
       "sc1": 28,
       "sc2": 11,
-      "home": false,
-      "weight": 2
+      "winner": "Louth"
     },
     {
       "date": "19/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Wicklow",
       "team2": "Dublin",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Dublin"
     },
     {
       "date": "19/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Meath",
       "team2": "Westmeath",
+      "home": false,
+      "weight": 1,
       "sc1": 25,
       "sc2": 30,
-      "home": false,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "19/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Kildare",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Kildare"
     },
     {
       "date": "25/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Armagh",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 38,
-      "home": true,
-      "weight": 1
+      "winner": "Armagh"
     },
     {
       "date": "25/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Clare",
       "team2": "Kerry",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "25/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Tipperary",
       "team2": "Cork",
+      "home": true,
+      "weight": 2,
       "sc1": 15,
       "sc2": 30,
-      "home": true,
-      "weight": 2
+      "winner": "Cork"
     },
     {
       "date": "25/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Leitrim",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 18,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "26/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Donegal",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "26/4/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Mayo",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 31,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "2/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Derry",
       "team2": "Monaghan",
+      "home": false,
+      "weight": 1,
       "sc1": 32,
       "sc2": 33,
-      "home": false,
-      "weight": 1
+      "winner": "Monaghan"
     },
     {
       "date": "2/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Louth",
       "team2": "Dublin",
+      "home": false,
+      "weight": 2,
       "sc1": 10,
       "sc2": 20,
-      "home": false,
-      "weight": 2
+      "winner": "Dublin"
     },
     {
       "date": "3/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Armagh",
       "team2": "Down",
+      "home": false,
+      "weight": 2,
       "sc1": 42,
       "sc2": 14,
-      "home": false,
-      "weight": 2
+      "winner": "Armagh"
     },
     {
       "date": "3/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Westmeath",
       "team2": "Kildare",
+      "home": false,
+      "weight": 1,
       "sc1": 27,
       "sc2": 23,
-      "home": false,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "9/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Clare",
       "team2": "Offaly",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Offaly"
     },
     {
       "date": "9/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Wexford",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 14,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "10/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Kerry",
       "team2": "Cork",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "10/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Galway",
+      "home": true,
+      "weight": 1,
       "sc1": 30,
       "sc2": 28,
-      "home": true,
-      "weight": 1
+      "winner": "Roscommon"
     },
     {
       "date": "10/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Carlow",
       "team2": "Antrim",
+      "home": true,
+      "weight": 1,
       "sc1": 32,
       "sc2": 35,
-      "home": true,
-      "weight": 1
+      "winner": "Antrim"
     },
     {
       "date": "10/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Longford",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Fermanagh"
     },
     {
       "date": "10/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Laois",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "10/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Sligo",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Tipperary"
     },
     {
       "date": "10/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Waterford",
       "team2": "London",
+      "home": true,
+      "weight": 2,
       "sc1": 10,
       "sc2": 27,
-      "home": true,
-      "weight": 2
+      "winner": "London"
     },
     {
       "date": "16/5/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Down",
       "team2": "Leitrim",
+      "home": true,
+      "weight": 1,
       "sc1": 30,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "17/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Armagh",
+      "home": false,
+      "weight": 1,
       "sc1": 25,
       "sc2": 34,
-      "home": false,
-      "weight": 1
+      "winner": "Armagh"
     },
     {
       "date": "17/5/2026",
       "grade": "Provincial",
+      "round": "",
       "team1": "Dublin",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 34,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "23/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Kerry",
       "team2": "Donegal",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Donegal"
     },
     {
       "date": "23/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Cork",
       "team2": "Meath",
+      "home": true,
+      "weight": 1,
       "sc1": 30,
       "sc2": 27,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "23/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Galway",
       "team2": "Kildare",
+      "home": true,
+      "weight": 1,
       "sc1": 30,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "24/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Roscommon",
       "team2": "Tyrone",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Tyrone"
     },
     {
       "date": "24/5/2026",
       "grade": "Tailteann",
+      "round": "2A",
       "team1": "Antrim",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 18,
-      "home": true,
-      "weight": 1
+      "winner": "Antrim"
     },
     {
       "date": "24/5/2026",
       "grade": "Tailteann",
+      "round": "2A",
       "team1": "Fermanagh",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Fermanagh"
     },
     {
       "date": "23/5/2026",
       "grade": "Tailteann",
+      "round": "2A",
       "team1": "Offaly",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 31,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Offaly"
     },
     {
       "date": "23/5/2026",
       "grade": "Tailteann",
+      "round": "2A",
       "team1": "London",
       "team2": "Laois",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 32,
-      "home": true,
-      "weight": 1
+      "winner": "Laois"
     },
     {
       "date": "23/5/2026",
       "grade": "Tailteann",
+      "round": "2B",
       "team1": "Wicklow",
       "team2": "Limerick",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Wicklow"
     },
     {
       "date": "23/5/2026",
       "grade": "Tailteann",
+      "round": "2B",
       "team1": "Clare",
       "team2": "Longford",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 23,
-      "home": true,
-      "weight": 1
+      "winner": "Longford"
     },
     {
       "date": "24/5/2026",
       "grade": "Tailteann",
+      "round": "2B",
       "team1": "Waterford",
       "team2": "Sligo",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 29,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "23/5/2026",
       "grade": "Tailteann",
+      "round": "2B",
       "team1": "Leitrim",
       "team2": "Carlow",
+      "home": true,
+      "weight": 1,
       "sc1": 22,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Leitrim"
     },
     {
       "date": "30/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Armagh",
       "team2": "Derry",
+      "home": true,
+      "weight": 1,
       "sc1": 21,
       "sc2": 16,
-      "home": true,
-      "weight": 1
+      "winner": "Armagh"
     },
     {
       "date": "30/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Westmeath",
       "team2": "Cavan",
+      "home": true,
+      "weight": 1,
       "sc1": 34,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Westmeath"
     },
     {
       "date": "31/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Monaghan",
       "team2": "Mayo",
+      "home": true,
+      "weight": 1,
       "sc1": 26,
       "sc2": 27,
-      "home": true,
-      "weight": 1
+      "winner": "Mayo"
     },
     {
       "date": "31/5/2026",
       "grade": "All-Ireland",
+      "round": "",
       "team1": "Dublin",
       "team2": "Louth",
+      "home": true,
+      "weight": 1,
       "sc1": 27,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "6/6/2026",
       "grade": "Tailteann",
+      "round": "PQF",
       "team1": "Fermanagh",
       "team2": "New York",
+      "home": true,
+      "weight": 1,
       "sc1": 36,
       "sc2": 19,
-      "home": true,
-      "weight": 1
+      "winner": "Fermanagh"
     },
     {
       "date": "6/6/2026",
       "grade": "Tailteann",
+      "round": "3",
       "team1": "Leitrim",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Wexford"
     },
     {
       "date": "6/6/2026",
       "grade": "Tailteann",
+      "round": "3",
       "team1": "Wicklow",
       "team2": "Tipperary",
+      "home": true,
+      "weight": 1,
       "sc1": 20,
       "sc2": 12,
-      "home": true,
-      "weight": 1
+      "winner": "Wicklow"
     },
     {
       "date": "6/6/2026",
       "grade": "Tailteann",
+      "round": "3",
       "team1": "Longford",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 30,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "6/6/2026",
       "grade": "Tailteann",
+      "round": "3",
       "team1": "London",
       "team2": "Sligo",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 22,
-      "home": true,
-      "weight": 1
+      "winner": "Sligo"
     },
     {
       "date": "13/6/2026",
       "grade": "All-Ireland",
+      "round": "2A",
       "team1": "Donegal",
       "team2": "Cork",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 17,
-      "home": true,
-      "weight": 1
+      "winner": "Cork"
     },
     {
       "date": "13/6/2026",
       "grade": "All-Ireland",
+      "round": "2B",
       "team1": "Derry",
       "team2": "Meath",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 27,
-      "home": true,
-      "weight": 1
+      "winner": "Meath"
     },
     {
       "date": "13/6/2026",
       "grade": "All-Ireland",
+      "round": "2B",
       "team1": "Kildare",
       "team2": "Kerry",
+      "home": true,
+      "weight": 1,
       "sc1": 17,
       "sc2": 31,
-      "home": true,
-      "weight": 1
+      "winner": "Kerry"
     },
     {
       "date": "13/6/2026",
       "grade": "All-Ireland",
+      "round": "2B",
       "team1": "Monaghan",
       "team2": "Roscommon",
+      "home": true,
+      "weight": 1,
       "sc1": 23,
       "sc2": 14,
-      "home": true,
-      "weight": 1
+      "winner": "Monaghan"
     },
     {
       "date": "13/6/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Fermanagh",
       "team2": "Sligo",
+      "home": true,
+      "weight": 2,
       "sc1": 30,
       "sc2": 9,
-      "home": true,
-      "weight": 2
+      "winner": "Fermanagh"
     },
     {
       "date": "13/6/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Antrim",
       "team2": "Wicklow",
+      "home": true,
+      "weight": 1,
       "sc1": 24,
       "sc2": 25,
-      "home": true,
-      "weight": 1
+      "winner": "Wicklow"
     },
     {
       "date": "13/6/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Offaly",
       "team2": "Wexford",
+      "home": true,
+      "weight": 1,
       "sc1": 25,
       "sc2": 20,
-      "home": true,
-      "weight": 1
+      "winner": "Offaly"
     },
     {
       "date": "13/6/2026",
       "grade": "Tailteann",
+      "round": "",
       "team1": "Laois",
       "team2": "Down",
+      "home": true,
+      "weight": 1,
       "sc1": 15,
       "sc2": 21,
-      "home": true,
-      "weight": 1
+      "winner": "Down"
     },
     {
       "date": "14/6/2026",
       "grade": "All-Ireland",
+      "round": "2A",
       "team1": "Galway",
       "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
       "sc1": 29,
       "sc2": 26,
-      "home": true,
-      "weight": 1
+      "winner": "Galway"
     },
     {
       "date": "14/6/2026",
       "grade": "All-Ireland",
+      "round": "2A",
       "team1": "Tyrone",
       "team2": "Mayo",
+      "home": true,
+      "weight": 2,
       "sc1": 52,
       "sc2": 21,
-      "home": true,
-      "weight": 2
+      "winner": "Tyrone"
     },
     {
       "date": "14/6/2026",
       "grade": "All-Ireland",
+      "round": "2A",
       "team1": "Louth",
       "team2": "Armagh",
+      "home": false,
+      "weight": 1,
       "sc1": 28,
       "sc2": 25,
-      "home": false,
-      "weight": 1
+      "winner": "Louth"
     },
     {
       "date": "14/6/2026",
       "grade": "All-Ireland",
+      "round": "2B",
       "team1": "Cavan",
       "team2": "Dublin",
+      "home": true,
+      "weight": 1,
       "sc1": 16,
       "sc2": 27,
-      "home": true,
-      "weight": 1
+      "winner": "Dublin"
     }
   ]
 }
