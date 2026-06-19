@@ -8,7 +8,7 @@ from data_loader import load_fixtures, load_match_data, calculate_team_statistic
 from data_loader import calculate_recent_form, get_team_xg
 from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from wc_model import get_wc_data
-from gaa_model import get_gaa_data
+from gaa_model import get_gaa_data, teams_still_in, load_results, load_fixtures
 from collections import defaultdict
 from datetime import datetime
 import subprocess
@@ -1532,6 +1532,9 @@ def gaa_debug():
     import traceback
     try:
         data = get_gaa_data()
+        results_check  = load_results()
+        fixtures_check = load_fixtures()
+        alive_check     = teams_still_in(results_check, fixtures_check)
         return jsonify({
             "status": "ok",
             "winner_table_count": len(data["winner_table"]),
@@ -1542,6 +1545,10 @@ def gaa_debug():
             "top_3": data["winner_table"][:3],
             "sample_fixture": data["cur_fixtures"][0] if data["cur_fixtures"] else None,
             "generated_at": data["generated_at"],
+            "alive_count": len(alive_check),
+            "alive_teams": sorted(alive_check),
+            "results_count": len(results_check),
+            "ai_2b_results": [r for r in results_check if r.get("grade","").startswith("All-Ireland") and r.get("round") == "2B"],
         })
     except Exception as e:
         return jsonify({
