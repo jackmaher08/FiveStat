@@ -1535,10 +1535,13 @@ def gaa_debug():
         return jsonify({
             "status": "ok",
             "winner_table_count": len(data["winner_table"]),
+            "winner_table_teams": [row["team"] for row in data["winner_table"]],
             "cur_fixtures_count": len(data["cur_fixtures"]),
             "elo_table_count": len(data["elo_table"]),
+            "current_round": data["current_round"],
             "top_3": data["winner_table"][:3],
             "sample_fixture": data["cur_fixtures"][0] if data["cur_fixtures"] else None,
+            "generated_at": data["generated_at"],
         })
     except Exception as e:
         return jsonify({
