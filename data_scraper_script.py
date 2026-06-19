@@ -102,7 +102,7 @@ if not BOOKIE_ONLY:
     print(f"✅ FPL fixture schedule loaded ({len(fixtures_df)} fixtures, {fixtures_df['round_number'].nunique()} gameweeks)")
 
     # 📌 **Second Source: Understat** – fixtures/xG via understatapi
-    understat_season = "2025"  # corresponds to the 2024/25 EPL season
+    understat_season = "2026"  # corresponds to the 2024/25 EPL season
 
     # Team name mapping for consistency
     team_name_mapping = {
@@ -234,7 +234,7 @@ if not BOOKIE_ONLY:
     import pandas as pd
 
     start_year = 2016
-    end_year   = 2025
+    end_year   = 2026
 
     frames   = []
     failures = []
@@ -310,7 +310,7 @@ if not BOOKIE_ONLY:
 
     # Player data
     # 📌 Understat player stats via understatapi
-    understat_season = "2025"  # same season as above
+    understat_season = "2026"  # same season as above
 
     with UnderstatClient() as understat_client:
         players_raw = understat_client.league(league="EPL").get_player_data(
@@ -357,12 +357,12 @@ if not BOOKIE_ONLY:
     #TEMP USING THE FOLLOWING
     # ✅ Generate fresh league table (preseason alphabetical placeholder)
 
-    # Get unique list of 2025 teams from fixtures
-    teams_2025 = sorted(set(fixtures_df["home_team"]).union(set(fixtures_df["away_team"])))
+    # Get unique list of 2026 teams from fixtures
+    teams_2026 = sorted(set(fixtures_df["home_team"]).union(set(fixtures_df["away_team"])))
 
     # Create empty table
     preseason_table = pd.DataFrame({
-        "Team": teams_2025,
+        "Team": teams_2026,
         "MP": 0, "W": 0, "D": 0, "L": 0, "G": 0, "GD": 0, "GA": 0,
         "xG": 0.0, "npxG": 0.0, "xG +/-": 0.0,
         "xGA": 0.0, "npxGA": 0.0, "xGA +/-": 0.0,
@@ -381,7 +381,7 @@ if not BOOKIE_ONLY:
 
     # Gathering league table data
     # Gathering league table data via understatapi (instead of scraping HTML)
-    understat_season = "2025"  # same season you use elsewhere
+    understat_season = "2026"  # same season you use elsewhere
 
     with UnderstatClient() as understat_client:
         # This returns the same kind of structure you were previously getting
@@ -473,7 +473,7 @@ if not BOOKIE_ONLY:
 
     # Paths
     HISTORICAL_PATH = "data/tables/historical_fixture_data.csv"
-    CURR_FIXTURES_PATH = "data/tables/fixture_data.csv"                      # Season 2025
+    CURR_FIXTURES_PATH = "data/tables/fixture_data.csv"                      # Season 2026
     LAST_FIXTURES_PATH = "data/tables/24-25/fixture_data.csv"               # Season 2024
 
     # Load historical data
@@ -487,7 +487,7 @@ if not BOOKIE_ONLY:
 
     # Load fixture files
     curr_fixtures = pd.read_csv(CURR_FIXTURES_PATH)
-    curr_fixtures['Season'] = 2025
+    curr_fixtures['Season'] = 2026
 
     last_fixtures = pd.read_csv(LAST_FIXTURES_PATH)
     last_fixtures['Season'] = 2024
@@ -527,7 +527,7 @@ if not BOOKIE_ONLY:
         'round_number':'Round Number',
         'date':        'Date',
     })
-    curr_completed['Season'] = 2025
+    curr_completed['Season'] = 2026
 
     existing_keys = set(
         zip(historical['Home Team'], historical['Away Team'],
