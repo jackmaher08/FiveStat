@@ -8,7 +8,7 @@ from data_loader import load_fixtures, load_match_data, calculate_team_statistic
 from data_loader import calculate_recent_form, get_team_xg
 from f1_data_loader import get_f1_hub_data, get_race_report, get_f1_drivers_data, get_f1_predictions_data, get_next_race_predictions, get_f1_fantasy_data
 from wc_model import get_wc_data
-from gaa_model import get_gaa_data, teams_still_in, load_results, load_fixtures
+from gaa_model import get_gaa_data, teams_still_in, load_results as gaa_load_results, load_fixtures as gaa_load_fixtures
 from collections import defaultdict
 from datetime import datetime
 import subprocess
@@ -1532,8 +1532,8 @@ def gaa_debug():
     import traceback
     try:
         data = get_gaa_data()
-        results_check  = load_results()
-        fixtures_check = load_fixtures()
+        results_check  = gaa_load_results()
+        fixtures_check = gaa_load_fixtures()
         alive_check     = teams_still_in(results_check, fixtures_check)
         return jsonify({
             "status": "ok",
