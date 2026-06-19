@@ -1549,6 +1549,12 @@ def gaa_debug():
             "alive_teams": sorted(alive_check),
             "results_count": len(results_check),
             "ai_2b_results": [r for r in results_check if r.get("grade","").startswith("All-Ireland") and r.get("round") == "2B"],
+            "eliminated_teams_check": [
+                {"team1": r.get("team1"), "team2": r.get("team2"), "round": repr(r.get("round")), "winner": r.get("winner"), "grade": r.get("grade")}
+                for r in results_check
+                if {r.get("team1"), r.get("team2")} & {"Derry", "Meath", "Kildare", "Kerry", "Monaghan", "Roscommon", "Cavan", "Dublin"}
+                and r.get("grade","").startswith("All-Ireland")
+            ],
         })
     except Exception as e:
         return jsonify({
