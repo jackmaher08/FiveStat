@@ -1520,7 +1520,7 @@ def gaa_hub():
         print(f"❌ GAA hub error: {e}")
         import traceback; traceback.print_exc()
         return render_template("gaa.html",
-            current_label="Championship", cur_fixtures=[], recent_results=[],
+            current_label="Championship Complete", cur_fixtures=[], recent_results=[],
             winner_table=[], elo_table=[],
             last_updated=get_last_updated_time()
         )
@@ -1535,10 +1535,10 @@ def gaa_debug():
         return jsonify({
             "status": "ok",
             "winner_table_count": len(data["winner_table"]),
-            "r2_fixtures_count": len(data["r2_fixtures"]),
+            "cur_fixtures_count": len(data["cur_fixtures"]),
             "elo_table_count": len(data["elo_table"]),
             "top_3": data["winner_table"][:3],
-            "sample_fixture": data["r2_fixtures"][0] if data["r2_fixtures"] else None,
+            "sample_fixture": data["cur_fixtures"][0] if data["cur_fixtures"] else None,
         })
     except Exception as e:
         return jsonify({
