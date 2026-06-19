@@ -210,8 +210,11 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
         att_rating = float(att_params[i]) if mle_ok else (avg_hgf + avg_agf) / 2
         def_rating = float(def_params[i]) if mle_ok else (avg_hga + avg_aga) / 2
 
-        raw_hfa    = avg_hgf - avg_agf
-        capped_hfa = float(np.clip(raw_hfa, -0.3, 0.3))
+        if pd.isna(avg_hgf) or pd.isna(avg_agf):
+            capped_hfa = 0.0
+        else:
+            raw_hfa    = avg_hgf - avg_agf
+            capped_hfa = float(np.clip(raw_hfa, -0.3, 0.3))
         team_home_advantage[team] = capped_hfa
 
         team_data[team] = {
