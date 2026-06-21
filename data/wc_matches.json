@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-20T08:46:34.989826+00:00",
+  "scraped_at": "2026-06-21T09:42:14.200141+00:00",
   "matches": [
     {
       "id": 537327,
@@ -34,8 +34,8 @@
       "status": "FINISHED",
       "home": "Canada",
       "away": "Bosnia-Herzegovina",
-      "home_goals": 1,
-      "away_goals": 1
+      "home_goals": null,
+      "away_goals": null
     },
     {
       "id": 537345,
@@ -391,11 +391,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Netherlands",
       "away": "Sweden",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 5,
+      "away_goals": 1
     },
     {
       "id": 537353,
@@ -403,11 +403,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Germany",
       "away": "Ivory Coast",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 1
     },
     {
       "id": 537354,
@@ -415,11 +415,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Ecuador",
       "away": "Cura\u00e7ao",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 0
     },
     {
       "id": 537360,
@@ -427,11 +427,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Tunisia",
       "away": "Japan",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 4
     },
     {
       "id": 537371,
