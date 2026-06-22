@@ -1,58 +1,49 @@
 {
-  "scraped_at": "2026-06-19T23:17:01.722722+00:00",
+  "scraped_at": "2026-06-22T10:31:46.882181+00:00",
   "fixtures": [
     {
-      "date": "20/6/2026",
+      "date": "27/6/2026",
       "grade": "All-Ireland",
-      "round": "3",
-      "team1": "Mayo",
-      "team2": "Meath",
-      "home": true,
-      "weight": 45
-    },
-    {
-      "date": "20/6/2026",
-      "grade": "All-Ireland",
-      "round": "3",
-      "team1": "Kerry",
-      "team2": "Armagh",
-      "home": true,
-      "weight": 45
-    },
-    {
-      "date": "20/6/2026",
-      "grade": "Tailteann",
       "round": "",
-      "team1": "Offaly",
-      "team2": "Wicklow",
+      "team1": "Cork",
+      "team2": "Mayo",
       "home": false,
       "weight": 45
     },
     {
-      "date": "20/6/2026",
+      "date": "27/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Louth",
+      "team2": "Monaghan",
+      "home": false,
+      "weight": 45
+    },
+    {
+      "date": "28/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Tyrone",
+      "team2": "Kerry",
+      "home": false,
+      "weight": 45
+    },
+    {
+      "date": "28/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Dublin",
+      "team2": "Galway",
+      "home": true,
+      "weight": 45
+    },
+    {
+      "date": "11/7/2026",
       "grade": "Tailteann",
       "round": "",
       "team1": "Down",
-      "team2": "Fermanagh",
+      "team2": "Wicklow",
       "home": false,
-      "weight": 45
-    },
-    {
-      "date": "21/6/2026",
-      "grade": "All-Ireland",
-      "round": "3",
-      "team1": "Monaghan",
-      "team2": "Westmeath",
-      "home": true,
-      "weight": 45
-    },
-    {
-      "date": "21/6/2026",
-      "grade": "All-Ireland",
-      "round": "3",
-      "team1": "Dublin",
-      "team2": "Donegal",
-      "home": true,
       "weight": 45
     }
   ]

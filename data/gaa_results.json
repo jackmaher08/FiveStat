@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-19T23:17:01.722722+00:00",
+  "scraped_at": "2026-06-22T10:31:46.882181+00:00",
   "results": [
     {
       "date": "24/1/2026",
@@ -2204,8 +2204,8 @@
       "team1": "Tyrone",
       "team2": "Mayo",
       "home": true,
-      "weight": 2,
-      "sc1": 52,
+      "weight": 1,
+      "sc1": 25,
       "sc2": 21,
       "winner": "Tyrone"
     },
@@ -2231,6 +2231,78 @@
       "weight": 1,
       "sc1": 16,
       "sc2": 27,
+      "winner": "Dublin"
+    },
+    {
+      "date": "20/6/2026",
+      "grade": "All-Ireland",
+      "round": "3",
+      "team1": "Mayo",
+      "team2": "Meath",
+      "home": true,
+      "weight": 1,
+      "sc1": 22,
+      "sc2": 19,
+      "winner": "Mayo"
+    },
+    {
+      "date": "20/6/2026",
+      "grade": "All-Ireland",
+      "round": "3",
+      "team1": "Kerry",
+      "team2": "Armagh",
+      "home": true,
+      "weight": 1,
+      "sc1": 30,
+      "sc2": 17,
+      "winner": "Kerry"
+    },
+    {
+      "date": "20/6/2026",
+      "grade": "Tailteann",
+      "round": "",
+      "team1": "Offaly",
+      "team2": "Wicklow",
+      "home": false,
+      "weight": 1,
+      "sc1": 27,
+      "sc2": 32,
+      "winner": "Wicklow"
+    },
+    {
+      "date": "20/6/2026",
+      "grade": "Tailteann",
+      "round": "",
+      "team1": "Down",
+      "team2": "Fermanagh",
+      "home": false,
+      "weight": 1,
+      "sc1": 25,
+      "sc2": 24,
+      "winner": "Down"
+    },
+    {
+      "date": "21/6/2026",
+      "grade": "All-Ireland",
+      "round": "3",
+      "team1": "Monaghan",
+      "team2": "Westmeath",
+      "home": true,
+      "weight": 1,
+      "sc1": 31,
+      "sc2": 25,
+      "winner": "Monaghan"
+    },
+    {
+      "date": "21/6/2026",
+      "grade": "All-Ireland",
+      "round": "3",
+      "team1": "Dublin",
+      "team2": "Donegal",
+      "home": true,
+      "weight": 1,
+      "sc1": 32,
+      "sc2": 28,
       "winner": "Dublin"
     }
   ]
