@@ -158,9 +158,12 @@ def main():
             json.dump({'scraped_at': now, 'results': results}, f, indent=2)
         print(f"  {len(results)} results saved -> {GAA_RESULTS_PATH}")
 
-    with open(GAA_FIXTURES_PATH, 'w') as f:
-        json.dump({'scraped_at': now, 'fixtures': fixtures}, f, indent=2)
-    print(f"  {len(fixtures)} fixtures saved -> {GAA_FIXTURES_PATH}\n")
+    if fixtures:
+        with open(GAA_FIXTURES_PATH, 'w') as f:
+            json.dump({'scraped_at': now, 'fixtures': fixtures}, f, indent=2)
+        print(f"  {len(fixtures)} fixtures saved -> {GAA_FIXTURES_PATH}\n")
+    else:
+        print("  No fixtures returned from scrape - keeping existing gaa_fixtures.json\n")
 
     print("Current GAA Football ELO Rankings:")
     sorted_ratings = sorted(
