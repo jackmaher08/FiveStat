@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-22T11:42:39.857544+00:00",
+  "scraped_at": "2026-06-23T09:28:58.350028+00:00",
   "matches": [
     {
       "id": 537327,
@@ -487,11 +487,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Argentina",
       "away": "Austria",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 0
     },
     {
       "id": 537393,
@@ -499,11 +499,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "France",
       "away": "Iraq",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 0
     },
     {
       "id": 537394,
@@ -511,11 +511,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Norway",
       "away": "Senegal",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 2
     },
     {
       "id": 537400,
@@ -523,11 +523,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 2,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Jordan",
       "away": "Algeria",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 2
     },
     {
       "id": 537405,
