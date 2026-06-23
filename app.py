@@ -1548,6 +1548,7 @@ def gaa_debug():
             "alive_count": len(alive_check),
             "alive_teams": sorted(alive_check),
             "results_count": len(results_check),
+            "raw_fixtures": fixtures_check,
             "ai_2b_results": [r for r in results_check if r.get("grade","").startswith("All-Ireland") and r.get("round") == "2B"],
             "eliminated_teams_check": [
                 {"team1": r.get("team1"), "team2": r.get("team2"), "round": repr(r.get("round")), "winner": r.get("winner"), "grade": r.get("grade")}
