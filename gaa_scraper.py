@@ -105,6 +105,9 @@ def fetch_season_data():
             if team1 not in COUNTIES or team2 not in COUNTIES:
                 continue
 
+            if grade.startswith("All-Ireland") and not rnd:
+                print(f"  ⚠️  Blank round for All-Ireland fixture: {team1} vs {team2} ({date_str})")
+
             entry = {
                 'date':   date_str,
                 'grade':  grade,
