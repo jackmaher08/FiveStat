@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-22T10:31:46.882181+00:00",
+  "scraped_at": "2026-06-23T03:40:26.332911+00:00",
   "fixtures": [
     {
       "date": "27/6/2026",
@@ -14,8 +14,8 @@
       "date": "27/6/2026",
       "grade": "All-Ireland",
       "round": "",
-      "team1": "Louth",
-      "team2": "Monaghan",
+      "team1": "Tyrone",
+      "team2": "Kerry",
       "home": false,
       "weight": 45
     },
@@ -23,8 +23,8 @@
       "date": "28/6/2026",
       "grade": "All-Ireland",
       "round": "",
-      "team1": "Tyrone",
-      "team2": "Kerry",
+      "team1": "Louth",
+      "team2": "Monaghan",
       "home": false,
       "weight": 45
     },
