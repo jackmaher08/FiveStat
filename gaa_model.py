@@ -284,10 +284,35 @@ def get_recent_results(results, limit=12):
     return out
 
 
+def backfill_blank_rounds(fixtures, results):
+    """
+    Workaround for the sheet occasionally leaving the Round column blank
+    for the next batch of All-Ireland fixtures before it's filled in.
+    Infers the round as whatever comes after the latest completed
+    All-Ireland round found in the results.
+    """
+    completed_rounds = {r.get("round") for r in results if is_ai(r) and r.get("round")}
+    last_idx = -1
+    for i, rnd in enumerate(ROUND_ORDER):
+        if rnd in completed_rounds:
+            last_idx = i
+
+    if last_idx == -1 or last_idx + 1 >= len(ROUND_ORDER):
+        return fixtures
+
+    inferred_round = ROUND_ORDER[last_idx + 1]
+    for f in fixtures:
+        if is_ai(f) and not f.get("round"):
+            f["round"] = inferred_round
+
+    return fixtures
+
+
 def get_gaa_data():
     ratings  = load_ratings()
     results  = load_results()
     fixtures = load_fixtures()
+    fixtures = backfill_blank_rounds(fixtures, results)
 
     current_round = get_current_round(fixtures)
     alive = teams_still_in(results, fixtures)
