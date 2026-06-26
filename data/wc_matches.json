@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-25T08:52:48.497471+00:00",
+  "scraped_at": "2026-06-26T08:55:21.836981+00:00",
   "matches": [
     {
       "id": 537327,
@@ -34,8 +34,8 @@
       "status": "FINISHED",
       "home": "Canada",
       "away": "Bosnia-Herzegovina",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537345,
@@ -655,11 +655,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Ecuador",
       "away": "Germany",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 1
     },
     {
       "id": 537356,
@@ -667,11 +667,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Cura\u00e7ao",
       "away": "Ivory Coast",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 2
     },
     {
       "id": 537361,
@@ -679,11 +679,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Tunisia",
       "away": "Netherlands",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 3
     },
     {
       "id": 537362,
@@ -691,11 +691,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Japan",
       "away": "Sweden",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 1
     },
     {
       "id": 537349,
@@ -703,11 +703,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Turkey",
       "away": "USA",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 2
     },
     {
       "id": 537350,
@@ -715,11 +715,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Paraguay",
       "away": "Australia",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 0
     },
     {
       "id": 537395,
