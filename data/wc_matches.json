@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-27T08:30:16.927040+00:00",
+  "scraped_at": "2026-06-28T08:45:16.838328+00:00",
   "matches": [
     {
       "id": 537327,
@@ -799,11 +799,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Panama",
       "away": "England",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 2
     },
     {
       "id": 537414,
@@ -811,11 +811,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Croatia",
       "away": "Ghana",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 1
     },
     {
       "id": 537407,
@@ -823,11 +823,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Colombia",
       "away": "Portugal",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 0
     },
     {
       "id": 537408,
@@ -835,11 +835,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Congo DR",
       "away": "Uzbekistan",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 1
     },
     {
       "id": 537401,
@@ -847,11 +847,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Jordan",
       "away": "Argentina",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 3
     },
     {
       "id": 537402,
@@ -859,11 +859,11 @@
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
       "matchday": 3,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Algeria",
       "away": "Austria",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 3
     },
     {
       "id": 537383,
