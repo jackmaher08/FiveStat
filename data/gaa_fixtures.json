@@ -1,40 +1,13 @@
 {
-  "scraped_at": "2026-06-23T03:40:26.332911+00:00",
+  "scraped_at": "2026-06-29T02:58:46.551643+00:00",
   "fixtures": [
     {
-      "date": "27/6/2026",
-      "grade": "All-Ireland",
-      "round": "",
-      "team1": "Cork",
-      "team2": "Mayo",
-      "home": false,
-      "weight": 45
-    },
-    {
-      "date": "27/6/2026",
-      "grade": "All-Ireland",
-      "round": "",
-      "team1": "Tyrone",
-      "team2": "Kerry",
-      "home": false,
-      "weight": 45
-    },
-    {
-      "date": "28/6/2026",
+      "date": "11/7/2026",
       "grade": "All-Ireland",
       "round": "",
       "team1": "Louth",
-      "team2": "Monaghan",
+      "team2": "Mayo",
       "home": false,
-      "weight": 45
-    },
-    {
-      "date": "28/6/2026",
-      "grade": "All-Ireland",
-      "round": "",
-      "team1": "Dublin",
-      "team2": "Galway",
-      "home": true,
       "weight": 45
     },
     {
@@ -44,6 +17,15 @@
       "team1": "Down",
       "team2": "Wicklow",
       "home": false,
+      "weight": 45
+    },
+    {
+      "date": "12/7/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Dublin",
+      "team2": "Kerry",
+      "home": true,
       "weight": 45
     }
   ]

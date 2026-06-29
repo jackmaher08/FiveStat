@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-06-23T03:40:26.332911+00:00",
+  "scraped_at": "2026-06-29T02:58:46.551643+00:00",
   "results": [
     {
       "date": "24/1/2026",
@@ -2303,6 +2303,54 @@
       "weight": 1,
       "sc1": 32,
       "sc2": 28,
+      "winner": "Dublin"
+    },
+    {
+      "date": "27/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Cork",
+      "team2": "Mayo",
+      "home": false,
+      "weight": 1,
+      "sc1": 18,
+      "sc2": 23,
+      "winner": "Mayo"
+    },
+    {
+      "date": "27/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Tyrone",
+      "team2": "Kerry",
+      "home": false,
+      "weight": 1,
+      "sc1": 27,
+      "sc2": 31,
+      "winner": "Kerry"
+    },
+    {
+      "date": "28/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Louth",
+      "team2": "Monaghan",
+      "home": false,
+      "weight": 1,
+      "sc1": 27,
+      "sc2": 24,
+      "winner": "Louth"
+    },
+    {
+      "date": "28/6/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Dublin",
+      "team2": "Galway",
+      "home": true,
+      "weight": 1,
+      "sc1": 28,
+      "sc2": 24,
       "winner": "Dublin"
     }
   ]
