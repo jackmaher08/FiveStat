@@ -237,9 +237,9 @@ def simulate_tournament(ratings, finished_matches):
     # M89: W74 v W77 | M90: W73 v W75 | M91: W76 v W78 | M92: W79 v W80
     # M93: W83 v W84 | M94: W81 v W82 | M95: W86 v W88 | M96: W85 v W87
     r16 = [
-        (r32_winners[1],  r32_winners[3]),   # M89: W74 v W77
+        (r32_winners[1],  r32_winners[4]),   # M89: W74 v W77
         (r32_winners[0],  r32_winners[2]),   # M90: W73 v W75
-        (r32_winners[4],  r32_winners[5]),   # M91: W76 v W78  (fixed: W76=idx4 after reorder)
+        (r32_winners[3],  r32_winners[5]),   # M91: W76 v W78
         (r32_winners[6],  r32_winners[7]),   # M92: W79 v W80
         (r32_winners[10], r32_winners[11]),  # M93: W83 v W84
         (r32_winners[8],  r32_winners[9]),   # M94: W81 v W82
