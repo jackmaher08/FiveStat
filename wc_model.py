@@ -33,6 +33,17 @@ WC_GROUPS = {
     "L": ["England", "Croatia", "Ghana", "Panama"],
 }
 
+# Teams still alive in the knockout stage - tb remove as they are eliminated.
+# Set to None to show all teams (pre-knockout behaviour).
+REMAINING_TEAMS = [
+    "Brazil", "Norway", "Croatia", "Spain", "Paraguay", "France",
+    "Canada", "Morocco", "USA", "Belgium", "Mexico", "England",
+    "Argentina", "Australia", "Switzerland", "Colombia", "Portugal",
+    "Croatia", "Switzerland", "Algeria", "Australia", "Egypt", "Argentina", 
+    "Cape Verde", "Colombia", "Ghana"
+    # R32 in progress — update after each round
+]
+
 BASELINE_ELO = {
     "Spain":                  2165,
     "Argentina":              2113,
@@ -354,7 +365,8 @@ def get_wc_data():
     predictions = get_match_predictions(ratings, matches)
 
     winner_table = sorted(
-        [{"team": t, "pct": p} for t, p in probs["winner"].items() if p > 0],
+        [{"team": t, "pct": p} for t, p in probs["winner"].items()
+         if p > 0 and (REMAINING_TEAMS is None or t in REMAINING_TEAMS)],
         key=lambda x: x["pct"], reverse=True
     )
 
