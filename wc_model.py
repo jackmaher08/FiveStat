@@ -36,12 +36,25 @@ WC_GROUPS = {
 # Teams still alive in the knockout stage - tb remove as they are eliminated.
 # Set to None to show all teams (pre-knockout behaviour).
 REMAINING_TEAMS = [
-    "Brazil", "Norway", "Croatia", "Spain", "Paraguay", "France",
-    "Canada", "Morocco", "USA", "Belgium", "Mexico", "England",
-    "Argentina", "Australia", "Switzerland", "Colombia", "Portugal",
-    "Croatia", "Switzerland", "Algeria", "Australia", "Egypt", "Argentina", 
-    "Cape Verde", "Colombia", "Ghana"
-    # R32 in progress — update after each round
+"Brazil",
+"Norway", 
+"Spain", 
+"Paraguay", 
+"France",
+"Canada", 
+"Morocco", 
+"USA", 
+"Belgium", 
+"Mexico", 
+"England",
+"Argentina", 
+"Australia", 
+"Switzerland", 
+"Colombia", 
+"Portugal", 
+"Egypt", 
+"Cape Verde", 
+"Ghana"
 ]
 
 BASELINE_ELO = {
