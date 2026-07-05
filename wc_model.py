@@ -155,102 +155,35 @@ def simulate_match(team_a, team_b, ratings, allow_draw=True):
 
 
 
+# Round of 32 winners in bracket order M73-M88 (results locked)
+R32_WINNERS = [
+    "Canada",       # M73: South Africa 0-1 Canada
+    "Paraguay",     # M74: Germany 1(3)-1(4) Paraguay
+    "Morocco",      # M75: Netherlands 1(2)-1(3) Morocco
+    "Brazil",       # M76: Brazil 2-1 Japan
+    "France",       # M77: France 3-0 Sweden
+    "Norway",       # M78: Ivory Coast 1-2 Norway
+    "Mexico",       # M79: Mexico 2-0 Ecuador
+    "England",      # M80: England 2-1 DR Congo
+    "USA",          # M81: USA 2-0 Bosnia and Herzegovina
+    "Belgium",      # M82: Belgium 3-2 Senegal
+    "Spain",        # M83: Spain 3-0 Austria
+    "Portugal",     # M84: Portugal 2-1 Croatia
+    "Switzerland",  # M85: Switzerland 2-0 Algeria
+    "Egypt",        # M86: Australia 1(2)-1(4) Egypt
+    "Argentina",    # M87: Argentina 3-2 Cape Verde
+    "Colombia",     # M88: Colombia 1-0 Ghana
+]
+
+
 def simulate_tournament(ratings, finished_matches):
-    group_results = {}
-
-    for group, teams in WC_GROUPS.items():
-        overrides = {t: {"pts": 0} for t in teams}
-
-        for m in finished_matches:
-            if m.get("group") not in (f"Group {group}", f"GROUP_{group}"):
-                continue
-            h, a = m["home"], m["away"]
-            hg, ag = m["home_goals"], m["away_goals"]
-            if h not in overrides or a not in overrides:
-                continue
-            if hg is None or ag is None:
-                continue
-            if hg > ag:
-                overrides[h]["pts"] += 3
-            elif hg == ag:
-                overrides[h]["pts"] += 1
-                overrides[a]["pts"] += 1
-            else:
-                overrides[a]["pts"] += 3
-
-        played_pairs = set()
-        for m in finished_matches:
-            if m.get("group") in (f"Group {group}", f"GROUP_{group}"):
-                if m.get("home_goals") is None or m.get("away_goals") is None:
-                    continue
-                played_pairs.add((m["home"], m["away"]))
-
-        sim_pts = {t: overrides[t]["pts"] for t in teams}
-
-        remaining = [
-            (a, b) for i, a in enumerate(teams)
-            for b in teams[i+1:]
-            if (a, b) not in played_pairs and (b, a) not in played_pairs
-        ]
-
-        for a, b in remaining:
-            winner, _ = simulate_match(a, b, ratings, allow_draw=True)
-            if winner is None:
-                sim_pts[a] += 1
-                sim_pts[b] += 1
-            else:
-                sim_pts[winner] += 3
-
-        standings = sorted(teams, key=lambda t: (sim_pts[t], ratings.get(t, 1750)), reverse=True)
-        group_results[group] = {
-            "winner":    standings[0],
-            "runner_up": standings[1],
-            "third":     standings[2],
-            "third_pts": sim_pts[standings[2]],
-        }
-
-    # Pick 8 best third-place teams by points then ELO
-    all_thirds = sorted(
-        [(g, d["third"], d["third_pts"]) for g, d in group_results.items()],
-        key=lambda x: (x[2], ratings.get(x[1], 1750)),
-        reverse=True
-    )
-    best_thirds = [t[1] for t in all_thirds[:8]]
-    random.shuffle(best_thirds)
-
-    def w(group, pos):
-        return group_results[group]["winner"] if pos == "w" else group_results[group]["runner_up"]
-
-    def t(i):
-        return best_thirds[i]
-
-    # Round of 32 — exact FIFA 2026 bracket
-    r32 = [
-        (w("A", "r"), w("B", "r")),   # M73
-        (w("E", "w"), t(0)),           # M74 — 3rd ABCDF
-        (w("F", "w"), w("C", "r")),   # M75
-        (w("C", "w"), w("F", "r")),   # M76
-        (w("I", "w"), t(1)),           # M77 — 3rd CDFGH
-        (w("E", "r"), w("I", "r")),   # M78
-        (w("A", "w"), t(2)),           # M79 — 3rd CEFHI
-        (w("L", "w"), t(3)),           # M80 — 3rd EHIJK
-        (w("D", "w"), t(4)),           # M81 — 3rd BEFIJ
-        (w("G", "w"), t(5)),           # M82 — 3rd AEHIJ
-        (w("K", "r"), w("L", "r")),   # M83
-        (w("H", "w"), w("J", "r")),   # M84
-        (w("B", "w"), t(6)),           # M85 — 3rd EFGIJ
-        (w("J", "w"), w("H", "r")),   # M86
-        (w("K", "w"), t(7)),           # M87 — 3rd DEIJL
-        (w("D", "r"), w("G", "r")),   # M88
-    ]
-
     def play_round(matches):
         return [
             simulate_match(a, b, ratings, allow_draw=False)[0]
             for a, b in matches
         ]
 
-    r32_winners = play_round(r32)
+    r32_winners = R32_WINNERS
 
     # Round of 16 — winners progress in bracket order
     # M89: W74 v W77 | M90: W73 v W75 | M91: W76 v W78 | M92: W79 v W80
@@ -289,7 +222,6 @@ def simulate_tournament(ratings, finished_matches):
     champion, _ = simulate_match(finalist_a, finalist_b, ratings, allow_draw=False)
 
     return {
-        "group_results": group_results,
         "r32_winners":   r32_winners,
         "r16_winners":   r16_winners,
         "qf_winners":    qf_winners,
@@ -317,10 +249,6 @@ def run_simulation(ratings, finished_matches):
 
     for _ in range(N_SIMS):
         result = simulate_tournament(ratings, finished_matches)
-
-        for group, gdata in result["group_results"].items():
-            group_qualify[group][gdata["winner"]]    += 1
-            group_qualify[group][gdata["runner_up"]] += 1
 
         for team in result["r32_winners"]:
             reach["r32"][team] += 1
