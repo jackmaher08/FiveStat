@@ -39,22 +39,17 @@ REMAINING_TEAMS = [
 "Brazil",
 "Norway", 
 "Spain", 
-"Paraguay", 
 "France",
-"Canada", 
 "Morocco", 
 "USA", 
 "Belgium", 
 "Mexico", 
 "England",
 "Argentina", 
-"Australia", 
 "Switzerland", 
 "Colombia", 
 "Portugal", 
 "Egypt", 
-"Cape Verde", 
-"Ghana"
 ]
 
 BASELINE_ELO = {
