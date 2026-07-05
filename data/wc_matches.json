@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-04T08:29:11.913588+00:00",
+  "scraped_at": "2026-07-05T08:46:01.681446+00:00",
   "matches": [
     {
       "id": 537327,
@@ -872,8 +872,8 @@
       "group": null,
       "matchday": null,
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": "France",
+      "away": "Morocco",
       "home_goals": null,
       "away_goals": null
     },
