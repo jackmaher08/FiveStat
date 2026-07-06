@@ -36,19 +36,16 @@ WC_GROUPS = {
 # Teams still alive in the knockout stage - tb remove as they are eliminated.
 # Set to None to show all teams (pre-knockout behaviour).
 REMAINING_TEAMS = [
-"Brazil",
 "Norway", 
 "Spain", 
 "France",
 "Morocco", 
 "USA", 
 "Belgium", 
-"Mexico", 
 "England",
 "Argentina", 
 "Switzerland", 
-"Colombia", 
-"Portugal", 
+"Colombia",  
 "Egypt", 
 ]
 
