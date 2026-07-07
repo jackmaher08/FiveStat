@@ -44,8 +44,6 @@ REMAINING_TEAMS = [
 "England",
 "Argentina", 
 "Switzerland", 
-"Colombia",  
-"Egypt", 
 ]
 
 BASELINE_ELO = {
@@ -172,6 +170,19 @@ R32_WINNERS = [
 ]
 
 
+# Round of 16 winners, ordered in QF pairs (locked results)
+R16_WINNERS = [
+    "France",       # QF: France v Morocco
+    "Morocco",
+    "Spain",        # QF: Spain v Belgium
+    "Belgium",
+    "Norway",       # QF: Norway v England
+    "England",
+    "Argentina",    # QF: Argentina v Switzerland
+    "Switzerland",
+]
+
+
 def simulate_tournament(ratings, finished_matches):
     def play_round(matches):
         return [
@@ -180,29 +191,14 @@ def simulate_tournament(ratings, finished_matches):
         ]
 
     r32_winners = R32_WINNERS
+    r16_winners = R16_WINNERS
 
-    # Round of 16 — winners progress in bracket order
-    # M89: W74 v W77 | M90: W73 v W75 | M91: W76 v W78 | M92: W79 v W80
-    # M93: W83 v W84 | M94: W81 v W82 | M95: W86 v W88 | M96: W85 v W87
-    r16 = [
-        (r32_winners[1],  r32_winners[4]),   # M89: W74 v W77
-        (r32_winners[0],  r32_winners[2]),   # M90: W73 v W75
-        (r32_winners[3],  r32_winners[5]),   # M91: W76 v W78
-        (r32_winners[6],  r32_winners[7]),   # M92: W79 v W80
-        (r32_winners[10], r32_winners[11]),  # M93: W83 v W84
-        (r32_winners[8],  r32_winners[9]),   # M94: W81 v W82
-        (r32_winners[13], r32_winners[15]),  # M95: W86 v W88
-        (r32_winners[12], r32_winners[14]),  # M96: W85 v W87
-    ]
-    r16_winners = play_round(r16)
-
-    # Quarter-finals
-    # M97: W89 v W90 | M98: W93 v W94 | M99: W91 v W92 | M100: W95 v W96
+    # Quarter-finals — pairs taken directly from R16_WINNERS order
     qf = [
-        (r16_winners[0], r16_winners[1]),  # M97
-        (r16_winners[4], r16_winners[5]),  # M98
-        (r16_winners[2], r16_winners[3]),  # M99
-        (r16_winners[6], r16_winners[7]),  # M100
+        (r16_winners[0], r16_winners[1]),  # France v Morocco
+        (r16_winners[2], r16_winners[3]),  # Spain v Belgium
+        (r16_winners[4], r16_winners[5]),  # Norway v England
+        (r16_winners[6], r16_winners[7]),  # Argentina v Switzerland
     ]
     qf_winners = play_round(qf)
 
