@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-07T09:31:25.176855+00:00",
+  "scraped_at": "2026-07-08T08:15:31.011409+00:00",
   "matches": [
     {
       "id": 537327,
@@ -908,8 +908,8 @@
       "group": null,
       "matchday": null,
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": "Argentina",
+      "away": "Switzerland",
       "home_goals": null,
       "away_goals": null
     },
