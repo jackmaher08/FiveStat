@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-10T09:24:43.625592+00:00",
+  "scraped_at": "2026-07-11T07:45:37.445640+00:00",
   "matches": [
     {
       "id": 537327,
@@ -883,11 +883,11 @@
       "stage": "QUARTER_FINALS",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Spain",
       "away": "Belgium",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 2,
+      "away_goals": 1
     },
     {
       "id": 537385,
@@ -921,7 +921,7 @@
       "matchday": null,
       "status": "TIMED",
       "home": "France",
-      "away": null,
+      "away": "Spain",
       "home_goals": null,
       "away_goals": null
     },
