@@ -36,14 +36,10 @@ WC_GROUPS = {
 # Teams still alive in the knockout stage - tb remove as they are eliminated.
 # Set to None to show all teams (pre-knockout behaviour).
 REMAINING_TEAMS = [
-"Norway", 
 "Spain", 
 "France",
-"Morocco", 
-"Belgium", 
 "England",
 "Argentina", 
-"Switzerland", 
 ]
 
 BASELINE_ELO = {
@@ -183,6 +179,14 @@ R16_WINNERS = [
 ]
 
 
+# Semi-final pairings (locked)
+# M101: France v Spain | M102: England v Argentina
+SF_PAIRINGS = [
+    ("France", "Spain"),
+    ("England", "Argentina"),
+]
+
+
 def simulate_tournament(ratings, finished_matches):
     def play_round(matches):
         return [
@@ -190,8 +194,29 @@ def simulate_tournament(ratings, finished_matches):
             for a, b in matches
         ]
 
+    sf_winners = play_round(SF_PAIRINGS)
+
+    finalist_a, finalist_b = sf_winners[0], sf_winners[1]
+    champion, _ = simulate_match(finalist_a, finalist_b, ratings, allow_draw=False)
+
+    return {
+        "r32_winners": [],
+        "r16_winners": [],
+        "qf_winners":  [],
+        "sf_winners":  sf_winners,
+        "finalists":   [finalist_a, finalist_b],
+        "champion":    champion,
+    }
+
+
+def _unused_simulate_tournament(ratings, finished_matches):
+    def play_round(matches):
+        return [
+            simulate_match(a, b, ratings, allow_draw=False)[0]
+            for a, b in matches
+        ]
+
     r32_winners = R32_WINNERS
-    r16_winners = R16_WINNERS
 
     # Quarter-finals — pairs taken directly from R16_WINNERS order
     qf = [
