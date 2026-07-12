@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-11T07:45:37.445640+00:00",
+  "scraped_at": "2026-07-12T08:07:07.634362+00:00",
   "matches": [
     {
       "id": 537327,
@@ -895,11 +895,11 @@
       "stage": "QUARTER_FINALS",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Norway",
       "away": "England",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 2
     },
     {
       "id": 537386,
@@ -907,11 +907,11 @@
       "stage": "QUARTER_FINALS",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Argentina",
       "away": "Switzerland",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 3,
+      "away_goals": 1
     },
     {
       "id": 537387,
@@ -932,8 +932,8 @@
       "group": null,
       "matchday": null,
       "status": "TIMED",
-      "home": null,
-      "away": null,
+      "home": "England",
+      "away": "Argentina",
       "home_goals": null,
       "away_goals": null
     },
