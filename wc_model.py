@@ -317,9 +317,12 @@ def get_wc_data():
     probs, qualify_probs = run_simulation(ratings, finished)
     predictions = get_match_predictions(ratings, matches)
 
+    eligible = [(t, p) for t, p in probs["winner"].items()
+                if p > 0 and (REMAINING_TEAMS is None or t in REMAINING_TEAMS)]
+    total_pct = sum(p for _, p in eligible)
     winner_table = sorted(
-        [{"team": t, "pct": p} for t, p in probs["winner"].items()
-         if p > 0 and (REMAINING_TEAMS is None or t in REMAINING_TEAMS)],
+        [{"team": t, "pct": round(p / total_pct * 100, 1)} for t, p in eligible]
+        if total_pct > 0 else [],
         key=lambda x: x["pct"], reverse=True
     )
 
