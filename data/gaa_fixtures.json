@@ -1,31 +1,13 @@
 {
-  "scraped_at": "2026-07-07T02:54:59.101188+00:00",
+  "scraped_at": "2026-07-12T23:19:06.377640+00:00",
   "fixtures": [
     {
-      "date": "11/7/2026",
+      "date": "26/7/2026",
       "grade": "All-Ireland",
       "round": "",
-      "team1": "Louth",
+      "team1": "Kerry",
       "team2": "Mayo",
       "home": false,
-      "weight": 45
-    },
-    {
-      "date": "11/7/2026",
-      "grade": "Tailteann",
-      "round": "",
-      "team1": "Down",
-      "team2": "Wicklow",
-      "home": false,
-      "weight": 45
-    },
-    {
-      "date": "12/7/2026",
-      "grade": "All-Ireland",
-      "round": "",
-      "team1": "Dublin",
-      "team2": "Kerry",
-      "home": true,
       "weight": 45
     }
   ]

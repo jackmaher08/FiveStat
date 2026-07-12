@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-07T02:54:59.101188+00:00",
+  "scraped_at": "2026-07-12T23:19:06.377640+00:00",
   "results": [
     {
       "date": "24/1/2026",
@@ -2352,6 +2352,42 @@
       "sc1": 28,
       "sc2": 24,
       "winner": "Dublin"
+    },
+    {
+      "date": "11/7/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Louth",
+      "team2": "Mayo",
+      "home": false,
+      "weight": 2,
+      "sc1": 15,
+      "sc2": 32,
+      "winner": "Mayo"
+    },
+    {
+      "date": "11/7/2026",
+      "grade": "Tailteann",
+      "round": "",
+      "team1": "Down",
+      "team2": "Wicklow",
+      "home": false,
+      "weight": 1,
+      "sc1": 22,
+      "sc2": 24,
+      "winner": "Wicklow"
+    },
+    {
+      "date": "12/7/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Dublin",
+      "team2": "Kerry",
+      "home": true,
+      "weight": 1,
+      "sc1": 20,
+      "sc2": 24,
+      "winner": "Kerry"
     }
   ]
 }
