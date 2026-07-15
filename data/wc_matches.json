@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-14T07:52:48.727140+00:00",
+  "scraped_at": "2026-07-15T07:56:35.617565+00:00",
   "matches": [
     {
       "id": 537327,
@@ -919,11 +919,11 @@
       "stage": "SEMI_FINALS",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "France",
       "away": "Spain",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 0,
+      "away_goals": 2
     },
     {
       "id": 537388,
@@ -944,7 +944,7 @@
       "group": null,
       "matchday": null,
       "status": "TIMED",
-      "home": null,
+      "home": "France",
       "away": null,
       "home_goals": null,
       "away_goals": null
@@ -956,7 +956,7 @@
       "group": null,
       "matchday": null,
       "status": "TIMED",
-      "home": null,
+      "home": "Spain",
       "away": null,
       "home_goals": null,
       "away_goals": null
