@@ -37,14 +37,12 @@ WC_GROUPS = {
 # Set to None to show all teams (pre-knockout behaviour).
 REMAINING_TEAMS = [
 "Spain", 
-"France",
-"England",
 "Argentina", 
 ]
 
 BASELINE_ELO = {
-    "Spain":                  2165,
-    "Argentina":              2113,
+    "Spain":                  2232,
+    "Argentina":              2200,
     "France":                 2081,
     "England":                2020,
     "Brazil":                 1988,
@@ -179,31 +177,20 @@ R16_WINNERS = [
 ]
 
 
-# Semi-final pairings (locked)
-# M101: France v Spain | M102: England v Argentina
-SF_PAIRINGS = [
-    ("France", "Spain"),
-    ("England", "Argentina"),
-]
+# Final (locked)
+# M104: Spain v Argentina
+FINAL_PAIRING = ("Spain", "Argentina")
 
 
 def simulate_tournament(ratings, finished_matches):
-    def play_round(matches):
-        return [
-            simulate_match(a, b, ratings, allow_draw=False)[0]
-            for a, b in matches
-        ]
-
-    sf_winners = play_round(SF_PAIRINGS)
-
-    finalist_a, finalist_b = sf_winners[0], sf_winners[1]
+    finalist_a, finalist_b = FINAL_PAIRING
     champion, _ = simulate_match(finalist_a, finalist_b, ratings, allow_draw=False)
 
     return {
         "r32_winners": [],
         "r16_winners": [],
         "qf_winners":  [],
-        "sf_winners":  sf_winners,
+        "sf_winners":  [],
         "finalists":   [finalist_a, finalist_b],
         "champion":    champion,
     }
