@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-18T07:39:46.800165+00:00",
+  "scraped_at": "2026-07-19T08:06:25.874913+00:00",
   "matches": [
     {
       "id": 537327,
@@ -943,11 +943,11 @@
       "stage": "THIRD_PLACE",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "France",
       "away": "England",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 4,
+      "away_goals": 6
     },
     {
       "id": 537390,
