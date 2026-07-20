@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-19T08:06:25.874913+00:00",
+  "scraped_at": "2026-07-20T08:47:40.277415+00:00",
   "matches": [
     {
       "id": 537327,
@@ -955,11 +955,11 @@
       "stage": "FINAL",
       "group": null,
       "matchday": null,
-      "status": "TIMED",
+      "status": "FINISHED",
       "home": "Spain",
       "away": "Argentina",
-      "home_goals": null,
-      "away_goals": null
+      "home_goals": 1,
+      "away_goals": 0
     }
   ]
 }
