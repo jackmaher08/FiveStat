@@ -65,7 +65,16 @@
 
         <div class="menu" id="mainMenu">
 
-            <a href="/world-cup" class="nav-link">World Cup</a>
+            <div class="dropdown">
+                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
+                <div class="dropdown-content">
+                    <a href="/epl_fixtures">Fixtures</a>
+                    <a href="/epl_table">Tables</a>
+                    <a href="/teams">Teams</a>
+                </div>
+            </div>
+
+            <!--<a href="/world-cup" class="nav-link">World Cup</a>-->
             
             <!--<div class="dropdown">
                 <span class="dropbtn" onclick="toggleDropdown(event)">World Cup <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
@@ -86,15 +95,6 @@
             </div>
 
             <a href="/gaa" class="nav-link">GAA</a>
-            
-            <div class="dropdown">
-                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League <i class="fa-solid fa-chevron-down dropbtn-chevron"></i></span>
-                <div class="dropdown-content">
-                    <a href="/epl_fixtures">Fixtures</a>
-                    <a href="/epl_table">Tables</a>
-                    <a href="/teams">Teams</a>
-                </div>
-            </div>
 
             <!--<a href="/fpl" class="nav-link">FPL Planner</a>-->
 
