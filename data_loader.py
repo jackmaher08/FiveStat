@@ -761,6 +761,8 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
 def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_home_advantage=None, alpha=0.65, save_path="static/heatmaps/"):
     print("🔄 Running generate_all_heatmaps()...")
 
+    os.makedirs(save_path, exist_ok=True)
+
     # 🔥 CLEANUP STEP: Delete old heatmaps before regenerating
     for f in os.listdir(save_path):
         if f.endswith("_heatmap.png"):
