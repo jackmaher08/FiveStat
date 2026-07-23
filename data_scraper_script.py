@@ -423,49 +423,53 @@ if not BOOKIE_ONLY:
     # Convert to DataFrame
     complete_fixture_results_df = pd.DataFrame(team_stats)
 
-    complete_fixture_results_df["Team"] = complete_fixture_results_df["Team"].replace(team_name_mapping)
-
-    # ✅ Calculate Matches Played (MP)
-    matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
-
-    # Load fixture data
-    fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")
-    fixture_df = pd.read_csv(fixture_data_file_path)
-
-    # ✅ Calculate Goals Against (GA)
-    ga_home = fixture_df.groupby("home_team")["away_goals"].sum()
-    ga_away = fixture_df.groupby("away_team")["home_goals"].sum()
-    ga_total = ga_home.add(ga_away, fill_value=0).reset_index()
-    ga_total.columns = ["Team", "GA"]
-    ga_total["GA"] = ga_total["GA"].astype(int)
-
-    # ✅ Aggregate team stats
-    aggregated_results_df = complete_fixture_results_df.groupby("Team", as_index=False).sum()
-
-    # ✅ Merge GA and Matches Played (MP)
-    aggregated_results_df = aggregated_results_df.merge(ga_total, on="Team", how="left")
-    aggregated_results_df = aggregated_results_df.merge(matches_played, on="Team", how="left")
-
-    # add in gd
-    aggregated_results_df["GD"] = aggregated_results_df["G"] - aggregated_results_df["GA"]
-
-    # Sort by PTS, then GD, then Goals Scored
-    aggregated_results_df = aggregated_results_df.sort_values(by=["PTS", "GD", "G"], ascending=[False, False, False])
-
-
-    # ✅ Add new calculated columns
-    aggregated_results_df["xG +/-"] = (aggregated_results_df["xG"] - aggregated_results_df["G"]).round(2)
-    aggregated_results_df["xGA +/-"] = (aggregated_results_df["xGA"] - aggregated_results_df["GA"]).round(2)
-    aggregated_results_df["xPTS +/-"] = (aggregated_results_df["xPTS"] - aggregated_results_df["PTS"]).round(2)
-
-    # ✅ Reorder columns
-    aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'GD', 'GA', 'xG', 'npxG', 'xG +/-', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
-
-
-    # ✅ Save final league table
     league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
-    aggregated_results_df.to_csv(league_table_file_path, index=False)
 
+    if complete_fixture_results_df.empty:
+        print("⚠️  No match results yet — writing blank-slate league table for season start.")
+        teams_2026 = [
+            "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton",
+            "Chelsea", "Coventry City", "Crystal Palace", "Everton", "Fulham",
+            "Hull City", "Ipswich Town", "Leeds", "Liverpool", "Manchester City",
+            "Manchester United", "Newcastle United", "Nottingham Forest",
+            "Sunderland", "Tottenham Hotspur"
+        ]
+        aggregated_results_df = pd.DataFrame({
+            "Team": teams_2026,
+            "MP": 0, "W": 0, "D": 0, "L": 0,
+            "G": 0, "GD": 0, "GA": 0,
+            "xG": 0.0, "npxG": 0.0, "xG +/-": 0.0,
+            "xGA": 0.0, "npxGA": 0.0, "xGA +/-": 0.0,
+            "PTS": 0, "xPTS": 0.0, "xPTS +/-": 0.0
+        })
+    else:
+        complete_fixture_results_df["Team"] = complete_fixture_results_df["Team"].replace(team_name_mapping)
+
+        matches_played = complete_fixture_results_df.groupby("Team").size().reset_index(name="MP")
+
+        fixture_data_file_path = os.path.join(save_dir, "fixture_data.csv")
+        fixture_df = pd.read_csv(fixture_data_file_path)
+
+        ga_home = fixture_df.groupby("home_team")["away_goals"].sum()
+        ga_away = fixture_df.groupby("away_team")["home_goals"].sum()
+        ga_total = ga_home.add(ga_away, fill_value=0).reset_index()
+        ga_total.columns = ["Team", "GA"]
+        ga_total["GA"] = ga_total["GA"].astype(int)
+
+        aggregated_results_df = complete_fixture_results_df.groupby("Team", as_index=False).sum()
+        aggregated_results_df = aggregated_results_df.merge(ga_total, on="Team", how="left")
+        aggregated_results_df = aggregated_results_df.merge(matches_played, on="Team", how="left")
+
+        aggregated_results_df["GD"] = aggregated_results_df["G"] - aggregated_results_df["GA"]
+        aggregated_results_df = aggregated_results_df.sort_values(by=["PTS", "GD", "G"], ascending=[False, False, False])
+
+        aggregated_results_df["xG +/-"] = (aggregated_results_df["xG"] - aggregated_results_df["G"]).round(2)
+        aggregated_results_df["xGA +/-"] = (aggregated_results_df["xGA"] - aggregated_results_df["GA"]).round(2)
+        aggregated_results_df["xPTS +/-"] = (aggregated_results_df["xPTS"] - aggregated_results_df["PTS"]).round(2)
+
+        aggregated_results_df = aggregated_results_df[['Team', 'MP', 'W', 'D', 'L', 'G', 'GD', 'GA', 'xG', 'npxG', 'xG +/-', 'xGA', 'npxGA', 'xGA +/-', 'PTS', 'xPTS', 'xPTS +/-']]
+
+    aggregated_results_df.to_csv(league_table_file_path, index=False)
     print(f"✅ League table data saved to: {league_table_file_path}")
 
 
