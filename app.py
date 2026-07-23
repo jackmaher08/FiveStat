@@ -169,7 +169,7 @@ def index():
             current_gw = GW_OVERRIDE
         else:
             upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
-            current_gw = int(upcoming.min()) if not upcoming.empty else None
+            current_gw = int(upcoming.min()) if not upcoming.empty else int(fixtures_df["round_number"].max())
 
         if current_gw:
             probs_lookup = {}
