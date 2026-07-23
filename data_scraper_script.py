@@ -337,11 +337,17 @@ if not BOOKIE_ONLY:
         for p in players_raw
     ]
 
-    player_data = pd.DataFrame(player_rows)
-
-    player_data["Team"] = player_data["Team"].replace(
-        {"Tottenham": "Tottenham Hotspur"}
-    )
+    if not player_rows:
+        print(f"⚠️  No Understat player data available yet for {understat_season} — skipping player stats this run.")
+        player_data = pd.DataFrame(columns=[
+            "Name", "POS", "Team", "MP", "Mins", "G", "xG", "NPG",
+            "NPxG", "A", "xA", "YC", "RC"
+        ])
+    else:
+        player_data = pd.DataFrame(player_rows)
+        player_data["Team"] = player_data["Team"].replace(
+            {"Tottenham": "Tottenham Hotspur"}
+        )
 
     # Define the file path
     player_file_path = os.path.join(save_dir, "player_data.csv")
