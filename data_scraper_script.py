@@ -498,11 +498,16 @@ if not BOOKIE_ONLY:
     curr_fixtures = pd.read_csv(CURR_FIXTURES_PATH)
     curr_fixtures['Season'] = 2026
 
-    last_fixtures = pd.read_csv(LAST_FIXTURES_PATH)
-    last_fixtures['Season'] = 2025
+    if os.path.exists(LAST_FIXTURES_PATH):
+        last_fixtures = pd.read_csv(LAST_FIXTURES_PATH)
+        last_fixtures['Season'] = 2025
+    else:
+        print(f"⚠️  {LAST_FIXTURES_PATH} not found — skipping last season xG merge.")
+        last_fixtures = pd.DataFrame()
 
     # Combine both seasons
-    fixtures = pd.concat([curr_fixtures, last_fixtures], ignore_index=True)
+    frames = [f for f in [curr_fixtures, last_fixtures] if not f.empty]
+    fixtures = pd.concat(frames, ignore_index=True) if frames else curr_fixtures.copy()
 
     # Standardize column names
     fixtures = fixtures.rename(columns={
