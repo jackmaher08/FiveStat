@@ -1204,6 +1204,11 @@ if __name__ == "__main__":
         historical_fixtures_df, team_data, recent_matches=20, alpha=0.30
     )
 
+    for team, stats in team_data.items():
+        if team not in recent_form_att:
+            recent_form_att[team] = stats['ATT Rating']
+            recent_form_def[team] = stats['DEF Rating']
+
     print("ℹ️  Shot data fetched by data_scraper_script.py — skipping here")
 
     print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
