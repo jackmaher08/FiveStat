@@ -551,7 +551,7 @@ if not BOOKIE_ONLY:
 
     if len(new_rows) > 0:
         historical = pd.concat([historical, new_rows], ignore_index=True)
-        print(f"✅ Added {len(new_rows)} new 25/26 match rows to historical data")
+        print(f"✅ Added {len(new_rows)} new 26/27 match rows to historical data")
     else:
         print("✅ Historical data already up to date — no new rows to add")
     # ─────────────────────────────────────────────────────────────────────────
