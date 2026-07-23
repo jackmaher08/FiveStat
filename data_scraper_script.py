@@ -390,36 +390,35 @@ if not BOOKIE_ONLY:
     understat_season = "2026"  # same season you use elsewhere
 
     with UnderstatClient() as understat_client:
-        # This returns the same kind of structure you were previously getting
-        # from the `teamsData` JSON (teams with `history` lists etc.)
         fixture_results_df = understat_client.league(league="EPL").get_team_data(
             season=understat_season
         )
 
-
-
     # Prepare the list to store extracted data
     team_stats = []
 
-    # Extract relevant fields for each team
-    for team_id, team_info in fixture_results_df.items():
-        team_name = team_info['title']  # Get the team name
-        for match in team_info['history']:
-            team_stats.append({
-                "Team": team_name,
-                "h_a": match["h_a"],
-                "xG": round(float(match["xG"]), 1),
-                "xGA": round(float(match["xGA"]), 1),  # Ensures rounding
-                "npxG": round(float(match["npxG"]), 1),
-                "npxGA": round(float(match["npxGA"]), 1),
-                "G": int(match["scored"]),
-                "Shots": int(match["missed"]),
-                "W": int(match["wins"]),
-                "D": int(match["draws"]),
-                "L": int(match["loses"]),
-                "PTS": int(match["pts"]),
-                "xPTS": round(float(match["xpts"]), 1),
-            })
+    if not fixture_results_df:
+        print(f"⚠️  No Understat league table data available yet for {understat_season} — skipping league table build.")
+    else:
+        # Extract relevant fields for each team
+        for team_id, team_info in fixture_results_df.items():
+            team_name = team_info['title']
+            for match in team_info['history']:
+                team_stats.append({
+                    "Team": team_name,
+                    "h_a": match["h_a"],
+                    "xG": round(float(match["xG"]), 1),
+                    "xGA": round(float(match["xGA"]), 1),
+                    "npxG": round(float(match["npxG"]), 1),
+                    "npxGA": round(float(match["npxGA"]), 1),
+                    "G": int(match["scored"]),
+                    "Shots": int(match["missed"]),
+                    "W": int(match["wins"]),
+                    "D": int(match["draws"]),
+                    "L": int(match["loses"]),
+                    "PTS": int(match["pts"]),
+                    "xPTS": round(float(match["xpts"]), 1),
+                })
 
     # Convert to DataFrame
     complete_fixture_results_df = pd.DataFrame(team_stats)
