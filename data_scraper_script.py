@@ -483,7 +483,7 @@ if not BOOKIE_ONLY:
     # Paths
     HISTORICAL_PATH = "data/tables/historical_fixture_data.csv"
     CURR_FIXTURES_PATH = "data/tables/fixture_data.csv"                      # Season 2026
-    LAST_FIXTURES_PATH = "data/tables/24-25/fixture_data.csv"               # Season 2024
+    LAST_FIXTURES_PATH = "data/tables/25-26/fixture_data.csv"               # Season 2025
 
     # Load historical data
     historical = pd.read_csv(HISTORICAL_PATH)
@@ -499,7 +499,7 @@ if not BOOKIE_ONLY:
     curr_fixtures['Season'] = 2026
 
     last_fixtures = pd.read_csv(LAST_FIXTURES_PATH)
-    last_fixtures['Season'] = 2024
+    last_fixtures['Season'] = 2025
 
     # Combine both seasons
     fixtures = pd.concat([curr_fixtures, last_fixtures], ignore_index=True)
