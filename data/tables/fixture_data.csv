@@ -1,381 +1,381 @@
 round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,home_xG,away_xG
-1,15/08/2025 19:00,Liverpool,Bournemouth,4 - 2,28778,True,4,2,2.33,1.57
-1,16/08/2025 11:30,Aston Villa,Newcastle United,0 - 0,28779,True,0,0,0.32,1.4
-1,16/08/2025 14:00,Brighton,Fulham,1 - 1,28780,True,1,1,1.44,0.9
-1,16/08/2025 14:00,Tottenham Hotspur,Burnley,3 - 0,28782,True,3,0,1.98,0.73
-1,16/08/2025 14:00,Sunderland,West Ham,3 - 0,28781,True,3,0,0.72,0.56
-1,16/08/2025 16:30,Wolverhampton Wanderers,Manchester City,0 - 4,28783,True,0,4,0.52,2.3
-1,17/08/2025 13:00,Chelsea,Crystal Palace,0 - 0,28784,True,0,0,1.37,1.03
-1,17/08/2025 13:00,Nottingham Forest,Brentford,3 - 1,28785,True,3,1,1.76,1.33
-1,17/08/2025 15:30,Manchester United,Arsenal,0 - 1,28786,True,0,1,1.38,1.33
-1,18/08/2025 19:00,Leeds,Everton,1 - 0,28787,True,1,0,2.38,0.67
-2,22/08/2025 19:00,West Ham,Chelsea,1 - 5,28788,True,1,5,0.98,3.95
-2,23/08/2025 11:30,Manchester City,Tottenham Hotspur,0 - 2,28789,True,0,2,1.25,1.28
-2,23/08/2025 14:00,Bournemouth,Wolverhampton Wanderers,1 - 0,28792,True,1,0,1.78,0.37
-2,23/08/2025 14:00,Brentford,Aston Villa,1 - 0,28790,True,1,0,1.13,0.98
-2,23/08/2025 14:00,Burnley,Sunderland,2 - 0,28791,True,2,0,1.0,1.12
-2,23/08/2025 16:30,Arsenal,Leeds,5 - 0,28793,True,5,0,2.74,0.16
-2,24/08/2025 13:00,Crystal Palace,Nottingham Forest,1 - 1,28794,True,1,1,1.1,1.33
-2,24/08/2025 13:00,Everton,Brighton,2 - 0,28795,True,2,0,1.8,2.08
-2,24/08/2025 15:30,Fulham,Manchester United,1 - 1,28796,True,1,1,1.65,1.55
-2,25/08/2025 19:00,Newcastle United,Liverpool,2 - 3,28797,True,2,3,1.96,0.65
-3,30/08/2025 11:30,Chelsea,Fulham,2 - 0,28798,True,2,0,2.43,0.74
-3,30/08/2025 14:00,Manchester United,Burnley,3 - 2,28802,True,3,2,4.02,1.33
-3,30/08/2025 14:00,Tottenham Hotspur,Bournemouth,0 - 1,28799,True,0,1,0.17,2.12
-3,30/08/2025 14:00,Sunderland,Brentford,2 - 1,28801,True,2,1,1.57,1.45
-3,30/08/2025 14:00,Wolverhampton Wanderers,Everton,2 - 3,28800,True,2,3,0.94,2.04
-3,30/08/2025 16:30,Leeds,Newcastle United,0 - 0,28803,True,0,0,0.68,0.3
-3,31/08/2025 13:00,Brighton,Manchester City,2 - 1,28805,True,2,1,2.21,2.13
-3,31/08/2025 13:00,Nottingham Forest,West Ham,0 - 3,28804,True,0,3,0.72,2.24
-3,31/08/2025 15:30,Liverpool,Arsenal,1 - 0,28806,True,1,0,0.48,0.49
-3,31/08/2025 18:00,Aston Villa,Crystal Palace,0 - 3,28807,True,0,3,1.21,2.6
-4,13/09/2025 11:30,Arsenal,Nottingham Forest,3 - 0,28808,True,3,0,2.88,0.29
-4,13/09/2025 14:00,Bournemouth,Brighton,2 - 1,28810,True,2,1,1.44,0.62
-4,13/09/2025 14:00,Crystal Palace,Sunderland,0 - 0,28811,True,0,0,1.76,0.35
-4,13/09/2025 14:00,Everton,Aston Villa,0 - 0,28812,True,0,0,1.89,0.35
-4,13/09/2025 14:00,Fulham,Leeds,1 - 0,28813,True,1,0,1.14,0.83
-4,13/09/2025 14:00,Newcastle United,Wolverhampton Wanderers,1 - 0,28809,True,1,0,1.19,0.38
-4,13/09/2025 16:30,West Ham,Tottenham Hotspur,0 - 3,28814,True,0,3,0.79,1.51
-4,13/09/2025 19:00,Brentford,Chelsea,2 - 2,28815,True,2,2,1.18,0.76
-4,14/09/2025 13:00,Burnley,Liverpool,0 - 1,28816,True,0,1,0.17,2.79
-4,14/09/2025 15:30,Manchester City,Manchester United,3 - 0,28817,True,3,0,2.0,1.52
-5,20/09/2025 11:30,Liverpool,Everton,2 - 1,28818,True,2,1,1.06,0.72
-5,20/09/2025 14:00,Brighton,Tottenham Hotspur,2 - 2,28821,True,2,2,1.4,1.19
-5,20/09/2025 14:00,Burnley,Nottingham Forest,1 - 1,28822,True,1,1,1.14,0.83
-5,20/09/2025 14:00,West Ham,Crystal Palace,1 - 2,28819,True,1,2,0.47,2.34
-5,20/09/2025 14:00,Wolverhampton Wanderers,Leeds,1 - 3,28820,True,1,3,1.57,0.46
-5,20/09/2025 16:30,Manchester United,Chelsea,2 - 1,28824,True,2,1,1.34,0.47
-5,20/09/2025 19:00,Fulham,Brentford,3 - 1,28825,True,3,1,1.52,0.83
-5,21/09/2025 13:00,Bournemouth,Newcastle United,0 - 0,28823,True,0,0,0.55,0.15
-5,21/09/2025 13:00,Sunderland,Aston Villa,1 - 1,28826,True,1,1,0.94,0.94
-5,21/09/2025 15:30,Arsenal,Manchester City,1 - 1,28827,True,1,1,0.72,1.12
-6,27/09/2025 11:30,Brentford,Manchester United,3 - 1,28828,True,3,1,2.79,2.24
-6,27/09/2025 14:00,Chelsea,Brighton,1 - 3,28829,True,1,3,2.03,2.48
-6,27/09/2025 14:00,Crystal Palace,Liverpool,2 - 1,28830,True,2,1,3.53,3.1
-6,27/09/2025 14:00,Leeds,Bournemouth,2 - 2,28832,True,2,2,2.05,1.06
-6,27/09/2025 14:00,Manchester City,Burnley,5 - 1,28833,True,5,1,3.22,0.51
-6,27/09/2025 16:30,Nottingham Forest,Sunderland,0 - 1,28834,True,0,1,1.42,1.94
-6,27/09/2025 19:00,Tottenham Hotspur,Wolverhampton Wanderers,1 - 1,28835,True,1,1,0.82,1.16
-6,28/09/2025 13:00,Aston Villa,Fulham,3 - 1,28831,True,3,1,1.37,0.95
-6,28/09/2025 15:30,Newcastle United,Arsenal,1 - 2,28836,True,1,2,0.74,2.07
-6,29/09/2025 19:00,Everton,West Ham,1 - 1,28837,True,1,1,0.91,0.78
-7,03/10/2025 19:00,Bournemouth,Fulham,3 - 1,28838,True,3,1,1.33,0.84
-7,04/10/2025 11:30,Leeds,Tottenham Hotspur,1 - 2,28844,True,1,2,1.48,0.69
-7,04/10/2025 14:00,Arsenal,West Ham,2 - 0,28839,True,2,0,3.06,0.86
-7,04/10/2025 14:00,Manchester United,Sunderland,2 - 0,28845,True,2,0,1.93,0.81
-7,04/10/2025 16:30,Chelsea,Liverpool,2 - 1,28842,True,2,1,1.24,2.06
-7,05/10/2025 13:00,Aston Villa,Burnley,2 - 1,28840,True,2,1,1.74,0.5
-7,05/10/2025 13:00,Everton,Crystal Palace,2 - 1,28843,True,2,1,2.14,2.18
-7,05/10/2025 13:00,Newcastle United,Nottingham Forest,2 - 0,28846,True,2,0,3.82,0.34
-7,05/10/2025 13:00,Wolverhampton Wanderers,Brighton,1 - 1,28847,True,1,1,0.37,1.39
-7,05/10/2025 15:30,Brentford,Manchester City,0 - 1,28841,True,0,1,0.69,1.1
-8,18/10/2025 11:30,Nottingham Forest,Chelsea,0 - 3,28854,True,0,3,2.06,2.56
-8,18/10/2025 14:00,Brighton,Newcastle United,2 - 1,28848,True,2,1,0.86,1.28
-8,18/10/2025 14:00,Burnley,Leeds,2 - 0,28849,True,2,0,0.51,2.33
-8,18/10/2025 14:00,Crystal Palace,Bournemouth,3 - 3,28850,True,3,3,4.56,2.05
-8,18/10/2025 14:00,Manchester City,Everton,2 - 0,28853,True,2,0,2.48,0.79
-8,18/10/2025 14:00,Sunderland,Wolverhampton Wanderers,2 - 0,28855,True,2,0,1.02,0.68
-8,18/10/2025 16:30,Fulham,Arsenal,0 - 1,28851,True,0,1,0.5,2.08
-8,19/10/2025 13:00,Tottenham Hotspur,Aston Villa,1 - 2,28856,True,1,2,1.51,0.35
-8,19/10/2025 15:30,Liverpool,Manchester United,1 - 2,28852,True,1,2,2.61,2.53
-8,20/10/2025 19:00,West Ham,Brentford,0 - 2,28857,True,0,2,0.26,3.47
-9,24/10/2025 19:00,Leeds,West Ham,2 - 1,28864,True,2,1,2.22,0.5
-9,25/10/2025 14:00,Chelsea,Sunderland,1 - 2,28862,True,1,2,1.21,1.55
-9,25/10/2025 14:00,Newcastle United,Fulham,2 - 1,28866,True,2,1,2.77,1.52
-9,25/10/2025 16:30,Manchester United,Brighton,4 - 2,28865,True,4,2,1.96,0.95
-9,25/10/2025 19:00,Brentford,Liverpool,3 - 2,28861,True,3,2,3.27,2.12
-9,26/10/2025 14:00,Arsenal,Crystal Palace,1 - 0,28859,True,1,0,0.86,0.35
-9,26/10/2025 14:00,Aston Villa,Manchester City,1 - 0,28860,True,1,0,0.84,1.37
-9,26/10/2025 14:00,Bournemouth,Nottingham Forest,2 - 0,28858,True,2,0,0.66,0.31
-9,26/10/2025 14:00,Wolverhampton Wanderers,Burnley,2 - 3,28867,True,2,3,2.58,1.55
-9,26/10/2025 16:30,Everton,Tottenham Hotspur,0 - 3,28863,True,0,3,1.4,2.09
-10,01/11/2025 15:00,Brighton,Leeds,3 - 0,28868,True,3,0,2.64,0.36
-10,01/11/2025 15:00,Burnley,Arsenal,0 - 2,28869,True,0,2,0.68,2.52
-10,01/11/2025 15:00,Crystal Palace,Brentford,2 - 0,28870,True,2,0,0.73,0.82
-10,01/11/2025 15:00,Fulham,Wolverhampton Wanderers,3 - 0,28871,True,3,0,1.91,0.21
-10,01/11/2025 15:00,Nottingham Forest,Manchester United,2 - 2,28874,True,2,2,1.55,0.92
-10,01/11/2025 17:30,Tottenham Hotspur,Chelsea,0 - 1,28876,True,0,1,0.15,3.34
-10,01/11/2025 20:00,Liverpool,Aston Villa,2 - 0,28872,True,2,0,1.47,0.44
-10,02/11/2025 14:00,West Ham,Newcastle United,3 - 1,28877,True,3,1,1.41,0.52
-10,02/11/2025 16:30,Manchester City,Bournemouth,3 - 1,28873,True,3,1,2.49,0.9
-10,03/11/2025 20:00,Sunderland,Everton,1 - 1,28875,True,1,1,1.18,1.01
-11,08/11/2025 12:30,Tottenham Hotspur,Manchester United,2 - 2,28886,True,2,2,1.36,0.82
-11,08/11/2025 15:00,Everton,Fulham,2 - 0,28882,True,2,0,2.31,0.42
-11,08/11/2025 15:00,West Ham,Burnley,3 - 2,28887,True,3,2,2.97,1.87
-11,08/11/2025 17:30,Sunderland,Arsenal,2 - 2,28885,True,2,2,1.2,2.33
-11,08/11/2025 20:00,Chelsea,Wolverhampton Wanderers,3 - 0,28880,True,3,0,3.98,0.11
-11,09/11/2025 14:00,Aston Villa,Bournemouth,4 - 0,28878,True,4,0,1.88,2.01
-11,09/11/2025 14:00,Brentford,Newcastle United,3 - 1,28879,True,3,1,2.74,0.43
-11,09/11/2025 14:00,Crystal Palace,Brighton,0 - 0,28881,True,0,0,0.84,0.64
-11,09/11/2025 14:00,Nottingham Forest,Leeds,3 - 1,28884,True,3,1,2.49,0.42
-11,09/11/2025 16:30,Manchester City,Liverpool,3 - 0,28883,True,3,0,1.6,1.03
-12,22/11/2025 12:30,Burnley,Chelsea,0 - 2,28891,True,0,2,0.66,1.72
-12,22/11/2025 15:00,Bournemouth,West Ham,2 - 2,28888,True,2,2,3.48,0.39
-12,22/11/2025 15:00,Brighton,Brentford,2 - 1,28890,True,2,1,0.98,2.2
-12,22/11/2025 15:00,Fulham,Sunderland,1 - 0,28892,True,1,0,2.84,0.22
-12,22/11/2025 15:00,Liverpool,Nottingham Forest,0 - 3,28894,True,0,3,1.79,1.19
-12,22/11/2025 15:00,Wolverhampton Wanderers,Crystal Palace,0 - 2,28897,True,0,2,1.66,1.45
-12,22/11/2025 17:30,Newcastle United,Manchester City,2 - 1,28896,True,2,1,2.41,2.46
-12,23/11/2025 14:00,Leeds,Aston Villa,1 - 2,28893,True,1,2,1.85,1.36
-12,23/11/2025 16:30,Arsenal,Tottenham Hotspur,4 - 1,28889,True,4,1,2.28,0.03
-12,24/11/2025 20:00,Manchester United,Everton,0 - 1,28895,True,0,1,2.27,0.16
-13,29/11/2025 15:00,Brentford,Burnley,3 - 1,28899,True,3,1,3.72,0.87
-13,29/11/2025 15:00,Manchester City,Leeds,3 - 2,28903,True,3,2,2.85,1.75
-13,29/11/2025 15:00,Sunderland,Bournemouth,3 - 2,28905,True,3,2,1.17,1.79
-13,29/11/2025 17:30,Everton,Newcastle United,1 - 4,28902,True,1,4,1.01,2.46
-13,29/11/2025 20:00,Tottenham Hotspur,Fulham,1 - 2,28906,True,1,2,1.04,0.49
-13,30/11/2025 12:00,Crystal Palace,Manchester United,1 - 2,28901,True,1,2,2.14,1.48
-13,30/11/2025 14:05,Aston Villa,Wolverhampton Wanderers,1 - 0,28898,True,1,0,1.15,0.69
-13,30/11/2025 14:05,Nottingham Forest,Brighton,0 - 2,28904,True,0,2,0.96,2.06
-13,30/11/2025 14:05,West Ham,Liverpool,0 - 2,28907,True,0,2,0.36,1.57
-13,30/11/2025 16:30,Chelsea,Arsenal,1 - 1,28900,True,1,1,0.79,1.23
-14,02/12/2025 19:30,Bournemouth,Everton,0 - 1,28908,True,0,1,0.64,1.2
-14,02/12/2025 19:30,Fulham,Manchester City,4 - 5,28912,True,4,5,0.97,1.96
-14,02/12/2025 20:15,Newcastle United,Tottenham Hotspur,2 - 2,28916,True,2,2,1.89,1.05
-14,03/12/2025 19:30,Arsenal,Brentford,2 - 0,28909,True,2,0,2.63,0.59
-14,03/12/2025 19:30,Brighton,Aston Villa,3 - 4,28910,True,3,4,1.96,3.16
-14,03/12/2025 19:30,Burnley,Crystal Palace,0 - 1,28911,True,0,1,1.17,0.99
-14,03/12/2025 19:30,Wolverhampton Wanderers,Nottingham Forest,0 - 1,28917,True,0,1,1.02,1.12
-14,03/12/2025 20:15,Leeds,Chelsea,3 - 1,28913,True,3,1,2.2,0.96
-14,03/12/2025 20:15,Liverpool,Sunderland,1 - 1,28914,True,1,1,1.38,0.71
-14,04/12/2025 20:00,Manchester United,West Ham,1 - 1,28915,True,1,1,2.28,1.37
-15,06/12/2025 12:30,Aston Villa,Arsenal,2 - 1,28919,True,2,1,2.72,1.86
-15,06/12/2025 15:00,Bournemouth,Chelsea,0 - 0,28918,True,0,0,1.42,0.67
-15,06/12/2025 15:00,Everton,Nottingham Forest,3 - 0,28921,True,3,0,1.25,0.31
-15,06/12/2025 15:00,Manchester City,Sunderland,3 - 0,28924,True,3,0,2.42,0.63
-15,06/12/2025 15:00,Newcastle United,Burnley,2 - 1,28925,True,2,1,1.81,1.58
-15,06/12/2025 15:00,Tottenham Hotspur,Brentford,2 - 0,28926,True,2,0,2.42,0.47
-15,06/12/2025 17:30,Leeds,Liverpool,3 - 3,28923,True,3,3,1.79,2.05
-15,07/12/2025 14:00,Brighton,West Ham,1 - 1,28920,True,1,1,2.1,1.71
-15,07/12/2025 16:30,Fulham,Crystal Palace,1 - 2,28922,True,1,2,0.77,1.71
-15,08/12/2025 20:00,Wolverhampton Wanderers,Manchester United,1 - 4,28927,True,1,4,0.26,4.05
-16,13/12/2025 15:00,Chelsea,Everton,2 - 0,28931,True,2,0,2.64,1.34
-16,13/12/2025 15:00,Liverpool,Brighton,2 - 0,28933,True,2,0,2.41,1.69
-16,13/12/2025 17:30,Burnley,Fulham,2 - 3,28930,True,2,3,2.05,1.65
-16,13/12/2025 20:00,Arsenal,Wolverhampton Wanderers,2 - 1,28928,True,2,1,1.62,0.62
-16,14/12/2025 14:00,Crystal Palace,Manchester City,0 - 3,28932,True,0,3,1.3,1.35
-16,14/12/2025 14:00,Nottingham Forest,Tottenham Hotspur,3 - 0,28935,True,3,0,2.33,0.38
-16,14/12/2025 14:00,Sunderland,Newcastle United,1 - 0,28936,True,1,0,0.63,0.17
-16,14/12/2025 14:00,West Ham,Aston Villa,2 - 3,28937,True,2,3,1.28,0.6
-16,14/12/2025 16:30,Brentford,Leeds,1 - 1,28929,True,1,1,0.7,1.63
-16,15/12/2025 20:00,Manchester United,Bournemouth,4 - 4,28934,True,4,4,3.21,2.35
-17,20/12/2025 12:30,Newcastle United,Chelsea,2 - 2,28945,True,2,2,2.88,1.03
-17,20/12/2025 15:00,Bournemouth,Burnley,1 - 1,28938,True,1,1,1.82,0.48
-17,20/12/2025 15:00,Brighton,Sunderland,0 - 0,28940,True,0,0,0.92,1.31
-17,20/12/2025 15:00,Manchester City,West Ham,3 - 0,28944,True,3,0,3.58,1.02
-17,20/12/2025 15:00,Wolverhampton Wanderers,Brentford,0 - 2,28947,True,0,2,1.27,1.56
-17,20/12/2025 17:30,Tottenham Hotspur,Liverpool,1 - 2,28946,True,1,2,1.35,1.23
-17,20/12/2025 20:00,Everton,Arsenal,0 - 1,28941,True,0,1,0.21,1.85
-17,20/12/2025 20:00,Leeds,Crystal Palace,4 - 1,28943,True,4,1,2.91,1.53
-17,21/12/2025 16:30,Aston Villa,Manchester United,2 - 1,28939,True,2,1,1.87,1.3
-17,22/12/2025 20:00,Fulham,Nottingham Forest,1 - 0,28942,True,1,0,1.71,0.49
-18,26/12/2025 20:00,Manchester United,Newcastle United,1 - 0,28954,True,1,0,0.94,1.13
-18,27/12/2025 12:30,Nottingham Forest,Manchester City,1 - 2,28955,True,1,2,0.6,1.46
-18,27/12/2025 15:00,Arsenal,Brighton,2 - 1,28948,True,2,1,2.54,0.71
-18,27/12/2025 15:00,Brentford,Bournemouth,4 - 1,28949,True,4,1,2.85,2.56
-18,27/12/2025 15:00,Burnley,Everton,0 - 0,28950,True,0,0,1.25,1.25
-18,27/12/2025 15:00,Liverpool,Wolverhampton Wanderers,2 - 1,28953,True,2,1,1.57,0.78
-18,27/12/2025 15:00,West Ham,Fulham,0 - 1,28957,True,0,1,1.14,1.11
-18,27/12/2025 17:30,Chelsea,Aston Villa,1 - 2,28951,True,1,2,1.97,2.06
-18,28/12/2025 14:00,Sunderland,Leeds,1 - 1,28956,True,1,1,0.81,2.61
-18,28/12/2025 16:30,Crystal Palace,Tottenham Hotspur,0 - 1,28952,True,0,1,0.93,0.87
-19,30/12/2025 19:30,Burnley,Newcastle United,1 - 3,28960,True,1,3,1.33,2.49
-19,30/12/2025 19:30,Chelsea,Bournemouth,2 - 2,28961,True,2,2,2.33,3.49
-19,30/12/2025 19:30,Nottingham Forest,Everton,0 - 2,28965,True,0,2,1.75,1.7
-19,30/12/2025 19:30,West Ham,Brighton,2 - 2,28967,True,2,2,2.28,3.09
-19,30/12/2025 20:15,Arsenal,Aston Villa,4 - 1,28958,True,4,1,4.41,2.94
-19,30/12/2025 20:15,Manchester United,Wolverhampton Wanderers,1 - 1,28964,True,1,1,1.13,1.22
-19,01/01/2026 17:30,Crystal Palace,Fulham,1 - 1,28962,True,1,1,2.35,1.75
-19,01/01/2026 17:30,Liverpool,Leeds,0 - 0,28963,True,0,0,1.68,0.16
-19,01/01/2026 20:00,Brentford,Tottenham Hotspur,0 - 0,28959,True,0,0,0.56,0.61
-19,01/01/2026 20:00,Sunderland,Manchester City,0 - 0,28966,True,0,0,0.96,2.44
-20,03/01/2026 12:30,Aston Villa,Nottingham Forest,3 - 1,28972,True,3,1,1.43,0.9
-20,03/01/2026 15:00,Brighton,Burnley,2 - 0,28973,True,2,0,1.47,0.25
-20,03/01/2026 15:00,Wolverhampton Wanderers,West Ham,3 - 0,28970,True,3,0,2.24,0.24
-20,03/01/2026 17:30,Bournemouth,Arsenal,2 - 3,28971,True,2,3,0.95,1.28
-20,04/01/2026 12:30,Leeds,Manchester United,1 - 1,28976,True,1,1,0.97,1.95
-20,04/01/2026 15:00,Everton,Brentford,2 - 4,28974,True,2,4,1.01,3.05
-20,04/01/2026 15:00,Newcastle United,Crystal Palace,2 - 0,28968,True,2,0,2.73,1.28
-20,04/01/2026 15:00,Tottenham Hotspur,Sunderland,1 - 1,28969,True,1,1,1.42,0.47
-20,04/01/2026 15:15,Fulham,Liverpool,2 - 2,28975,True,2,2,0.61,1.72
-20,04/01/2026 17:30,Manchester City,Chelsea,1 - 1,28977,True,1,1,1.03,2.04
-21,06/01/2026 20:00,West Ham,Nottingham Forest,1 - 2,28987,True,1,2,1.74,1.27
-21,07/01/2026 19:30,Bournemouth,Tottenham Hotspur,3 - 2,28979,True,3,2,1.19,1.63
-21,07/01/2026 19:30,Brentford,Sunderland,3 - 0,28981,True,3,0,3.86,1.51
-21,07/01/2026 19:30,Crystal Palace,Aston Villa,0 - 0,28983,True,0,0,1.33,2.07
-21,07/01/2026 19:30,Everton,Wolverhampton Wanderers,1 - 1,28978,True,1,1,1.63,0.71
-21,07/01/2026 19:30,Fulham,Chelsea,2 - 1,28984,True,2,1,1.06,2.45
-21,07/01/2026 19:30,Manchester City,Brighton,1 - 1,28985,True,1,1,2.96,1.33
-21,07/01/2026 20:15,Burnley,Manchester United,2 - 2,28982,True,2,2,0.32,2.52
-21,07/01/2026 20:15,Newcastle United,Leeds,4 - 3,28986,True,4,3,2.43,2.35
-21,08/01/2026 20:00,Arsenal,Liverpool,0 - 0,28980,True,0,0,0.7,0.32
-22,17/01/2026 12:30,Manchester United,Manchester City,2 - 0,28993,True,2,0,3.07,0.39
-22,17/01/2026 15:00,Chelsea,Brentford,2 - 0,28990,True,2,0,1.62,1.48
-22,17/01/2026 15:00,Leeds,Fulham,1 - 0,28991,True,1,0,2.17,0.26
-22,17/01/2026 15:00,Liverpool,Burnley,1 - 1,28992,True,1,1,3.49,0.55
-22,17/01/2026 15:00,Tottenham Hotspur,West Ham,1 - 2,28996,True,1,2,1.65,2.77
-22,17/01/2026 15:00,Sunderland,Crystal Palace,2 - 1,28995,True,2,1,1.85,1.15
-22,17/01/2026 17:30,Nottingham Forest,Arsenal,0 - 0,28994,True,0,0,0.32,2.86
-22,18/01/2026 14:00,Wolverhampton Wanderers,Newcastle United,0 - 0,28997,True,0,0,0.39,0.81
-22,18/01/2026 16:30,Aston Villa,Everton,0 - 1,28988,True,0,1,0.91,0.75
-22,19/01/2026 20:00,Brighton,Bournemouth,1 - 1,28989,True,1,1,1.0,1.7
-23,24/01/2026 12:30,West Ham,Sunderland,3 - 1,29007,True,3,1,2.19,0.71
-23,24/01/2026 15:00,Burnley,Tottenham Hotspur,2 - 2,29001,True,2,2,1.55,2.59
-23,24/01/2026 15:00,Fulham,Brighton,2 - 1,29004,True,2,1,1.13,1.95
-23,24/01/2026 15:00,Manchester City,Wolverhampton Wanderers,2 - 0,29005,True,2,0,1.07,0.54
-23,24/01/2026 17:30,Bournemouth,Liverpool,3 - 2,28998,True,3,2,3.31,0.94
-23,25/01/2026 14:00,Brentford,Nottingham Forest,0 - 2,29000,True,0,2,2.0,1.39
-23,25/01/2026 14:00,Crystal Palace,Chelsea,1 - 3,29002,True,1,3,2.42,3.09
-23,25/01/2026 14:00,Newcastle United,Aston Villa,0 - 2,29006,True,0,2,1.95,1.32
-23,25/01/2026 16:30,Arsenal,Manchester United,2 - 3,28999,True,2,3,1.42,0.64
-23,26/01/2026 20:00,Everton,Leeds,1 - 1,29003,True,1,1,0.89,1.68
-24,31/01/2026 15:00,Brighton,Everton,1 - 1,29010,True,1,1,1.43,1.28
-24,31/01/2026 15:00,Leeds,Arsenal,0 - 4,29015,True,0,4,0.18,3.54
-24,31/01/2026 15:00,Wolverhampton Wanderers,Bournemouth,0 - 2,29017,True,0,2,2.1,1.59
-24,31/01/2026 17:30,Chelsea,West Ham,3 - 2,29009,True,3,2,2.66,1.73
-24,31/01/2026 20:00,Liverpool,Newcastle United,4 - 1,29014,True,4,1,3.1,0.28
-24,01/02/2026 14:00,Aston Villa,Brentford,0 - 1,29008,True,0,1,2.15,0.31
-24,01/02/2026 14:00,Manchester United,Fulham,3 - 2,29012,True,3,2,1.84,1.72
-24,01/02/2026 14:00,Nottingham Forest,Crystal Palace,1 - 1,29013,True,1,1,0.99,1.65
-24,01/02/2026 16:30,Tottenham Hotspur,Manchester City,2 - 2,29016,True,2,2,1.5,2.04
-24,02/02/2026 20:00,Sunderland,Burnley,3 - 0,29011,True,3,0,1.89,0.13
-25,06/02/2026 20:00,Leeds,Nottingham Forest,3 - 1,29023,True,3,1,3.38,1.66
-25,07/02/2026 12:30,Manchester United,Tottenham Hotspur,2 - 0,29025,True,2,0,2.17,0.59
-25,07/02/2026 15:00,Arsenal,Sunderland,3 - 0,29019,True,3,0,1.19,0.43
-25,07/02/2026 15:00,Bournemouth,Aston Villa,1 - 1,29018,True,1,1,1.83,0.65
-25,07/02/2026 15:00,Burnley,West Ham,0 - 2,29021,True,0,2,1.85,1.12
-25,07/02/2026 15:00,Fulham,Everton,1 - 2,29022,True,1,2,2.2,1.89
-25,07/02/2026 15:00,Wolverhampton Wanderers,Chelsea,1 - 3,29027,True,1,3,1.11,3.76
-25,07/02/2026 17:30,Newcastle United,Brentford,2 - 3,29026,True,2,3,3.32,1.65
-25,08/02/2026 14:00,Brighton,Crystal Palace,0 - 1,29020,True,0,1,0.74,0.93
-25,08/02/2026 16:30,Liverpool,Manchester City,1 - 2,29024,True,1,2,1.27,2.41
-26,10/02/2026 19:30,Chelsea,Leeds,2 - 2,29030,True,2,2,3.21,1.29
-26,10/02/2026 19:30,Everton,Bournemouth,1 - 2,29032,True,1,2,2.33,1.41
-26,10/02/2026 19:30,Tottenham Hotspur,Newcastle United,1 - 2,29036,True,1,2,1.69,2.47
-26,10/02/2026 20:15,West Ham,Manchester United,1 - 1,29037,True,1,1,1.31,0.74
-26,11/02/2026 19:30,Aston Villa,Brighton,1 - 0,29028,True,1,0,0.58,0.48
-26,11/02/2026 19:30,Manchester City,Fulham,3 - 0,29033,True,3,0,1.68,1.05
-26,11/02/2026 19:30,Nottingham Forest,Wolverhampton Wanderers,0 - 0,29034,True,0,0,3.69,0.41
-26,11/02/2026 19:40,Crystal Palace,Burnley,2 - 3,29031,True,2,3,2.13,0.69
-26,11/02/2026 20:15,Sunderland,Liverpool,0 - 1,29035,True,0,1,0.69,3.08
-26,12/02/2026 20:00,Brentford,Arsenal,1 - 1,29029,True,1,1,1.81,0.78
-26,18/02/2026 20:00,Wolverhampton Wanderers,Arsenal,2 - 2,29087,True,2,2,0.17,2.01
-27,21/02/2026 15:00,Aston Villa,Leeds,1 - 1,29038,True,1,1,1.25,1.28
-27,21/02/2026 15:00,Brentford,Brighton,0 - 2,29039,True,0,2,1.69,1.37
-27,21/02/2026 15:00,Chelsea,Burnley,1 - 1,29040,True,1,1,2.52,1.01
-27,21/02/2026 17:30,West Ham,Bournemouth,0 - 0,29047,True,0,0,2.34,0.52
-27,21/02/2026 20:00,Manchester City,Newcastle United,2 - 1,29043,True,2,1,2.23,0.51
-27,22/02/2026 14:00,Crystal Palace,Wolverhampton Wanderers,1 - 0,29041,True,1,0,2.04,1.68
-27,22/02/2026 14:00,Nottingham Forest,Liverpool,0 - 1,29044,True,0,1,0.93,2.4
-27,22/02/2026 14:00,Sunderland,Fulham,1 - 3,29045,True,1,3,1.76,2.17
-27,22/02/2026 16:30,Tottenham Hotspur,Arsenal,1 - 4,29046,True,1,4,0.38,3.32
-27,23/02/2026 20:00,Everton,Manchester United,0 - 1,29042,True,0,1,0.56,1.45
-28,27/02/2026 20:00,Wolverhampton Wanderers,Aston Villa,2 - 0,29057,True,2,0,1.51,1.31
-28,28/02/2026 12:30,Bournemouth,Sunderland,1 - 1,29048,True,1,1,1.82,1.08
-28,28/02/2026 15:00,Burnley,Brentford,3 - 4,29051,True,3,4,0.82,2.45
-28,28/02/2026 15:00,Liverpool,West Ham,5 - 2,29054,True,5,2,2.1,1.35
-28,28/02/2026 15:00,Newcastle United,Everton,2 - 3,29056,True,2,3,1.12,2.41
-28,28/02/2026 17:30,Leeds,Manchester City,0 - 1,29053,True,0,1,1.38,2.47
-28,01/03/2026 14:00,Brighton,Nottingham Forest,2 - 1,29050,True,2,1,1.2,0.83
-28,01/03/2026 14:00,Fulham,Tottenham Hotspur,2 - 1,29052,True,2,1,2.32,0.95
-28,01/03/2026 14:00,Manchester United,Crystal Palace,2 - 1,29055,True,2,1,2.35,0.38
-28,01/03/2026 16:30,Arsenal,Chelsea,2 - 1,29049,True,2,1,1.72,1.35
-29,03/03/2026 19:30,Bournemouth,Brentford,0 - 0,29058,True,0,0,2.32,0.67
-29,03/03/2026 19:30,Everton,Burnley,2 - 0,29061,True,2,0,1.16,0.76
-29,03/03/2026 19:30,Leeds,Sunderland,0 - 1,29063,True,0,1,0.89,0.84
-29,03/03/2026 20:15,Wolverhampton Wanderers,Liverpool,2 - 1,29067,True,2,1,0.64,2.17
-29,04/03/2026 19:30,Aston Villa,Chelsea,1 - 4,29059,True,1,4,1.07,3.39
-29,04/03/2026 19:30,Brighton,Arsenal,0 - 1,29060,True,0,1,0.92,0.51
-29,04/03/2026 19:30,Fulham,West Ham,0 - 1,29062,True,0,1,0.63,1.5
-29,04/03/2026 19:30,Manchester City,Nottingham Forest,2 - 2,29064,True,2,2,2.73,1.24
-29,04/03/2026 20:15,Newcastle United,Manchester United,2 - 1,29065,True,2,1,1.97,1.81
-29,05/03/2026 20:00,Tottenham Hotspur,Crystal Palace,1 - 3,29066,True,1,3,1.3,1.92
-30,14/03/2026 15:00,Burnley,Bournemouth,0 - 0,29070,True,0,0,1.68,2.37
-30,14/03/2026 15:00,Sunderland,Brighton,0 - 1,29076,True,0,1,0.66,1.13
-30,14/03/2026 17:30,Arsenal,Everton,2 - 0,29068,True,2,0,1.91,1.18
-30,14/03/2026 17:30,Chelsea,Newcastle United,0 - 1,29071,True,0,1,1.73,1.03
-30,14/03/2026 20:00,West Ham,Manchester City,1 - 1,29077,True,1,1,0.49,1.95
-30,15/03/2026 14:00,Crystal Palace,Leeds,0 - 0,29072,True,0,0,0.53,1.14
-30,15/03/2026 14:00,Manchester United,Aston Villa,3 - 1,29074,True,3,1,1.68,1.21
-30,15/03/2026 14:00,Nottingham Forest,Fulham,0 - 0,29075,True,0,0,0.82,0.93
-30,15/03/2026 16:30,Liverpool,Tottenham Hotspur,1 - 1,29073,True,1,1,1.3,1.16
-30,16/03/2026 20:00,Brentford,Wolverhampton Wanderers,2 - 2,29069,True,2,2,2.8,1.8
-31,20/03/2026 20:00,Bournemouth,Manchester United,2 - 2,29078,True,2,2,1.77,1.75
-31,21/03/2026 12:45,Brighton,Liverpool,2 - 1,29080,True,2,1,3.43,0.96
-31,21/03/2026 15:00,Fulham,Burnley,3 - 1,29082,True,3,1,3.48,1.93
-31,21/03/2026 17:30,Everton,Chelsea,3 - 0,29081,True,3,0,1.45,1.35
-31,21/03/2026 20:00,Leeds,Brentford,0 - 0,29083,True,0,0,0.42,0.3
-31,22/03/2026 12:00,Newcastle United,Sunderland,1 - 2,29085,True,1,2,1.27,2.67
-31,22/03/2026 14:15,Aston Villa,West Ham,2 - 0,29079,True,2,0,2.49,0.76
-31,22/03/2026 14:15,Tottenham Hotspur,Nottingham Forest,0 - 3,29086,True,0,3,1.62,1.54
-32,10/04/2026 19:00,West Ham,Wolverhampton Wanderers,4 - 0,29091,True,4,0,2.54,0.57
-32,11/04/2026 11:30,Arsenal,Bournemouth,1 - 2,29092,True,1,2,3.16,1.39
-32,11/04/2026 14:00,Brentford,Everton,2 - 2,29093,True,2,2,2.26,1.57
-32,11/04/2026 14:00,Burnley,Brighton,0 - 2,29094,True,0,2,0.81,1.07
-32,11/04/2026 16:30,Liverpool,Fulham,2 - 0,29097,True,2,0,2.01,1.42
-32,12/04/2026 13:00,Crystal Palace,Newcastle United,2 - 1,29096,True,2,1,3.14,1.27
-32,12/04/2026 13:00,Nottingham Forest,Aston Villa,1 - 1,29089,True,1,1,0.85,1.36
-32,12/04/2026 13:00,Sunderland,Tottenham Hotspur,1 - 0,29090,True,1,0,1.78,1.02
-32,12/04/2026 15:30,Chelsea,Manchester City,0 - 3,29095,True,0,3,1.22,2.41
-32,13/04/2026 19:00,Manchester United,Leeds,1 - 2,29088,True,1,2,1.37,2.95
-33,18/04/2026 11:30,Brentford,Fulham,0 - 0,29099,True,0,0,2.34,0.79
-33,18/04/2026 14:00,Leeds,Wolverhampton Wanderers,3 - 0,29103,True,3,0,3.56,0.57
-33,18/04/2026 14:00,Newcastle United,Bournemouth,1 - 2,29105,True,1,2,1.61,3.37
-33,18/04/2026 16:30,Tottenham Hotspur,Brighton,2 - 2,29107,True,2,2,1.56,1.14
-33,18/04/2026 19:00,Chelsea,Manchester United,0 - 1,29100,True,0,1,1.28,0.44
-33,19/04/2026 13:00,Aston Villa,Sunderland,4 - 3,29098,True,4,3,3.9,1.56
-33,19/04/2026 13:00,Everton,Liverpool,1 - 2,29102,True,1,2,1.48,1.38
-33,19/04/2026 13:00,Nottingham Forest,Burnley,4 - 1,29106,True,4,1,1.44,0.6
-33,19/04/2026 15:30,Manchester City,Arsenal,2 - 1,29104,True,2,1,2.62,2.29
-33,20/04/2026 19:00,Crystal Palace,West Ham,0 - 0,29101,True,0,0,0.73,0.62
-33,21/04/2026 19:00,Brighton,Chelsea,3 - 0,29110,True,3,0,2.52,0.3
-33,22/04/2026 19:00,Bournemouth,Leeds,2 - 2,29108,True,2,2,1.91,1.22
-33,22/04/2026 19:00,Burnley,Manchester City,0 - 1,29111,True,0,1,0.97,3.41
-34,24/04/2026 19:00,Sunderland,Nottingham Forest,0 - 5,29115,True,0,5,0.61,1.54
-34,25/04/2026 11:30,Fulham,Aston Villa,1 - 0,29112,True,1,0,1.24,0.91
-34,25/04/2026 14:00,Liverpool,Crystal Palace,3 - 1,29113,True,3,1,1.45,2.2
-34,25/04/2026 14:00,West Ham,Everton,2 - 1,29116,True,2,1,1.84,1.11
-34,25/04/2026 14:00,Wolverhampton Wanderers,Tottenham Hotspur,0 - 1,29117,True,0,1,0.76,1.06
-34,25/04/2026 16:30,Arsenal,Newcastle United,1 - 0,29109,True,1,0,0.64,0.87
-34,27/04/2026 19:00,Manchester United,Brentford,2 - 1,29114,True,2,1,1.85,1.3
-35,01/05/2026 19:00,Leeds,Burnley,3 - 1,29124,True,3,1,2.1,0.43
-35,02/05/2026 14:00,Brentford,West Ham,3 - 0,29121,True,3,0,2.27,0.75
-35,02/05/2026 14:00,Newcastle United,Brighton,3 - 1,29126,True,3,1,3.13,1.87
-35,02/05/2026 14:00,Wolverhampton Wanderers,Sunderland,1 - 1,29127,True,1,1,1.96,0.92
-35,02/05/2026 16:30,Arsenal,Fulham,3 - 0,29119,True,3,0,4.09,0.7
-35,03/05/2026 13:00,Bournemouth,Crystal Palace,3 - 0,29118,True,3,0,2.3,0.68
-35,03/05/2026 14:30,Manchester United,Liverpool,3 - 2,29125,True,3,2,2.56,1.03
-35,03/05/2026 18:00,Aston Villa,Tottenham Hotspur,1 - 2,29120,True,1,2,0.61,1.12
-35,04/05/2026 14:00,Chelsea,Nottingham Forest,1 - 3,29122,True,1,3,2.17,2.31
-35,04/05/2026 19:00,Everton,Manchester City,3 - 3,29123,True,3,3,1.69,1.42
-36,09/05/2026 11:30,Liverpool,Chelsea,1 - 1,29132,True,1,1,0.62,0.6
-36,09/05/2026 14:00,Brighton,Wolverhampton Wanderers,3 - 0,29128,True,3,0,2.22,0.52
-36,09/05/2026 14:00,Fulham,Bournemouth,0 - 1,29131,True,0,1,1.24,1.0
-36,09/05/2026 14:00,Sunderland,Manchester United,0 - 0,29135,True,0,0,1.24,0.54
-36,09/05/2026 16:30,Manchester City,Brentford,3 - 0,29133,True,3,0,4.37,0.67
-36,10/05/2026 13:00,Burnley,Aston Villa,2 - 2,29129,True,2,2,1.71,1.75
-36,10/05/2026 13:00,Crystal Palace,Everton,2 - 2,29130,True,2,2,3.29,2.1
-36,10/05/2026 13:00,Nottingham Forest,Newcastle United,1 - 1,29134,True,1,1,1.46,1.65
-36,10/05/2026 15:30,West Ham,Arsenal,0 - 1,29137,True,0,1,1.32,1.43
-36,11/05/2026 19:00,Tottenham Hotspur,Leeds,1 - 1,29136,True,1,1,1.49,1.87
-36,13/05/2026 19:00,Manchester City,Crystal Palace,3 - 0,29084,True,3,0,1.96,0.43
-37,15/05/2026 19:00,Aston Villa,Liverpool,4 - 2,29140,True,4,2,2.53,1.55
-37,17/05/2026 11:30,Manchester United,Nottingham Forest,3 - 2,29145,True,3,2,4.29,1.84
-37,17/05/2026 14:00,Brentford,Crystal Palace,2 - 2,29141,True,2,2,1.55,1.82
-37,17/05/2026 14:00,Everton,Sunderland,1 - 3,29143,True,1,3,1.32,1.28
-37,17/05/2026 14:00,Leeds,Brighton,1 - 0,29144,True,1,0,0.75,2.23
-37,17/05/2026 14:00,Wolverhampton Wanderers,Fulham,1 - 1,29147,True,1,1,1.5,1.48
-37,17/05/2026 16:30,Newcastle United,West Ham,3 - 1,29146,True,3,1,2.13,0.96
-37,18/05/2026 19:00,Arsenal,Burnley,1 - 0,29139,True,1,0,1.23,0.19
-37,19/05/2026 18:30,Bournemouth,Manchester City,1 - 1,29138,True,1,1,1.71,1.27
-37,19/05/2026 19:15,Chelsea,Tottenham Hotspur,2 - 1,29142,True,2,1,1.09,2.15
-38,24/05/2026 15:00,Brighton,Manchester United,0 - 3,29148,True,0,3,0.7,2.33
-38,24/05/2026 15:00,Burnley,Wolverhampton Wanderers,1 - 1,29149,True,1,1,1.28,2.84
-38,24/05/2026 15:00,Crystal Palace,Arsenal,1 - 2,29150,True,1,2,1.0,3.91
-38,24/05/2026 15:00,Fulham,Newcastle United,2 - 0,29151,True,2,0,1.73,0.24
-38,24/05/2026 15:00,Liverpool,Brentford,1 - 1,29152,True,1,1,2.99,1.46
-38,24/05/2026 15:00,Manchester City,Aston Villa,1 - 2,29153,True,1,2,1.38,2.44
-38,24/05/2026 15:00,Nottingham Forest,Bournemouth,1 - 1,29154,True,1,1,2.06,1.34
-38,24/05/2026 15:00,Tottenham Hotspur,Everton,1 - 0,29156,True,1,0,1.41,0.27
-38,24/05/2026 15:00,Sunderland,Chelsea,2 - 1,29155,True,2,1,2.33,0.92
-38,24/05/2026 15:00,West Ham,Leeds,3 - 0,29157,True,3,0,2.73,1.95
+1,21/08/2026 19:00,Arsenal,Coventry City,,,False,,,,
+1,22/08/2026 11:30,Hull City,Manchester United,,,False,,,,
+1,22/08/2026 14:00,Everton,Crystal Palace,,,False,,,,
+1,22/08/2026 14:00,Ipswich Town,Sunderland,,,False,,,,
+1,22/08/2026 14:00,Nottingham Forest,Leeds,,,False,,,,
+1,22/08/2026 16:30,Brentford,Tottenham Hotspur,,,False,,,,
+1,23/08/2026 13:00,Brighton,Aston Villa,,,False,,,,
+1,23/08/2026 13:00,Manchester City,Bournemouth,,,False,,,,
+1,23/08/2026 15:30,Newcastle United,Liverpool,,,False,,,,
+1,24/08/2026 19:00,Fulham,Chelsea,,,False,,,,
+2,28/08/2026 19:00,Crystal Palace,Manchester City,,,False,,,,
+2,29/08/2026 11:30,Liverpool,Nottingham Forest,,,False,,,,
+2,29/08/2026 14:00,Bournemouth,Everton,,,False,,,,
+2,29/08/2026 14:00,Coventry City,Hull City,,,False,,,,
+2,29/08/2026 16:30,Tottenham Hotspur,Newcastle United,,,False,,,,
+2,30/08/2026 13:00,Chelsea,Brighton,,,False,,,,
+2,30/08/2026 13:00,Leeds,Brentford,,,False,,,,
+2,30/08/2026 13:00,Sunderland,Fulham,,,False,,,,
+2,30/08/2026 15:30,Manchester United,Ipswich Town,,,False,,,,
+2,31/08/2026 19:00,Aston Villa,Arsenal,,,False,,,,
+3,04/09/2026 19:00,Ipswich Town,Liverpool,,,False,,,,
+3,05/09/2026 11:30,Newcastle United,Bournemouth,,,False,,,,
+3,05/09/2026 14:00,Brentford,Sunderland,,,False,,,,
+3,05/09/2026 14:00,Brighton,Leeds,,,False,,,,
+3,05/09/2026 14:00,Fulham,Crystal Palace,,,False,,,,
+3,05/09/2026 14:00,Manchester City,Coventry City,,,False,,,,
+3,05/09/2026 14:00,Nottingham Forest,Tottenham Hotspur,,,False,,,,
+3,05/09/2026 16:30,Hull City,Aston Villa,,,False,,,,
+3,06/09/2026 13:00,Everton,Manchester United,,,False,,,,
+3,06/09/2026 15:30,Arsenal,Chelsea,,,False,,,,
+4,12/09/2026 14:00,Aston Villa,Nottingham Forest,,,False,,,,
+4,12/09/2026 14:00,Bournemouth,Brentford,,,False,,,,
+4,12/09/2026 14:00,Chelsea,Hull City,,,False,,,,
+4,12/09/2026 14:00,Crystal Palace,Ipswich Town,,,False,,,,
+4,12/09/2026 14:00,Liverpool,Fulham,,,False,,,,
+4,12/09/2026 16:30,Tottenham Hotspur,Everton,,,False,,,,
+4,12/09/2026 19:00,Sunderland,Arsenal,,,False,,,,
+4,13/09/2026 13:00,Coventry City,Brighton,,,False,,,,
+4,13/09/2026 15:30,Manchester United,Manchester City,,,False,,,,
+4,14/09/2026 19:00,Leeds,Newcastle United,,,False,,,,
+5,18/09/2026 19:00,Brentford,Chelsea,,,False,,,,
+5,19/09/2026 11:30,Tottenham Hotspur,Aston Villa,,,False,,,,
+5,19/09/2026 14:00,Brighton,Arsenal,,,False,,,,
+5,19/09/2026 14:00,Everton,Ipswich Town,,,False,,,,
+5,19/09/2026 14:00,Leeds,Crystal Palace,,,False,,,,
+5,19/09/2026 14:00,Manchester City,Sunderland,,,False,,,,
+5,19/09/2026 14:00,Newcastle United,Hull City,,,False,,,,
+5,19/09/2026 16:30,Nottingham Forest,Coventry City,,,False,,,,
+5,20/09/2026 13:00,Bournemouth,Liverpool,,,False,,,,
+5,20/09/2026 15:30,Fulham,Manchester United,,,False,,,,
+6,10/10/2026 14:00,Arsenal,Leeds,,,False,,,,
+6,10/10/2026 14:00,Aston Villa,Brentford,,,False,,,,
+6,10/10/2026 14:00,Chelsea,Bournemouth,,,False,,,,
+6,10/10/2026 14:00,Coventry City,Newcastle United,,,False,,,,
+6,10/10/2026 14:00,Crystal Palace,Nottingham Forest,,,False,,,,
+6,10/10/2026 14:00,Hull City,Everton,,,False,,,,
+6,10/10/2026 14:00,Ipswich Town,Fulham,,,False,,,,
+6,10/10/2026 14:00,Liverpool,Manchester City,,,False,,,,
+6,10/10/2026 14:00,Manchester United,Tottenham Hotspur,,,False,,,,
+6,10/10/2026 14:00,Sunderland,Brighton,,,False,,,,
+7,17/10/2026 14:00,Bournemouth,Sunderland,,,False,,,,
+7,17/10/2026 14:00,Brentford,Liverpool,,,False,,,,
+7,17/10/2026 14:00,Brighton,Crystal Palace,,,False,,,,
+7,17/10/2026 14:00,Everton,Chelsea,,,False,,,,
+7,17/10/2026 14:00,Fulham,Hull City,,,False,,,,
+7,17/10/2026 14:00,Leeds,Manchester United,,,False,,,,
+7,17/10/2026 14:00,Manchester City,Ipswich Town,,,False,,,,
+7,17/10/2026 14:00,Newcastle United,Aston Villa,,,False,,,,
+7,17/10/2026 14:00,Nottingham Forest,Arsenal,,,False,,,,
+7,17/10/2026 14:00,Tottenham Hotspur,Coventry City,,,False,,,,
+8,24/10/2026 14:00,Arsenal,Everton,,,False,,,,
+8,24/10/2026 14:00,Aston Villa,Manchester City,,,False,,,,
+8,24/10/2026 14:00,Chelsea,Tottenham Hotspur,,,False,,,,
+8,24/10/2026 14:00,Coventry City,Fulham,,,False,,,,
+8,24/10/2026 14:00,Crystal Palace,Newcastle United,,,False,,,,
+8,24/10/2026 14:00,Hull City,Brentford,,,False,,,,
+8,24/10/2026 14:00,Ipswich Town,Nottingham Forest,,,False,,,,
+8,24/10/2026 14:00,Liverpool,Brighton,,,False,,,,
+8,24/10/2026 14:00,Manchester United,Bournemouth,,,False,,,,
+8,24/10/2026 14:00,Sunderland,Leeds,,,False,,,,
+9,31/10/2026 15:00,Aston Villa,Fulham,,,False,,,,
+9,31/10/2026 15:00,Bournemouth,Leeds,,,False,,,,
+9,31/10/2026 15:00,Brentford,Nottingham Forest,,,False,,,,
+9,31/10/2026 15:00,Chelsea,Manchester United,,,False,,,,
+9,31/10/2026 15:00,Coventry City,Sunderland,,,False,,,,
+9,31/10/2026 15:00,Hull City,Ipswich Town,,,False,,,,
+9,31/10/2026 15:00,Liverpool,Arsenal,,,False,,,,
+9,31/10/2026 15:00,Manchester City,Brighton,,,False,,,,
+9,31/10/2026 15:00,Newcastle United,Everton,,,False,,,,
+9,31/10/2026 15:00,Tottenham Hotspur,Crystal Palace,,,False,,,,
+10,07/11/2026 15:00,Arsenal,Hull City,,,False,,,,
+10,07/11/2026 15:00,Brighton,Brentford,,,False,,,,
+10,07/11/2026 15:00,Crystal Palace,Liverpool,,,False,,,,
+10,07/11/2026 15:00,Everton,Coventry City,,,False,,,,
+10,07/11/2026 15:00,Fulham,Newcastle United,,,False,,,,
+10,07/11/2026 15:00,Ipswich Town,Bournemouth,,,False,,,,
+10,07/11/2026 15:00,Leeds,Tottenham Hotspur,,,False,,,,
+10,07/11/2026 15:00,Manchester United,Aston Villa,,,False,,,,
+10,07/11/2026 15:00,Nottingham Forest,Manchester City,,,False,,,,
+10,07/11/2026 15:00,Sunderland,Chelsea,,,False,,,,
+11,21/11/2026 15:00,Aston Villa,Sunderland,,,False,,,,
+11,21/11/2026 15:00,Bournemouth,Nottingham Forest,,,False,,,,
+11,21/11/2026 15:00,Brentford,Everton,,,False,,,,
+11,21/11/2026 15:00,Chelsea,Leeds,,,False,,,,
+11,21/11/2026 15:00,Coventry City,Crystal Palace,,,False,,,,
+11,21/11/2026 15:00,Hull City,Brighton,,,False,,,,
+11,21/11/2026 15:00,Liverpool,Manchester United,,,False,,,,
+11,21/11/2026 15:00,Manchester City,Fulham,,,False,,,,
+11,21/11/2026 15:00,Newcastle United,Arsenal,,,False,,,,
+11,21/11/2026 15:00,Tottenham Hotspur,Ipswich Town,,,False,,,,
+12,28/11/2026 15:00,Arsenal,Manchester City,,,False,,,,
+12,28/11/2026 15:00,Brighton,Newcastle United,,,False,,,,
+12,28/11/2026 15:00,Crystal Palace,Hull City,,,False,,,,
+12,28/11/2026 15:00,Everton,Liverpool,,,False,,,,
+12,28/11/2026 15:00,Fulham,Bournemouth,,,False,,,,
+12,28/11/2026 15:00,Ipswich Town,Aston Villa,,,False,,,,
+12,28/11/2026 15:00,Leeds,Coventry City,,,False,,,,
+12,28/11/2026 15:00,Manchester United,Brentford,,,False,,,,
+12,28/11/2026 15:00,Nottingham Forest,Chelsea,,,False,,,,
+12,28/11/2026 15:00,Sunderland,Tottenham Hotspur,,,False,,,,
+13,02/12/2026 20:00,Aston Villa,Everton,,,False,,,,
+13,02/12/2026 20:00,Bournemouth,Brighton,,,False,,,,
+13,02/12/2026 20:00,Brentford,Arsenal,,,False,,,,
+13,02/12/2026 20:00,Chelsea,Crystal Palace,,,False,,,,
+13,02/12/2026 20:00,Coventry City,Ipswich Town,,,False,,,,
+13,02/12/2026 20:00,Hull City,Nottingham Forest,,,False,,,,
+13,02/12/2026 20:00,Liverpool,Sunderland,,,False,,,,
+13,02/12/2026 20:00,Manchester City,Leeds,,,False,,,,
+13,02/12/2026 20:00,Newcastle United,Manchester United,,,False,,,,
+13,02/12/2026 20:00,Tottenham Hotspur,Fulham,,,False,,,,
+14,05/12/2026 15:00,Aston Villa,Crystal Palace,,,False,,,,
+14,05/12/2026 15:00,Bournemouth,Hull City,,,False,,,,
+14,05/12/2026 15:00,Brentford,Manchester City,,,False,,,,
+14,05/12/2026 15:00,Chelsea,Liverpool,,,False,,,,
+14,05/12/2026 15:00,Everton,Fulham,,,False,,,,
+14,05/12/2026 15:00,Leeds,Ipswich Town,,,False,,,,
+14,05/12/2026 15:00,Manchester United,Coventry City,,,False,,,,
+14,05/12/2026 15:00,Newcastle United,Sunderland,,,False,,,,
+14,05/12/2026 15:00,Nottingham Forest,Brighton,,,False,,,,
+14,05/12/2026 15:00,Tottenham Hotspur,Arsenal,,,False,,,,
+15,12/12/2026 15:00,Arsenal,Bournemouth,,,False,,,,
+15,12/12/2026 15:00,Brighton,Everton,,,False,,,,
+15,12/12/2026 15:00,Coventry City,Aston Villa,,,False,,,,
+15,12/12/2026 15:00,Crystal Palace,Manchester United,,,False,,,,
+15,12/12/2026 15:00,Fulham,Brentford,,,False,,,,
+15,12/12/2026 15:00,Hull City,Tottenham Hotspur,,,False,,,,
+15,12/12/2026 15:00,Ipswich Town,Newcastle United,,,False,,,,
+15,12/12/2026 15:00,Liverpool,Leeds,,,False,,,,
+15,12/12/2026 15:00,Manchester City,Chelsea,,,False,,,,
+15,12/12/2026 15:00,Sunderland,Nottingham Forest,,,False,,,,
+16,19/12/2026 15:00,Arsenal,Manchester United,,,False,,,,
+16,19/12/2026 15:00,Bournemouth,Coventry City,,,False,,,,
+16,19/12/2026 15:00,Brentford,Newcastle United,,,False,,,,
+16,19/12/2026 15:00,Brighton,Ipswich Town,,,False,,,,
+16,19/12/2026 15:00,Chelsea,Aston Villa,,,False,,,,
+16,19/12/2026 15:00,Leeds,Fulham,,,False,,,,
+16,19/12/2026 15:00,Liverpool,Tottenham Hotspur,,,False,,,,
+16,19/12/2026 15:00,Manchester City,Hull City,,,False,,,,
+16,19/12/2026 15:00,Nottingham Forest,Everton,,,False,,,,
+16,19/12/2026 15:00,Sunderland,Crystal Palace,,,False,,,,
+17,26/12/2026 15:00,Aston Villa,Leeds,,,False,,,,
+17,26/12/2026 15:00,Coventry City,Chelsea,,,False,,,,
+17,26/12/2026 15:00,Crystal Palace,Arsenal,,,False,,,,
+17,26/12/2026 15:00,Everton,Sunderland,,,False,,,,
+17,26/12/2026 15:00,Fulham,Brighton,,,False,,,,
+17,26/12/2026 15:00,Hull City,Liverpool,,,False,,,,
+17,26/12/2026 15:00,Ipswich Town,Brentford,,,False,,,,
+17,26/12/2026 15:00,Manchester United,Nottingham Forest,,,False,,,,
+17,26/12/2026 15:00,Newcastle United,Manchester City,,,False,,,,
+17,26/12/2026 15:00,Tottenham Hotspur,Bournemouth,,,False,,,,
+18,30/12/2026 20:00,Aston Villa,Liverpool,,,False,,,,
+18,30/12/2026 20:00,Coventry City,Brentford,,,False,,,,
+18,30/12/2026 20:00,Crystal Palace,Bournemouth,,,False,,,,
+18,30/12/2026 20:00,Everton,Manchester City,,,False,,,,
+18,30/12/2026 20:00,Fulham,Arsenal,,,False,,,,
+18,30/12/2026 20:00,Hull City,Leeds,,,False,,,,
+18,30/12/2026 20:00,Ipswich Town,Chelsea,,,False,,,,
+18,30/12/2026 20:00,Manchester United,Sunderland,,,False,,,,
+18,30/12/2026 20:00,Newcastle United,Nottingham Forest,,,False,,,,
+18,30/12/2026 20:00,Tottenham Hotspur,Brighton,,,False,,,,
+19,02/01/2027 15:00,Arsenal,Ipswich Town,,,False,,,,
+19,02/01/2027 15:00,Bournemouth,Aston Villa,,,False,,,,
+19,02/01/2027 15:00,Brentford,Crystal Palace,,,False,,,,
+19,02/01/2027 15:00,Brighton,Manchester United,,,False,,,,
+19,02/01/2027 15:00,Chelsea,Newcastle United,,,False,,,,
+19,02/01/2027 15:00,Leeds,Everton,,,False,,,,
+19,02/01/2027 15:00,Liverpool,Coventry City,,,False,,,,
+19,02/01/2027 15:00,Manchester City,Tottenham Hotspur,,,False,,,,
+19,02/01/2027 15:00,Nottingham Forest,Fulham,,,False,,,,
+19,02/01/2027 15:00,Sunderland,Hull City,,,False,,,,
+20,06/01/2027 20:00,Arsenal,Brentford,,,False,,,,
+20,06/01/2027 20:00,Brighton,Bournemouth,,,False,,,,
+20,06/01/2027 20:00,Crystal Palace,Chelsea,,,False,,,,
+20,06/01/2027 20:00,Everton,Aston Villa,,,False,,,,
+20,06/01/2027 20:00,Fulham,Tottenham Hotspur,,,False,,,,
+20,06/01/2027 20:00,Ipswich Town,Coventry City,,,False,,,,
+20,06/01/2027 20:00,Leeds,Manchester City,,,False,,,,
+20,06/01/2027 20:00,Manchester United,Newcastle United,,,False,,,,
+20,06/01/2027 20:00,Nottingham Forest,Hull City,,,False,,,,
+20,06/01/2027 20:00,Sunderland,Liverpool,,,False,,,,
+21,16/01/2027 15:00,Aston Villa,Manchester United,,,False,,,,
+21,16/01/2027 15:00,Bournemouth,Ipswich Town,,,False,,,,
+21,16/01/2027 15:00,Brentford,Brighton,,,False,,,,
+21,16/01/2027 15:00,Chelsea,Sunderland,,,False,,,,
+21,16/01/2027 15:00,Coventry City,Everton,,,False,,,,
+21,16/01/2027 15:00,Hull City,Arsenal,,,False,,,,
+21,16/01/2027 15:00,Liverpool,Crystal Palace,,,False,,,,
+21,16/01/2027 15:00,Manchester City,Nottingham Forest,,,False,,,,
+21,16/01/2027 15:00,Newcastle United,Fulham,,,False,,,,
+21,16/01/2027 15:00,Tottenham Hotspur,Leeds,,,False,,,,
+22,23/01/2027 15:00,Arsenal,Newcastle United,,,False,,,,
+22,23/01/2027 15:00,Brighton,Manchester City,,,False,,,,
+22,23/01/2027 15:00,Crystal Palace,Tottenham Hotspur,,,False,,,,
+22,23/01/2027 15:00,Everton,Brentford,,,False,,,,
+22,23/01/2027 15:00,Fulham,Aston Villa,,,False,,,,
+22,23/01/2027 15:00,Ipswich Town,Hull City,,,False,,,,
+22,23/01/2027 15:00,Leeds,Chelsea,,,False,,,,
+22,23/01/2027 15:00,Manchester United,Liverpool,,,False,,,,
+22,23/01/2027 15:00,Nottingham Forest,Bournemouth,,,False,,,,
+22,23/01/2027 15:00,Sunderland,Coventry City,,,False,,,,
+23,30/01/2027 15:00,Aston Villa,Ipswich Town,,,False,,,,
+23,30/01/2027 15:00,Bournemouth,Fulham,,,False,,,,
+23,30/01/2027 15:00,Brentford,Manchester United,,,False,,,,
+23,30/01/2027 15:00,Chelsea,Nottingham Forest,,,False,,,,
+23,30/01/2027 15:00,Coventry City,Leeds,,,False,,,,
+23,30/01/2027 15:00,Hull City,Crystal Palace,,,False,,,,
+23,30/01/2027 15:00,Liverpool,Everton,,,False,,,,
+23,30/01/2027 15:00,Manchester City,Arsenal,,,False,,,,
+23,30/01/2027 15:00,Newcastle United,Brighton,,,False,,,,
+23,30/01/2027 15:00,Tottenham Hotspur,Sunderland,,,False,,,,
+24,06/02/2027 15:00,Arsenal,Liverpool,,,False,,,,
+24,06/02/2027 15:00,Brighton,Hull City,,,False,,,,
+24,06/02/2027 15:00,Crystal Palace,Coventry City,,,False,,,,
+24,06/02/2027 15:00,Everton,Newcastle United,,,False,,,,
+24,06/02/2027 15:00,Fulham,Manchester City,,,False,,,,
+24,06/02/2027 15:00,Ipswich Town,Tottenham Hotspur,,,False,,,,
+24,06/02/2027 15:00,Leeds,Bournemouth,,,False,,,,
+24,06/02/2027 15:00,Manchester United,Chelsea,,,False,,,,
+24,06/02/2027 15:00,Nottingham Forest,Brentford,,,False,,,,
+24,06/02/2027 15:00,Sunderland,Aston Villa,,,False,,,,
+25,10/02/2027 20:00,Aston Villa,Bournemouth,,,False,,,,
+25,10/02/2027 20:00,Coventry City,Liverpool,,,False,,,,
+25,10/02/2027 20:00,Crystal Palace,Brentford,,,False,,,,
+25,10/02/2027 20:00,Everton,Leeds,,,False,,,,
+25,10/02/2027 20:00,Fulham,Nottingham Forest,,,False,,,,
+25,10/02/2027 20:00,Hull City,Sunderland,,,False,,,,
+25,10/02/2027 20:00,Ipswich Town,Arsenal,,,False,,,,
+25,10/02/2027 20:00,Manchester United,Brighton,,,False,,,,
+25,10/02/2027 20:00,Newcastle United,Chelsea,,,False,,,,
+25,10/02/2027 20:00,Tottenham Hotspur,Manchester City,,,False,,,,
+26,20/02/2027 15:00,Arsenal,Fulham,,,False,,,,
+26,20/02/2027 15:00,Bournemouth,Crystal Palace,,,False,,,,
+26,20/02/2027 15:00,Brentford,Coventry City,,,False,,,,
+26,20/02/2027 15:00,Brighton,Tottenham Hotspur,,,False,,,,
+26,20/02/2027 15:00,Chelsea,Ipswich Town,,,False,,,,
+26,20/02/2027 15:00,Leeds,Aston Villa,,,False,,,,
+26,20/02/2027 15:00,Liverpool,Hull City,,,False,,,,
+26,20/02/2027 15:00,Manchester City,Newcastle United,,,False,,,,
+26,20/02/2027 15:00,Nottingham Forest,Manchester United,,,False,,,,
+26,20/02/2027 15:00,Sunderland,Everton,,,False,,,,
+27,27/02/2027 15:00,Aston Villa,Chelsea,,,False,,,,
+27,27/02/2027 15:00,Coventry City,Bournemouth,,,False,,,,
+27,27/02/2027 15:00,Crystal Palace,Sunderland,,,False,,,,
+27,27/02/2027 15:00,Everton,Nottingham Forest,,,False,,,,
+27,27/02/2027 15:00,Fulham,Leeds,,,False,,,,
+27,27/02/2027 15:00,Hull City,Manchester City,,,False,,,,
+27,27/02/2027 15:00,Ipswich Town,Brighton,,,False,,,,
+27,27/02/2027 15:00,Manchester United,Arsenal,,,False,,,,
+27,27/02/2027 15:00,Newcastle United,Brentford,,,False,,,,
+27,27/02/2027 15:00,Tottenham Hotspur,Liverpool,,,False,,,,
+28,03/03/2027 20:00,Arsenal,Crystal Palace,,,False,,,,
+28,03/03/2027 20:00,Bournemouth,Tottenham Hotspur,,,False,,,,
+28,03/03/2027 20:00,Brentford,Ipswich Town,,,False,,,,
+28,03/03/2027 20:00,Brighton,Fulham,,,False,,,,
+28,03/03/2027 20:00,Chelsea,Coventry City,,,False,,,,
+28,03/03/2027 20:00,Leeds,Hull City,,,False,,,,
+28,03/03/2027 20:00,Liverpool,Aston Villa,,,False,,,,
+28,03/03/2027 20:00,Manchester City,Everton,,,False,,,,
+28,03/03/2027 20:00,Nottingham Forest,Newcastle United,,,False,,,,
+28,03/03/2027 20:00,Sunderland,Manchester United,,,False,,,,
+29,13/03/2027 15:00,Aston Villa,Hull City,,,False,,,,
+29,13/03/2027 15:00,Bournemouth,Newcastle United,,,False,,,,
+29,13/03/2027 15:00,Chelsea,Arsenal,,,False,,,,
+29,13/03/2027 15:00,Coventry City,Manchester City,,,False,,,,
+29,13/03/2027 15:00,Crystal Palace,Fulham,,,False,,,,
+29,13/03/2027 15:00,Leeds,Brighton,,,False,,,,
+29,13/03/2027 15:00,Liverpool,Ipswich Town,,,False,,,,
+29,13/03/2027 15:00,Manchester United,Everton,,,False,,,,
+29,13/03/2027 15:00,Tottenham Hotspur,Nottingham Forest,,,False,,,,
+29,13/03/2027 15:00,Sunderland,Brentford,,,False,,,,
+30,20/03/2027 15:00,Arsenal,Sunderland,,,False,,,,
+30,20/03/2027 15:00,Brentford,Bournemouth,,,False,,,,
+30,20/03/2027 15:00,Brighton,Coventry City,,,False,,,,
+30,20/03/2027 15:00,Everton,Tottenham Hotspur,,,False,,,,
+30,20/03/2027 15:00,Fulham,Liverpool,,,False,,,,
+30,20/03/2027 15:00,Hull City,Chelsea,,,False,,,,
+30,20/03/2027 15:00,Ipswich Town,Crystal Palace,,,False,,,,
+30,20/03/2027 15:00,Manchester City,Manchester United,,,False,,,,
+30,20/03/2027 15:00,Newcastle United,Leeds,,,False,,,,
+30,20/03/2027 15:00,Nottingham Forest,Aston Villa,,,False,,,,
+31,10/04/2027 14:00,Aston Villa,Brighton,,,False,,,,
+31,10/04/2027 14:00,Bournemouth,Manchester City,,,False,,,,
+31,10/04/2027 14:00,Chelsea,Fulham,,,False,,,,
+31,10/04/2027 14:00,Coventry City,Arsenal,,,False,,,,
+31,10/04/2027 14:00,Crystal Palace,Everton,,,False,,,,
+31,10/04/2027 14:00,Leeds,Nottingham Forest,,,False,,,,
+31,10/04/2027 14:00,Liverpool,Newcastle United,,,False,,,,
+31,10/04/2027 14:00,Manchester United,Hull City,,,False,,,,
+31,10/04/2027 14:00,Tottenham Hotspur,Brentford,,,False,,,,
+31,10/04/2027 14:00,Sunderland,Ipswich Town,,,False,,,,
+32,17/04/2027 14:00,Arsenal,Aston Villa,,,False,,,,
+32,17/04/2027 14:00,Brentford,Leeds,,,False,,,,
+32,17/04/2027 14:00,Brighton,Chelsea,,,False,,,,
+32,17/04/2027 14:00,Everton,Bournemouth,,,False,,,,
+32,17/04/2027 14:00,Fulham,Sunderland,,,False,,,,
+32,17/04/2027 14:00,Hull City,Coventry City,,,False,,,,
+32,17/04/2027 14:00,Ipswich Town,Manchester United,,,False,,,,
+32,17/04/2027 14:00,Manchester City,Crystal Palace,,,False,,,,
+32,17/04/2027 14:00,Newcastle United,Tottenham Hotspur,,,False,,,,
+32,17/04/2027 14:00,Nottingham Forest,Liverpool,,,False,,,,
+33,24/04/2027 14:00,Aston Villa,Coventry City,,,False,,,,
+33,24/04/2027 14:00,Bournemouth,Arsenal,,,False,,,,
+33,24/04/2027 14:00,Brentford,Fulham,,,False,,,,
+33,24/04/2027 14:00,Chelsea,Manchester City,,,False,,,,
+33,24/04/2027 14:00,Everton,Brighton,,,False,,,,
+33,24/04/2027 14:00,Leeds,Liverpool,,,False,,,,
+33,24/04/2027 14:00,Manchester United,Crystal Palace,,,False,,,,
+33,24/04/2027 14:00,Newcastle United,Ipswich Town,,,False,,,,
+33,24/04/2027 14:00,Nottingham Forest,Sunderland,,,False,,,,
+33,24/04/2027 14:00,Tottenham Hotspur,Hull City,,,False,,,,
+34,01/05/2027 14:00,Arsenal,Tottenham Hotspur,,,False,,,,
+34,01/05/2027 14:00,Brighton,Nottingham Forest,,,False,,,,
+34,01/05/2027 14:00,Coventry City,Manchester United,,,False,,,,
+34,01/05/2027 14:00,Crystal Palace,Aston Villa,,,False,,,,
+34,01/05/2027 14:00,Fulham,Everton,,,False,,,,
+34,01/05/2027 14:00,Hull City,Bournemouth,,,False,,,,
+34,01/05/2027 14:00,Ipswich Town,Leeds,,,False,,,,
+34,01/05/2027 14:00,Liverpool,Chelsea,,,False,,,,
+34,01/05/2027 14:00,Manchester City,Brentford,,,False,,,,
+34,01/05/2027 14:00,Sunderland,Newcastle United,,,False,,,,
+35,08/05/2027 14:00,Bournemouth,Manchester United,,,False,,,,
+35,08/05/2027 14:00,Brentford,Aston Villa,,,False,,,,
+35,08/05/2027 14:00,Brighton,Sunderland,,,False,,,,
+35,08/05/2027 14:00,Everton,Hull City,,,False,,,,
+35,08/05/2027 14:00,Fulham,Ipswich Town,,,False,,,,
+35,08/05/2027 14:00,Leeds,Arsenal,,,False,,,,
+35,08/05/2027 14:00,Manchester City,Liverpool,,,False,,,,
+35,08/05/2027 14:00,Newcastle United,Coventry City,,,False,,,,
+35,08/05/2027 14:00,Nottingham Forest,Crystal Palace,,,False,,,,
+35,08/05/2027 14:00,Tottenham Hotspur,Chelsea,,,False,,,,
+36,15/05/2027 14:00,Arsenal,Nottingham Forest,,,False,,,,
+36,15/05/2027 14:00,Aston Villa,Newcastle United,,,False,,,,
+36,15/05/2027 14:00,Chelsea,Everton,,,False,,,,
+36,15/05/2027 14:00,Coventry City,Tottenham Hotspur,,,False,,,,
+36,15/05/2027 14:00,Crystal Palace,Brighton,,,False,,,,
+36,15/05/2027 14:00,Hull City,Fulham,,,False,,,,
+36,15/05/2027 14:00,Ipswich Town,Manchester City,,,False,,,,
+36,15/05/2027 14:00,Liverpool,Brentford,,,False,,,,
+36,15/05/2027 14:00,Manchester United,Leeds,,,False,,,,
+36,15/05/2027 14:00,Sunderland,Bournemouth,,,False,,,,
+37,23/05/2027 14:00,Bournemouth,Chelsea,,,False,,,,
+37,23/05/2027 14:00,Brentford,Hull City,,,False,,,,
+37,23/05/2027 14:00,Brighton,Liverpool,,,False,,,,
+37,23/05/2027 14:00,Everton,Arsenal,,,False,,,,
+37,23/05/2027 14:00,Fulham,Coventry City,,,False,,,,
+37,23/05/2027 14:00,Leeds,Sunderland,,,False,,,,
+37,23/05/2027 14:00,Manchester City,Aston Villa,,,False,,,,
+37,23/05/2027 14:00,Newcastle United,Crystal Palace,,,False,,,,
+37,23/05/2027 14:00,Nottingham Forest,Ipswich Town,,,False,,,,
+37,23/05/2027 14:00,Tottenham Hotspur,Manchester United,,,False,,,,
+38,30/05/2027 15:00,Arsenal,Brighton,,,False,,,,
+38,30/05/2027 15:00,Aston Villa,Tottenham Hotspur,,,False,,,,
+38,30/05/2027 15:00,Chelsea,Brentford,,,False,,,,
+38,30/05/2027 15:00,Coventry City,Nottingham Forest,,,False,,,,
+38,30/05/2027 15:00,Crystal Palace,Leeds,,,False,,,,
+38,30/05/2027 15:00,Hull City,Newcastle United,,,False,,,,
+38,30/05/2027 15:00,Ipswich Town,Everton,,,False,,,,
+38,30/05/2027 15:00,Liverpool,Bournemouth,,,False,,,,
+38,30/05/2027 15:00,Manchester United,Fulham,,,False,,,,
+38,30/05/2027 15:00,Sunderland,Manchester City,,,False,,,,
