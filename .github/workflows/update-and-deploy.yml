@@ -13,6 +13,8 @@ on:
           - football
           - f1
           - f1_historical
+          - backtest
+          - backtest_sweep
 
 jobs:
   update:
@@ -77,6 +79,22 @@ jobs:
       - name: F1 historical pipeline
         if: steps.run_type.outputs.type == 'f1_historical'
         run: python f1_scraper.py --historical
+
+      # ── Backtest: full walk-forward run (updates site-facing accuracy stats) ──
+      - name: Backtest pipeline
+        if: steps.run_type.outputs.type == 'backtest'
+        run: python backtest.py
+
+      # ── Backtest: parameter sweeps (report only, no param changes applied) ──
+      - name: Backtest sweep pipeline
+        if: steps.run_type.outputs.type == 'backtest_sweep'
+        run: |
+          mkdir -p data/tables
+          {
+            python backtest.py --sweep-alpha
+            python backtest.py --sweep-rho
+            python backtest.py --sweep
+          } > data/tables/sweep_report.txt
 
       # ── Commit and push (triggers Railway redeploy) ───────────────────────
       - name: Commit and push
