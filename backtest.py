@@ -2,9 +2,9 @@
 backtest.py — Walk-forward backtest for FiveStat match prediction model.
 
 Methodology:
-  - Test season: 2025/26 (all completed fixtures)
-  - For each gameweek in 2024/25, ratings are calculated using ONLY data
-    available up to that point (all prior seasons + completed 2024/25 GWs).
+  - Test window: 2023/24, 2024/25, 2025/26 combined (all completed fixtures)
+  - For each gameweek in the test window, ratings are calculated using ONLY data
+    available up to that point (all prior seasons + completed GWs in the window).
   - Predictions are generated for that GW's fixtures, then compared against
     actual results.
   - This mirrors exactly how the model operates in production — no future
@@ -46,13 +46,13 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2025-08-01"   # Start of 2025/26 season
+TEST_SEASON_START = "2023-08-01"   # Start of 2023/24 season — combined 3-season window
 TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtures)
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = -0.15          # Dixon-Coles correction strength — matches production
+RHO               = -0.18          # Dixon-Coles correction strength — matches production
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
@@ -115,7 +115,7 @@ def predict_fixture(home_team, away_team, training_data, team_name_map):
 
     try:
         team_stats, team_home_advantage = calculate_team_statistics(
-            training_data, save_csv_path=None  # Don't save during backtest
+            training_data, save_csv_path=None, verbose=False  # Don't save/print during backtest
         )
         recent_form_att, recent_form_def = calculate_recent_form(
             training_data, team_stats, recent_matches=15, alpha=ALPHA
@@ -193,7 +193,7 @@ def run_backtest():
     ].copy()
 
     print(f"Training data (pre-test): {len(pre_test)} matches")
-    print(f"Test season (2024/25):    {len(test)} matches")
+    print(f"Test window ({TEST_SEASON_START} to {TEST_SEASON_END}): {len(test)} matches")
 
     if len(test) == 0:
         print("❌ No test matches found. Check TEST_SEASON_START / END and your date column format.")
@@ -393,7 +393,7 @@ def run_backtest():
 
     # ── Save results ──
     accuracy_output = {
-        "season":              "2025/26",
+        "season":              "2023/24–2025/26 (combined)",
         "matches_predicted":   n,
         "matches_skipped":     skipped,
         "outcome_accuracy":    outcome_accuracy,
@@ -439,7 +439,7 @@ def sweep_cov_xy():
     Quick parameter sweep across cov_xy values to find optimal draw calibration.
     Tests cov_xy = 0.05, 0.10, 0.15, 0.20, 0.25, 0.30
     Reports outcome accuracy, RPS, draw accuracy and moneyline accuracy for each.
-    Uses a sample of 60 matches for speed.
+    Tests against the full combined test window (see TEST_SEASON_START/END).
     """
     print()
     print("=" * 60)
@@ -464,9 +464,9 @@ def sweep_cov_xy():
 
     test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
 
-    # Use GW10-20 as a representative sample for speed
-    sample = test[test["round_number"].between(10, 20)].copy()
-    print(f"  Sample: {len(sample)} matches (GW10-20)")
+    # Test against the full combined window (all seasons in TEST_SEASON_START/END)
+    sample = test.copy()
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
     print()
     print(f"  {'cov_xy':>8}  {'outcome_acc':>12}  {'draw_acc':>10}  {'moneyline_acc':>14}  {'avg_rps':>8}")
     print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*14}  {'-'*8}")
@@ -490,7 +490,7 @@ def sweep_cov_xy():
                 continue
 
             try:
-                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None)
+                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
                 recent_att, recent_def = calculate_recent_form(training, team_stats, alpha=ALPHA)
             except Exception:
                 continue
@@ -568,9 +568,9 @@ def sweep_alpha():
         (all_data["date_parsed"] <= test_end)
     ].copy()
     test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
-    sample = test[test["round_number"].between(10, 20)].copy()
+    sample = test.copy()
 
-    print(f"  Sample: {len(sample)} matches (GW10-20)")
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
     print()
     print(f"  {'alpha':>8}  {'outcome_acc':>12}  {'draw_acc':>10}  {'moneyline_acc':>14}  {'avg_rps':>8}")
     print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*14}  {'-'*8}")
@@ -594,7 +594,7 @@ def sweep_alpha():
                 continue
 
             try:
-                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None)
+                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
                 recent_att, recent_def = calculate_recent_form(
                     training, team_stats, recent_matches=15, alpha=alpha
                 )
@@ -686,9 +686,9 @@ def sweep_rho():
         (all_data["date_parsed"] <= test_end)
     ].copy()
     test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
-    sample = test[test["round_number"].between(10, 20)].copy()
+    sample = test.copy()
 
-    print(f"  Sample: {len(sample)} matches (GW10-20)")
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
     print()
     print(f"  {'rho':>8}  {'outcome_acc':>12}  {'draw_prob':>10}  {'draw_cal_err':>13}  {'moneyline':>10}  {'avg_rps':>8}")
     print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*13}  {'-'*10}  {'-'*8}")
@@ -716,7 +716,7 @@ def sweep_rho():
                 continue
 
             try:
-                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None)
+                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
                 recent_att, recent_def = calculate_recent_form(
                     training, team_stats, recent_matches=20, alpha=ALPHA
                 )
