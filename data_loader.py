@@ -414,7 +414,7 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05, max_goals=8):
 
 
 
-def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.05):
+def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.15):
     """
     Apply Dixon-Coles low-score correction to a scoreline probability matrix.
 
@@ -527,7 +527,7 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, beta=0.8, team_home_advantage=None,
+    alpha=0.65, team_home_advantage=None,
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -541,7 +541,6 @@ def get_team_xg(
         recent_form_att (dict): Recent ATT ratings.
         recent_form_def (dict): Recent DEF ratings.
         alpha (float): Weight of recent form in ATT/DEF rating blend.
-        beta (float): Weight of multiplicative xG vs Poisson-calibrated xG.
         team_home_advantage (dict): Per-team home field advantage multiplier.
 
     Returns:
@@ -874,20 +873,20 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.30, beta=0.30,
+            alpha=0.30,
             team_home_advantage=team_home_advantage
         )
 
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.30, beta=0.30,
+            alpha=0.30,
             team_home_advantage=team_home_advantage
         )
 
         # Capture the full result_matrix along with probabilities
         result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
-        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.05)
+        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.15)
 
         # Recalculate outcome probabilities from corrected matrix
         home_prob  = float(np.sum(np.tril(result_matrix, -1)))
