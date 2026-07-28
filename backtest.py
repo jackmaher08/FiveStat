@@ -2,7 +2,7 @@
 backtest.py — Walk-forward backtest for FiveStat match prediction model.
 
 Methodology:
-  - Test season: 2024/25 (all completed fixtures)
+  - Test season: 2025/26 (all completed fixtures)
   - For each gameweek in 2024/25, ratings are calculated using ONLY data
     available up to that point (all prior seasons + completed 2024/25 GWs).
   - Predictions are generated for that GW's fixtures, then compared against
@@ -46,8 +46,8 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2024-08-01"   # Start of 2024/25 season
-TEST_SEASON_END   = "2025-06-01"   # End of 2024/25 season (all completed fixtures)
+TEST_SEASON_START = "2025-08-01"   # Start of 2025/26 season
+TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtures)
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
