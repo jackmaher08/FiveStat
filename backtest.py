@@ -51,9 +51,8 @@ TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtur
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
-BETA              = 0.30           # xG model blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = -0.05          # Dixon-Coles correction strength
+RHO               = -0.15          # Dixon-Coles correction strength — matches production
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
@@ -131,13 +130,13 @@ def predict_fixture(home_team, away_team, training_data, team_name_map):
         home_xg = get_team_xg(
             team=home_team, opponent=away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att,
-            recent_form_def=recent_form_def, alpha=ALPHA, beta=BETA,
+            recent_form_def=recent_form_def, alpha=ALPHA,
             team_home_advantage=team_home_advantage
         )
         away_xg = get_team_xg(
             team=away_team, opponent=home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att,
-            recent_form_def=recent_form_def, alpha=ALPHA, beta=BETA,
+            recent_form_def=recent_form_def, alpha=ALPHA,
             team_home_advantage=team_home_advantage
         )
     except Exception as e:
@@ -608,11 +607,11 @@ def sweep_alpha():
             try:
                 hxg = get_team_xg(
                     home_team, away_team, True, team_stats, recent_att, recent_def,
-                    alpha=alpha, beta=BETA, team_home_advantage=team_hfa
+                    alpha=alpha, team_home_advantage=team_hfa
                 )
                 axg = get_team_xg(
                     away_team, home_team, False, team_stats, recent_att, recent_def,
-                    alpha=alpha, beta=BETA, team_home_advantage=team_hfa
+                    alpha=alpha, team_home_advantage=team_hfa
                 )
             except Exception:
                 continue
@@ -656,118 +655,6 @@ def sweep_alpha():
     print("=" * 60)
 
 
-def sweep_beta():
-    """
-    Sweep beta (xG model blending weight) from 0.2 to 1.0.
-    Higher beta = more weight on multiplicative (ATT x DEF) model.
-    Lower beta = more weight on Poisson-matched xG model.
-    """
-    print()
-    print("=" * 60)
-    print("Beta Parameter Sweep (xG model blending weight)")
-    print("=" * 60)
-
-    hist_path = "data/tables/historical_fixture_data.csv"
-    all_data = pd.read_csv(hist_path)
-    all_data["Home Team"] = all_data["Home Team"].replace(TEAM_NAME_MAPPING)
-    all_data["Away Team"] = all_data["Away Team"].replace(TEAM_NAME_MAPPING)
-    all_data["date_parsed"] = pd.to_datetime(all_data["Date"], dayfirst=True)
-    all_data = all_data.dropna(subset=["home_goals", "away_goals", "date_parsed"])
-    all_data = all_data.sort_values("date_parsed").reset_index(drop=True)
-
-    test_start = pd.Timestamp(TEST_SEASON_START)
-    test_end   = pd.Timestamp(TEST_SEASON_END)
-    test       = all_data[
-        (all_data["date_parsed"] >= test_start) &
-        (all_data["date_parsed"] <= test_end)
-    ].copy()
-    test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
-    sample = test[test["round_number"].between(10, 20)].copy()
-
-    print(f"  Sample: {len(sample)} matches (GW10-20)")
-    print()
-    print(f"  {'beta':>8}  {'outcome_acc':>12}  {'draw_acc':>10}  {'moneyline_acc':>14}  {'avg_rps':>8}")
-    print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*14}  {'-'*8}")
-
-    for beta in [0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00]:
-        sweep_results = []
-
-        for _, fixture in sample.iterrows():
-            home_team  = fixture["Home Team"]
-            away_team  = fixture["Away Team"]
-            home_goals = int(fixture["home_goals"])
-            away_goals = int(fixture["away_goals"])
-
-            gw_date  = fixture["date_parsed"]
-            training = all_data[all_data["date_parsed"] < gw_date].copy()
-            if len(training) < MIN_TRAIN_MATCHES:
-                continue
-
-            teams_in = set(training["Home Team"].unique()) | set(training["Away Team"].unique())
-            if home_team not in teams_in or away_team not in teams_in:
-                continue
-
-            try:
-                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None)
-                recent_att, recent_def = calculate_recent_form(
-                    training, team_stats, recent_matches=15, alpha=ALPHA
-                )
-            except Exception:
-                continue
-
-            if home_team not in team_stats or away_team not in team_stats:
-                continue
-
-            try:
-                hxg = get_team_xg(
-                    home_team, away_team, True, team_stats, recent_att, recent_def,
-                    alpha=ALPHA, beta=beta, team_home_advantage=team_hfa
-                )
-                axg = get_team_xg(
-                    away_team, home_team, False, team_stats, recent_att, recent_def,
-                    alpha=ALPHA, beta=beta, team_home_advantage=team_hfa
-                )
-            except Exception:
-                continue
-
-            matrix, hwp, dp, awp = simulate_bivariate_poisson(hxg, axg, cov_xy=COV_XY)
-            probs = [hwp, dp, awp]
-
-            if home_goals > away_goals:
-                actual, idx = "home_win", 0
-            elif home_goals == away_goals:
-                actual, idx = "draw", 1
-            else:
-                actual, idx = "away_win", 2
-
-            predicted = ["home_win", "draw", "away_win"][np.argmax(probs)]
-            rps_val   = ranked_probability_score(probs, idx)
-
-            sweep_results.append({
-                "actual":    actual,
-                "predicted": predicted,
-                "correct":   actual == predicted,
-                "rps":       rps_val,
-            })
-
-        if not sweep_results:
-            continue
-
-        sdf       = pd.DataFrame(sweep_results)
-        oacc      = sdf["correct"].mean() * 100
-        draw_rows = sdf[sdf["actual"] == "draw"]
-        draw_acc_s = draw_rows["correct"].mean() * 100 if len(draw_rows) > 0 else 0
-        decisive_s = sdf[sdf["actual"] != "draw"]
-        ml_acc    = decisive_s["correct"].mean() * 100 if len(decisive_s) > 0 else 0
-        avg_rps_s = sdf["rps"].mean()
-
-        marker = "  ← current" if abs(beta - BETA) < 0.001 else ""
-        print(f"  {beta:>8.2f}  {oacc:>11.1f}%  {draw_acc_s:>9.1f}%  {ml_acc:>13.1f}%  {avg_rps_s:>8.4f}{marker}")
-
-    print()
-    print("  Recommendation: lowest RPS wins. Watch for moneyline drop-off")
-    print("  at extremes — pure multiplicative (beta=1.0) often overtips goals.")
-    print("=" * 60)
 
 
 
@@ -840,8 +727,8 @@ def sweep_rho():
                 continue
 
             try:
-                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, beta=BETA, team_home_advantage=team_hfa)
-                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, beta=BETA, team_home_advantage=team_hfa)
+                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
             except Exception:
                 continue
 
@@ -900,14 +787,11 @@ if __name__ == "__main__":
         sweep_cov_xy()
     elif "--sweep-alpha" in sys.argv:
         sweep_alpha()
-    elif "--sweep-beta" in sys.argv:
-        sweep_beta()
     elif "--sweep-rho" in sys.argv:
         sweep_rho()
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
-        sweep_beta()
         sweep_rho()
     else:
         run_backtest()
@@ -918,6 +802,5 @@ if __name__ == "__main__":
 #python backtest.py                  # full backtest
 #python backtest.py --sweep          # cov_xy sweep
 #python backtest.py --sweep-alpha    # alpha sweep
-#python backtest.py --sweep-beta     # beta sweep
 #python backtest.py --sweep-rho      # rho sweep
 #python backtest.py --sweep-all      # all sweeps in one go
