@@ -143,23 +143,16 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
     from scipy.optimize import minimize
 
     historical_fixture_data = historical_fixture_data.dropna(subset=['Home Team', 'Away Team']).copy()
-    if 'date_parsed' not in historical_fixture_data.columns:
-        historical_fixture_data['date_parsed'] = pd.to_datetime(
-            historical_fixture_data['Date'], dayfirst=True, errors='coerce'
-        )
     all_teams = sorted(set(historical_fixture_data['Home Team'].unique()) |
                        set(historical_fixture_data['Away Team'].unique()))
     n = len(all_teams)
     team_idx = {t: i for i, t in enumerate(all_teams)}
 
-    # Collect recent rows: last 30 home + 30 away per team. The window is wider
-    # than before (was 20) because recency is now handled by exponential decay
-    # rather than a hard cutoff — older matches fade out smoothly instead of
-    # being weighted identically to yesterday's match then dropped to zero.
+    # Collect recent rows: last 20 home + 20 away per team
     recent_rows = set()
     for team in all_teams:
-        home_ix = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(30).index
-        away_ix = historical_fixture_data[historical_fixture_data['Away Team'] == team].tail(30).index
+        home_ix = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20).index
+        away_ix = historical_fixture_data[historical_fixture_data['Away Team'] == team].tail(20).index
         recent_rows.update(home_ix)
         recent_rows.update(away_ix)
 
@@ -171,21 +164,13 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
     hi = df_mle['Home Team'].map(team_idx).values
     ai = df_mle['Away Team'].map(team_idx).values
 
-    # Exponential recency weighting: a match HALF_LIFE_DAYS old counts half as
-    # much as today's match, fading continuously rather than a hard drop-off.
-    HALF_LIFE_DAYS  = 200
-    reference_date  = historical_fixture_data['date_parsed'].max()
-    days_ago        = (reference_date - df_mle['date_parsed']).dt.days.clip(lower=0).values
-    match_weight    = np.power(0.5, days_ago / HALF_LIFE_DAYS)
-
     def neg_log_likelihood(params):
         att  = np.exp(params[:n])
         def_ = np.exp(params[n:2*n])
         hfa  = np.exp(params[2*n])
         mu_h = att[hi] * def_[ai] * hfa
         mu_a = att[ai] * def_[hi]
-        ll = match_weight * (
-              hg * np.log(np.maximum(mu_h, 1e-6)) - mu_h +
+        ll = (hg * np.log(np.maximum(mu_h, 1e-6)) - mu_h +
               ag * np.log(np.maximum(mu_a, 1e-6)) - mu_a)
         return -ll.sum()
 
