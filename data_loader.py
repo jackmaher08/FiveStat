@@ -197,6 +197,15 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
     team_home_advantage = {}
     rows              = []
 
+    # League-wide home advantage (large sample, reliable) — shrinkage target.
+    # Split-half testing showed the raw per-team estimate below is only ~28%
+    # reliable (correlation between independent samples of the same team's
+    # matches), so we shrink each team's estimate toward this stable baseline
+    # rather than trusting ~20 matches of noisy per-team signal on its own.
+    _valid_goals = historical_fixture_data.dropna(subset=['home_goals', 'away_goals'])
+    league_hfa = float(_valid_goals['home_goals'].mean() - _valid_goals['away_goals'].mean())
+    HFA_SHRINKAGE = 0.30  # weight on the team-specific estimate; rest goes to league_hfa
+
     for team in all_teams:
         i = team_idx[team]
         home_games = historical_fixture_data[historical_fixture_data['Home Team'] == team].tail(20)
@@ -211,10 +220,11 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
         def_rating = float(def_params[i]) if mle_ok else (avg_hga + avg_aga) / 2
 
         if pd.isna(avg_hgf) or pd.isna(avg_agf):
-            capped_hfa = 0.0
+            capped_hfa = league_hfa
         else:
             raw_hfa    = avg_hgf - avg_agf
-            capped_hfa = float(np.clip(raw_hfa, -0.3, 0.3))
+            shrunk_hfa = HFA_SHRINKAGE * raw_hfa + (1 - HFA_SHRINKAGE) * league_hfa
+            capped_hfa = float(np.clip(shrunk_hfa, -0.3, 0.3))
         team_home_advantage[team] = capped_hfa
 
         team_data[team] = {
