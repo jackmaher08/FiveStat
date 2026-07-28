@@ -393,7 +393,7 @@ def run_backtest():
 
     # ── Save results ──
     accuracy_output = {
-        "season":              "2024/25",
+        "season":              "2025/26",
         "matches_predicted":   n,
         "matches_skipped":     skipped,
         "outcome_accuracy":    outcome_accuracy,
