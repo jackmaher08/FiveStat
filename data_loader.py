@@ -130,7 +130,7 @@ def get_player_data():
 
 
 
-def calculate_team_statistics(historical_fixture_data, save_csv_path="data/tables/team_stats.csv"):
+def calculate_team_statistics(historical_fixture_data, save_csv_path="data/tables/team_stats.csv", verbose=True):
     """
     Fit opponent-adjusted attack and defence ratings via Maximum Likelihood
     Estimation. Each team's ATT and DEF are solved simultaneously so ratings
@@ -255,7 +255,8 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
     for team in fixture_teams:
         mapped = TEAM_NAME_MAPPING.get(team, team)
         if mapped not in team_data:
-            print(f"ℹ️  {mapped} not in historical data — seeding with league-average ratings.")
+            if verbose:
+                print(f"ℹ️  {mapped} not in historical data — seeding with league-average ratings.")
             team_data[mapped] = {
                 'Home Goals For':     league_avg_att,
                 'Away Goals For':     league_avg_att,
@@ -283,7 +284,8 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
     for team in fixture_teams:
         mapped = TEAM_NAME_MAPPING.get(team, team)
         if mapped not in team_data:
-            print(f"ℹ️  {mapped} not in historical data — seeding with promoted-team ratings.")
+            if verbose:
+                print(f"ℹ️  {mapped} not in historical data — seeding with promoted-team ratings.")
             team_data[mapped] = {
                 'Home Goals For':     promoted_att,
                 'Away Goals For':     promoted_att,
@@ -414,7 +416,7 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05, max_goals=8):
 
 
 
-def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.15):
+def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.18):
     """
     Apply Dixon-Coles low-score correction to a scoreline probability matrix.
 
@@ -886,7 +888,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
 
         # Capture the full result_matrix along with probabilities
         result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
-        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.15)
+        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.18)
 
         # Recalculate outcome probabilities from corrected matrix
         home_prob  = float(np.sum(np.tril(result_matrix, -1)))
