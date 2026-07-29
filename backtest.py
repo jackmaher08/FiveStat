@@ -47,17 +47,16 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2022-08-01"   # Start of 2023/24 season — combined 3-season window
-TEST_SEASON_END   = "2025-06-01"   # End of 2025/26 season (all completed fixtures)
+TEST_SEASON_START = "2025-08-01"   # HOLDOUT: 2025/26 only, never used for tuning
+TEST_SEASON_END   = "2026-06-01"
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = -0.10          # Dixon-Coles correction strength — matches production
-DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson (current
-                                    # production behaviour); >1.0 adds overdispersion to
-                                    # address 1-1 scoreline over-concentration. Untuned —
-                                    # this default preserves exact current behaviour.
+DISPERSION        = 1.5            # NB overdispersion factor — candidate value from the
+                                    # tuning-window sweep (brings 1-1 over-concentration
+                                    # down from ~61% toward ~22% at ~zero RPS cost).
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
