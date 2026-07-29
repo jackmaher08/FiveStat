@@ -15,6 +15,7 @@ on:
           - f1_historical
           - backtest
           - backtest_sweep
+          - backtest_sweep_dispersion
 
 jobs:
   update:
@@ -95,6 +96,13 @@ jobs:
             python backtest.py --sweep-rho
             python backtest.py --sweep
           } > data/tables/sweep_report.txt
+
+      # ── Backtest: dispersion sweep only (separate, since it's slow) ──
+      - name: Backtest dispersion sweep pipeline
+        if: steps.run_type.outputs.type == 'backtest_sweep_dispersion'
+        run: |
+          mkdir -p data/tables
+          python backtest.py --sweep-dispersion > data/tables/dispersion_sweep_report.txt
 
       # ── Commit and push (triggers Railway redeploy) ───────────────────────
       - name: Commit and push
