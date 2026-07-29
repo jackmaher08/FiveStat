@@ -816,8 +816,8 @@ def sweep_dispersion():
 
     print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
     print()
-    print(f"  {'disp':>8}  {'outcome_acc':>12}  {'moneyline':>10}  {'avg_rps':>8}  {'pred_1-1_rate':>14}")
-    print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*8}  {'-'*14}")
+    print(f"  {'disp':>8}  {'outcome_acc':>12}  {'moneyline':>10}  {'avg_rps':>8}  {'pred_1-1_rate':>14}  {'pred_0-0_rate':>14}")
+    print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*8}  {'-'*14}  {'-'*14}")
 
     actual_11_rate = (sample.apply(
         lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1
@@ -882,6 +882,7 @@ def sweep_dispersion():
                 "correct":   actual == predicted,
                 "rps":       rps_val,
                 "pred_11":   (top_i == 1 and top_j == 1),
+                "pred_00":   (top_i == 0 and top_j == 0),
             })
 
         if not sweep_results:
@@ -893,9 +894,10 @@ def sweep_dispersion():
         ml_acc     = decisive_s["correct"].mean() * 100 if len(decisive_s) > 0 else 0
         avg_rps_s  = sdf["rps"].mean()
         pred_11_rate = sdf["pred_11"].mean() * 100
+        pred_00_rate = sdf["pred_00"].mean() * 100
 
         marker = "  ← current" if abs(disp - DISPERSION) < 0.001 else ""
-        print(f"  {disp:>8.2f}  {oacc:>11.1f}%  {ml_acc:>9.1f}%  {avg_rps_s:>8.4f}  {pred_11_rate:>13.1f}%{marker}")
+        print(f"  {disp:>8.2f}  {oacc:>11.1f}%  {ml_acc:>9.1f}%  {avg_rps_s:>8.4f}  {pred_11_rate:>13.1f}%  {pred_00_rate:>13.1f}%{marker}")
 
     print()
     print(f"  Actual 1-1 rate in sample: {actual_11_rate:.1f}%")
