@@ -16,6 +16,7 @@ on:
           - backtest
           - backtest_sweep
           - backtest_sweep_dispersion
+          - backtest_sweep_dispersion_rho
 
 jobs:
   update:
@@ -103,6 +104,13 @@ jobs:
         run: |
           mkdir -p data/tables
           python backtest.py --sweep-dispersion > data/tables/dispersion_sweep_report.txt
+
+      # ── Backtest: joint dispersion x rho sweep ──
+      - name: Backtest dispersion-rho sweep pipeline
+        if: steps.run_type.outputs.type == 'backtest_sweep_dispersion_rho'
+        run: |
+          mkdir -p data/tables
+          python backtest.py --sweep-dispersion-rho > data/tables/dispersion_rho_sweep_report.txt
 
       # ── Commit and push (triggers Railway redeploy) ───────────────────────
       - name: Commit and push
