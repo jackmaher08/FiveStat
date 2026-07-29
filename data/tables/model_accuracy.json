@@ -1,292 +1,292 @@
 {
   "season": "2023/24\u20132025/26 (combined)",
-  "matches_predicted": 1058,
-  "matches_skipped": 82,
-  "outcome_accuracy": 51.0,
-  "baseline_accuracy": 45.6,
-  "avg_rps": 0.2137,
-  "baseline_rps": 0.2395,
-  "rps_improvement": 0.0258,
-  "avg_brier": 0.2255,
-  "ou_accuracy": 53.7,
-  "ou_sample": 1058,
-  "correct_score_rate": 11.1,
-  "xg_mae": 0.731,
-  "home_win_accuracy": 69.5,
-  "draw_accuracy": 1.2,
-  "away_win_accuracy": 60.7,
-  "moneyline_accuracy": 65.9,
-  "moneyline_n": 815,
-  "draw_predicted_rate": 0.6,
-  "draw_actual_rate": 23.0,
+  "matches_predicted": 380,
+  "matches_skipped": 1,
+  "outcome_accuracy": 46.1,
+  "baseline_accuracy": 42.6,
+  "avg_rps": 0.2143,
+  "baseline_rps": 0.2322,
+  "rps_improvement": 0.0179,
+  "avg_brier": 0.226,
+  "ou_accuracy": 57.6,
+  "ou_sample": 380,
+  "correct_score_rate": 11.3,
+  "xg_mae": 0.651,
+  "home_win_accuracy": 70.4,
+  "draw_accuracy": 0.0,
+  "away_win_accuracy": 53.5,
+  "moneyline_accuracy": 63.4,
+  "moneyline_n": 276,
+  "draw_predicted_rate": 0.0,
+  "draw_actual_rate": 27.4,
   "gw_breakdown": [
     {
       "gw": 1,
-      "fixtures": 25,
-      "outcome_acc": 44.0,
-      "avg_rps": 0.1985,
-      "ou_acc": 52.0
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.19,
+      "ou_acc": 50.0
     },
     {
       "gw": 2,
-      "fixtures": 25,
-      "outcome_acc": 60.0,
-      "avg_rps": 0.1731,
-      "ou_acc": 52.0
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1986,
+      "ou_acc": 50.0
     },
     {
       "gw": 3,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.2384,
-      "ou_acc": 71.4
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.3261,
+      "ou_acc": 50.0
     },
     {
       "gw": 4,
-      "fixtures": 28,
-      "outcome_acc": 60.7,
-      "avg_rps": 0.176,
-      "ou_acc": 60.7
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.134,
+      "ou_acc": 60.0
     },
     {
       "gw": 5,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.1801,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.2188,
+      "ou_acc": 50.0
     },
     {
       "gw": 6,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1889,
-      "ou_acc": 57.1
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2669,
+      "ou_acc": 60.0
     },
     {
       "gw": 7,
-      "fixtures": 28,
-      "outcome_acc": 60.7,
-      "avg_rps": 0.1914,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.142,
+      "ou_acc": 50.0
     },
     {
       "gw": 8,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.211,
-      "ou_acc": 50.0
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2567,
+      "ou_acc": 70.0
     },
     {
       "gw": 9,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1819,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.3122,
+      "ou_acc": 60.0
     },
     {
       "gw": 10,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.2338,
-      "ou_acc": 57.1
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1737,
+      "ou_acc": 60.0
     },
     {
       "gw": 11,
-      "fixtures": 28,
-      "outcome_acc": 42.9,
-      "avg_rps": 0.2209,
-      "ou_acc": 42.9
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1766,
+      "ou_acc": 90.0
     },
     {
       "gw": 12,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.2123,
-      "ou_acc": 50.0
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2195,
+      "ou_acc": 70.0
     },
     {
       "gw": 13,
-      "fixtures": 28,
-      "outcome_acc": 50.0,
-      "avg_rps": 0.2535,
-      "ou_acc": 46.4
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2185,
+      "ou_acc": 50.0
     },
     {
       "gw": 14,
-      "fixtures": 28,
-      "outcome_acc": 64.3,
-      "avg_rps": 0.1824,
-      "ou_acc": 57.1
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.2092,
+      "ou_acc": 50.0
     },
     {
       "gw": 15,
-      "fixtures": 28,
-      "outcome_acc": 39.3,
-      "avg_rps": 0.2828,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1874,
+      "ou_acc": 60.0
     },
     {
       "gw": 16,
-      "fixtures": 28,
-      "outcome_acc": 35.7,
-      "avg_rps": 0.2969,
-      "ou_acc": 60.7
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1883,
+      "ou_acc": 70.0
     },
     {
       "gw": 17,
-      "fixtures": 28,
+      "fixtures": 10,
       "outcome_acc": 50.0,
-      "avg_rps": 0.2267,
-      "ou_acc": 60.7
+      "avg_rps": 0.1774,
+      "ou_acc": 60.0
     },
     {
       "gw": 18,
-      "fixtures": 28,
-      "outcome_acc": 39.3,
-      "avg_rps": 0.2544,
-      "ou_acc": 39.3
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1909,
+      "ou_acc": 60.0
     },
     {
       "gw": 19,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.2517,
-      "ou_acc": 78.6
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.1872,
+      "ou_acc": 50.0
     },
     {
       "gw": 20,
-      "fixtures": 28,
-      "outcome_acc": 42.9,
-      "avg_rps": 0.2639,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1789,
       "ou_acc": 50.0
     },
     {
       "gw": 21,
-      "fixtures": 28,
-      "outcome_acc": 53.6,
-      "avg_rps": 0.1556,
-      "ou_acc": 46.4
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2061,
+      "ou_acc": 70.0
     },
     {
       "gw": 22,
-      "fixtures": 28,
-      "outcome_acc": 42.9,
-      "avg_rps": 0.2477,
-      "ou_acc": 57.1
+      "fixtures": 10,
+      "outcome_acc": 10.0,
+      "avg_rps": 0.3088,
+      "ou_acc": 20.0
     },
     {
       "gw": 23,
-      "fixtures": 28,
-      "outcome_acc": 50.0,
-      "avg_rps": 0.2018,
-      "ou_acc": 46.4
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2732,
+      "ou_acc": 50.0
     },
     {
       "gw": 24,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.2417,
-      "ou_acc": 50.0
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1701,
+      "ou_acc": 60.0
     },
     {
       "gw": 25,
-      "fixtures": 28,
-      "outcome_acc": 60.7,
-      "avg_rps": 0.2014,
-      "ou_acc": 42.9
-    },
-    {
-      "gw": 26,
-      "fixtures": 28,
+      "fixtures": 10,
       "outcome_acc": 50.0,
-      "avg_rps": 0.2341,
+      "avg_rps": 0.2039,
       "ou_acc": 50.0
     },
     {
+      "gw": 26,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2168,
+      "ou_acc": 60.0
+    },
+    {
       "gw": 27,
-      "fixtures": 28,
-      "outcome_acc": 60.7,
-      "avg_rps": 0.1793,
-      "ou_acc": 46.4
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.202,
+      "ou_acc": 30.0
     },
     {
       "gw": 28,
-      "fixtures": 28,
-      "outcome_acc": 53.6,
-      "avg_rps": 0.1864,
-      "ou_acc": 42.9
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.2034,
+      "ou_acc": 70.0
     },
     {
       "gw": 29,
-      "fixtures": 28,
-      "outcome_acc": 42.9,
-      "avg_rps": 0.232,
-      "ou_acc": 64.3
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2817,
+      "ou_acc": 60.0
     },
     {
       "gw": 30,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.1978,
-      "ou_acc": 46.4
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2054,
+      "ou_acc": 50.0
     },
     {
       "gw": 31,
-      "fixtures": 28,
-      "outcome_acc": 35.7,
-      "avg_rps": 0.2189,
-      "ou_acc": 60.7
+      "fixtures": 9,
+      "outcome_acc": 22.2,
+      "avg_rps": 0.2671,
+      "ou_acc": 55.6
     },
     {
       "gw": 32,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1855,
-      "ou_acc": 67.9
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.256,
+      "ou_acc": 90.0
     },
     {
       "gw": 33,
-      "fixtures": 28,
-      "outcome_acc": 39.3,
-      "avg_rps": 0.245,
-      "ou_acc": 46.4
+      "fixtures": 13,
+      "outcome_acc": 46.2,
+      "avg_rps": 0.1918,
+      "ou_acc": 53.8
     },
     {
       "gw": 34,
-      "fixtures": 28,
-      "outcome_acc": 78.6,
-      "avg_rps": 0.1554,
-      "ou_acc": 57.1
+      "fixtures": 7,
+      "outcome_acc": 71.4,
+      "avg_rps": 0.2168,
+      "ou_acc": 42.9
     },
     {
       "gw": 35,
-      "fixtures": 28,
-      "outcome_acc": 46.4,
-      "avg_rps": 0.2197,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2104,
+      "ou_acc": 100.0
     },
     {
       "gw": 36,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1975,
-      "ou_acc": 53.6
+      "fixtures": 11,
+      "outcome_acc": 45.5,
+      "avg_rps": 0.1261,
+      "ou_acc": 36.4
     },
     {
       "gw": 37,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1997,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2028,
+      "ou_acc": 60.0
     },
     {
       "gw": 38,
-      "fixtures": 28,
-      "outcome_acc": 57.1,
-      "avg_rps": 0.1977,
-      "ou_acc": 53.6
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.2694,
+      "ou_acc": 60.0
     }
   ],
-  "avg_model_draw_prob": 24.2,
-  "draw_calibration_error": 1.2
+  "avg_model_draw_prob": 24.5,
+  "draw_calibration_error": 2.9
 }
