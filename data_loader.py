@@ -5,7 +5,7 @@ import requests
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.stats import poisson
+from scipy.stats import poisson, nbinom
 import matplotlib.colors as mcolors
 from bs4 import BeautifulSoup
 from mplsoccer import Pitch
@@ -423,6 +423,71 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05, max_goals=8):
 
     return result_matrix, home_win_prob, draw_prob, away_win_prob
 
+
+def simulate_bivariate_nb(home_xg, away_xg, cov_xy=0.05, dispersion=1.0, max_goals=8):
+    """
+    Overdispersed variant of simulate_bivariate_poisson using a Negative Binomial
+    in place of each Poisson component, via the same trivariate-reduction
+    correlation structure (home = X1+X3, away = X2+X3).
+
+    This works because sums of independent NB(r, p) variables that share the
+    same p are themselves NB(r1+r2, p) — the same summation property that makes
+    the Poisson trivariate reduction valid also holds here, verified numerically
+    against convolution.
+
+    Args:
+        home_xg, away_xg: expected goals, same meaning as simulate_bivariate_poisson.
+        cov_xy: shared component controlling correlation — same role as before.
+        dispersion: variance/mean ratio for each goal-scoring component.
+            dispersion=1.0 is a pure Poisson (degenerate case, handled explicitly
+            below since the NB parameterisation divides by zero at dispersion=1).
+            dispersion>1.0 adds overdispersion, which flattens the distribution's
+            mode instead of letting a narrow Poisson mode dominate (the cause of
+            the 1-1 over-concentration in the correct-score heatmaps).
+
+    Returns:
+        Same shape/signature as simulate_bivariate_poisson: (result_matrix,
+        home_win_prob, draw_prob, away_win_prob).
+    """
+    result_matrix = np.zeros((max_goals, max_goals))
+
+    lambda1 = max(home_xg - cov_xy, 0.01)
+    lambda2 = max(away_xg - cov_xy, 0.01)
+    lambda3 = max(cov_xy, 0.01)
+
+    k_range = np.arange(max_goals)
+
+    if dispersion <= 1.0 + 1e-9:
+        # Degenerate case: NB parameterisation divides by zero at dispersion=1,
+        # and dispersion=1 is mathematically just Poisson anyway — use it directly.
+        pmf1 = poisson.pmf(k_range, lambda1)
+        pmf2 = poisson.pmf(k_range, lambda2)
+        pmf3 = poisson.pmf(k_range, lambda3)
+    else:
+        p_shared = 1.0 / dispersion
+
+        def nb_pmf(mu):
+            r = mu * p_shared / (1 - p_shared)
+            return nbinom.pmf(k_range, r, p_shared)
+
+        pmf1 = nb_pmf(lambda1)
+        pmf2 = nb_pmf(lambda2)
+        pmf3 = nb_pmf(lambda3)
+
+    for i in range(max_goals):
+        for j in range(max_goals):
+            prob = 0.0
+            for k in range(min(i, j) + 1):
+                prob += pmf1[i - k] * pmf2[j - k] * pmf3[k]
+            result_matrix[i, j] = prob
+
+    result_matrix /= result_matrix.sum()
+
+    home_win_prob = np.sum(np.tril(result_matrix, -1))
+    away_win_prob = np.sum(np.triu(result_matrix, 1))
+    draw_prob = np.sum(np.diag(result_matrix))
+
+    return result_matrix, home_win_prob, draw_prob, away_win_prob
 
 
 
