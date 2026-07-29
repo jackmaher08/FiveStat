@@ -378,6 +378,9 @@ def run_backtest():
     print(f"  Avg Brier score:          {avg_brier}")
     print(f"  Over/Under 2.5 accuracy:  {ou_accuracy}%")
     print(f"  Correct score hit rate:   {correct_score_rate}%")
+    pred_1_1_rate = round((df["pred_top_score"] == "1-1").mean() * 100, 1)
+    actual_1_1_rate = round((df["actual_score"] == "1-1").mean() * 100, 1)
+    print(f"  Predicted 1-1 rate:       {pred_1_1_rate}%  (actual 1-1 rate: {actual_1_1_rate}%)")
     if xg_mae:
         print(f"  xG MAE:                   {xg_mae}")
     print()
