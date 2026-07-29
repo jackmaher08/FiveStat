@@ -47,18 +47,16 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2022-08-01"   # TUNING window: 2022/23 to 2024/25 — 25/26 held out
-TEST_SEASON_END   = "2025-06-01"   # excludes 2025/26 entirely, clean holdout
+TEST_SEASON_START = "2025-08-01"   # HOLDOUT: 2025/26 only, never used for tuning
+TEST_SEASON_END   = "2026-06-01"
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = -0.10          # Dixon-Coles correction strength — matches production
-DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson (current
-                                    # production behaviour). 1.5 was tested and rejected —
-                                    # fixed the 1-1 over-concentration but created a worse
-                                    # 0-0 over-concentration (61% predicted vs 7% actual).
-                                    # Joint sweep with rho needed before choosing a value.
+RHO               = 0.0            # Dixon-Coles correction strength — candidate. Rejoint-
+                                    # sweep found DC now double-counts once NB dispersion
+                                    # is doing the low-score correction job on its own.
+DISPERSION        = 1.3            # NB overdispersion factor — candidate from joint sweep.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
