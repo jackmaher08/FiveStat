@@ -1,74 +1,20 @@
-============================================================
-FiveStat Walk-Forward Backtest
-============================================================
-Training data (pre-test): 2280 matches
-Test window (2022-08-01 to 2025-06-01): 1140 matches
-Gameweeks to test: 38
-
-  GW01 — 25 fixtures predicted  |  outcome acc: 44.0%
-  GW02 — 25 fixtures predicted  |  outcome acc: 60.0%
-  GW03 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW04 — 28 fixtures predicted  |  outcome acc: 60.7%
-  GW05 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW06 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW07 — 28 fixtures predicted  |  outcome acc: 60.7%
-  GW08 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW09 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW10 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW11 — 28 fixtures predicted  |  outcome acc: 42.9%
-  GW12 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW13 — 28 fixtures predicted  |  outcome acc: 50.0%
-  GW14 — 28 fixtures predicted  |  outcome acc: 64.3%
-  GW15 — 28 fixtures predicted  |  outcome acc: 39.3%
-  GW16 — 28 fixtures predicted  |  outcome acc: 35.7%
-  GW17 — 28 fixtures predicted  |  outcome acc: 50.0%
-  GW18 — 28 fixtures predicted  |  outcome acc: 39.3%
-  GW19 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW20 — 28 fixtures predicted  |  outcome acc: 42.9%
-  GW21 — 28 fixtures predicted  |  outcome acc: 53.6%
-  GW22 — 28 fixtures predicted  |  outcome acc: 42.9%
-  GW23 — 28 fixtures predicted  |  outcome acc: 50.0%
-  GW24 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW25 — 28 fixtures predicted  |  outcome acc: 60.7%
-  GW26 — 28 fixtures predicted  |  outcome acc: 50.0%
-  GW27 — 28 fixtures predicted  |  outcome acc: 60.7%
-  GW28 — 28 fixtures predicted  |  outcome acc: 53.6%
-  GW29 — 28 fixtures predicted  |  outcome acc: 42.9%
-  GW30 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW31 — 28 fixtures predicted  |  outcome acc: 35.7%
-  GW32 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW33 — 28 fixtures predicted  |  outcome acc: 39.3%
-  GW34 — 28 fixtures predicted  |  outcome acc: 78.6%
-  GW35 — 28 fixtures predicted  |  outcome acc: 46.4%
-  GW36 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW37 — 28 fixtures predicted  |  outcome acc: 57.1%
-  GW38 — 28 fixtures predicted  |  outcome acc: 57.1%
 
 ============================================================
-Aggregating metrics...
+Dispersion Parameter Sweep (NB overdispersion, 1.0 = pure Poisson)
+============================================================
+  Sample: 1140 matches (full 2022-08-01 to 2025-06-01 window)
 
-  Matches predicted:        1058  (skipped: 82)
-  Outcome accuracy:         51.0%  (baseline: 45.6%)
-  Avg RPS:                  0.2137  (naive baseline: 0.2395, improvement: +0.0258)
-  Avg Brier score:          0.2255
-  Over/Under 2.5 accuracy:  53.7%
-  Correct score hit rate:   11.1%
-  xG MAE:                   0.731
+      disp   outcome_acc   moneyline   avg_rps   pred_1-1_rate
+  --------  ------------  ----------  --------  --------------
+      1.00         53.9%       70.0%    0.2023           61.3%  ← current
+      1.10         53.9%       70.0%    0.2022           61.9%
+      1.20         54.0%       70.0%    0.2021           58.5%
+      1.30         54.0%       70.0%    0.2021           51.3%
+      1.40         54.0%       70.0%    0.2022           38.5%
+      1.50         54.1%       70.0%    0.2022           21.8%
+      1.75         54.1%       70.0%    0.2026            1.3%
+      2.00         54.1%       69.7%    0.2031            0.0%
 
-  Moneyline (excl. draws):
-    Accuracy:               65.9%  (815 decisive matches)
-
-  By outcome:
-    Home win accuracy:      69.5%  (482 matches)
-    Draw accuracy:          1.2%  (243 matches)
-    Away win accuracy:      60.7%  (333 matches)
-
-  Draw calibration:
-    Model avg draw probability: 24.2%
-    Actual draw rate:           23.0%
-    Calibration error:          1.2pp
-    Model predicted draw:       0.6% of matches
-
-✅ Results saved to data/tables/model_accuracy.json
-✅ Match-level detail saved to data/tables/backtest_detail.csv
+  Actual 1-1 rate in sample: 10.6%
+  Target: bring pred_1-1_rate down toward the actual rate without hurting RPS.
 ============================================================
