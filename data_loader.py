@@ -962,8 +962,12 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
         )
 
         # Capture the full result_matrix along with probabilities
-        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
-        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.10)
+        # NB dispersion=1.3 replaces Poisson+Dixon-Coles here: DC's low-score correction
+        # was designed to fix pure Poisson's low-score underestimate, but once NB
+        # dispersion is already doing that job — and doing it per-match rather than as
+        # a flat multiplier — DC on top double-counts and over-corrects. rho=0.0 (no DC
+        # call) was the validated combination. See backtest.py's sweep_dispersion_rho().
+        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_nb(home_xg, away_xg, cov_xy=0.05, dispersion=1.3)
 
         # Recalculate outcome probabilities from corrected matrix
         home_prob  = float(np.sum(np.tril(result_matrix, -1)))
