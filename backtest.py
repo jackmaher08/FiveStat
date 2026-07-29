@@ -47,8 +47,8 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2023-08-01"   # Start of 2023/24 season — combined 3-season window
-TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtures)
+TEST_SEASON_START = "2022-08-01"   # TUNING window: 2022/23 to 2024/25 — 25/26 held out
+TEST_SEASON_END   = "2025-06-01"   # excludes 2025/26 entirely, clean holdout
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
@@ -1052,6 +1052,188 @@ def sweep_dispersion_rho():
     print("=" * 60)
 
 
+def sweep_comprehensive():
+    """
+    Full grid sweep across ALPHA x COV_XY x DISPERSION x RHO in one run.
+
+    Efficiency: calculate_team_statistics (the expensive MLE fit) does NOT
+    depend on any of these four parameters, so it's computed ONCE per fixture.
+    ALPHA affects calculate_recent_form/get_team_xg (cheap arithmetic, not an
+    optimisation), so it's the only parameter requiring its own xG recompute;
+    COV_XY, DISPERSION, and RHO only affect the final matrix construction and
+    are nested cheaply inside that. Net cost: roughly one full backtest run,
+    not a multiplicative blow-up across 240 combinations.
+
+    Ranking: combinations are first filtered by a sensibility gate (predicted
+    1-1 and 0-0 rates must stay within 2x their actual rates — this is what
+    catches a dispersion value that "fixes" 1-1 by creating a 0-0 problem, as
+    happened with dispersion=1.5 earlier), then the survivors are ranked by
+    RPS (primary metric), with moneyline shown alongside as a co-primary
+    check. Draw calibration and correct-score hit-rate are printed for
+    disclosure but do not drive the ranking (see reasoning in project notes —
+    both are cruder, more gameable proxies for things RPS already captures).
+    """
+    print()
+    print("=" * 60)
+    print("Comprehensive Grid Sweep (ALPHA x COV_XY x DISPERSION x RHO)")
+    print("=" * 60)
+
+    hist_path = "data/tables/historical_fixture_data.csv"
+    all_data = pd.read_csv(hist_path)
+    all_data["Home Team"] = all_data["Home Team"].replace(TEAM_NAME_MAPPING)
+    all_data["Away Team"] = all_data["Away Team"].replace(TEAM_NAME_MAPPING)
+    all_data["date_parsed"] = pd.to_datetime(all_data["Date"], dayfirst=True)
+    all_data = all_data.dropna(subset=["home_goals", "away_goals", "date_parsed"])
+    all_data = all_data.sort_values("date_parsed").reset_index(drop=True)
+
+    test_start = pd.Timestamp(TEST_SEASON_START)
+    test_end   = pd.Timestamp(TEST_SEASON_END)
+    test       = all_data[
+        (all_data["date_parsed"] >= test_start) &
+        (all_data["date_parsed"] <= test_end)
+    ].copy()
+    sample = test.copy()
+
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
+
+    actual_11_rate = (sample.apply(lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1)).mean() * 100
+    actual_00_rate = (sample.apply(lambda r: r["home_goals"] == 0 and r["away_goals"] == 0, axis=1)).mean() * 100
+    actual_draw_rate = (sample["home_goals"] == sample["away_goals"]).mean() * 100
+
+    alpha_grid      = [0.20, 0.25, 0.30, 0.35, 0.40]
+    cov_xy_grid     = [0.03, 0.05, 0.07, 0.10]
+    dispersion_grid = [1.0, 1.15, 1.3, 1.45]
+    rho_grid        = [-0.10, -0.05, 0.0]
+
+    combo_results = {
+        (a, c, d, r): []
+        for a in alpha_grid for c in cov_xy_grid for d in dispersion_grid for r in rho_grid
+    }
+
+    n_fixtures = 0
+    for _, fixture in sample.iterrows():
+        home_team  = fixture["Home Team"]
+        away_team  = fixture["Away Team"]
+        home_goals = int(fixture["home_goals"])
+        away_goals = int(fixture["away_goals"])
+
+        gw_date  = fixture["date_parsed"]
+        training = all_data[all_data["date_parsed"] < gw_date].copy()
+        if len(training) < MIN_TRAIN_MATCHES:
+            continue
+
+        teams_in = set(training["Home Team"].unique()) | set(training["Away Team"].unique())
+        if home_team not in teams_in or away_team not in teams_in:
+            continue
+
+        # Expensive step — computed ONCE per fixture, independent of all 4 params
+        try:
+            team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
+        except Exception:
+            continue
+
+        if home_team not in team_stats or away_team not in team_stats:
+            continue
+
+        n_fixtures += 1
+
+        if home_goals > away_goals:
+            actual, idx = "home_win", 0
+        elif home_goals == away_goals:
+            actual, idx = "draw", 1
+        else:
+            actual, idx = "away_win", 2
+
+        for alpha in alpha_grid:
+            # Cheap step — recomputed per alpha, reused across cov_xy/dispersion/rho
+            try:
+                recent_att, recent_def = calculate_recent_form(training, team_stats, recent_matches=20, alpha=alpha)
+                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=alpha, team_home_advantage=team_hfa)
+                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=alpha, team_home_advantage=team_hfa)
+            except Exception:
+                continue
+
+            for cov in cov_xy_grid:
+                for disp in dispersion_grid:
+                    base_matrix, _, _, _ = simulate_bivariate_nb(hxg, axg, cov_xy=cov, dispersion=disp)
+                    for rho in rho_grid:
+                        matrix = dixon_coles_correction(base_matrix, hxg, axg, rho=rho) if rho != 0.0 else base_matrix
+                        hwp = float(np.sum(np.tril(matrix, -1)))
+                        dp  = float(np.sum(np.diag(matrix)))
+                        awp = float(np.sum(np.triu(matrix, 1)))
+                        probs = [hwp, dp, awp]
+
+                        predicted = ["home_win", "draw", "away_win"][np.argmax(probs)]
+                        rps_val   = ranked_probability_score(probs, idx)
+                        top_i, top_j = np.unravel_index(np.argmax(matrix), matrix.shape)
+
+                        combo_results[(alpha, cov, disp, rho)].append({
+                            "actual":    actual,
+                            "predicted": predicted,
+                            "correct":   actual == predicted,
+                            "rps":       rps_val,
+                            "draw_prob": dp,
+                            "pred_11":   (top_i == 1 and top_j == 1),
+                            "pred_00":   (top_i == 0 and top_j == 0),
+                            "correct_score": (top_i == home_goals and top_j == away_goals),
+                        })
+
+    print(f"  Fixtures evaluated: {n_fixtures}  |  Combinations tested: {len(combo_results)}")
+    print()
+
+    rows = []
+    for (alpha, cov, disp, rho), results in combo_results.items():
+        if not results:
+            continue
+        sdf        = pd.DataFrame(results)
+        oacc       = sdf["correct"].mean() * 100
+        decisive_s = sdf[sdf["actual"] != "draw"]
+        ml_acc     = decisive_s["correct"].mean() * 100 if len(decisive_s) > 0 else 0
+        avg_rps_s  = sdf["rps"].mean()
+        pred_11_rate = sdf["pred_11"].mean() * 100
+        pred_00_rate = sdf["pred_00"].mean() * 100
+        avg_draw_p   = sdf["draw_prob"].mean() * 100
+        cal_err      = abs(avg_draw_p - actual_draw_rate)
+        cs_rate      = sdf["correct_score"].mean() * 100
+
+        rows.append({
+            "alpha": alpha, "cov_xy": cov, "dispersion": disp, "rho": rho,
+            "outcome_acc": oacc, "moneyline": ml_acc, "rps": avg_rps_s,
+            "pred_11": pred_11_rate, "pred_00": pred_00_rate,
+            "cal_err": cal_err, "cs_rate": cs_rate,
+        })
+
+    results_df = pd.DataFrame(rows)
+
+    # Sensibility gate: reject combos where 1-1 or 0-0 over-concentrate relative
+    # to their actual rates (the same failure mode dispersion=1.5 hit earlier)
+    gate = (
+        (results_df["pred_11"] <= max(actual_11_rate * 2, 15)) &
+        (results_df["pred_00"] <= max(actual_00_rate * 2, 15))
+    )
+    survivors = results_df[gate].copy()
+    rejected_n = len(results_df) - len(survivors)
+
+    print(f"  Rejected {rejected_n}/{len(results_df)} combinations on sensibility gate")
+    print(f"  (pred_1-1 or pred_0-0 rate > 2x actual — same failure mode as dispersion=1.5)")
+    print()
+
+    survivors = survivors.sort_values("rps").head(15)
+
+    print(f"  Top 15 surviving combinations, ranked by RPS (primary metric):")
+    print()
+    print(f"  {'alpha':>6}  {'cov_xy':>6}  {'disp':>6}  {'rho':>6}  {'rps':>8}  {'moneyline':>10}  {'outcome_acc':>12}  {'pred_1-1':>9}  {'pred_0-0':>9}  {'cal_err':>8}  {'cs_rate':>8}")
+    print(f"  {'-'*6}  {'-'*6}  {'-'*6}  {'-'*6}  {'-'*8}  {'-'*10}  {'-'*12}  {'-'*9}  {'-'*9}  {'-'*8}  {'-'*8}")
+    for _, r in survivors.iterrows():
+        print(f"  {r['alpha']:>6.2f}  {r['cov_xy']:>6.2f}  {r['dispersion']:>6.2f}  {r['rho']:>6.2f}  "
+              f"{r['rps']:>8.4f}  {r['moneyline']:>9.1f}%  {r['outcome_acc']:>11.1f}%  "
+              f"{r['pred_11']:>8.1f}%  {r['pred_00']:>8.1f}%  {r['cal_err']:>7.1f}pp  {r['cs_rate']:>7.1f}%")
+
+    print()
+    print(f"  Actual 1-1 rate: {actual_11_rate:.1f}%  |  Actual 0-0 rate: {actual_00_rate:.1f}%  |  Actual draw rate: {actual_draw_rate:.1f}%")
+    print("=" * 60)
+
+
 # ══════════════════════════════════════════════════════════════
 # ENTRY POINT
 # ══════════════════════════════════════════════════════════════
@@ -1067,6 +1249,8 @@ if __name__ == "__main__":
         sweep_dispersion()
     elif "--sweep-dispersion-rho" in sys.argv:
         sweep_dispersion_rho()
+    elif "--sweep-comprehensive" in sys.argv:
+        sweep_comprehensive()
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
@@ -1084,4 +1268,5 @@ if __name__ == "__main__":
 #python backtest.py --sweep-rho      # rho sweep
 #python backtest.py --sweep-dispersion  # NB dispersion sweep
 #python backtest.py --sweep-dispersion-rho  # joint dispersion x rho sweep
+#python backtest.py --sweep-comprehensive   # full 4-param grid, ranked by RPS
 #python backtest.py --sweep-all      # all sweeps in one go
