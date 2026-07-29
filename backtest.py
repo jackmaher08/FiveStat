@@ -47,16 +47,18 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2025-08-01"   # HOLDOUT: 2025/26 only, never used for tuning
-TEST_SEASON_END   = "2026-06-01"
+TEST_SEASON_START = "2022-08-01"   # TUNING window: 2022/23 to 2024/25 — 25/26 held out
+TEST_SEASON_END   = "2025-06-01"   # excludes 2025/26 entirely, clean holdout
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = -0.10          # Dixon-Coles correction strength — matches production
-DISPERSION        = 1.5            # NB overdispersion factor — candidate value from the
-                                    # tuning-window sweep (brings 1-1 over-concentration
-                                    # down from ~61% toward ~22% at ~zero RPS cost).
+DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson (current
+                                    # production behaviour). 1.5 was tested and rejected —
+                                    # fixed the 1-1 over-concentration but created a worse
+                                    # 0-0 over-concentration (61% predicted vs 7% actual).
+                                    # Joint sweep with rho needed before choosing a value.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
@@ -662,11 +664,6 @@ def sweep_alpha():
     print("=" * 60)
 
 
-
-
-
-
-
 def sweep_rho():
     """
     Sweep Dixon-Coles rho parameter from 0.0 to -0.25.
@@ -905,6 +902,154 @@ def sweep_dispersion():
     print("=" * 60)
 
 
+def sweep_dispersion_rho():
+    """
+    Joint sweep of dispersion x rho, since introducing NB overdispersion changes
+    the case for how much (if any) additional Dixon-Coles low-score correction
+    is still appropriate — DC was designed to fix pure Poisson's under-estimate
+    of low scores, but NB already inflates low scores on its own, so the two
+    can double-count rather than being independent knobs.
+
+    Tracks pred_1-1_rate AND pred_0-0_rate together, since dispersion fixing
+    the former was found to create the latter — this sweep exists specifically
+    to check whether some combination avoids both at once.
+
+    Restructured vs the single-parameter sweeps: xG is computed ONCE per
+    fixture (the expensive step — refitting team ratings via MLE) rather than
+    once per parameter combination, since dispersion/rho only affect the final
+    matrix construction, not the underlying xG. This keeps a 3x3 grid roughly
+    as expensive as one 8-value single-parameter sweep, not 9x as expensive.
+    """
+    print()
+    print("=" * 60)
+    print("Joint Dispersion x Rho Sweep")
+    print("=" * 60)
+
+    hist_path = "data/tables/historical_fixture_data.csv"
+    all_data = pd.read_csv(hist_path)
+    all_data["Home Team"] = all_data["Home Team"].replace(TEAM_NAME_MAPPING)
+    all_data["Away Team"] = all_data["Away Team"].replace(TEAM_NAME_MAPPING)
+    all_data["date_parsed"] = pd.to_datetime(all_data["Date"], dayfirst=True)
+    all_data = all_data.dropna(subset=["home_goals", "away_goals", "date_parsed"])
+    all_data = all_data.sort_values("date_parsed").reset_index(drop=True)
+
+    test_start = pd.Timestamp(TEST_SEASON_START)
+    test_end   = pd.Timestamp(TEST_SEASON_END)
+    test       = all_data[
+        (all_data["date_parsed"] >= test_start) &
+        (all_data["date_parsed"] <= test_end)
+    ].copy()
+    test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
+    sample = test.copy()
+
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
+
+    actual_11_rate = (sample.apply(
+        lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1
+    )).mean() * 100
+    actual_00_rate = (sample.apply(
+        lambda r: r["home_goals"] == 0 and r["away_goals"] == 0, axis=1
+    )).mean() * 100
+
+    dispersion_grid = [1.0, 1.15, 1.3]
+    rho_grid        = [0.0, -0.05, -0.10]
+
+    # Accumulate per-fixture results for every (dispersion, rho) combo, keyed
+    # by combo, while only computing hxg/axg once per fixture.
+    combo_results = {(d, r): [] for d in dispersion_grid for r in rho_grid}
+
+    n_fixtures = 0
+    for _, fixture in sample.iterrows():
+        home_team  = fixture["Home Team"]
+        away_team  = fixture["Away Team"]
+        home_goals = int(fixture["home_goals"])
+        away_goals = int(fixture["away_goals"])
+
+        gw_date  = fixture["date_parsed"]
+        training = all_data[all_data["date_parsed"] < gw_date].copy()
+        if len(training) < MIN_TRAIN_MATCHES:
+            continue
+
+        teams_in = set(training["Home Team"].unique()) | set(training["Away Team"].unique())
+        if home_team not in teams_in or away_team not in teams_in:
+            continue
+
+        try:
+            team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
+            recent_att, recent_def = calculate_recent_form(
+                training, team_stats, recent_matches=20, alpha=ALPHA
+            )
+        except Exception:
+            continue
+
+        if home_team not in team_stats or away_team not in team_stats:
+            continue
+
+        try:
+            hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+            axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+        except Exception:
+            continue
+
+        n_fixtures += 1
+
+        if home_goals > away_goals:
+            actual, idx = "home_win", 0
+        elif home_goals == away_goals:
+            actual, idx = "draw", 1
+        else:
+            actual, idx = "away_win", 2
+
+        for disp in dispersion_grid:
+            base_matrix, _, _, _ = simulate_bivariate_nb(hxg, axg, cov_xy=COV_XY, dispersion=disp)
+            for rho in rho_grid:
+                matrix = dixon_coles_correction(base_matrix, hxg, axg, rho=rho) if rho != 0.0 else base_matrix
+                hwp = float(np.sum(np.tril(matrix, -1)))
+                dp  = float(np.sum(np.diag(matrix)))
+                awp = float(np.sum(np.triu(matrix, 1)))
+                probs = [hwp, dp, awp]
+
+                predicted = ["home_win", "draw", "away_win"][np.argmax(probs)]
+                rps_val   = ranked_probability_score(probs, idx)
+                top_i, top_j = np.unravel_index(np.argmax(matrix), matrix.shape)
+
+                combo_results[(disp, rho)].append({
+                    "actual":    actual,
+                    "predicted": predicted,
+                    "correct":   actual == predicted,
+                    "rps":       rps_val,
+                    "pred_11":   (top_i == 1 and top_j == 1),
+                    "pred_00":   (top_i == 0 and top_j == 0),
+                })
+
+    print(f"  Fixtures evaluated: {n_fixtures}")
+    print()
+    print(f"  {'disp':>6}  {'rho':>6}  {'outcome_acc':>12}  {'moneyline':>10}  {'avg_rps':>8}  {'pred_1-1':>9}  {'pred_0-0':>9}")
+    print(f"  {'-'*6}  {'-'*6}  {'-'*12}  {'-'*10}  {'-'*8}  {'-'*9}  {'-'*9}")
+
+    for disp in dispersion_grid:
+        for rho in rho_grid:
+            results = combo_results[(disp, rho)]
+            if not results:
+                continue
+            sdf        = pd.DataFrame(results)
+            oacc       = sdf["correct"].mean() * 100
+            decisive_s = sdf[sdf["actual"] != "draw"]
+            ml_acc     = decisive_s["correct"].mean() * 100 if len(decisive_s) > 0 else 0
+            avg_rps_s  = sdf["rps"].mean()
+            pred_11_rate = sdf["pred_11"].mean() * 100
+            pred_00_rate = sdf["pred_00"].mean() * 100
+
+            marker = "  ← current prod" if abs(disp-1.0) < 0.001 and abs(rho-RHO) < 0.001 else ""
+            print(f"  {disp:>6.2f}  {rho:>6.2f}  {oacc:>11.1f}%  {ml_acc:>9.1f}%  {avg_rps_s:>8.4f}  {pred_11_rate:>8.1f}%  {pred_00_rate:>8.1f}%{marker}")
+
+    print()
+    print(f"  Actual 1-1 rate in sample: {actual_11_rate:.1f}%")
+    print(f"  Actual 0-0 rate in sample: {actual_00_rate:.1f}%")
+    print(f"  Target: both pred rates close to actual rates, without hurting RPS.")
+    print("=" * 60)
+
+
 # ══════════════════════════════════════════════════════════════
 # ENTRY POINT
 # ══════════════════════════════════════════════════════════════
@@ -918,6 +1063,8 @@ if __name__ == "__main__":
         sweep_rho()
     elif "--sweep-dispersion" in sys.argv:
         sweep_dispersion()
+    elif "--sweep-dispersion-rho" in sys.argv:
+        sweep_dispersion_rho()
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
@@ -934,4 +1081,5 @@ if __name__ == "__main__":
 #python backtest.py --sweep-alpha    # alpha sweep
 #python backtest.py --sweep-rho      # rho sweep
 #python backtest.py --sweep-dispersion  # NB dispersion sweep
+#python backtest.py --sweep-dispersion-rho  # joint dispersion x rho sweep
 #python backtest.py --sweep-all      # all sweeps in one go
