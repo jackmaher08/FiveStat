@@ -35,6 +35,7 @@ from data_loader import (
     calculate_recent_form,
     get_team_xg,
     simulate_bivariate_poisson,
+    simulate_bivariate_nb,
     dixon_coles_correction,
     TEAM_NAME_MAPPING,
     MANUAL_XG_ADJUSTMENTS,
@@ -53,6 +54,10 @@ OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = -0.10          # Dixon-Coles correction strength — matches production
+DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson (current
+                                    # production behaviour); >1.0 adds overdispersion to
+                                    # address 1-1 scoreline over-concentration. Untuned —
+                                    # this default preserves exact current behaviour.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
@@ -142,8 +147,8 @@ def predict_fixture(home_team, away_team, training_data, team_name_map):
     except Exception as e:
         return None
 
-    result_matrix, home_win_prob, draw_prob, away_win_prob = simulate_bivariate_poisson(
-        home_xg, away_xg, cov_xy=COV_XY
+    result_matrix, home_win_prob, draw_prob, away_win_prob = simulate_bivariate_nb(
+        home_xg, away_xg, cov_xy=COV_XY, dispersion=DISPERSION
     )
     result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=RHO)
     home_win_prob = float(np.sum(np.tril(result_matrix, -1)))
@@ -778,6 +783,124 @@ def sweep_rho():
     print("=" * 60)
 
 
+def sweep_dispersion():
+    """
+    Sweep the NB overdispersion factor from 1.0 (pure Poisson) upward.
+    Tracks RPS/accuracy/moneyline as usual, but also tracks the rate at which
+    the model's top predicted scoreline is 1-1 — the metric this parameter
+    specifically exists to address (see the 1-1 over-concentration finding).
+    """
+    print()
+    print("=" * 60)
+    print("Dispersion Parameter Sweep (NB overdispersion, 1.0 = pure Poisson)")
+    print("=" * 60)
+
+    hist_path = "data/tables/historical_fixture_data.csv"
+    all_data = pd.read_csv(hist_path)
+    all_data["Home Team"] = all_data["Home Team"].replace(TEAM_NAME_MAPPING)
+    all_data["Away Team"] = all_data["Away Team"].replace(TEAM_NAME_MAPPING)
+    all_data["date_parsed"] = pd.to_datetime(all_data["Date"], dayfirst=True)
+    all_data = all_data.dropna(subset=["home_goals", "away_goals", "date_parsed"])
+    all_data = all_data.sort_values("date_parsed").reset_index(drop=True)
+
+    test_start = pd.Timestamp(TEST_SEASON_START)
+    test_end   = pd.Timestamp(TEST_SEASON_END)
+    test       = all_data[
+        (all_data["date_parsed"] >= test_start) &
+        (all_data["date_parsed"] <= test_end)
+    ].copy()
+    test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
+    sample = test.copy()
+
+    print(f"  Sample: {len(sample)} matches (full {TEST_SEASON_START} to {TEST_SEASON_END} window)")
+    print()
+    print(f"  {'disp':>8}  {'outcome_acc':>12}  {'moneyline':>10}  {'avg_rps':>8}  {'pred_1-1_rate':>14}")
+    print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*8}  {'-'*14}")
+
+    actual_11_rate = (sample.apply(
+        lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1
+    )).mean() * 100
+
+    for disp in [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75, 2.0]:
+        sweep_results = []
+
+        for _, fixture in sample.iterrows():
+            home_team  = fixture["Home Team"]
+            away_team  = fixture["Away Team"]
+            home_goals = int(fixture["home_goals"])
+            away_goals = int(fixture["away_goals"])
+
+            gw_date  = fixture["date_parsed"]
+            training = all_data[all_data["date_parsed"] < gw_date].copy()
+            if len(training) < MIN_TRAIN_MATCHES:
+                continue
+
+            teams_in = set(training["Home Team"].unique()) | set(training["Away Team"].unique())
+            if home_team not in teams_in or away_team not in teams_in:
+                continue
+
+            try:
+                team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
+                recent_att, recent_def = calculate_recent_form(
+                    training, team_stats, recent_matches=20, alpha=ALPHA
+                )
+            except Exception:
+                continue
+
+            if home_team not in team_stats or away_team not in team_stats:
+                continue
+
+            try:
+                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+            except Exception:
+                continue
+
+            matrix, hwp, dp, awp = simulate_bivariate_nb(hxg, axg, cov_xy=COV_XY, dispersion=disp)
+            matrix = dixon_coles_correction(matrix, hxg, axg, rho=RHO)
+            hwp = float(np.sum(np.tril(matrix, -1)))
+            dp  = float(np.sum(np.diag(matrix)))
+            awp = float(np.sum(np.triu(matrix, 1)))
+            probs = [hwp, dp, awp]
+
+            if home_goals > away_goals:
+                actual, idx = "home_win", 0
+            elif home_goals == away_goals:
+                actual, idx = "draw", 1
+            else:
+                actual, idx = "away_win", 2
+
+            predicted = ["home_win", "draw", "away_win"][np.argmax(probs)]
+            rps_val   = ranked_probability_score(probs, idx)
+            top_i, top_j = np.unravel_index(np.argmax(matrix), matrix.shape)
+
+            sweep_results.append({
+                "actual":    actual,
+                "predicted": predicted,
+                "correct":   actual == predicted,
+                "rps":       rps_val,
+                "pred_11":   (top_i == 1 and top_j == 1),
+            })
+
+        if not sweep_results:
+            continue
+
+        sdf        = pd.DataFrame(sweep_results)
+        oacc       = sdf["correct"].mean() * 100
+        decisive_s = sdf[sdf["actual"] != "draw"]
+        ml_acc     = decisive_s["correct"].mean() * 100 if len(decisive_s) > 0 else 0
+        avg_rps_s  = sdf["rps"].mean()
+        pred_11_rate = sdf["pred_11"].mean() * 100
+
+        marker = "  ← current" if abs(disp - DISPERSION) < 0.001 else ""
+        print(f"  {disp:>8.2f}  {oacc:>11.1f}%  {ml_acc:>9.1f}%  {avg_rps_s:>8.4f}  {pred_11_rate:>13.1f}%{marker}")
+
+    print()
+    print(f"  Actual 1-1 rate in sample: {actual_11_rate:.1f}%")
+    print(f"  Target: bring pred_1-1_rate down toward the actual rate without hurting RPS.")
+    print("=" * 60)
+
+
 # ══════════════════════════════════════════════════════════════
 # ENTRY POINT
 # ══════════════════════════════════════════════════════════════
@@ -789,10 +912,13 @@ if __name__ == "__main__":
         sweep_alpha()
     elif "--sweep-rho" in sys.argv:
         sweep_rho()
+    elif "--sweep-dispersion" in sys.argv:
+        sweep_dispersion()
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
         sweep_rho()
+        sweep_dispersion()
     else:
         run_backtest()
 
@@ -803,4 +929,5 @@ if __name__ == "__main__":
 #python backtest.py --sweep          # cov_xy sweep
 #python backtest.py --sweep-alpha    # alpha sweep
 #python backtest.py --sweep-rho      # rho sweep
+#python backtest.py --sweep-dispersion  # NB dispersion sweep
 #python backtest.py --sweep-all      # all sweeps in one go
