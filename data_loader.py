@@ -426,7 +426,7 @@ def simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05, max_goals=8):
 
 
 
-def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.18):
+def dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.10):
     """
     Apply Dixon-Coles low-score correction to a scoreline probability matrix.
 
@@ -898,7 +898,7 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
 
         # Capture the full result_matrix along with probabilities
         result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_poisson(home_xg, away_xg, cov_xy=0.05)
-        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.18)
+        result_matrix = dixon_coles_correction(result_matrix, home_xg, away_xg, rho=-0.10)
 
         # Recalculate outcome probabilities from corrected matrix
         home_prob  = float(np.sum(np.tril(result_matrix, -1)))
