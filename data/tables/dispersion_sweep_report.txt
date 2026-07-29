@@ -1,0 +1,74 @@
+============================================================
+FiveStat Walk-Forward Backtest
+============================================================
+Training data (pre-test): 2660 matches
+Test window (2023-08-01 to 2026-06-01): 1141 matches
+Gameweeks to test: 38
+
+  GW01 — 28 fixtures predicted  |  outcome acc: 64.3%
+  GW02 — 28 fixtures predicted  |  outcome acc: 71.4%
+  GW03 — 28 fixtures predicted  |  outcome acc: 50.0%
+  GW04 — 28 fixtures predicted  |  outcome acc: 60.7%
+  GW05 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW06 — 29 fixtures predicted  |  outcome acc: 44.8%
+  GW07 — 29 fixtures predicted  |  outcome acc: 55.2%
+  GW08 — 29 fixtures predicted  |  outcome acc: 55.2%
+  GW09 — 29 fixtures predicted  |  outcome acc: 44.8%
+  GW10 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW11 — 29 fixtures predicted  |  outcome acc: 51.7%
+  GW12 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW13 — 29 fixtures predicted  |  outcome acc: 58.6%
+  GW14 — 29 fixtures predicted  |  outcome acc: 62.1%
+  GW15 — 29 fixtures predicted  |  outcome acc: 41.4%
+  GW16 — 29 fixtures predicted  |  outcome acc: 37.9%
+  GW17 — 29 fixtures predicted  |  outcome acc: 58.6%
+  GW18 — 29 fixtures predicted  |  outcome acc: 37.9%
+  GW19 — 29 fixtures predicted  |  outcome acc: 41.4%
+  GW20 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW21 — 29 fixtures predicted  |  outcome acc: 41.4%
+  GW22 — 29 fixtures predicted  |  outcome acc: 34.5%
+  GW23 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW24 — 29 fixtures predicted  |  outcome acc: 55.2%
+  GW25 — 29 fixtures predicted  |  outcome acc: 62.1%
+  GW26 — 29 fixtures predicted  |  outcome acc: 44.8%
+  GW27 — 29 fixtures predicted  |  outcome acc: 65.5%
+  GW28 — 29 fixtures predicted  |  outcome acc: 48.3%
+  GW29 — 29 fixtures predicted  |  outcome acc: 37.9%
+  GW30 — 29 fixtures predicted  |  outcome acc: 51.7%
+  GW31 — 28 fixtures predicted  |  outcome acc: 32.1%
+  GW32 — 29 fixtures predicted  |  outcome acc: 51.7%
+  GW33 — 32 fixtures predicted  |  outcome acc: 46.9%
+  GW34 — 26 fixtures predicted  |  outcome acc: 76.9%
+  GW35 — 29 fixtures predicted  |  outcome acc: 44.8%
+  GW36 — 30 fixtures predicted  |  outcome acc: 43.3%
+  GW37 — 29 fixtures predicted  |  outcome acc: 62.1%
+  GW38 — 29 fixtures predicted  |  outcome acc: 58.6%
+
+============================================================
+Aggregating metrics...
+
+  Matches predicted:        1098  (skipped: 43)
+  Outcome accuracy:         50.8%  (baseline: 43.6%)
+  Avg RPS:                  0.2099  (naive baseline: 0.237, improvement: +0.0271)
+  Avg Brier score:          0.2197
+  Over/Under 2.5 accuracy:  56.6%
+  Correct score hit rate:   11.6%
+  xG MAE:                   0.711
+
+  Moneyline (excl. draws):
+    Accuracy:               67.3%  (829 decisive matches)
+
+  By outcome:
+    Home win accuracy:      71.4%  (479 matches)
+    Draw accuracy:          0.0%  (269 matches)
+    Away win accuracy:      61.7%  (350 matches)
+
+  Draw calibration:
+    Model avg draw probability: 22.9%
+    Actual draw rate:           24.5%
+    Calibration error:          1.6pp
+    Model predicted draw:       0.0% of matches
+
+✅ Results saved to data/tables/model_accuracy.json
+✅ Match-level detail saved to data/tables/backtest_detail.csv
+============================================================
