@@ -17,6 +17,7 @@ on:
           - backtest_sweep
           - backtest_sweep_dispersion
           - backtest_sweep_dispersion_rho
+          - backtest_sweep_comprehensive
 
 jobs:
   update:
@@ -111,6 +112,13 @@ jobs:
         run: |
           mkdir -p data/tables
           python backtest.py --sweep-dispersion-rho > data/tables/dispersion_rho_sweep_report.txt
+
+      # ── Backtest: comprehensive 4-param grid sweep (alpha x cov_xy x dispersion x rho) ──
+      - name: Backtest comprehensive sweep pipeline
+        if: steps.run_type.outputs.type == 'backtest_sweep_comprehensive'
+        run: |
+          mkdir -p data/tables
+          python backtest.py --sweep-comprehensive > data/tables/comprehensive_sweep_report.txt
 
       # ── Commit and push (triggers Railway redeploy) ───────────────────────
       - name: Commit and push
