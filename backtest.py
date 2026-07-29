@@ -53,13 +53,14 @@ MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = -0.10          # Dixon-Coles correction strength — matches production
-DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson — matches
-                                    # production. Dispersion tuning (1.3-1.5 range) genuinely
-                                    # improves correct-score heatmap concentration but costs
-                                    # calibration (0.1pp -> 5.3pp on holdout) — shelved until
-                                    # a combination is found that doesn't trade one for the
-                                    # other, or the heatmap fix is judged worth the cost.
+RHO               = 0.0            # Dixon-Coles correction — matches production. Removed
+                                    # in favour of NB dispersion handling low-score
+                                    # correction (see DISPERSION note below).
+DISPERSION        = 1.3            # NB overdispersion factor — matches production. Fixes
+                                    # severe 1-1 heatmap over-concentration (87.6% -> 36.8%
+                                    # on live fixtures) at a real calibration cost (0.1pp ->
+                                    # 5.3pp on holdout) — judged worth it given how visible
+                                    # and severe the unfixed state was in production.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
