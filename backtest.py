@@ -52,7 +52,7 @@ MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = -0.18          # Dixon-Coles correction strength — matches production
+RHO               = -0.10          # Dixon-Coles correction strength — matches production
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
