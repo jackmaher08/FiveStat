@@ -47,16 +47,19 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2025-08-01"   # HOLDOUT: 2025/26 only, never used for tuning
-TEST_SEASON_END   = "2026-06-01"
+TEST_SEASON_START = "2023-08-01"   # Start of 2023/24 season — combined 3-season window
+TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtures)
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
-RHO               = 0.0            # Dixon-Coles correction strength — candidate. Rejoint-
-                                    # sweep found DC now double-counts once NB dispersion
-                                    # is doing the low-score correction job on its own.
-DISPERSION        = 1.3            # NB overdispersion factor — candidate from joint sweep.
+RHO               = -0.10          # Dixon-Coles correction strength — matches production
+DISPERSION        = 1.0            # NB overdispersion factor. 1.0 = pure Poisson — matches
+                                    # production. Dispersion tuning (1.3-1.5 range) genuinely
+                                    # improves correct-score heatmap concentration but costs
+                                    # calibration (0.1pp -> 5.3pp on holdout) — shelved until
+                                    # a combination is found that doesn't trade one for the
+                                    # other, or the heatmap fix is judged worth the cost.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
