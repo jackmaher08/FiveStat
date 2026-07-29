@@ -54,7 +54,7 @@ OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = -0.10          # Dixon-Coles correction strength — matches production
-DISPERSION        = 1.5            # NB overdispersion factor — candidate value from the
+DISPERSION        = 1.0            # NB overdispersion factor — candidate value from the
                                     # tuning-window sweep (brings 1-1 over-concentration
                                     # down from ~61% toward ~22% at ~zero RPS cost).
 
