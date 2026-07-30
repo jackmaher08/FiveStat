@@ -793,7 +793,15 @@ try:
     fpl_df.to_csv(fpl_path, index=False)
     print(f"✅ FPL player data saved ({len(fpl_df)} players) to {fpl_path}")
 
+    next_event = next((e for e in fpl_json["events"] if e.get("is_next")), None)
+    if next_event is None:
+        next_event = next((e for e in fpl_json["events"] if not e.get("finished")), None)
 
+    if next_event is not None:
+        deadline_path = os.path.join(save_dir, "next_deadline.json")
+        with open(deadline_path, "w") as f:
+            json.dump({"deadline_time": next_event["deadline_time"], "gw": next_event["id"]}, f)
+        print(f"✅ Next deadline saved (GW{next_event['id']}) to {deadline_path}")
 
 except Exception as e:
     print(f"⚠️  Could not fetch FPL bootstrap data: {e}")

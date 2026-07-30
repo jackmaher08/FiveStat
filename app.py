@@ -1006,10 +1006,14 @@ def fpl():
                     if web != pname:
                         player_xg_map[web] = entry
 
+                form_available = fpl_df["form"].astype(float).fillna(0).max() > 0
+
                 for _, fp in fpl_df.iterrows():
                     if fp["status"] not in ("a", "d"):
                         continue
                     if int(fp["minutes"]) < 450:
+                        continue
+                    if form_available and float(fp.get("form", 0) or 0) < 1.0:
                         continue
                     if fp["position"] not in ("MID", "FWD", "DEF"):
                         continue
@@ -1159,12 +1163,19 @@ def fpl():
                     })
             fixture_ticker.append(row_data)
 
+        next_deadline = None
+        next_deadline_path = "data/tables/next_deadline.json"
+        if os.path.exists(next_deadline_path):
+            with open(next_deadline_path) as f:
+                next_deadline = json.load(f).get("deadline_time")
+
         return render_template("fpl.html",
             cs_data=cs_data,
             xg_data=xg_data,
             xga_data=xga_data,
             fixture_ticker=fixture_ticker,
             captain_picks=captain_picks,
+            next_deadline=next_deadline,
             current_gw=current_gw,
             gw_range=list(range(current_gw, current_gw + 5)),
             last_updated=get_last_updated_time()
@@ -1174,7 +1185,7 @@ def fpl():
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
             cs_data=[], xg_data=[], xga_data=[], fixture_ticker=[], captain_picks=[],
-            current_gw=1, gw_range=[], last_updated=get_last_updated_time()
+            current_gw=1, gw_range=[], next_deadline=None, last_updated=get_last_updated_time()
         )
 
 
