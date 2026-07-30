@@ -47,8 +47,8 @@ from data_loader import (
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════
 
-TEST_SEASON_START = "2025-08-01"   # HOLDOUT: 2025/26 only, never used for tuning
-TEST_SEASON_END   = "2026-06-01"
+TEST_SEASON_START = "2022-08-01"   # TUNING window: 2022/23 to 2024/25 — 25/26 held out
+TEST_SEASON_END   = "2025-06-01"   # excludes 2025/26 entirely, clean holdout
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
 ALPHA             = 0.30           # Form blending weight — matches production
@@ -1067,11 +1067,13 @@ def sweep_comprehensive():
     Ranking: combinations are first filtered by a sensibility gate (predicted
     1-1 and 0-0 rates must stay within 2x their actual rates — this is what
     catches a dispersion value that "fixes" 1-1 by creating a 0-0 problem, as
-    happened with dispersion=1.5 earlier), then the survivors are ranked by
-    RPS (primary metric), with moneyline shown alongside as a co-primary
-    check. Draw calibration and correct-score hit-rate are printed for
-    disclosure but do not drive the ranking (see reasoning in project notes —
-    both are cruder, more gameable proxies for things RPS already captures).
+    happened with dispersion=1.5 earlier). Survivors are then ranked by RPS
+    and moneyline together (co-primary, matching the site's displayed
+    metrics), with correct-score rate as the tiebreaker. The gate is what
+    keeps correct-score rate honest here — without it, a combo could win by
+    re-triggering the same over-concentration pattern that originally
+    inflated this exact metric. Draw calibration is printed for disclosure
+    but doesn't drive the ranking.
     """
     print()
     print("=" * 60)
@@ -1218,9 +1220,17 @@ def sweep_comprehensive():
     print(f"  (pred_1-1 or pred_0-0 rate > 2x actual — same failure mode as dispersion=1.5)")
     print()
 
-    survivors = survivors.sort_values("rps").head(15)
+    # Rank by RPS and moneyline together (co-primary, per site display priorities),
+    # using correct-score rate as the tiebreaker. The sensibility gate above still
+    # applies first — this prevents a combo from winning on correct-score rate by
+    # re-triggering the same over-concentration pattern that inflated it originally.
+    survivors["rps_rank"]       = survivors["rps"].rank(ascending=True)
+    survivors["moneyline_rank"] = survivors["moneyline"].rank(ascending=False)
+    survivors["combined_rank"]  = (survivors["rps_rank"] + survivors["moneyline_rank"]) / 2
+    survivors = survivors.sort_values(["combined_rank", "cs_rate"], ascending=[True, False]).head(15)
 
-    print(f"  Top 15 surviving combinations, ranked by RPS (primary metric):")
+    print(f"  Top 15 surviving combinations, ranked by RPS + Moneyline (co-primary),")
+    print(f"  correct-score rate as tiebreaker:")
     print()
     print(f"  {'alpha':>6}  {'cov_xy':>6}  {'disp':>6}  {'rho':>6}  {'rps':>8}  {'moneyline':>10}  {'outcome_acc':>12}  {'pred_1-1':>9}  {'pred_0-0':>9}  {'cal_err':>8}  {'cs_rate':>8}")
     print(f"  {'-'*6}  {'-'*6}  {'-'*6}  {'-'*6}  {'-'*8}  {'-'*10}  {'-'*12}  {'-'*9}  {'-'*9}  {'-'*8}  {'-'*8}")
