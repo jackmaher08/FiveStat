@@ -1,57 +1,37 @@
 gw,home_team,away_team,bookie_over25,bookie_under25
-GW32,West Ham,Wolverhampton Wanderers,51.3,48.7
 GW32,Arsenal,Bournemouth,57.2,42.8
 GW32,Brentford,Everton,46.9,53.1
-GW32,Burnley,Brighton,55.0,45.0
 GW32,Liverpool,Fulham,62.5,37.5
 GW32,Nottingham Forest,Aston Villa,49.7,50.3
 GW32,Crystal Palace,Newcastle United,54.2,45.8
 GW32,Sunderland,Tottenham Hotspur,49.9,50.1
 GW32,Chelsea,Manchester City,60.8,39.2
-GW32,Manchester United,Leeds United,55.3,44.7
 GW32,Brentford,Fulham,52.9,47.1
 GW32,Newcastle United,Bournemouth,64.4,35.6
-GW32,Leeds United,Wolverhampton Wanderers,51.7,48.3
 GW32,Tottenham Hotspur,Brighton,57.2,42.8
 GW32,Chelsea,Manchester United,62.5,37.5
 GW32,Aston Villa,Sunderland,49.7,50.3
-GW32,Nottingham Forest,Burnley,53.3,46.7
 GW32,Everton,Liverpool,54.2,45.8
 GW32,Manchester City,Arsenal,53.0,47.0
-GW32,Crystal Palace,West Ham,49.9,50.1
 GW33,Brentford,Fulham,53.7,46.3
 GW33,Newcastle United,Bournemouth,64.4,35.6
-GW33,Leeds United,Wolverhampton Wanderers,50.3,49.7
 GW33,Tottenham Hotspur,Brighton,56.8,43.2
 GW33,Chelsea,Manchester United,60.8,39.2
 GW33,Aston Villa,Sunderland,49.9,50.1
-GW33,Nottingham Forest,Burnley,53.7,46.3
 GW33,Everton,Liverpool,53.6,46.4
 GW33,Manchester City,Arsenal,50.9,49.1
-GW33,Crystal Palace,West Ham,50.2,49.8
 GW33,Brighton,Chelsea,57.0,43.0
-GW33,Bournemouth,Leeds United,54.5,45.5
-GW33,Burnley,Manchester City,67.3,32.7
 GW33,Sunderland,Nottingham Forest,44.6,55.4
 GW33,Fulham,Aston Villa,54.0,46.0
 GW33,Liverpool,Crystal Palace,59.4,40.6
-GW33,West Ham,Everton,52.3,47.7
-GW33,Wolverhampton Wanderers,Tottenham Hotspur,52.7,47.3
 GW33,Arsenal,Newcastle United,58.1,41.9
 GW33,Manchester United,Brentford,60.5,39.5
-GW34,Bournemouth,Leeds United,54.8,45.2
-GW34,Burnley,Manchester City,70.3,29.7
 GW34,Sunderland,Nottingham Forest,45.1,54.9
 GW34,Fulham,Aston Villa,54.3,45.7
 GW34,Liverpool,Crystal Palace,60.1,39.9
-GW34,West Ham,Everton,51.1,48.9
-GW34,Wolverhampton Wanderers,Tottenham Hotspur,55.1,44.9
 GW34,Arsenal,Newcastle United,59.2,40.8
 GW34,Manchester United,Brentford,59.5,40.5
-GW34,Leeds United,Burnley,55.9,44.1
-GW34,Brentford,West Ham,56.5,43.5
 GW34,Newcastle United,Brighton,60.6,39.4
-GW34,Wolverhampton Wanderers,Sunderland,45.7,54.3
 GW34,Arsenal,Fulham,55.5,44.5
 GW34,Bournemouth,Crystal Palace,58.2,41.8
 GW34,Manchester United,Liverpool,64.5,35.5
@@ -61,22 +41,16 @@ GW34,Everton,Manchester City,58.5,41.5
 GW37,Aston Villa,Liverpool,60.8,39.2
 GW37,Manchester United,Nottingham Forest,60.7,39.3
 GW37,Brentford,Crystal Palace,57.3,42.7
-GW37,Leeds United,Brighton,56.1,43.9
 GW37,Everton,Sunderland,49.2,50.8
-GW37,Wolverhampton Wanderers,Fulham,56.3,43.7
-GW37,Newcastle United,West Ham,64.4,35.6
-GW37,Arsenal,Burnley,71.3,28.7
 GW37,Chelsea,Tottenham Hotspur,60.8,39.2
 GW38,Crystal Palace,Arsenal,57.4,42.6
 GW38,Manchester City,Aston Villa,70.3,29.7
 GW38,Nottingham Forest,Bournemouth,59.3,40.7
 GW38,Liverpool,Brentford,62.5,37.5
 GW38,Brighton,Manchester United,62.0,38.0
-GW38,Burnley,Wolverhampton Wanderers,54.6,45.4
 GW38,Sunderland,Chelsea,53.6,46.4
 GW38,Tottenham Hotspur,Everton,54.7,45.3
 GW38,Fulham,Newcastle United,58.8,41.2
-GW38,West Ham,Leeds United,57.2,42.8
 GW1,Arsenal,Coventry City,60.5,39.5
 GW1,Hull City,Manchester United,54.4,45.6
 GW1,Everton,Crystal Palace,50.0,50.0

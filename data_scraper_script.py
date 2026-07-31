@@ -713,10 +713,16 @@ else:
                     "bookie_under25": round(sum(under25_probs) / len(under25_probs), 1),
                 })
 
+        current_teams_df = pd.read_csv(os.path.join(save_dir, "fixture_data.csv"))
+        current_teams = set(current_teams_df["home_team"]).union(current_teams_df["away_team"])
+
         if win_rows:
             win_path = os.path.join(save_dir, "bookie_win_by_gw.csv")
             win_df   = pd.read_csv(win_path)
             win_df   = win_df[win_df["gw"] != gw_label]
+            win_df = win_df[
+                win_df["home_team"].isin(current_teams) & win_df["away_team"].isin(current_teams)
+            ]
             win_df   = pd.concat([win_df, pd.DataFrame(win_rows)], ignore_index=True)
             win_df.to_csv(win_path, index=False)
             print(f"✅ Saved {len(win_rows)} win probability rows for {gw_label}")
@@ -728,6 +734,9 @@ else:
             if os.path.exists(ou_path):
                 ou_df = pd.read_csv(ou_path)
                 ou_df = ou_df[ou_df["gw"] != gw_label]
+                ou_df = ou_df[
+                    ou_df["home_team"].isin(current_teams) & ou_df["away_team"].isin(current_teams)
+                ]
             else:
                 ou_df = pd.DataFrame(columns=["gw", "home_team", "away_team", "bookie_over25", "bookie_under25"])
             ou_df = pd.concat([ou_df, pd.DataFrame(ou_rows)], ignore_index=True)
