@@ -1,5 +1,5 @@
 {
-  "scraped_at": "2026-07-27T08:19:58.108544+00:00",
+  "scraped_at": "2026-08-03T08:18:16.514677+00:00",
   "results": [
     {
       "date": "24/1/2026",
@@ -2388,6 +2388,18 @@
       "sc1": 20,
       "sc2": 24,
       "winner": "Kerry"
+    },
+    {
+      "date": "26/7/2026",
+      "grade": "All-Ireland",
+      "round": "",
+      "team1": "Kerry",
+      "team2": "Mayo",
+      "home": false,
+      "weight": 1,
+      "sc1": 20,
+      "sc2": 23,
+      "winner": "Mayo"
     }
   ]
 }
