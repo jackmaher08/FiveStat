@@ -937,6 +937,22 @@ def fpl():
                             for pnorm, grp in t_shots_rec.groupby("player_norm"):
                                 player_recent_xg[(pnorm, team)] = float(grp["xG"].sum())
 
+                team_recent_xa   = {}
+                player_recent_xa = {}
+                if has_match_id:
+                    for team, ids in recent5_ids.items():
+                        t_shots_rec = shots_df[
+                            ((shots_df["h_team"] == team) | (shots_df["a_team"] == team)) &
+                            shots_df["match_id_str"].isin(ids)
+                        ]
+                        t_r_xa = float(t_shots_rec[t_shots_rec["player_assisted"].notna()]["xG"].sum())
+                        team_recent_xa[team] = t_r_xa
+                        if t_r_xa > 0:
+                            for pnorm, grp in t_shots_rec[t_shots_rec["player_assisted"].notna()].assign(
+                                player_assisted_norm=lambda d: d["player_assisted"].apply(_norm)
+                            ).groupby("player_assisted_norm"):
+                                player_recent_xa[(pnorm, team)] = float(grp["xG"].sum())
+
                 FPL_TO_UNDERSTAT = {
                     "smith rowe":    "emile smith-rowe",
                     "hee chan":      "hee-chan hwang",
@@ -996,9 +1012,23 @@ def fpl():
                         # recently_active stays True — fall back to season_share
 
                     adj_share = 0.7 * season_share + 0.3 * recent_share
+
+                    recent_xa_share = season_xa_share
+                    t_r_xa = team_recent_xa.get(fteam, 0)
+                    if t_r_xa > 0:
+                        remapped = FPL_TO_UNDERSTAT.get(web, web)
+                        p_r_xa = player_recent_xa.get((pname, fteam)) or \
+                            player_recent_xa.get((web, fteam)) or \
+                            player_recent_xa.get((remapped, fteam), 0)
+                        if p_r_xa > 0:
+                            recent_xa_share = p_r_xa / t_r_xa
+
+                    adj_xa_share = 0.7 * season_xa_share + 0.3 * recent_xa_share
+
                     entry = {
                         "adj_share":       adj_share,
                         "xa_share":        season_xa_share,
+                        "adj_xa_share":    adj_xa_share,
                         "team":            fteam,
                         "recently_active": recently_active,
                     }
@@ -1051,7 +1081,7 @@ def fpl():
                     mins_scale = float(np.clip(avg_mins / 90, 0.3, 1.0))
 
                     # Per-fixture projections
-                    xa_share = match.get("xa_share", 0)
+                    xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
                     p_full = float(np.clip(avg_mins / 60, 0, 1))
                     p_partial = float(np.clip(1 - p_full, 0, 1)) * mins_scale
@@ -1099,6 +1129,7 @@ def fpl():
                         "position":     fp["position"],
                         "price":        float(fp["price"]),
                         "ownership":    float(fp["ownership"]),
+                        "ep_next":      float(fp.get("ep_next", 0) or 0),
                         "gw1_xg":       round(gw1_xg, 3),
                         "gw3_xg":       gw3_xg,
                         "gw5_xg":       gw5_xg,

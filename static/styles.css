@@ -3047,6 +3047,7 @@ input:checked + .slider:before {
 .fpl-xa-val { font-family: var(--font-display); font-weight: 400; color: var(--text-muted); }
 .fpl-cs-val { font-family: var(--font-display); font-weight: 400; color: var(--text-muted); }
 .fpl-pts-val { font-family: var(--font-display); font-weight: 700; color: var(--accent); }
+.fpl-ep-sub { display: block; font-family: var(--font-body); font-size: 0.7rem; font-weight: 400; color: var(--text-muted); }
 .fpl-price { color: var(--text-muted); font-size: 0.82rem; }
 .fpl-own-chip {
   font-size: 0.75rem; padding: 2px 8px; border-radius: 20px;

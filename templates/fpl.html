@@ -122,7 +122,10 @@
                         {% else %}
                         <td class="fpl-cs-val" data-gw1="-" data-gw3="-" data-gw5="-">-</td>
                         {% endif %}
-                        <td class="fpl-pts-val" data-gw1="{{ pick.gw1_pts }}" data-gw3="{{ pick.gw3_pts }}" data-gw5="{{ pick.gw5_pts }}">{{ "%.1f"|format(pick.gw1_pts) }}</td>
+                        <td class="fpl-pts-val" data-gw1="{{ pick.gw1_pts }}" data-gw3="{{ pick.gw3_pts }}" data-gw5="{{ pick.gw5_pts }}">
+                            <span class="fpl-pts-main">{{ "%.1f"|format(pick.gw1_pts) }}</span>
+                            <span class="fpl-ep-sub">FPL: {{ pick.ep_next }}</span>
+                        </td>
                         <td class="fpl-price">£{{ pick.price }}m</td>
                         <td>
                             {% if pick.ownership < 15 %}
@@ -330,7 +333,7 @@ function setCapWindow(mode, btn) {
         mainRow.querySelector('.fpl-rank').textContent   = rank + 1;
         mainRow.querySelector('.fpl-xg-val').textContent  = parseFloat(p[`${key}_xg`]).toFixed(2);
         mainRow.querySelector('.fpl-xa-val').textContent  = parseFloat(p[`${key}_xa`]).toFixed(2);
-        mainRow.querySelector('.fpl-pts-val').textContent = parseFloat(p[`${key}_pts`]).toFixed(1);
+        mainRow.querySelector('.fpl-pts-val .fpl-pts-main').textContent = parseFloat(p[`${key}_pts`]).toFixed(1);
         const csCell = mainRow.querySelector('.fpl-cs-val');
         if (csCell) {
             const csVal = p[`${key}_cs`];
