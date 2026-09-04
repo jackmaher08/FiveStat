@@ -59,13 +59,12 @@ GW1,Brighton,Aston Villa,58.7,41.3
 GW1,Manchester City,Bournemouth,68.1,31.9
 GW1,Newcastle United,Liverpool,62.5,37.5
 GW1,Fulham,Chelsea,58.4,41.6
-GW3,Ipswich,Liverpool,66.7,33.3
-GW3,Newcastle United,Bournemouth,58.5,41.5
-GW3,Brentford,Sunderland,52.1,47.9
-GW3,Brighton,Leeds United,50.7,49.3
+GW3,Newcastle United,Bournemouth,59.0,41.0
+GW3,Brentford,Sunderland,52.3,47.7
+GW3,Brighton,Leeds United,51.4,48.6
 GW3,Manchester City,Coventry City,71.0,29.0
-GW3,Fulham,Crystal Palace,50.7,49.3
-GW3,Nottingham Forest,Tottenham Hotspur,50.2,49.8
+GW3,Fulham,Crystal Palace,50.4,49.6
+GW3,Nottingham Forest,Tottenham Hotspur,50.5,49.5
 GW3,Hull City,Aston Villa,50.3,49.7
 GW3,Everton,Manchester United,55.8,44.2
 GW3,Arsenal,Chelsea,55.3,44.7
@@ -78,4 +77,4 @@ GW3,Tottenham Hotspur,Everton,49.8,50.2
 GW3,Sunderland,Arsenal,48.2,51.8
 GW3,Coventry City,Brighton,54.7,45.3
 GW3,Manchester United,Manchester City,61.1,38.9
-GW3,Leeds United,Newcastle United,54.3,45.7
+GW3,Leeds United,Newcastle United,54.4,45.6
