@@ -728,11 +728,15 @@ def premier_league():
     }
 
     sim_table_path = "data/tables/simulated_league_positions.csv"
-    simulated_table = pd.read_csv(sim_table_path)
-    simulated_table.rename(columns={"Unnamed: 0": "Team"}, inplace=True)
-    simulated_table.columns = simulated_table.columns.astype(str)
-    simulated_table = simulated_table.to_dict(orient="records")
-    num_positions = len(simulated_table[0]) - 2
+    if os.path.exists(sim_table_path):
+        simulated_table = pd.read_csv(sim_table_path)
+        simulated_table.rename(columns={"Unnamed: 0": "Team"}, inplace=True)
+        simulated_table.columns = simulated_table.columns.astype(str)
+        simulated_table = simulated_table.to_dict(orient="records")
+    else:
+        simulated_table = []
+
+    num_positions = len(simulated_table[0]) - 2 if simulated_table else 0
 
     sim_position_dist = []
     for team in simulated_table:
