@@ -1,6 +1,8 @@
 name: FiveStat Auto-Update
 
 on:
+  schedule:
+    - cron: '0 2 * * *'
   workflow_dispatch:
     inputs:
       run_type:
@@ -42,7 +44,7 @@ jobs:
 
       - name: Detect run type
         id: run_type
-        run: echo "type=${{ inputs.run_type }}" >> $GITHUB_OUTPUT
+        run: echo "type=${{ inputs.run_type || 'football' }}" >> $GITHUB_OUTPUT
 
       # ── Full: football + F1 ───────────────────────────────────────────────
       - name: Full pipeline
