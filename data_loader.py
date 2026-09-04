@@ -251,52 +251,48 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
         df_out.to_csv(save_csv_path, index=False)
         print(f"✅ Saved team stats to: {save_csv_path}")
 
-    # Seed any new-season teams missing from historical data with league-average ratings
-    league_avg_att = float(np.mean([v['ATT Rating'] for v in team_data.values()]))
-    league_avg_def = float(np.mean([v['DEF Rating'] for v in team_data.values()]))
-
-    fixture_teams = set()
-    try:
-        _fx = pd.read_csv("data/tables/fixture_data.csv")
-        fixture_teams = set(_fx['home_team'].dropna().unique()) | set(_fx['away_team'].dropna().unique())
-    except Exception:
-        pass
-
-    for team in fixture_teams:
-        mapped = TEAM_NAME_MAPPING.get(team, team)
-        if mapped not in team_data:
-            if verbose:
-                print(f"ℹ️  {mapped} not in historical data — seeding with league-average ratings.")
-            team_data[mapped] = {
-                'Home Goals For':     league_avg_att,
-                'Away Goals For':     league_avg_att,
-                'Home Goals Against': league_avg_def,
-                'Away Goals Against': league_avg_def,
-                'ATT Rating':         league_avg_att,
-                'DEF Rating':         league_avg_def,
-            }
-            team_home_advantage[mapped] = 0.0
-
-    # Seed any new-season teams missing from historical data with bottom-quartile ratings
+    # Seed genuinely new-to-the-model teams (promoted sides with no top-flight
+    # history) with discounted bottom-quartile ratings — promoted teams trend
+    # weaker than a flat league average early on. Once a team has played
+    # PROMOTED_GW_THRESHOLD games this season, its own (real, if still sparse)
+    # fitted rating from the main loop above takes over instead.
     att_ratings = sorted([v['ATT Rating'] for v in team_data.values()])
     def_ratings = sorted([v['DEF Rating'] for v in team_data.values()])
     cutoff = max(1, len(att_ratings) // 4)
     promoted_att = float(np.mean(att_ratings[:cutoff]))
     promoted_def = float(np.mean(def_ratings[-cutoff:]))
 
+    PROMOTED_GW_THRESHOLD = 5
+
+    hist_counts = {
+        t: int(((historical_fixture_data['Home Team'] == t) | (historical_fixture_data['Away Team'] == t)).sum())
+        for t in all_teams
+    }
+
     fixture_teams = set()
+    games_played = {}
     try:
         _fx = pd.read_csv("data/tables/fixture_data.csv")
+        _fx['home_team'] = _fx['home_team'].map(lambda t: TEAM_NAME_MAPPING.get(t, t))
+        _fx['away_team'] = _fx['away_team'].map(lambda t: TEAM_NAME_MAPPING.get(t, t))
+        _fx['isResult']  = _fx['isResult'].astype(str).str.lower() == 'true'
         fixture_teams = set(_fx['home_team'].dropna().unique()) | set(_fx['away_team'].dropna().unique())
+        _played = _fx[_fx['isResult']]
+        games_played = {
+            team: int(((_played['home_team'] == team) | (_played['away_team'] == team)).sum())
+            for team in fixture_teams
+        }
     except Exception:
         pass
 
     for team in fixture_teams:
-        mapped = TEAM_NAME_MAPPING.get(team, team)
-        if mapped not in team_data:
+        is_new_to_model = hist_counts.get(team, 0) < 20
+        under_threshold = games_played.get(team, 0) < PROMOTED_GW_THRESHOLD
+        if team not in team_data or (is_new_to_model and under_threshold):
             if verbose:
-                print(f"ℹ️  {mapped} not in historical data — seeding with promoted-team ratings.")
-            team_data[mapped] = {
+                print(f"ℹ️  {team} — {games_played.get(team, 0)}/{PROMOTED_GW_THRESHOLD} GWs played, "
+                      f"using discounted placeholder ratings.")
+            team_data[team] = {
                 'Home Goals For':     promoted_att,
                 'Away Goals For':     promoted_att,
                 'Home Goals Against': promoted_def,
@@ -304,7 +300,7 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
                 'ATT Rating':         promoted_att,
                 'DEF Rating':         promoted_def,
             }
-            team_home_advantage[mapped] = 0.0
+            team_home_advantage[team] = 0.0
 
     return team_data, team_home_advantage
 
