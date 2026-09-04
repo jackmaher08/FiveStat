@@ -1330,9 +1330,11 @@ if __name__ == "__main__":
     ]
 
     if not nan_matches.empty:
-        print(f"[❌] {len(nan_matches)} remaining fixtures have missing probabilities!")
+        missing_teams = sorted(set(nan_matches['home_team']).union(nan_matches['away_team']))
+        print(f"[⚠️] {len(nan_matches)} remaining fixtures have missing probabilities — "
+              f"dropping from simulation. Likely no historical data yet for: {missing_teams}")
         print(nan_matches[['home_team', 'away_team', 'home_win_prob', 'draw_prob', 'away_win_prob']])
-        raise ValueError("Simulation aborted: NaN probabilities detected in remaining fixtures.")
+        remaining_fixtures = remaining_fixtures.drop(nan_matches.index)
 
     # Load current league table
     league_table = pd.read_csv("data/tables/league_table_data.csv")
