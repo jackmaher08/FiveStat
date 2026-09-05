@@ -324,8 +324,13 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         avg_home_def = home_matches['away_goals'].mean()
         avg_away_def = away_matches['home_goals'].mean()
 
-        recent_att = ((1 - alpha) * team_data[team]['ATT Rating']) + (alpha * ((avg_home_att + avg_away_att) / 2))
-        recent_def = ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * ((avg_home_def + avg_away_def) / 2))
+        blended_att = (avg_home_att + avg_away_att) / 2
+        blended_def = (avg_home_def + avg_away_def) / 2
+
+        recent_att = team_data[team]['ATT Rating'] if pd.isna(blended_att) else \
+            ((1 - alpha) * team_data[team]['ATT Rating']) + (alpha * blended_att)
+        recent_def = team_data[team]['DEF Rating'] if pd.isna(blended_def) else \
+            ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * blended_def)
 
         recent_form_att[team] = recent_att
         recent_form_def[team] = recent_def
