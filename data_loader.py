@@ -282,8 +282,8 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
             team: int(((_played['home_team'] == team) | (_played['away_team'] == team)).sum())
             for team in fixture_teams
         }
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"⚠️  Seeding block failed to read fixture_data.csv — no placeholder ratings applied this run: {e}")
 
     for team in fixture_teams:
         is_new_to_model = hist_counts.get(team, 0) < 20
