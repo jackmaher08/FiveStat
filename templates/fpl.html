@@ -388,7 +388,6 @@ const windows = {
         key:     'gw1',
         note:    'Probability (%) of keeping a clean sheet in Gameweek {{ current_gw }}.',
         xLabel:  v => v.toFixed(1) + '%',
-        xMax:    60,
         color:   v => v >= 35 ? '#1D9E75' : v >= 22 ? '#e4a400' : '#888882',
         tip:     v => v.toFixed(1) + '%'
     },
@@ -397,7 +396,6 @@ const windows = {
         key:     'gw3',
         note:    'Expected clean sheets across the next 3 Gameweeks (sum of per-match probabilities).',
         xLabel:  v => v.toFixed(2) + ' xCS',
-        xMax:    1.8,
         color:   v => v >= 0.90 ? '#1D9E75' : v >= 0.60 ? '#e4a400' : '#888882',
         tip:     v => v.toFixed(2) + ' xCS'
     },
@@ -406,7 +404,6 @@ const windows = {
         key:     'gw5',
         note:    'Expected clean sheets across the next 5 Gameweeks (sum of per-match probabilities).',
         xLabel:  v => v.toFixed(2) + ' xCS',
-        xMax:    2.8,
         color:   v => v >= 1.50 ? '#1D9E75' : v >= 1.00 ? '#e4a400' : '#888882',
         tip:     v => v.toFixed(2) + ' xCS'
     }
@@ -435,6 +432,9 @@ function buildData(key) {
 
 function buildOptions(key) {
     const w = windows[key];
+    const vals = w.sorted.map(d => d[w.key]);
+    const dataMax = Math.max(...vals, 0);
+    const axisMax = dataMax * 1.15;
     return {
         indexAxis: 'y',
         responsive: true,
@@ -446,7 +446,7 @@ function buildOptions(key) {
         scales: {
             x: {
                 beginAtZero: true,
-                max: w.xMax,
+                max: axisMax,
                 grid: { color: 'rgba(0,0,0,0.05)' },
                 ticks: {
                     font: { family: 'Barlow, sans-serif', size: 11 },
