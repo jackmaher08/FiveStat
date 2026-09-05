@@ -105,7 +105,7 @@ if not BOOKIE_ONLY:
     understat_season = "2026"  # corresponds to the 2024/25 EPL season
 
     # Team name mapping for consistency
-        team_name_mapping = {
+    team_name_mapping = {
         "Man City": "Manchester City",
         "Newcastle": "Newcastle United",
         "Spurs": "Tottenham Hotspur",
