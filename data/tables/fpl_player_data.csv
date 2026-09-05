@@ -6,7 +6,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 5,Jurriën Timber,J.Timber,Arsenal,DEF,6.5,0.1,0.0,0.0,0,0,0,0,d,0.0,0.0,0.0
 6,William Saliba,Saliba,Arsenal,DEF,6.0,0.2,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 7,Myles Lewis-Skelly,Lewis-Skelly,Arsenal,MID,5.5,0.7,2.0,2.0,160,0,0,2,a,0.13,0.13,0.26
-8,Riccardo Calafiori,Calafiori,Arsenal,DEF,5.7,45.7,6.7,6.7,170,0,2,2,a,0.15,0.55,0.7
+8,Riccardo Calafiori,Calafiori,Arsenal,DEF,5.7,45.8,6.7,6.7,170,0,2,2,a,0.15,0.55,0.7
 9,Piero Hincapié,Hincapie,Arsenal,DEF,5.3,1.2,0.3,0.3,9,0,0,0,a,0.0,0.0,0.0
 10,Benjamin White,White,Arsenal,DEF,5.5,7.6,6.0,6.0,180,0,1,2,a,0.18,0.26,0.44
 11,Cristhian Mosquera,Mosquera,Arsenal,DEF,5.5,4.4,4.0,3.0,168,0,0,2,d,0.0,0.01,0.01
@@ -461,7 +461,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 384,Gianluigi Donnarumma,Donnarumma,Manchester City,GK,5.5,7.9,1.0,1.0,180,0,0,0,a,0.0,0.0,0.0
 386,Marcus Bettinelli,Bettinelli,Manchester City,GK,4.5,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 387,Nico O'Reilly,O'Reilly,Manchester City,DEF,6.5,18.5,1.3,1.3,150,0,0,0,a,0.09,0.43,0.52
-388,Marc Guéhi,Guéhi,Manchester City,DEF,6.0,18.8,4.0,4.0,180,1,0,0,a,0.89,0.36,1.25
+388,Marc Guéhi,Guéhi,Manchester City,DEF,6.0,18.7,4.0,4.0,180,1,0,0,a,0.89,0.36,1.25
 389,Matheus Nunes,Matheus N.,Manchester City,DEF,5.9,1.0,0.3,0.3,33,0,0,0,a,0.0,0.04,0.04
 390,Rúben dos Santos Gato Alves Dias,Rúben,Manchester City,DEF,5.5,1.8,1.3,1.3,180,0,0,0,a,0.09,0.71,0.8
 391,Joško Gvardiol,Gvardiol,Manchester City,DEF,5.6,18.6,4.7,4.7,164,1,1,0,a,0.19,0.09,0.28
