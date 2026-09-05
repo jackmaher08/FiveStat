@@ -776,8 +776,14 @@ def fpl():
         if GW_OVERRIDE is not None:
             current_gw = GW_OVERRIDE
         else:
-            upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
-            current_gw = int(upcoming.min()) if not upcoming.empty else 1
+            current_gw = None
+            deadline_path = "data/tables/next_deadline.json"
+            if os.path.exists(deadline_path):
+                with open(deadline_path) as f:
+                    current_gw = json.load(f).get("gw")
+            if current_gw is None:
+                upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
+                current_gw = int(upcoming.min()) if not upcoming.empty else 1
 
         probs_df   = pd.read_csv("data/tables/fixture_probabilities.csv")
         league_df  = pd.read_csv("data/tables/league_table_data.csv")
