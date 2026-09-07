@@ -1339,7 +1339,7 @@ if __name__ == "__main__":
     elif "--sweep-comprehensive" in sys.argv:
         sweep_comprehensive()
     elif "--calibration-check" in sys.argv:
-        calibration_check()
+        calibration_check(alpha=0.20, cov_xy=0.03)
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
