@@ -27,8 +27,8 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 3,05/09/2026 14:00,Manchester City,Coventry City,,31202,True,1.0,0.0,2.19,1.49
 3,05/09/2026 14:00,Nottingham Forest,Tottenham Hotspur,,31203,True,0.0,0.0,0.83,1.48
 3,05/09/2026 16:30,Hull City,Aston Villa,,31207,True,0.0,0.0,0.81,1.64
-3,06/09/2026 13:00,Everton,Manchester United,,31208,False,,,,
-3,06/09/2026 15:30,Arsenal,Chelsea,,31209,False,,,,
+3,06/09/2026 13:00,Everton,Manchester United,,31208,True,2.0,2.0,1.06,0.87
+3,06/09/2026 15:30,Arsenal,Chelsea,,31209,True,2.0,1.0,2.81,0.43
 4,12/09/2026 14:00,Aston Villa,Nottingham Forest,,31211,False,,,,
 4,12/09/2026 14:00,Bournemouth,Brentford,,31210,False,,,,
 4,12/09/2026 14:00,Chelsea,Hull City,,31212,False,,,,
