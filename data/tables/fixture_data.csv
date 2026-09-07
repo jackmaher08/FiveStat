@@ -19,16 +19,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 2,30/08/2026 13:00,Sunderland,Fulham,1 - 0,31195,True,1.0,0.0,1.56,1.02
 2,30/08/2026 15:30,Manchester United,Ipswich Town,5 - 2,31198,True,5.0,2.0,4.87,1.81
 2,31/08/2026 19:00,Aston Villa,Arsenal,0 - 1,31199,True,0.0,1.0,0.28,1.52
-3,04/09/2026 19:00,Ipswich Town,Liverpool,,31200,True,0.0,2.0,0.6,0.74
-3,05/09/2026 11:30,Newcastle United,Bournemouth,,31201,True,2.0,2.0,0.77,1.64
-3,05/09/2026 14:00,Brentford,Sunderland,,31205,True,1.0,1.0,1.59,2.15
-3,05/09/2026 14:00,Brighton,Leeds,,31206,True,1.0,1.0,2.22,2.23
-3,05/09/2026 14:00,Fulham,Crystal Palace,,31204,True,2.0,3.0,2.88,2.36
-3,05/09/2026 14:00,Manchester City,Coventry City,,31202,True,1.0,0.0,2.19,1.49
-3,05/09/2026 14:00,Nottingham Forest,Tottenham Hotspur,,31203,True,0.0,0.0,0.83,1.48
-3,05/09/2026 16:30,Hull City,Aston Villa,,31207,True,0.0,0.0,0.81,1.64
-3,06/09/2026 13:00,Everton,Manchester United,,31208,True,2.0,2.0,1.06,0.87
-3,06/09/2026 15:30,Arsenal,Chelsea,,31209,True,2.0,1.0,2.81,0.43
+3,04/09/2026 19:00,Ipswich Town,Liverpool,0 - 2,31200,True,0.0,2.0,0.6,0.74
+3,05/09/2026 11:30,Newcastle United,Bournemouth,2 - 2,31201,True,2.0,2.0,0.77,1.64
+3,05/09/2026 14:00,Brentford,Sunderland,1 - 1,31205,True,1.0,1.0,1.59,2.15
+3,05/09/2026 14:00,Brighton,Leeds,1 - 1,31206,True,1.0,1.0,2.22,2.23
+3,05/09/2026 14:00,Fulham,Crystal Palace,2 - 3,31204,True,2.0,3.0,2.88,2.36
+3,05/09/2026 14:00,Manchester City,Coventry City,1 - 0,31202,True,1.0,0.0,2.19,1.49
+3,05/09/2026 14:00,Nottingham Forest,Tottenham Hotspur,0 - 0,31203,True,0.0,0.0,0.83,1.48
+3,05/09/2026 16:30,Hull City,Aston Villa,0 - 0,31207,True,0.0,0.0,0.81,1.64
+3,06/09/2026 13:00,Everton,Manchester United,2 - 2,31208,True,2.0,2.0,1.06,0.87
+3,06/09/2026 15:30,Arsenal,Chelsea,2 - 1,31209,True,2.0,1.0,2.81,0.43
 4,12/09/2026 14:00,Aston Villa,Nottingham Forest,,31211,False,,,,
 4,12/09/2026 14:00,Bournemouth,Brentford,,31210,False,,,,
 4,12/09/2026 14:00,Chelsea,Hull City,,31212,False,,,,
