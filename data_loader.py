@@ -40,6 +40,26 @@ MANUAL_XG_ADJUSTMENTS = {
 MANUAL_XGA_ADJUSTMENTS = {
 }
 
+
+# ── Recent-form weights ─────────────────────────────────────
+# The legacy match model applied alpha=0.30 twice:
+#   calculate_recent_form() -> 30% blend
+#   get_team_xg()           -> another 30% blend
+# giving an actual raw recent-form weight of 0.30**2 = 0.09.
+#
+# Phase 1 removes the double blend while preserving exact behaviour.
+LEGACY_MATCH_ALPHA = 0.30
+MATCH_FORM_WEIGHT = LEGACY_MATCH_ALPHA ** 2  # 0.09
+
+# Player-goal projections historically used alpha=0.60 inside
+# calculate_recent_form(), then get_team_xg()'s default alpha=0.65.
+# Preserve that unrelated path during Phase 1.
+LEGACY_PLAYER_RECENT_ALPHA = 0.60
+LEGACY_PLAYER_XG_ALPHA = 0.65
+PLAYER_TEAM_FORM_WEIGHT = (
+    LEGACY_PLAYER_RECENT_ALPHA * LEGACY_PLAYER_XG_ALPHA
+)  # 0.39
+
 '''def run_data_scraper():
     """Runs data_scraper_script.py to update fixture data before loading."""
     script_path = os.path.join("data", "data_scraper_script.py") 
@@ -307,17 +327,37 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
 
 
 # Function to calculate recent form ratings
-def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20, alpha=0.65):
+def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20):
+    """
+    Return RAW recent-form observations plus the number of matches supporting
+    them.
+
+    Important:
+    This function no longer blends recent form with the base ATT/DEF ratings.
+    The single and only blend now happens inside get_team_xg().
+
+    Keeping the raw observation separate makes the weighting explicit and
+    prepares the model for sample-size-based cold-start shrinkage later.
+    """
     recent_form_att = {}
     recent_form_def = {}
+    recent_form_n = {}
 
     for team in historical_fixture_data['Home Team'].dropna().unique():
         if team not in team_data:
             continue
-        recent_matches_df = historical_fixture_data[(historical_fixture_data['Home Team'] == team) | (historical_fixture_data['Away Team'] == team)].tail(recent_matches)
-        
-        home_matches = recent_matches_df[recent_matches_df['Home Team'] == team]
-        away_matches = recent_matches_df[recent_matches_df['Away Team'] == team]
+
+        recent_matches_df = historical_fixture_data[
+            (historical_fixture_data['Home Team'] == team) |
+            (historical_fixture_data['Away Team'] == team)
+        ].tail(recent_matches)
+
+        home_matches = recent_matches_df[
+            recent_matches_df['Home Team'] == team
+        ]
+        away_matches = recent_matches_df[
+            recent_matches_df['Away Team'] == team
+        ]
 
         avg_home_att = home_matches['home_goals'].mean()
         avg_away_att = away_matches['away_goals'].mean()
@@ -327,16 +367,11 @@ def calculate_recent_form(historical_fixture_data, team_data, recent_matches=20,
         blended_att = (avg_home_att + avg_away_att) / 2
         blended_def = (avg_home_def + avg_away_def) / 2
 
-        recent_att = team_data[team]['ATT Rating'] if pd.isna(blended_att) else \
-            ((1 - alpha) * team_data[team]['ATT Rating']) + (alpha * blended_att)
-        recent_def = team_data[team]['DEF Rating'] if pd.isna(blended_def) else \
-            ((1 - alpha) * team_data[team]['DEF Rating']) + (alpha * blended_def)
+        recent_form_att[team] = blended_att
+        recent_form_def[team] = blended_def
+        recent_form_n[team] = len(recent_matches_df)
 
-        recent_form_att[team] = recent_att
-        recent_form_def[team] = recent_def
-
-
-    return recent_form_att, recent_form_def
+    return recent_form_att, recent_form_def, recent_form_n
 
 
 def calculate_team_efficiency_and_momentum(league_table_path="data/tables/league_table_data.csv", 
@@ -605,7 +640,7 @@ def find_xg_to_match_att_rating(target_att, opp_def, is_home, tolerance=1e-3, ma
 
 def get_team_xg(
     team, opponent, is_home, team_stats, recent_form_att, recent_form_def,
-    alpha=0.65, team_home_advantage=None,
+    form_weight, team_home_advantage=None,
 ):
     """
     Returns the blended xG value for a given team against an opponent,
@@ -618,7 +653,8 @@ def get_team_xg(
         team_stats (dict): Contains 'ATT Rating' and 'DEF Rating' for each team.
         recent_form_att (dict): Recent ATT ratings.
         recent_form_def (dict): Recent DEF ratings.
-        alpha (float): Weight of recent form in ATT/DEF rating blend.
+        form_weight (float): Actual effective weight placed on the raw
+            recent-form ATT/DEF observation.
         team_home_advantage (dict): Per-team home field advantage multiplier.
 
     Returns:
@@ -629,8 +665,30 @@ def get_team_xg(
     to league mean=1.0 give expected goals directly in the correct scale.
     """
     # 1. Get blended ratings
-    att_rating = (1 - alpha) * team_stats[team]['ATT Rating'] + alpha * recent_form_att[team]
-    def_rating = (1 - alpha) * team_stats[opponent]['DEF Rating'] + alpha * recent_form_def[opponent]
+    # 1. Get blended ratings — SINGLE recent-form blend only.
+    # NaN/missing raw observations fall back fully to the base rating,
+    # reproducing the legacy behaviour.
+    base_att = team_stats[team]['ATT Rating']
+    base_def = team_stats[opponent]['DEF Rating']
+
+    raw_att = recent_form_att.get(team, np.nan)
+    raw_def = recent_form_def.get(opponent, np.nan)
+
+    if pd.isna(raw_att):
+        att_rating = base_att
+    else:
+        att_rating = (
+            (1 - form_weight) * base_att
+            + form_weight * raw_att
+        )
+
+    if pd.isna(raw_def):
+        def_rating = base_def
+    else:
+        def_rating = (
+            (1 - form_weight) * base_def
+            + form_weight * raw_def
+        )
 
     # 2. Expected goals — ATT x DEF (Dixon-Coles multiplicative model)
     # MLE-fitted parameters are normalised to league mean=1.0 so the product
@@ -800,7 +858,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
         team_stats, team_home_advantage = calculate_team_statistics(historical_df)
         print("✅ Base ratings calculated.")
         print("🔄 Calculating recent form (last 20 matches)...")
-        recent_form_att, recent_form_def = calculate_recent_form(historical_df, team_stats, recent_matches=20, alpha=0.60)
+        recent_form_att, recent_form_def, recent_form_n = calculate_recent_form(historical_fixtures_df, team_data, recent_matches=20)
         print("✅ Recent form ratings calculated.")
 
         for _, row in upcoming.iterrows():
@@ -819,6 +877,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
                     team_stats=team_stats,
                     recent_form_att=recent_form_att,
                     recent_form_def=recent_form_def,
+                    form_weight=PLAYER_TEAM_FORM_WEIGHT,
                     team_home_advantage=team_home_advantage
                 )
 
@@ -888,7 +947,14 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
 
 
 
-def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_home_advantage=None, alpha=0.65, save_path="static/heatmaps/"):
+def generate_all_heatmaps(
+    team_stats,
+    recent_form_att,
+    recent_form_def,
+    team_home_advantage=None,
+    form_weight=MATCH_FORM_WEIGHT,
+    save_path="static/heatmaps/"
+):
     print("🔄 Running generate_all_heatmaps()...")
 
     os.makedirs(save_path, exist_ok=True)
@@ -950,15 +1016,19 @@ def generate_all_heatmaps(team_stats, recent_form_att, recent_form_def, team_hom
 
         home_xg = get_team_xg(
             home_team, away_team, is_home=True,
-            team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.30,
+            team_stats=team_stats,
+            recent_form_att=recent_form_att,
+            recent_form_def=recent_form_def,
+            form_weight=form_weight,
             team_home_advantage=team_home_advantage
         )
 
         away_xg = get_team_xg(
             away_team, home_team, is_home=False,
-            team_stats=team_stats, recent_form_att=recent_form_att, recent_form_def=recent_form_def,
-            alpha=0.30,
+            team_stats=team_stats,
+            recent_form_att=recent_form_att,
+            recent_form_def=recent_form_def,
+            form_weight=form_weight,
             team_home_advantage=team_home_advantage
         )
 
@@ -1287,13 +1357,20 @@ if __name__ == "__main__":
 
     for team, stats in team_data.items():
         if team not in recent_form_att:
-            recent_form_att[team] = stats['ATT Rating']
-            recent_form_def[team] = stats['DEF Rating']
+            recent_form_att[team] = np.nan
+            recent_form_def[team] = np.nan
+            recent_form_n[team] = 0
 
     print("ℹ️  Shot data fetched by data_scraper_script.py — skipping here")
 
     print("🔄 running generate_all_heatmaps() for all remaining fixtures (may take a few mins)")
-    generate_all_heatmaps(team_data, recent_form_att, recent_form_def, team_home_advantage=team_home_advantage)
+    generate_all_heatmaps(
+        team_data,
+        recent_form_att,
+        recent_form_def,
+        team_home_advantage=team_home_advantage,
+        form_weight=MATCH_FORM_WEIGHT
+    )
     print("✅ generate_all_heatmaps() executed successfully!")
 
     
