@@ -1,0 +1,34 @@
+name: Backtest Sweep
+
+on:
+  workflow_dispatch:
+    inputs:
+      sweep_type:
+        description: 'Which sweep to run'
+        required: true
+        default: '--sweep-dispersion'
+        type: choice
+        options:
+          - --sweep
+          - --sweep-alpha
+          - --sweep-rho
+          - --sweep-dispersion
+          - --sweep-dispersion-rho
+          - --sweep-comprehensive
+          - --sweep-all
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run sweep
+        run: python backtest.py ${{ inputs.sweep_type }}
