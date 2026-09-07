@@ -822,7 +822,7 @@ def sweep_dispersion():
         lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1
     )).mean() * 100
 
-    for disp in [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75, 2.0]:
+    for disp in [1.55, 1.6, 1.65]:
         sweep_results = []
 
         for _, fixture in sample.iterrows():
