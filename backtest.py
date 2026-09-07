@@ -40,6 +40,7 @@ from data_loader import (
     TEAM_NAME_MAPPING,
     MANUAL_XG_ADJUSTMENTS,
     MANUAL_XGA_ADJUSTMENTS,
+    MATCH_FORM_WEIGHT,
 )
 
 
@@ -51,7 +52,9 @@ TEST_SEASON_START = "2023-08-01"   # Start of 2023/24 season — combined 3-seas
 TEST_SEASON_END   = "2026-06-01"   # End of 2025/26 season (all completed fixtures)
 MIN_TRAIN_MATCHES = 100            # Minimum training matches before predicting
 OUTPUT_PATH       = "data/tables/model_accuracy.json"
-ALPHA             = 0.30           # Form blending weight — matches production
+ALPHA             = 0.30           # Legacy two-stage alpha used by old sweep labels.
+                                    # Production's actual effective raw-form weight is
+                                    # MATCH_FORM_WEIGHT = 0.09.
 COV_XY            = 0.05           # Bivariate Poisson covariance — matches production
 RHO               = 0.0            # Dixon-Coles correction — matches production. Removed
                                     # in favour of NB dispersion handling low-score
@@ -125,8 +128,8 @@ def predict_fixture(home_team, away_team, training_data, team_name_map):
         team_stats, team_home_advantage = calculate_team_statistics(
             training_data, save_csv_path=None, verbose=False  # Don't save/print during backtest
         )
-        recent_form_att, recent_form_def = calculate_recent_form(
-            training_data, team_stats, recent_matches=15, alpha=ALPHA
+        recent_form_att, recent_form_def, recent_form_n = calculate_recent_form(
+            training_data, team_stats, recent_matches=15
         )
     except Exception as e:
         return None
@@ -138,13 +141,15 @@ def predict_fixture(home_team, away_team, training_data, team_name_map):
         home_xg = get_team_xg(
             team=home_team, opponent=away_team, is_home=True,
             team_stats=team_stats, recent_form_att=recent_form_att,
-            recent_form_def=recent_form_def, alpha=ALPHA,
+            recent_form_def=recent_form_def,
+            form_weight=MATCH_FORM_WEIGHT,
             team_home_advantage=team_home_advantage
         )
         away_xg = get_team_xg(
             team=away_team, opponent=home_team, is_home=False,
             team_stats=team_stats, recent_form_att=recent_form_att,
-            recent_form_def=recent_form_def, alpha=ALPHA,
+            recent_form_def=recent_form_def,
+            form_weight=MATCH_FORM_WEIGHT,
             team_home_advantage=team_home_advantage
         )
     except Exception as e:
@@ -502,7 +507,7 @@ def sweep_cov_xy():
 
             try:
                 team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-                recent_att, recent_def = calculate_recent_form(training, team_stats, alpha=ALPHA)
+                recent_att, recent_def, _ = calculate_recent_form(training, team_stats)
             except Exception:
                 continue
 
@@ -510,8 +515,14 @@ def sweep_cov_xy():
                 continue
 
             try:
-                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, team_home_advantage=team_hfa)
-                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, team_home_advantage=team_hfa)
+                hxg = get_team_xg(
+                    home_team, away_team, True, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
+                axg = get_team_xg(
+                    away_team, home_team, False, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
             except Exception:
                 continue
 
@@ -556,8 +567,9 @@ def sweep_cov_xy():
 
 def sweep_alpha():
     """
-    Sweep alpha (form blending weight) from 0.3 to 0.8.
-    Higher alpha = more weight on recent form vs long-run ratings.
+    Sweep the legacy alpha labels from 0.3 to 0.8.
+    The old model applied alpha twice, so each value maps to an actual
+    raw recent-form weight of alpha**2 in this parity-safe refactor.
     """
     print()
     print("=" * 60)
@@ -587,6 +599,9 @@ def sweep_alpha():
     print(f"  {'-'*8}  {'-'*12}  {'-'*10}  {'-'*14}  {'-'*8}")
 
     for alpha in [0.30, 0.40, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80]:
+        # Preserve the meaning of the OLD two-stage alpha sweep:
+        # effective raw-form weight was alpha**2.
+        form_weight = alpha ** 2
         sweep_results = []
 
         for _, fixture in sample.iterrows():
@@ -606,8 +621,8 @@ def sweep_alpha():
 
             try:
                 team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-                recent_att, recent_def = calculate_recent_form(
-                    training, team_stats, recent_matches=15, alpha=alpha
+                recent_att, recent_def, _ = calculate_recent_form(
+                    training, team_stats, recent_matches=15
                 )
             except Exception:
                 continue
@@ -618,11 +633,11 @@ def sweep_alpha():
             try:
                 hxg = get_team_xg(
                     home_team, away_team, True, team_stats, recent_att, recent_def,
-                    alpha=alpha, team_home_advantage=team_hfa
+                    form_weight=form_weight, team_home_advantage=team_hfa
                 )
                 axg = get_team_xg(
                     away_team, home_team, False, team_stats, recent_att, recent_def,
-                    alpha=alpha, team_home_advantage=team_hfa
+                    form_weight=form_weight, team_home_advantage=team_hfa
                 )
             except Exception:
                 continue
@@ -723,8 +738,8 @@ def sweep_rho():
 
             try:
                 team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-                recent_att, recent_def = calculate_recent_form(
-                    training, team_stats, recent_matches=20, alpha=ALPHA
+                recent_att, recent_def, _ = calculate_recent_form(
+                    training, team_stats, recent_matches=20
                 )
             except Exception:
                 continue
@@ -733,8 +748,14 @@ def sweep_rho():
                 continue
 
             try:
-                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
-                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+                hxg = get_team_xg(
+                    home_team, away_team, True, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
+                axg = get_team_xg(
+                    away_team, home_team, False, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
             except Exception:
                 continue
 
@@ -842,8 +863,8 @@ def sweep_dispersion():
 
             try:
                 team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-                recent_att, recent_def = calculate_recent_form(
-                    training, team_stats, recent_matches=20, alpha=ALPHA
+                recent_att, recent_def, _ = calculate_recent_form(
+                    training, team_stats, recent_matches=20
                 )
             except Exception:
                 continue
@@ -852,8 +873,14 @@ def sweep_dispersion():
                 continue
 
             try:
-                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
-                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+                hxg = get_team_xg(
+                    home_team, away_team, True, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
+                axg = get_team_xg(
+                    away_team, home_team, False, team_stats, recent_att, recent_def,
+                    form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+                )
             except Exception:
                 continue
 
@@ -978,8 +1005,8 @@ def sweep_dispersion_rho():
 
         try:
             team_stats, team_hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-            recent_att, recent_def = calculate_recent_form(
-                training, team_stats, recent_matches=20, alpha=ALPHA
+            recent_att, recent_def, _ = calculate_recent_form(
+                training, team_stats, recent_matches=20
             )
         except Exception:
             continue
@@ -988,8 +1015,14 @@ def sweep_dispersion_rho():
             continue
 
         try:
-            hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
-            axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=ALPHA, team_home_advantage=team_hfa)
+            hxg = get_team_xg(
+                home_team, away_team, True, team_stats, recent_att, recent_def,
+                form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+            )
+            axg = get_team_xg(
+                away_team, home_team, False, team_stats, recent_att, recent_def,
+                form_weight=MATCH_FORM_WEIGHT, team_home_advantage=team_hfa
+            )
         except Exception:
             continue
 
@@ -1058,8 +1091,9 @@ def sweep_comprehensive():
 
     Efficiency: calculate_team_statistics (the expensive MLE fit) does NOT
     depend on any of these four parameters, so it's computed ONCE per fixture.
-    ALPHA affects calculate_recent_form/get_team_xg (cheap arithmetic, not an
-    optimisation), so it's the only parameter requiring its own xG recompute;
+    Legacy ALPHA is mapped to an actual form weight of alpha**2. The raw
+    recent-form calculation is cheap, and each alpha value requires only its
+    own xG recompute;
     COV_XY, DISPERSION, and RHO only affect the final matrix construction and
     are nested cheaply inside that. Net cost: roughly one full backtest run,
     not a multiplicative blow-up across 240 combinations.
@@ -1147,11 +1181,23 @@ def sweep_comprehensive():
             actual, idx = "away_win", 2
 
         for alpha in alpha_grid:
+            # Preserve the meaning of the OLD two-stage alpha sweep:
+            # effective raw-form weight was alpha**2.
+            form_weight = alpha ** 2
+
             # Cheap step — recomputed per alpha, reused across cov_xy/dispersion/rho
             try:
-                recent_att, recent_def = calculate_recent_form(training, team_stats, recent_matches=20, alpha=alpha)
-                hxg = get_team_xg(home_team, away_team, True,  team_stats, recent_att, recent_def, alpha=alpha, team_home_advantage=team_hfa)
-                axg = get_team_xg(away_team, home_team, False, team_stats, recent_att, recent_def, alpha=alpha, team_home_advantage=team_hfa)
+                recent_att, recent_def, _ = calculate_recent_form(
+                    training, team_stats, recent_matches=20
+                )
+                hxg = get_team_xg(
+                    home_team, away_team, True, team_stats, recent_att, recent_def,
+                    form_weight=form_weight, team_home_advantage=team_hfa
+                )
+                axg = get_team_xg(
+                    away_team, home_team, False, team_stats, recent_att, recent_def,
+                    form_weight=form_weight, team_home_advantage=team_hfa
+                )
             except Exception:
                 continue
 
@@ -1244,7 +1290,7 @@ def sweep_comprehensive():
     print("=" * 60)
 
 
-def calibration_check(disp=DISPERSION, rho=RHO, alpha=ALPHA, cov_xy=COV_XY):
+def calibration_check(disp=DISPERSION, rho=RHO, form_weight=MATCH_FORM_WEIGHT, cov_xy=COV_XY):
     """
     The real question: when the model assigns P(1-1)=X%, does 1-1 actually
     happen ~X% of the time? Same for 0-0 and Over 2.5. This is calibration
@@ -1252,7 +1298,7 @@ def calibration_check(disp=DISPERSION, rho=RHO, alpha=ALPHA, cov_xy=COV_XY):
     """
     print()
     print("=" * 60)
-    print(f"Probability Calibration Check (alpha={alpha}, cov_xy={cov_xy}, disp={disp}, rho={rho})")
+    print(f"Probability Calibration Check (form_weight={form_weight}, cov_xy={cov_xy}, disp={disp}, rho={rho})")
     print("=" * 60)
 
     hist_path = "data/tables/historical_fixture_data.csv"
@@ -1278,9 +1324,17 @@ def calibration_check(disp=DISPERSION, rho=RHO, alpha=ALPHA, cov_xy=COV_XY):
             continue
         try:
             team_stats, hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
-            r_att, r_def = calculate_recent_form(training, team_stats, recent_matches=20, alpha=alpha)
-            hxg = get_team_xg(home_team, away_team, True, team_stats, r_att, r_def, alpha=alpha, team_home_advantage=hfa)
-            axg = get_team_xg(away_team, home_team, False, team_stats, r_att, r_def, alpha=alpha, team_home_advantage=hfa)
+            r_att, r_def, _ = calculate_recent_form(
+                training, team_stats, recent_matches=20
+            )
+            hxg = get_team_xg(
+                home_team, away_team, True, team_stats, r_att, r_def,
+                form_weight=form_weight, team_home_advantage=hfa
+            )
+            axg = get_team_xg(
+                away_team, home_team, False, team_stats, r_att, r_def,
+                form_weight=form_weight, team_home_advantage=hfa
+            )
         except Exception:
             continue
 
