@@ -858,7 +858,7 @@ def predict_player_goals(player_name, player_team, num_fixtures=3, recent_matche
         team_stats, team_home_advantage = calculate_team_statistics(historical_df)
         print("✅ Base ratings calculated.")
         print("🔄 Calculating recent form (last 20 matches)...")
-        recent_form_att, recent_form_def, recent_form_n = calculate_recent_form(historical_fixtures_df, team_data, recent_matches=20)
+        recent_form_att, recent_form_def, recent_form_n = calculate_recent_form(historical_df, team_stats, recent_matches=20)
         print("✅ Recent form ratings calculated.")
 
         for _, row in upcoming.iterrows():
@@ -1351,8 +1351,8 @@ if __name__ == "__main__":
 
 
     print("🔄 Calculating recent form...")
-    recent_form_att, recent_form_def = calculate_recent_form(
-        historical_fixtures_df, team_data, recent_matches=20, alpha=0.30
+    recent_form_att, recent_form_def, recent_form_n = calculate_recent_form(
+        historical_fixtures_df, team_data, recent_matches=20
     )
 
     for team, stats in team_data.items():
