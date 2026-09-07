@@ -822,7 +822,7 @@ def sweep_dispersion():
         lambda r: r["home_goals"] == 1 and r["away_goals"] == 1, axis=1
     )).mean() * 100
 
-    for disp in [1.55, 1.6, 1.65]:
+    for disp in [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.75, 2.0]:
         sweep_results = []
 
         for _, fixture in sample.iterrows():
@@ -1244,6 +1244,83 @@ def sweep_comprehensive():
     print("=" * 60)
 
 
+def calibration_check(disp=DISPERSION, rho=RHO, alpha=ALPHA, cov_xy=COV_XY):
+    """
+    The real question: when the model assigns P(1-1)=X%, does 1-1 actually
+    happen ~X% of the time? Same for 0-0 and Over 2.5. This is calibration
+    in the proper sense — modal-pick frequency is not.
+    """
+    print()
+    print("=" * 60)
+    print(f"Probability Calibration Check (alpha={alpha}, cov_xy={cov_xy}, disp={disp}, rho={rho})")
+    print("=" * 60)
+
+    hist_path = "data/tables/historical_fixture_data.csv"
+    all_data = pd.read_csv(hist_path)
+    all_data["Home Team"] = all_data["Home Team"].replace(TEAM_NAME_MAPPING)
+    all_data["Away Team"] = all_data["Away Team"].replace(TEAM_NAME_MAPPING)
+    all_data["date_parsed"] = pd.to_datetime(all_data["Date"], dayfirst=True)
+    all_data = all_data.dropna(subset=["home_goals", "away_goals", "date_parsed"]).sort_values("date_parsed").reset_index(drop=True)
+
+    test_start, test_end = pd.Timestamp(TEST_SEASON_START), pd.Timestamp(TEST_SEASON_END)
+    sample = all_data[(all_data["date_parsed"] >= test_start) & (all_data["date_parsed"] <= test_end)].copy()
+
+    records = []
+    for _, fixture in sample.iterrows():
+        home_team, away_team = fixture["Home Team"], fixture["Away Team"]
+        hg, ag = int(fixture["home_goals"]), int(fixture["away_goals"])
+        gw_date = fixture["date_parsed"]
+        training = all_data[all_data["date_parsed"] < gw_date]
+        if len(training) < MIN_TRAIN_MATCHES:
+            continue
+        teams_in = set(training["Home Team"]) | set(training["Away Team"])
+        if home_team not in teams_in or away_team not in teams_in:
+            continue
+        try:
+            team_stats, hfa = calculate_team_statistics(training, save_csv_path=None, verbose=False)
+            r_att, r_def = calculate_recent_form(training, team_stats, recent_matches=20, alpha=alpha)
+            hxg = get_team_xg(home_team, away_team, True, team_stats, r_att, r_def, alpha=alpha, team_home_advantage=hfa)
+            axg = get_team_xg(away_team, home_team, False, team_stats, r_att, r_def, alpha=alpha, team_home_advantage=hfa)
+        except Exception:
+            continue
+
+        matrix, hwp, dp, awp = simulate_bivariate_nb(hxg, axg, cov_xy=cov_xy, dispersion=disp)
+        matrix = dixon_coles_correction(matrix, hxg, axg, rho=rho)
+
+        p_11 = float(matrix[1, 1])
+        p_00 = float(matrix[0, 0])
+        total_goals_matrix_sum_over25 = float(sum(
+            matrix[i, j] for i in range(matrix.shape[0]) for j in range(matrix.shape[1]) if i + j > 2.5
+        ))
+
+        records.append({
+            "p_11": p_11, "actual_11": int(hg == 1 and ag == 1),
+            "p_00": p_00, "actual_00": int(hg == 0 and ag == 0),
+            "p_o25": total_goals_matrix_sum_over25, "actual_o25": int((hg + ag) > 2.5),
+        })
+
+    df = pd.DataFrame(records)
+    print(f"  Fixtures evaluated: {len(df)}")
+    print()
+
+    for label, pcol, acol in [("1-1", "p_11", "actual_11"), ("0-0", "p_00", "actual_00"), ("Over 2.5", "p_o25", "actual_o25")]:
+        mean_pred = df[pcol].mean() * 100
+        actual_rate = df[acol].mean() * 100
+        brier = ((df[pcol] - df[acol]) ** 2).mean()
+        print(f"  {label:10s}  mean_pred={mean_pred:5.1f}%   actual={actual_rate:5.1f}%   diff={mean_pred - actual_rate:+5.1f}pp   brier={brier:.4f}")
+
+    print()
+    print("  Calibration by probability bin (P(1-1)):")
+    bins = [0, 0.02, 0.04, 0.06, 0.08, 0.10, 0.12, 0.15, 1.0]
+    df["bin"] = pd.cut(df["p_11"], bins=bins)
+    binned = df.groupby("bin", observed=True).agg(
+        n=("actual_11", "size"), mean_pred=("p_11", "mean"), actual=("actual_11", "mean")
+    )
+    for idx, row in binned.iterrows():
+        print(f"    {str(idx):16s}  n={int(row['n']):4d}   mean_pred={row['mean_pred']*100:5.1f}%   actual={row['actual']*100:5.1f}%")
+    print("=" * 60)
+
+
 # ══════════════════════════════════════════════════════════════
 # ENTRY POINT
 # ══════════════════════════════════════════════════════════════
@@ -1261,6 +1338,8 @@ if __name__ == "__main__":
         sweep_dispersion_rho()
     elif "--sweep-comprehensive" in sys.argv:
         sweep_comprehensive()
+    elif "--calibration-check" in sys.argv:
+        calibration_check()
     elif "--sweep-all" in sys.argv:
         sweep_cov_xy()
         sweep_alpha()
