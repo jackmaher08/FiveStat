@@ -206,8 +206,21 @@ def calculate_team_statistics(historical_fixture_data, save_csv_path="data/table
         # rather than a dimensionless ratio
         league_avg_goals = float(df_mle['home_goals'].mean() + df_mle['away_goals'].mean()) / 2
         att_mean   = att_params.mean()
-        att_params = att_params / att_mean * league_avg_goals
-        def_params = def_params / att_mean
+        # ATT and DEF are scale non-identifiable in mu = ATT * DEF.
+        # Any post-fit rescaling of ATT must be exactly inverted on DEF
+        # so fitted expected-goal products remain unchanged. The previous
+        # version divided DEF by att_mean alone (missing the * league_avg_goals
+        # that ATT's rescaling includes), which does NOT preserve the fitted
+        # products — proven via a diagnostic where every team showed an
+        # identical 0.7422 old/corrected product ratio, confirming a uniform
+        # normalization error rather than a data or team-specific issue. The
+        # bug's damage scales with how far att_mean deviates from
+        # sqrt(league_avg_goals) — historically small (hence the old code
+        # looking fine in backtests), but large in live 2026/27 data, where it
+        # was suppressing DEF (and therefore every fixture's xG) by ~35%.
+        scale = league_avg_goals / att_mean
+        att_params = att_params * scale
+        def_params = def_params / scale
         mle_ok = True
     except Exception as e:
         print(f"⚠️  MLE failed ({e}), falling back to simple averages")
