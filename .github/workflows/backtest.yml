@@ -9,6 +9,7 @@ on:
         default: '--sweep-dispersion'
         type: choice
         options:
+          - --run-backtest
           - --sweep
           - --sweep-alpha
           - --sweep-rho
@@ -32,4 +33,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run sweep
-        run: python backtest.py ${{ inputs.sweep_type }}
+        run: |
+          if [ "${{ inputs.sweep_type }}" == "--run-backtest" ]; then
+            python backtest.py
+          else
+            python backtest.py ${{ inputs.sweep_type }}
+          fi
