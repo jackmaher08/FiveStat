@@ -1033,12 +1033,15 @@ def generate_all_heatmaps(
         )
 
         # Capture the full result_matrix along with probabilities
-        # NB dispersion=1.45 replaces Poisson+Dixon-Coles here: DC's low-score correction
-        # was designed to fix pure Poisson's low-score underestimate, but once NB
-        # dispersion is already doing that job — and doing it per-match rather than as
-        # a flat multiplier — DC on top double-counts and over-corrects. rho=0.0 (no DC
-        # call) was the validated combination. See backtest.py's sweep_comprehensive().
-        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_nb(home_xg, away_xg, cov_xy=0.05, dispersion=1.45)
+        # DISPERSION=1.00 (pure Poisson) — validated via a dedicated
+        # scoreline-distribution calibration harness (frozen xG, proper
+        # scoring rules), full 3-season walk-forward holdout, n=1140.
+        # Paired vs the prior DISPERSION=1.45: log-loss delta -0.0646
+        # (t=-7.50), Brier delta -0.0058 (t=-6.17) — both far beyond noise.
+        # RPS flat (guardrail holds). The earlier 1.45 was chosen to fix a
+        # modal-1-1-frequency diagnostic, which is not a valid calibration
+        # target. rho=0.0 (no Dixon-Coles) remains correct here too.
+        result_matrix, home_prob, draw_prob, away_prob = simulate_bivariate_nb(home_xg, away_xg, cov_xy=0.05, dispersion=1.00)
 
         # Recalculate outcome probabilities from corrected matrix
         home_prob  = float(np.sum(np.tril(result_matrix, -1)))
