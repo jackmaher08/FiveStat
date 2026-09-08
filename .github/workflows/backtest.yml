@@ -39,3 +39,12 @@ jobs:
           else
             python backtest.py ${{ inputs.sweep_type }}
           fi
+
+      - name: Commit updated accuracy data (only for --run-backtest)
+        if: inputs.sweep_type == '--run-backtest'
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add data/tables/model_accuracy.json
+          git diff --staged --quiet || git commit -m "Update model accuracy stats from backtest"
+          git push
