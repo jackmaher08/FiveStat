@@ -30,7 +30,10 @@ TEAM_NAME_MAPPING = {
     "Wolves": "Wolverhampton Wanderers",
     "Tottenham": "Tottenham Hotspur",
     "Newcastle": "Newcastle United",
-    "Nott'm Forest": "Nottingham Forest"
+    "Nott'm Forest": "Nottingham Forest",
+    "Hull": "Hull City",
+    "Ipswich": "Ipswich Town",
+    "Coventry": "Coventry City",
 }
 
 
