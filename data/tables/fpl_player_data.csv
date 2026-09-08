@@ -27,10 +27,10 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 27,Gabriel Fernando de Jesus,G.Jesus,Arsenal,FWD,5.9,0.2,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 31,Ezri Konsa Ngoyo,Konsa,Arsenal,DEF,4.4,13.1,1.7,1.7,101,0,0,0,a,0.0,0.01,0.01
 452,Bruno Guimarães Rodriguez Moura,Bruno G.,Arsenal,MID,6.8,1.9,0.3,0.3,19,0,0,0,a,0.0,0.01,0.01
-557,Christos Tzolis,Tzolis,Arsenal,MID,6.4,17.6,3.7,3.7,210,0,2,1,a,0.19,0.35,0.54
+557,Christos Tzolis,Tzolis,Arsenal,MID,6.4,17.5,3.7,3.7,210,0,2,1,a,0.19,0.35,0.54
 29,Marco Bizot,M.Bizot,Aston Villa,GK,4.5,0.1,0.3,0.3,90,0,0,0,a,0.0,0.0,0.0
 30,Lucas Digne,Digne,Aston Villa,DEF,4.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-32,Matty Cash,Cash,Aston Villa,DEF,4.5,6.9,2.3,2.3,251,0,0,1,a,0.15,0.04,0.19
+32,Matty Cash,Cash,Aston Villa,DEF,4.5,6.8,2.3,2.3,251,0,0,1,a,0.15,0.04,0.19
 33,Tyrone Mings,Mings,Aston Villa,DEF,4.5,0.4,2.3,2.3,106,0,0,1,a,0.11,0.02,0.13
 34,Pau Torres,Pau,Aston Villa,DEF,4.5,0.4,0.7,0.7,163,0,0,0,a,0.0,0.01,0.01
 35,Lamare Bogarde,Bogarde,Aston Villa,MID,5.0,0.1,0.3,0.3,16,0,0,0,a,0.0,0.0,0.0
@@ -346,7 +346,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 574,Jens Hjertø-Dahl,Hjertø-Dahl,Hull City,MID,4.9,0.1,0.3,0.3,8,0,0,0,a,0.0,0.0,0.0
 576,Elliot Stroud,Stroud,Hull City,MID,5.0,0.1,2.0,2.0,190,0,0,2,a,0.05,0.05,0.1
 585,Lucas Herrington,Herrington,Hull City,DEF,4.0,0.6,1.0,1.0,76,0,0,0,a,0.0,0.0,0.0
-586,Nobel Mendy,Mendy,Hull City,DEF,4.0,6.9,8.0,8.0,191,1,0,2,a,0.32,0.0,0.32
+586,Nobel Mendy,Mendy,Hull City,DEF,4.0,7.0,8.0,8.0,191,1,0,2,a,0.32,0.0,0.32
 589,Lucas Gourna-Douath,Gourna-Douath,Hull City,MID,5.0,0.0,1.0,1.0,126,0,0,1,a,0.0,0.02,0.02
 617,Mohamed-Ali Cho,Cho,Hull City,MID,5.0,0.0,1.0,1.0,15,0,0,0,a,0.05,0.0,0.05
 632,Ilyas Ansah,Ansah,Hull City,FWD,5.0,0.0,0.0,1.4,0,0,0,0,a,0.0,0.0,0.0
@@ -362,7 +362,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 303,Cédric Kipré,Kipré,Ipswich Town,DEF,4.0,0.5,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 304,Dara O'Shea,O'Shea,Ipswich Town,DEF,4.0,3.1,2.3,2.3,270,0,0,0,a,0.07,0.18,0.25
 305,Leif Davis,Davis,Ipswich Town,DEF,4.0,5.1,3.0,3.0,270,1,0,0,a,0.65,0.25,0.9
-306,Jacob Greaves,Greaves,Ipswich Town,DEF,4.0,1.3,0.7,0.7,270,0,0,0,a,0.0,0.05,0.05
+306,Jacob Greaves,Greaves,Ipswich Town,DEF,4.0,1.2,0.7,0.7,270,0,0,0,a,0.0,0.05,0.05
 307,Ben Johnson,Johnson,Ipswich Town,DEF,4.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 308,Darnell Furlong,Furlong,Ipswich Town,DEF,4.0,0.5,0.3,0.3,17,0,0,0,a,0.0,0.0,0.0
 309,Marcelino Núñez,Núñez,Ipswich Town,MID,5.0,0.1,2.0,2.0,140,0,0,0,a,0.03,0.05,0.08
@@ -409,7 +409,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 343,Daniel James,James,Leeds,MID,5.0,0.1,0.3,0.3,22,0,0,0,a,0.24,0.01,0.25
 344,Ilia Gruev,Gruev,Leeds,MID,5.0,0.0,0.0,0.0,0,0,0,0,d,0.0,0.0,0.0
 345,Tanaka Ao,Tanaka,Leeds,MID,4.9,0.2,2.0,2.0,117,0,1,0,a,0.53,0.02,0.55
-346,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,6.0,24.2,3.3,3.3,252,1,0,1,a,1.61,0.08,1.69
+346,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,6.0,24.1,3.3,3.3,252,1,0,1,a,1.61,0.08,1.69
 347,Lukas Nmecha,Nmecha,Leeds,FWD,5.4,0.5,1.7,1.7,38,0,1,0,a,0.27,0.14,0.41
 348,Joël Piroe,Piroe,Leeds,FWD,5.0,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 349,Mateo Joseph Fernández-Regatillo,Mateo Joseph,Leeds,FWD,4.5,0.1,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
@@ -442,7 +442,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 368,Dominik Szoboszlai,Szoboszlai,Liverpool,MID,7.0,38.7,5.0,5.0,270,1,0,1,a,1.17,0.52,1.69
 369,Rio Ngumoha,Ngumoha,Liverpool,MID,5.8,0.6,1.0,1.0,81,0,0,0,a,0.04,0.05,0.09
 370,Federico Chiesa,Chiesa,Liverpool,MID,5.4,0.1,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
-371,Ryan Gravenberch,Gravenberch,Liverpool,MID,5.9,1.5,2.3,2.3,122,0,1,0,a,0.06,0.06,0.12
+371,Ryan Gravenberch,Gravenberch,Liverpool,MID,5.9,1.4,2.3,2.3,122,0,1,0,a,0.06,0.06,0.12
 372,Alexis Mac Allister,Mac Allister,Liverpool,MID,5.4,1.4,1.7,1.7,186,0,0,1,a,0.08,0.42,0.5
 373,Curtis Jones,C.Jones,Liverpool,MID,5.5,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 374,Endo Wataru,Endo,Liverpool,MID,5.0,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
@@ -458,7 +458,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 579,Ronald Araujo,Araujo,Liverpool,DEF,5.4,2.3,3.0,3.0,123,0,0,1,a,0.0,0.05,0.05
 627,Bradley Barcola,Barcola,Liverpool,MID,8.0,1.7,1.0,2.8,26,0,0,0,a,0.0,0.07,0.07
 155,Enzo Fernández,Enzo,Manchester City,MID,6.9,3.2,1.3,1.3,100,0,0,1,a,0.13,0.14,0.27
-237,Iliman Ndiaye,Ndiaye,Manchester City,MID,5.9,10.3,5.3,5.3,266,0,1,2,a,0.28,0.43,0.71
+237,Iliman Ndiaye,Ndiaye,Manchester City,MID,5.9,10.2,5.3,5.3,266,0,1,2,a,0.28,0.43,0.71
 384,Gianluigi Donnarumma,Donnarumma,Manchester City,GK,5.5,7.8,3.3,3.3,270,0,0,1,a,0.0,0.0,0.0
 386,Marcus Bettinelli,Bettinelli,Manchester City,GK,4.5,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 387,Nico O'Reilly,O'Reilly,Manchester City,DEF,6.5,15.4,1.3,1.0,150,0,0,0,d,0.09,0.43,0.52
@@ -483,7 +483,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 409,Divine Mukasa,Mukasa,Manchester City,MID,4.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 410,Jeremy Monga,Monga,Manchester City,MID,4.9,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 411,Erling Haaland,Haaland,Manchester City,FWD,15.5,71.2,8.0,8.0,270,3,0,1,a,2.46,0.5,2.96
-481,Elliot Anderson,Anderson,Manchester City,MID,6.3,4.7,2.7,2.7,233,0,0,1,a,0.09,0.64,0.73
+481,Elliot Anderson,Anderson,Manchester City,MID,6.3,4.6,2.7,2.7,233,0,0,1,a,0.09,0.64,0.73
 587,Gerónimo Rulli,Rulli,Manchester City,GK,5.0,0.0,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 616,Ayyoub Bouaddi,Bouaddi,Manchester City,MID,5.5,0.1,1.0,1.0,22,0,0,0,a,0.0,0.12,0.12
 621,Ryan McAidoo,McAidoo,Manchester City,MID,4.5,0.1,1.0,1.0,11,0,0,0,a,0.1,0.0,0.1
@@ -508,7 +508,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 423,Luke Shaw,Shaw,Manchester United,DEF,4.4,14.1,2.3,2.3,252,0,1,0,a,0.02,0.51,0.53
 424,Harry Amass,Amass,Manchester United,DEF,4.0,0.2,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
 425,Tyler Fredricson,Fredricson,Manchester United,DEF,4.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-426,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,12.0,46.6,9.0,9.0,270,3,1,0,a,2.25,0.8,3.05
+426,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,12.0,46.5,9.0,9.0,270,3,1,0,a,2.25,0.8,3.05
 427,Bryan Mbeumo,Mbeumo,Manchester United,MID,7.9,25.7,7.0,7.0,270,2,1,0,a,2.31,0.47,2.78
 428,Matheus Santos Carneiro da Cunha,Cunha,Manchester United,MID,7.9,7.1,4.7,4.7,227,0,2,1,a,0.47,0.41,0.88
 429,Marcus Rashford,Rashford,Manchester United,MID,7.0,1.6,2.0,2.0,193,0,0,1,a,0.26,0.21,0.47
