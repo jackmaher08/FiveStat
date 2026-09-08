@@ -59,11 +59,12 @@ COV_XY            = 0.05           # Bivariate Poisson covariance — matches pr
 RHO               = 0.0            # Dixon-Coles correction — matches production. Removed
                                     # in favour of NB dispersion handling low-score
                                     # correction (see DISPERSION note below).
-DISPERSION        = 1.45            # NB overdispersion factor — matches production. Fixes
-                                    # severe 1-1 heatmap over-concentration (87.6% -> 36.8%
-                                    # on live fixtures) at a real calibration cost (0.1pp ->
-                                    # 5.3pp on holdout) — judged worth it given how visible
-                                    # and severe the unfixed state was in production.
+DISPERSION        = 1.00            # NB overdispersion factor — matches production.
+                                    # Reverted from 1.45 after a dedicated scoreline-
+                                    # distribution calibration harness showed exact-score
+                                    # log-loss/Brier both improve monotonically toward 1.0,
+                                    # RPS flat. At dispersion=1.00 the NB collapses exactly
+                                    # to bivariate Poisson.
 
 # ══════════════════════════════════════════════════════════════
 # METRIC FUNCTIONS
