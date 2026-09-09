@@ -1273,10 +1273,19 @@ if __name__ == "__main__":
         match_id = row['id']
         shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
 
-        if os.path.exists(shotmap_file):
+        # Regenerate anything from the last 7 days regardless of whether a file
+        # already exists — Understat data can settle/correct itself in the days
+        # after a match, and a stale image from early generation would
+        # otherwise be skipped forever. Older matches are stable and safe to
+        # skip once generated.
+        match_date = pd.to_datetime(row.get('date'), errors='coerce')
+        is_recent = pd.notna(match_date) and (pd.Timestamp.now() - match_date).days <= 7
+
+        if os.path.exists(shotmap_file) and not is_recent:
             continue
 
         match_df = generate_shot_map(match_id)
+        
         if match_df is not None:
             all_shots_combined.append(match_df)
             new_shotmaps += 1
