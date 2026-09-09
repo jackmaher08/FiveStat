@@ -1271,13 +1271,12 @@ if __name__ == "__main__":
         home_team = row['home_team']
         away_team = row['away_team']
         match_id = row['id']
+    for _, row in completed_fixtures.iterrows():
+        home_team = row['home_team']
+        away_team = row['away_team']
+        match_id = row['id']
         shotmap_file = os.path.join(shotmap_save_path, f"{home_team}_{away_team}_shotmap.png")
 
-        # Regenerate anything from the last 7 days regardless of whether a file
-        # already exists — Understat data can settle/correct itself in the days
-        # after a match, and a stale image from early generation would
-        # otherwise be skipped forever. Older matches are stable and safe to
-        # skip once generated.
         match_date = pd.to_datetime(row.get('date'), errors='coerce')
         is_recent = pd.notna(match_date) and (pd.Timestamp.now() - match_date).days <= 7
 
