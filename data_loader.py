@@ -1100,17 +1100,23 @@ os.makedirs(shotmap_save_path, exist_ok=True)
 # Function to generate and save shot maps
 def generate_shot_map(understat_match_id, save_image=True):
     try:
-        # ✅ Fetch shot data via understatapi instead of scraping HTML
-        with UnderstatClient() as understat_client:
-            try:
-                data = understat_client.match(match=str(understat_match_id)).get_shot_data()
-            except Exception as e:
-                print(f"Skipping match {understat_match_id}: error fetching shot data from Understat ({e})")
-                return
+        # Read from the already-fetched, already-verified shots_data.csv
+        # instead of making a second, independent live Understat call.
+        # Two separate fetches of the same match at different times can
+        # legitimately disagree (Understat revising/finalizing data between
+        # calls) — reusing one source of truth eliminates that entirely.
+        shots_path = "data/tables/shots_data.csv"
+        if not os.path.exists(shots_path):
+            print(f"Skipping match {understat_match_id}: shots_data.csv not found")
+            return
+        all_shots_cached = pd.read_csv(shots_path)
+        match_shots = all_shots_cached[all_shots_cached["match_id"].astype(str) == str(understat_match_id)]
+        if match_shots.empty:
+            print(f"Skipping match {understat_match_id}: no cached shot data found — run collect_all_shot_data() first")
+            return
 
-        # Create DataFrames
-        home_df = pd.DataFrame(data['h'])
-        away_df = pd.DataFrame(data['a'])
+        home_df = match_shots[match_shots["h_a"] == "h"].copy()
+        away_df = match_shots[match_shots["h_a"] == "a"].copy()
 
         # Extract and update team names
         home_team_name = home_df.iloc[0]['h_team'] if not home_df.empty else "Unknown"
