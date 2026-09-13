@@ -1105,32 +1105,48 @@ def generate_shot_map(understat_match_id, save_image=True):
         # Two separate fetches of the same match at different times can
         # legitimately disagree (Understat revising/finalizing data between
         # calls) — reusing one source of truth eliminates that entirely.
+        # Cache-first: reuse already-fetched shots from shots_data.csv when
+        # available (avoids the double-fetch-causes-duplicates bug — two
+        # independent live Understat calls for the same match can legitimately
+        # disagree if data was revised/finalized between calls). Only fall
+        # back to a genuine live fetch for matches truly not yet collected —
+        # required so collect_all_shot_data() can still collect new fixtures,
+        # since it delegates fetching to this function.
         shots_path = "data/tables/shots_data.csv"
-        if not os.path.exists(shots_path):
-            print(f"Skipping match {understat_match_id}: shots_data.csv not found")
-            return
-        all_shots_cached = pd.read_csv(shots_path)
-        match_shots = all_shots_cached[all_shots_cached["match_id"].astype(str) == str(understat_match_id)]
-        if match_shots.empty:
-            print(f"Skipping match {understat_match_id}: no cached shot data found — run collect_all_shot_data() first")
-            return
+        match_shots = pd.DataFrame()
+        if os.path.exists(shots_path):
+            all_shots_cached = pd.read_csv(shots_path)
+            match_shots = all_shots_cached[all_shots_cached["match_id"].astype(str) == str(understat_match_id)]
 
-        home_df = match_shots[match_shots["h_a"] == "h"].copy()
-        away_df = match_shots[match_shots["h_a"] == "a"].copy()
+        if not match_shots.empty:
+            # Cached data already has x_scaled/y_scaled computed once, at
+            # original fetch time — do NOT recompute from X/Y here. Doing so
+            # previously reintroduced floating-point precision drift on every
+            # read (X/Y round-trip through CSV as text), producing near-
+            # duplicate rows that differed only in the last decimal of
+            # y_scaled and slipped past exact-match deduplication.
+            home_df = match_shots[match_shots["h_a"] == "h"].copy()
+            away_df = match_shots[match_shots["h_a"] == "a"].copy()
+        else:
+            with UnderstatClient() as understat_client:
+                try:
+                    data = understat_client.match(match=str(understat_match_id)).get_shot_data()
+                except Exception as e:
+                    print(f"Skipping match {understat_match_id}: error fetching shot data from Understat ({e})")
+                    return
+            home_df = pd.DataFrame(data['h'])
+            away_df = pd.DataFrame(data['a'])
+            home_df['x_scaled'] = home_df['X'].astype(float) * 120
+            home_df['y_scaled'] = home_df['Y'].astype(float) * 80
+            away_df['x_scaled'] = away_df['X'].astype(float) * 120
+            away_df['y_scaled'] = away_df['Y'].astype(float) * 80
+            home_df['x_scaled'] = 120 - home_df['x_scaled']
+            home_df['y_scaled'] = 80  - home_df['y_scaled']
+            away_df['y_scaled'] = 80  - away_df['y_scaled']
 
         # Extract and update team names
         home_team_name = home_df.iloc[0]['h_team'] if not home_df.empty else "Unknown"
         away_team_name = away_df.iloc[0]['a_team'] if not away_df.empty else "Unknown"
-
-        home_df['x_scaled'] = home_df['X'].astype(float) * 120
-        home_df['y_scaled'] = home_df['Y'].astype(float) * 80
-        away_df['x_scaled'] = away_df['X'].astype(float) * 120
-        away_df['y_scaled'] = away_df['Y'].astype(float) * 80
-
-        # Home attacks right (x=120), away attacks left (x=0)
-        home_df['x_scaled'] = 120 - home_df['x_scaled']
-        home_df['y_scaled'] = 80  - home_df['y_scaled']
-        away_df['y_scaled'] = 80  - away_df['y_scaled']
 
         # Calculate total goals and xG
         goal_keywords = ['Goal', 'PenaltyGoal']
