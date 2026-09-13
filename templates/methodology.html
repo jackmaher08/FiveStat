@@ -1,602 +1,1565 @@
 {% extends "base.html" %}
 
 {% block title %}FiveStat - Model Methodology{% endblock %}
-{% block meta_description %}Technical breakdown of FiveStat's match prediction model, F1 race prediction model, league simulation, and player projection methodology.{% endblock %}
+{% block meta_description %}How FiveStat's Premier League and Formula 1 models work, how predictions are validated, and where the models are known to be limited.{% endblock %}
 {% block og_url %}https://www.fivestat.co.uk/methodology{% endblock %}
 
 
 {% block content %}
-    {# ── Header - full width outside container ── #}
-    <div class="lp-hero" style="margin-bottom:2rem;">
-        <div class="lp-hero-bg"></div>
-        <div class="lp-hero-inner">
-            <div class="lp-eyebrow">Model Methodology · FiveStat</div>
-            <h1 class="lp-headline" style="font-size:2rem;">How our Models were built.</h1>
-            <p class="lp-subhead">How our models work, what they get right, and exactly where we know they'll go wrong. No disclaimers - just the specifics.</p>
-        </div>
+
+{# ── Header ── #}
+<div class="lp-hero" style="margin-bottom:2rem;">
+    <div class="lp-hero-bg"></div>
+
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Methodology · FiveStat</div>
+
+        <h1 class="lp-headline" style="font-size:2rem;">
+            How FiveStat works.
+        </h1>
+
+        <p class="lp-subhead">
+            The models, data and validation behind FiveStat's predictions —
+            how probabilities are generated, how performance is tested,
+            and where the models are known to be limited.
+        </p>
+
+        <p style="margin-top:0.8rem; font-size:0.85rem; opacity:0.7;">
+            Methodology last updated · September 2026
+        </p>
     </div>
+</div>
+
 
 <div class="meth-page">
 
-    {# ── Model accuracy strip (placeholder - populated after backtest) ── #}
-    {% if accuracy %}
-    <div class="meth-accuracy-header">
-        <h2 class="meth-accuracy-title">2024/25 Backtest Results</h2>
-        <p class="meth-accuracy-subtitle">Our walk-forward accuracy metrics across the full 2024/25 Premier League season - {{ accuracy.matches_predicted }} matches, no future data used.</p>
-    </div>
-    <div class="meth-accuracy-strip">
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">Outcome accuracy</div>
-            <div class="meth-acc-value">{{ accuracy.outcome_accuracy }}%</div>
-            <div class="meth-acc-sub">vs {{ accuracy.baseline_accuracy }}% home-always baseline</div>
-        </div>
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">Moneyline accuracy</div>
-            <div class="meth-acc-value">{{ accuracy.moneyline_accuracy }}%</div>
-            <div class="meth-acc-sub">{{ accuracy.moneyline_n }} decisive matches</div>
-        </div>
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">Avg RPS</div>
-            <div class="meth-acc-value">{{ accuracy.avg_rps }}</div>
-            <div class="meth-acc-sub">vs {{ accuracy.baseline_rps }} naive · +{{ accuracy.rps_improvement }} gained</div>
-        </div>
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">O/U 2.5 accuracy</div>
-            <div class="meth-acc-value">{{ accuracy.ou_accuracy }}%</div>
-            <div class="meth-acc-sub">{{ accuracy.ou_sample }} matches · 2024/25</div>
-        </div>
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">Correct score acc</div>
-            <div class="meth-acc-value">{{ accuracy.correct_score_rate }}%</div>
-            <div class="meth-acc-sub">Most probable scoreline</div>
-        </div>
-        <div class="meth-acc-card">
-            <div class="meth-acc-label">xG MAE</div>
-            <div class="meth-acc-value">{{ accuracy.xg_mae }}</div>
-            <div class="meth-acc-sub">Goals vs predicted xG per team</div>
-        </div>
-    </div>
 
-    {# ── Full backtest results section ── #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# MODEL AT A GLANCE                                                  #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
     <div class="meth-section">
+
         <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-chart-line"></i></div>
-            <h2 class="meth-section-title">2024/25 backtest results</h2>
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-diagram-project"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Premier League model at a glance
+            </h2>
         </div>
 
-        <div class="meth-step">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">The Methodology</div>
-                <p>The above metrics are from a 'walk-forward' backtest ran for the full 2024/25 Premier League season ({{ accuracy.matches_predicted }} available matches). For each gameweek, the model was trained on data available up to that point, which included season data from 2016 - present plus the completed 2024/25 gameweeks. No future data is used in any prediction, mirroring how the model operates in production.</p>
+
+        <div class="meth-steps">
+
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+
+                <div class="meth-step-body">
+                    <div class="meth-step-title">
+                        Estimate team strength
+                    </div>
+
+                    <p>
+                        Historical Premier League results are used to estimate
+                        each team's underlying attacking and defensive strength.
+                        Longer-term quality is then blended with more recent
+                        performance so the model can respond to changes in form
+                        without overreacting to a handful of matches.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+
+                <div class="meth-step-body">
+                    <div class="meth-step-title">
+                        Project expected goals
+                    </div>
+
+                    <p>
+                        A team's attacking strength is matched against its
+                        opponent's defensive strength, with home advantage
+                        included, to estimate the expected goals for both sides.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="meth-step">
+                <div class="meth-step-num">03</div>
+
+                <div class="meth-step-body">
+                    <div class="meth-step-title">
+                        Build the scoreline distribution
+                    </div>
+
+                    <p>
+                        Expected goals are converted into a full matrix of
+                        possible scorelines using a bivariate Poisson model.
+                        The matrix is the foundation for FiveStat's match
+                        probabilities.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="meth-step">
+                <div class="meth-step-num">04</div>
+
+                <div class="meth-step-body">
+                    <div class="meth-step-title">
+                        Derive match probabilities
+                    </div>
+
+                    <p>
+                        Home win, draw, away win, Over/Under 2.5 goals,
+                        clean-sheet and correct-score probabilities are all
+                        calculated directly from the same scoreline distribution.
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="meth-step" style="border-bottom:none;">
+                <div class="meth-step-num">05</div>
+
+                <div class="meth-step-body">
+                    <div class="meth-step-title">
+                        Simulate the season
+                    </div>
+
+                    <p>
+                        Those fixture probabilities feed into 10,000 simulations
+                        of the remaining Premier League season, producing
+                        expected final points and probabilities for every
+                        finishing position.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# MATCH MODEL                                                        #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
+    <div class="meth-section">
+
+        <div class="meth-section-header">
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-futbol"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Premier League match model
+            </h2>
+        </div>
+
+
+        <div class="meth-steps">
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">01</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Historical data
+                    </div>
+
+                    <p>
+                        FiveStat maintains a historical Premier League dataset
+                        from 2016/17 onwards. Goals scored and conceded are
+                        separated by team and match context to form the basis
+                        of the model's attacking and defensive ratings.
+                    </p>
+
+                    <p class="meth-note">
+                        <strong>Promoted teams:</strong>
+                        clubs entering the Premier League without sufficient
+                        top-flight history require cold-start assumptions until
+                        enough current-season evidence exists. Predictions for
+                        these teams should therefore be treated with additional
+                        uncertainty early in the season.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">02</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Attack and defence ratings
+                    </div>
+
+                    <p>
+                        Each team receives an attacking rating describing its
+                        scoring strength and a defensive rating describing the
+                        scoring strength it typically allows opponents.
+                    </p>
+
+                    <p>
+                        Ratings are fitted and normalised relative to the league,
+                        allowing teams to be compared on a common scale rather
+                        than relying on raw goals alone.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">03</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Recent-form adjustment
+                    </div>
+
+                    <p>
+                        Long-run ratings provide stability, but football teams
+                        change over time. FiveStat therefore blends each team's
+                        underlying rating with a recent-form estimate.
+                    </p>
+
+                    <div class="meth-formula">
+                        blended_rating = (1 − α) × base_rating + α × recent_rating
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        The aim is to respond to genuine changes in team strength
+                        while avoiding large rating swings caused by short-term
+                        variance.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">04</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Expected goals
+                    </div>
+
+                    <p>
+                        Fixture-level expected goals are produced by combining
+                        one team's attacking strength with the opposition's
+                        defensive strength and the relevant home-field effect.
+                    </p>
+
+                    <div class="meth-formula">
+                        expected_goals =
+                        team_attack × opponent_defence × home_adjustment
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        This gives the model an expected scoring rate for the
+                        home team and away team before the scoreline distribution
+                        is calculated.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">05</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Bivariate Poisson scoreline model
+                    </div>
+
+                    <p>
+                        Rather than modelling home and away goals as completely
+                        independent events, FiveStat uses a bivariate Poisson
+                        structure with a shared component between the two scoring
+                        processes.
+                    </p>
+
+                    <div class="meth-formula">
+                        P(X=i, Y=j) =
+                        Σₖ [Poisson(i−k; λ₁) ×
+                        Poisson(j−k; λ₂) ×
+                        Poisson(k; λ₃)]
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        This produces a probability for each represented
+                        scoreline. The resulting matrix is normalised so that
+                        its probabilities sum to 1.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step" style="border-bottom:none;">
+
+                <div class="meth-step-num">06</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        From scorelines to markets
+                    </div>
+
+                    <p>
+                        Once the scoreline matrix exists, different match
+                        probabilities can be obtained by summing the relevant
+                        cells.
+                    </p>
+
+                    <div class="meth-formula">
+                        P(home win) = Σ P(i,j) where i &gt; j
+                    </div>
+
+                    <div class="meth-formula">
+                        P(draw) = Σ P(i,j) where i = j
+                    </div>
+
+                    <div class="meth-formula">
+                        P(away win) = Σ P(i,j) where j &gt; i
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        Over 2.5 goals is the probability of all scorelines with
+                        at least three total goals. Clean-sheet probability is
+                        the probability that the opponent scores zero.
+                    </p>
+
+                    <p>
+                        Correct-score probabilities are simply the individual
+                        cells within the same matrix.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# VALIDATION                                                         #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
+    {% if accuracy %}
+
+    <div class="meth-accuracy-header">
+
+        <h2 class="meth-accuracy-title">
+            Walk-forward model validation
+        </h2>
+
+        <p class="meth-accuracy-subtitle">
+            {{ accuracy.matches_predicted }} historical Premier League
+            predictions generated using only information available before
+            each fixture.
+        </p>
+
+    </div>
+
+
+    <div class="meth-accuracy-strip">
+
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                Avg RPS
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.avg_rps }}
+            </div>
+
+            <div class="meth-acc-sub">
+                vs {{ accuracy.baseline_rps }} naive baseline
             </div>
         </div>
 
-        <div class="meth-step">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">The Outcome accuracy - {{ accuracy.outcome_accuracy }}%</div>
-                <p>The model correctly predicted the most likely match outcome (home win, draw, or away win) in {{ accuracy.outcome_accuracy }}% of fixtures. By outcome: home win {{ accuracy.home_win_accuracy }}%, away win {{ accuracy.away_win_accuracy }}%. Key insight: A Draw prediction as the most likely outcome is near-zero for any probabilistic model as draws take up the least no. outcomes in the scoreline matrix (64 outcomes, 8 of those result in a draw).</p>
+
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                Outcome accuracy
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.outcome_accuracy }}%
+            </div>
+
+            <div class="meth-acc-sub">
+                Most likely H / D / A outcome
             </div>
         </div>
 
-        <div class="meth-step">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">The Ranked Probability Score - {{ accuracy.avg_rps }}</div>
-                <p>RPS measures probabilistic accuracy across all three outcomes, rewarding confident & correct predictions and penalising confident but incorrect ones. Key: Lower is better. An equal-weight model scores {{ accuracy.baseline_rps }}. Our model's improvement of +{{ accuracy.rps_improvement }} over this baseline showcases a meaningful probability calibration beyond a simple outcome prediction.</p>
+
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                Moneyline accuracy
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.moneyline_accuracy }}%
+            </div>
+
+            <div class="meth-acc-sub">
+                {{ accuracy.moneyline_n }} decisive matches
             </div>
         </div>
 
-        <div class="meth-step">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">The Moneyline accuracy - {{ accuracy.moneyline_accuracy }}%</div>
-                <p>Excluding draws and measuring only decisive fixtures, the model correctly identified the winning team in {{ accuracy.moneyline_accuracy }}% of the {{ accuracy.moneyline_n }} matches that produced a winner. This is the most relevant metric for win market betting.</p>
+
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                O/U 2.5 accuracy
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.ou_accuracy }}%
+            </div>
+
+            <div class="meth-acc-sub">
+                {{ accuracy.ou_sample }} matches
             </div>
         </div>
 
-        <!--<div class="meth-step">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">The Draw calibration</div>
-                <p>The model assigns an average draw probability of {{ accuracy.avg_model_draw_prob }}% per fixture against an actual EPL draw rate of {{ accuracy.draw_actual_rate }}% - a calibration error of {{ accuracy.draw_calibration_error }} percentage points. Draw probability is calibrated using a Dixon-Coles low-score correction (ρ = −0.13) which adjusts the four most common low-scoring outcomes (0-0, 1-0, 0-1, 1-1) to better reflect the tactical dynamics of football matches.</p>
-            </div>
-        </div>-->
 
-        <div class="meth-step" style="border-bottom:none;">
-            <div class="meth-step-num">→</div>
-            <div class="meth-step-body">
-                <div class="meth-step-title">the Correct score rate - {{ accuracy.correct_score_rate }}%</div>
-                <p>These are the highest-probability scoreline in each heatmap, which matched the actual result in {{ accuracy.correct_score_rate }}% of fixtures. The industry benchmarks for a correct score models on EPL fixtures is around 5-8%, making this a strong result given the model uses only historical goals and xG data.</p>
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                Correct score
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.correct_score_rate }}%
+            </div>
+
+            <div class="meth-acc-sub">
+                Highest-probability scoreline
+            </div>
+        </div>
+
+
+        <div class="meth-acc-card">
+            <div class="meth-acc-label">
+                xG MAE
+            </div>
+
+            <div class="meth-acc-value">
+                {{ accuracy.xg_mae }}
+            </div>
+
+            <div class="meth-acc-sub">
+                Goals vs expected goals
             </div>
         </div>
 
     </div>
+
+
+
+    <div class="meth-section">
+
+        <div class="meth-section-header">
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                How the model is tested
+            </h2>
+        </div>
+
+
+        <div class="meth-steps">
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">01</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Walk-forward validation
+                    </div>
+
+                    <p>
+                        The model is tested under the same information
+                        constraints it faces in production.
+                    </p>
+
+                    <p>
+                        For each historical prediction point, the model is fitted
+                        using only data that would have been available before
+                        that fixture. The prediction is recorded, the historical
+                        timeline advances, and the process repeats.
+                    </p>
+
+                    <p>
+                        Future matches are never included when generating an
+                        earlier prediction.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">02</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Ranked Probability Score
+                    </div>
+
+                    <p>
+                        RPS is FiveStat's primary probabilistic evaluation
+                        metric for match outcomes.
+                    </p>
+
+                    <p>
+                        It evaluates the full home / draw / away probability
+                        distribution rather than simply asking whether the
+                        most likely result happened.
+                    </p>
+
+                    <p>
+                        Confident incorrect predictions receive a larger
+                        penalty than uncertain ones.
+                        <strong>Lower RPS is better.</strong>
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">03</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Outcome accuracy
+                    </div>
+
+                    <p>
+                        Outcome accuracy records how often the result with the
+                        highest probability — home win, draw or away win —
+                        actually occurs.
+                    </p>
+
+                    <p>
+                        It is easy to interpret, but it ignores the difference
+                        between a 36% forecast and a 75% forecast. For that
+                        reason it is treated as a supporting metric rather than
+                        the primary measure of model quality.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step" style="border-bottom:none;">
+
+                <div class="meth-step-num">04</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Scoreline and goals diagnostics
+                    </div>
+
+                    <p>
+                        Over/Under 2.5 performance, correct-score rate and xG
+                        error provide additional diagnostics for different
+                        parts of the probability distribution.
+                    </p>
+
+                    <p>
+                        No single metric tells the whole story, so FiveStat
+                        evaluates both the quality of individual outputs and
+                        the calibration of the wider probability model.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     {% endif %}
 
-    {# ── Section 1: Match prediction model ── #}
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# LEAGUE SIMULATION                                                  #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
     <div class="meth-section">
+
         <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-futbol"></i></div>
-            <h2 class="meth-section-title">Match prediction model</h2>
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-table-cells"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Predicted final table
+            </h2>
         </div>
+
 
         <div class="meth-steps">
 
+
             <div class="meth-step">
+
                 <div class="meth-step-num">01</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Historical data</div>
-                    <p>Premier League match results from 2016/17 to present are loaded. Goals scored and goals conceded are extracted per match and assigned home or away, forming each team's base ratings.</p>
-                    <p class="meth-note"><strong>Note:</strong> Newly promoted teams are excluded from GW1 predictions. The model requires a minimum number of Premier League matches in the historical dataset to generate reliable ratings - promoted sides have no top-flight data and are added once they have played enough matches to produce stable estimates.</p>
+
+                    <div class="meth-step-title">
+                        Simulate every remaining fixture
+                    </div>
+
+                    <p>
+                        Each unplayed Premier League fixture is simulated from
+                        FiveStat's home-win, draw and away-win probability
+                        distribution.
+                    </p>
+
+                    <p>
+                        Simulated points are added to each team's actual points
+                        total to create a possible final league table.
+                    </p>
+
                 </div>
             </div>
 
+
+
             <div class="meth-step">
+
                 <div class="meth-step-num">02</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Base attack and defence ratings</div>
-                    <p>ATT and DEF ratings are computed per Team. ATT is the average goals scored both home & away; DEF is the average conceded. These ratings represent the team's underlying quality.</p>
-                    <div class="meth-formula">ATT = (avg_home_goals_for + avg_away_goals_for) / 2</div>
-                    <div class="meth-formula">DEF = (avg_home_goals_against + avg_away_goals_against) / 2</div>
+
+                    <div class="meth-step-title">
+                        10,000 seasons
+                    </div>
+
+                    <p>
+                        The process is repeated 10,000 times.
+                    </p>
+
+                    <p>
+                        The proportion of simulations in which a team finishes
+                        in each position becomes its estimated probability of
+                        finishing there.
+                    </p>
+
+                    <p>
+                        Expected final points are calculated from the average
+                        points total across the simulations.
+                    </p>
+
                 </div>
             </div>
 
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Recent form adjustment</div>
-                    <p>Form ratings are computed from the most recent 20 matches and blended with the base ratings. The blending parameter α (0.30) controls how much weight is placed on recent form versus long-run quality. At 0.30, the model places 70% weight on the team's long-run historical average and 30% on recent form - keeping predictions stable and avoiding overreaction to short-term runs.</p>
-                    <div class="meth-formula">blended_att = (1 − α) × base_att + α × recent_att</div>
-                    <div class="meth-formula">blended_def = (1 − α) × base_def + α × recent_def</div>
-                </div>
-            </div>
 
-            <div class="meth-step">
-                <div class="meth-step-num">04</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Computing Expected goals (xG)</div>
-                    <p>Team xG is derived using a multiplicative Dixon-Coles model - ATT rating × opponent DEF rating. Both ratings are MLE-fitted and normalised to a league mean of 1.0, so the product directly gives expected goals in the correct scale without any further calibration step. The xG is then adjusted for team-specific home field advantage (derived from the last 20 home vs away matches, capped at ±15%) and any manual adjustments for material squad changes mid-season.</p>
-                    <div class="meth-formula">xG = blended_att × opponent_blended_def × home_advantage_multiplier</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">05</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Bivariate Poisson simulation</div>
-                    <p>Scorelines are simulated using a bivariate Poisson distribution rather than two independent Poisson processes. Parameter λ₃ (0.05) introduces positive correlation between home and away goals, producing more realistic draw probabilities. Independent Poisson models can underestimate draws as they treat the outcomes as independent - we need to account for the tactics and dynamics of football (losing teams will push forward, level or ahead teams can sit deeper) which increases the likelihood of draws like 1-1 and 2-2.</p>
-                    <div class="meth-formula">P(X=i, Y=j) = Σₖ [ Poisson(i−k; λ₁) × Poisson(j−k; λ₂) × Poisson(k; λ₃) ]</div>
-                    <p style="margin-top:0.5rem;">where λ₁ = home_xg − λ₃, λ₂ = away_xg − λ₃, and the sum is over k = 0..min(i,j). This yields a 8×8 scoreline probability matrix which is normalised to sum to 1.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">06</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Outcome probability</div>
-                    <p>Match outcome probabilities are derived from the scoreline matrix:</p>
-                    <div class="meth-formula">P(home win) = Σᵢ₊ⱼ P(i,j) where i (home) &gt; j (away)</div>
-                    <div class="meth-formula">P(draw)     = Σᵢ₊ⱼ P(i,j) where i = j</div>
-                    <div class="meth-formula">P(away win) = Σᵢ₊ⱼ P(i,j) where j &gt; i</div>
-                    <p style="margin-top:0.5rem;">Clean sheet probabilities are derived as P(away goals = 0) for home clean sheet and P(home goals = 0) for away clean sheet. Over 2.5 probability is Σ P(i,j) where i+j &gt; 2.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {# ── Section 2: League simulation ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-table-cells"></i></div>
-            <h2 class="meth-section-title">League table simulation</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Monte Carlo simulation</div>
-                    <p>The remaining unplayed fixtures are simulated by generating a random outcome from the model's home win / draw / away win probability distribution. Points are awarded per team off the back of these simulated results and stored.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">10,000 runs</div>
-                    <p>The full remaining season is simulated 10,000 times. Each run produces a final league table. The number of times a team finishes in each position gives the team's final league position probability. Expected final points (xPTS) are calculated as current points plus the average simulated points from the entire sim.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Limitations</div>
-                    <p>The simulation uses static match probabilities - it does not re-estimate team ratings between simulated fixtures. This means a team on a strong run whose ratings haven't yet absorbed that form will be slightly undervalued, and vice versa. Results should be read as a snapshot of the current probability distribution, not a forecast that updates dynamically as simulated rounds play out. In practice, this tends to compress the variance of final points distributions slightly toward the mean.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!--{# ── Section 3: Player goal projections ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-bullseye"></i></div>
-            <h2 class="meth-section-title">Player goal projections</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">xG share calculation</div>
-                    <p>A player's involvement in their team's attacking output is estimated as their share of total team xG across all shots in the current season (player xG ÷ team xG). This provides a baseline measure of how central the player is to their team's goal threat.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Form-adjusted xG share</div>
-                    <p>The season-average xG share is blended with a recent-form estimate (per-90 xG in the last 5 matches as a fraction of team xG per 90) using a 30% weight on recent form. This captures players coming in or out of form without over-fitting to small samples.</p>
-                    <div class="meth-formula">adjusted_share = 0.7 × season_share + 0.3 × recent_share</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Per-fixture xG projection</div>
-                    <p>For each of the player's next fixtures, the team xG is estimated using the match prediction model described above. The player's projected xG for that fixture is their adjusted share multiplied by the team's expected goals output.</p>
-                    <div class="meth-formula">player_xg = adjusted_share × team_xg_vs_opponent</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">04</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Scoring probability</div>
-                    <p>The probability of scoring at least one goal is derived from the Poisson distribution with mean equal to the player's projected xG. The goal distribution (0, 1, 2, 3+ goals) is also computed for use in FPL and betting contexts.</p>
-                    <div class="meth-formula">P(score ≥ 1) = 1 − e<sup>−λ</sup>  where λ = player_xg</div>
-                </div>
-            </div>
-
-        </div>
-    </div> -->
-
-    {# ── Section 3: FPL Planner ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-shirt"></i></div>
-            <h2 class="meth-section-title">FPL Planner</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Player Picks - projected xG &amp; xA</div>
-                    <p>Attacking players are ranked by their projected xG for the upcoming gameweek. A player's projected xG is their adjusted xG share (season xG share blended with recent-form performance) multiplied by the team xG the model has assigned to each fixture. Projected xA follows the same approach but uses a player's share of team shot-creating actions and expected assists from the shots data. Both metrics can be viewed across the next 1, 3, or 5 gameweeks, with the multi-GW values representing the sum across all fixtures in that window.</p>
-                    <div class="meth-formula">player_xG = adjusted_xg_share × team_xg_vs_opponent</div>
-                    <div class="meth-formula">player_xA = adjusted_xa_share × team_xg_vs_opponent</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Team xG - Attacking Fixture Strength</div>
-                    <p>Each team's expected goals output is taken directly from the match prediction model for their upcoming fixtures. Teams are ranked from highest to lowest xG, giving an at-a-glance view of which teams have the best attacking opportunity in the selected gameweek window. Green bars indicate a high expected output, yellow shows moderate, and grey shows poor.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Team xGA - Defensive Fixture Strength</div>
-                    <p>xGA (expected goals against) is the xG the model assigns to a team's opponent, showing how many goals a team is expected to concede in a given fixture. It is derived by taking the opponent's model xG from the same match prediction. Teams are ranked from lowest to highest xGA, so the teams at the top of the chart face the easiest defensive fixtures. This is the defensive mirror of the Team xG chart and is most useful for identifying FPL defenders and goalkeepers with clean sheet potential.</p>
-                    <div class="meth-formula">team_xGA = opponent_xG (from match prediction model)</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">04</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Clean Sheet Probability</div>
-                    <p>Per-match clean sheet probabilities are taken directly from the scoreline matrix produced by the match prediction model, specifically P(opponent goals = 0). For multi-gameweek windows (Next 3, Next 5), these per-match probabilities are summed to give us expected clean sheets (xCS) in that window.</p>
-                    <div class="meth-formula">xCS (window) = Σ P(clean sheet) across fixtures in window</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">05</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Fixture Difficulty Rating (FDR)</div>
-                    <p>Each upcoming fixture is colour-coded by difficulty based on the model's win probability for the team in question. Easy (green) reflects a high win probability, Medium (yellow) a relatively competitive fixture, Hard (red) a low win probability, and Blank (grey) is a blank gameweek. Thresholds are set at win probability above 55% for Easy, 35-55% for Medium, and below 35% for Hard.</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {# ── Section 4: Bet Value Finder ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-percent"></i></div>
-            <h2 class="meth-section-title">Bet Value Finder</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Bookie implied probability</div>
-                    <p>Decimal odds from bookmakers are converted to implied probabilities and then margin-adjusted to remove the overround, giving a fair representation of what the bookmaker believes the true probability to be. Odds are sourced from CheckTheChance and refreshed regularly. Important to note that each sportsbook will update and change prices as fixtures approach, so do not take these bookmaker prices as accurate as they will change.</p>
-                    <div class="meth-formula">implied_prob = (1 / decimal_odds) / Σ (1 / all_market_odds)</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Expected Value (EV) calculation</div>
-                    <p>EV expresses the percentage edge our model's probability has over the bookie's margin-adjusted implied probability. A positive EV means our model believes the true probability is higher than the bookie is pricing, suggesting the market may be undervaluing that outcome. A negative EV means the bookie's price implies a higher probability than our model estimates.</p>
-                    <div class="meth-formula">EV (%) = (model_prob − bookie_implied_prob) × 100</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Limitations</div>
-                    <p>EV is a model-driven signal and does not account for line movement or all bookmaker prices. It should be interpreted as an indicator of where our model disagrees with the market, not as a guarantee of profit. Critically, a positive EV bet losing - or even losing several times in a row - does not mean the signal was wrong. Short-run variance dominates any small sample of bets, and a genuine edge only becomes statistically meaningful across hundreds of outcomes. If you are using this tool for any real-money purpose, that distinction matters. Gamble Responsibly!</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {# ── Section 5: F1 Race Prediction Model ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-flag-checkered"></i></div>
-            <h2 class="meth-section-title">F1 race prediction model</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Driver Pace Rating (DPR)</div>
-                    <p>DPR measures a driver's true pace independent of the car they are in, using only intra-team comparisons. For each completed race with valid lap data, the model filters to clean representative laps (removing lap 1, pit entry/exit laps, and outliers via IQR per driver), takes each driver's median clean lap time, and computes the percentage delta versus their teammate. Because both drivers share the same car and the same circuit conditions on the same day, this removes the majority of equipment bias from the comparison.</p>
-                    <div class="meth-formula">per_race_delta = (driver_median − teammate_median) / teammate_median × 100</div>
-                    <p style="margin-top:0.5rem;">Negative = faster than teammate (better). These per-race deltas are then aggregated across the current season plus the two prior seasons, weighted by recency decay (0.85 per race back in time), to produce a single DPR value per driver. Reliability bands are applied: 8+ races = high confidence, 4–7 = caution, fewer than 4 = low.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Constructor Pace Index (CPI)</div>
-                    <p>CPI measures each constructor's outright pace relative to the full field. For each race, the field median lap time is computed from all clean laps. Each constructor's two drivers' medians are averaged to produce a constructor median. The delta versus the field median is then recency-weighted using the same 0.85 decay as DPR. A negative CPI means the team is running faster than the field average - lower is better.</p>
-                    <div class="meth-formula">CPI_delta = (constructor_median − field_median) / field_median × 100</div>
-                    <p style="margin-top:0.5rem;">CPI captures overall car performance across a season and is the primary input representing team competitiveness in the race prediction model.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">03</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Blending pace with grid position</div>
-                    <p>For each driver, a combined pace score is derived by blending DPR and CPI. This score is then blended with the driver's qualifying grid position using a circuit-specific overtaking index. The overtaking index runs from 0.0 (grid position almost entirely determines result, e.g. Monaco at 0.10) to 1.0 (pure pace dominates, e.g. Monza at 0.80). This reflects the real-world constraint that a fast driver starting 15th at Monaco has far less opportunity to recover position than the same driver at Spa.</p>
-                    <div class="meth-formula">race_score = (1 − OI) × grid_score + OI × pace_score</div>
-                    <p style="margin-top:0.5rem;">When qualifying data is not yet available (pre-qualifying mode), grid positions are estimated from the pace ranking directly.</p>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">04</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Monte Carlo simulation</div>
-                    <p>The race is simulated 5,000 times. In each run, each driver draws a pace sample from a normal distribution centred on their race score with a standard deviation of 0.18, representing the inherent randomness of race conditions, safety car timing, tactical strategy, and general chaos. An 8% DNF probability is applied per driver per simulation, reflecting the historical F1 mechanical and incident failure rate. Win, podium (top 3), and points finish (top 10) probabilities are calculated as the proportion of simulations in which each driver achieves each outcome.</p>
-                    <div class="meth-formula">P(win) = simulations where driver finishes 1st / N_simulations</div>
-                </div>
-            </div>
 
             <div class="meth-step" style="border-bottom:none;">
-                <div class="meth-step-num">05</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Limitations</div>
-                    <p>The model has no visibility of race strategy, weather forecasts, tyre allocation, or team orders. DPR reliability is lower for drivers new to a team or in their first season, since the teammate comparison requires both drivers to have raced in comparable conditions. Safety cars, VSC periods, and red flags introduce variance the model cannot price in pre-race. Treat the output as a pace-and-grid-based prior that will be overridden by race-day information the model cannot see.</p>
-                </div>
-            </div>
 
-        </div>
-    </div>
-
-    {# ── Section 6: F1 Race Analysis ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-gauge-high"></i></div>
-            <h2 class="meth-section-title">F1 race analysis</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Stint Efficiency Score</div>
-                    <p>Stint efficiency measures how much faster or slower each driver ran relative to what the tyre compound would predict at that age. For each compound used in the race, a linear degradation model is fitted across all drivers' clean laps on that compound: lap time as a function of tyre age. Each driver's actual lap times are then compared to the model's predicted times lap-by-lap. The mean residual (predicted minus actual) gives the efficiency score for that stint - positive means the driver is outperforming the tyre model, negative means they are underperforming it.</p>
-                    <div class="meth-formula">efficiency = mean(predicted_lap_time − actual_lap_time) per stint</div>
-                    <p style="margin-top:0.5rem;">This separates tyre management skill from raw pace: a driver who consistently extracts more from an ageing tyre than the compound average will show a positive score regardless of their outright lap time.</p>
-                </div>
-            </div>
-
-            <div class="meth-step" style="border-bottom:none;">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Teammate pace delta</div>
-                    <p>The per-race teammate comparison used to compute DPR is also surfaced directly on the race report page. This gives the raw head-to-head median clean lap delta for that specific race, independent of the multi-race weighted average. It provides a single-race lens on intra-team performance that the aggregate DPR smooths over.</p>
-                    <div class="meth-formula">race_delta = (driver_median − teammate_median) / teammate_median × 100</div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    {# ── Section 7: F1 Fantasy ── #}
-    <div class="meth-section">
-        <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-trophy"></i></div>
-            <h2 class="meth-section-title">F1 Fantasy Planner</h2>
-        </div>
-
-        <div class="meth-steps">
-
-            <div class="meth-step">
-                <div class="meth-step-num">01</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Expected Fantasy Points (xFP)</div>
-                    <p>xFP projects a driver's expected fantasy points for an upcoming race using the race prediction model. Win, podium, and points-finish probabilities from the simulation are multiplied by the standard F1 fantasy scoring weights for each outcome and summed to produce a single expected points value per driver. xFP is not a guarantee of score - it represents the probability-weighted average outcome across all simulated races.</p>
-                    <div class="meth-formula">xFP = Σ (outcome_probability × fantasy_points_for_outcome)</div>
-                </div>
-            </div>
-
-            <div class="meth-step">
-                <div class="meth-step-num">02</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Season projection</div>
-                    <p>Season xFP sums actual fantasy points earned in completed races with projected xFP across all remaining races. This gives a full-season expected points total per driver, combining what has already happened with what the model expects to happen. Transfer targets over the next 1, 3, or 5 races are derived from xFP over that horizon, providing a window-adjusted view of who offers the best projected return in each planning period.</p>
-                </div>
-            </div>
-
-            <div class="meth-step" style="border-bottom:none;">
                 <div class="meth-step-num">03</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Limitations</div>
-                    <p>xFP inherits all of the race prediction model's limitations - it does not know about weather, strategy, or team orders. Fantasy scoring can also be affected by fastest lap bonuses and qualifying positions which the model only partially captures. Treat xFP as a starting point for decision-making, not a definitive ranking.</p>
+
+                    <div class="meth-step-title">
+                        A snapshot, not a fixed prediction
+                    </div>
+
+                    <p>
+                        Fixture probabilities remain fixed within an individual
+                        simulation. The model does not re-fit team strength
+                        after each simulated match.
+                    </p>
+
+                    <p>
+                        The table should therefore be read as the probability
+                        distribution implied by what FiveStat knows
+                        <em>today</em>.
+                    </p>
+
+                    <p>
+                        As real fixtures are completed and new information
+                        arrives, the model and league simulation are run again.
+                    </p>
+
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!--{# ── Section 5: Data sources ── #}
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# FPL                                                                #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
     <div class="meth-section">
+
         <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-database"></i></div>
-            <h2 class="meth-section-title">Data sources</h2>
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-shirt"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                FPL Planner
+            </h2>
         </div>
+
+
+        <div class="meth-steps">
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">01</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Player attacking projections
+                    </div>
+
+                    <p>
+                        Player projections start with the player's share of
+                        their team's season xG and xA.
+                    </p>
+
+                    <p>
+                        That season-level share is blended with recent attacking
+                        involvement before being applied to FiveStat's expected
+                        team output for the upcoming fixture.
+                    </p>
+
+                    <div class="meth-formula">
+                        adjusted_share =
+                        0.7 × season_share +
+                        0.3 × recent_share
+                    </div>
+
+                    <div class="meth-formula">
+                        player_xG =
+                        adjusted_xG_share × team_fixture_xG × minutes_scale
+                    </div>
+
+                    <div class="meth-formula">
+                        player_xA =
+                        adjusted_xA_share × team_fixture_xG × minutes_scale
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        Expected playing time is also incorporated so a player
+                        who regularly completes 90 minutes receives a different
+                        projection from a player with more limited minutes.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">02</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Attacking and defensive fixture strength
+                    </div>
+
+                    <p>
+                        Team xG represents FiveStat's expected attacking output
+                        in an upcoming fixture.
+                    </p>
+
+                    <p>
+                        Team xGA is simply the expected goals assigned to that
+                        team's opponent, making it the defensive equivalent.
+                    </p>
+
+                    <div class="meth-formula">
+                        team_xGA = opponent_xG
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        These values can be summed over the next 1, 3 or 5
+                        gameweeks to identify favourable fixture runs.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">03</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Clean-sheet probability
+                    </div>
+
+                    <p>
+                        Clean-sheet probabilities come directly from the match
+                        scoreline matrix:
+                    </p>
+
+                    <div class="meth-formula">
+                        P(clean sheet) = P(opponent goals = 0)
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        Across several gameweeks these probabilities are summed
+                        to create expected clean sheets over the selected
+                        planning window.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step" style="border-bottom:none;">
+
+                <div class="meth-step-num">04</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Fixture Difficulty Rating
+                    </div>
+
+                    <p>
+                        FiveStat's fixture difficulty is generated from the
+                        model rather than assigned manually.
+                    </p>
+
+                    <p>
+                        Fixtures are classified from each team's win probability:
+                    </p>
+
+                    <div class="meth-formula">
+                        Easy = win probability ≥ 60%
+                    </div>
+
+                    <div class="meth-formula">
+                        Medium = win probability 40–60%
+                    </div>
+
+                    <div class="meth-formula">
+                        Hard = win probability &lt; 40%
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# BET VALUE FINDER                                                   #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
+    <div class="meth-section">
+
+        <div class="meth-section-header">
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-percent"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Bet Value Finder
+            </h2>
+        </div>
+
+
+        <div class="meth-steps">
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">01</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Remove the bookmaker margin
+                    </div>
+
+                    <p>
+                        Decimal odds are collected across available UK
+                        bookmakers and converted into implied probabilities.
+                    </p>
+
+                    <p>
+                        Because bookmaker prices contain an overround, the raw
+                        probabilities are normalised within each market before
+                        comparison with FiveStat.
+                    </p>
+
+                    <div class="meth-formula">
+                        fair_probability =
+                        (1 / odds) ÷ Σ(1 / all_market_odds)
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        The margin-adjusted probabilities are then averaged
+                        across the available bookmakers to produce the market
+                        estimate shown by FiveStat.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">02</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Model versus market
+                    </div>
+
+                    <p>
+                        The Bet Value Finder measures where FiveStat's estimated
+                        probability differs from the bookmaker market.
+                    </p>
+
+                    <div class="meth-formula">
+                        model_edge (percentage points) =
+                        model_probability − market_probability
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        A positive value means FiveStat considers the outcome
+                        more likely than the market does. A negative value means
+                        the market assigns the higher probability.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step" style="border-bottom:none;">
+
+                <div class="meth-step-num">03</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        What the signal means
+                    </div>
+
+                    <p>
+                        This is a probability-disagreement signal, not a
+                        guarantee of profit.
+                    </p>
+
+                    <p>
+                        Prices move, different bookmakers offer different odds,
+                        and even a correctly identified probability edge can
+                        lose repeatedly over a small sample.
+                    </p>
+
+                    <p>
+                        Model performance and market disagreement should be
+                        assessed across many outcomes rather than judged by the
+                        result of an individual bet.
+                    </p>
+
+                    <p class="meth-note">
+                        If using FiveStat for real-money betting, only gamble
+                        what you can afford to lose and gamble responsibly.
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# DATA                                                               #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
+    <div class="meth-section">
+
+        <div class="meth-section-header">
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-database"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Data pipeline
+            </h2>
+        </div>
+
+
         <div class="meth-sources">
+
+
             <div class="meth-source-card">
-                <div class="meth-source-name">Understat</div>
-                <div class="meth-source-desc">Match-level xG, shot coordinates, player shot data. Used for all xG-based calculations and shotmap generation.</div>
+
+                <div class="meth-source-name">
+                    Fantasy Premier League API
+                </div>
+
+                <div class="meth-source-desc">
+                    Official fixture schedules, gameweek information and
+                    player-level FPL data including minutes, price,
+                    availability, expected goals and expected assists.
+                </div>
+
             </div>
+
+
+
             <div class="meth-source-card">
-                <div class="meth-source-name">FBref & FPL</div>
-                <div class="meth-source-desc">Player-level statistics including goals, assists, npxG, xA, FPL price & ownership and minutes played. Used for player radar charts and comparison tool.</div>
+
+                <div class="meth-source-name">
+                    Understat
+                </div>
+
+                <div class="meth-source-desc">
+                    Match-level expected goals, team xG and xPTS,
+                    player attacking statistics and shot-level data used
+                    throughout FiveStat's football analysis.
+                </div>
+
             </div>
+
+
+
             <div class="meth-source-card">
-                <div class="meth-source-name">the-odds-api</div>
-                <div class="meth-source-desc">Bookie-implied probabilities (margin-adjusted) for match result and o/u. Used in the bet value finder to calculate model edge.</div>
+
+                <div class="meth-source-name">
+                    FixtureDownload
+                </div>
+
+                <div class="meth-source-desc">
+                    Historical Premier League fixtures and results used to
+                    maintain FiveStat's long-run match dataset from 2016
+                    onwards.
+                </div>
+
             </div>
+
+
+
+            <div class="meth-source-card">
+
+                <div class="meth-source-name">
+                    The Odds API
+                </div>
+
+                <div class="meth-source-desc">
+                    UK bookmaker prices for match-result and Over/Under 2.5
+                    markets. Prices are converted into margin-adjusted market
+                    probabilities before comparison with FiveStat.
+                </div>
+
+            </div>
+
+
         </div>
-    </div>-->
+    </div>
 
 
-    {# ── Section: Where the model struggles ── #}
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# F1                                                                 #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
     <div class="meth-section">
+
         <div class="meth-section-header">
-            <div class="meth-section-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <h2 class="meth-section-title">Where the model struggles</h2>
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-flag-checkered"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Formula 1 models
+            </h2>
         </div>
+
 
         <div class="meth-steps">
 
+
             <div class="meth-step">
-                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-num">01</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Probability is not a promise</div>
-                    <p>A prediction of 65% does not mean the favoured outcome will happen. It means that across a large number of similar matches, the favoured side wins roughly 65% of the time - and loses 35%. A single match resolving against the model's favourite is not evidence the model is wrong any more than a coin landing tails is evidence the coin is biased. The correct way to evaluate probabilistic predictions is over many outcomes, not individual ones. The xTable makes this explicit: teams sitting below their expected position are not necessarily being unlucky this week - they may simply be in the 35% of simulations where their opponents performed above expectation. Any match, betting decision, or fantasy pick that uses a model probability should be understood in those terms.</p>
+
+                    <div class="meth-step-title">
+                        Driver Pace Rating
+                    </div>
+
+                    <p>
+                        DPR attempts to isolate driver performance from car
+                        performance by comparing teammates in the same machinery.
+                    </p>
+
+                    <p>
+                        Clean representative laps are used, with pit-related
+                        laps and statistical outliers removed before each
+                        driver's median pace is compared with their teammate.
+                    </p>
+
+                    <div class="meth-formula">
+                        driver_delta =
+                        (driver_median − teammate_median)
+                        ÷ teammate_median × 100
+                    </div>
+
                 </div>
             </div>
 
+
+
             <div class="meth-step">
-                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-num">02</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Newly promoted sides</div>
-                    <p>Teams returning to the Premier League have limited historical data to generate ATT and DEF ratings. Until they have played enough matches to generate a reliable estimate - typically 6 to 8 gameweeks - their ratings are generated using average league values, which almost certainly misrepresents their true quality, but we'll flag this under the relevant fixtures early in the season. Predictions for these fixtures should be interpreted with wider uncertainty than the output probability implies. This is a current and deliberate trade-off: initialising from lower-league data introduces more noise.</p>
+
+                    <div class="meth-step-title">
+                        Constructor Pace Index
+                    </div>
+
+                    <p>
+                        CPI measures the underlying pace of each constructor
+                        relative to the field.
+                    </p>
+
+                    <p>
+                        It provides the car-performance component of the race
+                        model, while DPR provides the driver-performance
+                        component.
+                    </p>
+
+                    <div class="meth-formula">
+                        constructor_delta =
+                        (constructor_median − field_median)
+                        ÷ field_median × 100
+                    </div>
+
                 </div>
             </div>
 
+
+
             <div class="meth-step">
-                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-num">03</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Mid-season manager changes</div>
-                    <p>The model currently has no feature to detect or respond to managerial appointments. Team ratings are driven entirely by results, so a tactical reset following a new appointment won't register until it produces a sustained change in outcomes (if any). This is the single scenario most likely to produce a model miss on a team whose underlying quality has improved faster than the data can reflect.</p>
+
+                    <div class="meth-step-title">
+                        Race prediction
+                    </div>
+
+                    <p>
+                        Driver and constructor pace are combined with qualifying
+                        position.
+                    </p>
+
+                    <p>
+                        A circuit-specific overtaking index controls how much
+                        weight is placed on underlying pace versus starting
+                        position.
+                    </p>
+
+                    <div class="meth-formula">
+                        race_score =
+                        (1 − overtaking_index) × grid_score +
+                        overtaking_index × pace_score
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        The resulting ratings are used within a Monte Carlo
+                        simulation to estimate win, podium and points-finish
+                        probabilities.
+                    </p>
+
                 </div>
             </div>
 
+
+
             <div class="meth-step">
-                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-num">04</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">Fixture Importance</div>
-                    <p>The model has no concept of what a result will mean to either side. A team with nothing to play for after GW36 may press less intensely than their rating will suggest, but the model still assigns them the same probability it would in a match where points still matter to them. This cuts in several directions. Teams chasing a title or a top-four finish routinely field full-strength sides in every Premier League fixture, often regardless of European commitments, and the model handles these reasonably well. The harder cases are: sides with confirmed European football already secured who rotate ahead of a final, teams mathematically safe from relegation with six games left who visibly ease off, and mid-table sides with no upward or downward pressure who meet a team scrapping for a Champions League place - the model will likely underestimate the motivated side and overestimate the comfortable one. Relegation run-ins are particularly prone to this: a side one point above the drop will frequently outperform their season-average ratings in must-win fixtures, producing upsets the model systematically underweights. European rotation compounds the issue for elite clubs - a team playing Thursday in Europe and Sunday in the Premier League will field a different eleven to the one their ATT and DEF ratings reflect, and the model cannot see that coming.</p>
+
+                    <div class="meth-step-title">
+                        Post-race analysis
+                    </div>
+
+                    <p>
+                        FiveStat also analyses individual race performance
+                        through teammate pace comparisons and stint efficiency.
+                    </p>
+
+                    <p>
+                        Stint efficiency compares actual lap times with the
+                        expected degradation profile of the tyre compound and
+                        tyre age.
+                    </p>
+
+                    <div class="meth-formula">
+                        stint_efficiency =
+                        mean(predicted_lap_time − actual_lap_time)
+                    </div>
+
                 </div>
             </div>
 
-            <div class="meth-step">
-                <div class="meth-step-num">→</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Draws</div>
-                    <p>Draws are the hardest outcome to predict for any probabilistic model of football, and this one is no exception. The bivariate Poisson with Dixon-Coles correction improves draw calibration against a naive independent Poisson, but the model's average draw probability (~26%) still slightly underestimates the EPL's actual draw rate. The structural reason is that draws emerge from match dynamics - tactical adjustments, defensive shape after going ahead - that no pre-match model can capture. Treat draw probabilities as directionally useful rather than precisely calibrated.</p>
-                </div>
-            </div>
 
-            <div class="meth-step">
-                <div class="meth-step-num">→</div>
-                <div class="meth-step-body">
-                    <div class="meth-step-title">Early season (GW1–GW6)</div>
-                    <p>The form component of team ratings is computed from the last 20 matches. At the start of a new season, the current-season sample is small and the model leans heavily on historical data that may now be stale - squads change significantly in the summer transfer window. Predictions in the opening six gameweeks carry meaningfully more variance than the rest of the season, and the backtest metrics above should not be assumed to hold equally across all gameweeks. The walk-forward methodology mitigates this, but cannot eliminate it.</p>
-                </div>
-            </div>
 
             <div class="meth-step" style="border-bottom:none;">
-                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-num">05</div>
+
                 <div class="meth-step-body">
-                    <div class="meth-step-title">What this means for the backtest numbers</div>
-                    <p>The performance metrics above are real and have not been cherry-picked - they reflect the full 2024/25 season under walk-forward conditions with no future data. But they are averages. The model performs best on mid-table fixtures between established sides with stable squads and no European distraction, and worst on promoted sides, rotation-heavy periods in November–March, and matches immediately following a manager change. If you are using the model's output for any purpose that requires you to understand its distributional accuracy rather than its average accuracy, those caveats matter.</p>
+
+                    <div class="meth-step-title">
+                        F1 Fantasy
+                    </div>
+
+                    <p>
+                        Simulated race probabilities are converted into
+                        expected fantasy returns.
+                    </p>
+
+                    <div class="meth-formula">
+                        xFP =
+                        Σ(outcome_probability × fantasy_points)
+                    </div>
+
+                    <p style="margin-top:0.5rem;">
+                        Completed-race points are combined with projected
+                        returns for future races to create season and
+                        transfer-target projections.
+                    </p>
+
                 </div>
             </div>
 
         </div>
     </div>
+
+
+
+    {# ══════════════════════════════════════════════════════════════════ #}
+    {# LIMITATIONS                                                        #}
+    {# ══════════════════════════════════════════════════════════════════ #}
+
+    <div class="meth-section">
+
+        <div class="meth-section-header">
+            <div class="meth-section-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <h2 class="meth-section-title">
+                Where the Premier League model struggles
+            </h2>
+        </div>
+
+
+        <div class="meth-steps">
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Probability is not a promise
+                    </div>
+
+                    <p>
+                        A team given a 65% chance of winning still fails to win
+                        35% of the time under that forecast.
+                    </p>
+
+                    <p>
+                        Individual misses are therefore expected. The correct
+                        way to evaluate a probabilistic model is across a large
+                        number of predictions, not one fixture at a time.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Newly promoted teams
+                    </div>
+
+                    <p>
+                        Promoted clubs begin with limited Premier League data.
+                        Their initial ratings therefore contain more uncertainty
+                        than those of established teams and become more
+                        informative as current-season evidence accumulates.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Manager, squad and tactical changes
+                    </div>
+
+                    <p>
+                        The model reacts to what happens on the pitch. It does
+                        not directly understand that a new manager has arrived,
+                        a key player is injured, or a tactical system has
+                        fundamentally changed.
+                    </p>
+
+                    <p>
+                        Real team strength can therefore change faster than
+                        historical ratings are able to reflect.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Fixture context
+                    </div>
+
+                    <p>
+                        The model does not explicitly know that a team is
+                        fighting relegation, resting players before a European
+                        tie, or has little left to play for.
+                    </p>
+
+                    <p>
+                        Those situations can change team selection and match
+                        behaviour without immediately appearing in historical
+                        performance data.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Match-state effects
+                    </div>
+
+                    <p>
+                        Pre-match models cannot observe the tactical decisions
+                        that happen after kick-off — protecting a lead,
+                        chasing an equaliser, substitutions or changes in
+                        defensive shape.
+                    </p>
+
+                    <p>
+                        The scoreline model captures some dependence between
+                        the two teams' scoring processes, but not every
+                        in-game dynamic.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        Early-season uncertainty
+                    </div>
+
+                    <p>
+                        The first few gameweeks contain less evidence about
+                        current team strength.
+                    </p>
+
+                    <p>
+                        Summer transfers, promoted clubs and tactical changes
+                        mean previous-season data can be less representative,
+                        so uncertainty is naturally higher early in the season.
+                    </p>
+
+                </div>
+            </div>
+
+
+
+            <div class="meth-step" style="border-bottom:none;">
+
+                <div class="meth-step-num">→</div>
+
+                <div class="meth-step-body">
+
+                    <div class="meth-step-title">
+                        What this means
+                    </div>
+
+                    <p>
+                        FiveStat is designed to estimate uncertainty, not remove
+                        it.
+                    </p>
+
+                    <p>
+                        Validation metrics describe average performance across
+                        many historical predictions. They should not be assumed
+                        to apply equally to every individual fixture.
+                    </p>
+
+                    <p>
+                        The most useful way to read FiveStat is therefore to
+                        consider the probability, the model assumptions and the
+                        uncertainty around the situation together.
+                    </p>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
 
 </div>
 
+
 <button id="backToTop" title="Back to Top">↑</button>
+
 
 {% endblock %}
 
 
+
 {% block extra_scripts %}
+
 <script>
+
     window.addEventListener('scroll', function() {
-        document.getElementById('backToTop').style.display =
-            document.documentElement.scrollTop > 400 ? 'block' : 'none';
+
+        const button = document.getElementById('backToTop');
+
+        if (!button) return;
+
+        button.style.display =
+            document.documentElement.scrollTop > 400
+                ? 'block'
+                : 'none';
     });
-    document.getElementById('backToTop').addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+
+
+    document.getElementById('backToTop')?.addEventListener(
+        'click',
+        function() {
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        }
+    );
+
 </script>
+
 {% endblock %}
