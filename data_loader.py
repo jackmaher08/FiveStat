@@ -1144,9 +1144,17 @@ def generate_shot_map(understat_match_id, save_image=True):
             home_df['y_scaled'] = 80  - home_df['y_scaled']
             away_df['y_scaled'] = 80  - away_df['y_scaled']
 
-        # Extract and update team names
+        # Extract and normalize team names. Some shots_data.csv rows still
+        # carry Understat's short-form names ("Hull", "Ipswich", "Tottenham")
+        # from before TEAM_NAME_MAPPING was applied consistently at collection
+        # time; without normalizing here, the saved filename can end up using
+        # whichever variant happens to be in the first row, mismatching what
+        # the site's fixture list (always full names) looks for — causing a
+        # correctly-generated image to appear "missing" under the wrong name.
         home_team_name = home_df.iloc[0]['h_team'] if not home_df.empty else "Unknown"
         away_team_name = away_df.iloc[0]['a_team'] if not away_df.empty else "Unknown"
+        home_team_name = TEAM_NAME_MAPPING.get(home_team_name, home_team_name)
+        away_team_name = TEAM_NAME_MAPPING.get(away_team_name, away_team_name)
 
         # Calculate total goals and xG
         goal_keywords = ['Goal', 'PenaltyGoal']
