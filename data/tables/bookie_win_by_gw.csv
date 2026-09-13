@@ -100,15 +100,15 @@ GW4,Bournemouth,Liverpool,29.6,24.3,46.1
 GW4,Manchester City,Sunderland,74.4,16.8,8.9
 GW4,Fulham,Manchester United,27.4,25.0,47.6
 GW5,Coventry City,Brighton,24.5,25.5,49.9
-GW5,Manchester United,Manchester City,31.1,25.6,43.4
+GW5,Manchester United,Manchester City,31.1,25.5,43.4
 GW5,Leeds United,Newcastle United,40.9,26.9,32.1
 GW5,Brentford,Chelsea,33.3,24.9,41.8
 GW5,Tottenham Hotspur,Aston Villa,47.7,25.7,26.6
-GW5,Brighton,Arsenal,21.1,24.7,54.2
-GW5,Everton,Ipswich,53.7,24.8,21.5
+GW5,Brighton,Arsenal,20.9,24.6,54.5
+GW5,Everton,Ipswich,53.6,24.9,21.5
 GW5,Newcastle United,Hull City,62.8,21.1,16.1
-GW5,Nottingham Forest,Coventry City,54.1,24.8,21.1
-GW5,Bournemouth,Liverpool,30.8,24.4,44.7
+GW5,Nottingham Forest,Coventry City,54.1,24.9,21.0
+GW5,Bournemouth,Liverpool,30.8,24.5,44.7
 GW5,Leeds United,Crystal Palace,47.6,26.5,25.9
 GW5,Manchester City,Sunderland,74.3,16.6,9.1
 GW5,Fulham,Manchester United,27.5,24.8,47.7
@@ -118,7 +118,7 @@ GW5,Chelsea,Bournemouth,48.3,25.4,26.3
 GW5,Sunderland,Brighton,31.9,28.7,39.5
 GW5,Ipswich,Fulham,31.6,29.3,39.1
 GW5,Manchester United,Tottenham Hotspur,53.8,24.3,21.9
-GW5,Crystal Palace,Nottingham Forest,36.7,29.7,33.6
+GW5,Crystal Palace,Nottingham Forest,36.7,29.8,33.5
 GW5,Hull City,Everton,27.2,28.9,43.9
 GW5,Liverpool,Manchester City,31.6,27.0,41.4
 GW5,Coventry City,Newcastle United,28.6,26.6,44.8
