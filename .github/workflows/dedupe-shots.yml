@@ -1,0 +1,35 @@
+name: Dedupe Shots Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  dedupe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Deduplicate shots_data.csv
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          python3 -c "
+          import pandas as pd
+          df = pd.read_csv('data/tables/shots_data.csv')
+          before = len(df)
+          df = df.drop_duplicates()
+          df.to_csv('data/tables/shots_data.csv', index=False)
+          print(f'Removed {before - len(df)} duplicate rows, {len(df)} remain')
+          "
+          git add data/tables/shots_data.csv
+          git diff --staged --quiet || git commit -m "Remove duplicate shot rows"
+          git push
