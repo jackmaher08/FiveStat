@@ -1297,18 +1297,13 @@ if __name__ == "__main__":
 
     print(f"✅ Shotmap image generation complete ({new_shotmaps} new images created)")
 
-    if all_shots_combined:
-        new_df = pd.concat(all_shots_combined, ignore_index=True)
-        new_df["h_team"] = new_df["h_team"].replace(TEAM_NAME_MAPPING)
-        new_df["a_team"] = new_df["a_team"].replace(TEAM_NAME_MAPPING)
-        shots_path = "data/tables/shots_data.csv"
-        if os.path.exists(shots_path):
-            existing = pd.read_csv(shots_path)
-            full_shot_df = pd.concat([existing, new_df], ignore_index=True)
-        else:
-            full_shot_df = new_df
-        full_shot_df.to_csv(shots_path, index=False)
-        print(f"✅ Shot data updated — {len(new_df)} new rows appended to shots_data.csv")
+    # generate_shot_map() now reads FROM shots_data.csv rather than fetching
+    # fresh from Understat (see earlier fix), so its return value is just the
+    # same rows it read back out — appending that here would duplicate them
+    # on every run while a match is still within the "recent" regeneration
+    # window. No further write-back is needed; shots_data.csv is populated
+    # exclusively by collect_all_shot_data() now.
+    print(f"✅ Shotmap generation used cached shot data — no new rows to append")
 
 
 
