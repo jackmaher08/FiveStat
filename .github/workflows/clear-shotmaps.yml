@@ -1,0 +1,21 @@
+name: Clear Shotmaps
+
+on:
+  workflow_dispatch:
+
+jobs:
+  clear:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Delete per-fixture shotmap images
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          find static/shotmaps -maxdepth 1 -name "*.png" -delete
+          git add -A
+          git diff --staged --quiet || git commit -m "Clear per-fixture shotmaps for regeneration"
+          git push
