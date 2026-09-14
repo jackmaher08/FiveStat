@@ -69,6 +69,7 @@ jobs:
           python data_scraper_script.py
           python data_loader.py
           python generate_shotmaps.py
+          python shotmap_script.py
 
       # Remove empty retry-blocking files before the F1 scraper runs
       - name: Clear stale F1 sentinels
