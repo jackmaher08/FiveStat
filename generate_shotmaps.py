@@ -7,8 +7,6 @@ from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.image as mpimg
 
 
-
-
 # Ensure directories exist
 SHOTMAP_DIR = "static/shotmaps/"
 ALL_SHOTMAP_DIR = os.path.join(SHOTMAP_DIR, "all/")
@@ -17,8 +15,11 @@ TEAM_SHOTMAP_DIR = os.path.join(SHOTMAP_DIR, "team/")
 os.makedirs(ALL_SHOTMAP_DIR, exist_ok=True)
 os.makedirs(TEAM_SHOTMAP_DIR, exist_ok=True)
 
-# ✅ Define the path for saving shots_data.csv
+
+# Data paths
 SHOTS_DATA_PATH = "data/tables/shots_data.csv"
+FIXTURE_DATA_PATH = "data/tables/fixture_data.csv"
+
 
 TEAM_NAME_MAPPING = {
     "Man Utd": "Manchester United",
@@ -34,32 +35,62 @@ TEAM_NAME_MAPPING = {
 }
 
 
-if os.path.exists(SHOTS_DATA_PATH):
-    all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
+# ---------------------------------------------------------------------------
+# LOAD CURRENT-SEASON SHOT DATA
+# ---------------------------------------------------------------------------
 
-    # Keep only matches from the current season's completed fixtures.
-    # This prevents old-season shots being carried into the homepage image.
+if os.path.exists(SHOTS_DATA_PATH) and os.path.exists(FIXTURE_DATA_PATH):
+
+    all_shots_df = pd.read_csv(SHOTS_DATA_PATH)
+    fixtures_df = pd.read_csv(FIXTURE_DATA_PATH)
+
+    # Convert isResult safely in case it is stored as text rather than bool
+    if "isResult" in fixtures_df.columns:
+        fixtures_df["isResult"] = (
+            fixtures_df["isResult"]
+            .astype(str)
+            .str.lower()
+            .isin(["true", "1", "yes"])
+        )
+
+    # Only completed fixtures from the current fixture dataset.
+    # fixture_data.csv represents the active/current EPL season.
+    completed_fixtures = fixtures_df[
+        fixtures_df["isResult"] == True
+    ].copy()
+
+    # Create set of current-season completed match IDs
     current_match_ids = set(
-        pd.to_numeric(completed_fixtures["id"], errors="coerce")
+        pd.to_numeric(
+            completed_fixtures["id"],
+            errors="coerce"
+        )
         .dropna()
         .astype(int)
     )
 
+    # Make shot match IDs comparable
     all_shots_df["match_id"] = pd.to_numeric(
         all_shots_df["match_id"],
         errors="coerce"
     )
 
+    # Keep ONLY current-season completed fixtures
     all_shots_df = all_shots_df[
         all_shots_df["match_id"].isin(current_match_ids)
     ].copy()
 
+    # Determine the shooting team
     all_shots_df["team"] = all_shots_df.apply(
-        lambda row: row["h_team"] if row["h_a"] == "h" else row["a_team"],
+        lambda row: (
+            row["h_team"]
+            if row["h_a"] == "h"
+            else row["a_team"]
+        ),
         axis=1
     )
 
-    # Standardize team names
+    # Standardise team names
     all_shots_df["team"] = (
         all_shots_df["team"]
         .replace(TEAM_NAME_MAPPING)
@@ -68,230 +99,436 @@ if os.path.exists(SHOTS_DATA_PATH):
 
     print(
         f"✅ Loaded {len(all_shots_df)} shots "
-        f"from {all_shots_df['match_id'].nunique()} current-season matches"
+        f"from {all_shots_df['match_id'].nunique()} "
+        f"current-season matches"
     )
 
 else:
-    print("⚠️ No shot data found! Exiting...")
+    print("⚠️ Shot data or fixture data not found! Exiting...")
     exit()
 
-# ✅ Ensure shot data is available before processing
+
+# Ensure shot data is available before processing
 if all_shots_df.empty or "team" not in all_shots_df.columns:
-    print("⚠️ No shot data available. Skipping shotmap generation.")
+    print("⚠️ No current-season shot data available. Skipping shotmap generation.")
     exit()
 
-# ✅ Process **all** shots taken this season per team
-team_shots = {team: all_shots_df[all_shots_df['team'] == team] for team in all_shots_df['team'].unique()}
+
+# Process all current-season shots per team
+team_shots = {
+    team: all_shots_df[all_shots_df["team"] == team]
+    for team in all_shots_df["team"].unique()
+}
 
 
-
-
-
-
-
-
+# ---------------------------------------------------------------------------
+# TEAM SHOTMAP
+# ---------------------------------------------------------------------------
 
 def plot_team_shotmap(team_name):
 
-    standardized_team_name = TEAM_NAME_MAPPING.get(team_name.strip(), team_name)
-    df = all_shots_df[all_shots_df['team'] == standardized_team_name].copy()
+    standardized_team_name = TEAM_NAME_MAPPING.get(
+        team_name.strip(),
+        team_name
+    )
+
+    df = all_shots_df[
+        all_shots_df["team"] == standardized_team_name
+    ].copy()
 
     if df.empty:
         print(f"No shots found for {team_name}")
         return
 
-    # Normalise away shots to attack same direction as home (toward x=120)
-    away_mask = df["h_a"] == "h"
-    df.loc[away_mask, "x_scaled"] = 120 - df.loc[away_mask, "x_scaled"]
-    df.loc[away_mask, "y_scaled"] = 80  - df.loc[away_mask, "y_scaled"]
+    # Normalise shot direction.
+    #
+    # Existing FiveStat shot data has home-team coordinates requiring
+    # inversion here so all attacks point toward the same goal.
+    home_mask = df["h_a"] == "h"
 
-    BG = '#f5f5f0'
-
-    # Draw pitch
-    pitch = VerticalPitch(
-        pitch_type='statsbomb', pitch_color=BG,
-        line_color='#888882', line_zorder=2, line_alpha=0.5, half=True
+    df.loc[home_mask, "x_scaled"] = (
+        120 - df.loc[home_mask, "x_scaled"]
     )
+
+    df.loc[home_mask, "y_scaled"] = (
+        80 - df.loc[home_mask, "y_scaled"]
+    )
+
+    BG = "#f5f5f0"
+
+    pitch = VerticalPitch(
+        pitch_type="statsbomb",
+        pitch_color=BG,
+        line_color="#888882",
+        line_zorder=2,
+        line_alpha=0.5,
+        half=True
+    )
+
     fig, ax = pitch.draw(figsize=(8, 10))
+
     fig.patch.set_facecolor(BG)
     ax.set_facecolor(BG)
 
-    # KDE density heatmap — matches home page style
-    cmap = LinearSegmentedColormap.from_list('fivestat', [BG, '#0a2540'])
+    # Remove duplicates before plotting
+    subset_columns = [
+        col
+        for col in [
+            "match_id",
+            "player",
+            "x_scaled",
+            "y_scaled"
+        ]
+        if col in df.columns
+    ]
+
+    if subset_columns:
+        df = df.drop_duplicates(
+            subset=subset_columns
+        )
+
+    # KDE density heatmap
+    cmap = LinearSegmentedColormap.from_list(
+        "fivestat",
+        [BG, "#0a2540"]
+    )
+
     if len(df) >= 5:
         pitch.kdeplot(
-            df['x_scaled'], df['y_scaled'],
-            ax=ax, fill=True, cmap=cmap,
-            n_levels=100, thresh=0, zorder=1, alpha=0.85
+            df["x_scaled"],
+            df["y_scaled"],
+            ax=ax,
+            fill=True,
+            cmap=cmap,
+            n_levels=100,
+            thresh=0,
+            zorder=1,
+            alpha=0.85
         )
 
     # Club badge
-    base_path = os.path.dirname(os.path.abspath(__file__))
-    standardized_filename = standardized_team_name.lower().replace("'", "").replace("'", "")
-    logo_path = os.path.join(base_path, "static", "team_logos", f"{standardized_filename}_logo.png")
+    base_path = os.path.dirname(
+        os.path.abspath(__file__)
+    )
+
+    standardized_filename = (
+        standardized_team_name
+        .lower()
+        .replace("'", "")
+        .replace("’", "")
+    )
+
+    logo_path = os.path.join(
+        base_path,
+        "static",
+        "team_logos",
+        f"{standardized_filename}_logo.png"
+    )
 
     if os.path.exists(logo_path):
-        logo_img = mpimg.imread(logo_path)
-        aspect_ratio = logo_img.shape[0] / logo_img.shape[1]
+
+        logo_img = mpimg.imread(
+            logo_path
+        )
+
+        aspect_ratio = (
+            logo_img.shape[0]
+            / logo_img.shape[1]
+        )
+
         height = 30
-        width  = height / aspect_ratio
-        ax.imshow(logo_img,
-                  extent=(40 - width/2, 40 + width/2, 75, 75 + height),
-                  alpha=0.08, zorder=2)
+        width = height / aspect_ratio
 
-    # Remove duplicates
-    subset_columns = [col for col in ["match_id", "player", "x_scaled", "y_scaled"] if col in df.columns]
-    if subset_columns:
-        df = df.drop_duplicates(subset=subset_columns)
+        ax.imshow(
+            logo_img,
+            extent=(
+                40 - width / 2,
+                40 + width / 2,
+                75,
+                75 + height
+            ),
+            alpha=0.08,
+            zorder=2
+        )
 
-    goals_df     = df[df['result'].str.lower().str.contains('goal')]
-    non_goals_df = df[~df['result'].str.lower().str.contains('goal')]
+    # Ensure xG is numeric
+    df["xG"] = pd.to_numeric(
+        df["xG"],
+        errors="coerce"
+    ).fillna(0.05)
 
-    # Non-goal shots — small white dots
-    pitch.scatter(
-        non_goals_df['x_scaled'], non_goals_df['y_scaled'],
-        s=non_goals_df['xG'].fillna(0.05) * 120,
-        c='white', edgecolors='#888882', linewidths=0.4,
-        alpha=0.35, zorder=3, ax=ax
+    result_text = (
+        df["result"]
+        .astype(str)
+        .str.lower()
     )
 
-    # Goals — gold, more prominent
+    goals_df = df[
+        result_text.str.contains(
+            "goal",
+            na=False
+        )
+        &
+        ~result_text.str.contains(
+            "owngoal",
+            na=False
+        )
+    ]
+
+    non_goals_df = df[
+        ~df.index.isin(
+            goals_df.index
+        )
+    ]
+
+    # Non-goal shots
     pitch.scatter(
-        goals_df['x_scaled'], goals_df['y_scaled'],
-        s=goals_df['xG'].fillna(0.1) * 400,
-        c='#FFD700', edgecolors='#b8860b', linewidths=0.6,
-        alpha=0.9, zorder=4, ax=ax
+        non_goals_df["x_scaled"],
+        non_goals_df["y_scaled"],
+        s=non_goals_df["xG"] * 120,
+        c="white",
+        edgecolors="#888882",
+        linewidths=0.4,
+        alpha=0.35,
+        zorder=3,
+        ax=ax
     )
 
-    # Watermark only
-    fig.text(0.92, 0.04, 'FiveStat', fontsize=8, color='#888882',
-             fontweight='bold', ha='right', va='bottom', alpha=0.5)
+    # Goals
+    pitch.scatter(
+        goals_df["x_scaled"],
+        goals_df["y_scaled"],
+        s=goals_df["xG"] * 400,
+        c="#FFD700",
+        edgecolors="#b8860b",
+        linewidths=0.6,
+        alpha=0.9,
+        zorder=4,
+        ax=ax
+    )
+
+    # Watermark
+    fig.text(
+        0.92,
+        0.04,
+        "FiveStat",
+        fontsize=8,
+        color="#888882",
+        fontweight="bold",
+        ha="right",
+        va="bottom",
+        alpha=0.5
+    )
 
     # Save
-    shotmap_filename = f"{standardized_team_name}_shotmap.png"
-    plt.savefig(os.path.join(TEAM_SHOTMAP_DIR, shotmap_filename),
-                facecolor=BG, dpi=150, bbox_inches='tight')
+    shotmap_filename = (
+        f"{standardized_team_name}_shotmap.png"
+    )
+
+    output_path = os.path.join(
+        TEAM_SHOTMAP_DIR,
+        shotmap_filename
+    )
+
+    plt.savefig(
+        output_path,
+        facecolor=BG,
+        dpi=150,
+        bbox_inches="tight"
+    )
+
     plt.close(fig)
-    print(f"Saved {standardized_team_name} shotmap to {TEAM_SHOTMAP_DIR}{shotmap_filename}")
+
+    print(
+        f"✅ Saved {standardized_team_name} "
+        f"shotmap to {output_path}"
+    )
 
 
- def plot_all_shots():
+# ---------------------------------------------------------------------------
+# ALL SHOTS HOMEPAGE SHOTMAP
+# ---------------------------------------------------------------------------
+
+def plot_all_shots():
     """
-    Generate the homepage all-shots image using only the
-    current season's completed Premier League fixtures.
+    Generate the homepage aggregate shotmap using only
+    current-season completed Premier League fixtures.
     """
 
     df = all_shots_df.copy()
 
     if df.empty:
-        print("⚠️ No current-season shots available for all_shots.png")
+        print(
+            "⚠️ No current-season shots "
+            "available for all_shots.png"
+        )
         return
 
-    # Remove any accidental duplicate shots
+    # Remove duplicate shots
     subset_columns = [
-        col for col in
-        ["match_id", "player", "x_scaled", "y_scaled"]
+        col
+        for col in [
+            "match_id",
+            "player",
+            "x_scaled",
+            "y_scaled"
+        ]
         if col in df.columns
     ]
 
     if subset_columns:
-        df = df.drop_duplicates(subset=subset_columns)
+        df = df.drop_duplicates(
+            subset=subset_columns
+        )
 
-    # Put every shot towards the same goal for the aggregate visual.
-    #
-    # data_loader already flips home x coordinates. Away shots therefore
-    # need their x coordinate flipped here so both sides attack the same end.
-    away_mask = df["h_a"] == "a"
-    df.loc[away_mask, "x_scaled"] = 120 - df.loc[away_mask, "x_scaled"]
+    # Normalise shot direction in the same way as team shotmaps
+    home_mask = df["h_a"] == "h"
+
+    df.loc[home_mask, "x_scaled"] = (
+        120 - df.loc[home_mask, "x_scaled"]
+    )
+
+    df.loc[home_mask, "y_scaled"] = (
+        80 - df.loc[home_mask, "y_scaled"]
+    )
+
+    BG = "#f5f5f0"
 
     pitch = VerticalPitch(
         pitch_type="statsbomb",
-        pitch_color="#f4f4f9",
-        line_color="black",
+        pitch_color=BG,
+        line_color="#888882",
         line_zorder=2,
+        line_alpha=0.5,
         half=True
     )
 
-    fig, ax = pitch.draw(figsize=(14, 10))
-    fig.patch.set_facecolor("#f4f4f9")
+    fig, ax = pitch.draw(
+        figsize=(14, 10)
+    )
 
-    for _, shot in df.iterrows():
-        x = shot["x_scaled"]
-        y = shot["y_scaled"]
+    fig.patch.set_facecolor(BG)
+    ax.set_facecolor(BG)
 
-        result = str(shot.get("result", "")).lower()
+    # KDE density layer
+    cmap = LinearSegmentedColormap.from_list(
+        "fivestat",
+        [BG, "#0a2540"]
+    )
 
-        if "goal" in result and "owngoal" not in result:
-            color = "gold"
-            zorder = 4
-        else:
-            color = "white"
-            zorder = 3
-
-        try:
-            xg = float(shot["xG"])
-        except (ValueError, TypeError):
-            xg = 0.05
-
-        size = max(30, 500 * xg)
-
-        pitch.scatter(
-            x,
-            y,
-            s=size,
-            c=color,
-            edgecolors="black",
-            linewidth=0.6,
-            alpha=0.65,
+    if len(df) >= 5:
+        pitch.kdeplot(
+            df["x_scaled"],
+            df["y_scaled"],
             ax=ax,
-            zorder=zorder
+            fill=True,
+            cmap=cmap,
+            n_levels=100,
+            thresh=0,
+            zorder=1,
+            alpha=0.85
         )
 
-    total_shots = len(df)
-    total_goals = (
+    # Ensure numeric xG
+    df["xG"] = pd.to_numeric(
+        df["xG"],
+        errors="coerce"
+    ).fillna(0.05)
+
+    result_text = (
         df["result"]
         .astype(str)
         .str.lower()
-        .eq("goal")
-        .sum()
     )
 
-    total_xg = pd.to_numeric(
-        df["xG"],
-        errors="coerce"
-    ).sum()
+    goals_df = df[
+        result_text.str.contains(
+            "goal",
+            na=False
+        )
+        &
+        ~result_text.str.contains(
+            "owngoal",
+            na=False
+        )
+    ]
 
-    ax.text(
-        10, 55,
+    non_goals_df = df[
+        ~df.index.isin(
+            goals_df.index
+        )
+    ]
+
+    # Non-goal shots
+    pitch.scatter(
+        non_goals_df["x_scaled"],
+        non_goals_df["y_scaled"],
+        s=non_goals_df["xG"] * 120,
+        c="white",
+        edgecolors="#888882",
+        linewidths=0.4,
+        alpha=0.30,
+        zorder=3,
+        ax=ax
+    )
+
+    # Goals
+    pitch.scatter(
+        goals_df["x_scaled"],
+        goals_df["y_scaled"],
+        s=goals_df["xG"] * 400,
+        c="#FFD700",
+        edgecolors="#b8860b",
+        linewidths=0.6,
+        alpha=0.9,
+        zorder=4,
+        ax=ax
+    )
+
+    # Summary stats
+    total_shots = len(df)
+    total_goals = len(goals_df)
+
+    total_xg = df["xG"].sum()
+
+    fig.text(
+        0.20,
+        0.05,
         f"Shots: {total_shots}",
-        ha="left",
-        va="center",
-        fontsize=18
+        fontsize=11,
+        color="#444444",
+        ha="center"
     )
 
-    ax.text(
-        40, 55,
+    fig.text(
+        0.50,
+        0.05,
         f"Goals: {total_goals}",
-        ha="center",
-        va="center",
-        fontsize=18
+        fontsize=11,
+        color="#444444",
+        ha="center"
     )
 
-    ax.text(
-        70, 55,
+    fig.text(
+        0.80,
+        0.05,
         f"xG: {total_xg:.1f}",
-        ha="right",
-        va="center",
-        fontsize=18
+        fontsize=11,
+        color="#444444",
+        ha="center"
     )
 
-    ax.text(
-        4, 119,
+    # Watermark / season label
+    fig.text(
+        0.92,
+        0.02,
         "FiveStat | Premier League 2026/27",
+        fontsize=8,
+        color="#888882",
+        fontweight="bold",
         ha="right",
-        va="center",
-        fontsize=9,
-        alpha=0.4
+        va="bottom",
+        alpha=0.5
     )
 
     output_path = os.path.join(
@@ -301,23 +538,39 @@ def plot_team_shotmap(team_name):
 
     plt.savefig(
         output_path,
-        bbox_inches="tight",
-        dpi=150
+        facecolor=BG,
+        dpi=150,
+        bbox_inches="tight"
     )
 
     plt.close(fig)
 
     print(
-        f"✅ Current-season all-shots image generated: {output_path}"
+        f"✅ Current-season all-shots image generated: "
+        f"{output_path}"
+    )
+
+    print(
+        f"📊 Homepage shotmap contains "
+        f"{total_shots} shots, "
+        f"{total_goals} goals, "
+        f"{total_xg:.1f} xG"
     )
 
 
+# ---------------------------------------------------------------------------
+# GENERATE SHOTMAPS
+# ---------------------------------------------------------------------------
 
-# Generate homepage aggregate shotmap
+# Homepage aggregate shotmap
 plot_all_shots()
 
-# Generate individual team shotmaps
+
+# Individual team shotmaps
 for team in team_shots.keys():
     plot_team_shotmap(team)
 
-print("✅ All Current-Season Shotmaps Generated! 🎯⚽")
+
+print(
+    "✅ All Current-Season Shotmaps Generated! 🎯⚽"
+)
