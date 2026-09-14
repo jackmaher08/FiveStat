@@ -162,7 +162,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 136,Danny Welbeck,Welbeck,Chelsea,FWD,5.9,0.8,0.5,0.5,15,0,0,0,a,0.0,0.06,0.06
 140,Robert Lynch Sánchez,Sánchez,Chelsea,GK,4.9,0.8,0.5,0.0,90,0,0,0,u,0.0,0.01,0.01
 141,Filip Jörgensen,Jörgensen,Chelsea,GK,5.0,0.0,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-142,Reece James,James,Chelsea,DEF,5.4,7.4,0.8,0.8,292,0,0,0,a,0.33,0.26,0.59
+142,Reece James,James,Chelsea,DEF,5.4,7.3,0.8,0.8,292,0,0,0,a,0.33,0.26,0.59
 143,Trevoh Chalobah,Chalobah,Chelsea,DEF,5.5,0.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 144,Malo Gusto,Gusto,Chelsea,DEF,5.0,1.0,1.0,1.0,272,0,0,0,a,0.08,0.12,0.2
 145,Wesley Fofana,Fofana,Chelsea,DEF,5.0,0.2,1.0,1.0,242,0,0,0,a,0.0,0.08,0.08
@@ -194,9 +194,9 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,goal
 110,Carl Rushworth,Rushworth,Coventry City,GK,4.5,0.9,1.2,1.2,360,0,0,0,a,0.0,0.02,0.02
 171,Oliver Dovin,Dovin,Coventry City,GK,4.0,1.1,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
 172,Ben Wilson,Wilson,Coventry City,GK,4.5,0.4,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
-173,Bobby Thomas,Thomas,Coventry City,DEF,4.0,9.1,3.8,3.8,347,0,0,1,a,0.43,0.26,0.69
+173,Bobby Thomas,Thomas,Coventry City,DEF,4.0,9.0,3.8,3.8,347,0,0,1,a,0.43,0.26,0.69
 174,Liam Kitching,Kitching,Coventry City,DEF,4.0,0.4,0.0,0.0,0,0,0,0,u,0.0,0.0,0.0
-175,Milan van Ewijk,van Ewijk,Coventry City,DEF,4.0,10.3,1.5,1.5,360,0,0,0,a,0.0,0.3,0.3
+175,Milan van Ewijk,van Ewijk,Coventry City,DEF,4.0,10.2,1.5,1.5,360,0,0,0,a,0.0,0.3,0.3
 176,Jay Dasilva,Dasilva,Coventry City,DEF,4.0,0.7,1.2,1.2,354,0,0,0,a,0.18,0.48,0.66
 177,Kaine Kesler-Hayden,Kesler-Hayden,Coventry City,DEF,4.0,0.0,0.0,0.0,0,0,0,0,i,0.0,0.0,0.0
 178,Jake Bidwell,Bidwell,Coventry City,DEF,4.0,0.1,0.0,0.0,0,0,0,0,a,0.0,0.0,0.0
