@@ -62,9 +62,16 @@ def fetch_openf1_laps(openf1_path, laps_path, stints_path):
         if not raw_laps:
             return False
 
-        drivers = {d["driver_number"]: d.get("name_acronym", str(d["driver_number"]))
-                   for d in existing.get("drivers", [])}
-
+        drivers = {
+            d["driver_number"]: d.get(
+                "name_acronym",
+                str(d["driver_number"])
+            )
+            for d in existing.get("drivers", [])
+        }
+        
+        raw_stints = existing.get("stints", [])
+        
         def get_stint_info(driver_num, lap_num):
             for s in raw_stints:
                 lap_start = s.get("lap_start") or 0
