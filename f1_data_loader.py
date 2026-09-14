@@ -15,6 +15,7 @@ CURRENT_YEAR = datetime.now().year
 RECENCY_DECAY = 0.85
 DPR_RELIABLE_THRESHOLD = 8
 DPR_CAUTION_THRESHOLD = 4
+DPR_MIN_CLEAN_LAPS = 10
 
 import time as _time
 _cache = {}
@@ -225,16 +226,19 @@ def calculate_driver_pace_rating(year=None, bust_cache=False):
         cached = _cache_get(cache_key)
         if cached is not None:
             return cached
+
     """
     Driver Pace Rating — teammate-delta-normalised pace, recency-weighted.
 
     Method:
       For each race with valid lap data:
         1. Filter to clean laps.
-        2. Calculate each driver's median clean lap time.
-        3. Compute delta vs teammate: (driver - teammate) / teammate * 100
+        2. Require both teammates to have at least DPR_MIN_CLEAN_LAPS clean laps.
+        3. Calculate each driver's median clean lap time.
+        4. Compute delta vs teammate: (driver - teammate) / teammate * 100
            Negative = faster than teammate (better).
-        4. Weight each race by RECENCY_DECAY^i (i=0 is most recent race).
+        5. Weight each race by RECENCY_DECAY^i (i=0 is most recent race).
+
       Final DPR = weighted mean of per-race deltas.
 
     Returns dict: {driver_code: {"dpr": float, "races_counted": int,
@@ -277,21 +281,36 @@ def calculate_driver_pace_rating(year=None, bust_cache=False):
         driver_info = {r.get("code"): r for r in results}
 
         medians = clean_df.groupby("Driver")["LapTime_s"].median().to_dict()
+        clean_lap_counts = clean_df.groupby("Driver").size().to_dict()
 
         for driver, driver_median in medians.items():
             teammate = teammate_pairs.get(driver)
+
             if not teammate or teammate not in medians:
+                continue
+
+            # Require a representative sample for BOTH teammates.
+            # Prevents retirements / very short runs from creating huge DPR outliers.
+            if (
+                clean_lap_counts.get(driver, 0) < DPR_MIN_CLEAN_LAPS
+                or clean_lap_counts.get(teammate, 0) < DPR_MIN_CLEAN_LAPS
+            ):
                 continue
 
             teammate_median = medians[teammate]
             if teammate_median == 0:
                 continue
 
-            delta = (driver_median - teammate_median) / teammate_median * 100
+            delta = (
+                (driver_median - teammate_median)
+                / teammate_median
+                * 100
+            )
 
             driver_weighted_deltas.setdefault(driver, 0)
             driver_weight_totals.setdefault(driver, 0)
             driver_races_counted.setdefault(driver, 0)
+
             driver_weighted_deltas[driver] += delta * weight
             driver_weight_totals[driver] += weight
             driver_races_counted[driver] += 1
@@ -305,11 +324,14 @@ def calculate_driver_pace_rating(year=None, bust_cache=False):
                 }
 
     ratings = {}
+
     for driver, total_weight in driver_weight_totals.items():
         if total_weight == 0:
             continue
+
         dpr = driver_weighted_deltas[driver] / total_weight
         races_counted = driver_races_counted.get(driver, 0)
+
         if races_counted >= DPR_RELIABLE_THRESHOLD:
             reliability = "high"
         elif races_counted >= DPR_CAUTION_THRESHOLD:
@@ -324,7 +346,13 @@ def calculate_driver_pace_rating(year=None, bust_cache=False):
             **driver_meta.get(driver, {}),
         }
 
-    result = dict(sorted(ratings.items(), key=lambda x: x[1]["dpr"]))
+    result = dict(
+        sorted(
+            ratings.items(),
+            key=lambda x: x[1]["dpr"]
+        )
+    )
+
     _cache_set(cache_key, result)
     return result
 
