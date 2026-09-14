@@ -215,17 +215,32 @@ jobs:
 
       # Commit updated data and trigger Railway
       - name: Commit and push
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email \
             "github-actions[bot]@users.noreply.github.com"
 
+          # FastF1's working cache should not be committed.
+          git restore --staged --worktree data/f1/cache 2>/dev/null || true
+          git clean -fd data/f1/cache
+
           git add .
 
           if git diff --staged --quiet; then
             echo "Nothing to commit"
-          else
-            git commit -m \
-              "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
-            git push
+            exit 0
+          fi
+
+          git commit -m \
+            "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
+
+          # Incorporate anything pushed while this workflow was running.
+          git pull --rebase origin main
+
+          # Retry once if another update lands between pull and push.
+          if ! git push origin HEAD:main; then
+            echo "Remote changed again; rebasing and retrying"
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
