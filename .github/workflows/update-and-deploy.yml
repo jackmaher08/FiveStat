@@ -2,7 +2,10 @@ name: FiveStat Auto-Update
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    # Runs at 02:15 UTC every day:
+    # 02:15 UK during GMT, 03:15 UK during BST
+    - cron: '15 2 * * *'
+
   workflow_dispatch:
     inputs:
       run_type:
@@ -21,9 +24,14 @@ on:
           - backtest_sweep_dispersion_rho
           - backtest_sweep_comprehensive
 
+concurrency:
+  group: fivestat-auto-update
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
@@ -42,55 +50,138 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # Scheduled runs update the complete website.
+      # Manual runs use the option selected in GitHub Actions.
       - name: Detect run type
         id: run_type
-        run: echo "type=${{ inputs.run_type || 'football' }}" >> $GITHUB_OUTPUT
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "type=full" >> "$GITHUB_OUTPUT"
+          else
+            echo "type=${{ inputs.run_type }}" >> "$GITHUB_OUTPUT"
+          fi
 
-      # ── Full: football + F1 ───────────────────────────────────────────────
-      - name: Full pipeline
-        if: steps.run_type.outputs.type == 'full'
+      # Football and FPL
+      - name: Football and FPL pipeline
+        if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'
         run: |
           python data_scraper_script.py
           python data_loader.py
           python generate_shotmaps.py
           python shotmap_script.py
-          python f1_scraper.py
 
-      # ── Football only ─────────────────────────────────────────────────────
-      - name: Football pipeline
-        if: steps.run_type.outputs.type == 'football'
-        run: |
-          python data_scraper_script.py
-          python data_loader.py
-          python generate_shotmaps.py
-          python shotmap_script.py
-
-      # ── F1: current season only ───────────────────────────────────────────
+      # Remove empty retry-blocking files before the F1 scraper runs
       - name: Clear stale F1 sentinels
         if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
+        shell: bash
         run: |
-          find data/f1/races -name "*_laps.json" -o -name "*_stints.json" | while read f; do
-            if [ "$(cat "$f")" = "[]" ]; then
-              echo "Removing stale sentinel: $f"
-              rm "$f"
+          find data/f1/races \
+            \( -name "*_laps.json" -o -name "*_stints.json" \) \
+            -type f |
+          while IFS= read -r file; do
+            if [ "$(tr -d '[:space:]' < "$file")" = "[]" ]; then
+              echo "Removing stale sentinel: $file"
+              rm "$file"
             fi
           done
 
+      # Current F1 season
       - name: F1 pipeline
-        if: steps.run_type.outputs.type == 'f1'
+        if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
         run: python f1_scraper.py
 
-      # ── F1: historical backfill ───────────────────────────────────────────
+      # Confirm the essential F1 outputs are usable
+      - name: Validate F1 outputs
+        if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          from datetime import datetime, timezone
+
+          base = "data/f1"
+          races_dir = os.path.join(base, "races")
+
+          def load_json(path):
+              try:
+                  with open(path, encoding="utf-8") as file:
+                      return json.load(file)
+              except Exception as exc:
+                  print(f"F1 validation failed for {path}: {exc}")
+                  sys.exit(1)
+
+          schedule = load_json(os.path.join(base, "schedule.json"))
+          drivers = load_json(os.path.join(base, "driver_standings.json"))
+          constructors = load_json(os.path.join(base, "constructor_standings.json"))
+
+          if not schedule:
+              sys.exit("F1 validation failed: schedule is empty")
+
+          if len(drivers) < 15:
+              sys.exit(
+                  f"F1 validation failed: only {len(drivers)} drivers "
+                  "were found in the standings"
+              )
+
+          if len(constructors) < 8:
+              sys.exit(
+                  f"F1 validation failed: only {len(constructors)} constructors "
+                  "were found in the standings"
+              )
+
+          today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+          # Only require races dated before today. This avoids failing at
+          # 02:15 UTC before a race taking place later that same day.
+          expected_completed = [
+              race for race in schedule
+              if race.get("date", "") < today
+          ]
+
+          if expected_completed:
+              latest = max(
+                  expected_completed,
+                  key=lambda race: int(race["round"])
+              )
+
+              year = int(latest["season"])
+              round_number = int(latest["round"])
+
+              results_path = os.path.join(
+                  races_dir,
+                  f"{year}_{round_number:02d}_results.json"
+              )
+
+              results = load_json(results_path)
+
+              if len(results) < 15:
+                  sys.exit(
+                      "F1 validation failed: "
+                      f"{latest.get('name', 'latest race')} should be complete, "
+                      f"but {results_path} contains only {len(results)} results"
+                  )
+
+              print(
+                  "F1 validation passed: "
+                  f"{latest.get('name')} is the latest completed race "
+                  f"({len(results)} results)"
+              )
+          else:
+              print("F1 validation passed: no completed races yet")
+          PY
+
+      # Historical F1 backfill — manual only
       - name: F1 historical pipeline
         if: steps.run_type.outputs.type == 'f1_historical'
         run: python f1_scraper.py --historical
 
-      # ── Backtest: full walk-forward run (updates site-facing accuracy stats) ──
+      # Model backtest
       - name: Backtest pipeline
         if: steps.run_type.outputs.type == 'backtest'
         run: python backtest.py
 
-      # ── Backtest: parameter sweeps (report only, no param changes applied) ──
       - name: Backtest sweep pipeline
         if: steps.run_type.outputs.type == 'backtest_sweep'
         run: |
@@ -101,33 +192,40 @@ jobs:
             python backtest.py --sweep
           } > data/tables/sweep_report.txt
 
-      # ── Backtest: dispersion sweep only (separate, since it's slow) ──
       - name: Backtest dispersion sweep pipeline
         if: steps.run_type.outputs.type == 'backtest_sweep_dispersion'
         run: |
           mkdir -p data/tables
-          python backtest.py --sweep-dispersion > data/tables/dispersion_sweep_report.txt
+          python backtest.py --sweep-dispersion \
+            > data/tables/dispersion_sweep_report.txt
 
-      # ── Backtest: joint dispersion x rho sweep ──
       - name: Backtest dispersion-rho sweep pipeline
         if: steps.run_type.outputs.type == 'backtest_sweep_dispersion_rho'
         run: |
           mkdir -p data/tables
-          python backtest.py --sweep-dispersion-rho > data/tables/dispersion_rho_sweep_report.txt
+          python backtest.py --sweep-dispersion-rho \
+            > data/tables/dispersion_rho_sweep_report.txt
 
-      # ── Backtest: comprehensive 4-param grid sweep (alpha x cov_xy x dispersion x rho) ──
       - name: Backtest comprehensive sweep pipeline
         if: steps.run_type.outputs.type == 'backtest_sweep_comprehensive'
         run: |
           mkdir -p data/tables
-          python backtest.py --sweep-comprehensive > data/tables/comprehensive_sweep_report.txt
+          python backtest.py --sweep-comprehensive \
+            > data/tables/comprehensive_sweep_report.txt
 
-      # ── Commit and push (triggers Railway redeploy) ───────────────────────
+      # Commit updated data and trigger Railway
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "github-actions[bot]@users.noreply.github.com"
+
           git add .
-          git diff --staged --quiet && echo "Nothing to commit" || \
-            git commit -m "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
-          git push
+
+          if git diff --staged --quiet; then
+            echo "Nothing to commit"
+          else
+            git commit -m \
+              "Auto-update: $(date -u '+%Y-%m-%d %H:%M UTC') [${{ steps.run_type.outputs.type }}]"
+            git push
+          fi
