@@ -5,6 +5,7 @@ on:
     # Runs at 02:15 UTC every day:
     # 02:15 UK during GMT, 03:15 UK during BST
     - cron: '15 2 * * *'
+      timezone: 'Europe/London'
 
   workflow_dispatch:
     inputs:
