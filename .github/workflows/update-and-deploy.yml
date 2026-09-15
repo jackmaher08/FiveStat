@@ -2,8 +2,7 @@ name: FiveStat Auto-Update
 
 on:
   schedule:
-    # Runs at 02:15 UTC every day:
-    # 02:15 UK during GMT, 03:15 UK during BST
+    # Runs at 02:15 UK local time every day
     - cron: '15 2 * * *'
       timezone: 'Europe/London'
 
