@@ -34,6 +34,14 @@ TEAM_NAME_MAPPING = {
     "Coventry": "Coventry City",
 }
 
+# Crest filenames do not always mirror provider team names. Keep the aliases
+# explicit so canonical team names can be used everywhere else.
+TEAM_LOGO_FILENAMES = {
+    "Coventry City": "coventry city_logo.png",
+    "Hull City": "hull city_logo.png",
+    "Ipswich Town": "ipswich_logo.png",
+}
+
 
 # ---------------------------------------------------------------------------
 # LOAD CURRENT-SEASON SHOT DATA
@@ -218,11 +226,16 @@ def plot_team_shotmap(team_name):
         .replace("’", "")
     )
 
+    logo_filename = TEAM_LOGO_FILENAMES.get(
+        standardized_team_name,
+        f"{standardized_filename}_logo.png"
+    )
+
     logo_path = os.path.join(
         base_path,
         "static",
         "team_logos",
-        f"{standardized_filename}_logo.png"
+        logo_filename
     )
 
     if os.path.exists(logo_path):
