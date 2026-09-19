@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block title %}EPL Model Performance & Backtest Results | FiveStat{% endblock %}
+{% block meta_description %}FiveStat's transparent Premier League model scorecard: walk-forward RPS, Brier score, accuracy, calibration notes and known limitations across three historical seasons.{% endblock %}
+{% block og_title %}FiveStat EPL Model Performance{% endblock %}
+{% block og_description %}A transparent, leakage-free walk-forward scorecard for FiveStat's Premier League prediction model.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/model-performance{% endblock %}
+
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+{% endblock %}
+
+{% block content %}
+<div class="perf-page">
+    <header class="perf-hero">
+        <div class="perf-hero-inner">
+            <p class="perf-eyebrow">EPL model validation</p>
+            <h1>Model Performance</h1>
+            <p class="perf-lead">
+                A transparent record of what the FiveStat model gets right, how it compares
+                with simple baselines, and where it still struggles.
+            </p>
+            {% if performance %}
+            <div class="perf-meta" aria-label="Backtest scope">
+                <span><i class="fa-solid fa-flask" aria-hidden="true"></i> Historical walk-forward backtest</span>
+                <span>{{ performance.season }}</span>
+                <span>{{ "{:,}".format(performance.matches_predicted) }} predictions</span>
+            </div>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if performance %}
+    <section class="perf-section" aria-labelledby="scorecard-title">
+        <div class="perf-section-heading">
+            <div>
+                <p class="perf-kicker">Headline scorecard</p>
+                <h2 id="scorecard-title">Probability quality first</h2>
+            </div>
+            {% if performance.updated_at %}
+            <p class="perf-updated">Backtest file updated {{ performance.updated_at }}</p>
+            {% endif %}
+        </div>
+
+        <div class="perf-honesty-note">
+            <i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            <p>
+                These are historical out-of-sample backtest results, not a live betting
+                record. Each fixture was predicted using only information available before
+                that game.
+            </p>
+        </div>
+
+        <div class="perf-primary-grid">
+            <article class="perf-card perf-card--featured">
+                <p class="perf-card-label">Ranked Probability Score</p>
+                <p class="perf-card-value">{{ "%.4f"|format(performance.avg_rps) }}</p>
+                <p class="perf-card-comparison">
+                    vs {{ "%.4f"|format(performance.baseline_rps) }} equal-probability baseline
+                </p>
+                {% if performance.rps_reduction_pct is not none %}
+                <p class="perf-card-signal">
+                    <i class="fa-solid fa-arrow-trend-down" aria-hidden="true"></i>
+                    {{ performance.rps_reduction_pct }}% lower error
+                </p>
+                {% endif %}
+                <p class="perf-card-help">Lower is better. RPS rewards well-calibrated probabilities across home, draw and away outcomes.</p>
+            </article>
+
+            <article class="perf-card">
+                <p class="perf-card-label">1X2 accuracy</p>
+                <p class="perf-card-value">{{ performance.outcome_accuracy }}%</p>
+                <p class="perf-card-comparison">vs {{ performance.baseline_accuracy }}% always-home baseline</p>
+                <p class="perf-card-signal">+{{ performance.accuracy_lift_pp }} percentage points</p>
+                <p class="perf-card-help">How often the single most likely match outcome was correct.</p>
+            </article>
+
+            <article class="perf-card">
+                <p class="perf-card-label">Brier score</p>
+                <p class="perf-card-value">{{ "%.4f"|format(performance.avg_brier) }}</p>
+                <p class="perf-card-comparison">Probability error score</p>
+                <p class="perf-card-help">Lower is better. Penalises confident probabilities when the predicted event does not occur.</p>
+            </article>
+
+            <article class="perf-card">
+                <p class="perf-card-label">Test sample</p>
+                <p class="perf-card-value">{{ "{:,}".format(performance.matches_predicted) }}</p>
+                <p class="perf-card-comparison">{{ performance.season }}</p>
+                <p class="perf-card-help">{{ performance.matches_skipped }} fixtures were skipped where the model lacked sufficient prior information.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="perf-section perf-chart-section" aria-labelledby="rps-trend-title">
+        <div class="perf-section-heading">
+            <div>
+                <p class="perf-kicker">Gameweek stability</p>
+                <h2 id="rps-trend-title">RPS through the test window</h2>
+            </div>
+            <p class="perf-axis-note">Lower is better</p>
+        </div>
+        <div class="perf-chart-card">
+            <canvas id="rpsChart" role="img" aria-label="Gameweek Ranked Probability Score compared with the naive baseline">
+                Gameweek RPS values are available in the backtest data.
+            </canvas>
+        </div>
+        <p class="perf-chart-caption">
+            Each point combines the same-numbered gameweek across the three evaluated seasons.
+            Variation is expected in small gameweek samples; the overall scorecard above is the
+            more reliable summary.
+        </p>
+    </section>
+
+    <section class="perf-section" aria-labelledby="other-metrics-title">
+        <div class="perf-section-heading">
+            <div>
+                <p class="perf-kicker">Supporting metrics</p>
+                <h2 id="other-metrics-title">Other ways we test the model</h2>
+            </div>
+        </div>
+        <div class="perf-secondary-grid">
+            <article class="perf-mini-card">
+                <span>Decisive-match accuracy</span>
+                <strong>{{ performance.moneyline_accuracy }}%</strong>
+                <small>{{ performance.moneyline_n }} matches, draws excluded</small>
+            </article>
+            <article class="perf-mini-card">
+                <span>Over / Under 2.5</span>
+                <strong>{{ performance.ou_accuracy }}%</strong>
+                <small>{{ performance.ou_sample }} evaluated matches</small>
+            </article>
+            <article class="perf-mini-card">
+                <span>Top correct score</span>
+                <strong>{{ performance.correct_score_rate }}%</strong>
+                <small>Exact result matched the highest-probability scoreline</small>
+            </article>
+            <article class="perf-mini-card">
+                <span>xG mean absolute error</span>
+                <strong>{{ performance.xg_mae }}</strong>
+                <small>Average absolute team-goal forecast error</small>
+            </article>
+        </div>
+    </section>
+
+    <section class="perf-section perf-two-column">
+        <article class="perf-panel">
+            <p class="perf-kicker">How it was tested</p>
+            <h2>Walk-forward, not in-sample</h2>
+            <ol class="perf-process">
+                <li>
+                    <span>1</span>
+                    <div><strong>Train on the past</strong><p>Ratings use only matches completed before the gameweek being predicted.</p></div>
+                </li>
+                <li>
+                    <span>2</span>
+                    <div><strong>Freeze the forecast</strong><p>Probabilities and expected goals are generated before revealing that gameweek's results.</p></div>
+                </li>
+                <li>
+                    <span>3</span>
+                    <div><strong>Score every prediction</strong><p>Forecasts are compared with results using proper probability scores and simple benchmarks.</p></div>
+                </li>
+            </ol>
+        </article>
+
+        <article class="perf-panel perf-panel--caution">
+            <p class="perf-kicker">Known limitation</p>
+            <h2>Draws are hard to rank first</h2>
+            <div class="perf-draw-stat">
+                <div><strong>{{ performance.avg_model_draw_prob }}%</strong><span>average model draw probability</span></div>
+                <div><strong>{{ performance.draw_actual_rate }}%</strong><span>actual draw rate</span></div>
+            </div>
+            <p>
+                The aggregate draw probability is reasonably close to the observed rate,
+                but a draw was never the model's single highest-probability outcome in this
+                test. That is why FiveStat publishes probability scores alongside headline
+                classification accuracy.
+            </p>
+        </article>
+    </section>
+
+    <section class="perf-section perf-boundary" aria-labelledby="not-yet-title">
+        <p class="perf-kicker">Scope boundary</p>
+        <h2 id="not-yet-title">What this page does not claim</h2>
+        <div class="perf-boundary-grid">
+            <p><i class="fa-solid fa-xmark" aria-hidden="true"></i> It is not yet an immutable live prediction record.</p>
+            <p><i class="fa-solid fa-xmark" aria-hidden="true"></i> It does not claim realised betting profit or ROI.</p>
+            <p><i class="fa-solid fa-xmark" aria-hidden="true"></i> It does not yet compare every forecast with closing market prices.</p>
+        </div>
+        <p class="perf-boundary-foot">
+            The next validation layer is to archive pre-match production forecasts and
+            score them after results arrive. Until then, live and backtested performance
+            remain clearly separated.
+        </p>
+    </section>
+
+    <div class="perf-cta">
+        <div>
+            <p class="perf-kicker">Want the mechanics?</p>
+            <h2>Read the full methodology</h2>
+            <p>See how attack and defence ratings, recent form, scoreline probabilities and season simulations are produced.</p>
+        </div>
+        <a href="/methodology" class="perf-cta-button">Explore methodology <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+
+    {% else %}
+    <section class="perf-section">
+        <div class="perf-unavailable">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+            <h2>Performance data is temporarily unavailable</h2>
+            <p>The page will repopulate automatically after the next successful backtest.</p>
+        </div>
+    </section>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+{% if performance and performance.gw_breakdown %}
+<script>
+window.addEventListener('load', function () {
+    const canvas = document.getElementById('rpsChart');
+    if (!canvas || typeof Chart === 'undefined') return;
+
+    new Chart(canvas, {
+        type: 'line',
+        data: {
+            labels: {{ performance.chart_labels | tojson }},
+            datasets: [
+                {
+                    label: 'FiveStat RPS',
+                    data: {{ performance.chart_rps | tojson }},
+                    borderColor: '#1D9E75',
+                    backgroundColor: 'rgba(29, 158, 117, 0.10)',
+                    borderWidth: 2,
+                    pointRadius: 2,
+                    pointHoverRadius: 5,
+                    tension: 0.22,
+                    fill: true
+                },
+                {
+                    label: 'Naive baseline',
+                    data: {{ performance.chart_baseline_rps | tojson }},
+                    borderColor: '#8d918c',
+                    borderWidth: 1.5,
+                    borderDash: [6, 5],
+                    pointRadius: 0,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        boxWidth: 8,
+                        color: '#5f625f',
+                        font: { family: "'Barlow', sans-serif", size: 12 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return context.dataset.label + ': ' + Number(context.raw).toFixed(4);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { maxTicksLimit: 10, color: '#7b7e7a' }
+                },
+                y: {
+                    suggestedMin: 0.12,
+                    suggestedMax: 0.30,
+                    grid: { color: 'rgba(0,0,0,0.06)' },
+                    ticks: {
+                        color: '#7b7e7a',
+                        callback: function (value) { return Number(value).toFixed(2); }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endif %}
+{% endblock %}
