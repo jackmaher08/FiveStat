@@ -5488,3 +5488,33 @@ details.wc-explainer[open] .wc-explainer-chevron {
     margin-top: 1rem;
   }
 }
+
+
+.lp-accuracy-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.9rem;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+}
+
+.lp-accuracy-links button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.lp-accuracy-links button:hover,
+.lp-accuracy-links a:hover {
+  color: var(--accent);
+}
+
+.lp-accuracy-links a {
+  color: var(--accent-dark);
+  font-weight: 600;
+}
