@@ -4987,3 +4987,176 @@ details.wc-explainer[open] .wc-explainer-chevron {
     order: -1;
   }
 }
+
+
+/* ============================================================
+   ACTUAL VS EXPECTED — EPL TABLE TAB
+   ============================================================ */
+.ave-section {
+  width: 100%;
+  max-width: 920px;
+  min-width: 0;
+  margin: 2.5rem auto 0;
+  overflow-x: clip;
+}
+
+.ave-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.ave-heading h2 {
+  margin: 0;
+}
+
+.ave-kicker {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.ave-description {
+  max-width: 610px;
+  margin: 0.3rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.ave-controls {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.3rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+}
+
+.ave-toggle {
+  padding: 0.38rem 0.7rem;
+  border: 0;
+  border-radius: calc(var(--radius-sm) - 2px);
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.ave-toggle:hover {
+  color: var(--accent);
+}
+
+.ave-toggle.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ave-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.ave-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.9rem;
+  margin-bottom: 0.7rem;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+}
+
+.ave-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.ave-swatch {
+  display: inline-block;
+  width: 13px;
+  height: 7px;
+  border-radius: 3px;
+}
+
+.ave-swatch--expected {
+  background: rgba(137, 143, 139, 0.24);
+  border: 1px solid rgba(137, 143, 139, 0.42);
+}
+
+.ave-swatch--above { background: #1D9E75; }
+.ave-swatch--level { background: #D9A300; }
+.ave-swatch--below { background: #C95F5F; }
+
+.ave-chart-card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 1rem 0.8rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.ave-chart-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 720px;
+}
+
+.ave-footnote {
+  max-width: 780px;
+  margin: 0.7rem 0 0;
+  font-size: 0.69rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+@media (max-width: 700px) {
+  .ave-section {
+    max-width: 100%;
+    margin-top: 2rem;
+  }
+
+  .ave-heading {
+    display: block;
+  }
+
+  .ave-controls {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  .ave-toggle {
+    flex: 1 1 0;
+    padding: 0.45rem 0.3rem;
+  }
+
+  .ave-legend {
+    gap: 0.4rem 0.65rem;
+  }
+
+  .ave-chart-card {
+    padding: 0.75rem 0.2rem 0.5rem;
+  }
+
+  .ave-chart-wrap {
+    height: 700px;
+  }
+}
