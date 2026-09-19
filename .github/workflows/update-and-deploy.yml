@@ -77,7 +77,7 @@ jobs:
         if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'
         run: |
           python scripts/validate_fpl_inputs.py
-          python -m unittest tests/test_fpl_projection.py -v
+          python -m unittest discover -s tests -v
 
       # Remove empty retry-blocking files before the F1 scraper runs
       - name: Clear stale F1 sentinels
