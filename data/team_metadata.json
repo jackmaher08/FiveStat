@@ -37,7 +37,7 @@
   "Coventry City": {
     "manager": "TBC",
     "stadium": "Coventry Building Society Arena",
-    "logo": "coventry city_logo.png"
+    "logo": "https://raw.githubusercontent.com/luukhopman/football-logos/master/logos/England%20-%20Premier%20League/Coventry%20City.png"
   },
   "Crystal Palace": {
     "manager": "Oliver Glasner",
@@ -57,7 +57,7 @@
   "Hull City": {
     "manager": "TBC",
     "stadium": "MKM Stadium",
-    "logo": "hull city_logo.png"
+    "logo": "https://raw.githubusercontent.com/luukhopman/football-logos/master/logos/England%20-%20Premier%20League/Hull%20City.png"
   },
   "Ipswich Town": {
     "manager": "TBC",
