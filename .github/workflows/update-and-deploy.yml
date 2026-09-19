@@ -71,6 +71,12 @@ jobs:
           python generate_shotmaps.py
           python shotmap_script.py
 
+      - name: Validate FPL outputs
+        if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'
+        run: |
+          python scripts/validate_fpl_inputs.py
+          python -m unittest tests/test_fpl_projection.py -v
+
       # Remove empty retry-blocking files before the F1 scraper runs
       - name: Clear stale F1 sentinels
         if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
