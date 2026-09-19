@@ -2854,9 +2854,13 @@ input:checked + .slider:before {
    ============================================================ */
 
 .fpl-page {
+  width: 100%;
   max-width: 900px;
+  min-width: 0;
   margin: 0 auto;
   padding: 0 1.5rem 3rem;
+  box-sizing: border-box;
+  overflow-x: clip;
 }
 
 .fpl-deadline-banner {
@@ -2898,6 +2902,9 @@ input:checked + .slider:before {
 }
 
 .fpl-section {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   margin-bottom: 2.5rem;
 }
 
@@ -3022,8 +3029,14 @@ input:checked + .slider:before {
 }
 
 .fpl-table-wrap {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
 }
@@ -3181,10 +3194,28 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 700px) {
-  .fpl-btn-group { width: 100%; overflow-x: auto; padding-bottom: 0.25rem; }
+  .fpl-btn-group {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0.25rem;
+  }
   .fpl-btn { flex: 0 0 auto; }
-  .fpl-table-wrap { overflow-x: visible; border: 0; }
-  .fpl-cap-table { border-collapse: separate; border-spacing: 0 0.6rem; }
+  .fpl-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 0;
+  }
+  .fpl-cap-table {
+    width: max-content;
+    min-width: 600px;
+    border-collapse: separate;
+    border-spacing: 0 0.6rem;
+  }
   .fpl-cap-table thead th:nth-child(4),
   .fpl-cap-table thead th:nth-child(5),
   .fpl-cap-table thead th:nth-child(6),
