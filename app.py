@@ -23,6 +23,7 @@ from fpl_projection import (
     projected_fpl_points,
     projection_confidence,
 )
+from model_performance import load_model_performance
 
 # Flask app initialization
 app = Flask(__name__)
@@ -414,6 +415,16 @@ def methodology():
         with open(accuracy_path, "r") as f:
             accuracy = json.load(f)
     return render_template("methodology.html", accuracy=accuracy)
+
+
+@app.route("/model-performance")
+def model_performance():
+    performance = load_model_performance("data/tables/model_accuracy.json")
+    return render_template(
+        "model_performance.html",
+        performance=performance,
+        last_updated=get_last_updated_time(),
+    )
 
 
 
