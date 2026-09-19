@@ -644,10 +644,12 @@ if pd.isna(next_round_number):
 else:
     gw_label = f"GW{int(next_round_number)}"
 
-    ODDS_API_KEY = "8b7c090a754d217aa867386ab87b9ff8"
+    ODDS_API_KEY = os.environ.get("ODDS_API_KEY")
 
     print(f"🔄 Fetching bookie probabilities from The Odds API for {gw_label}...")
     try:
+        if not ODDS_API_KEY:
+            raise RuntimeError("ODDS_API_KEY is not configured; retaining existing bookie data")
         odds_resp = requests.get(
             "https://api.the-odds-api.com/v4/sports/soccer_epl/odds/",
             params={
@@ -791,10 +793,13 @@ try:
             "form":         float(p["form"]) if p["form"] else 0.0,
             "ep_next":      float(p["ep_next"]) if p["ep_next"] else 0.0,
             "minutes":      int(p["minutes"]),
+            "starts":       int(p.get("starts", 0) or 0),
             "goals":        int(p["goals_scored"]),
             "assists":      int(p["assists"]),
             "clean_sheets": int(p["clean_sheets"]),
             "status":       p["status"],
+            "chance_of_playing_next_round": p.get("chance_of_playing_next_round"),
+            "news":         p.get("news", ""),
             "xg":           float(p.get("expected_goals", 0) or 0),
             "xa":           float(p.get("expected_assists", 0) or 0),
             "xgi":          float(p.get("expected_goal_involvements", 0) or 0),

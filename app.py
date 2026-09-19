@@ -17,6 +17,12 @@ import unicodedata
 import requests
 from bs4 import BeautifulSoup
 from io import BytesIO
+from fpl_projection import (
+    eligibility_minutes,
+    expected_minutes,
+    projected_fpl_points,
+    projection_confidence,
+)
 
 # Flask app initialization
 app = Flask(__name__)
@@ -856,6 +862,8 @@ def fpl():
 
         # ── Captain picks — multi-GW projected xG ─────────────────────────
         captain_picks = []
+        captaincy_status = "unavailable"
+        captaincy_message = "Player projections are temporarily unavailable while the latest Gameweek data is refreshed."
         fpl_path    = "data/tables/fpl_player_data.csv"
         player_path = "data/tables/player_data.csv"
         shots_path  = "data/tables/shots_data.csv"
@@ -1047,22 +1055,32 @@ def fpl():
                         player_xg_map[web] = entry
 
                 form_available = fpl_df["form"].astype(float).fillna(0).max() > 0
+                team_games_played = {
+                    team: fixtures_df[
+                        ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
+                        (fixtures_df["isResult"] == True)
+                    ].shape[0]
+                    for team in teams
+                }
+                unmatched_players = []
 
                 for _, fp in fpl_df.iterrows():
                     if fp["status"] not in ("a", "d"):
                         continue
-                    if int(fp["minutes"]) < 450:
-                        continue
-                    if form_available and float(fp.get("form", 0) or 0) < 1.0:
-                        continue
                     if fp["position"] not in ("MID", "FWD", "DEF"):
-                        continue
-                    if fp["position"] == "DEF" and int(fp["minutes"]) < 900:
                         continue
                     if fp["position"] == "DEF" and float(fp["price"]) < 4.4:
                         continue
 
                     fpl_team = fp["team"]
+                    games_played = int(team_games_played.get(fpl_team, 0))
+                    minimum_minutes = eligibility_minutes(games_played, fp["position"])
+                    if int(fp["minutes"]) < minimum_minutes:
+                        continue
+                    # Form is a useful signal, but never let an early-season or
+                    # temporarily blank FPL value remove the whole player pool.
+                    if games_played >= 6 and form_available and float(fp.get("form", 0) or 0) < 0.5:
+                        continue
                     team_fixes = team_fix_map.get(fpl_team, [])
                     if not team_fixes:
                         continue
@@ -1078,35 +1096,34 @@ def fpl():
                             None
                         )
                     if not match:
+                        unmatched_players.append(fp["web_name"])
                         continue
                     if fp["position"] != "DEF" and match["adj_share"] <= 0:
                         continue
                     # recently_active flag removed — season_share used as fallback
                     # Minutes availability scale
-                    games_played = fixtures_df[
-                        ((fixtures_df["home_team"] == fpl_team) | (fixtures_df["away_team"] == fpl_team)) &
-                        (fixtures_df["isResult"] == True)
-                    ].shape[0]
-                    avg_mins = int(fp["minutes"]) / games_played if games_played > 0 else 90
-                    mins_scale = float(np.clip(avg_mins / 90, 0.3, 1.0))
+                    chance = fp.get("chance_of_playing_next_round")
+                    if pd.isna(chance):
+                        chance = 75 if fp["status"] == "d" else 100
+                    exp_mins = expected_minutes(
+                        fp["minutes"], fp.get("starts", 0), games_played, chance
+                    )
+                    if exp_mins < 20:
+                        continue
+                    mins_scale = exp_mins / 90
+                    confidence = projection_confidence(fp["minutes"], games_played, exp_mins)
 
                     # Per-fixture projections
                     xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
-                    p_full = float(np.clip(avg_mins / 60, 0, 1))
-                    p_partial = float(np.clip(1 - p_full, 0, 1)) * mins_scale
-                    appearance_pts = p_full * 2 + p_partial * 1
-                    is_def = fp["position"] == "DEF"
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
                         proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
                         proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
                         proj_cs = round(fix.get("cs_prob", 0), 3)
-                        if is_def:
-                            fix_xga  = fix.get("fix_xga", 0)
-                            proj_fpl = round(appearance_pts + 6 * proj_cs + 6 * proj_xg + 3 * proj_xa + (-0.5 * fix_xga), 2)
-                        else:
-                            goal_pts = 5 if fp["position"] == "MID" else 4
-                            proj_fpl = round(appearance_pts + goal_pts * proj_xg + 3 * proj_xa, 2)
+                        proj_fpl = projected_fpl_points(
+                            fp["position"], proj_xg, proj_xa, proj_cs,
+                            fix.get("fix_xga", 0), exp_mins,
+                        )
                         fix_projections.append({
                             "gw":       fix["gw"],
                             "label":    f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
@@ -1139,6 +1156,8 @@ def fpl():
                         "position":     fp["position"],
                         "price":        float(fp["price"]),
                         "ownership":    float(fp["ownership"]),
+                        "expected_minutes": exp_mins,
+                        "confidence":   confidence,
                         "ep_next":      float(fp.get("ep_next", 0) or 0),
                         "gw1_xg":       round(gw1_xg, 3),
                         "gw3_xg":       gw3_xg,
@@ -1149,21 +1168,32 @@ def fpl():
                         "gw1_pts":      gw1_pts,
                         "gw3_pts":      gw3_pts,
                         "gw5_pts":      gw5_pts,
+                        "gw5_value":    round(gw5_pts / max(float(fp["price"]), 0.1), 2),
                         "gw1_cs":       gw1_cs,
                         "gw3_cs":       gw3_cs,
                         "gw5_cs":       gw5_cs,
                         "fixtures":     fix_projections,
                         "gw1_fixture":  " + ".join(f["label"] for f in fix_projections if f["gw"] == current_gw) or "",
-                        "gw1_diff":     "easy" if all(f["diff"] == "easy" for f in fix_projections if f["gw"] == current_gw) else "hard" if all(f["diff"] == "hard" for f in fix_projections if f["gw"] == current_gw) else "medium",
+                        "gw1_diff":     "easy" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "easy" for f in fix_projections if f["gw"] == current_gw) else "hard" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "hard" for f in fix_projections if f["gw"] == current_gw) else "medium",
                     })
 
                 captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
                 captain_picks = captain_picks[:100]
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
+                if captain_picks:
+                    captaincy_status = "ready"
+                    captaincy_message = ""
+                else:
+                    captaincy_status = "empty"
+                    captaincy_message = "No players currently meet the projection reliability and availability checks."
+                if unmatched_players:
+                    print(f"⚠️  Captain picks unmatched players ({len(unmatched_players)}): {unmatched_players[:15]}")
 
             except Exception as e:
                 print(f"⚠️  Captain picks error: {e}")
                 import traceback; traceback.print_exc()
+                captaincy_status = "error"
+                captaincy_message = "Player projections are temporarily unavailable while the latest data is checked."
 
         fixture_ticker = []
 
@@ -1216,6 +1246,9 @@ def fpl():
             xga_data=xga_data,
             fixture_ticker=fixture_ticker,
             captain_picks=captain_picks,
+            captaincy_status=captaincy_status,
+            captaincy_message=captaincy_message,
+            captaincy_updated_at=get_last_updated_time(),
             next_deadline=next_deadline,
             current_gw=current_gw,
             gw_range=list(range(current_gw, current_gw + 5)),
@@ -1226,6 +1259,9 @@ def fpl():
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
             cs_data=[], xg_data=[], xga_data=[], fixture_ticker=[], captain_picks=[],
+            captaincy_status="error",
+            captaincy_message="Player projections are temporarily unavailable while the latest data is checked.",
+            captaincy_updated_at=get_last_updated_time(),
             current_gw=1, gw_range=[], next_deadline=None, last_updated=get_last_updated_time()
         )
 

@@ -70,20 +70,20 @@
     {% endif %}
 
     {# ── Captain Picks ── #}
-    {% if captain_picks %}
     <div class="fpl-section">
         <div class="fpl-section-row">
             <div class="fpl-section-title"><span></span> Captaincy Picks & Transfer Targets<button class="info-button" onclick="toggleModal('playerWatchModal')" title="How is this list built?"><i class="fas fa-info-circle"></i></button></div>
             <div class="fpl-btn-group">
-                <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">GW{{ current_gw }}</button>
-                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">Next 3 GWs</button>
-                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw5', this)">Next 5 GWs</button>
+                <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">Captaincy</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">3-GW Transfers</button>
+                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw5', this)">5-GW Transfers</button>
                 <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('diff', this)">Differentials</button>
             </div>
         </div>
         <span class="f1-section-badge">FiveStat Model</span>
         <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.</p>
-        <p class="fpl-note" id="capNote">Defend your picks!</p>
+        <p class="fpl-freshness">Updated {{ captaincy_updated_at }} · projections exclude bonus, cards and other low-frequency scoring events.</p>
+        {% if captain_picks %}
         <div class="fpl-table-wrap">
             <table class="fpl-cap-table">
                 <thead>
@@ -101,11 +101,13 @@
                 </thead>
                 <tbody>
                     {% for pick in captain_picks %}
-                    <tr class="cap-main-row" onclick="toggleCapRow({{ loop.index0 }})" data-idx="{{ loop.index0 }}">
+                    <tr class="cap-main-row" onclick="toggleCapRow({{ loop.index0 }})" onkeydown="handleCapKey(event, {{ loop.index0 }})" data-idx="{{ loop.index0 }}" tabindex="0" role="button" aria-expanded="false">
                         <td class="fpl-rank">{{ loop.index }}</td>
                         <td>
                             <span class="fpl-player-name">{{ pick.name }}</span>
                             <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }}</span>
+                            <span class="fpl-player-meta fpl-mobile-meta">£{{ pick.price }}m · {{ pick.ownership }}% owned · {{ pick.expected_minutes|round|int }} xMins</span>
+                            <span class="fpl-confidence fpl-confidence--{{ pick.confidence|lower }}">{{ pick.confidence }} confidence</span>
                             {% if pick.ownership >= 25 %}
                             <span class="fpl-badge fpl-easy" style="font-size:10px;margin-top:2px;">Safe - popular pick</span>
                             {% elif pick.ownership >= 10 %}
@@ -136,7 +138,7 @@
                         </td>
                     </tr>
                     <tr class="cap-expand-row" id="cap-expand-{{ loop.index0 }}" style="display:none">
-                        <td colspan="8" class="cap-expand-cell">
+                        <td colspan="9" class="cap-expand-cell">
                             <table class="cap-inner-table">
                                 <thead>
                                     <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th><th>Proj. CS</th><th>Proj. Pts</th></tr>
@@ -164,8 +166,13 @@
                 </tbody>
             </table>
         </div>
+        {% else %}
+        <div class="fpl-status fpl-status--{{ captaincy_status }}" role="status">
+            <strong>Projections currently unavailable</strong>
+            <span>{{ captaincy_message }}</span>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 
     {# ── Team xGA Chart ── #}
     {% if xga_data %}
@@ -263,11 +270,11 @@
     <button class="close-button" onclick="toggleModal('playerWatchModal')">✖</button>
     <h3>How is the Player Watch list built?</h3>
     <p><strong>Who is included?</strong><br>
-    Only outfield attacking players (Midfielders and Forwards) who are currently available (no injury or suspension flag) are considered. Players must have accumulated at least 450 minutes of game time during the current season to be included - this filters out rotation risks and players without enough data to project reliably.</p>
+    Outfield players who pass a season-aware minutes threshold are considered. The threshold grows as the season develops, while expected minutes and the official FPL chance-of-playing signal reduce projections for rotation or availability risk.</p>
     <p><strong>Why might a player be missing?</strong><br>
-    A player may be absent if they have fewer than 450 minutes played, are marked as unavailable or doubtful, play for a team with no upcoming fixture data, or have insufficient recent shot data for the model to calculate a meaningful xG share.</p>
+    A player may be absent if they have insufficient minutes for the current stage of the season, are unavailable, project below 20 minutes, have no upcoming fixture data, or lack enough attacking data for a meaningful projection.</p>
     <p><strong>How are projections calculated?</strong><br>
-    Each player's projected xG is based on their share of their team's total xG this season, weighted 70% on the full-season average and 30% on their share over the most recent 5 gameweeks. This share is then multiplied by the team's model-projected xG for the upcoming fixture, scaled by the player's average minutes per game.</p>
+    Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Bonus, cards and other low-frequency events are not yet included.</p>
     <p><strong>What does the Differentials tab show?</strong><br>
     The Differentials tab filters the list to players with an FPL ownership below 15% — useful for identifying high-upside picks that most managers won't have.</p>
 </div>
@@ -286,9 +293,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const capNotes = {
-    gw1:  'Ranked by projected FPL points for Gameweek {{ current_gw }}. Click a row to see fixture breakdown.',
-    gw3:  'Ranked by projected FPL points across the next 3 Gameweeks. Click a row to see fixture breakdown.',
-    gw5:  'Ranked by projected FPL points across the next 5 Gameweeks. Click a row to see fixture breakdown.',
+    gw1:  'Captaincy ranking for Gameweek {{ current_gw }}, led by projected points and expected minutes. Click a row for the fixture breakdown.',
+    gw3:  'Transfer targets ranked by projected points across the next 3 Gameweeks.',
+    gw5:  'Transfer targets ranked by projected points across the next 5 Gameweeks.',
     diff: 'Differentials only (ownership under 15%), ranked by projected FPL points this Gameweek.',
 };
 const capHeaders = {
@@ -306,6 +313,8 @@ const capCsHeaders = {
 };
 
 function setCapWindow(mode, btn) {
+    const table = document.querySelector('.fpl-cap-table');
+    if (!table || !capData.length) return;
     document.getElementById('capNote').textContent = capNotes[mode];
     document.getElementById('capXgHeader').textContent  = capHeaders[mode];
     document.getElementById('capXaHeader').textContent  = capXaHeaders[mode];
@@ -358,7 +367,19 @@ function setCapWindow(mode, btn) {
 
 function toggleCapRow(idx) {
     const exp = document.getElementById(`cap-expand-${idx}`);
-    if (exp) exp.style.display = exp.style.display === 'none' ? '' : 'none';
+    const row = document.querySelector(`.cap-main-row[data-idx="${idx}"]`);
+    if (exp) {
+        const opening = exp.style.display === 'none';
+        exp.style.display = opening ? '' : 'none';
+        if (row) row.setAttribute('aria-expanded', opening ? 'true' : 'false');
+    }
+}
+
+function handleCapKey(event, idx) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCapRow(idx);
+    }
 }
 </script>
 <script>
