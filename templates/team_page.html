@@ -43,7 +43,7 @@
     {# ── Team identity card ── #}
     <div class="team-identity-card">
         <div class="team-identity-left">
-            <img src="{{ url_for('static', filename='team_logos/' + team.logo) }}"
+            <img src="{{ team.logo if team.logo.startswith('http') else url_for('static', filename='team_logos/' + team.logo) }}"
                  alt="{{ team.name }} Logo" class="team-identity-logo">
             <div class="team-identity-info">
                 <h2 class="team-identity-name">{{ team.display_name }}</h2>
