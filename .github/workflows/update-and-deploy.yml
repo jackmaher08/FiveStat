@@ -65,6 +65,8 @@ jobs:
       # Football and FPL
       - name: Football and FPL pipeline
         if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: |
           python data_scraper_script.py
           python data_loader.py
