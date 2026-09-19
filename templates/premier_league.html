@@ -426,7 +426,46 @@
             {% endfor %}
         </tbody>
     </table>
+
 </div>
+
+{% if actual_vs_expected and actual_vs_expected.scoring.rows %}
+<section class="ave-section" aria-labelledby="ave-title">
+    <div class="ave-heading">
+        <div>
+            <p class="ave-kicker">Season performance</p>
+            <h2 id="ave-title">Actual vs Expected</h2>
+            <p id="ave-description" class="ave-description">
+                {{ actual_vs_expected.scoring.explanation }}
+            </p>
+        </div>
+        <div class="ave-controls" role="tablist" aria-label="Actual versus expected metric">
+            <button type="button" class="ave-toggle active" role="tab" aria-selected="true" data-view="scoring" onclick="setActualVsExpectedView('scoring')">Scoring</button>
+            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="defending" onclick="setActualVsExpectedView('defending')">Defending</button>
+            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="points" onclick="setActualVsExpectedView('points')">Points</button>
+        </div>
+    </div>
+
+    <div class="ave-legend" aria-label="Chart legend">
+        <span><i class="ave-swatch ave-swatch--expected"></i> Expected</span>
+        <span><i class="ave-swatch ave-swatch--above"></i> Above expectation</span>
+        <span><i class="ave-swatch ave-swatch--level"></i> Near expectation</span>
+        <span><i class="ave-swatch ave-swatch--below"></i> Below expectation</span>
+    </div>
+
+    <div class="ave-chart-card">
+        <div class="ave-chart-wrap">
+            <canvas id="actualVsExpectedChart" role="img" aria-label="Premier League team goals compared with expected goals"></canvas>
+        </div>
+    </div>
+
+    <p class="ave-footnote">
+        Bars show season totals. Teams are ordered by overperformance within the selected view.
+        Hover or tap a team for matches played and per-match figures. Gaps can reflect finishing,
+        goalkeeping, game state or short-term variance and may not be sustainable.
+    </p>
+</section>
+{% endif %}
 
 <br><br>
 <h2>Predicted Final Table</h2>
@@ -498,8 +537,8 @@
     The xTable ranks teams by their <strong>Expected Points (xPTS)</strong> rather than actual points. Think of it as a "deserved" league table - stripping out the luck and showing which teams have genuinely been the best and worst performers based on the quality of chances created and conceded.</p>
     <p><strong>How is xPTS calculated?</strong><br>
     For every match played, we take the model's home win, draw and away win probabilities - based on both teams' xG - and calculate the expected points each team should have earned from that fixture. Summed across the season, this gives each team's total xPTS.</p>
-    <p><strong>xG +/- and xGA +/-</strong><br>
-    These columns show the difference between actual goals and expected goals. A positive xG +/- means a team has scored more than their chances suggested. A negative xGA +/- means a team has conceded fewer goals than expected.</p>
+    <p><strong>Actual vs expected differences</strong><br>
+    G − xG shows scoring overperformance, xGA − GA shows defensive overperformance, and PTS − xPTS shows points overperformance. Positive values consistently mean the team is ahead of expectation.</p>
     <p><strong>npxG</strong><br>
     Non-penalty xG. Strips out penalties to give a cleaner picture of a team's open-play attacking quality.</p>
 </div>
@@ -513,14 +552,14 @@
                 <th class="bold-left-border" onclick="sortTable('xTable', 2)">G <span class="sort-indicator"></span></th>
                 <th onclick="sortTable('xTable', 3)">xG <span class="sort-indicator"></span></th>
                 <th onclick="sortTable('xTable', 4)">npxG <span class="sort-indicator"></span></th>
-                <th onclick="sortTable('xTable', 5)">xG +/- <span class="sort-indicator"></span></th>
+                <th onclick="sortTable('xTable', 5)">G − xG <span class="sort-indicator"></span></th>
                 <th class="bold-left-border" onclick="sortTable('xTable', 6)">GA <span class="sort-indicator"></span></th>
                 <th onclick="sortTable('xTable', 7)">xGA <span class="sort-indicator"></span></th>
                 <th onclick="sortTable('xTable', 8)">npxGA <span class="sort-indicator"></span></th>
-                <th onclick="sortTable('xTable', 9)">xGA +/- <span class="sort-indicator"></span></th>
+                <th onclick="sortTable('xTable', 9)">xGA − GA <span class="sort-indicator"></span></th>
                 <th class="bold-left-border" onclick="sortTable('xTable', 10)">PTS <span class="sort-indicator"></span></th>
                 <th onclick="sortTable('xTable', 11)">xPTS <span class="sort-indicator"></span></th>
-                <th onclick="sortTable('xTable', 12)">xPTS +/- <span class="sort-indicator"></span></th>
+                <th onclick="sortTable('xTable', 12)">PTS − xPTS <span class="sort-indicator"></span></th>
             </tr>
         </thead>
         <tbody>
@@ -533,14 +572,17 @@
                 <td class="bold-left-border">{{ team["G"] }}</td>
                 <td>{{ '%.1f' | format(team["xG"]) }}</td>
                 <td>{{ '%.1f' | format(team["npxG"]) }}</td>
-                <td class="{% if team['xG +/-']|float > 0 %}positive{% elif team['xG +/-']|float < 0 %}negative{% endif %}">{{ team["xG +/-"] }}</td>
+                {% set scoring_delta = team["G"]|float - team["xG"]|float %}
+                <td class="{% if scoring_delta > 0 %}positive{% elif scoring_delta < 0 %}negative{% endif %}">{{ '%+.1f' | format(scoring_delta) }}</td>
                 <td class="bold-left-border">{{ team["GA"] }}</td>
                 <td>{{ '%.1f' | format(team["xGA"]) }}</td>
                 <td>{{ '%.1f' | format(team["npxGA"]) }}</td>
-                <td class="{% if team['xGA +/-']|float < 0 %}positive{% elif team['xGA +/-']|float > 0 %}negative{% endif %}">{{ team["xGA +/-"] }}</td>
+                {% set defending_delta = team["xGA"]|float - team["GA"]|float %}
+                <td class="{% if defending_delta > 0 %}positive{% elif defending_delta < 0 %}negative{% endif %}">{{ '%+.1f' | format(defending_delta) }}</td>
                 <td class="bold-left-border">{{ team["PTS"] }}</td>
                 <td>{{ '%.1f' | format(team["xPTS"]) }}</td>
-                <td class="{% if team['xPTS +/-']|float > 0 %}positive{% elif team['xPTS +/-']|float < 0 %}negative{% endif %}">{{ team["xPTS +/-"] }}</td>
+                {% set points_delta = team["PTS"]|float - team["xPTS"]|float %}
+                <td class="{% if points_delta > 0 %}positive{% elif points_delta < 0 %}negative{% endif %}">{{ '%+.1f' | format(points_delta) }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -571,6 +613,168 @@
 
 {% block extra_scripts %}
 <script>
+    const actualVsExpectedData = {{ actual_vs_expected | tojson }};
+    let actualVsExpectedChart = null;
+    let actualVsExpectedView = 'scoring';
+
+    const actualVsExpectedDeltaLabels = {
+        id: 'actualVsExpectedDeltaLabels',
+        afterDatasetsDraw: function(chart) {
+            const view = actualVsExpectedData[actualVsExpectedView];
+            if (!view || !view.rows.length) return;
+
+            const meta = chart.getDatasetMeta(1);
+            const xScale = chart.scales.x;
+            const ctx = chart.ctx;
+            ctx.save();
+            ctx.font = '700 11px Barlow, sans-serif';
+            ctx.textBaseline = 'middle';
+
+            view.rows.forEach(function(row, index) {
+                const bar = meta.data[index];
+                if (!bar) return;
+                const edge = xScale.getPixelForValue(Math.max(row.actual, row.expected));
+                const text = (row.difference > 0 ? '+' : '') + row.difference.toFixed(1);
+                const width = ctx.measureText(text).width;
+                const x = Math.min(edge + 7, chart.chartArea.right - width);
+                ctx.fillStyle = row.status === 'above'
+                    ? '#167a5b'
+                    : row.status === 'below' ? '#a64040' : '#8a6900';
+                ctx.fillText(text, x, bar.y);
+            });
+            ctx.restore();
+        }
+    };
+
+    function actualVsExpectedColor(status) {
+        if (status === 'above') return '#1D9E75';
+        if (status === 'below') return '#C95F5F';
+        return '#D9A300';
+    }
+
+    function actualVsExpectedNumber(value) {
+        return Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
+    }
+
+    function renderActualVsExpectedChart(viewName) {
+        const canvas = document.getElementById('actualVsExpectedChart');
+        const view = actualVsExpectedData[viewName];
+        if (!canvas || !view || !view.rows.length || typeof Chart === 'undefined') return;
+
+        actualVsExpectedView = viewName;
+        const rows = view.rows;
+        const description = document.getElementById('ave-description');
+        if (description) description.textContent = view.explanation;
+
+        canvas.setAttribute(
+            'aria-label',
+            'Premier League team ' + view.actual_label.toLowerCase() +
+            ' compared with ' + view.expected_label.toLowerCase()
+        );
+
+        if (actualVsExpectedChart) actualVsExpectedChart.destroy();
+
+        actualVsExpectedChart = new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            plugins: [actualVsExpectedDeltaLabels],
+            data: {
+                labels: rows.map(function(row) { return row.label; }),
+                datasets: [
+                    {
+                        label: view.expected_label,
+                        data: rows.map(function(row) { return row.expected; }),
+                        backgroundColor: 'rgba(137, 143, 139, 0.24)',
+                        borderColor: 'rgba(137, 143, 139, 0.42)',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barThickness: 19,
+                        grouped: false,
+                        order: 2
+                    },
+                    {
+                        label: view.actual_label,
+                        data: rows.map(function(row) { return row.actual; }),
+                        backgroundColor: rows.map(function(row) {
+                            return actualVsExpectedColor(row.status);
+                        }),
+                        borderRadius: 5,
+                        barThickness: 11,
+                        grouped: false,
+                        order: 1
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { right: 42 } },
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(items) {
+                                return items.length ? items[0].label : '';
+                            },
+                            label: function(context) {
+                                return context.dataset.label + ': ' +
+                                    actualVsExpectedNumber(Number(context.raw));
+                            },
+                            afterBody: function(items) {
+                                if (!items.length) return [];
+                                const row = rows[items[0].dataIndex];
+                                return [
+                                    'Matches played: ' + row.matches,
+                                    view.difference_label + ': ' +
+                                        (row.difference > 0 ? '+' : '') + row.difference.toFixed(1),
+                                    view.actual_label + ' per match: ' + row.actual_per_match.toFixed(2),
+                                    view.expected_label + ' per match: ' + row.expected_per_match.toFixed(2)
+                                ];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grace: '14%',
+                        title: {
+                            display: true,
+                            text: view.axis_label,
+                            color: '#7b7e7a',
+                            font: { family: 'Barlow, sans-serif', size: 11 }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.055)' },
+                        ticks: { color: '#7b7e7a', precision: 0 }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#343735',
+                            autoSkip: false,
+                            font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function ensureActualVsExpectedChart() {
+        if (!actualVsExpectedChart) renderActualVsExpectedChart(actualVsExpectedView);
+        else actualVsExpectedChart.resize();
+    }
+
+    function setActualVsExpectedView(viewName) {
+        document.querySelectorAll('.ave-toggle').forEach(function(button) {
+            const active = button.dataset.view === viewName;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        renderActualVsExpectedChart(viewName);
+    }
+
     function switchTab(tab) {
         document.querySelectorAll('.hub-back-link').forEach(function(btn) {
             btn.classList.toggle('hub-back-link--active', btn.dataset.tab === tab);
@@ -579,6 +783,9 @@
             panel.classList.toggle('active', panel.id === 'panel-' + tab);
         });
         history.replaceState(null, '', '/premier-league?tab=' + tab);
+        if (tab === 'table') {
+            window.requestAnimationFrame(ensureActualVsExpectedChart);
+        }
     }
 
     (function() {
