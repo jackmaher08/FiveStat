@@ -3034,7 +3034,7 @@ input:checked + .slider:before {
   font-size: 0.85rem;
 }
 .fpl-cap-table thead th {
-  text-align: left;
+  text-align: center;
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -3045,6 +3045,7 @@ input:checked + .slider:before {
 .fpl-cap-table tbody td {
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--border);
+  text-align: center;
   vertical-align: middle;
 }
 .fpl-cap-table tbody tr:last-child td { border-bottom: none; }
@@ -3065,12 +3066,14 @@ input:checked + .slider:before {
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid var(--border);
 }
 .cap-inner-table td {
   padding: 0.35rem 1rem;
   border-bottom: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
 }
 .cap-inner-table tr:last-child td { border-bottom: none; }
 .fpl-rank { font-weight: 700; color: var(--text-muted); width: 2rem; }
