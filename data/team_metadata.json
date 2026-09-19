@@ -34,6 +34,11 @@
     "stadium": "Stamford Bridge",
     "logo": "chelsea_logo.png"
   },
+  "Coventry City": {
+    "manager": "TBC",
+    "stadium": "Coventry Building Society Arena",
+    "logo": "coventry city_logo.png"
+  },
   "Crystal Palace": {
     "manager": "Oliver Glasner",
     "stadium": "Selhurst Park",
@@ -48,6 +53,16 @@
     "manager": "Marco Silva",
     "stadium": "Craven Cottage",
     "logo": "fulham_logo.png"
+  },
+  "Hull City": {
+    "manager": "TBC",
+    "stadium": "MKM Stadium",
+    "logo": "hull city_logo.png"
+  },
+  "Ipswich Town": {
+    "manager": "TBC",
+    "stadium": "Portman Road",
+    "logo": "ipswich_logo.png"
   },
   "Leeds": {
     "manager": "Daniel Farke",
