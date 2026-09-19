@@ -37,6 +37,11 @@
     </url>
 
     <url>
+        <loc>https://www.fivestat.co.uk/model-performance</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
         <loc>https://www.fivestat.co.uk/methodology</loc>
         <priority>0.6</priority>
     </url>

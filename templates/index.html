@@ -40,7 +40,10 @@
                 <div class="lp-acc-label">O/U 2.5</div>
             </div>
         </div>
-        <span onclick="toggleModal('resultsInfoModal')" style="cursor:pointer; font-size:0.8rem; color:#888;">EPL backtest data. What do these results mean?</span>
+        <div class="lp-accuracy-links">
+            <button type="button" onclick="toggleModal('resultsInfoModal')">What do these results mean?</button>
+            <a href="/model-performance">Full model scorecard →</a>
+        </div>
     </div>
     {% endif %}
 
@@ -50,7 +53,7 @@
             "All models are wrong, but some are useful."
             <span class="lp-quote-attribution">George Box, statistician</span>
         </blockquote>
-        <p class="lp-quote-followup">Ours is wrong in specific & knowable ways. We publish exactly where on the <a href="/methodology">methodology page →</a></p>
+        <p class="lp-quote-followup">Ours is wrong in specific & knowable ways. See the evidence on our <a href="/model-performance">model performance page →</a></p>
     </div>
 
     {# ── GW fixture strip ── #}
@@ -192,7 +195,7 @@
         <p><strong>Over / Under 2.5 Goals accuracy (~57%)</strong><br>
         The over/under 2.5 goals market is one of the most efficient in football betting - bookmakers price it very tightly. A model hitting 57%+ on this market over a large sample is performing above the level needed to find consistent value against the market.</p>
         <p><strong>How was it measured?</strong><br>
-        These figures come from a walk-forward backtest across the 2023/24, 2024/25 and 2025/26 Premier League seasons combined (1,098 matches). Walk-forward means the model only used data available at the time of each prediction - no future data was used. Testing across three full seasons rather than one gives a more statistically robust read on genuine model skill. This mirrors exactly how it works in production. <a href="/methodology">Read the full methodology →</a></p>
+        These figures come from a walk-forward backtest across the 2023/24, 2024/25 and 2025/26 Premier League seasons combined ({{ accuracy.matches_predicted }} matches). Walk-forward means the model only used data available at the time of each prediction - no future data was used. Testing across three full seasons rather than one gives a more statistically robust read on genuine model skill. This mirrors exactly how it works in production. <a href="/model-performance">View the full scorecard →</a> or <a href="/methodology">read the methodology →</a></p>
     </div>
 
     {# ── Feedback modal ── #}
