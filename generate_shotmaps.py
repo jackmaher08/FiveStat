@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from mplsoccer import VerticalPitch
 from matplotlib.colors import LinearSegmentedColormap
 import matplotlib.image as mpimg
+from io import BytesIO
+from urllib.request import urlopen
 
 
 # Ensure directories exist
@@ -34,11 +36,11 @@ TEAM_NAME_MAPPING = {
     "Coventry": "Coventry City",
 }
 
-# Crest filenames do not always mirror provider team names. Keep the aliases
+# Crest sources do not always mirror provider team names. Keep the aliases
 # explicit so canonical team names can be used everywhere else.
-TEAM_LOGO_FILENAMES = {
-    "Coventry City": "coventry city_logo.png",
-    "Hull City": "hull city_logo.png",
+TEAM_LOGO_SOURCES = {
+    "Coventry City": "https://raw.githubusercontent.com/luukhopman/football-logos/master/logos/England%20-%20Premier%20League/Coventry%20City.png",
+    "Hull City": "https://raw.githubusercontent.com/luukhopman/football-logos/master/logos/England%20-%20Premier%20League/Hull%20City.png",
     "Ipswich Town": "ipswich_logo.png",
 }
 
@@ -226,23 +228,33 @@ def plot_team_shotmap(team_name):
         .replace("’", "")
     )
 
-    logo_filename = TEAM_LOGO_FILENAMES.get(
+    logo_source = TEAM_LOGO_SOURCES.get(
         standardized_team_name,
         f"{standardized_filename}_logo.png"
     )
 
-    logo_path = os.path.join(
-        base_path,
-        "static",
-        "team_logos",
-        logo_filename
-    )
+    logo_img = None
+    try:
+        if logo_source.startswith(("http://", "https://")):
+            with urlopen(logo_source, timeout=10) as response:
+                logo_img = mpimg.imread(
+                    BytesIO(response.read()),
+                    format="png"
+                )
+        else:
+            logo_path = os.path.join(
+                base_path,
+                "static",
+                "team_logos",
+                logo_source
+            )
+            if os.path.exists(logo_path):
+                logo_img = mpimg.imread(logo_path)
+    except (OSError, ValueError):
+        # A crest should never prevent the shotmap itself from rendering.
+        logo_img = None
 
-    if os.path.exists(logo_path):
-
-        logo_img = mpimg.imread(
-            logo_path
-        )
+    if logo_img is not None:
 
         aspect_ratio = (
             logo_img.shape[0]
