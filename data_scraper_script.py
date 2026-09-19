@@ -5,6 +5,8 @@ import requests
 import pandas as pd
 from understatapi import UnderstatClient
 from io import StringIO
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 import sys
 BOOKIE_ONLY = "--bookie-only" in sys.argv
@@ -78,10 +80,13 @@ if not BOOKIE_ONLY:
         date_str = ""
         if kickoff:
             try:
-                from datetime import datetime as _dt
-                dt = _dt.strptime(kickoff[:16], "%Y-%m-%dT%H:%M")
-                date_str = dt.strftime("%d/%m/%Y %H:%M")
-            except Exception:
+                # The FPL API returns ISO-8601 UTC timestamps (ending in Z).
+                # Convert to UK local time so BST/GMT changes are automatic.
+                kickoff_utc = datetime.fromisoformat(kickoff.replace("Z", "+00:00"))
+                kickoff_london = kickoff_utc.astimezone(ZoneInfo("Europe/London"))
+                date_str = kickoff_london.strftime("%d/%m/%Y %H:%M")
+            except (TypeError, ValueError):
+                print(f"⚠️ Could not parse FPL kickoff time: {kickoff!r}", file=sys.stderr)
                 date_str = kickoff[:16]
         finished = bool(f.get("finished", False))
         h_score = f.get("team_h_score")
