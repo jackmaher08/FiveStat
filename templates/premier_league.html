@@ -663,6 +663,7 @@
 
         actualVsExpectedView = viewName;
         const rows = view.rows;
+        const isMobileChart = window.matchMedia('(max-width: 700px)').matches;
         const description = document.getElementById('ave-description');
         if (description) description.textContent = view.explanation;
 
@@ -706,6 +707,9 @@
             },
             options: {
                 indexAxis: 'y',
+                events: isMobileChart
+                    ? []
+                    : ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
                 responsive: true,
                 maintainAspectRatio: false,
                 layout: { padding: { right: 42 } },
@@ -713,6 +717,7 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        enabled: !isMobileChart,
                         callbacks: {
                             title: function(items) {
                                 return items.length ? items[0].label : '';
