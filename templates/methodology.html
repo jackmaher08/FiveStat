@@ -65,8 +65,9 @@
                         Historical Premier League results are used to estimate
                         each team's underlying attacking and defensive strength.
                         Longer-term quality is then blended with more recent
-                        performance so the model can respond to changes in form
-                        without overreacting to a handful of matches.
+                        performance using a production recent-form weight of
+                        0.30. Early-season seeding prevents a handful of matches
+                        from overwhelming the longer-term evidence.
                     </p>
                 </div>
             </div>
@@ -99,9 +100,12 @@
 
                     <p>
                         Expected goals are converted into a full matrix of
-                        possible scorelines using a bivariate Poisson model.
-                        The matrix is the foundation for FiveStat's match
-                        probabilities.
+                        possible scorelines using a Poisson-equivalent score
+                        model. Out-of-sample testing found no improvement from
+                        additional dispersion or a Dixon–Coles adjustment, so
+                        production uses dispersion 1.0, covariance 0.05 and
+                        rho 0.0. The matrix is the foundation for FiveStat's
+                        match probabilities.
                     </p>
                 </div>
             </div>
