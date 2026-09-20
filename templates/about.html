@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}About FiveStat | Independent Sports Analytics{% endblock %}
+{% block meta_description %}Learn about FiveStat, an independent sports analytics platform for football and motorsport modelling, predictions and visualisations.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/about{% endblock %}
+
+{% block content %}
+<div class="lp-hero" style="margin-bottom:2rem;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">Independent sports analytics</div>
+        <h1 class="lp-headline" style="font-size:2rem;">About FiveStat.</h1>
+        <p class="lp-subhead">Statistical models, predictions and visual analysis across football and motorsport.</p>
+    </div>
+</div>
+
+<div class="meth-page">
+    <section class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h2 class="meth-section-title">What FiveStat builds</h2>
+        </div>
+        <div class="meth-steps">
+            <div class="meth-step">
+                <div class="meth-step-num">01</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Football analytics</div>
+                    <p>Premier League match probabilities, correct-score heatmaps, expected-goal analysis, player projections and season simulations.</p>
+                </div>
+            </div>
+            <div class="meth-step">
+                <div class="meth-step-num">02</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Formula 1 analysis</div>
+                    <p>Driver and constructor ratings, race predictions, championship simulations and fantasy projections.</p>
+                </div>
+            </div>
+            <div class="meth-step" style="border-bottom:none;">
+                <div class="meth-step-num">03</div>
+                <div class="meth-step-body">
+                    <div class="meth-step-title">Transparent modelling</div>
+                    <p>Models are tested against historical outcomes and refined when the evidence supports a change. The aim is not to present sport as certain, but to make the probabilities, assumptions and limitations easier to understand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="meth-section">
+        <div class="meth-section-header">
+            <div class="meth-section-icon"><i class="fa-solid fa-user"></i></div>
+            <h2 class="meth-section-title">Behind FiveStat</h2>
+        </div>
+        <p>FiveStat is designed and developed by Jack Maher, combining sports-industry experience with Python modelling, data analysis and web development.</p>
+        <p>For technical detail, read the <a href="/methodology">methodology</a> and <a href="/model-performance">model performance</a> pages.</p>
+        <p>FiveStat is open to relevant collaborations across sports, data and analytics. For enquiries, email <a href="mailto:fivestatanalytics@gmail.com">fivestatanalytics@gmail.com</a>.</p>
+    </section>
+</div>
+{% endblock %}
