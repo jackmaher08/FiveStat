@@ -40,11 +40,11 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 4,13/09/2026 16:30,Manchester United,Manchester City,0 - 1,31218,True,0.0,1.0,0.94,1.14
 4,14/09/2026 20:00,Leeds,Newcastle United,4 - 1,31219,True,4.0,1.0,2.29,0.79
 5,18/09/2026 20:00,Brentford,Chelsea,,31220,True,3.0,0.0,2.48,0.89
-5,19/09/2026 12:30,Tottenham Hotspur,Aston Villa,,31221,False,,,,
-5,19/09/2026 15:00,Brighton,Arsenal,,31224,False,,,,
-5,19/09/2026 15:00,Everton,Ipswich Town,,31226,False,,,,
-5,19/09/2026 15:00,Newcastle United,Hull City,,31223,False,,,,
-5,19/09/2026 17:30,Nottingham Forest,Coventry City,,31227,False,,,,
+5,19/09/2026 12:30,Tottenham Hotspur,Aston Villa,,31221,True,2.0,3.0,1.72,1.71
+5,19/09/2026 15:00,Brighton,Arsenal,,31224,True,3.0,0.0,2.11,1.24
+5,19/09/2026 15:00,Everton,Ipswich Town,,31226,True,1.0,0.0,2.58,1.1
+5,19/09/2026 15:00,Newcastle United,Hull City,,31223,True,2.0,1.0,1.38,1.16
+5,19/09/2026 17:30,Nottingham Forest,Coventry City,,31227,True,0.0,1.0,1.32,0.69
 5,20/09/2026 14:00,Bournemouth,Liverpool,,31228,False,,,,
 5,20/09/2026 14:00,Leeds,Crystal Palace,,31225,False,,,,
 5,20/09/2026 14:00,Manchester City,Sunderland,,31222,False,,,,
