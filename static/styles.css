@@ -1694,6 +1694,7 @@ input:checked + .slider:before {
     top: 60px;
     left: 0;
     right: 0;
+    max-height: calc(100vh - 60px);
     max-height: calc(100dvh - 60px);
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -1745,7 +1746,6 @@ input:checked + .slider:before {
 
   body.mobile-menu-open {
     overflow: hidden;
-    touch-action: none;
   }
 
   .menu-icon {
