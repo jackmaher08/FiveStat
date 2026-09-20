@@ -24,6 +24,7 @@ from fpl_projection import (
     projection_confidence,
 )
 from model_performance import load_model_performance
+from actual_vs_expected import build_actual_vs_expected
 
 # Flask app initialization
 app = Flask(__name__)
@@ -699,6 +700,10 @@ def premier_league():
     league_table_path = "data/tables/league_table_data.csv"
     league_table = pd.read_csv(league_table_path).to_dict(orient="records") if os.path.exists(league_table_path) else []
     xg_table = sorted(league_table, key=lambda x: float(x.get("xPTS", 0)), reverse=True)
+    actual_vs_expected = build_actual_vs_expected(
+        league_table,
+        display_names=team_display_names,
+    )
 
     result_stats = {}
     shots_path = "data/tables/shots_data.csv"
@@ -774,6 +779,7 @@ def premier_league():
         team_display_names=team_display_names,
         league_table=league_table,
         xg_table=xg_table,
+        actual_vs_expected=actual_vs_expected,
         simulated_table=simulated_table,
         sim_position_dist=sim_position_dist,
         num_positions=num_positions,
