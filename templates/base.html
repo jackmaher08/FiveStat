@@ -119,10 +119,13 @@
         </div>
 
         {# Hamburger - shown on mobile via CSS #}
-        <button class="menu-icon" id="menuToggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-            <i class="fa-solid fa-bars"></i>
+        <button class="menu-icon" id="menuToggle" type="button" onclick="toggleMobileMenu()" aria-label="Open navigation menu" aria-controls="mainMenu" aria-expanded="false">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
     </nav>
+
+    {# Dims the page and provides a large tap target for closing the mobile menu #}
+    <div class="menu-backdrop" id="menuBackdrop" aria-hidden="true"></div>
 
     {# ════════════════════════════════════════
        MAIN PAGE CONTENT
@@ -181,12 +184,57 @@
             }
         });
 
-        /* ── Mobile hamburger ── */
+        /* ── Mobile navigation ── */
+        const mobileMenuQuery = window.matchMedia('(max-width: 900px)');
+
+        function setMobileMenu(open, restoreFocus = true) {
+            const menu = document.getElementById('mainMenu');
+            const toggle = document.getElementById('menuToggle');
+            const backdrop = document.getElementById('menuBackdrop');
+            const icon = toggle.querySelector('i');
+            const shouldOpen = Boolean(open) && mobileMenuQuery.matches;
+
+            menu.classList.toggle('show', shouldOpen);
+            backdrop.classList.toggle('show', shouldOpen);
+            document.body.classList.toggle('mobile-menu-open', shouldOpen);
+            toggle.setAttribute('aria-expanded', String(shouldOpen));
+            toggle.setAttribute('aria-label', shouldOpen ? 'Close navigation menu' : 'Open navigation menu');
+            backdrop.setAttribute('aria-hidden', String(!shouldOpen));
+            icon.className = shouldOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+
+            if (!shouldOpen) {
+                document.querySelectorAll('#mainMenu .dropdown').forEach(d => d.classList.remove('show'));
+                if (restoreFocus && mobileMenuQuery.matches) toggle.focus();
+            }
+        }
+
         function toggleMobileMenu() {
             const menu = document.getElementById('mainMenu');
-            const icon = document.querySelector('#menuToggle i');
-            menu.classList.toggle('show');
-            icon.className = menu.classList.contains('show') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+            setMobileMenu(!menu.classList.contains('show'));
+        }
+
+        document.getElementById('menuBackdrop').addEventListener('click', function() {
+            setMobileMenu(false);
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && document.getElementById('mainMenu').classList.contains('show')) {
+                setMobileMenu(false);
+            }
+        });
+
+        document.querySelectorAll('#mainMenu a').forEach(link => {
+            link.addEventListener('click', () => setMobileMenu(false, false));
+        });
+
+        function resetMobileMenu() {
+            setMobileMenu(false, false);
+        }
+
+        if (mobileMenuQuery.addEventListener) {
+            mobileMenuQuery.addEventListener('change', resetMobileMenu);
+        } else {
+            mobileMenuQuery.addListener(resetMobileMenu);
         }
 
         /* ── Cookie banner ── */
