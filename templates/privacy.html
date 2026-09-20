@@ -1,89 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | FiveStat</title>
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo/FiveStat_plain.png') }}">
-</head>
-<body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <a href="/">
-            <img src="{{ url_for('static', filename='logo/FiveStat.png') }}" alt="FiveStat Logo" class="logo">
-        </a>
-        <!-- <div class="menu-icon" onclick="toggleMenu()">☰</div> -->
-        <div class="menu">
-            <div class="dropdown">
-                <span class="dropbtn" onclick="toggleDropdown(event)">Premier League ☰</span>
-                <div class="dropdown-content" id="eplDropdown">
-                    <a href="/epl_fixtures">Fixtures</a>
-                    <!--<a href="/epl_results">Results</a>-->
-                    <!--<a href="/epl_table">League Tables</a>-->
-                    <a href="/epl-players">Player Stats</a>
-                </div>
-            </div>
-        </div>        
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy | FiveStat{% endblock %}
+{% block meta_description %}How FiveStat collects, uses and protects analytics and contact information.{% endblock %}
+{% block og_url %}https://www.fivestat.co.uk/privacy.html{% endblock %}
+
+{% block content %}
+<div class="lp-hero" style="margin-bottom:2rem;">
+    <div class="lp-hero-bg"></div>
+    <div class="lp-hero-inner">
+        <div class="lp-eyebrow">FiveStat · Privacy</div>
+        <h1 class="lp-headline" style="font-size:2rem;">Privacy Policy</h1>
+        <p class="lp-subhead">Last updated · 20 September 2026</p>
     </div>
+</div>
 
-    <!-- Main Content -->
-    <div class="container" style="max-width: 800px; margin: auto; padding-top: 40px;">
-        <h1>Privacy Policy</h1>
-        <p><strong>Last updated:</strong> [Insert date]</p>
-
-        <p>At FiveStat, accessible from <a href="https://www.fivestat.co.uk">https://www.fivestat.co.uk</a>, we are committed to protecting your privacy.</p>
-
-        <h2>1. Information We Collect</h2>
+<div class="meth-page">
+    <section class="meth-section">
+        <h2>1. Information we collect</h2>
         <ul>
-            <li><strong>Analytics Data:</strong> We use Google Analytics to understand how users interact with our site. This may include IP address, browser type, device, pages visited, and time spent on pages.</li>
-            <li><strong>Email Addresses:</strong> If you voluntarily subscribe to our newsletter, we collect and store your email address.</li>
+            <li><strong>Analytics data:</strong> FiveStat uses Google Analytics to understand how visitors use the site. This may include approximate location, device and browser information, pages visited and time spent on pages.</li>
+            <li><strong>Contact information:</strong> If you email FiveStat or voluntarily subscribe to updates, we process the information you provide, including your email address.</li>
         </ul>
 
-        <h2>2. How We Use Your Information</h2>
-        <p>We use your data to:</p>
-        <ul>
-            <li>Improve the user experience on FiveStat</li>
-            <li>Understand what features are most popular</li>
-            <li>Communicate updates via email (if you’ve opted in)</li>
-        </ul>
-        <p>We <strong>do not</strong> sell or share your data with third parties.</p>
+        <h2>2. How we use information</h2>
+        <p>Information is used to operate and improve FiveStat, understand which features are useful, respond to enquiries and send updates where someone has opted in.</p>
+        <p>FiveStat does not sell personal data. Limited information may be processed by service providers used to operate and measure the site, such as Google Analytics, subject to their applicable privacy terms.</p>
 
         <h2>3. Cookies</h2>
-        <p>Cookies may be used to:</p>
-        <ul>
-            <li>Track visitor behavior through Google Analytics</li>
-            <li>Save your preferences (e.g., site interactions or closed banners)</li>
-        </ul>
-        <p>You may disable cookies in your browser settings at any time.</p>
+        <p>Cookies and similar technologies may be used for site analytics and to remember preferences such as whether a notice has been dismissed. You can restrict or delete cookies through your browser settings.</p>
 
-        <h2>4. Your Rights</h2>
-        <p>Under UK GDPR, you have the right to:</p>
-        <ul>
-            <li>Access the personal data we hold about you</li>
-            <li>Request that we delete your data (e.g., email address)</li>
-        </ul>
-        <p>To exercise these rights, please email us at: <strong><a href="mailto:jackmaher08@gmail.com">jackmaher08@gmail.com</a></strong></p>
+        <h2>4. Your rights</h2>
+        <p>Under UK data-protection law, you may have rights to access, correct or delete personal data, restrict or object to processing, and withdraw consent where consent is the basis for processing.</p>
+        <p>To exercise these rights, email <a href="mailto:fivestatanalytics@gmail.com">fivestatanalytics@gmail.com</a>.</p>
 
-        <h2>5. Changes</h2>
-        <p>We may update this policy from time to time. Changes will be posted on this page.</p>
+        <h2>5. Changes to this policy</h2>
+        <p>This policy may be updated as FiveStat develops. The latest version and update date will be published on this page.</p>
 
         <h2>6. Contact</h2>
-        <p>If you have any questions about this Privacy Policy, contact us at:<br>
-        <strong>Email</strong>: <a href="mailto:jackmaher08@gmail.com">jackmaher08@gmail.com</a></p>
-    </div>
-
-    <!-- Footer -->
-    <footer style="text-align: center; margin-top: 40px; padding-bottom: 20px;">
-        <p>&copy; 2025 FiveStat | <a href="/privacy.html">Privacy Policy</a></p>
-    </footer>
-
-    <script>
-        function toggleDropdown(event) {
-            event.preventDefault();
-            let dropdown = document.querySelector('.dropdown');
-            dropdown.classList.toggle('show');
-        }
-    </script>
-</body>
-</html>
+        <p>Questions about this policy can be sent to <a href="mailto:fivestatanalytics@gmail.com">fivestatanalytics@gmail.com</a>.</p>
+    </section>
+</div>
+{% endblock %}
