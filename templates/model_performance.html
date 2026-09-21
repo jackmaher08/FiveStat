@@ -91,23 +91,91 @@
         </div>
     </section>
 
+    {% if performance.window_breakdown %}
+    <section class="perf-section" aria-labelledby="window-comparison-title">
+        <div class="perf-section-heading">
+            <div>
+                <p class="perf-kicker">Pre-declared evaluation windows</p>
+                <h2 id="window-comparison-title">Robustness and recent performance</h2>
+            </div>
+            <p class="perf-axis-note">Lower RPS is better</p>
+        </div>
+
+        <div class="perf-honesty-note">
+            <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+            <p>
+                These windows are calculated together from the same frozen predictions.
+                The full available sample remains the primary result; shorter windows are
+                shown to reveal recent performance and possible model drift, not to replace
+                the headline with whichever period scores best.
+            </p>
+        </div>
+
+        <div class="perf-window-grid">
+            {% for window in performance.window_breakdown %}
+            <article class="perf-window-card{% if window.key == 'full' %} perf-window-card--primary{% endif %}">
+                <div class="perf-window-card-top">
+                    <div>
+                        <p class="perf-card-label">{{ window.label }}</p>
+                        <h3>{{ window.season_range }}</h3>
+                    </div>
+                    <span class="perf-window-badge">
+                        {{ "Primary" if window.key == "full" else "Recent lens" }}
+                    </span>
+                </div>
+                <p class="perf-window-rps">{{ "%.4f"|format(window.avg_rps) }}</p>
+                <p class="perf-card-comparison">
+                    RPS vs {{ "%.4f"|format(window.baseline_rps) }} baseline
+                </p>
+                <p class="perf-card-signal">
+                    {{ window.rps_reduction_pct }}% lower error
+                </p>
+                <dl class="perf-window-details">
+                    <div>
+                        <dt>95% bootstrap interval</dt>
+                        <dd>{{ "%.4f"|format(window.rps_ci_low) }}–{{ "%.4f"|format(window.rps_ci_high) }}</dd>
+                    </div>
+                    <div>
+                        <dt>1X2 accuracy</dt>
+                        <dd>{{ window.outcome_accuracy }}%</dd>
+                    </div>
+                    <div>
+                        <dt>Predictions</dt>
+                        <dd>{{ "{:,}".format(window.matches_predicted) }}</dd>
+                    </div>
+                </dl>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
     <section class="perf-section perf-chart-section" aria-labelledby="rps-trend-title">
         <div class="perf-section-heading">
             <div>
+                {% if performance.window_breakdown %}
+                <p class="perf-kicker">Window comparison</p>
+                <h2 id="rps-trend-title">RPS across fixed evaluation windows</h2>
+                {% else %}
                 <p class="perf-kicker">Gameweek stability</p>
                 <h2 id="rps-trend-title">RPS through the test window</h2>
+                {% endif %}
             </div>
             <p class="perf-axis-note">Lower is better</p>
         </div>
         <div class="perf-chart-card">
-            <canvas id="rpsChart" role="img" aria-label="Gameweek Ranked Probability Score compared with the naive baseline">
-                Gameweek RPS values are available in the backtest data.
+            <canvas id="rpsChart" role="img" aria-label="Ranked Probability Score compared with the naive baseline">
+                RPS values are available in the backtest data.
             </canvas>
         </div>
         <p class="perf-chart-caption">
-            Each point combines the same-numbered gameweek across the three evaluated seasons.
-            Variation is expected in small gameweek samples; the overall scorecard above is the
-            more reliable summary.
+            {% if performance.window_breakdown %}
+            Every point comes from the same chronological walk-forward run. Overlapping windows
+            are shown for transparency, while the full sample remains the primary benchmark.
+            {% else %}
+            This is the legacy combined-gameweek view. Run the corrected chronological backtest
+            to replace it with the fixed-window comparison.
+            {% endif %}
         </p>
     </section>
 
@@ -149,11 +217,11 @@
             <ol class="perf-process">
                 <li>
                     <span>1</span>
-                    <div><strong>Train on the past</strong><p>Ratings use only matches completed before the gameweek being predicted.</p></div>
+                    <div><strong>Train on the past</strong><p>Ratings use only matches completed before the forecast date being predicted.</p></div>
                 </li>
                 <li>
                     <span>2</span>
-                    <div><strong>Freeze the forecast</strong><p>Probabilities and expected goals are generated before revealing that gameweek's results.</p></div>
+                    <div><strong>Freeze the forecast</strong><p>Fixtures on the same date share a cutoff, so no result from that matchday can enter another prediction.</p></div>
                 </li>
                 <li>
                     <span>3</span>
@@ -215,11 +283,12 @@
 {% endblock %}
 
 {% block extra_scripts %}
-{% if performance and performance.gw_breakdown %}
+{% if performance and performance.chart_labels %}
 <script>
 window.addEventListener('load', function () {
     const canvas = document.getElementById('rpsChart');
     if (!canvas || typeof Chart === 'undefined') return;
+    const isMobileChart = window.matchMedia('(max-width: 700px)').matches;
 
     new Chart(canvas, {
         type: 'line',
@@ -249,6 +318,9 @@ window.addEventListener('load', function () {
             ]
         },
         options: {
+            events: isMobileChart
+                ? []
+                : ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
             responsive: true,
             maintainAspectRatio: false,
             interaction: { mode: 'index', intersect: false },
@@ -262,6 +334,7 @@ window.addEventListener('load', function () {
                     }
                 },
                 tooltip: {
+                    enabled: !isMobileChart,
                     callbacks: {
                         label: function (context) {
                             return context.dataset.label + ': ' + Number(context.raw).toFixed(4);
