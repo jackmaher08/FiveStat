@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, send_file, redirect, url_for,
 import numpy as np
 from scipy.stats import poisson
 import os
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from data_loader import load_fixtures, load_match_data, calculate_team_statistics, load_next_gw_fixtures, get_player_data, predict_player_goals, TEAM_NAME_MAPPING
 from data_loader import calculate_recent_form, get_team_xg
@@ -11,7 +13,6 @@ from wc_model import get_wc_data
 from gaa_model import get_gaa_data, teams_still_in, load_results as gaa_load_results, load_fixtures as gaa_load_fixtures
 from collections import defaultdict
 from datetime import datetime
-import subprocess
 import json
 import unicodedata
 import requests
@@ -31,6 +32,12 @@ app = Flask(__name__)
 
 from fpl_review import fpl_review_bp
 app.register_blueprint(fpl_review_bp)
+
+
+@app.route("/healthz")
+def healthz():
+    """Lightweight Railway/liveness probe that avoids loading page data."""
+    return jsonify({"status": "ok"}), 200
 
 
 # ── Manual GW override — set to an int to force a specific GW, None for auto ──
@@ -1672,4 +1679,4 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     if port is None:
         raise RuntimeError("PORT environment variable is not set.")
-    app.run(host="0.0.0.0", port=port, debug=True) 
+    app.run(host="0.0.0.0", port=port, debug=False) 
