@@ -11,8 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="perf-page">
-    <header class="perf-hero">
+<header class="perf-hero">
         <div class="perf-hero-inner">
             <p class="perf-eyebrow">EPL model validation</p>
             <h1>Model Performance</h1>
@@ -28,8 +27,9 @@
             </div>
             {% endif %}
         </div>
-    </header>
+</header>
 
+<div class="perf-page">
     {% if performance %}
     <section class="perf-section" aria-labelledby="scorecard-title">
         <div class="perf-section-heading">
