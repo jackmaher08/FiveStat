@@ -1,292 +1,1193 @@
 {
+  "backtest_version": 2,
+  "evaluation_method": "chronological_match_date_batches",
   "season": "2023/24\u20132025/26 (combined)",
-  "matches_predicted": 1101,
-  "matches_skipped": 40,
-  "outcome_accuracy": 51.0,
-  "baseline_accuracy": 43.6,
-  "avg_rps": 0.2092,
-  "baseline_rps": 0.2371,
-  "rps_improvement": 0.0279,
-  "avg_brier": 0.2188,
-  "ou_accuracy": 57.3,
-  "ou_sample": 1101,
-  "correct_score_rate": 12.0,
-  "xg_mae": 0.694,
-  "home_win_accuracy": 71.5,
+  "matches_predicted": 1138,
+  "matches_skipped": 3,
+  "outcome_accuracy": 51.4,
+  "baseline_accuracy": 43.1,
+  "avg_rps": 0.2027,
+  "baseline_rps": 0.2369,
+  "rps_improvement": 0.0342,
+  "avg_brier": 0.2124,
+  "ou_accuracy": 58.6,
+  "ou_sample": 1138,
+  "correct_score_rate": 10.6,
+  "xg_mae": 0.658,
+  "home_win_accuracy": 73.1,
   "draw_accuracy": 0.0,
-  "away_win_accuracy": 61.9,
-  "moneyline_accuracy": 67.4,
-  "moneyline_n": 832,
+  "away_win_accuracy": 61.4,
+  "moneyline_accuracy": 68.1,
+  "moneyline_n": 859,
   "draw_predicted_rate": 0.0,
-  "draw_actual_rate": 24.4,
+  "draw_actual_rate": 24.5,
   "gw_breakdown": [
     {
+      "season": "2023/24",
       "gw": 1,
-      "fixtures": 28,
-      "outcome_acc": 64.3,
-      "avg_rps": 0.1486,
-      "ou_acc": 39.3
+      "fixtures": 9,
+      "outcome_acc": 66.7,
+      "avg_rps": 0.1157,
+      "ou_acc": 55.6,
+      "label": "2023/24 GW1"
     },
     {
+      "season": "2023/24",
       "gw": 2,
-      "fixtures": 29,
-      "outcome_acc": 72.4,
-      "avg_rps": 0.2037,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 90.0,
+      "avg_rps": 0.1688,
+      "ou_acc": 40.0,
+      "label": "2023/24 GW2"
     },
     {
+      "season": "2023/24",
       "gw": 3,
-      "fixtures": 29,
-      "outcome_acc": 51.7,
-      "avg_rps": 0.2332,
-      "ou_acc": 58.6
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.189,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW3"
     },
     {
+      "season": "2023/24",
       "gw": 4,
-      "fixtures": 29,
-      "outcome_acc": 62.1,
-      "avg_rps": 0.1731,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1844,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW4"
     },
     {
+      "season": "2023/24",
       "gw": 5,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.1659,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1204,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW5"
     },
     {
+      "season": "2023/24",
       "gw": 6,
-      "fixtures": 29,
-      "outcome_acc": 44.8,
-      "avg_rps": 0.2006,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1601,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW6"
     },
     {
+      "season": "2023/24",
       "gw": 7,
-      "fixtures": 29,
-      "outcome_acc": 55.2,
-      "avg_rps": 0.2018,
-      "ou_acc": 51.7
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2962,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW7"
     },
     {
+      "season": "2023/24",
       "gw": 8,
-      "fixtures": 29,
-      "outcome_acc": 55.2,
-      "avg_rps": 0.2283,
-      "ou_acc": 48.3
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1822,
+      "ou_acc": 30.0,
+      "label": "2023/24 GW8"
     },
     {
+      "season": "2023/24",
       "gw": 9,
-      "fixtures": 29,
-      "outcome_acc": 44.8,
-      "avg_rps": 0.2177,
-      "ou_acc": 44.8
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1259,
+      "ou_acc": 30.0,
+      "label": "2023/24 GW9"
     },
     {
+      "season": "2023/24",
       "gw": 10,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.2097,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1645,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW10"
     },
     {
+      "season": "2023/24",
       "gw": 11,
-      "fixtures": 29,
-      "outcome_acc": 51.7,
-      "avg_rps": 0.2176,
-      "ou_acc": 58.6
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2535,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW11"
     },
     {
+      "season": "2023/24",
       "gw": 12,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.26,
-      "ou_acc": 75.9
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2579,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW12"
     },
     {
+      "season": "2023/24",
       "gw": 13,
-      "fixtures": 29,
-      "outcome_acc": 58.6,
-      "avg_rps": 0.1985,
-      "ou_acc": 27.6
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.2096,
+      "ou_acc": 20.0,
+      "label": "2023/24 GW13"
     },
     {
+      "season": "2023/24",
       "gw": 14,
-      "fixtures": 29,
-      "outcome_acc": 62.1,
-      "avg_rps": 0.1912,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1576,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW14"
     },
     {
+      "season": "2023/24",
       "gw": 15,
-      "fixtures": 29,
-      "outcome_acc": 41.4,
-      "avg_rps": 0.2352,
-      "ou_acc": 55.2
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2788,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW15"
     },
     {
+      "season": "2023/24",
       "gw": 16,
-      "fixtures": 29,
-      "outcome_acc": 37.9,
-      "avg_rps": 0.265,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2886,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW16"
     },
     {
+      "season": "2023/24",
       "gw": 17,
-      "fixtures": 29,
-      "outcome_acc": 58.6,
-      "avg_rps": 0.1999,
-      "ou_acc": 58.6
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.1665,
+      "ou_acc": 50.0,
+      "label": "2023/24 GW17"
     },
     {
+      "season": "2023/24",
       "gw": 18,
-      "fixtures": 29,
-      "outcome_acc": 37.9,
-      "avg_rps": 0.2322,
-      "ou_acc": 51.7
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.2884,
+      "ou_acc": 40.0,
+      "label": "2023/24 GW18"
     },
     {
+      "season": "2023/24",
       "gw": 19,
-      "fixtures": 29,
-      "outcome_acc": 41.4,
-      "avg_rps": 0.2308,
-      "ou_acc": 69.0
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.3132,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW19"
     },
     {
+      "season": "2023/24",
       "gw": 20,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.187,
-      "ou_acc": 44.8
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2051,
+      "ou_acc": 30.0,
+      "label": "2023/24 GW20"
     },
     {
+      "season": "2023/24",
       "gw": 21,
-      "fixtures": 29,
-      "outcome_acc": 41.4,
-      "avg_rps": 0.177,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1417,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW21"
     },
     {
+      "season": "2023/24",
       "gw": 22,
-      "fixtures": 29,
-      "outcome_acc": 34.5,
-      "avg_rps": 0.2565,
-      "ou_acc": 48.3
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1634,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW22"
     },
     {
+      "season": "2023/24",
       "gw": 23,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.2283,
-      "ou_acc": 69.0
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1891,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW23"
     },
     {
+      "season": "2023/24",
       "gw": 24,
-      "fixtures": 29,
-      "outcome_acc": 55.2,
-      "avg_rps": 0.2452,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.2185,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW24"
     },
     {
+      "season": "2023/24",
       "gw": 25,
-      "fixtures": 29,
-      "outcome_acc": 62.1,
-      "avg_rps": 0.2048,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2026,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW25"
     },
     {
+      "season": "2023/24",
       "gw": 26,
-      "fixtures": 29,
-      "outcome_acc": 44.8,
-      "avg_rps": 0.2027,
-      "ou_acc": 44.8
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1548,
+      "ou_acc": 50.0,
+      "label": "2023/24 GW26"
     },
     {
+      "season": "2023/24",
       "gw": 27,
-      "fixtures": 29,
-      "outcome_acc": 65.5,
-      "avg_rps": 0.1624,
-      "ou_acc": 51.7
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1396,
+      "ou_acc": 80.0,
+      "label": "2023/24 GW27"
     },
     {
+      "season": "2023/24",
       "gw": 28,
-      "fixtures": 29,
-      "outcome_acc": 48.3,
-      "avg_rps": 0.2077,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2058,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW28"
     },
     {
+      "season": "2023/24",
       "gw": 29,
-      "fixtures": 29,
-      "outcome_acc": 37.9,
-      "avg_rps": 0.2608,
-      "ou_acc": 55.2
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2455,
+      "ou_acc": 50.0,
+      "label": "2023/24 GW29"
     },
     {
+      "season": "2023/24",
       "gw": 30,
-      "fixtures": 29,
-      "outcome_acc": 51.7,
-      "avg_rps": 0.1647,
-      "ou_acc": 37.9
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.149,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW30"
     },
     {
+      "season": "2023/24",
       "gw": 31,
-      "fixtures": 28,
-      "outcome_acc": 32.1,
-      "avg_rps": 0.2209,
-      "ou_acc": 64.3
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1565,
+      "ou_acc": 50.0,
+      "label": "2023/24 GW31"
     },
     {
+      "season": "2023/24",
       "gw": 32,
-      "fixtures": 29,
-      "outcome_acc": 51.7,
-      "avg_rps": 0.2244,
-      "ou_acc": 75.9
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1745,
+      "ou_acc": 90.0,
+      "label": "2023/24 GW32"
     },
     {
+      "season": "2023/24",
       "gw": 33,
-      "fixtures": 32,
-      "outcome_acc": 46.9,
-      "avg_rps": 0.2151,
-      "ou_acc": 53.1
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2387,
+      "ou_acc": 50.0,
+      "label": "2023/24 GW33"
     },
     {
+      "season": "2023/24",
       "gw": 34,
-      "fixtures": 26,
-      "outcome_acc": 76.9,
-      "avg_rps": 0.1655,
-      "ou_acc": 61.5
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.1755,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW34"
     },
     {
+      "season": "2023/24",
       "gw": 35,
-      "fixtures": 29,
-      "outcome_acc": 44.8,
-      "avg_rps": 0.2161,
-      "ou_acc": 65.5
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1721,
+      "ou_acc": 60.0,
+      "label": "2023/24 GW35"
     },
     {
+      "season": "2023/24",
       "gw": 36,
-      "fixtures": 30,
-      "outcome_acc": 43.3,
-      "avg_rps": 0.1871,
-      "ou_acc": 53.3
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1378,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW36"
     },
     {
+      "season": "2023/24",
       "gw": 37,
-      "fixtures": 29,
-      "outcome_acc": 62.1,
-      "avg_rps": 0.1903,
-      "ou_acc": 62.1
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.1363,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW37"
     },
     {
+      "season": "2023/24",
       "gw": 38,
-      "fixtures": 29,
-      "outcome_acc": 58.6,
-      "avg_rps": 0.2134,
-      "ou_acc": 51.7
+      "fixtures": 10,
+      "outcome_acc": 90.0,
+      "avg_rps": 0.1375,
+      "ou_acc": 70.0,
+      "label": "2023/24 GW38"
+    },
+    {
+      "season": "2024/25",
+      "gw": 1,
+      "fixtures": 9,
+      "outcome_acc": 55.6,
+      "avg_rps": 0.1539,
+      "ou_acc": 22.2,
+      "label": "2024/25 GW1"
+    },
+    {
+      "season": "2024/25",
+      "gw": 2,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1681,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW2"
+    },
+    {
+      "season": "2024/25",
+      "gw": 3,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.177,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW3"
+    },
+    {
+      "season": "2024/25",
+      "gw": 4,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1893,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW4"
+    },
+    {
+      "season": "2024/25",
+      "gw": 5,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1412,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW5"
+    },
+    {
+      "season": "2024/25",
+      "gw": 6,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1636,
+      "ou_acc": 60.0,
+      "label": "2024/25 GW6"
+    },
+    {
+      "season": "2024/25",
+      "gw": 7,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1595,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW7"
+    },
+    {
+      "season": "2024/25",
+      "gw": 8,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.2371,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW8"
+    },
+    {
+      "season": "2024/25",
+      "gw": 9,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.1865,
+      "ou_acc": 60.0,
+      "label": "2024/25 GW9"
+    },
+    {
+      "season": "2024/25",
+      "gw": 10,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2592,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW10"
+    },
+    {
+      "season": "2024/25",
+      "gw": 11,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2811,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW11"
+    },
+    {
+      "season": "2024/25",
+      "gw": 12,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2652,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW12"
+    },
+    {
+      "season": "2024/25",
+      "gw": 13,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1619,
+      "ou_acc": 40.0,
+      "label": "2024/25 GW13"
+    },
+    {
+      "season": "2024/25",
+      "gw": 14,
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.1622,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW14"
+    },
+    {
+      "season": "2024/25",
+      "gw": 15,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2079,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW15"
+    },
+    {
+      "season": "2024/25",
+      "gw": 16,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2405,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW16"
+    },
+    {
+      "season": "2024/25",
+      "gw": 17,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2589,
+      "ou_acc": 60.0,
+      "label": "2024/25 GW17"
+    },
+    {
+      "season": "2024/25",
+      "gw": 18,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2089,
+      "ou_acc": 30.0,
+      "label": "2024/25 GW18"
+    },
+    {
+      "season": "2024/25",
+      "gw": 19,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1939,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW19"
+    },
+    {
+      "season": "2024/25",
+      "gw": 20,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1723,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW20"
+    },
+    {
+      "season": "2024/25",
+      "gw": 21,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1753,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW21"
+    },
+    {
+      "season": "2024/25",
+      "gw": 22,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.202,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW22"
+    },
+    {
+      "season": "2024/25",
+      "gw": 23,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2234,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW23"
+    },
+    {
+      "season": "2024/25",
+      "gw": 24,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.247,
+      "ou_acc": 40.0,
+      "label": "2024/25 GW24"
+    },
+    {
+      "season": "2024/25",
+      "gw": 25,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1915,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW25"
+    },
+    {
+      "season": "2024/25",
+      "gw": 29,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2053,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW29"
+    },
+    {
+      "season": "2024/25",
+      "gw": 26,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2879,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW26"
+    },
+    {
+      "season": "2024/25",
+      "gw": 27,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.15,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW27"
+    },
+    {
+      "season": "2024/25",
+      "gw": 28,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1878,
+      "ou_acc": 30.0,
+      "label": "2024/25 GW28"
+    },
+    {
+      "season": "2024/25",
+      "gw": 30,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.2169,
+      "ou_acc": 40.0,
+      "label": "2024/25 GW30"
+    },
+    {
+      "season": "2024/25",
+      "gw": 31,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1932,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW31"
+    },
+    {
+      "season": "2024/25",
+      "gw": 32,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2126,
+      "ou_acc": 80.0,
+      "label": "2024/25 GW32"
+    },
+    {
+      "season": "2024/25",
+      "gw": 33,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1984,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW33"
+    },
+    {
+      "season": "2024/25",
+      "gw": 34,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.145,
+      "ou_acc": 70.0,
+      "label": "2024/25 GW34"
+    },
+    {
+      "season": "2024/25",
+      "gw": 35,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.204,
+      "ou_acc": 40.0,
+      "label": "2024/25 GW35"
+    },
+    {
+      "season": "2024/25",
+      "gw": 36,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2586,
+      "ou_acc": 20.0,
+      "label": "2024/25 GW36"
+    },
+    {
+      "season": "2024/25",
+      "gw": 37,
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.2048,
+      "ou_acc": 50.0,
+      "label": "2024/25 GW37"
+    },
+    {
+      "season": "2024/25",
+      "gw": 38,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2018,
+      "ou_acc": 40.0,
+      "label": "2024/25 GW38"
+    },
+    {
+      "season": "2025/26",
+      "gw": 1,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1909,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW1"
+    },
+    {
+      "season": "2025/26",
+      "gw": 2,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1991,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW2"
+    },
+    {
+      "season": "2025/26",
+      "gw": 3,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.3241,
+      "ou_acc": 40.0,
+      "label": "2025/26 GW3"
+    },
+    {
+      "season": "2025/26",
+      "gw": 4,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1346,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW4"
+    },
+    {
+      "season": "2025/26",
+      "gw": 5,
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.22,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW5"
+    },
+    {
+      "season": "2025/26",
+      "gw": 6,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2656,
+      "ou_acc": 80.0,
+      "label": "2025/26 GW6"
+    },
+    {
+      "season": "2025/26",
+      "gw": 7,
+      "fixtures": 10,
+      "outcome_acc": 80.0,
+      "avg_rps": 0.142,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW7"
+    },
+    {
+      "season": "2025/26",
+      "gw": 8,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2556,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW8"
+    },
+    {
+      "season": "2025/26",
+      "gw": 9,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.3092,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW9"
+    },
+    {
+      "season": "2025/26",
+      "gw": 10,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.1736,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW10"
+    },
+    {
+      "season": "2025/26",
+      "gw": 11,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1771,
+      "ou_acc": 90.0,
+      "label": "2025/26 GW11"
+    },
+    {
+      "season": "2025/26",
+      "gw": 12,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2179,
+      "ou_acc": 80.0,
+      "label": "2025/26 GW12"
+    },
+    {
+      "season": "2025/26",
+      "gw": 13,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.217,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW13"
+    },
+    {
+      "season": "2025/26",
+      "gw": 14,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.2078,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW14"
+    },
+    {
+      "season": "2025/26",
+      "gw": 15,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1873,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW15"
+    },
+    {
+      "season": "2025/26",
+      "gw": 16,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1889,
+      "ou_acc": 80.0,
+      "label": "2025/26 GW16"
+    },
+    {
+      "season": "2025/26",
+      "gw": 17,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1783,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW17"
+    },
+    {
+      "season": "2025/26",
+      "gw": 18,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1911,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW18"
+    },
+    {
+      "season": "2025/26",
+      "gw": 19,
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.1892,
+      "ou_acc": 40.0,
+      "label": "2025/26 GW19"
+    },
+    {
+      "season": "2025/26",
+      "gw": 20,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.1798,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW20"
+    },
+    {
+      "season": "2025/26",
+      "gw": 21,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2085,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW21"
+    },
+    {
+      "season": "2025/26",
+      "gw": 22,
+      "fixtures": 10,
+      "outcome_acc": 10.0,
+      "avg_rps": 0.3075,
+      "ou_acc": 20.0,
+      "label": "2025/26 GW22"
+    },
+    {
+      "season": "2025/26",
+      "gw": 23,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2707,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW23"
+    },
+    {
+      "season": "2025/26",
+      "gw": 24,
+      "fixtures": 10,
+      "outcome_acc": 60.0,
+      "avg_rps": 0.1717,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW24"
+    },
+    {
+      "season": "2025/26",
+      "gw": 25,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2025,
+      "ou_acc": 40.0,
+      "label": "2025/26 GW25"
+    },
+    {
+      "season": "2025/26",
+      "gw": 26,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2166,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW26"
+    },
+    {
+      "season": "2025/26",
+      "gw": 31,
+      "fixtures": 9,
+      "outcome_acc": 22.2,
+      "avg_rps": 0.264,
+      "ou_acc": 44.4,
+      "label": "2025/26 GW31"
+    },
+    {
+      "season": "2025/26",
+      "gw": 27,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.1992,
+      "ou_acc": 40.0,
+      "label": "2025/26 GW27"
+    },
+    {
+      "season": "2025/26",
+      "gw": 28,
+      "fixtures": 10,
+      "outcome_acc": 70.0,
+      "avg_rps": 0.2043,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW28"
+    },
+    {
+      "season": "2025/26",
+      "gw": 29,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2803,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW29"
+    },
+    {
+      "season": "2025/26",
+      "gw": 30,
+      "fixtures": 10,
+      "outcome_acc": 30.0,
+      "avg_rps": 0.2062,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW30"
+    },
+    {
+      "season": "2025/26",
+      "gw": 32,
+      "fixtures": 10,
+      "outcome_acc": 40.0,
+      "avg_rps": 0.2546,
+      "ou_acc": 70.0,
+      "label": "2025/26 GW32"
+    },
+    {
+      "season": "2025/26",
+      "gw": 33,
+      "fixtures": 13,
+      "outcome_acc": 46.2,
+      "avg_rps": 0.1916,
+      "ou_acc": 53.8,
+      "label": "2025/26 GW33"
+    },
+    {
+      "season": "2025/26",
+      "gw": 34,
+      "fixtures": 7,
+      "outcome_acc": 71.4,
+      "avg_rps": 0.2159,
+      "ou_acc": 42.9,
+      "label": "2025/26 GW34"
+    },
+    {
+      "season": "2025/26",
+      "gw": 35,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2103,
+      "ou_acc": 90.0,
+      "label": "2025/26 GW35"
+    },
+    {
+      "season": "2025/26",
+      "gw": 36,
+      "fixtures": 11,
+      "outcome_acc": 45.5,
+      "avg_rps": 0.1293,
+      "ou_acc": 27.3,
+      "label": "2025/26 GW36"
+    },
+    {
+      "season": "2025/26",
+      "gw": 37,
+      "fixtures": 10,
+      "outcome_acc": 50.0,
+      "avg_rps": 0.2031,
+      "ou_acc": 60.0,
+      "label": "2025/26 GW37"
+    },
+    {
+      "season": "2025/26",
+      "gw": 38,
+      "fixtures": 10,
+      "outcome_acc": 20.0,
+      "avg_rps": 0.2685,
+      "ou_acc": 50.0,
+      "label": "2025/26 GW38"
+    }
+  ],
+  "window_breakdown": [
+    {
+      "key": "full",
+      "label": "Full available window",
+      "seasons": [
+        "2023/24",
+        "2024/25",
+        "2025/26"
+      ],
+      "season_range": "2023/24\u20132025/26",
+      "matches_predicted": 1138,
+      "avg_rps": 0.2027,
+      "baseline_rps": 0.2369,
+      "rps_reduction_pct": 14.4,
+      "rps_ci_low": 0.1945,
+      "rps_ci_high": 0.2112,
+      "avg_brier": 0.2124,
+      "outcome_accuracy": 51.4,
+      "baseline_accuracy": 43.1,
+      "accuracy_lift_pp": 8.3,
+      "ou_accuracy": 58.6,
+      "correct_score_rate": 10.6,
+      "moneyline_accuracy": 68.1,
+      "moneyline_n": 859
+    },
+    {
+      "key": "recent_two",
+      "label": "Latest two seasons",
+      "seasons": [
+        "2024/25",
+        "2025/26"
+      ],
+      "season_range": "2024/25\u20132025/26",
+      "matches_predicted": 759,
+      "avg_rps": 0.2083,
+      "baseline_rps": 0.2345,
+      "rps_reduction_pct": 11.2,
+      "rps_ci_low": 0.1993,
+      "rps_ci_high": 0.2176,
+      "avg_brier": 0.2169,
+      "outcome_accuracy": 48.9,
+      "baseline_accuracy": 41.8,
+      "accuracy_lift_pp": 7.1,
+      "ou_accuracy": 57.7,
+      "correct_score_rate": 9.5,
+      "moneyline_accuracy": 66.0,
+      "moneyline_n": 562
+    },
+    {
+      "key": "latest",
+      "label": "Latest season",
+      "seasons": [
+        "2025/26"
+      ],
+      "season_range": "2025/26",
+      "matches_predicted": 380,
+      "avg_rps": 0.214,
+      "baseline_rps": 0.2322,
+      "rps_reduction_pct": 7.8,
+      "rps_ci_low": 0.201,
+      "rps_ci_high": 0.2281,
+      "avg_brier": 0.2255,
+      "outcome_accuracy": 46.1,
+      "baseline_accuracy": 42.6,
+      "accuracy_lift_pp": 3.5,
+      "ou_accuracy": 57.6,
+      "correct_score_rate": 10.5,
+      "moneyline_accuracy": 63.4,
+      "moneyline_n": 276
+    }
+  ],
+  "season_breakdown": [
+    {
+      "key": "2023/24",
+      "label": "2023/24",
+      "seasons": [
+        "2023/24"
+      ],
+      "season_range": "2023/24",
+      "matches_predicted": 379,
+      "avg_rps": 0.1914,
+      "baseline_rps": 0.2417,
+      "rps_reduction_pct": 20.8,
+      "rps_ci_low": 0.1768,
+      "rps_ci_high": 0.2073,
+      "avg_brier": 0.2033,
+      "outcome_accuracy": 56.5,
+      "baseline_accuracy": 45.9,
+      "accuracy_lift_pp": 10.6,
+      "ou_accuracy": 60.4,
+      "correct_score_rate": 12.9,
+      "moneyline_accuracy": 72.1,
+      "moneyline_n": 297
+    },
+    {
+      "key": "2024/25",
+      "label": "2024/25",
+      "seasons": [
+        "2024/25"
+      ],
+      "season_range": "2024/25",
+      "matches_predicted": 379,
+      "avg_rps": 0.2026,
+      "baseline_rps": 0.2369,
+      "rps_reduction_pct": 14.5,
+      "rps_ci_low": 0.1884,
+      "rps_ci_high": 0.2163,
+      "avg_brier": 0.2083,
+      "outcome_accuracy": 51.7,
+      "baseline_accuracy": 40.9,
+      "accuracy_lift_pp": 10.8,
+      "ou_accuracy": 57.8,
+      "correct_score_rate": 8.4,
+      "moneyline_accuracy": 68.5,
+      "moneyline_n": 286
+    },
+    {
+      "key": "2025/26",
+      "label": "2025/26",
+      "seasons": [
+        "2025/26"
+      ],
+      "season_range": "2025/26",
+      "matches_predicted": 380,
+      "avg_rps": 0.214,
+      "baseline_rps": 0.2322,
+      "rps_reduction_pct": 7.8,
+      "rps_ci_low": 0.201,
+      "rps_ci_high": 0.2281,
+      "avg_brier": 0.2255,
+      "outcome_accuracy": 46.1,
+      "baseline_accuracy": 42.6,
+      "accuracy_lift_pp": 3.5,
+      "ou_accuracy": 57.6,
+      "correct_score_rate": 10.5,
+      "moneyline_accuracy": 63.4,
+      "moneyline_n": 276
     }
   ],
   "avg_model_draw_prob": 22.0,
-  "draw_calibration_error": 2.4
+  "draw_calibration_error": 2.5
 }
