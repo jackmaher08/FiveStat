@@ -105,20 +105,16 @@ GW5,Crystal Palace,Nottingham Forest,46.3,53.7
 GW5,Hull City,Everton,42.7,57.3
 GW5,Liverpool,Manchester City,59.4,40.6
 GW5,Coventry City,Newcastle United,56.1,43.9
-GW6,Bournemouth,Liverpool,63.5,36.5
-GW6,Leeds United,Crystal Palace,56.1,43.9
-GW6,Manchester City,Sunderland,59.8,40.2
-GW6,Fulham,Manchester United,58.9,41.1
-GW6,Arsenal,Leeds United,56.0,44.0
-GW6,Aston Villa,Brentford,55.0,45.0
+GW6,Arsenal,Leeds United,55.3,44.7
+GW6,Aston Villa,Brentford,55.3,44.7
 GW6,Chelsea,Bournemouth,66.3,33.7
-GW6,Sunderland,Brighton,50.0,50.0
-GW6,Ipswich,Fulham,53.6,46.4
+GW6,Sunderland,Brighton,50.5,49.5
+GW6,Ipswich,Fulham,53.9,46.1
 GW6,Manchester United,Tottenham Hotspur,63.0,37.0
 GW6,Crystal Palace,Nottingham Forest,46.5,53.5
-GW6,Hull City,Everton,42.7,57.3
+GW6,Hull City,Everton,44.3,55.7
 GW6,Liverpool,Manchester City,59.4,40.6
-GW6,Coventry City,Newcastle United,56.2,43.8
+GW6,Coventry City,Newcastle United,56.1,43.9
 GW6,Everton,Chelsea,57.2,42.8
 GW6,Brentford,Liverpool,59.7,40.3
 GW6,Fulham,Hull City,56.2,43.8
@@ -127,4 +123,4 @@ GW6,Newcastle United,Aston Villa,59.1,40.9
 GW6,Bournemouth,Sunderland,52.8,47.2
 GW6,Brighton,Crystal Palace,59.7,40.3
 GW6,Leeds United,Manchester United,58.0,42.0
-GW6,Nottingham Forest,Arsenal,52.2,47.8
+GW6,Nottingham Forest,Arsenal,47.7,52.3
