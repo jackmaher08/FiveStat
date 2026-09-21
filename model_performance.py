@@ -16,6 +16,33 @@ REQUIRED_METRICS = (
 )
 
 
+def _normalise_window(row):
+    if not isinstance(row, dict):
+        return None
+    try:
+        model_rps = float(row["avg_rps"])
+        baseline_rps = float(row["baseline_rps"])
+        result = {
+            "key": str(row["key"]),
+            "label": str(row["label"]),
+            "season_range": str(row["season_range"]),
+            "seasons": [str(item) for item in row.get("seasons", [])],
+            "matches_predicted": int(row["matches_predicted"]),
+            "avg_rps": model_rps,
+            "baseline_rps": baseline_rps,
+            "rps_reduction_pct": float(row["rps_reduction_pct"]),
+            "rps_ci_low": float(row["rps_ci_low"]),
+            "rps_ci_high": float(row["rps_ci_high"]),
+            "avg_brier": float(row["avg_brier"]),
+            "outcome_accuracy": float(row["outcome_accuracy"]),
+            "baseline_accuracy": float(row["baseline_accuracy"]),
+            "accuracy_lift_pp": float(row["accuracy_lift_pp"]),
+        }
+    except (KeyError, TypeError, ValueError):
+        return None
+    return result
+
+
 def load_model_performance(path):
     """Load and enrich the backtest summary used by the public scorecard."""
     try:
@@ -60,11 +87,35 @@ def load_model_performance(path):
             continue
 
     data["gw_breakdown"] = gameweeks
-    data["chart_labels"] = [f"GW{row['gw']}" for row in gameweeks]
-    data["chart_rps"] = [row["avg_rps"] for row in gameweeks]
-    data["chart_baseline_rps"] = [
-        round(float(data["baseline_rps"]), 4) for _ in gameweeks
-    ]
+
+    windows = []
+    for row in data.get("window_breakdown", []):
+        normalised = _normalise_window(row)
+        if normalised:
+            windows.append(normalised)
+    data["window_breakdown"] = windows
+
+    seasons = []
+    for row in data.get("season_breakdown", []):
+        normalised = _normalise_window(row)
+        if normalised:
+            seasons.append(normalised)
+    data["season_breakdown"] = seasons
+
+    if windows:
+        data["chart_mode"] = "windows"
+        data["chart_labels"] = [row["label"] for row in windows]
+        data["chart_rps"] = [row["avg_rps"] for row in windows]
+        data["chart_baseline_rps"] = [row["baseline_rps"] for row in windows]
+    else:
+        # Backwards compatibility for the legacy artifact until the corrected
+        # backtest is manually run after deployment.
+        data["chart_mode"] = "gameweeks"
+        data["chart_labels"] = [f"GW{row['gw']}" for row in gameweeks]
+        data["chart_rps"] = [row["avg_rps"] for row in gameweeks]
+        data["chart_baseline_rps"] = [
+            round(float(data["baseline_rps"]), 4) for _ in gameweeks
+        ]
 
     try:
         modified = os.path.getmtime(path)
