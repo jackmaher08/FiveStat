@@ -61,17 +61,11 @@ TEAM_NAME_MAPPING = {
     
 def get_last_updated_time():
     try:
-        # Try git first
-        raw_date = subprocess.check_output(['git', 'log', '-1', '--format=%cd'], encoding='utf-8').strip()
-        return datetime.strptime(raw_date, '%a %b %d %H:%M:%S %Y %z').strftime('%d %b %Y at %H:%M')
+        file_path = "data/tables/fixture_data.csv"
+        mtime = os.path.getmtime(file_path)
+        return datetime.fromtimestamp(mtime).strftime('%d %b %Y at %H:%M')
     except Exception:
-        # Fallback to file mod time
-        try:
-            file_path = "data/tables/fixture_data.csv"
-            mtime = os.path.getmtime(file_path)
-            return datetime.fromtimestamp(mtime).strftime('%d %b %Y at %H:%M')
-        except Exception:
-            return "Unknown"
+        return "Unknown"
 
 
 BOOKIE_TEAM_NAME_MAP = {
