@@ -13,6 +13,24 @@ class ModelPerformanceTests(unittest.TestCase):
             json.dump(payload, handle)
         return path
 
+    def window_row(self):
+        return {
+            "key": "full",
+            "label": "Full available window",
+            "season_range": "2023/24–2025/26",
+            "seasons": ["2023/24", "2024/25", "2025/26"],
+            "matches_predicted": 1101,
+            "avg_rps": 0.2092,
+            "baseline_rps": 0.2371,
+            "rps_reduction_pct": 11.8,
+            "rps_ci_low": 0.198,
+            "rps_ci_high": 0.220,
+            "avg_brier": 0.2188,
+            "outcome_accuracy": 51.0,
+            "baseline_accuracy": 43.6,
+            "accuracy_lift_pp": 7.4,
+        }
+
     def base_payload(self):
         return {
             "season": "2023/24–2025/26 (combined)",
@@ -23,6 +41,8 @@ class ModelPerformanceTests(unittest.TestCase):
             "avg_brier": 0.2188,
             "outcome_accuracy": 51.0,
             "baseline_accuracy": 43.6,
+            "window_breakdown": [self.window_row()],
+            "season_breakdown": [],
             "gw_breakdown": [
                 {
                     "gw": 1,
@@ -42,10 +62,25 @@ class ModelPerformanceTests(unittest.TestCase):
         self.assertEqual(result["matches_predicted"], 1101)
         self.assertEqual(result["rps_reduction_pct"], 11.8)
         self.assertEqual(result["accuracy_lift_pp"], 7.4)
+        self.assertEqual(result["chart_mode"], "windows")
+        self.assertEqual(result["chart_labels"], ["Full available window"])
+        self.assertEqual(result["chart_rps"], [0.2092])
+        self.assertEqual(result["chart_baseline_rps"], [0.2371])
+        self.assertEqual(result["window_breakdown"][0]["rps_ci_low"], 0.198)
+        self.assertIsNotNone(result["updated_at"])
+
+    def test_legacy_artifact_uses_gameweek_chart(self):
+        payload = self.base_payload()
+        payload.pop("window_breakdown")
+        payload.pop("season_breakdown")
+
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write_json(directory, payload)
+            result = load_model_performance(path)
+
+        self.assertEqual(result["chart_mode"], "gameweeks")
         self.assertEqual(result["chart_labels"], ["GW1"])
         self.assertEqual(result["chart_rps"], [0.1486])
-        self.assertEqual(result["chart_baseline_rps"], [0.2371])
-        self.assertIsNotNone(result["updated_at"])
 
     def test_returns_none_for_missing_file(self):
         self.assertIsNone(load_model_performance("/path/that/does/not/exist.json"))

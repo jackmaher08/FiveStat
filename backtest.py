@@ -3,12 +3,12 @@ backtest.py — Walk-forward backtest for FiveStat match prediction model.
 
 Methodology:
   - Test window: 2023/24, 2024/25, 2025/26 combined (all completed fixtures)
-  - For each gameweek in the test window, ratings are calculated using ONLY data
-    available up to that point (all prior seasons + completed GWs in the window).
-  - Predictions are generated for that GW's fixtures, then compared against
-    actual results.
-  - This mirrors exactly how the model operates in production — no future
-    data leaks into any prediction.
+  - Fixtures are processed in chronological match-date batches.
+  - Every batch is predicted using ONLY matches completed before that date.
+  - Results are reported for pre-declared full, recent-two and latest-season
+    windows from the same frozen prediction set.
+  - This mirrors production timing without leaking future results or selecting
+    an evaluation window after seeing which score looks best.
 
 Metrics computed:
   1. Outcome accuracy        — % correct most-likely outcome (H/D/A)
@@ -41,6 +41,13 @@ from data_loader import (
     MANUAL_XG_ADJUSTMENTS,
     MANUAL_XGA_ADJUSTMENTS,
     MATCH_FORM_WEIGHT,
+)
+from backtest_reporting import (
+    add_season_column,
+    build_season_breakdown,
+    build_window_breakdown,
+    iter_walk_forward_batches,
+    season_label,
 )
 
 
@@ -215,34 +222,38 @@ def run_backtest():
 
     
     test["round_number"] = pd.to_numeric(test["Round Number"], errors="coerce")
-    gameweeks = sorted(test["round_number"].dropna().unique())
-    gw_col = "round_number"
+    test = add_season_column(test)
+    forecast_batches = list(iter_walk_forward_batches(test))
 
-    print(f"Gameweeks to test: {len(gameweeks)}")
+    print(f"Chronological forecast-date batches: {len(forecast_batches)}")
     print()
 
     # ── Accumulators ──
     results = []
     skipped = 0
 
-    for gw_idx, gw in enumerate(gameweeks):
-        gw_fixtures = test[test[gw_col] == gw]
-
-        # Training data = everything before this GW's fixtures
-        gw_first_date = gw_fixtures["date_parsed"].min()
-        training_data = all_data[all_data["date_parsed"] < gw_first_date].copy()
+    for forecast_date, batch_fixtures in forecast_batches:
+        # Every fixture on this date is frozen against the same pre-date data.
+        training_data = all_data[
+            all_data["date_parsed"] < forecast_date
+        ].copy()
 
         if len(training_data) < MIN_TRAIN_MATCHES:
-            print(f"  GW{int(gw):02d} — skipping (only {len(training_data)} training matches)")
-            skipped += len(gw_fixtures)
+            print(
+                f"  {forecast_date.date()} — skipping "
+                f"(only {len(training_data)} training matches)"
+            )
+            skipped += len(batch_fixtures)
             continue
 
-        gw_results_list = []
-        for _, fixture in gw_fixtures.iterrows():
+        batch_results = []
+        for _, fixture in batch_fixtures.iterrows():
             home_team   = fixture["Home Team"]
             away_team   = fixture["Away Team"]
             home_goals  = int(fixture["home_goals"])
             away_goals  = int(fixture["away_goals"])
+            gw_value    = fixture.get("round_number")
+            gw          = int(gw_value) if pd.notna(gw_value) else None
             home_xg_act = float(fixture["home_xG"]) if "home_xG" in fixture and pd.notna(fixture.get("home_xG")) else None
             away_xg_act = float(fixture["away_xG"]) if "away_xG" in fixture and pd.notna(fixture.get("away_xG")) else None
 
@@ -286,7 +297,9 @@ def run_backtest():
             brier      = brier_score(pred["home_win_prob"], 1 if actual_outcome == "home_win" else 0)
 
             row = {
-                "gw":               int(gw),
+                "forecast_date":    forecast_date.strftime("%Y-%m-%d"),
+                "season":           season_label(forecast_date),
+                "gw":               gw,
                 "home_team":        home_team,
                 "away_team":        away_team,
                 "home_goals":       home_goals,
@@ -316,10 +329,17 @@ def run_backtest():
                 row["xg_mae_away"] = abs(pred["away_xg"] - away_xg_act)
 
             results.append(row)
-            gw_results_list.append(row)
+            batch_results.append(row)
 
-        gw_acc = np.mean([r["outcome_correct"] for r in gw_results_list]) if gw_results_list else 0
-        print(f"  GW{int(gw):02d} — {len(gw_results_list)} fixtures predicted  |  outcome acc: {gw_acc:.1%}")
+        batch_acc = (
+            np.mean([item["outcome_correct"] for item in batch_results])
+            if batch_results
+            else 0
+        )
+        print(
+            f"  {forecast_date.date()} — {len(batch_results)} fixtures "
+            f"predicted  |  outcome acc: {batch_acc:.1%}"
+        )
 
     # ── Aggregate metrics ──
     print()
@@ -367,9 +387,11 @@ def run_backtest():
     draw_acc     = round(draw_matches["outcome_correct"].mean() * 100, 1)     if len(draw_matches) > 0     else None
     away_win_acc = round(away_win_matches["outcome_correct"].mean() * 100, 1) if len(away_win_matches) > 0 else None
 
-    # Gameweek-by-gameweek accuracy
-    gw_breakdown = (
-        df.groupby("gw")
+    # Chronological season/gameweek accuracy. Gameweek numbers repeat each
+    # season, so season must remain part of the grouping key.
+    gw_breakdown_df = (
+        df.dropna(subset=["gw"])
+        .groupby(["season", "gw"], sort=False)
         .agg(
             fixtures=("outcome_correct", "count"),
             outcome_acc=("outcome_correct", lambda x: round(x.mean() * 100, 1)),
@@ -377,8 +399,19 @@ def run_backtest():
             ou_acc=("ou_correct", lambda x: round(x.mean() * 100, 1)),
         )
         .reset_index()
-        .to_dict(orient="records")
     )
+    gw_breakdown_df["gw"] = gw_breakdown_df["gw"].astype(int)
+    gw_breakdown_df["label"] = gw_breakdown_df.apply(
+        lambda row: f"{row['season']} GW{row['gw']}",
+        axis=1,
+    )
+    gw_breakdown = gw_breakdown_df.to_dict(orient="records")
+
+    # Fixed windows are declared before scores are inspected. The full sample
+    # remains primary; shorter windows show recency and possible drift.
+    window_breakdown = build_window_breakdown(df)
+    season_breakdown = build_season_breakdown(df)
+    full_window = window_breakdown[0]
 
     # ── Print summary ──
     print()
@@ -410,7 +443,9 @@ def run_backtest():
 
     # ── Save results ──
     accuracy_output = {
-        "season":              "2023/24–2025/26 (combined)",
+        "backtest_version":    2,
+        "evaluation_method":   "chronological_match_date_batches",
+        "season":              f"{full_window['season_range']} (combined)",
         "matches_predicted":   n,
         "matches_skipped":     skipped,
         "outcome_accuracy":    outcome_accuracy,
@@ -431,6 +466,8 @@ def run_backtest():
         "draw_predicted_rate": draw_predicted_rate,
         "draw_actual_rate":    draw_actual_rate,
         "gw_breakdown":        gw_breakdown,
+        "window_breakdown":    window_breakdown,
+        "season_breakdown":    season_breakdown,
         "avg_model_draw_prob":    avg_model_draw_prob,
         "draw_calibration_error": draw_calibration_error,
     }
