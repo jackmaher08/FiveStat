@@ -70,6 +70,7 @@ jobs:
         run: |
           python data_scraper_script.py
           python data_loader.py
+          python betting_tracker.py
           python generate_shotmaps.py
           python shotmap_script.py
 
