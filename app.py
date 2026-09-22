@@ -1385,20 +1385,10 @@ def ev_checker():
             "ev_under25":   ev_val(model_under25,  bookie_under25),
         })
 
-    paper_summary = None
-    summary_path = "data/tables/paper_betting_summary.json"
-    if os.path.exists(summary_path):
-        try:
-            with open(summary_path, "r", encoding="utf-8") as f:
-                paper_summary = json.load(f)
-        except (OSError, json.JSONDecodeError) as exc:
-            print(f"⚠️ Paper betting summary load failed: {exc}")
-
     return render_template(
         "ev_checker.html",
         ev_fixtures=ev_fixtures,
         current_gw=current_gw,
-        paper_summary=paper_summary,
         last_updated=get_last_updated_time()
     )
 
