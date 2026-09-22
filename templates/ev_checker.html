@@ -43,32 +43,8 @@
 
 
 
-    {# ── Paper betting record ── #}
-    {% if paper_summary %}
-    <section class="ev-performance-card" aria-label="Paper betting performance">
-        <div class="ev-performance-copy">
-            <span class="ev-performance-eyebrow">Live paper-betting record</span>
-            {% if paper_summary.bets_settled > 0 %}
-                <h2>Strong-value recommendations: {{ "%+.2f"|format(paper_summary.profit_units) }} units</h2>
-                <p>
-                    {{ paper_summary.bets_settled }} settled bets ·
-                    {{ "%+.1f"|format(paper_summary.roi_percent) }}% ROI ·
-                    {{ paper_summary.wins }} wins / {{ paper_summary.losses }} losses
-                </p>
-            {% else %}
-                <h2>Strong-value tracking is now live</h2>
-                <p>Results will appear here once the first qualifying recommendation has been settled.</p>
-            {% endif %}
-            <p class="ev-performance-rule">
-                Official rule: 1-unit flat stake · model probability &gt;50% · edge &gt;10 percentage points ·
-                settled at the median captured UK bookmaker price.
-            </p>
-        </div>
-    </section>
-    {% endif %}
-
     {# ── Disclaimer ── #}
-    <p class="ev-disclaimer">This tool is for informational purposes only. The performance record is a paper-betting simulation, not evidence of guaranteed future returns. Gamble responsibly.</p>
+    <p class="ev-disclaimer">This tool is for informational purposes only. Nothing on this page constitutes betting advice. Gamble responsibly!</p>
 
     {# ── Legend ── #}
     <div class="ev-legend">
