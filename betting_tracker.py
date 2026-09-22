@@ -31,13 +31,17 @@ MIN_EDGE_PP = 10.0
 STAKE_UNITS = 1.0
 
 TEAM_MAP = {
-    "Ipswich": "Ipswich Town",
+    "Coventry City": "Coventry",
+    "Hull City": "Hull",
+    "Ipswich Town": "Ipswich",
     "Leeds United": "Leeds",
     "Manchester Utd": "Manchester United",
     "Man Utd": "Manchester United",
     "Man City": "Manchester City",
     "Newcastle": "Newcastle United",
+    "Nott'm Forest": "Nottingham Forest",
     "Spurs": "Tottenham Hotspur",
+    "Wolves": "Wolverhampton Wanderers",
 }
 
 
