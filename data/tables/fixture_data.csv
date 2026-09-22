@@ -39,16 +39,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 4,13/09/2026 14:00,Coventry City,Brighton,0 - 5,31217,True,0.0,5.0,1.05,2.77
 4,13/09/2026 16:30,Manchester United,Manchester City,0 - 1,31218,True,0.0,1.0,0.94,1.14
 4,14/09/2026 20:00,Leeds,Newcastle United,4 - 1,31219,True,4.0,1.0,2.29,0.79
-5,18/09/2026 20:00,Brentford,Chelsea,,31220,True,3.0,0.0,2.48,0.89
-5,19/09/2026 12:30,Tottenham Hotspur,Aston Villa,,31221,True,2.0,3.0,1.72,1.71
-5,19/09/2026 15:00,Brighton,Arsenal,,31224,True,3.0,0.0,2.11,1.24
-5,19/09/2026 15:00,Everton,Ipswich Town,,31226,True,1.0,0.0,2.58,1.1
-5,19/09/2026 15:00,Newcastle United,Hull City,,31223,True,2.0,1.0,1.38,1.16
-5,19/09/2026 17:30,Nottingham Forest,Coventry City,,31227,True,0.0,1.0,1.32,0.69
-5,20/09/2026 14:00,Bournemouth,Liverpool,,31228,True,0.0,1.0,0.94,1.29
-5,20/09/2026 14:00,Leeds,Crystal Palace,,31225,True,0.0,0.0,1.09,1.13
-5,20/09/2026 14:00,Manchester City,Sunderland,,31222,True,5.0,3.0,2.67,3.11
-5,20/09/2026 16:30,Fulham,Manchester United,,31229,True,1.0,1.0,1.72,2.12
+5,18/09/2026 20:00,Brentford,Chelsea,3 - 0,31220,True,3.0,0.0,2.48,0.89
+5,19/09/2026 12:30,Tottenham Hotspur,Aston Villa,2 - 3,31221,True,2.0,3.0,1.72,1.71
+5,19/09/2026 15:00,Brighton,Arsenal,3 - 0,31224,True,3.0,0.0,2.11,1.24
+5,19/09/2026 15:00,Everton,Ipswich Town,1 - 0,31226,True,1.0,0.0,2.58,1.1
+5,19/09/2026 15:00,Newcastle United,Hull City,2 - 1,31223,True,2.0,1.0,1.38,1.16
+5,19/09/2026 17:30,Nottingham Forest,Coventry City,0 - 1,31227,True,0.0,1.0,1.32,0.69
+5,20/09/2026 14:00,Bournemouth,Liverpool,0 - 1,31228,True,0.0,1.0,0.94,1.29
+5,20/09/2026 14:00,Leeds,Crystal Palace,0 - 0,31225,True,0.0,0.0,1.09,1.13
+5,20/09/2026 14:00,Manchester City,Sunderland,5 - 3,31222,True,5.0,3.0,2.67,3.11
+5,20/09/2026 16:30,Fulham,Manchester United,1 - 1,31229,True,1.0,1.0,1.72,2.12
 6,10/10/2026 12:30,Arsenal,Leeds,,31230,False,,,,
 6,10/10/2026 15:00,Aston Villa,Brentford,,31231,False,,,,
 6,10/10/2026 15:00,Chelsea,Bournemouth,,31232,False,,,,
@@ -89,36 +89,36 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 9,31/10/2026 20:00,Aston Villa,Fulham,,31267,False,,,,
 9,01/11/2026 16:30,Liverpool,Arsenal,,31268,False,,,,
 9,02/11/2026 20:00,Newcastle United,Everton,,31269,False,,,,
+10,06/11/2026 20:00,Everton,Coventry City,,31273,False,,,,
+10,07/11/2026 12:30,Leeds,Tottenham Hotspur,,31276,False,,,,
 10,07/11/2026 15:00,Arsenal,Hull City,,31270,False,,,,
-10,07/11/2026 15:00,Brighton,Brentford,,31271,False,,,,
-10,07/11/2026 15:00,Crystal Palace,Liverpool,,31272,False,,,,
-10,07/11/2026 15:00,Everton,Coventry City,,31273,False,,,,
 10,07/11/2026 15:00,Fulham,Newcastle United,,31274,False,,,,
-10,07/11/2026 15:00,Ipswich Town,Bournemouth,,31275,False,,,,
-10,07/11/2026 15:00,Leeds,Tottenham Hotspur,,31276,False,,,,
-10,07/11/2026 15:00,Manchester United,Aston Villa,,31277,False,,,,
-10,07/11/2026 15:00,Nottingham Forest,Manchester City,,31278,False,,,,
-10,07/11/2026 15:00,Sunderland,Chelsea,,31279,False,,,,
+10,07/11/2026 17:30,Nottingham Forest,Manchester City,,31278,False,,,,
+10,08/11/2026 14:00,Brighton,Brentford,,31271,False,,,,
+10,08/11/2026 14:00,Crystal Palace,Liverpool,,31272,False,,,,
+10,08/11/2026 14:00,Ipswich Town,Bournemouth,,31275,False,,,,
+10,08/11/2026 14:00,Sunderland,Chelsea,,31279,False,,,,
+10,08/11/2026 16:30,Manchester United,Aston Villa,,31277,False,,,,
+11,21/11/2026 12:30,Manchester City,Fulham,,31287,False,,,,
 11,21/11/2026 15:00,Aston Villa,Sunderland,,31281,False,,,,
 11,21/11/2026 15:00,Bournemouth,Nottingham Forest,,31280,False,,,,
-11,21/11/2026 15:00,Brentford,Everton,,31282,False,,,,
 11,21/11/2026 15:00,Chelsea,Leeds,,31283,False,,,,
 11,21/11/2026 15:00,Coventry City,Crystal Palace,,31284,False,,,,
-11,21/11/2026 15:00,Hull City,Brighton,,31285,False,,,,
-11,21/11/2026 15:00,Liverpool,Manchester United,,31286,False,,,,
-11,21/11/2026 15:00,Manchester City,Fulham,,31287,False,,,,
-11,21/11/2026 15:00,Newcastle United,Arsenal,,31288,False,,,,
 11,21/11/2026 15:00,Tottenham Hotspur,Ipswich Town,,31289,False,,,,
-12,28/11/2026 15:00,Arsenal,Manchester City,,31290,False,,,,
-12,28/11/2026 15:00,Brighton,Newcastle United,,31291,False,,,,
-12,28/11/2026 15:00,Crystal Palace,Hull City,,31292,False,,,,
-12,28/11/2026 15:00,Everton,Liverpool,,31293,False,,,,
-12,28/11/2026 15:00,Fulham,Bournemouth,,31294,False,,,,
-12,28/11/2026 15:00,Ipswich Town,Aston Villa,,31295,False,,,,
+11,21/11/2026 17:30,Newcastle United,Arsenal,,31288,False,,,,
+11,22/11/2026 14:00,Hull City,Brighton,,31285,False,,,,
+11,22/11/2026 16:30,Liverpool,Manchester United,,31286,False,,,,
+11,23/11/2026 20:00,Brentford,Everton,,31282,False,,,,
+12,27/11/2026 20:00,Nottingham Forest,Chelsea,,31298,False,,,,
 12,28/11/2026 15:00,Leeds,Coventry City,,31296,False,,,,
 12,28/11/2026 15:00,Manchester United,Brentford,,31297,False,,,,
-12,28/11/2026 15:00,Nottingham Forest,Chelsea,,31298,False,,,,
-12,28/11/2026 15:00,Sunderland,Tottenham Hotspur,,31299,False,,,,
+12,28/11/2026 17:30,Ipswich Town,Aston Villa,,31295,False,,,,
+12,29/11/2026 12:00,Everton,Liverpool,,31293,False,,,,
+12,29/11/2026 14:05,Brighton,Newcastle United,,31291,False,,,,
+12,29/11/2026 14:05,Crystal Palace,Hull City,,31292,False,,,,
+12,29/11/2026 14:05,Fulham,Bournemouth,,31294,False,,,,
+12,29/11/2026 14:05,Sunderland,Tottenham Hotspur,,31299,False,,,,
+12,29/11/2026 16:30,Arsenal,Manchester City,,31290,False,,,,
 13,02/12/2026 20:00,Aston Villa,Everton,,31301,False,,,,
 13,02/12/2026 20:00,Bournemouth,Brighton,,31300,False,,,,
 13,02/12/2026 20:00,Brentford,Arsenal,,31302,False,,,,
