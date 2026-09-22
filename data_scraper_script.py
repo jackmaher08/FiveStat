@@ -672,6 +672,8 @@ else:
 
         win_rows = []
         ou_rows  = []
+        raw_odds_rows = []
+        captured_at = datetime.now(timezone.utc).isoformat()
 
         for game in odds_data:
             home_raw  = game["home_team"]
@@ -681,6 +683,8 @@ else:
 
             h2h_home_probs, h2h_draw_probs, h2h_away_probs = [], [], []
             over25_probs, under25_probs = [], []
+            h2h_home_prices, h2h_draw_prices, h2h_away_prices = [], [], []
+            over25_prices, under25_prices = [], []
 
             for bk in game.get("bookmakers", []):
                 for market in bk.get("markets", []):
@@ -694,6 +698,9 @@ else:
                             h2h_home_probs.append(raw_home / total * 100)
                             h2h_draw_probs.append(raw_draw / total * 100)
                             h2h_away_probs.append(raw_away / total * 100)
+                            h2h_home_prices.append(float(outcomes[home_raw]))
+                            h2h_draw_prices.append(float(outcomes["Draw"]))
+                            h2h_away_prices.append(float(outcomes[away_raw]))
                     elif market["key"] == "totals":
                         outcomes = {(o["name"], o.get("point")): o["price"] for o in market["outcomes"]}
                         over_price  = outcomes.get(("Over",  2.5))
@@ -704,6 +711,26 @@ else:
                             total = raw_over + raw_under
                             over25_probs.append(raw_over  / total * 100)
                             under25_probs.append(raw_under / total * 100)
+                            over25_prices.append(float(over_price))
+                            under25_prices.append(float(under_price))
+
+            raw_odds_rows.append({
+                "gw": gw_label,
+                "home_team": home_team,
+                "away_team": away_team,
+                "commence_time": game.get("commence_time"),
+                "captured_at": captured_at,
+                "home_odds_median": round(float(np.median(h2h_home_prices)), 3) if h2h_home_prices else None,
+                "draw_odds_median": round(float(np.median(h2h_draw_prices)), 3) if h2h_draw_prices else None,
+                "away_odds_median": round(float(np.median(h2h_away_prices)), 3) if h2h_away_prices else None,
+                "over25_odds_median": round(float(np.median(over25_prices)), 3) if over25_prices else None,
+                "under25_odds_median": round(float(np.median(under25_prices)), 3) if under25_prices else None,
+                "home_odds_best": round(max(h2h_home_prices), 3) if h2h_home_prices else None,
+                "draw_odds_best": round(max(h2h_draw_prices), 3) if h2h_draw_prices else None,
+                "away_odds_best": round(max(h2h_away_prices), 3) if h2h_away_prices else None,
+                "over25_odds_best": round(max(over25_prices), 3) if over25_prices else None,
+                "under25_odds_best": round(max(under25_prices), 3) if under25_prices else None,
+            })
 
             if h2h_home_probs:
                 win_rows.append({
@@ -738,6 +765,15 @@ else:
             print(f"✅ Saved {len(win_rows)} win probability rows for {gw_label}")
         else:
             print(f"⚠️  No win probability data from Odds API for {gw_label}")
+
+        if raw_odds_rows:
+            raw_path = os.path.join(save_dir, "bookie_raw_odds_by_gw.csv")
+            raw_df = pd.read_csv(raw_path) if os.path.exists(raw_path) else pd.DataFrame()
+            if not raw_df.empty:
+                raw_df = raw_df[raw_df["gw"] != gw_label]
+            raw_df = pd.concat([raw_df, pd.DataFrame(raw_odds_rows)], ignore_index=True)
+            raw_df.to_csv(raw_path, index=False)
+            print(f"✅ Saved {len(raw_odds_rows)} raw odds rows for {gw_label}")
 
         if ou_rows:
             ou_path = os.path.join(save_dir, "bookie_ou_by_gw.csv")
