@@ -1,0 +1,36 @@
+<section class="fixture-probability-panel" aria-label="Match probability summary">
+    <div class="fixture-outcome-summary">
+        <div class="fixture-chart-label">Win probability</div>
+        <div class="fixture-outcome-values" aria-hidden="true">
+            <span><small>Home</small><strong>{{ stats.home_win }}%</strong></span>
+            <span><small>Draw</small><strong>{{ stats.draw }}%</strong></span>
+            <span><small>Away</small><strong>{{ stats.away_win }}%</strong></span>
+        </div>
+        <div class="fixture-outcome-bar"
+             role="img"
+             aria-label="Home win {{ stats.home_win }} percent, draw {{ stats.draw }} percent, away win {{ stats.away_win }} percent">
+            <span class="fixture-outcome-bar__home" style="width: {{ stats.home_win }}%"></span>
+            <span class="fixture-outcome-bar__draw" style="width: {{ stats.draw }}%"></span>
+            <span class="fixture-outcome-bar__away" style="width: {{ stats.away_win }}%"></span>
+        </div>
+    </div>
+
+    <dl class="fixture-market-metrics">
+        <div class="fixture-market-metric">
+            <dt>Over 2.5 goals</dt>
+            <dd>{{ stats.over_2_5 }}%</dd>
+        </div>
+        <div class="fixture-market-metric">
+            <dt>Both teams to score</dt>
+            <dd>{{ stats.btts }}%</dd>
+        </div>
+        <div class="fixture-market-metric">
+            <dt>{{ fixture.home_team }} clean sheet</dt>
+            <dd>{{ stats.home_cs }}%</dd>
+        </div>
+        <div class="fixture-market-metric">
+            <dt>{{ fixture.away_team }} clean sheet</dt>
+            <dd>{{ stats.away_cs }}%</dd>
+        </div>
+    </dl>
+</section>

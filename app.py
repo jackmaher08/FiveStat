@@ -543,6 +543,7 @@ def team_page(team_name):
                     "draw":      round(float(p["draw_prob"])     * 100, 1),
                     "away_win":  round(float(p["away_win_prob"]) * 100, 1),
                     "over_2_5":  round(float(p.get("over_2_5_prob", 0) or 0) * 100, 1),
+                    "btts":      round(float(p.get("btts_prob",       0) or 0) * 100, 1),
                     "home_cs":   round(float(p.get("home_cs_prob",   0) or 0) * 100, 1),
                     "away_cs":   round(float(p.get("away_cs_prob",   0) or 0) * 100, 1),
                 }
@@ -739,6 +740,7 @@ def premier_league():
                 "draw":      round(row["draw_prob"] * 100, 1),
                 "away_win":  round(row["away_win_prob"] * 100, 1),
                 "over_2_5":  round(row.get("over_2_5_prob", 0) * 100, 1),
+                "btts":      round(row.get("btts_prob", 0) * 100, 1),
                 "home_cs":   round(row.get("home_cs_prob", 0) * 100, 1),
                 "away_cs":   round(row.get("away_cs_prob", 0) * 100, 1),
                 "home_xg":   round(float(row.get("home_xg", 0) or 0), 2),

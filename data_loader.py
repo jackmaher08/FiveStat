@@ -1006,6 +1006,7 @@ def generate_all_heatmaps(
     probabilities_df["draw_prob"] = np.nan
     probabilities_df["away_win_prob"] = np.nan
     probabilities_df["over_2_5_prob"] = np.nan
+    probabilities_df["btts_prob"] = np.nan
     probabilities_df["home_cs_prob"] = np.nan
     probabilities_df["away_cs_prob"] = np.nan
     probabilities_df["home_xg"]      = np.nan
@@ -1072,6 +1073,9 @@ def generate_all_heatmaps(
         goals_grid = np.add.outer(np.arange(result_matrix.shape[0]), np.arange(result_matrix.shape[1]))
         over_2_5 = float(result_matrix[goals_grid > 2].sum())
         probabilities_df.at[index, "over_2_5_prob"] = over_2_5
+
+        # Both teams to score: every scoreline where home and away score at least once
+        probabilities_df.at[index, "btts_prob"] = float(result_matrix[1:, 1:].sum())
 
         # Clean sheet: home keeps clean sheet when away scores 0 (col 0), and vice versa
         probabilities_df.at[index, "home_cs_prob"] = result_matrix[:, 0].sum()
