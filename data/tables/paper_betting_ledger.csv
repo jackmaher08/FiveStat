@@ -1,0 +1,7 @@
+fixture_id,gw,kickoff,home_team,away_team,market,model_probability,market_fair_probability,edge_pp,decimal_odds,stake_units,placed_at,status,won,profit_units,settled_at
+31233,6,10/10/2026 15:00,Ipswich,Fulham,away_win,57.1,37.6,19.5,2.5,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
+31237,6,11/10/2026 14:00,Hull,Everton,away_win,62.58,45.5,17.08,2.05,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
+31237,6,11/10/2026 14:00,Hull,Everton,over_2_5,56.62,44.2,12.42,2.14,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
+31238,6,11/10/2026 16:30,Liverpool,Manchester City,away_win,55.34,39.7,15.64,2.38,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
+31239,6,12/10/2026 20:00,Coventry,Newcastle United,away_win,73.43,44.8,28.63,2.1,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
+31239,6,12/10/2026 20:00,Coventry,Newcastle United,under_2_5,60.17,43.9,16.27,2.13,1.0,2026-09-23T06:03:19.281139+00:00,OPEN,,,
