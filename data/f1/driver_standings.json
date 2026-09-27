@@ -7,7 +7,7 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 292.0,
+    "points": 302.0,
     "wins": 8
   },
   {
@@ -18,8 +18,8 @@
     "nationality": "British",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 211.0,
-    "wins": 2
+    "points": 236.0,
+    "wins": 3
   },
   {
     "position": 3,
@@ -29,7 +29,7 @@
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 191.0,
+    "points": 199.0,
     "wins": 1
   },
   {
@@ -51,7 +51,7 @@
     "nationality": "Monegasque",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 167.0,
+    "points": 179.0,
     "wins": 1
   },
   {
@@ -62,7 +62,7 @@
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 145.0,
+    "points": 163.0,
     "wins": 0
   },
   {
@@ -84,7 +84,7 @@
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 71.0,
+    "points": 86.0,
     "wins": 0
   },
   {
@@ -117,7 +117,7 @@
     "nationality": "British",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 31.0,
+    "points": 37.0,
     "wins": 0
   },
   {
@@ -139,7 +139,7 @@
     "nationality": "British",
     "constructor": "Haas F1 Team",
     "constructor_id": "haas",
-    "points": 18.0,
+    "points": 20.0,
     "wins": 0
   },
   {
@@ -166,17 +166,28 @@
   },
   {
     "position": 16,
+    "driver_id": "ocon",
+    "code": "OCO",
+    "name": "Esteban Ocon",
+    "nationality": "French",
+    "constructor": "Haas F1 Team",
+    "constructor_id": "haas",
+    "points": 7.0,
+    "wins": 0
+  },
+  {
+    "position": 17,
     "driver_id": "sainz",
     "code": "SAI",
     "name": "Carlos Sainz",
     "nationality": "Spanish",
     "constructor": "Williams",
     "constructor_id": "williams",
-    "points": 6.0,
+    "points": 7.0,
     "wins": 0
   },
   {
-    "position": 17,
+    "position": 18,
     "driver_id": "albon",
     "code": "ALB",
     "name": "Alexander Albon",
@@ -184,17 +195,6 @@
     "constructor": "Williams",
     "constructor_id": "williams",
     "points": 5.0,
-    "wins": 0
-  },
-  {
-    "position": 18,
-    "driver_id": "ocon",
-    "code": "OCO",
-    "name": "Esteban Ocon",
-    "nationality": "French",
-    "constructor": "Haas F1 Team",
-    "constructor_id": "haas",
-    "points": 3.0,
     "wins": 0
   },
   {
