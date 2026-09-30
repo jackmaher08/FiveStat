@@ -107,7 +107,6 @@
                             <span class="fpl-player-name">{{ pick.name }}</span>
                             <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }}</span>
                             <span class="fpl-player-meta fpl-mobile-meta">£{{ pick.price }}m · {{ pick.ownership }}% owned · {{ pick.expected_minutes|round|int }} xMins</span>
-                            <span class="fpl-confidence fpl-confidence--{{ pick.confidence|lower }}">{{ pick.confidence }} confidence</span>
                             {% if pick.ownership >= 25 %}
                             <span class="fpl-badge fpl-easy" style="font-size:10px;margin-top:2px;">Safe - popular pick</span>
                             {% elif pick.ownership >= 10 %}
