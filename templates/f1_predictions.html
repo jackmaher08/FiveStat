@@ -95,7 +95,6 @@
                     <th>Win %</th>
                     <th>Podium %</th>
                     <th>Points %</th>
-                    <th>xPos</th>
                     <th title="Expected Fantasy Points">xFP</th>
                     {% if is_completed %}<th>Result</th>{% endif %}
                 </tr>
@@ -132,7 +131,6 @@
                         </div>
                     </td>
                     <td>{{ d.points_prob }}%</td>
-                    <td style="color:var(--text-muted);">{{ d.expected_pos }}</td>
                     <td style="font-weight:700;color:var(--accent);">{{ d.xfp if d.xfp else '–' }}</td>
                     {% if is_completed %}
                     <td style="font-weight:{% if d.actual_position and d.actual_position|int <= 3 %}700{% else %}400{% endif %};color:{% if d.actual_position and d.actual_position|int <= 3 %}var(--accent){% else %}var(--text-secondary){% endif %};">
