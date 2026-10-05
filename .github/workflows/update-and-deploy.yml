@@ -80,25 +80,42 @@ jobs:
           python scripts/validate_fpl_inputs.py
           python -m unittest discover -s tests -v
 
-      # Remove empty retry-blocking files before the F1 scraper runs
+      # Remove empty retry-blocking files before the F1 scraper runs.
+      # Empty laps/stints use [], while OpenF1 metadata uses {}.
       - name: Clear stale F1 sentinels
         if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
         shell: bash
         run: |
           find data/f1/races \
-            \( -name "*_laps.json" -o -name "*_stints.json" \) \
+            \( -name "*_laps.json" -o -name "*_stints.json" -o -name "*_openf1.json" \) \
             -type f |
           while IFS= read -r file; do
-            if [ "$(tr -d '[:space:]' < "$file")" = "[]" ]; then
+            compact="$(tr -d '[:space:]' < "$file")"
+            if [ "$compact" = "[]" ] || [ "$compact" = "{}" ]; then
               echo "Removing stale sentinel: $file"
               rm "$file"
             fi
           done
 
-      # Current F1 season
+      # Current F1 season. Run twice so OpenF1 metadata created late in the
+      # first pass can immediately be used to recover lap data in the second.
       - name: F1 pipeline
         if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
-        run: python f1_scraper.py
+        shell: bash
+        run: |
+          python f1_scraper.py
+
+          find data/f1/races \
+            \( -name "*_laps.json" -o -name "*_stints.json" \) \
+            -type f |
+          while IFS= read -r file; do
+            if [ "$(tr -d '[:space:]' < "$file")" = "[]" ]; then
+              echo "Retrying empty F1 data file: $file"
+              rm "$file"
+            fi
+          done
+
+          python f1_scraper.py
 
       # Confirm the essential F1 outputs are usable
       - name: Validate F1 outputs
