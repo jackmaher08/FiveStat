@@ -7,7 +7,7 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 320.0,
+    "points": 325.0,
     "wins": 8
   },
   {
@@ -29,7 +29,7 @@
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 214.0,
+    "points": 221.0,
     "wins": 1
   },
   {
@@ -40,30 +40,30 @@
     "nationality": "Monegasque",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 191.0,
+    "points": 197.0,
     "wins": 1
   },
   {
     "position": 5,
-    "driver_id": "norris",
-    "code": "NOR",
-    "name": "Lando Norris",
-    "nationality": "British",
-    "constructor": "McLaren",
-    "constructor_id": "mclaren",
-    "points": 188.0,
-    "wins": 2
-  },
-  {
-    "position": 6,
     "driver_id": "max_verstappen",
     "code": "VER",
     "name": "Max Verstappen",
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 188.0,
+    "points": 196.0,
     "wins": 1
+  },
+  {
+    "position": 6,
+    "driver_id": "norris",
+    "code": "NOR",
+    "name": "Lando Norris",
+    "nationality": "British",
+    "constructor": "McLaren",
+    "constructor_id": "mclaren",
+    "points": 189.0,
+    "wins": 2
   },
   {
     "position": 7,
@@ -95,7 +95,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 65.0,
+    "points": 69.0,
     "wins": 0
   },
   {
@@ -139,7 +139,7 @@
     "nationality": "British",
     "constructor": "Haas F1 Team",
     "constructor_id": "haas",
-    "points": 20.0,
+    "points": 23.0,
     "wins": 0
   },
   {
@@ -161,7 +161,7 @@
     "nationality": "German",
     "constructor": "Audi",
     "constructor_id": "audi",
-    "points": 7.0,
+    "points": 9.0,
     "wins": 0
   },
   {

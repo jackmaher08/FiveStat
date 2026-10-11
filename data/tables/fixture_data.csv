@@ -49,12 +49,12 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 5,20/09/2026 14:00,Leeds,Crystal Palace,0 - 0,31225,True,0.0,0.0,1.09,1.13
 5,20/09/2026 14:00,Manchester City,Sunderland,5 - 3,31222,True,5.0,3.0,2.67,3.11
 5,20/09/2026 16:30,Fulham,Manchester United,1 - 1,31229,True,1.0,1.0,1.72,2.12
-6,10/10/2026 12:30,Arsenal,Leeds,,31230,False,,,,
-6,10/10/2026 15:00,Aston Villa,Brentford,,31231,False,,,,
-6,10/10/2026 15:00,Chelsea,Bournemouth,,31232,False,,,,
-6,10/10/2026 15:00,Ipswich Town,Fulham,,31233,False,,,,
-6,10/10/2026 15:00,Sunderland,Brighton,,31234,False,,,,
-6,10/10/2026 17:30,Manchester United,Tottenham Hotspur,,31235,False,,,,
+6,10/10/2026 12:30,Arsenal,Leeds,,31230,True,2.0,1.0,2.32,1.2
+6,10/10/2026 15:00,Aston Villa,Brentford,,31231,True,2.0,2.0,1.84,1.28
+6,10/10/2026 15:00,Chelsea,Bournemouth,,31232,True,5.0,1.0,1.37,1.68
+6,10/10/2026 15:00,Ipswich Town,Fulham,,31233,True,2.0,1.0,1.26,1.78
+6,10/10/2026 15:00,Sunderland,Brighton,,31234,True,0.0,2.0,0.87,1.64
+6,10/10/2026 17:30,Manchester United,Tottenham Hotspur,,31235,True,1.0,1.0,0.87,2.03
 6,11/10/2026 14:00,Crystal Palace,Nottingham Forest,,31236,False,,,,
 6,11/10/2026 14:00,Hull City,Everton,,31237,False,,,,
 6,11/10/2026 16:30,Liverpool,Manchester City,,31238,False,,,,
