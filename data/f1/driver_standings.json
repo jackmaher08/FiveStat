@@ -7,7 +7,7 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 325.0,
+    "points": 340.0,
     "wins": 8
   },
   {
@@ -18,7 +18,7 @@
     "nationality": "British",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 236.0,
+    "points": 238.0,
     "wins": 3
   },
   {
@@ -29,29 +29,29 @@
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 221.0,
+    "points": 229.0,
     "wins": 1
   },
   {
     "position": 4,
-    "driver_id": "leclerc",
-    "code": "LEC",
-    "name": "Charles Leclerc",
-    "nationality": "Monegasque",
-    "constructor": "Ferrari",
-    "constructor_id": "ferrari",
-    "points": 197.0,
-    "wins": 1
-  },
-  {
-    "position": 5,
     "driver_id": "max_verstappen",
     "code": "VER",
     "name": "Max Verstappen",
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 196.0,
+    "points": 221.0,
+    "wins": 2
+  },
+  {
+    "position": 5,
+    "driver_id": "leclerc",
+    "code": "LEC",
+    "name": "Charles Leclerc",
+    "nationality": "Monegasque",
+    "constructor": "Ferrari",
+    "constructor_id": "ferrari",
+    "points": 215.0,
     "wins": 1
   },
   {
@@ -62,7 +62,7 @@
     "nationality": "British",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 189.0,
+    "points": 201.0,
     "wins": 2
   },
   {
@@ -73,7 +73,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 128.0,
+    "points": 138.0,
     "wins": 0
   },
   {
@@ -84,7 +84,7 @@
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 96.0,
+    "points": 97.0,
     "wins": 0
   },
   {
@@ -95,7 +95,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 69.0,
+    "points": 75.0,
     "wins": 0
   },
   {
@@ -144,6 +144,17 @@
   },
   {
     "position": 14,
+    "driver_id": "hulkenberg",
+    "code": "HUL",
+    "name": "Nico H\u00fclkenberg",
+    "nationality": "German",
+    "constructor": "Audi",
+    "constructor_id": "audi",
+    "points": 13.0,
+    "wins": 0
+  },
+  {
+    "position": 15,
     "driver_id": "bortoleto",
     "code": "BOR",
     "name": "Gabriel Bortoleto",
@@ -151,17 +162,6 @@
     "constructor": "Audi",
     "constructor_id": "audi",
     "points": 10.0,
-    "wins": 0
-  },
-  {
-    "position": 15,
-    "driver_id": "hulkenberg",
-    "code": "HUL",
-    "name": "Nico H\u00fclkenberg",
-    "nationality": "German",
-    "constructor": "Audi",
-    "constructor_id": "audi",
-    "points": 9.0,
     "wins": 0
   },
   {
