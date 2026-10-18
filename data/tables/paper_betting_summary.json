@@ -5,12 +5,12 @@
     "edge_min_pp": 10.0,
     "price_basis": "median captured UK bookmaker decimal odds"
   },
-  "bets_settled": 6,
-  "wins": 2,
+  "bets_settled": 9,
+  "wins": 5,
   "losses": 4,
-  "win_rate": 33.3,
-  "total_staked_units": 6.0,
-  "profit_units": -1.48,
-  "roi_percent": -24.7,
-  "updated_at": "2026-10-17T05:42:43.004328+00:00"
+  "win_rate": 55.6,
+  "total_staked_units": 9.0,
+  "profit_units": -0.25,
+  "roi_percent": -2.8,
+  "updated_at": "2026-10-18T06:02:09.420133+00:00"
 }
