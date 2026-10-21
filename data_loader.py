@@ -982,6 +982,13 @@ def generate_all_heatmaps(
 
     fixture_file_path = "data/tables/fixture_data.csv"
     probabilities_file_path = "data/tables/fixture_probabilities.csv"
+    from fixture_prediction_export import (
+        build_fixture_prediction, validate_against_csv,
+        write_correct_score_csv, write_fixture_json,
+    )
+    from datetime import datetime, timezone
+    prediction_records = []
+    generated_at_utc = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
 
     if os.path.exists(probabilities_file_path):
         os.remove(probabilities_file_path)
@@ -1083,12 +1090,36 @@ def generate_all_heatmaps(
         probabilities_df.at[index, "home_xg"]      = round(home_xg, 2)
         probabilities_df.at[index, "away_xg"]      = round(away_xg, 2)
 
+        # Export the exact 8x8 production matrix (never reconstruct from rounded xG).
+        export_probs = {column: probabilities_df.at[index, column] for column in (
+            "home_win_prob", "draw_prob", "away_win_prob", "over_2_5_prob",
+            "btts_prob", "home_cs_prob", "away_cs_prob", "home_xg", "away_xg",
+        )}
+        fixture_metadata = fixture.to_dict()
+        fixture_metadata["home_team"] = home_team
+        fixture_metadata["away_team"] = away_team
+        prediction_records.append(build_fixture_prediction(
+            fixture_metadata, export_probs, result_matrix,
+            f"static/heatmaps/{home_team}_{away_team}_heatmap.png",
+        ))
+
         # Call display_heatmap to generate and save the image (this will print a confirmation)
         display_heatmap(result_matrix, home_team, away_team, fixture.get('round_number', ''), home_prob, draw_prob, away_prob, save_path)
 
     print("🔄 Saving match probabilities to fixture_probabilities.csv...")
     probabilities_df.to_csv(probabilities_file_path, index=False)
     print("✅ fixture_probabilities.csv successfully created at:", probabilities_file_path)
+
+    validate_against_csv(prediction_records, probabilities_df)
+    write_fixture_json(
+        prediction_records, "data/tables/fixture_predictions.json",
+        generated_at_utc=generated_at_utc, form_weight=form_weight,
+        covariance=0.05, dispersion=1.00,
+    )
+    write_correct_score_csv(
+        prediction_records, "data/tables/correct_score_probabilities.csv",
+    )
+    print(f"✅ Exported {len(prediction_records)} complete EPL predictions as JSON and scoreline CSV")
 
 
 
