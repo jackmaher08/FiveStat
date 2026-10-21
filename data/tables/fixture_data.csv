@@ -59,16 +59,16 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 6,11/10/2026 14:00,Hull City,Everton,2 - 2,31237,True,2.0,2.0,1.53,2.8
 6,11/10/2026 16:30,Liverpool,Manchester City,0 - 3,31238,True,0.0,3.0,0.76,1.59
 6,12/10/2026 20:00,Coventry City,Newcastle United,4 - 1,31239,True,4.0,1.0,1.66,2.22
-7,17/10/2026 12:30,Everton,Chelsea,,31240,True,0.0,2.0,0.57,1.6
-7,17/10/2026 15:00,Brentford,Liverpool,,31242,True,1.0,2.0,0.86,1.55
-7,17/10/2026 15:00,Fulham,Hull City,,31241,True,1.0,0.0,2.27,0.13
-7,17/10/2026 15:00,Manchester City,Ipswich Town,,31243,True,3.0,2.0,4.01,1.37
-7,17/10/2026 17:30,Newcastle United,Aston Villa,,31244,True,0.0,1.0,0.92,2.08
-7,18/10/2026 14:00,Bournemouth,Sunderland,,31246,True,2.0,0.0,4.39,0.09
-7,18/10/2026 14:00,Brighton,Crystal Palace,,31245,True,5.0,0.0,2.25,0.63
-7,18/10/2026 14:00,Leeds,Manchester United,,31247,True,1.0,1.0,1.41,1.08
-7,18/10/2026 16:30,Nottingham Forest,Arsenal,,31248,True,0.0,1.0,0.75,0.92
-7,19/10/2026 20:00,Tottenham Hotspur,Coventry City,,31249,True,3.0,1.0,0.97,1.14
+7,17/10/2026 12:30,Everton,Chelsea,0 - 2,31240,True,0.0,2.0,0.57,1.6
+7,17/10/2026 15:00,Brentford,Liverpool,1 - 2,31242,True,1.0,2.0,0.86,1.55
+7,17/10/2026 15:00,Fulham,Hull City,1 - 0,31241,True,1.0,0.0,2.27,0.13
+7,17/10/2026 15:00,Manchester City,Ipswich Town,3 - 2,31243,True,3.0,2.0,4.01,1.37
+7,17/10/2026 17:30,Newcastle United,Aston Villa,0 - 1,31244,True,0.0,1.0,0.92,2.08
+7,18/10/2026 14:00,Bournemouth,Sunderland,2 - 0,31246,True,2.0,0.0,4.39,0.09
+7,18/10/2026 14:00,Brighton,Crystal Palace,5 - 0,31245,True,5.0,0.0,2.25,0.63
+7,18/10/2026 14:00,Leeds,Manchester United,1 - 1,31247,True,1.0,1.0,1.41,1.08
+7,18/10/2026 16:30,Nottingham Forest,Arsenal,0 - 1,31248,True,0.0,1.0,0.75,0.92
+7,19/10/2026 20:00,Tottenham Hotspur,Coventry City,3 - 1,31249,True,3.0,1.0,0.97,1.14
 8,23/10/2026 20:00,Ipswich Town,Nottingham Forest,,31250,False,,,,
 8,24/10/2026 12:30,Aston Villa,Manchester City,,31251,False,,,,
 8,24/10/2026 15:00,Arsenal,Everton,,31254,False,,,,

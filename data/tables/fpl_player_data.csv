@@ -1,19 +1,19 @@
 fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,starts,goals,assists,clean_sheets,status,chance_of_playing_next_round,news,xg,xa,xgi
-1,David Raya Martín,Raya,Arsenal,GK,6.1,44.2,6.0,6.0,630,7,0,0,4,a,,,0.0,0.01,0.01
+1,David Raya Martín,Raya,Arsenal,GK,6.1,44.3,6.0,6.0,630,7,0,0,4,a,,,0.0,0.01,0.01
 2,Kepa Arrizabalaga Revuelta,Arrizabalaga,Arsenal,GK,4.9,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 3,Illan Meslier,Meslier,Arsenal,GK,4.9,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 4,Gabriel dos Santos Magalhães,Gabriel,Arsenal,DEF,7.9,21.1,5.0,5.0,630,7,0,0,4,a,,,0.93,0.23,1.16
 5,Jurriën Timber,J.Timber,Arsenal,DEF,6.5,0.7,1.0,1.0,155,1,0,0,0,a,100.0,,0.0,0.15,0.15
 6,William Saliba,Saliba,Arsenal,DEF,5.9,0.2,0.0,0.0,0,0,0,0,0,i,0.0,Back injury - Unknown return date,0.0,0.0,0.0
 7,Myles Lewis-Skelly,Lewis-Skelly,Arsenal,MID,5.4,0.5,1.0,1.0,333,5,0,0,2,a,,,0.18,0.58,0.76
-8,Riccardo Calafiori,Calafiori,Arsenal,DEF,6.0,53.7,7.5,7.5,587,7,1,2,4,a,,,1.22,0.98,2.2
-9,Piero Hincapié,Hincapie,Arsenal,DEF,5.2,0.8,0.5,0.0,40,0,0,0,0,i,0.0,Ankle injury - Expected back 24 Oct,0.0,0.0,0.0
+8,Riccardo Calafiori,Calafiori,Arsenal,DEF,6.0,53.8,7.5,7.5,587,7,1,2,4,a,,,1.22,0.98,2.2
+9,Piero Hincapié,Hincapie,Arsenal,DEF,5.2,0.7,0.5,0.0,40,0,0,0,0,i,0.0,Ankle injury - Expected back 24 Oct,0.0,0.0,0.0
 10,Benjamin White,White,Arsenal,DEF,5.4,4.3,5.5,5.5,442,6,0,2,3,a,100.0,,0.18,0.47,0.65
 11,Cristhian Mosquera,Mosquera,Arsenal,DEF,5.2,1.3,0.0,0.0,168,2,0,0,2,a,100.0,,0.0,0.01,0.01
-12,Bukayo Saka,Saka,Arsenal,MID,9.6,16.8,2.5,2.5,596,7,3,0,4,a,,,3.63,1.2,4.83
-13,Declan Rice,Rice,Arsenal,MID,7.3,11.1,8.0,8.0,591,7,0,4,4,a,100.0,,0.28,1.16,1.44
+12,Bukayo Saka,Saka,Arsenal,MID,9.6,16.7,2.5,2.5,596,7,3,0,4,a,,,3.63,1.2,4.83
+13,Declan Rice,Rice,Arsenal,MID,7.3,11.2,8.0,8.0,591,7,0,4,4,a,100.0,,0.28,1.16,1.44
 14,Eberechi Eze,Eze,Arsenal,MID,6.2,1.0,0.5,0.5,130,1,0,0,0,a,,,0.04,0.1,0.14
-15,Martin Ødegaard,Ødegaard,Arsenal,MID,6.8,18.7,2.0,2.0,556,7,2,0,4,a,,,1.9,1.6,3.5
+15,Martin Ødegaard,Ødegaard,Arsenal,MID,6.8,18.6,2.0,2.0,556,7,2,0,4,a,,,1.9,1.6,3.5
 16,Noni Madueke,Madueke,Arsenal,MID,6.2,0.2,3.5,3.5,158,1,1,0,0,a,,,0.34,0.55,0.89
 17,Mikel Merino Zazón,Merino,Arsenal,MID,5.7,0.4,1.0,1.0,106,0,0,0,0,a,,,0.23,0.16,0.39
 18,Gabriel Martinelli Silva,Martinelli,Arsenal,MID,6.3,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Al Hilal permanently,0.0,0.0,0.0
@@ -22,10 +22,10 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 22,Ethan Nwaneri,Nwaneri,Arsenal,MID,5.4,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Borussia Dortmund on loan for the rest of the season,0.0,0.0,0.0
 23,Fábio Ferreira Vieira,Fábio Vieira,Arsenal,MID,5.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Hamburger SV permanently,0.0,0.0,0.0
 24,Reiss Nelson,Nelson,Arsenal,MID,5.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,has departed the club as a free agent.,0.0,0.0,0.0
-25,Viktor Gyökeres,Gyökeres,Arsenal,FWD,7.1,3.3,1.0,1.0,80,0,0,0,0,a,,,0.08,0.42,0.5
+25,Viktor Gyökeres,Gyökeres,Arsenal,FWD,7.0,3.2,1.0,1.0,80,0,0,0,0,a,,,0.08,0.42,0.5
 26,Kai Havertz,Havertz,Arsenal,FWD,7.5,6.2,2.0,2.0,564,7,2,0,4,a,100.0,,2.14,0.42,2.56
 27,Gabriel Fernando de Jesus,G.Jesus,Arsenal,FWD,5.9,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined FC Barcelona permanently,0.0,0.0,0.0
-31,Ezri Konsa Ngoyo,Konsa,Arsenal,DEF,4.6,17.7,6.5,6.5,461,5,0,0,2,a,100.0,,0.23,0.03,0.26
+31,Ezri Konsa Ngoyo,Konsa,Arsenal,DEF,4.6,17.8,6.5,6.5,461,5,0,0,2,a,100.0,,0.23,0.03,0.26
 452,Bruno Guimarães Rodriguez Moura,Bruno G.,Arsenal,MID,6.7,2.4,6.0,6.0,215,2,2,0,1,a,100.0,,0.19,0.25,0.44
 557,Christos Tzolis,Tzolis,Arsenal,MID,6.2,4.8,0.0,0.0,362,5,0,2,2,i,0.0,Hamstring injury - Expected back 1 Nov,0.19,0.55,0.74
 29,Marco Bizot,M.Bizot,Aston Villa,GK,4.5,0.1,0.0,0.0,90,1,0,0,0,a,100.0,,0.0,0.0,0.0
@@ -34,7 +34,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 33,Tyrone Mings,Mings,Aston Villa,DEF,4.5,0.4,4.0,4.0,441,4,0,0,2,a,,,0.2,0.03,0.23
 34,Pau Torres,Pau,Aston Villa,DEF,4.4,0.3,0.5,0.5,200,3,0,0,0,a,100.0,,0.0,0.01,0.01
 35,Lamare Bogarde,Bogarde,Aston Villa,MID,4.9,0.1,0.0,0.0,16,0,0,0,0,a,,,0.0,0.0,0.0
-36,Ian Maatsen,Maatsen,Aston Villa,DEF,4.4,0.3,0.0,0.0,335,4,0,0,1,i,0.0,Ankle injury - Unknown return date,0.28,0.45,0.73
+36,Ian Maatsen,Maatsen,Aston Villa,DEF,4.4,0.3,0.0,0.0,335,4,0,0,1,d,75.0,Ankle injury - 75% chance of playing,0.28,0.45,0.73
 37,Victor Lindelöf,Lindelöf,Aston Villa,DEF,4.5,0.3,6.0,6.0,630,7,0,0,2,a,,,0.44,0.17,0.61
 38,Andrés García,A.García,Aston Villa,DEF,4.0,1.4,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 39,Kosta Nedeljkovic,Nedeljkovic,Aston Villa,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Rangers on loan for the rest of the season,0.0,0.0,0.0
@@ -48,50 +48,50 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 50,Bradley Burrowes,Burrowes,Aston Villa,MID,4.4,0.5,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 51,George Hemmings,George Hemmings,Aston Villa,MID,4.5,0.9,0.0,0.0,297,4,0,0,1,d,75.0,Knee injury - 75% chance of playing,0.07,0.16,0.23
 52,Alysson Edward Franco da Rocha dos Santos,Alysson,Aston Villa,MID,4.9,0.0,0.5,0.5,136,1,1,0,0,a,100.0,,0.06,0.01,0.07
-53,Johan Manzambi,Manzambi,Aston Villa,MID,6.0,2.7,8.0,6.0,254,3,2,2,2,d,75.0,Calf injury - 75% chance of playing,1.43,0.57,2.0
+53,Johan Manzambi,Manzambi,Aston Villa,MID,6.0,2.8,8.0,6.0,254,3,2,2,2,d,75.0,Calf injury - 75% chance of playing,1.43,0.57,2.0
 54,Joao Gomes,Gomes,Aston Villa,MID,5.5,0.1,3.5,3.5,285,4,0,1,1,a,100.0,,0.0,0.28,0.28
 55,Ollie Watkins,Watkins,Aston Villa,FWD,7.8,2.3,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Al Hilal permanently,0.0,0.0,0.0
 56,Tammy Abraham,Abraham,Aston Villa,FWD,5.5,0.2,0.0,0.0,71,0,0,0,0,a,100.0,,0.0,0.0,0.0
 160,Alejandro Garnacho Ferreyra,Garnacho,Aston Villa,MID,5.7,0.3,0.0,0.0,31,0,0,0,0,a,,,0.0,0.0,0.0
 166,Nicolas Jackson,N.Jackson,Aston Villa,FWD,6.6,4.1,5.5,5.5,466,6,2,0,2,a,,,1.46,0.85,2.31
 582,Brian Madjo,Madjo,Aston Villa,FWD,5.4,0.2,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
-596,Matteo Ruggeri,Ruggeri,Aston Villa,DEF,4.5,0.1,0.5,0.0,158,2,0,0,0,i,0.0,Hamstring injury - Unknown return date,0.03,0.02,0.05
+596,Matteo Ruggeri,Ruggeri,Aston Villa,DEF,4.4,0.1,0.5,0.0,158,2,0,0,0,i,0.0,Hamstring injury - Expected back 2 Jan,0.03,0.02,0.05
 597,Zion Suzuki,Suzuki,Aston Villa,GK,5.0,2.0,5.0,5.0,540,6,0,0,2,a,,,0.0,0.01,0.01
 606,Triston Rowe,Rowe,Aston Villa,DEF,4.0,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 607,Luka Lynch,Lynch,Aston Villa,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Oxford United on loan until January,0.0,0.0,0.0
-611,Aaron Wan-Bissaka,Wan-Bissaka,Aston Villa,DEF,4.5,0.2,3.5,2.6,273,3,0,0,1,d,75.0,Hamstring injury - 75% chance of playing,0.0,0.1,0.1
+611,Aaron Wan-Bissaka,Wan-Bissaka,Aston Villa,DEF,4.5,0.2,3.5,0.0,273,3,0,0,1,i,0.0,Hamstring injury - Expected back 21 Nov,0.0,0.1,0.1
 618,Leon Goretzka,Goretzka,Aston Villa,MID,5.9,0.0,0.5,0.5,18,0,0,0,0,a,100.0,,0.07,0.01,0.08
 630,Taylor Harwood-Bellis,Harwood-Bellis,Aston Villa,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 631,Ibrahim Mbaye,Mbaye,Aston Villa,MID,6.0,0.1,1.0,1.0,77,0,0,0,0,a,,,0.35,0.24,0.59
 667,James Wright,Wright,Aston Villa,GK,4.0,0.3,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-57,Đorđe Petrović,Petrović,Bournemouth,GK,4.5,2.8,2.7,2.7,630,7,0,0,1,a,,,0.0,0.0,0.0
+57,Đorđe Petrović,Petrović,Bournemouth,GK,4.5,2.8,3.0,3.0,630,7,0,0,1,a,,,0.0,0.0,0.0
 58,Fraser Forster,Forster,Bournemouth,GK,4.0,3.5,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 59,Will Dennis,Dennis,Bournemouth,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined MK Dons permanently,0.0,0.0,0.0
-60,James Hill,Hill,Bournemouth,DEF,5.5,0.8,4.3,4.3,630,7,0,0,1,a,,,0.04,0.91,0.95
-61,Adrien Truffert,Truffert,Bournemouth,DEF,5.4,2.7,2.3,2.3,623,7,0,0,1,a,,,0.13,0.68,0.81
-62,Bafodé Diakité,Diakité,Bournemouth,DEF,4.9,0.1,0.3,0.3,1,0,0,0,0,a,,,0.0,0.0,0.0
+60,James Hill,Hill,Bournemouth,DEF,5.5,0.8,4.5,4.5,630,7,0,0,1,a,,,0.04,0.91,0.95
+61,Adrien Truffert,Truffert,Bournemouth,DEF,5.4,2.7,2.5,2.5,623,7,0,0,1,a,,,0.13,0.68,0.81
+62,Bafodé Diakité,Diakité,Bournemouth,DEF,4.9,0.1,0.5,0.5,1,0,0,0,0,a,,,0.0,0.0,0.0
 63,Veljko Milosavljevic,Milosavljević,Bournemouth,DEF,4.9,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Thigh injury - Unknown return date,0.0,0.0,0.0
-64,Adam Smith,Smith,Bournemouth,DEF,4.5,0.1,2.7,2.7,595,7,0,0,1,a,,,0.55,0.43,0.98
+64,Adam Smith,Smith,Bournemouth,DEF,4.5,0.1,3.0,3.0,595,7,0,0,1,a,,,0.55,0.43,0.98
 65,Julián Araujo Zúñiga,J.Araujo,Bournemouth,DEF,4.4,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Thigh injury - Unknown return date,0.0,0.0,0.0
-66,Julio Soler Barreto,Soler,Bournemouth,DEF,4.0,0.2,0.3,0.3,6,0,0,0,0,a,100.0,,0.0,0.0,0.0
-67,Rayan Vitor Simplício Rocha,Rayan,Bournemouth,MID,6.3,1.5,2.3,2.3,612,7,0,0,1,a,,,1.53,0.59,2.12
-68,Marcus Tavernier,Tavernier,Bournemouth,MID,6.2,9.0,4.3,4.3,574,7,4,0,1,a,,,2.89,1.12,4.01
-69,Alex Scott,Scott,Bournemouth,MID,6.0,2.8,0.7,0.0,446,5,1,2,1,i,0.0,Thigh injury - Unknown return date,0.64,0.42,1.06
-70,Justin Kluivert,Kluivert,Bournemouth,MID,5.9,0.6,0.3,0.3,322,4,1,0,2,a,100.0,,1.28,0.09,1.37
-71,Lewis Cook,Cook,Bournemouth,MID,5.0,0.2,1.3,1.3,258,3,0,0,3,a,,,0.08,0.34,0.42
+66,Julio Soler Barreto,Soler,Bournemouth,DEF,4.0,0.2,0.5,0.5,6,0,0,0,0,a,100.0,,0.0,0.0,0.0
+67,Rayan Vitor Simplício Rocha,Rayan,Bournemouth,MID,6.3,1.5,2.5,2.5,612,7,0,0,1,a,,,1.53,0.59,2.12
+68,Marcus Tavernier,Tavernier,Bournemouth,MID,6.2,9.3,5.5,5.5,574,7,4,0,1,a,,,2.89,1.12,4.01
+69,Alex Scott,Scott,Bournemouth,MID,6.0,2.8,0.0,0.0,446,5,1,2,1,i,0.0,Thigh injury - Unknown return date,0.64,0.42,1.06
+70,Justin Kluivert,Kluivert,Bournemouth,MID,5.9,0.6,0.5,0.5,322,4,1,0,2,a,100.0,,1.28,0.09,1.37
+71,Lewis Cook,Cook,Bournemouth,MID,5.0,0.2,1.5,1.5,258,3,0,0,3,a,,,0.08,0.34,0.42
 72,Ben Gannon-Doak,Gannon-Doak,Bournemouth,MID,4.8,0.1,1.0,1.0,58,0,0,0,0,a,,,0.12,0.28,0.4
-73,Tyler Adams,Adams,Bournemouth,MID,5.0,0.3,2.7,2.7,457,5,0,0,1,a,100.0,,0.15,0.11,0.26
-74,David Brooks,Brooks,Bournemouth,MID,5.0,0.1,0.7,0.7,90,1,0,0,0,a,100.0,,0.0,0.08,0.08
-75,Ryan Christie,Christie,Bournemouth,MID,5.0,0.0,2.3,2.3,264,3,0,0,1,a,100.0,,0.83,0.74,1.57
-76,Alex Tóth,Tóth.A,Bournemouth,MID,4.9,0.0,0.3,0.3,17,0,0,0,0,a,,,0.0,0.0,0.0
-77,Amine Adli,Adli,Bournemouth,MID,4.8,0.0,0.3,0.3,11,0,0,0,0,a,100.0,,0.17,0.01,0.18
+73,Tyler Adams,Adams,Bournemouth,MID,5.0,0.3,2.0,2.0,457,5,0,0,1,a,100.0,,0.15,0.11,0.26
+74,David Brooks,Brooks,Bournemouth,MID,5.0,0.1,0.5,0.5,90,1,0,0,0,a,100.0,,0.0,0.08,0.08
+75,Ryan Christie,Christie,Bournemouth,MID,5.0,0.0,2.5,2.5,264,3,0,0,1,a,100.0,,0.83,0.74,1.57
+76,Alex Tóth,Tóth.A,Bournemouth,MID,4.9,0.0,0.0,0.0,17,0,0,0,0,a,,,0.0,0.0,0.0
+77,Amine Adli,Adli,Bournemouth,MID,4.8,0.0,0.5,0.5,11,0,0,0,0,a,100.0,,0.17,0.01,0.18
 78,Junior Kroupi,Kroupi.Jr,Bournemouth,MID,7.3,0.2,0.0,0.0,0,0,0,0,0,i,0.0,Foot injury - Expected back 7 Nov,0.0,0.0,0.0
-79,Francisco Evanilson de Lima Barbosa,Evanilson,Bournemouth,FWD,6.1,4.3,7.0,7.0,592,7,2,4,3,a,,,2.59,0.97,3.56
+79,Francisco Evanilson de Lima Barbosa,Evanilson,Bournemouth,FWD,6.1,4.5,9.5,9.5,592,7,2,4,3,a,,,2.59,0.97,3.56
 80,Enes Ünal,Enes Ünal,Bournemouth,FWD,5.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Getafe permanently,0.0,0.0,0.0
-81,Álvaro Rodríguez,Rodríguez,Bournemouth,FWD,6.0,0.1,0.7,0.7,39,0,0,0,0,a,100.0,,0.02,0.03,0.05
-566,António João Pereira de Albuquerque Tavares da Silva,Silva,Bournemouth,DEF,5.0,0.6,3.7,3.7,630,7,0,0,1,a,,,1.3,0.35,1.65
-573,Juanlu Sánchez,Sanchez,Bournemouth,DEF,4.4,0.2,0.3,0.3,18,0,0,0,0,a,,,0.0,0.0,0.0
-608,Daniel Jebbison,Jebbison,Bournemouth,FWD,5.0,0.1,0.3,0.3,31,0,0,0,0,a,,,0.1,0.0,0.1
+81,Álvaro Rodríguez,Rodríguez,Bournemouth,FWD,6.0,0.1,1.0,1.0,39,0,0,0,0,a,100.0,,0.02,0.03,0.05
+566,António João Pereira de Albuquerque Tavares da Silva,Silva,Bournemouth,DEF,5.0,0.6,4.0,4.0,630,7,0,0,1,a,,,1.3,0.35,1.65
+573,Juanlu Sánchez,Sanchez,Bournemouth,DEF,4.4,0.2,0.5,0.5,18,0,0,0,0,a,,,0.0,0.0,0.0
+608,Daniel Jebbison,Jebbison,Bournemouth,FWD,5.0,0.1,0.0,0.0,31,0,0,0,0,a,,,0.1,0.0,0.1
 615,Michele Di Gregorio,Di Gregorio,Bournemouth,GK,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 82,Caoimhín Kelleher,Kelleher,Brentford,GK,5.0,6.0,2.0,2.0,630,7,0,0,2,a,,,0.0,0.01,0.01
 83,Hákon Rafn Valdimarsson,Valdimarsson,Brentford,GK,4.4,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
@@ -104,11 +104,11 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 90,Aaron Hickey,Hickey,Brentford,DEF,4.5,0.1,1.0,1.0,216,1,0,0,0,a,,,0.03,0.06,0.09
 92,Kim Ji-soo,Ji-soo,Brentford,DEF,4.4,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 93,Jannik Schuster,Schuster,Brentford,DEF,4.5,0.5,0.5,0.4,298,3,0,1,1,d,75.0,Ankle injury - 75% chance of playing,0.1,0.54,0.64
-94,Kevin Schade,Schade,Brentford,MID,6.2,13.9,0.5,0.5,543,6,3,2,2,a,100.0,,1.93,0.34,2.27
+94,Kevin Schade,Schade,Brentford,MID,6.2,14.0,0.5,0.5,543,6,3,2,2,a,100.0,,1.93,0.34,2.27
 95,Dango Ouattara,O.Dango,Brentford,MID,6.2,0.4,1.0,1.0,247,3,0,0,1,a,,,0.16,0.4,0.56
 96,Mikkel Damsgaard,Damsgaard,Brentford,MID,5.3,0.3,0.5,0.5,296,3,0,1,2,a,100.0,,0.17,0.74,0.91
 97,Mathias Jensen,Jensen,Brentford,MID,5.4,0.1,1.0,1.0,134,2,0,1,1,a,100.0,,0.08,0.42,0.5
-98,Vitaly Janelt,Janelt,Brentford,MID,5.0,2.3,1.0,0.0,630,7,2,0,2,s,0.0,Suspended until 31 Oct,0.53,0.61,1.14
+98,Vitaly Janelt,Janelt,Brentford,MID,5.0,2.2,1.0,0.0,630,7,2,0,2,s,0.0,Suspended until 31 Oct,0.53,0.61,1.14
 99,Antoni Milambo,Milambo,Brentford,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
 100,Fábio Freitas Gouveia Carvalho,Carvalho,Brentford,MID,5.0,0.0,0.0,0.0,3,0,1,0,0,a,100.0,,0.43,0.0,0.43
 102,Yehor Yarmoliuk,Yarmoliuk,Brentford,MID,4.8,0.6,3.0,0.0,334,4,1,1,1,s,0.0,Suspended until 8 Nov,0.19,0.32,0.51
@@ -122,11 +122,11 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 657,Gustavo Nunes Fernandes Gomes,Nunes,Brentford,MID,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 660,Benjamin Fredrick,Fredrick,Brentford,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 661,Ellery Balcombe,Balcombe,Brentford,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-109,Bart Verbruggen,Verbruggen,Brighton,GK,4.6,22.5,7.5,7.5,630,7,0,0,5,a,,,0.0,0.21,0.21
+109,Bart Verbruggen,Verbruggen,Brighton,GK,4.6,22.6,7.5,7.5,630,7,0,0,5,a,,,0.0,0.21,0.21
 111,Jason Steele,Steele,Brighton,GK,4.0,3.8,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 113,Ferdi Kadıoğlu,F.Kadıoğlu,Brighton,DEF,4.4,1.7,7.5,7.5,512,6,0,0,4,a,100.0,,0.15,0.16,0.31
-114,Olivier Boscagli,Boscagli,Brighton,DEF,4.5,0.4,7.5,7.5,584,7,0,1,5,a,,,0.07,0.74,0.81
-115,Maxim De Cuyper,De Cuyper,Brighton,DEF,5.3,40.8,10.5,10.5,580,7,2,3,5,a,,,1.8,0.8,2.6
+114,Olivier Boscagli,Boscagli,Brighton,DEF,4.5,0.5,7.5,7.5,584,7,0,1,5,a,,,0.07,0.74,0.81
+115,Maxim De Cuyper,De Cuyper,Brighton,DEF,5.3,41.0,10.5,10.5,580,7,2,3,5,a,,,1.8,0.8,2.6
 116,Lewis Dunk,Dunk,Brighton,DEF,4.5,1.5,3.5,3.5,479,5,1,0,3,a,100.0,,0.03,0.1,0.13
 117,Diego Coppola,Coppola,Brighton,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 118,Igor Julio dos Santos de Paulo,Igor,Brighton,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Burnley permanently,0.0,0.0,0.0
@@ -135,7 +135,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 121,Mitoma Kaoru,Mitoma,Brighton,MID,5.9,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Hamstring injury - Expected back 31 Oct,0.0,0.0,0.0
 122,Yankuba Minteh,Minteh,Brighton,MID,5.8,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Leg injury - Expected back 28 Nov,0.0,0.0,0.0
 123,Jack Hinshelwood,Hinshelwood,Brighton,MID,5.9,0.6,3.0,3.0,82,1,3,0,1,a,100.0,,2.33,0.04,2.37
-124,Pascal Groß,Groß,Brighton,MID,6.2,45.2,5.5,5.5,610,7,3,6,5,a,,,2.16,1.16,3.32
+124,Pascal Groß,Groß,Brighton,MID,6.2,45.4,5.5,5.5,610,7,3,6,5,a,,,2.16,1.16,3.32
 125,Georginio Rutter,Georginio,Brighton,FWD,5.3,0.5,2.5,2.5,125,1,0,2,1,a,100.0,,0.2,0.61,0.81
 126,Matt O'Riley,O'Riley,Brighton,MID,5.4,0.1,0.0,0.0,10,0,0,0,0,a,,,0.28,0.01,0.29
 127,Diego Gómez Amarilla,Gomez,Brighton,MID,5.0,3.8,6.5,6.5,610,7,1,3,5,a,,,1.03,0.84,1.87
@@ -147,10 +147,10 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 134,Nehemiah Oriola,Oriola,Brighton,MID,4.4,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 135,Zadok Yohanna,Yohanna,Brighton,MID,4.8,0.0,0.0,0.0,12,0,0,0,0,i,0.0,Unspecified injury - Expected back 31 Oct,0.0,0.03,0.03
 137,Stefanos Tzimas,Tzimas,Brighton,FWD,5.4,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
-138,Charalampos Kostoulas,Kostoulas,Brighton,FWD,5.7,9.7,6.5,6.5,482,6,3,4,3,a,,,1.83,0.12,1.95
+138,Charalampos Kostoulas,Kostoulas,Brighton,FWD,5.7,9.8,6.5,6.5,482,6,3,4,3,a,,,1.83,0.12,1.95
 139,Evan Ferguson,Ferguson,Brighton,FWD,5.0,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Ankle injury - Unknown return date,0.0,0.0,0.0
 328,Pascal Struijk,Struijk,Brighton,DEF,4.9,0.1,-1.0,-0.8,154,2,0,0,1,d,75.0,Hamstring injury - 75% chance of playing,0.31,0.01,0.32
-504,Luka Vušković,Vuskovic,Brighton,DEF,5.1,5.5,9.5,9.5,617,7,1,1,5,a,,,1.1,0.17,1.27
+504,Luka Vušković,Vuskovic,Brighton,DEF,5.1,5.7,9.5,9.5,617,7,1,1,5,a,,,1.1,0.17,1.27
 594,Promise David,David,Brighton,FWD,5.9,0.2,0.0,0.0,23,0,0,0,0,a,,,0.42,0.0,0.42
 600,Ibrahim Osman,Osman,Brighton,MID,4.9,0.0,0.0,0.0,40,0,0,0,0,a,,,0.05,0.07,0.12
 605,Malick Yalcouyé,Yalcouyé,Brighton,MID,4.5,3.5,1.0,1.0,267,3,2,0,1,a,,,1.46,0.45,1.91
@@ -160,7 +160,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 652,Femi Azeez,Azeez,Brighton,MID,5.5,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Hamstring injury - Expected back 31 Oct,0.0,0.0,0.0
 658,Younes Ibrahim,Ibrahim,Brighton,MID,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 28,Emiliano Martínez Romero,Martinez,Chelsea,GK,5.0,4.2,5.5,0.0,524,6,0,0,1,i,0.0,Head injury - Unknown return date,0.0,0.01,0.01
-40,Morgan Rogers,Rogers,Chelsea,MID,8.0,47.9,5.5,5.5,610,7,4,1,1,a,,,2.07,1.36,3.43
+40,Morgan Rogers,Rogers,Chelsea,MID,8.0,48.0,5.5,5.5,610,7,4,1,1,a,,,2.07,1.36,3.43
 101,Jordan Henderson,Henderson,Chelsea,MID,4.9,1.1,10.5,10.5,270,3,2,1,1,a,100.0,,0.37,0.46,0.83
 136,Danny Welbeck,Welbeck,Chelsea,FWD,5.8,0.8,1.0,1.0,93,1,0,0,0,a,100.0,,0.0,0.14,0.14
 140,Robert Lynch Sánchez,Sánchez,Chelsea,GK,4.9,0.6,0.0,0.0,90,1,0,0,0,u,0.0,Has joined Como on loan for the rest of the season,0.0,0.01,0.01
@@ -175,15 +175,15 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 150,Mamadou Sarr,M.Sarr,Chelsea,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Real Sociedad on loan for the rest of the season,0.0,0.0,0.0
 151,Josh Acheampong,Acheampong,Chelsea,DEF,4.5,0.3,4.5,4.5,401,4,0,0,1,a,,,0.0,0.06,0.06
 152,Marco Palestra,Palestra,Chelsea,DEF,5.3,0.5,1.0,1.0,19,0,0,0,0,a,100.0,,0.0,0.0,0.0
-154,Cole Palmer,Palmer,Chelsea,MID,9.7,26.3,5.0,5.0,619,7,2,4,1,a,100.0,,1.44,0.92,2.36
-156,Pedro Lomba Neto,Neto,Chelsea,MID,6.5,2.3,10.0,10.0,504,6,3,1,1,a,,,1.21,0.88,2.09
+154,Cole Palmer,Palmer,Chelsea,MID,9.7,26.4,5.0,5.0,619,7,2,4,1,a,100.0,,1.44,0.92,2.36
+156,Pedro Lomba Neto,Neto,Chelsea,MID,6.5,2.5,10.0,10.0,504,6,3,1,1,a,,,1.21,0.88,2.09
 157,Estêvão Almeida de Oliveira Gonçalves,Estêvão,Chelsea,MID,6.3,0.7,0.5,0.5,29,0,0,0,0,a,,,0.07,0.07,0.14
 158,Jamie Bynoe-Gittens,Gittens,Chelsea,MID,5.8,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Ankle injury - Unknown return date,0.0,0.0,0.0
 159,Moisés Caicedo Corozo,Caicedo,Chelsea,MID,5.3,1.0,2.5,2.5,174,2,0,0,1,a,100.0,,0.05,0.02,0.07
 161,Roméo Lavia,Lavia,Chelsea,MID,5.0,0.2,1.0,1.0,277,4,1,0,0,a,,,0.75,0.11,0.86
 163,Dário Luís Essugo,D.Essugo,Chelsea,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined RC Strasbourg on loan for the rest of the season,0.0,0.0,0.0
 164,Geovany Quenda,Quenda,Chelsea,MID,5.3,0.0,0.5,0.5,28,0,0,0,0,a,100.0,,0.03,0.01,0.04
-165,João Pedro Junqueira de Jesus,João Pedro,Chelsea,FWD,7.9,72.7,7.0,7.0,521,6,5,3,1,a,100.0,,3.05,0.31,3.36
+165,João Pedro Junqueira de Jesus,João Pedro,Chelsea,FWD,7.9,72.8,7.0,7.0,521,6,5,3,1,a,100.0,,3.05,0.31,3.36
 168,Marc Guiu Paz,Marc Guiu,Chelsea,FWD,5.0,0.2,0.0,0.0,0,0,0,0,0,u,0.0,Has joined RB Leipzig permanently,0.0,0.0,0.0
 169,Shumaira Mheuka,Mheuka,Chelsea,FWD,4.5,0.5,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 170,Emmanuel Emegha,Emegha,Chelsea,FWD,4.9,0.1,0.0,0.0,0,0,0,0,0,i,0.0,Hamstring injury - Unknown return date,0.0,0.0,0.0
@@ -233,19 +233,19 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 42,Evann Guessand,Guessand,Crystal Palace,MID,5.4,0.0,0.0,0.0,54,0,0,0,0,a,,,0.03,0.03,0.06
 153,Axel Disasi,Disasi,Crystal Palace,DEF,4.4,0.1,0.0,0.0,139,2,0,0,0,a,100.0,,0.0,0.04,0.04
 198,Dean Henderson,Henderson,Crystal Palace,GK,4.9,1.1,0.0,0.0,270,3,0,0,0,d,50.0,Foot injury - 50% chance of playing,0.0,0.0,0.0
-199,Walter Benítez,Benitez,Crystal Palace,GK,4.5,0.1,3.3,3.3,360,4,0,0,1,a,,,0.0,0.0,0.0
-202,Chris Richards,Richards,Crystal Palace,DEF,4.9,0.6,4.7,4.7,630,7,0,0,1,a,,,0.14,0.1,0.24
-203,Jaydee Canvot,Canvot,Crystal Palace,DEF,4.8,0.2,3.3,3.3,540,6,0,0,1,a,,,0.05,0.15,0.2
-204,Tyrick Mitchell,Mitchell,Crystal Palace,DEF,4.5,5.7,3.7,3.7,599,7,2,0,1,a,,,0.78,0.27,1.05
+199,Walter Benítez,Benitez,Crystal Palace,GK,4.5,0.1,2.0,2.0,360,4,0,0,1,a,,,0.0,0.0,0.0
+202,Chris Richards,Richards,Crystal Palace,DEF,4.9,0.6,3.0,3.0,630,7,0,0,1,a,,,0.14,0.1,0.24
+203,Jaydee Canvot,Canvot,Crystal Palace,DEF,4.8,0.2,1.0,1.0,540,6,0,0,1,a,,,0.05,0.15,0.2
+204,Tyrick Mitchell,Mitchell,Crystal Palace,DEF,4.5,5.7,2.0,2.0,599,7,2,0,1,a,,,0.78,0.27,1.05
 205,Borna Sosa,Sosa,Crystal Palace,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined FC Cologne on loan for the rest of the season,0.0,0.0,0.0
 206,Chadi Riad Dnanou,Chadi Riad,Crystal Palace,DEF,4.3,0.0,0.0,0.0,72,1,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.01,0.01
 207,Oscar Mingueza,Mingueza,Crystal Palace,DEF,4.3,0.1,0.0,0.0,16,0,0,0,0,a,,,0.0,0.0,0.0
-208,Ismaïla Sarr,Sarr,Crystal Palace,MID,6.2,0.6,0.7,0.7,15,0,0,0,0,a,100.0,,0.0,0.01,0.01
-210,Adam Wharton,Wharton,Crystal Palace,MID,5.4,0.7,3.7,3.7,616,7,0,1,1,a,100.0,,0.15,1.16,1.31
-211,Yéremy Pino Santos,Yeremy,Crystal Palace,MID,5.5,0.3,4.3,4.3,449,6,1,2,1,a,,,0.92,0.72,1.64
-212,Will Hughes,Hughes,Crystal Palace,MID,4.4,6.2,0.3,0.3,38,0,0,0,0,a,,,0.0,0.04,0.04
-213,Jefferson Lerma Solís,Lerma,Crystal Palace,MID,4.8,0.1,3.0,3.0,159,1,1,0,0,a,,,0.94,0.01,0.95
-214,Daichi Kamada,Kamada,Crystal Palace,MID,5.0,0.7,4.0,4.0,610,7,1,3,1,a,,,0.81,0.43,1.24
+208,Ismaïla Sarr,Sarr,Crystal Palace,MID,6.2,0.6,0.5,0.5,15,0,0,0,0,a,100.0,,0.0,0.01,0.01
+210,Adam Wharton,Wharton,Crystal Palace,MID,5.4,0.7,4.5,4.5,616,7,0,1,1,a,100.0,,0.15,1.16,1.31
+211,Yéremy Pino Santos,Yeremy,Crystal Palace,MID,5.5,0.3,5.5,5.5,449,6,1,2,1,a,,,0.92,0.72,1.64
+212,Will Hughes,Hughes,Crystal Palace,MID,4.3,6.1,0.5,0.5,38,0,0,0,0,a,,,0.0,0.04,0.04
+213,Jefferson Lerma Solís,Lerma,Crystal Palace,MID,4.8,0.1,4.5,4.5,159,1,1,0,0,a,,,0.94,0.01,0.95
+214,Daichi Kamada,Kamada,Crystal Palace,MID,5.0,0.7,4.5,4.5,610,7,1,3,1,a,,,0.81,0.43,1.24
 215,Justin Devenny,Devenny,Crystal Palace,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Stoke City permanently,0.0,0.0,0.0
 216,Romain Esse,Esse,Crystal Palace,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Millwall on loan for the rest of the season,0.0,0.0,0.0
 217,Matheus França de Oliveira,M.França,Crystal Palace,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Alverca on loan for the rest of the season,0.0,0.0,0.0
@@ -253,25 +253,25 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 219,Jesurun Rak-Sakyi,J.Rak-Sakyi,Crystal Palace,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,has joined  Kasimpasa on loan for the rest of the seaon.,0.0,0.0,0.0
 220,Rio Cardines,Cardines,Crystal Palace,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Bristol City on loan for the rest of the season,0.0,0.0,0.0
 221,Joél Drakes-Thomas,Drakes-Thomas,Crystal Palace,MID,4.4,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-222,Jørgen Strand Larsen,Strand Larsen,Crystal Palace,FWD,6.0,0.6,3.0,3.0,440,5,1,1,1,a,,,1.41,0.53,1.94
-223,Jean-Philippe Mateta,Mateta,Crystal Palace,FWD,6.3,1.1,0.3,0.3,91,1,0,0,0,a,100.0,,1.16,0.03,1.19
+222,Jørgen Strand Larsen,Strand Larsen,Crystal Palace,FWD,6.0,0.6,3.5,3.5,440,5,1,1,1,a,,,1.41,0.53,1.94
+223,Jean-Philippe Mateta,Mateta,Crystal Palace,FWD,6.3,1.1,0.5,0.5,91,1,0,0,0,a,100.0,,1.16,0.03,1.19
 224,Eddie Nketiah,Nketiah,Crystal Palace,FWD,5.4,0.4,1.0,1.0,211,3,0,1,0,a,100.0,,1.1,0.63,1.73
 225,Christantus Uche,Uche,Crystal Palace,FWD,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,has returned to Getafe CF,0.0,0.0,0.0
-241,Dwight McNeil,McNeil,Crystal Palace,MID,5.3,0.1,0.7,0.7,130,1,0,0,0,a,,,0.05,0.23,0.28
+241,Dwight McNeil,McNeil,Crystal Palace,MID,5.3,0.1,1.0,1.0,130,1,0,0,0,a,,,0.05,0.23,0.28
 555,Remi Matthews,Matthews,Crystal Palace,GK,4.0,1.6,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-577,Takehiro Tomiyasu,Tomiyasu,Crystal Palace,DEF,4.4,0.2,0.3,0.0,189,2,0,0,0,i,0.0,Calf injury - Expected back 25 Oct,0.0,0.03,0.03
-588,Anan Khalaili,Khalaili,Crystal Palace,DEF,5.0,0.3,2.7,2.7,559,6,1,0,1,a,100.0,,1.24,0.55,1.79
+577,Takehiro Tomiyasu,Tomiyasu,Crystal Palace,DEF,4.4,0.2,0.0,0.0,189,2,0,0,0,i,0.0,Calf injury - Expected back 25 Oct,0.0,0.03,0.03
+588,Anan Khalaili,Khalaili,Crystal Palace,DEF,5.0,0.3,1.0,1.0,559,6,1,0,1,a,100.0,,1.24,0.55,1.79
 595,Zavier Gozo,Gozo,Crystal Palace,MID,4.9,0.0,0.0,0.0,28,0,0,0,0,a,,,0.0,0.0,0.0
 633,Honest Ahanor,Ahanor,Crystal Palace,DEF,4.5,0.0,0.0,0.0,160,2,0,0,0,a,,,0.0,0.01,0.01
 643,Ben Chilwell,Chilwell,Crystal Palace,DEF,4.4,0.3,0.0,0.0,29,0,1,0,0,i,0.0,Unspecified injury - Unknown return date,0.27,0.01,0.28
-644,Quinten Timber,Timber,Crystal Palace,MID,5.0,0.1,3.7,3.7,388,5,0,1,1,a,,,0.38,0.14,0.52
+644,Quinten Timber,Timber,Crystal Palace,MID,5.0,0.1,4.0,4.0,388,5,0,1,1,a,,,0.38,0.14,0.52
 647,Darío Osorio,Osorio,Crystal Palace,MID,5.4,0.0,0.0,0.0,1,0,0,0,0,a,,,0.0,0.0,0.0
 21,Christian Nørgaard,Nørgaard,Everton,MID,4.8,0.0,0.0,0.0,5,0,0,0,0,a,100.0,,0.0,0.0,0.0
 209,Brennan Johnson,Johnson,Everton,MID,5.9,0.1,1.5,1.5,308,4,0,0,2,a,,,1.07,0.39,1.46
 226,Jordan Pickford,Pickford,Everton,GK,5.5,8.7,1.5,1.5,630,7,0,0,3,a,,,0.0,0.02,0.02
 227,Mark Travers,Travers,Everton,GK,5.0,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 228,Tom King,King,Everton,GK,4.5,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-229,James Tarkowski,Tarkowski,Everton,DEF,6.2,18.4,1.5,1.5,630,7,1,1,3,a,,,0.18,0.1,0.28
+229,James Tarkowski,Tarkowski,Everton,DEF,6.2,18.3,1.5,1.5,630,7,1,1,3,a,,,0.18,0.1,0.28
 230,Jarrad Branthwaite,Branthwaite,Everton,DEF,5.5,2.4,2.0,2.0,630,7,0,0,3,a,100.0,,0.28,0.05,0.33
 231,Michael Keane,Keane,Everton,DEF,4.7,0.7,0.5,0.5,90,1,0,0,0,a,,,0.01,0.01,0.02
 232,Jake O'Brien,O'Brien,Everton,DEF,4.8,0.3,0.5,0.5,28,0,0,0,0,a,,,0.0,0.01,0.01
@@ -288,37 +288,37 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 246,Merlin Röhl,Röhl,Everton,MID,4.9,0.0,1.0,1.0,339,4,0,0,1,a,100.0,,0.03,0.2,0.23
 247,Hayden Hackney,Hackney,Everton,MID,5.4,0.2,0.5,0.5,149,1,0,1,1,a,100.0,,0.05,0.15,0.2
 248,Norberto Bercique Gomes Betuncal,Beto,Everton,FWD,5.4,0.5,0.0,0.0,31,0,0,0,0,u,0.0,Has joined Fiorentina permanently,0.09,0.0,0.09
-249,Thierno Barry,Barry,Everton,FWD,5.7,8.5,4.0,4.0,592,7,3,0,3,a,,,4.7,0.16,4.86
+249,Thierno Barry,Barry,Everton,FWD,5.7,8.4,4.0,4.0,592,7,3,0,3,a,,,4.7,0.16,4.86
 649,Ainsley Maitland-Niles,Maitland-Niles,Everton,DEF,4.5,1.5,2.5,2.5,308,4,1,1,2,a,,,0.06,0.74,0.8
 654,Braiden Graham,Graham,Everton,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-250,Bernd Leno,Leno,Fulham,GK,4.5,4.2,3.7,3.7,630,7,0,0,2,a,,,0.0,0.0,0.0
+250,Bernd Leno,Leno,Fulham,GK,4.5,4.3,4.0,4.0,630,7,0,0,2,a,,,0.0,0.0,0.0
 251,Benjamin Lecomte,Lecomte,Fulham,GK,4.0,1.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 252,Alfie McNally,McNally,Fulham,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined York City on loan for the rest of the season,0.0,0.0,0.0
-253,Joachim Andersen,Andersen,Fulham,DEF,5.0,0.2,0.3,0.3,190,2,0,0,0,a,100.0,,0.0,0.1,0.1
-254,Antonee Robinson,Robinson,Fulham,DEF,4.4,1.3,3.0,3.0,519,6,0,0,2,a,100.0,,0.26,0.32,0.58
+253,Joachim Andersen,Andersen,Fulham,DEF,5.0,0.2,0.0,0.0,190,2,0,0,0,a,100.0,,0.0,0.1,0.1
+254,Antonee Robinson,Robinson,Fulham,DEF,4.4,1.3,3.5,3.5,519,6,0,0,2,a,100.0,,0.26,0.32,0.58
 255,Jorge Cuenca Barreno,J.Cuenca,Fulham,DEF,4.4,0.0,0.0,0.0,90,1,0,0,0,a,,,0.0,0.03,0.03
-256,Kenny Tete,Tete,Fulham,DEF,4.4,0.2,0.3,0.3,117,1,0,0,0,a,100.0,,0.0,0.22,0.22
-257,Calvin Bassey,Bassey,Fulham,DEF,4.5,1.1,5.3,5.3,630,7,0,1,2,a,,,0.28,0.12,0.4
-258,Timothy Castagne,Castagne,Fulham,DEF,4.5,1.2,3.0,3.0,498,6,0,2,3,a,,,0.67,0.5,1.17
-261,Alex Iwobi,Iwobi,Fulham,MID,5.4,1.0,6.7,6.7,584,7,1,0,4,a,,,0.67,2.34,3.01
+256,Kenny Tete,Tete,Fulham,DEF,4.4,0.2,0.5,0.5,117,1,0,0,0,a,100.0,,0.0,0.22,0.22
+257,Calvin Bassey,Bassey,Fulham,DEF,4.5,1.1,5.0,5.0,630,7,0,1,2,a,,,0.28,0.12,0.4
+258,Timothy Castagne,Castagne,Fulham,DEF,4.5,1.2,4.0,4.0,498,6,0,2,3,a,,,0.67,0.5,1.17
+261,Alex Iwobi,Iwobi,Fulham,MID,5.4,1.1,7.5,7.5,584,7,1,0,4,a,,,0.67,2.34,3.01
 262,Emile Smith Rowe,Smith Rowe,Fulham,MID,5.3,0.2,0.0,0.0,41,0,0,0,0,a,,,0.06,0.02,0.08
-263,Kevin Santos Lopes de Macedo,Kevin,Fulham,MID,5.3,0.0,0.7,0.7,75,0,0,0,0,a,,,0.22,0.12,0.34
+263,Kevin Santos Lopes de Macedo,Kevin,Fulham,MID,5.3,0.0,0.5,0.5,75,0,0,0,0,a,,,0.22,0.12,0.34
 264,Oscar Bobb,Bobb,Fulham,MID,5.5,0.3,3.0,3.0,495,7,0,0,5,a,,,1.28,1.34,2.62
-265,Sander Berge,Berge,Fulham,MID,4.9,0.3,3.3,3.3,529,6,0,1,3,a,,,0.29,0.48,0.77
-266,Tom Cairney,Cairney,Fulham,MID,4.9,0.0,0.3,0.3,12,0,0,0,0,a,100.0,,0.03,0.0,0.03
-268,Josh King,King,Fulham,MID,5.6,4.8,2.0,2.0,577,7,2,0,4,a,,,1.73,1.06,2.79
-269,Ryan Sessegnon,Sessegnon,Fulham,DEF,4.3,0.3,1.7,0.0,152,1,1,0,0,s,0.0,Suspended until 7 Nov,0.26,0.46,0.72
+265,Sander Berge,Berge,Fulham,MID,4.9,0.3,3.5,3.5,529,6,0,1,3,a,,,0.29,0.48,0.77
+266,Tom Cairney,Cairney,Fulham,MID,4.9,0.0,0.5,0.5,12,0,0,0,0,a,100.0,,0.03,0.0,0.03
+268,Josh King,King,Fulham,MID,5.6,4.7,2.0,2.0,577,7,2,0,4,a,,,1.73,1.06,2.79
+269,Ryan Sessegnon,Sessegnon,Fulham,DEF,4.3,0.3,2.5,0.0,152,1,1,0,0,s,0.0,Suspended until 7 Nov,0.26,0.46,0.72
 270,Harrison Reed,Reed,Fulham,MID,4.4,1.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-271,Rodrigo Muniz Carvalho,Muniz,Fulham,FWD,5.4,0.4,0.3,0.3,52,0,0,0,0,a,,,0.4,0.0,0.4
+271,Rodrigo Muniz Carvalho,Muniz,Fulham,FWD,5.3,0.4,0.5,0.5,52,0,0,0,0,a,,,0.4,0.0,0.4
 272,Jonah Kusi-Asare,Kusi-Asare,Fulham,FWD,4.4,5.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-569,Gonzalo García,Gonzalo,Fulham,FWD,6.1,7.0,2.0,2.0,595,7,1,0,4,a,,,3.46,0.73,4.19
-570,César Palacios,Palacios,Fulham,MID,5.4,0.1,0.7,0.7,231,3,1,0,0,a,,,0.98,0.03,1.01
-580,Shea Charles,Charles,Fulham,MID,5.0,0.1,3.3,3.3,463,5,0,0,3,a,,,0.16,0.44,0.6
+569,Gonzalo García,Gonzalo,Fulham,FWD,6.1,6.9,2.0,2.0,595,7,1,0,4,a,,,3.46,0.73,4.19
+570,César Palacios,Palacios,Fulham,MID,5.4,0.1,0.5,0.5,231,3,1,0,0,a,,,0.98,0.03,1.01
+580,Shea Charles,Charles,Fulham,MID,5.0,0.1,3.0,3.0,463,5,0,0,3,a,,,0.16,0.44,0.6
 610,Luc De Fougerolles,De Fougerolles,Fulham,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,has joined  Real Salt Lake on loan for the rest of the seaon.,0.0,0.0,0.0
 626,Macaulay Zepa,Zepa,Fulham,MID,4.4,0.4,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-635,Hugo Larsson,Larsson,Fulham,MID,5.0,0.0,0.7,0.2,40,0,0,0,0,d,25.0,Groin injury - 25% chance of playing,0.19,0.23,0.42
+635,Hugo Larsson,Larsson,Fulham,MID,5.0,0.0,0.5,0.1,40,0,0,0,0,d,25.0,Groin injury - 25% chance of playing,0.19,0.23,0.42
 636,Manuel Ángel Morán Ibáñez,Ángel,Fulham,MID,5.0,0.0,0.0,0.0,19,0,0,0,0,a,,,0.0,0.0,0.0
-650,David Affengruber,Affengruber,Fulham,DEF,4.5,0.7,4.3,4.3,360,4,0,0,2,a,,,0.08,0.04,0.12
+650,David Affengruber,Affengruber,Fulham,DEF,4.5,0.7,4.5,4.5,360,4,0,0,2,a,,,0.08,0.04,0.12
 240,Tim Iroegbunam,Iroegbunam,Hull City,MID,5.0,0.0,1.0,1.0,140,0,0,0,0,a,100.0,,0.12,0.03,0.15
 273,Dillon Phillips,Phillips,Hull City,GK,4.0,1.4,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 274,Jack Butland,Butland,Hull City,GK,4.4,0.1,0.0,0.0,0,0,0,0,0,i,0.0,Arm injury - Unknown return date,0.0,0.0,0.0
@@ -359,7 +359,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 617,Mohamed-Ali Cho,Cho,Hull City,MID,5.0,0.0,0.0,0.0,72,0,1,0,0,i,0.0,Unspecified injury - Expected back 25 Oct,0.79,0.36,1.15
 632,Ilyas Ansah,Ansah,Hull City,FWD,4.9,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Back injury - Unknown return date,0.0,0.0,0.0
 637,Robinio Vaz,Vaz,Hull City,FWD,5.0,0.1,1.0,0.5,46,0,0,0,0,d,50.0,Achilles injury - 50% chance of playing,0.0,0.01,0.01
-638,Brooke Norton-Cuffy,Norton-Cuffy,Hull City,DEF,3.9,0.2,1.0,1.0,101,1,0,0,0,a,100.0,,0.05,0.0,0.05
+638,Brooke Norton-Cuffy,Norton-Cuffy,Hull City,DEF,3.9,0.3,1.0,1.0,101,1,0,0,0,a,100.0,,0.05,0.0,0.05
 642,Sorba Thomas,Thomas,Hull City,MID,5.5,0.0,4.5,4.5,271,3,0,1,0,a,,,0.22,0.64,0.86
 645,Christos Mouzakitis,Mouzakitis,Hull City,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 259,Issa Diop,Diop,Ipswich Town,DEF,3.9,11.0,2.5,2.5,630,7,0,0,0,a,,,0.1,0.17,0.27
@@ -368,9 +368,9 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 301,Alex Palmer,Palmer,Ipswich Town,GK,4.0,3.7,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 302,David Button,Button,Ipswich Town,GK,4.0,0.6,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 303,Cédric Kipré,Kipré,Ipswich Town,DEF,3.9,0.8,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-304,Dara O'Shea,O'Shea,Ipswich Town,DEF,4.0,2.6,7.0,7.0,630,7,1,0,0,a,,,0.3,0.3,0.6
+304,Dara O'Shea,O'Shea,Ipswich Town,DEF,4.0,2.7,7.0,7.0,630,7,1,0,0,a,,,0.3,0.3,0.6
 305,Leif Davis,Davis,Ipswich Town,DEF,4.0,7.5,0.5,0.5,630,7,2,2,0,a,,,1.64,0.58,2.22
-306,Jacob Greaves,Greaves,Ipswich Town,DEF,3.9,1.2,0.5,0.5,447,5,0,0,0,a,,,0.02,0.08,0.1
+306,Jacob Greaves,Greaves,Ipswich Town,DEF,3.9,1.1,0.5,0.5,447,5,0,0,0,a,,,0.02,0.08,0.1
 307,Ben Johnson,Johnson,Ipswich Town,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Stoke City on loan for the rest of the season,0.0,0.0,0.0
 308,Darnell Furlong,Furlong,Ipswich Town,DEF,3.9,0.6,0.0,0.0,17,0,0,0,0,a,,,0.0,0.0,0.0
 309,Marcelino Núñez,Núñez,Ipswich Town,MID,4.8,0.1,0.0,0.0,140,2,0,0,0,a,,,0.03,0.05,0.08
@@ -380,7 +380,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 313,Jack Clarke,Clarke,Ipswich Town,MID,5.3,0.2,2.5,2.5,198,2,1,1,0,a,,,0.3,0.4,0.7
 314,Chiedozie Ogbene,Ogbene,Ipswich Town,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Lincoln City on loan until January,0.0,0.0,0.0
 315,Abdul Fatawu,Fatawu,Ipswich Town,MID,5.4,0.1,2.0,2.0,371,5,0,2,0,a,100.0,,0.17,1.11,1.28
-316,Emersonn Correia da Silva,Emersonn,Ipswich Town,FWD,5.6,3.7,2.0,2.0,464,7,2,1,0,a,100.0,,2.48,0.13,2.61
+316,Emersonn Correia da Silva,Emersonn,Ipswich Town,FWD,5.6,3.6,2.0,2.0,464,7,2,1,0,a,100.0,,2.48,0.13,2.61
 317,George Hirst,Hirst,Ipswich Town,FWD,5.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Stoke City permanently,0.0,0.0,0.0
 318,Jaden Philogene,Philogene,Ipswich Town,MID,5.4,0.1,1.0,1.0,114,1,0,0,0,a,100.0,,0.11,0.03,0.13
 319,Sam Szmodics,Szmodics,Ipswich Town,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Derby County on loan for the rest of the season,0.0,0.0,0.0
@@ -398,131 +398,131 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 602,Cameron Humphreys,Humphreys,Ipswich Town,MID,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Huddersfield Town on loan for the rest of the season,0.0,0.0,0.0
 619,Exequiel Palacios,Palacios,Ipswich Town,MID,5.0,0.1,2.5,2.5,392,4,0,0,0,a,,,0.0,0.12,0.12
 640,Zian Flemming,Flemming,Ipswich Town,FWD,5.5,0.1,3.0,3.0,91,0,2,0,0,a,,,1.54,0.02,1.56
-260,Harry Wilson,Wilson,Leeds,MID,6.2,1.3,0.3,0.3,164,1,0,0,1,a,100.0,,0.01,0.09,0.1
+260,Harry Wilson,Wilson,Leeds,MID,6.2,1.3,0.5,0.5,164,1,0,0,1,a,100.0,,0.01,0.09,0.1
 326,Lucas Estella Perri,Perri,Leeds,GK,4.5,0.3,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Torino on loan for the rest of the season,0.0,0.0,0.0
-327,Jaka Bijol,Bijol,Leeds,DEF,5.0,0.6,0.3,0.3,168,2,0,0,1,a,,,0.11,0.0,0.11
+327,Jaka Bijol,Bijol,Leeds,DEF,5.0,0.6,0.5,0.5,168,2,0,0,1,a,,,0.11,0.0,0.11
 329,Joe Rodon,Rodon,Leeds,DEF,4.3,0.5,0.0,0.0,123,2,0,0,1,i,0.0,Hamstring injury - Expected back 21 Nov,0.03,0.06,0.09
-330,Jayden Bogle,Bogle,Leeds,DEF,4.7,10.0,2.7,2.7,540,7,2,0,4,a,,,1.53,0.45,1.98
-331,Gabriel Gudmundsson,Gudmundsson,Leeds,DEF,4.5,0.1,3.7,3.7,432,5,0,1,2,a,100.0,,0.07,0.25,0.32
-332,James Justin,Justin,Leeds,DEF,4.5,2.1,5.3,5.3,618,7,1,0,2,a,,,0.41,0.51,0.92
+330,Jayden Bogle,Bogle,Leeds,DEF,4.7,10.1,1.5,1.5,540,7,2,0,4,a,,,1.53,0.45,1.98
+331,Gabriel Gudmundsson,Gudmundsson,Leeds,DEF,4.5,0.1,2.5,2.5,432,5,0,1,2,a,100.0,,0.07,0.25,0.32
+332,James Justin,Justin,Leeds,DEF,4.5,2.1,4.0,4.0,618,7,1,0,2,a,,,0.41,0.51,0.92
 333,Sebastiaan Bornauw,Bornauw,Leeds,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Hamburg SV on loan for the rest of the season,0.0,0.0,0.0
-334,Tarik Muharemović,Muharemović,Leeds,DEF,5.0,4.8,4.3,4.3,630,7,0,2,2,a,,,0.55,0.21,0.76
-335,Anton Stach,Stach,Leeds,MID,6.0,2.3,3.0,3.0,627,7,1,0,3,a,,,1.37,0.52,1.89
-336,Noah Okafor,Okafor,Leeds,MID,5.8,0.4,2.3,2.3,442,6,1,0,3,a,,,0.25,0.29,0.54
-337,Brenden Aaronson,Aaronson,Leeds,MID,5.3,0.4,0.7,0.7,213,2,0,0,1,a,,,0.01,0.02,0.03
-338,Ethan Ampadu,Ampadu,Leeds,MID,5.4,0.8,2.3,2.3,630,7,0,1,2,a,,,0.11,0.34,0.45
-339,Sean Longstaff,Longstaff,Leeds,MID,4.8,0.1,0.3,0.3,19,0,0,0,0,a,,,0.0,0.0,0.0
+334,Tarik Muharemović,Muharemović,Leeds,DEF,5.0,4.9,3.5,3.5,630,7,0,2,2,a,,,0.55,0.21,0.76
+335,Anton Stach,Stach,Leeds,MID,6.0,2.3,2.0,2.0,627,7,1,0,3,a,,,1.37,0.52,1.89
+336,Noah Okafor,Okafor,Leeds,MID,5.8,0.4,2.0,2.0,442,6,1,0,3,a,,,0.25,0.29,0.54
+337,Brenden Aaronson,Aaronson,Leeds,MID,5.3,0.4,0.5,0.5,213,2,0,0,1,a,,,0.01,0.02,0.03
+338,Ethan Ampadu,Ampadu,Leeds,MID,5.4,0.8,1.0,1.0,630,7,0,1,2,a,,,0.11,0.34,0.45
+339,Sean Longstaff,Longstaff,Leeds,MID,4.8,0.1,0.5,0.5,19,0,0,0,0,a,,,0.0,0.0,0.0
 341,Wilfried Gnonto,Gnonto,Leeds,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined ACF Fiorentina on loan for the rest of the season,0.0,0.0,0.0
 342,Jack Harrison,Harrison,Leeds,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined New England Revolution permanently,0.0,0.0,0.0
-343,Daniel James,James,Leeds,MID,4.9,0.1,0.3,0.1,52,0,0,0,0,d,50.0,Back injury - 50% chance of playing,0.35,0.01,0.36
+343,Daniel James,James,Leeds,MID,4.9,0.1,0.0,0.0,52,0,0,0,0,d,50.0,Back injury - 50% chance of playing,0.35,0.01,0.36
 344,Ilia Gruev,Gruev,Leeds,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
-345,Tanaka Ao,Tanaka,Leeds,MID,4.9,0.3,1.7,1.7,405,5,0,2,2,a,,,0.86,0.06,0.92
-346,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,6.0,23.2,4.3,4.3,599,7,3,1,3,a,,,3.6,0.13,3.73
-347,Lukas Nmecha,Nmecha,Leeds,FWD,5.4,0.4,1.0,1.0,91,0,0,1,0,a,,,0.48,0.15,0.63
+345,Tanaka Ao,Tanaka,Leeds,MID,4.9,0.3,1.5,1.5,405,5,0,2,2,a,,,0.86,0.06,0.92
+346,Dominic Calvert-Lewin,Calvert-Lewin,Leeds,FWD,6.0,23.3,5.5,5.5,599,7,3,1,3,a,,,3.6,0.13,3.73
+347,Lukas Nmecha,Nmecha,Leeds,FWD,5.3,0.4,1.0,1.0,91,0,0,1,0,a,,,0.48,0.15,0.63
 348,Joël Piroe,Piroe,Leeds,FWD,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined West Ham United on loan for the rest of the season,0.0,0.0,0.0
 349,Mateo Joseph Fernández-Regatillo,Mateo Joseph,Leeds,FWD,4.5,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
-385,James Trafford,Trafford,Leeds,GK,5.0,5.9,4.7,4.7,630,7,0,0,2,a,,,0.0,0.01,0.01
-598,Nico Elvedi,Elvedi,Leeds,DEF,4.5,0.1,3.0,3.0,501,5,0,0,1,a,,,0.24,0.6,0.84
+385,James Trafford,Trafford,Leeds,GK,5.0,5.9,2.0,2.0,630,7,0,0,2,a,,,0.0,0.01,0.01
+598,Nico Elvedi,Elvedi,Leeds,DEF,4.5,0.1,1.5,1.5,501,5,0,0,1,a,,,0.24,0.6,0.84
 603,Jayden Lienou,Lienou,Leeds,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 604,Alfie Cresswell,Cresswell,Leeds,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 625,Alex Cairns,Cairns,Leeds,GK,4.0,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 629,Michael Zetterer,Zetterer,Leeds,GK,4.0,0.7,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 641,Melvin Bard,Bard,Leeds,DEF,4.5,0.0,0.0,0.0,18,0,0,0,0,a,,,0.0,0.0,0.0
-648,Jean-Mattéo Bahoya,Bahoya,Leeds,MID,4.9,0.0,0.7,0.7,5,0,0,0,0,a,100.0,,0.0,0.0,0.0
-350,Alisson Becker,A.Becker,Liverpool,GK,5.5,4.2,3.7,3.7,630,7,0,0,3,a,,,0.0,0.0,0.0
+648,Jean-Mattéo Bahoya,Bahoya,Leeds,MID,4.9,0.0,0.5,0.5,5,0,0,0,0,a,100.0,,0.0,0.0,0.0
+350,Alisson Becker,A.Becker,Liverpool,GK,5.5,4.2,1.5,1.5,630,7,0,0,3,a,,,0.0,0.0,0.0
 351,Giorgi Mamardashvili,Mamardashvili,Liverpool,GK,4.8,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 352,Freddie Woodman,Woodman,Liverpool,GK,4.0,1.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 353,Armin Pecsi,Pecsi,Liverpool,GK,4.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined TSV Hartberg on loan for the rest of the season,0.0,0.0,0.0
 354,Vitezslav Jaros,Jaros,Liverpool,GK,4.0,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
 355,Harvey Davies,Davies,Liverpool,GK,4.0,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-356,Virgil van Dijk,Virgil,Liverpool,DEF,6.4,15.3,4.0,4.0,630,7,0,0,3,a,,,0.31,0.1,0.41
-357,Jeremie Frimpong,Frimpong,Liverpool,DEF,5.2,1.5,0.7,0.0,199,2,0,0,0,i,0.0,Hamstring injury - Unknown return date,0.01,0.24,0.25
-358,Milos Kerkez,Kerkez,Liverpool,DEF,5.3,2.0,3.0,3.0,565,6,0,0,2,a,,,0.07,0.11,0.18
-359,Joe Gomez,Gomez,Liverpool,DEF,4.9,0.0,0.7,0.7,13,0,0,0,0,a,100.0,,0.0,0.0,0.0
+356,Virgil van Dijk,Virgil,Liverpool,DEF,6.4,15.3,2.0,2.0,630,7,0,0,3,a,,,0.31,0.1,0.41
+357,Jeremie Frimpong,Frimpong,Liverpool,DEF,5.2,1.5,1.0,0.0,199,2,0,0,0,i,0.0,Hamstring injury - Unknown return date,0.01,0.24,0.25
+358,Milos Kerkez,Kerkez,Liverpool,DEF,5.3,2.0,1.5,1.5,565,6,0,0,2,a,,,0.07,0.11,0.18
+359,Joe Gomez,Gomez,Liverpool,DEF,4.9,0.0,1.0,1.0,13,0,0,0,0,a,100.0,,0.0,0.0,0.0
 360,Conor Bradley,Bradley,Liverpool,DEF,4.9,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
 361,Wellity Lucky,Lucky,Liverpool,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-362,Jeremy Jacquet,Jacquet,Liverpool,DEF,5.0,4.1,4.0,4.0,592,7,0,0,3,a,100.0,,0.3,0.15,0.45
+362,Jeremy Jacquet,Jacquet,Liverpool,DEF,5.1,4.1,3.0,3.0,592,7,0,0,3,a,100.0,,0.3,0.15,0.45
 363,Giovanni Leoni,Leoni,Liverpool,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
 364,Kostas Tsimikas,Tsimikas,Liverpool,DEF,4.9,0.1,0.0,0.0,64,1,0,0,0,a,,,0.04,0.02,0.06
 365,Calvin Ramsay,Ramsay,Liverpool,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined St Mirren on loan for the rest of the season,0.0,0.0,0.0
-366,Florian Wirtz,Wirtz,Liverpool,MID,7.2,5.0,4.3,4.3,557,7,0,3,3,a,,,1.16,0.79,1.95
-367,Cody Gakpo,Gakpo,Liverpool,MID,7.1,6.5,1.0,1.0,370,4,1,3,2,a,100.0,,0.64,1.71,2.35
-368,Dominik Szoboszlai,Szoboszlai,Liverpool,MID,6.8,19.6,1.0,0.0,471,6,1,0,3,i,0.0,Hamstring injury - Unknown return date,1.52,1.06,2.58
-369,Rio Ngumoha,Ngumoha,Liverpool,MID,5.7,0.4,0.7,0.7,152,1,0,0,0,a,,,0.18,0.12,0.3
-370,Federico Chiesa,Chiesa,Liverpool,MID,5.3,0.0,0.3,0.3,2,0,0,0,0,a,100.0,,0.0,0.0,0.0
-371,Ryan Gravenberch,Gravenberch,Liverpool,MID,5.8,0.9,0.0,0.0,251,3,0,1,0,a,100.0,,0.17,0.1,0.27
-372,Alexis Mac Allister,Mac Allister,Liverpool,MID,5.4,1.3,2.7,2.7,486,5,0,0,2,a,,,0.58,0.85,1.43
+366,Florian Wirtz,Wirtz,Liverpool,MID,7.2,5.0,3.5,3.5,557,7,0,3,3,a,,,1.16,0.79,1.95
+367,Cody Gakpo,Gakpo,Liverpool,MID,7.1,6.5,0.0,0.0,370,4,1,3,2,a,100.0,,0.64,1.71,2.35
+368,Dominik Szoboszlai,Szoboszlai,Liverpool,MID,6.8,19.2,0.5,0.0,471,6,1,0,3,i,0.0,Hamstring injury - Unknown return date,1.52,1.06,2.58
+369,Rio Ngumoha,Ngumoha,Liverpool,MID,5.7,0.4,1.0,1.0,152,1,0,0,0,a,,,0.18,0.12,0.3
+370,Federico Chiesa,Chiesa,Liverpool,MID,5.3,0.0,0.5,0.5,2,0,0,0,0,a,100.0,,0.0,0.0,0.0
+371,Ryan Gravenberch,Gravenberch,Liverpool,MID,5.8,0.9,-0.5,-0.5,251,3,0,1,0,a,100.0,,0.17,0.1,0.27
+372,Alexis Mac Allister,Mac Allister,Liverpool,MID,5.4,1.3,1.5,1.5,486,5,0,0,2,a,,,0.58,0.85,1.43
 373,Curtis Jones,C.Jones,Liverpool,MID,5.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Internazionale permanently,0.0,0.0,0.0
-374,Endo Wataru,Endo,Liverpool,MID,4.9,0.1,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
+374,Endo Wataru,Endo,Liverpool,MID,4.8,0.1,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
 375,Trey Nyoni,Nyoni,Liverpool,MID,4.8,0.0,1.0,1.0,120,0,0,0,0,a,,,0.09,0.07,0.16
 376,Stefan Bajčetić Maquieira,Bajcetic,Liverpool,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Celta Vigo permanently,0.0,0.0,0.0
-377,Victor Munoz,Munoz,Liverpool,MID,6.5,1.0,4.0,4.0,425,5,2,1,1,a,,,0.77,0.33,1.1
+377,Victor Munoz,Munoz,Liverpool,MID,6.5,1.0,5.5,4.1,425,5,2,1,1,d,75.0,Knee injury - 75% chance of playing,0.77,0.33,1.1
 378,James McConnell,McConnell,Liverpool,MID,4.4,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-379,Alexander Isak,Isak,Liverpool,FWD,9.0,12.9,5.7,5.7,491,6,5,0,3,a,100.0,,3.87,0.1,3.97
+379,Alexander Isak,Isak,Liverpool,FWD,9.0,13.0,4.5,4.5,491,6,5,0,3,a,100.0,,3.87,0.1,3.97
 380,Hugo Ekitiké,Ekitiké,Liverpool,FWD,7.4,0.1,0.0,0.0,0,0,0,0,0,i,0.0,Achilles injury - Unknown return date,0.0,0.0,0.0
-381,Lewis Koumas,Koumas,Liverpool,MID,5.0,0.1,1.3,1.3,107,1,0,0,0,a,,,0.43,0.01,0.44
+381,Lewis Koumas,Koumas,Liverpool,MID,5.0,0.1,1.5,1.5,107,1,0,0,0,a,,,0.43,0.01,0.44
 382,Jayden Danns,Danns,Liverpool,FWD,4.5,0.3,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
 383,Harvey Elliott,Elliott,Liverpool,MID,5.4,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Valencia on loan for the rest of the season,0.0,0.0,0.0
-579,Ronald Araujo,Araujo,Liverpool,DEF,5.4,3.2,2.7,2.7,403,5,0,0,3,a,,,0.0,0.07,0.07
-627,Bradley Barcola,Barcola,Liverpool,MID,8.0,3.1,3.0,3.0,345,4,0,1,2,a,,,0.84,0.34,1.18
-155,Enzo Fernández,Enzo,Manchester City,MID,6.9,4.0,3.7,3.7,390,4,1,0,3,a,,,0.82,0.85,1.67
-237,Iliman Ndiaye,Ndiaye,Manchester City,MID,5.8,5.5,3.7,3.7,530,6,0,3,2,a,,,1.26,0.66,1.92
-384,Gianluigi Donnarumma,Donnarumma,Manchester City,GK,5.5,7.7,4.0,4.0,630,7,0,0,3,a,,,0.0,0.0,0.0
+579,Ronald Araujo,Araujo,Liverpool,DEF,5.4,3.2,0.5,0.5,403,5,0,0,3,a,,,0.0,0.07,0.07
+627,Bradley Barcola,Barcola,Liverpool,MID,8.0,3.2,3.0,3.0,345,4,0,1,2,a,,,0.84,0.34,1.18
+155,Enzo Fernández,Enzo,Manchester City,MID,6.9,4.0,2.0,2.0,390,4,1,0,3,a,,,0.82,0.85,1.67
+237,Iliman Ndiaye,Ndiaye,Manchester City,MID,5.8,5.5,3.0,3.0,530,6,0,3,2,a,,,1.26,0.66,1.92
+384,Gianluigi Donnarumma,Donnarumma,Manchester City,GK,5.5,7.7,5.0,5.0,630,7,0,0,3,a,,,0.0,0.0,0.0
 386,Marcus Bettinelli,Bettinelli,Manchester City,GK,4.4,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-387,Nico O'Reilly,O'Reilly,Manchester City,DEF,6.3,9.3,2.7,2.0,288,4,0,0,1,d,75.0,Back injury - 75% chance of playing,1.05,0.51,1.56
-388,Marc Guéhi,Guéhi,Manchester City,DEF,6.0,17.8,3.7,3.7,630,7,1,1,3,a,,,0.95,0.52,1.47
-389,Matheus Nunes,Matheus N.,Manchester City,DEF,5.9,1.1,3.0,2.2,378,4,0,0,2,d,75.0,Unspecified injury - 75% chance of playing,0.0,0.1,0.1
-390,Rúben dos Santos Gato Alves Dias,Rúben,Manchester City,DEF,5.5,2.0,2.7,2.7,630,7,0,0,3,a,,,0.51,0.84,1.35
-391,Joško Gvardiol,Gvardiol,Manchester City,DEF,5.8,28.4,2.7,2.7,487,5,1,4,2,a,,,0.32,0.88,1.2
+387,Nico O'Reilly,O'Reilly,Manchester City,DEF,6.3,9.2,3.5,2.6,288,4,0,0,1,d,75.0,Back injury - 75% chance of playing,1.05,0.51,1.56
+388,Marc Guéhi,Guéhi,Manchester City,DEF,6.0,17.8,3.5,3.5,630,7,1,1,3,a,,,0.95,0.52,1.47
+389,Matheus Nunes,Matheus N.,Manchester City,DEF,5.9,1.0,4.0,3.0,378,4,0,0,2,d,75.0,Unspecified injury - 75% chance of playing,0.0,0.1,0.1
+390,Rúben dos Santos Gato Alves Dias,Rúben,Manchester City,DEF,5.5,2.0,3.5,3.5,630,7,0,0,3,a,,,0.51,0.84,1.35
+391,Joško Gvardiol,Gvardiol,Manchester City,DEF,5.8,28.3,2.0,2.0,487,5,1,4,2,a,,,0.32,0.88,1.2
 392,Rayan Aït-Nouri,Aït-Nouri,Manchester City,DEF,5.2,0.4,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-393,Abdukodir Khusanov,Khusanov,Manchester City,DEF,5.3,1.2,0.3,0.3,282,3,0,0,1,a,,,0.0,0.06,0.06
+393,Abdukodir Khusanov,Khusanov,Manchester City,DEF,5.3,1.2,0.5,0.5,282,3,0,0,1,a,,,0.0,0.06,0.06
 394,Max Alleyne,Alleyne,Manchester City,DEF,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Burnley on loan for the rest of the season,0.0,0.0,0.0
 395,Rico Lewis,Lewis,Manchester City,DEF,4.3,0.2,0.0,0.0,56,1,0,0,0,a,,,0.17,0.02,0.19
 396,Vitor de Oliveira Nunes dos Reis,Vitor Reis,Manchester City,DEF,4.4,0.0,0.0,0.0,1,0,0,0,0,a,,,0.0,0.0,0.0
-397,Antoine Semenyo,Semenyo,Manchester City,MID,8.3,12.9,7.0,0.0,553,6,2,3,3,i,0.0,Knee injury - Unknown return date,0.34,1.47,1.81
-398,Phil Foden,Foden,Manchester City,MID,6.8,1.6,3.0,3.0,293,4,1,2,0,a,100.0,,2.23,1.42,3.65
-399,Rayan Cherki,Cherki,Manchester City,MID,8.0,37.6,6.0,6.0,392,5,4,2,2,a,,,1.3,1.7,3.0
-400,Jérémy Doku,Doku,Manchester City,MID,7.5,2.3,6.3,6.3,125,1,1,2,0,a,100.0,,0.41,0.77,1.18
+397,Antoine Semenyo,Semenyo,Manchester City,MID,8.3,12.2,2.0,0.0,553,6,2,3,3,i,0.0,Knee injury - Unknown return date,0.34,1.47,1.81
+398,Phil Foden,Foden,Manchester City,MID,6.8,1.7,4.5,4.5,293,4,1,2,0,a,100.0,,2.23,1.42,3.65
+399,Rayan Cherki,Cherki,Manchester City,MID,8.0,37.8,5.0,5.0,392,5,4,2,2,a,,,1.3,1.7,3.0
+400,Jérémy Doku,Doku,Manchester City,MID,7.5,2.5,9.0,9.0,125,1,1,2,0,a,100.0,,0.41,0.77,1.18
 402,Rodrigo 'Rodri' Hernandez Cascante,Rodrigo,Manchester City,MID,6.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Barcelona permanently,0.0,0.0,0.0
 404,Tijjani Reijnders,Reijnders,Manchester City,MID,6.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Al Qadsiah permanently,0.0,0.0,0.0
-406,Mateo Kovačić,Kovačić,Manchester City,MID,5.3,0.1,1.7,1.3,91,1,0,1,0,d,75.0,Unspecified injury - 75% chance of playing,0.0,0.19,0.19
+406,Mateo Kovačić,Kovačić,Manchester City,MID,5.3,0.1,2.5,1.9,91,1,0,1,0,d,75.0,Unspecified injury - 75% chance of playing,0.0,0.19,0.19
 407,Claudio Echeverri,Echeverri,Manchester City,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Benfica on loan for the rest of the season,0.0,0.0,0.0
 408,Kalvin Phillips,Phillips,Manchester City,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Sheffield United on loan for the rest of the season,0.0,0.0,0.0
 409,Divine Mukasa,Mukasa,Manchester City,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,u,0.0,has joined West Ham on loan for the rest of the seaon.,0.0,0.0,0.0
 410,Jeremy Monga,Monga,Manchester City,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Swansea City on loan for the rest of the season,0.0,0.0,0.0
-411,Erling Haaland,Haaland,Manchester City,FWD,15.7,76.8,8.3,6.2,619,7,8,0,3,d,75.0,Unspecified injury - 75% chance of playing,5.69,0.77,6.46
-481,Elliot Anderson,Anderson,Manchester City,MID,6.3,3.9,3.0,3.0,516,6,0,1,3,a,100.0,,0.21,0.74,0.95
+411,Erling Haaland,Haaland,Manchester City,FWD,15.7,76.8,9.5,9.5,619,7,8,0,3,a,100.0,,5.69,0.77,6.46
+481,Elliot Anderson,Anderson,Manchester City,MID,6.3,3.9,3.5,3.5,516,6,0,1,3,a,100.0,,0.21,0.74,0.95
 587,Gerónimo Rulli,Rulli,Manchester City,GK,4.9,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-616,Ayyoub Bouaddi,Bouaddi,Manchester City,MID,5.5,0.2,0.7,0.7,122,1,0,0,0,a,,,0.02,0.17,0.19
+616,Ayyoub Bouaddi,Bouaddi,Manchester City,MID,5.5,0.2,1.0,1.0,122,1,0,0,0,a,,,0.02,0.17,0.19
 621,Ryan McAidoo,McAidoo,Manchester City,MID,4.4,0.1,0.0,0.0,11,0,0,0,0,a,,,0.1,0.0,0.1
 622,Kaden Braithwaite,Braithwaite,Manchester City,DEF,3.9,0.2,0.0,0.0,1,0,0,0,0,a,,,0.0,0.0,0.0
-628,Allan Andrade Elias,Allan,Manchester City,MID,6.0,0.0,0.3,0.3,10,0,0,0,0,a,,,0.0,0.0,0.0
+628,Allan Andrade Elias,Allan,Manchester City,MID,6.0,0.0,0.5,0.5,10,0,0,0,0,a,,,0.0,0.0,0.0
 653,Floyd Samba,Samba,Manchester City,MID,4.4,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-43,Youri Tielemans,Tielemans,Manchester United,MID,5.7,1.4,4.7,4.7,543,7,0,1,0,a,100.0,,0.67,1.07,1.74
-131,Carlos Baleba,Baleba,Manchester United,MID,4.9,0.2,1.7,1.7,104,1,0,0,0,a,100.0,,0.07,0.02,0.09
-162,Andrey Nascimento dos Santos,Andrey Santos,Manchester United,MID,4.7,0.5,0.3,0.3,172,2,0,0,0,a,,,0.0,0.25,0.25
+43,Youri Tielemans,Tielemans,Manchester United,MID,5.7,1.4,5.0,5.0,543,7,0,1,0,a,100.0,,0.67,1.07,1.74
+131,Carlos Baleba,Baleba,Manchester United,MID,4.9,0.3,2.5,2.5,104,1,0,0,0,a,100.0,,0.07,0.02,0.09
+162,Andrey Nascimento dos Santos,Andrey Santos,Manchester United,MID,4.7,0.5,0.5,0.5,172,2,0,0,0,a,,,0.0,0.25,0.25
 325,Karl Darlow,Darlow,Manchester United,GK,4.5,0.0,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
-412,Senne Lammens,Lammens,Manchester United,GK,4.9,8.7,3.0,3.0,630,7,0,0,0,a,,,0.0,0.0,0.0
+412,Senne Lammens,Lammens,Manchester United,GK,4.9,8.7,2.5,2.5,630,7,0,0,0,a,,,0.0,0.0,0.0
 413,Altay Bayındır,Bayindir,Manchester United,GK,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Celta Vigo on loan for the rest of the season,0.0,0.0,0.0
 414,Tom Heaton,Heaton,Manchester United,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,i,0.0,Hamstring injury - Unknown return date,0.0,0.0,0.0
-415,Patrick Dorgu,Dorgu,Manchester United,MID,5.7,0.4,1.3,0.0,171,2,0,1,0,i,0.0,Hamstring injury - Expected back 25 Oct,0.78,0.09,0.87
+415,Patrick Dorgu,Dorgu,Manchester United,MID,5.7,0.4,0.0,0.0,171,2,0,1,0,i,0.0,Hamstring injury - Expected back 25 Oct,0.78,0.09,0.87
 416,Matthijs de Ligt,De Ligt,Manchester United,DEF,4.9,0.0,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
 417,Diogo Dalot Teixeira,Dalot,Manchester United,DEF,4.8,1.4,2.0,2.0,467,5,0,0,0,a,,,0.24,0.32,0.56
-418,Harry Maguire,Maguire,Manchester United,DEF,4.8,6.8,2.7,2.7,630,7,0,1,0,a,,,0.32,0.47,0.79
-419,Lisandro Martínez,Martinez,Manchester United,DEF,4.9,1.2,1.3,1.0,495,6,0,0,0,d,75.0,Thigh injury - 75% chance of playing,0.22,0.18,0.4
-420,Leny Yoro,Yoro,Manchester United,DEF,4.8,0.5,2.3,2.3,170,2,0,0,0,a,,,0.0,0.05,0.05
-421,Ayden Heaven,Heaven,Manchester United,DEF,4.3,0.2,0.3,0.3,91,1,0,0,0,a,,,0.12,0.04,0.16
-422,Noussair Mazraoui,Mazraoui,Manchester United,DEF,4.3,0.4,1.0,1.0,142,1,0,0,0,a,100.0,,0.22,0.06,0.28
-423,Luke Shaw,Shaw,Manchester United,DEF,4.3,5.7,1.7,1.3,425,5,0,1,0,d,75.0,Unspecified injury - 75% chance of playing,0.03,0.59,0.62
+418,Harry Maguire,Maguire,Manchester United,DEF,4.8,6.7,3.0,3.0,630,7,0,1,0,a,,,0.32,0.47,0.79
+419,Lisandro Martínez,Martinez,Manchester United,DEF,4.9,1.2,2.0,1.5,495,6,0,0,0,d,75.0,Thigh injury - 75% chance of playing,0.22,0.18,0.4
+420,Leny Yoro,Yoro,Manchester United,DEF,4.8,0.5,3.5,3.5,170,2,0,0,0,a,,,0.0,0.05,0.05
+421,Ayden Heaven,Heaven,Manchester United,DEF,4.3,0.2,0.5,0.4,91,1,0,0,0,d,75.0,Illness - 75% chance of playing,0.12,0.04,0.16
+422,Noussair Mazraoui,Mazraoui,Manchester United,DEF,4.3,0.4,1.5,1.5,142,1,0,0,0,a,100.0,,0.22,0.06,0.28
+423,Luke Shaw,Shaw,Manchester United,DEF,4.3,5.6,1.5,0.0,425,5,0,1,0,i,0.0,Unspecified injury - Unknown return date,0.03,0.59,0.62
 424,Harry Amass,Amass,Manchester United,DEF,4.0,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 425,Tyler Fredricson,Fredricson,Manchester United,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Lausanne-Sport permanently,0.0,0.0,0.0
-426,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,11.8,29.4,1.3,1.3,630,7,3,1,0,a,,,2.66,1.5,4.16
-427,Bryan Mbeumo,Mbeumo,Manchester United,MID,7.8,20.2,6.0,6.0,630,7,4,1,0,a,,,3.96,0.9,4.86
-428,Matheus Santos Carneiro da Cunha,Cunha,Manchester United,MID,7.9,6.7,7.0,7.0,503,6,1,3,1,a,,,0.83,0.94,1.77
-429,Marcus Rashford,Rashford,Manchester United,MID,6.9,1.2,1.0,1.0,352,4,0,0,1,a,100.0,,0.78,0.43,1.21
-430,Mason Mount,Mount,Manchester United,MID,5.4,0.0,0.7,0.7,26,0,0,0,0,a,100.0,,0.15,0.03,0.18
-431,Amad Diallo,Amad,Manchester United,MID,5.7,0.3,1.0,1.0,148,2,0,0,0,a,100.0,,0.14,0.05,0.19
-432,Kobbie Mainoo,Mainoo,Manchester United,MID,5.5,1.3,2.7,2.0,444,5,0,1,0,d,75.0,Unspecified injury - 75% chance of playing,0.3,0.55,0.85
+426,Bruno Borges Fernandes,B.Fernandes,Manchester United,MID,11.8,29.1,1.0,1.0,630,7,3,1,0,a,,,2.66,1.5,4.16
+427,Bryan Mbeumo,Mbeumo,Manchester United,MID,7.8,20.4,8.0,8.0,630,7,4,1,0,a,,,3.96,0.9,4.86
+428,Matheus Santos Carneiro da Cunha,Cunha,Manchester United,MID,7.9,6.7,5.5,5.5,503,6,1,3,1,a,,,0.83,0.94,1.77
+429,Marcus Rashford,Rashford,Manchester United,MID,6.9,1.2,0.5,0.4,352,4,0,0,1,d,75.0,Hip injury - 75% chance of playing,0.78,0.43,1.21
+430,Mason Mount,Mount,Manchester United,MID,5.4,0.0,0.5,0.5,26,0,0,0,0,a,100.0,,0.15,0.03,0.18
+431,Amad Diallo,Amad,Manchester United,MID,5.7,0.3,1.5,1.5,148,2,0,0,0,a,100.0,,0.14,0.05,0.19
+432,Kobbie Mainoo,Mainoo,Manchester United,MID,5.5,1.3,2.0,0.0,444,5,0,1,0,i,0.0,Unspecified injury - Expected back 8 Nov,0.3,0.55,0.85
 433,Manuel Ugarte Ribeiro,Ugarte,Manchester United,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
 434,Jack Fletcher,J.Fletcher,Manchester United,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 435,Shea Lacey,Lacey,Manchester United,MID,4.9,0.1,0.0,0.0,10,0,0,0,0,a,,,0.0,0.0,0.0
@@ -530,7 +530,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 437,Bendito Mantato,Bendito Mantato,Manchester United,MID,4.4,0.2,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 438,Tyler Fletcher,Fletcher,Manchester United,MID,4.4,0.3,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 439,Benjamin Sesko,Šeško,Manchester United,FWD,6.9,1.2,0.0,0.0,76,0,1,0,0,i,0.0,Shin injury - Expected back 31 Oct,0.39,0.01,0.4
-440,Joshua Zirkzee,Zirkzee,Manchester United,FWD,5.3,0.4,0.7,0.7,51,0,0,0,0,a,,,0.12,0.07,0.19
+440,Joshua Zirkzee,Zirkzee,Manchester United,FWD,5.3,0.4,0.5,0.5,51,0,0,0,0,a,,,0.12,0.07,0.19
 441,Chido Obi,Obi,Manchester United,FWD,4.5,0.8,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Willem II on loan for the rest of the season,0.0,0.0,0.0
 405,Nico González Iglesias,N.Gonzalez,Newcastle United,MID,5.5,0.2,5.0,5.0,344,5,0,1,1,a,100.0,,0.05,0.49,0.54
 442,Nick Pope,Pope,Newcastle United,GK,4.9,0.9,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
@@ -540,11 +540,11 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 446,Fabian Schär,Schär,Newcastle United,DEF,4.9,0.2,0.0,0.0,25,0,0,0,0,a,100.0,,0.0,0.01,0.01
 447,Sven Botman,Botman,Newcastle United,DEF,5.0,0.8,5.5,5.5,630,7,1,0,1,a,,,0.21,0.22,0.43
 448,Dan Burn,Burn,Newcastle United,DEF,4.8,0.7,1.0,1.0,2,0,0,0,0,a,100.0,,0.0,0.02,0.02
-449,Lewis Hall,Hall,Newcastle United,DEF,5.3,20.5,2.0,2.0,629,7,1,1,1,a,,,0.27,0.9,1.17
+449,Lewis Hall,Hall,Newcastle United,DEF,5.3,20.4,2.0,2.0,629,7,1,1,1,a,,,0.27,0.9,1.17
 450,Tino Livramento,Livramento,Newcastle United,DEF,4.9,0.1,0.0,0.0,33,0,0,1,0,i,0.0,Unspecified injury - Expected back 2 Nov,0.0,0.01,0.01
 451,Alex Murphy,A.Murphy,Newcastle United,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined FC Kaiserslautern on loan for the rest of the season,0.0,0.0,0.0
 453,Harvey Barnes,Barnes,Newcastle United,MID,6.1,7.8,2.0,2.0,630,7,1,3,1,a,,,1.24,0.87,2.11
-454,Anthony Elanga,Elanga,Newcastle United,MID,6.0,2.6,0.0,0.0,232,3,2,0,1,i,0.0,Unspecified injury - Expected back 25 Oct,0.42,0.34,0.76
+454,Anthony Elanga,Elanga,Newcastle United,MID,6.0,2.5,0.0,0.0,232,3,2,0,1,i,0.0,Unspecified injury - Expected back 25 Oct,0.42,0.34,0.76
 456,Jacob Ramsey,J.Ramsey,Newcastle United,MID,4.8,0.2,0.0,0.0,69,0,1,0,0,i,0.0,Thigh injury - Unknown return date,0.17,0.16,0.33
 457,Jacob Murphy,J.Murphy,Newcastle United,MID,5.9,0.1,0.5,0.5,239,3,0,0,0,a,,,0.29,0.56,0.85
 458,Joelinton Cássio Apolinário de Lira,Joelinton,Newcastle United,MID,5.4,0.0,0.5,0.5,120,1,0,0,0,a,100.0,,0.0,0.07,0.07
@@ -553,12 +553,12 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 461,Bazoumana Touré,Touré,Newcastle United,MID,5.7,0.1,1.0,1.0,115,0,1,0,0,a,100.0,,0.37,0.13,0.5
 462,Sean Steur,Steur,Newcastle United,MID,4.8,0.1,0.0,0.0,223,2,0,0,1,a,,,0.0,0.06,0.06
 463,Nick Woltemade,Woltemade,Newcastle United,FWD,5.9,0.4,0.0,0.0,19,0,0,1,0,u,0.0,Has joined Juventus on loan for the rest of the season,0.02,0.01,0.03
-464,Yoane Wissa,Wissa,Newcastle United,FWD,6.1,14.2,1.5,1.5,608,7,1,1,1,a,,,2.97,0.14,3.11
+464,Yoane Wissa,Wissa,Newcastle United,FWD,6.1,14.0,1.5,1.5,608,7,1,1,1,a,,,2.97,0.14,3.11
 465,William Osula,Osula,Newcastle United,FWD,5.8,0.3,0.5,0.5,101,1,0,1,0,a,100.0,,0.24,0.14,0.38
 466,Sean Neave,Neave,Newcastle United,FWD,4.5,0.4,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Wolves on loan for the rest of the season,0.0,0.0,0.0
 559,Aladji Bamba,Bamba,Newcastle United,MID,4.8,0.1,0.0,0.0,27,0,0,0,0,a,,,0.0,0.0,0.0
 567,Lukás Hornícek,Horníček,Newcastle United,GK,5.0,1.3,1.0,1.0,630,7,0,0,1,a,,,0.0,0.0,0.0
-593,Amar Dedic,Dedić,Newcastle United,DEF,4.5,1.3,0.0,0.0,358,4,0,1,1,a,100.0,,0.16,0.1,0.26
+593,Amar Dedic,Dedić,Newcastle United,DEF,4.5,1.2,0.0,0.0,358,4,0,1,1,a,100.0,,0.16,0.1,0.26
 609,Leo Shahar,Shahar,Newcastle United,DEF,4.0,0.2,0.0,0.0,0,0,0,0,0,u,0.0,has joined Arouca on loan for the rest of the seaon.,0.0,0.0,0.0
 634,Matias Fernandez-Pardo,Fernandez-Pardo,Newcastle United,FWD,6.0,0.1,1.5,1.5,302,4,0,0,0,a,,,0.54,0.24,0.78
 659,Mason Miley,Miley,Newcastle United,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
@@ -573,7 +573,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 469,Neco Williams,N.Williams,Nottingham Forest,DEF,5.0,6.3,2.0,2.0,630,7,0,1,1,a,100.0,,0.66,0.9,1.56
 470,Felipe Rodrigues da Silva,Morato,Nottingham Forest,DEF,5.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined West Ham on loan for the rest of the season,0.0,0.0,0.0
 471,Nikola Milenković,Milenković,Nottingham Forest,DEF,5.4,0.8,0.0,0.0,270,3,0,0,1,a,100.0,,0.11,0.03,0.14
-472,Murillo Costa dos Santos,Murillo,Nottingham Forest,DEF,5.5,2.0,2.0,2.0,629,7,0,1,1,a,100.0,,0.92,0.56,1.48
+472,Murillo Costa dos Santos,Murillo,Nottingham Forest,DEF,5.5,2.1,2.0,2.0,629,7,0,1,1,a,100.0,,0.92,0.56,1.48
 473,Ola Aina,Aina,Nottingham Forest,DEF,4.3,1.8,0.0,0.0,388,5,0,0,1,a,,,0.06,0.54,0.6
 474,Jair Paula da Cunha Filho,Jair Cunha,Nottingham Forest,DEF,4.4,0.2,1.0,1.0,444,5,0,0,1,a,100.0,,0.05,0.03,0.08
 475,Nicolò Savona,Savona,Nottingham Forest,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.0,0.0,0.0
@@ -581,8 +581,8 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 477,Zach Abbott,Abbott,Nottingham Forest,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Southampton on loan for the rest of the season,0.0,0.0,0.0
 478,Luca Netz,Netz,Nottingham Forest,DEF,4.4,0.0,0.0,0.0,27,0,0,0,0,a,,,0.0,0.02,0.02
 479,Tyler Bindon,Bindon,Nottingham Forest,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Charlton Athletic on loan for the rest of the season,0.0,0.0,0.0
-480,Morgan Gibbs-White,Gibbs-White,Nottingham Forest,MID,7.9,11.5,1.0,0.8,540,6,1,2,1,d,75.0,Muscular injury - 75% chance of playing,1.65,1.87,3.52
-482,Callum Hudson-Odoi,Hudson-Odoi,Nottingham Forest,MID,5.8,0.1,1.0,1.0,24,0,0,0,0,a,100.0,,0.0,0.08,0.08
+480,Morgan Gibbs-White,Gibbs-White,Nottingham Forest,MID,7.9,11.4,1.0,0.8,540,6,1,2,1,d,75.0,Muscular injury - 75% chance of playing,1.65,1.87,3.52
+482,Callum Hudson-Odoi,Hudson-Odoi,Nottingham Forest,MID,5.7,0.1,1.0,1.0,24,0,0,0,0,a,100.0,,0.0,0.08,0.08
 483,Dan Ndoye,Ndoye,Nottingham Forest,MID,5.5,0.6,5.0,5.0,459,7,2,0,2,a,,,2.07,0.97,3.04
 484,Omari Hutchinson,Hutchinson,Nottingham Forest,MID,5.4,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined AC Milan on loan for the rest of the season,0.0,0.0,0.0
 485,Dilane Bakwa,Bakwa,Nottingham Forest,MID,5.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Lille on loan for the rest of the season,0.0,0.0,0.0
@@ -591,7 +591,7 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 488,Ibrahim Sangaré,I.Sangaré,Nottingham Forest,MID,4.8,0.3,1.0,1.0,145,1,0,0,0,a,100.0,,0.09,0.04,0.13
 489,Ryan Yates,Yates,Nottingham Forest,MID,4.4,1.1,0.0,0.0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
 490,Chris Wood,Wood,Nottingham Forest,FWD,5.7,0.8,1.0,1.0,85,0,0,0,0,a,,,0.63,0.01,0.64
-491,Igor Jesus Maciel da Cruz,Igor Jesus,Nottingham Forest,FWD,5.7,1.5,0.0,0.0,257,2,1,0,0,i,0.0,Calf injury - Unknown return date,1.25,0.08,1.33
+491,Igor Jesus Maciel da Cruz,Igor Jesus,Nottingham Forest,FWD,5.7,1.4,0.0,0.0,257,2,1,0,0,i,0.0,Calf injury - Unknown return date,1.25,0.08,1.33
 493,Arnaud Kalimuendo,Kalimuendo,Nottingham Forest,FWD,5.4,0.0,1.0,1.0,25,0,0,0,0,a,,,0.0,0.0,0.0
 558,Xaver Schlager,Schlager,Nottingham Forest,MID,5.0,0.1,3.0,3.0,531,6,0,0,1,a,,,0.32,0.25,0.57
 581,Ousmane Diomande,Diomande,Nottingham Forest,DEF,5.4,0.5,1.5,1.5,343,4,0,0,0,a,,,0.23,0.02,0.25
@@ -603,8 +603,8 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 455,Sandro Tonali,Tonali,Tottenham Hotspur,MID,5.3,1.8,5.5,5.5,607,7,0,1,2,a,100.0,,0.3,1.19,1.49
 494,Guglielmo Vicario,Vicario,Tottenham Hotspur,GK,4.5,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Juventus on loan for the rest of the season,0.0,0.0,0.0
 495,Brandon Austin,Austin,Tottenham Hotspur,GK,4.0,1.0,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-496,Antonín Kinský,Kinsky,Tottenham Hotspur,GK,4.5,15.4,2.5,2.5,630,7,0,0,2,a,,,0.0,0.0,0.0
-497,Martin Dubravka,Dubravka,Tottenham Hotspur,GK,4.0,16.6,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
+496,Antonín Kinský,Kinsky,Tottenham Hotspur,GK,4.5,15.3,2.5,2.5,630,7,0,0,2,a,,,0.0,0.0,0.0
+497,Martin Dubravka,Dubravka,Tottenham Hotspur,GK,4.0,16.5,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
 498,Marcos Senesi Barón,Senesi,Tottenham Hotspur,DEF,5.7,3.2,1.0,1.0,178,2,0,0,0,a,,,0.0,0.07,0.07
 499,Pedro Porro Sauceda,Pedro Porro,Tottenham Hotspur,DEF,5.3,4.9,0.0,0.0,198,3,0,0,1,i,0.0,Hamstring injury - Expected back 24 Oct,0.37,0.16,0.53
 500,Cristian Romero,Romero,Tottenham Hotspur,DEF,5.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Atletico Madrid permanently,0.0,0.0,0.0
@@ -630,40 +630,40 @@ fpl_id,fpl_name,web_name,team,position,price,ownership,form,ep_next,minutes,star
 522,Archie Gray,Gray,Tottenham Hotspur,MID,4.9,0.2,2.5,2.5,487,5,0,0,1,a,,,0.32,0.11,0.43
 523,Mikey Moore,Moore,Tottenham Hotspur,MID,5.0,0.0,0.0,0.0,89,1,0,0,0,u,0.0,Has joined FC Köln on loan for the rest of the season,0.4,0.02,0.42
 524,Callum Olusesi,Olusesi,Tottenham Hotspur,MID,4.4,0.9,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-525,Mateus Fernandes,Fernandes,Tottenham Hotspur,MID,5.7,0.7,1.0,1.0,269,3,0,0,1,a,,,0.25,0.28,0.53
+525,Mateus Fernandes,Fernandes,Tottenham Hotspur,MID,5.7,0.6,1.0,1.0,269,3,0,0,1,a,,,0.25,0.28,0.53
 526,Dominic Solanke-Mitchell,Solanke,Tottenham Hotspur,FWD,5.8,1.6,5.5,5.5,350,4,1,1,1,a,,,1.54,0.08,1.62
 527,Richarlison de Andrade,Richarlison,Tottenham Hotspur,FWD,5.9,0.5,0.0,0.0,67,1,0,0,0,u,0.0,not included in squad.,0.0,0.0,0.0
 528,Dane Scarlett,Scarlett,Tottenham Hotspur,FWD,4.5,0.9,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Leyton Orient permanently,0.0,0.0,0.0
 578,Mykhailo Mudryk,Mudryk,Tottenham Hotspur,MID,5.3,0.0,0.0,0.0,16,0,0,0,0,i,0.0,Ankle injury - Unknown return date,0.0,0.0,0.0
 601,Luca Williams-Barnett,Williams-Barnett,Tottenham Hotspur,MID,4.5,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-501,Kevin Danso,Danso,Sunderland,DEF,5.0,0.2,-0.7,0.0,376,5,0,0,0,s,0.0,Suspended until 31 Oct,0.3,0.2,0.5
-529,Robin Roefs,Roefs,Sunderland,GK,4.9,2.2,1.0,1.0,630,7,0,0,1,a,,,0.0,0.02,0.02
+501,Kevin Danso,Danso,Sunderland,DEF,5.0,0.2,-1.0,0.0,376,5,0,0,0,s,0.0,Suspended until 31 Oct,0.3,0.2,0.5
+529,Robin Roefs,Roefs,Sunderland,GK,4.9,2.1,1.5,1.5,630,7,0,0,1,a,,,0.0,0.02,0.02
 530,Anthony Patterson,Patterson,Sunderland,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Wrexham permanently,0.0,0.0,0.0
 531,Melker Ellborg,Ellborg,Sunderland,GK,4.4,0.1,0.0,0.0,0,0,0,0,0,a,,,0.0,0.0,0.0
-532,Daniel Ballard,Ballard,Sunderland,DEF,4.8,1.3,0.7,0.0,450,5,0,0,1,i,0.0,Hamstring injury - Unknown return date,0.31,0.16,0.47
-533,Nordi Mukiele,Mukiele,Sunderland,DEF,5.4,1.8,2.0,2.0,540,6,0,0,1,a,100.0,,0.81,0.33,1.14
-534,Trai Hume,Hume,Sunderland,DEF,4.3,2.1,1.7,1.7,386,4,0,0,1,a,,,0.16,0.33,0.49
-535,Omar Alderete,Alderete,Sunderland,DEF,4.8,0.2,-0.3,-0.3,81,1,0,0,0,a,100.0,,0.0,0.01,0.01
-536,Reinildo Mandava,Reinildo,Sunderland,DEF,4.4,0.2,1.0,1.0,522,6,0,0,1,a,100.0,,0.0,0.33,0.33
+532,Daniel Ballard,Ballard,Sunderland,DEF,4.8,1.3,0.0,0.0,450,5,0,0,1,i,0.0,Hamstring injury - Unknown return date,0.31,0.16,0.47
+533,Nordi Mukiele,Mukiele,Sunderland,DEF,5.4,1.8,3.0,3.0,540,6,0,0,1,a,100.0,,0.81,0.33,1.14
+534,Trai Hume,Hume,Sunderland,DEF,4.3,2.1,2.0,2.0,386,4,0,0,1,a,,,0.16,0.33,0.49
+535,Omar Alderete,Alderete,Sunderland,DEF,4.8,0.2,-0.5,-0.5,81,1,0,0,0,a,100.0,,0.0,0.01,0.01
+536,Reinildo Mandava,Reinildo,Sunderland,DEF,4.4,0.2,1.5,1.5,522,6,0,0,1,a,100.0,,0.0,0.33,0.33
 537,Jenson Seelt,Seelt,Sunderland,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Swansea City on loan for the rest of the season,0.0,0.0,0.0
 538,Leo Fuhr Hjelde,Hjelde,Sunderland,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined KV Mechelen on loan for the rest of the season,0.0,0.0,0.0
-539,Luke O'Nien,O'Nien,Sunderland,DEF,3.9,2.5,0.3,0.3,97,1,0,0,0,a,,,0.01,0.01,0.02
+539,Luke O'Nien,O'Nien,Sunderland,DEF,3.9,2.5,0.5,0.5,97,1,0,0,0,a,,,0.01,0.01,0.02
 540,Arthur Masuaku,Masuaku,Sunderland,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Konyaspor permanently,0.0,0.0,0.0
-541,Thomas Meunier,Meunier,Sunderland,DEF,4.5,0.2,1.3,1.0,429,6,0,1,1,d,75.0,Groin injury - 75% chance of playing,0.49,0.58,1.07
-542,Enzo Le Fée,E.Le Fée,Sunderland,MID,5.7,3.0,3.7,3.7,608,7,1,1,1,a,,,2.09,1.6,3.69
-543,Habib Diarra,Diarra,Sunderland,MID,5.3,0.0,0.3,0.3,59,0,0,1,0,a,100.0,,0.03,0.16,0.19
-544,Granit Xhaka,Xhaka,Sunderland,MID,5.4,3.2,2.0,2.0,630,7,0,1,1,a,,,0.15,1.48,1.63
-545,Noah Sadiki,Sadiki,Sunderland,MID,4.8,0.2,2.3,2.3,590,7,0,0,1,a,,,0.44,0.3,0.74
+541,Thomas Meunier,Meunier,Sunderland,DEF,4.5,0.2,0.5,0.4,429,6,0,1,1,d,75.0,Groin injury - 75% chance of playing,0.49,0.58,1.07
+542,Enzo Le Fée,E.Le Fée,Sunderland,MID,5.7,2.9,3.0,3.0,608,7,1,1,1,a,,,2.09,1.6,3.69
+543,Habib Diarra,Diarra,Sunderland,MID,5.3,0.0,0.5,0.5,59,0,0,1,0,a,100.0,,0.03,0.16,0.19
+544,Granit Xhaka,Xhaka,Sunderland,MID,5.4,3.1,2.0,2.0,630,7,0,1,1,a,,,0.15,1.48,1.63
+545,Noah Sadiki,Sadiki,Sunderland,MID,4.8,0.2,2.5,2.5,590,7,0,0,1,a,,,0.44,0.3,0.74
 546,Simon Adingra,Adingra,Sunderland,MID,4.9,0.0,0.0,0.0,0,0,0,0,0,u,0.0,Has joined Ajax on loan for the rest of the season,0.0,0.0,0.0
 547,Romaine Mundle,Mundle,Sunderland,MID,4.8,0.0,0.0,0.0,1,0,0,0,0,i,0.0,Knee injury - Unknown return date,0.17,0.0,0.17
-548,Chris Rigg,Rigg,Sunderland,MID,4.8,0.0,0.3,0.3,81,1,0,0,0,a,,,0.0,0.0,0.0
+548,Chris Rigg,Rigg,Sunderland,MID,4.8,0.0,0.5,0.5,81,1,0,0,0,a,,,0.0,0.0,0.0
 549,Chemsdine Talbi,Talbi,Sunderland,MID,5.3,0.1,0.0,0.0,31,0,0,0,0,a,,,0.0,0.0,0.0
-550,Djiamgone Jocelin Ta Bi,Jocelin.T,Sunderland,MID,4.9,0.0,0.3,0.3,17,0,0,0,0,a,,,0.0,0.03,0.03
-551,Nilson Angulo,N.Angulo,Sunderland,MID,5.0,0.1,2.0,2.0,385,6,1,1,1,a,,,0.6,0.13,0.73
-552,Brian Brobbey,Brobbey,Sunderland,FWD,5.7,5.6,5.7,4.3,399,5,3,0,1,d,75.0,Hamstring injury - 75% chance of playing,2.94,0.11,3.05
+550,Djiamgone Jocelin Ta Bi,Jocelin.T,Sunderland,MID,4.9,0.0,0.5,0.5,17,0,0,0,0,a,,,0.0,0.03,0.03
+551,Nilson Angulo,N.Angulo,Sunderland,MID,5.0,0.1,1.0,1.0,385,6,1,1,1,a,,,0.6,0.13,0.73
+552,Brian Brobbey,Brobbey,Sunderland,FWD,5.7,5.5,0.0,0.0,399,5,3,0,1,d,75.0,Hamstring injury - 75% chance of playing,2.94,0.11,3.05
 553,Wilson Isidor,Isidor,Sunderland,FWD,5.5,1.0,1.0,0.5,207,1,1,1,0,d,50.0,Knock - 50% chance of playing,1.67,0.01,1.68
-612,Dayann Méthalie,Methalie,Sunderland,DEF,4.5,0.0,0.0,0.0,107,1,0,0,0,a,100.0,,0.03,0.01,0.04
-613,Jules Ahoka,Ahoka,Sunderland,MID,4.5,0.2,0.3,0.3,25,0,0,0,0,a,,,0.0,0.0,0.0
-646,Malick Fofana,Fofana,Sunderland,MID,5.5,0.0,0.7,0.7,116,0,0,0,0,a,,,0.42,0.02,0.44
-651,Juan Angulo,J.Angulo,Sunderland,FWD,4.5,0.8,0.3,0.3,9,0,0,0,0,a,,,0.0,0.0,0.0
+612,Dayann Méthalie,Methalie,Sunderland,DEF,4.5,0.0,0.5,0.5,107,1,0,0,0,a,100.0,,0.03,0.01,0.04
+613,Jules Ahoka,Ahoka,Sunderland,MID,4.5,0.2,0.5,0.5,25,0,0,0,0,a,,,0.0,0.0,0.0
+646,Malick Fofana,Fofana,Sunderland,MID,5.5,0.0,0.5,0.5,116,0,0,0,0,a,,,0.42,0.02,0.44
+651,Juan Angulo,J.Angulo,Sunderland,FWD,4.5,0.8,0.5,0.5,9,0,0,0,0,a,,,0.0,0.0,0.0
 668,Tymur Tutierov,Tutierov,Sunderland,MID,5.0,0.0,1.0,1.6,58,1,0,0,0,a,,,0.0,0.0,0.0
