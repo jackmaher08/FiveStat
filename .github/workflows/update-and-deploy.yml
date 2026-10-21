@@ -82,7 +82,7 @@ jobs:
 
       - name: Export FPL CSV and JSON datasets
         if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'
-        run: python scripts/export_b2b_data.py --sport fpl
+        run: python -m scripts.export_b2b_data --sport fpl
 
       # Remove empty retry-blocking files before the F1 scraper runs.
       # Empty laps/stints use [], while OpenF1 metadata uses {}.
@@ -204,7 +204,7 @@ jobs:
 
       - name: Export F1 CSV and JSON datasets
         if: steps.run_type.outputs.type == 'f1' || steps.run_type.outputs.type == 'full'
-        run: python scripts/export_b2b_data.py --sport f1
+        run: python -m scripts.export_b2b_data --sport f1
 
       # Historical F1 backfill — manual only
       - name: F1 historical pipeline
