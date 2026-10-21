@@ -793,7 +793,7 @@ def premier_league():
 
 
 @app.route("/fpl")
-def fpl():
+def fpl(export_mode=False):
     try:
         fixtures_df = pd.read_csv("data/tables/fixture_data.csv")
         fixtures_df["isResult"] = fixtures_df["isResult"].astype(str).str.lower() == "true"
@@ -882,6 +882,7 @@ def fpl():
 
         # ── Captain picks — multi-GW projected xG ─────────────────────────
         captain_picks = []
+        all_player_projections = []
         captaincy_status = "unavailable"
         captaincy_message = "Player projections are temporarily unavailable while the latest Gameweek data is refreshed."
         fpl_path    = "data/tables/fpl_player_data.csv"
@@ -1171,6 +1172,7 @@ def fpl():
                         continue
 
                     captain_picks.append({
+                        "fpl_id":      int(fp["fpl_id"]),
                         "name":         fp["web_name"],
                         "team":         TEAM_NAME_MAPPING.get(fpl_team, fpl_team),
                         "position":     fp["position"],
@@ -1197,6 +1199,7 @@ def fpl():
                         "gw1_diff":     "easy" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "easy" for f in fix_projections if f["gw"] == current_gw) else "hard" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "hard" for f in fix_projections if f["gw"] == current_gw) else "medium",
                     })
 
+                all_player_projections = list(captain_picks)
                 captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
                 captain_picks = captain_picks[:100]
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
@@ -1260,7 +1263,8 @@ def fpl():
             with open(next_deadline_path) as f:
                 next_deadline = json.load(f).get("deadline_time")
 
-        return render_template("fpl.html",
+        context = dict(
+            all_player_projections=all_player_projections,
             cs_data=cs_data,
             xg_data=xg_data,
             xga_data=xga_data,
@@ -1274,7 +1278,13 @@ def fpl():
             gw_range=list(range(current_gw, current_gw + 5)),
             last_updated=get_last_updated_time()
         )
+        if export_mode:
+            return context
+        context.pop("all_player_projections", None)
+        return render_template("fpl.html", **context)
     except Exception as e:
+        if export_mode:
+            raise
         print(f"❌ FPL page error: {e}")
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
