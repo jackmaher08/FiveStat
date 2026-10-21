@@ -1,0 +1,101 @@
+team,gw,fixture,difficulty,is_double_gameweek,is_blank_gameweek
+Manchester City,8,AVL (A),easy,False,False
+Manchester City,9,BHA (H),easy,False,False
+Manchester City,10,NFO (A),easy,False,False
+Manchester City,11,FUL (H),easy,False,False
+Manchester City,12,ARS (A),medium,False,False
+Arsenal,8,EVE (H),easy,False,False
+Arsenal,9,LIV (A),medium,False,False
+Arsenal,10,HUL (H),easy,False,False
+Arsenal,11,NEW (A),medium,False,False
+Arsenal,12,MCI (H),hard,False,False
+Brighton,8,LIV (A),hard,False,False
+Brighton,9,MCI (A),hard,False,False
+Brighton,10,BRE (H),medium,False,False
+Brighton,11,HUL (A),easy,False,False
+Brighton,12,NEW (H),medium,False,False
+Chelsea,8,TOT (H),medium,False,False
+Chelsea,9,MUN (H),hard,False,False
+Chelsea,10,SUN (A),medium,False,False
+Chelsea,11,LEE (H),medium,False,False
+Chelsea,12,NFO (A),medium,False,False
+Liverpool,8,BHA (H),hard,False,False
+Liverpool,9,ARS (H),hard,False,False
+Liverpool,10,CRY (A),medium,False,False
+Liverpool,11,MUN (H),medium,False,False
+Liverpool,12,EVE (A),medium,False,False
+Brentford,8,HUL (A),easy,False,False
+Brentford,9,NFO (H),medium,False,False
+Brentford,10,BHA (A),hard,False,False
+Brentford,11,EVE (H),medium,False,False
+Brentford,12,MUN (A),hard,False,False
+Leeds,8,SUN (A),medium,False,False
+Leeds,9,BOU (A),hard,False,False
+Leeds,10,TOT (H),medium,False,False
+Leeds,11,CHE (A),hard,False,False
+Leeds,12,COV (H),medium,False,False
+Everton,8,ARS (A),hard,False,False
+Everton,9,NEW (A),hard,False,False
+Everton,10,COV (H),medium,False,False
+Everton,11,BRE (A),hard,False,False
+Everton,12,LIV (H),hard,False,False
+Hull City,8,BRE (H),hard,False,False
+Hull City,9,IPS (H),hard,False,False
+Hull City,10,ARS (A),hard,False,False
+Hull City,11,BHA (H),hard,False,False
+Hull City,12,CRY (A),hard,False,False
+Ipswich Town,8,NFO (H),hard,False,False
+Ipswich Town,9,HUL (A),medium,False,False
+Ipswich Town,10,BOU (H),hard,False,False
+Ipswich Town,11,TOT (A),hard,False,False
+Ipswich Town,12,AVL (H),hard,False,False
+Newcastle United,8,CRY (A),medium,False,False
+Newcastle United,9,EVE (H),medium,False,False
+Newcastle United,10,FUL (A),hard,False,False
+Newcastle United,11,ARS (H),hard,False,False
+Newcastle United,12,BHA (A),hard,False,False
+Aston Villa,8,MCI (H),hard,False,False
+Aston Villa,9,FUL (H),medium,False,False
+Aston Villa,10,MUN (A),hard,False,False
+Aston Villa,11,SUN (H),medium,False,False
+Aston Villa,12,IPS (A),easy,False,False
+Manchester United,8,BOU (H),medium,False,False
+Manchester United,9,CHE (A),hard,False,False
+Manchester United,10,AVL (H),medium,False,False
+Manchester United,11,LIV (A),hard,False,False
+Manchester United,12,BRE (H),medium,False,False
+Crystal Palace,8,NEW (H),hard,False,False
+Crystal Palace,9,TOT (A),hard,False,False
+Crystal Palace,10,LIV (H),hard,False,False
+Crystal Palace,11,COV (A),hard,False,False
+Crystal Palace,12,HUL (H),easy,False,False
+Bournemouth,8,MUN (A),hard,False,False
+Bournemouth,9,LEE (H),hard,False,False
+Bournemouth,10,IPS (A),easy,False,False
+Bournemouth,11,NFO (H),hard,False,False
+Bournemouth,12,FUL (A),hard,False,False
+Tottenham Hotspur,8,CHE (A),hard,False,False
+Tottenham Hotspur,9,CRY (H),medium,False,False
+Tottenham Hotspur,10,LEE (A),hard,False,False
+Tottenham Hotspur,11,IPS (H),easy,False,False
+Tottenham Hotspur,12,SUN (A),medium,False,False
+Coventry City,8,FUL (H),hard,False,False
+Coventry City,9,SUN (H),medium,False,False
+Coventry City,10,EVE (A),hard,False,False
+Coventry City,11,CRY (H),medium,False,False
+Coventry City,12,LEE (A),hard,False,False
+Fulham,8,COV (A),hard,False,False
+Fulham,9,AVL (A),hard,False,False
+Fulham,10,NEW (H),hard,False,False
+Fulham,11,MCI (A),hard,False,False
+Fulham,12,BOU (H),hard,False,False
+Nottingham Forest,8,IPS (A),easy,False,False
+Nottingham Forest,9,BRE (A),hard,False,False
+Nottingham Forest,10,MCI (H),hard,False,False
+Nottingham Forest,11,BOU (A),hard,False,False
+Nottingham Forest,12,CHE (H),hard,False,False
+Sunderland,8,LEE (H),hard,False,False
+Sunderland,9,COV (A),hard,False,False
+Sunderland,10,CHE (H),hard,False,False
+Sunderland,11,AVL (A),hard,False,False
+Sunderland,12,TOT (H),hard,False,False

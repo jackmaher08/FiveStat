@@ -1,0 +1,25 @@
+code,name,constructor,championship_points,championship_position,completed_xfp,projected_remaining_xfp,projected_total_xfp,races_remaining
+ANT,Andrea Kimi Antonelli,Mercedes,340.0,1,586.0,62.1,648.1,6
+VER,Max Verstappen,Red Bull,221.0,4,347.0,71.1,418.1,6
+HAM,Lewis Hamilton,Ferrari,229.0,3,370.0,37.0,407.0,6
+LEC,Charles Leclerc,Ferrari,215.0,5,351.0,50.7,401.7,6
+RUS,George Russell,Mercedes,238.0,2,351.0,34.8,385.8,6
+NOR,Lando Norris,McLaren,201.0,6,272.0,39.7,311.7,6
+PIA,Oscar Piastri,McLaren,138.0,7,172.0,29.0,201.0,6
+HAD,Isack Hadjar,Red Bull,97.0,8,137.0,15.6,152.6,6
+LAW,Liam Lawson,RB F1 Team,75.0,9,151.0,1.6,152.6,6
+LIN,Arvid Lindblad,RB F1 Team,38.0,11,72.0,5.8,77.8,6
+GAS,Pierre Gasly,Alpine F1 Team,41.0,10,60.0,11.1,71.1,6
+OCO,Esteban Ocon,Haas F1 Team,7.0,16,65.0,4.2,69.2,6
+COL,Franco Colapinto,Alpine F1 Team,27.0,12,45.0,9.4,54.4,6
+SAI,Carlos Sainz,Williams,7.0,18,28.0,9.8,37.8,6
+BEA,Oliver Bearman,Haas F1 Team,23.0,13,26.0,9.7,35.7,6
+TSU,Yuki Tsunoda,RB F1 Team,1.0,20,7,0.6,7.6,6
+DOO,Jack Doohan,Alpine F1 Team,,,0,2.5,2.5,6
+BOR,Gabriel Bortoleto,Audi,10.0,15,-16.0,0.4,-15.6,6
+ALO,Fernando Alonso,Aston Martin,7.0,17,-46.0,10.9,-35.1,6
+HUL,Nico Hülkenberg,Audi,13.0,14,-47.0,1.6,-45.4,6
+PER,Sergio Pérez,Cadillac F1 Team,0.0,23,-53.0,7.4,-45.6,6
+ALB,Alexander Albon,Williams,5.0,19,-86.0,8.7,-77.3,6
+BOT,Valtteri Bottas,Cadillac F1 Team,0.0,22,-130.0,7.6,-122.4,6
+STR,Lance Stroll,Aston Martin,0.0,21,-218.0,3.4,-214.6,6
