@@ -205,6 +205,45 @@
         {% endfor %}
     </div>
 
+
+{% if actual_vs_expected and actual_vs_expected.scoring.rows %}
+<section class="ave-section" aria-labelledby="ave-title">
+    <div class="ave-heading">
+        <div>
+            <p class="ave-kicker">Season performance</p>
+            <h2 id="ave-title">Actual vs Expected</h2>
+            <p id="ave-description" class="ave-description">
+                {{ actual_vs_expected.scoring.explanation }}
+            </p>
+        </div>
+        <div class="ave-controls" role="tablist" aria-label="Actual versus expected metric">
+            <button type="button" class="ave-toggle active" role="tab" aria-selected="true" data-view="scoring" onclick="setActualVsExpectedView('scoring')">Scoring</button>
+            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="defending" onclick="setActualVsExpectedView('defending')">Defending</button>
+            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="points" onclick="setActualVsExpectedView('points')">Points</button>
+        </div>
+    </div>
+
+    <div class="ave-legend" aria-label="Chart legend">
+        <span><i class="ave-swatch ave-swatch--expected"></i> Expected</span>
+        <span><i class="ave-swatch ave-swatch--above"></i> Above expectation</span>
+        <span><i class="ave-swatch ave-swatch--level"></i> Near expectation</span>
+        <span><i class="ave-swatch ave-swatch--below"></i> Below expectation</span>
+    </div>
+
+    <div class="ave-chart-card">
+        <div class="ave-chart-wrap">
+            <canvas id="actualVsExpectedChart" role="img" aria-label="Premier League team goals compared with expected goals"></canvas>
+        </div>
+    </div>
+
+    <p class="ave-footnote">
+        Bars show season totals. Teams are ordered by overperformance within the selected view.
+        Hover or tap a team for matches played and per-match figures. Gaps can reflect finishing,
+        goalkeeping, game state or short-term variance and may not be sustainable.
+    </p>
+</section>
+{% endif %}
+
 </div>
 
 <div id="panel-table" class="pl-tab-panel">
@@ -247,43 +286,7 @@
     </table>
 </div>
 
-{% if actual_vs_expected and actual_vs_expected.scoring.rows %}
-<section class="ave-section" aria-labelledby="ave-title">
-    <div class="ave-heading">
-        <div>
-            <p class="ave-kicker">Season performance</p>
-            <h2 id="ave-title">Actual vs Expected</h2>
-            <p id="ave-description" class="ave-description">
-                {{ actual_vs_expected.scoring.explanation }}
-            </p>
-        </div>
-        <div class="ave-controls" role="tablist" aria-label="Actual versus expected metric">
-            <button type="button" class="ave-toggle active" role="tab" aria-selected="true" data-view="scoring" onclick="setActualVsExpectedView('scoring')">Scoring</button>
-            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="defending" onclick="setActualVsExpectedView('defending')">Defending</button>
-            <button type="button" class="ave-toggle" role="tab" aria-selected="false" data-view="points" onclick="setActualVsExpectedView('points')">Points</button>
-        </div>
-    </div>
 
-    <div class="ave-legend" aria-label="Chart legend">
-        <span><i class="ave-swatch ave-swatch--expected"></i> Expected</span>
-        <span><i class="ave-swatch ave-swatch--above"></i> Above expectation</span>
-        <span><i class="ave-swatch ave-swatch--level"></i> Near expectation</span>
-        <span><i class="ave-swatch ave-swatch--below"></i> Below expectation</span>
-    </div>
-
-    <div class="ave-chart-card">
-        <div class="ave-chart-wrap">
-            <canvas id="actualVsExpectedChart" role="img" aria-label="Premier League team goals compared with expected goals"></canvas>
-        </div>
-    </div>
-
-    <p class="ave-footnote">
-        Bars show season totals. Teams are ordered by overperformance within the selected view.
-        Hover or tap a team for matches played and per-match figures. Gaps can reflect finishing,
-        goalkeeping, game state or short-term variance and may not be sustainable.
-    </p>
-</section>
-{% endif %}
 
 
 <br><br>
