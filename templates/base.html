@@ -134,6 +134,15 @@
         {% block content %}{% endblock %}
     </main>
 
+    {# Newsletter shortcut: visible after scrolling, positioned above page back-to-top buttons. #}
+    {% if config.get('MAILERLITE_FORM_ID') and config.get('MAILERLITE_ACCOUNT_ID') %}
+    <a id="newsletterShortcut" class="newsletter-shortcut" href="/#newsletter"
+       aria-label="Sign up for the FiveStat weekly newsletter">
+        <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+        <span>Newsletter</span>
+    </a>
+    {% endif %}
+
     {# ════════════════════════════════════════
        FOOTER
        ════════════════════════════════════════ #}
@@ -261,6 +270,22 @@
         function navigateToTeam(teamName) {
             if (teamName) window.location.href = '/team/' + encodeURIComponent(teamName);
         }
+    </script>
+
+    <script>
+      /* Keep the newsletter shortcut in sync with the existing scroll-to-top threshold. */
+      (function () {
+        const shortcut = document.getElementById('newsletterShortcut');
+        if (!shortcut) return;
+        function updateNewsletterShortcut() {
+          const isVisible = window.scrollY > 400;
+          shortcut.classList.toggle('is-visible', isVisible);
+          shortcut.setAttribute('aria-hidden', String(!isVisible));
+          shortcut.tabIndex = isVisible ? 0 : -1;
+        }
+        window.addEventListener('scroll', updateNewsletterShortcut, { passive: true });
+        updateNewsletterShortcut();
+      })();
     </script>
 
     {# ── Per-page scripts ── #}
