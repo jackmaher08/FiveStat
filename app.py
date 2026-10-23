@@ -32,8 +32,8 @@ app = Flask(__name__)
 
 # MailerLite website form identifiers. Leave unset until the form is configured
 # in MailerLite: no non-working signup widget is shown to visitors.
-app.config['MAILERLITE_ACCOUNT_ID'] = os.getenv('MAILERLITE_ACCOUNT_ID', '').strip()
-app.config['MAILERLITE_FORM_ID'] = os.getenv('MAILERLITE_FORM_ID', '').strip()
+app.config['MAILERLITE_ACCOUNT_ID'] = os.getenv('MAILERLITE_ACCOUNT_ID', '2733364').strip()
+app.config['MAILERLITE_FORM_ID'] = os.getenv('MAILERLITE_FORM_ID', 'bn6LkM').strip()
 
 from fpl_review import fpl_review_bp
 app.register_blueprint(fpl_review_bp)
