@@ -6060,3 +6060,57 @@ details.wc-explainer[open] .wc-explainer-chevron {
   .lp-newsletter h2 { margin-bottom: .35rem; }
   .lp-newsletter-form { width: 100%; }
 }
+
+/* Compact newsletter shortcut above the existing back-to-top button. */
+.newsletter-shortcut {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 5.35rem;
+  z-index: 98;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 40px;
+  padding: .52rem .8rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 2px 12px rgba(0,0,0,.13);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(7px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease,
+              border-color .18s ease, color .18s ease;
+}
+.newsletter-shortcut.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.newsletter-shortcut:hover,
+.newsletter-shortcut:focus-visible {
+  color: var(--accent-dark);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+@media (max-width: 700px) {
+  .newsletter-shortcut {
+    right: 1rem;
+    bottom: 5rem;
+    min-height: 40px;
+    padding: .55rem .7rem;
+    font-size: .85rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .newsletter-shortcut { transition: none; transform: none; }
+}
