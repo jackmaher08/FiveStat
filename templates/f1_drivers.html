@@ -21,6 +21,46 @@
 
 
 
+{% if cpi %}
+<div class="section">
+    <h2 class="f1-section-title">Constructor Pace Index</h2>
+     <span class="f1-section-badge">FiveStat Model</span>
+    <p class="f1-section-desc">CPI - team median pace vs field median · negative = faster · isolates car performance from driver skill</p>
+    <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th style="text-align:left;">Constructor</th>
+                    <th>CPI</th>
+                    <th>Races</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set cpi_list = cpi.values() | list %}
+                {% for cid, c in cpi.items() %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="text-align:left;font-weight:600;">
+                        <span class="f1-constructor-dot" data-constructor="{{ cid }}"></span>
+                        {{ c.name }}
+                    </td>
+                    <td>
+                        <span class="f1-dpr-value {% if c.cpi < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
+                            {{ "%+.3f"|format(c.cpi) }}%
+                        </span>
+                    </td>
+                    <td style="color:var(--text-muted);">{{ c.races_counted }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+
+
 {% if drivers %}
 <div class="section">
     <h2 class="f1-section-title">Driver Pace Rating</h2>
@@ -70,46 +110,6 @@
     </div>
 </div>
 {% endif %}
-
-{% if cpi %}
-<div class="section">
-    <h2 class="f1-section-title">Constructor Pace Index</h2>
-     <span class="f1-section-badge">FiveStat Model</span>
-    <p class="f1-section-desc">CPI - team median pace vs field median · negative = faster · isolates car performance from driver skill</p>
-    <div class="table-container">
-        <table class="league-table">
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th style="text-align:left;">Constructor</th>
-                    <th>CPI</th>
-                    <th>Races</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% set cpi_list = cpi.values() | list %}
-                {% for cid, c in cpi.items() %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td style="text-align:left;font-weight:600;">
-                        <span class="f1-constructor-dot" data-constructor="{{ cid }}"></span>
-                        {{ c.name }}
-                    </td>
-                    <td>
-                        <span class="f1-dpr-value {% if c.cpi < 0 %}f1-dpr--faster{% else %}f1-dpr--slower{% endif %}">
-                            {{ "%+.3f"|format(c.cpi) }}%
-                        </span>
-                    </td>
-                    <td style="color:var(--text-muted);">{{ c.races_counted }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div>
-{% endif %}
-
-
 
 {% endblock %}
 
