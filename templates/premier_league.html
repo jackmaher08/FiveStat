@@ -610,7 +610,8 @@
             panel.classList.toggle('active', panel.id === 'panel-' + tab);
         });
         history.replaceState(null, '', '/premier-league?tab=' + tab);
-        if (tab === 'table') {
+        // The chart lives on the Fixtures tab; initialise it only once visible.
+        if (tab === 'fixtures') {
             window.requestAnimationFrame(ensureActualVsExpectedChart);
         }
     }
