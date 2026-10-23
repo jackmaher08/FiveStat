@@ -234,9 +234,8 @@
 {% if config.get('MAILERLITE_ACCOUNT_ID') and config.get('MAILERLITE_FORM_ID') %}
 <script src="https://assets.mailerlite.com/js/universal.js" defer></script>
 <script>
-  window.addEventListener('load', function () {
-    if (typeof window.ml === 'function') window.ml('account', {{ config['MAILERLITE_ACCOUNT_ID']|tojson }});
-  });
+  window.ml = window.ml || function () { (window.ml.q = window.ml.q || []).push(arguments); };
+  window.ml('account', {{ config['MAILERLITE_ACCOUNT_ID']|tojson }});
 </script>
 {% endif %}
 <script>
