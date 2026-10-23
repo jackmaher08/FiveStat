@@ -173,6 +173,22 @@
 
     </div>
 
+
+    {# ── Weekly newsletter (MailerLite handles consent, double opt-in, and subscriber storage) ── #}
+    {% if config.get('MAILERLITE_ACCOUNT_ID') and config.get('MAILERLITE_FORM_ID') %}
+    <section class="lp-newsletter" id="newsletter" aria-labelledby="newsletter-heading">
+        <div class="lp-newsletter-copy">
+            <span class="lp-newsletter-eyebrow">FREE · WEEKLY · DATA-DRIVEN</span>
+            <h2 id="newsletter-heading">Get the FiveStat Weekly Edge</h2>
+            <p>Premier League predictions, FPL insights and F1 forecasts — the numbers worth knowing, straight to your inbox.</p>
+            <p class="lp-newsletter-privacy">One email a week. Unsubscribe at any time. See our <a href="/privacy.html">Privacy Policy</a>.</p>
+        </div>
+        <div class="lp-newsletter-form">
+            <div class="ml-embedded" data-form="{{ config['MAILERLITE_FORM_ID'] }}"></div>
+        </div>
+    </section>
+    {% endif %}
+
     {# ── All shots shotmap ── #}
     <div class="lp-shotmap-section">
         <div class="lp-shotmap-label">All Premier League shots · 2026/27 season</div>
@@ -215,6 +231,14 @@
 
 
 {% block extra_scripts %}
+{% if config.get('MAILERLITE_ACCOUNT_ID') and config.get('MAILERLITE_FORM_ID') %}
+<script src="https://assets.mailerlite.com/js/universal.js" defer></script>
+<script>
+  window.addEventListener('load', function () {
+    if (typeof window.ml === 'function') window.ml('account', {{ config['MAILERLITE_ACCOUNT_ID']|tojson }});
+  });
+</script>
+{% endif %}
 <script>
     function toggleModal(id) {
         const modal   = document.getElementById(id);
