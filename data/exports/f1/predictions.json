@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-10-22T06:15:30Z",
+  "generated_at_utc": "2026-10-23T06:08:46Z",
   "product": "f1",
   "season": 2026,
   "units": {
@@ -4114,18 +4114,6 @@
         "races_remaining": 6
       },
       {
-        "code": "LAW",
-        "name": "Liam Lawson",
-        "constructor": "RB F1 Team",
-        "constructor_id": "rb",
-        "championship_points": 75.0,
-        "championship_position": 9,
-        "completed_xfp": 151.0,
-        "projected_remaining_xfp": 1.6,
-        "projected_total_xfp": 152.6,
-        "races_remaining": 6
-      },
-      {
         "code": "HAD",
         "name": "Isack Hadjar",
         "constructor": "Red Bull",
@@ -4134,6 +4122,18 @@
         "championship_position": 8,
         "completed_xfp": 137.0,
         "projected_remaining_xfp": 15.6,
+        "projected_total_xfp": 152.6,
+        "races_remaining": 6
+      },
+      {
+        "code": "LAW",
+        "name": "Liam Lawson",
+        "constructor": "RB F1 Team",
+        "constructor_id": "rb",
+        "championship_points": 75.0,
+        "championship_position": 9,
+        "completed_xfp": 151.0,
+        "projected_remaining_xfp": 1.6,
         "projected_total_xfp": 152.6,
         "races_remaining": 6
       },

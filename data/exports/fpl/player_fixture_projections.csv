@@ -404,11 +404,6 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 295,McBurnie,Hull City,FWD,10,ARS (A),0.102,0.035,0.042,2.51,hard
 295,McBurnie,Hull City,FWD,11,BHA (H),0.148,0.051,0.089,2.75,hard
 295,McBurnie,Hull City,FWD,12,CRY (A),0.177,0.061,0.105,2.89,hard
-267,Lukić,Ipswich Town,MID,8,NFO (H),0.001,0.049,0.137,2.09,hard
-267,Lukić,Ipswich Town,MID,9,HUL (A),0.002,0.084,0.212,2.28,medium
-267,Lukić,Ipswich Town,MID,10,BOU (H),0.001,0.056,0.112,2.09,hard
-267,Lukić,Ipswich Town,MID,11,TOT (A),0.001,0.05,0.094,2.05,hard
-267,Lukić,Ipswich Town,MID,12,AVL (H),0.001,0.053,0.103,2.07,hard
 315,Fatawu,Ipswich Town,MID,8,NFO (H),0.01,0.124,0.137,2.44,hard
 315,Fatawu,Ipswich Town,MID,9,HUL (A),0.016,0.21,0.212,2.8,medium
 315,Fatawu,Ipswich Town,MID,10,BOU (H),0.011,0.14,0.112,2.47,hard
@@ -720,37 +715,37 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 526,Solanke,Tottenham Hotspur,FWD,11,IPS (H),0.272,0.018,0.372,2.82,easy
 526,Solanke,Tottenham Hotspur,FWD,12,SUN (A),0.16,0.011,0.304,2.35,medium
 533,Mukiele,Sunderland,DEF,8,LEE (H),0.066,0.045,0.227,2.94,hard
-533,Mukiele,Sunderland,DEF,9,COV (A),0.085,0.057,0.198,2.9,hard
+533,Mukiele,Sunderland,DEF,9,COV (A),0.085,0.057,0.197,2.9,hard
 533,Mukiele,Sunderland,DEF,10,CHE (H),0.08,0.054,0.171,2.68,hard
 533,Mukiele,Sunderland,DEF,11,AVL (A),0.065,0.043,0.178,2.61,hard
 533,Mukiele,Sunderland,DEF,12,TOT (H),0.072,0.048,0.248,3.11,hard
 536,Reinildo,Sunderland,DEF,8,LEE (H),0.0,0.037,0.227,2.52,hard
-536,Reinildo,Sunderland,DEF,9,COV (A),0.0,0.048,0.198,2.37,hard
+536,Reinildo,Sunderland,DEF,9,COV (A),0.0,0.048,0.197,2.36,hard
 536,Reinildo,Sunderland,DEF,10,CHE (H),0.0,0.045,0.171,2.18,hard
 536,Reinildo,Sunderland,DEF,11,AVL (A),0.0,0.036,0.178,2.2,hard
 536,Reinildo,Sunderland,DEF,12,TOT (H),0.0,0.04,0.248,2.65,hard
 541,Meunier,Sunderland,DEF,8,LEE (H),0.027,0.049,0.227,2.36,hard
-541,Meunier,Sunderland,DEF,9,COV (A),0.034,0.062,0.198,2.26,hard
+541,Meunier,Sunderland,DEF,9,COV (A),0.034,0.062,0.197,2.26,hard
 541,Meunier,Sunderland,DEF,10,CHE (H),0.033,0.059,0.171,2.07,hard
 541,Meunier,Sunderland,DEF,11,AVL (A),0.026,0.047,0.178,2.04,hard
 541,Meunier,Sunderland,DEF,12,TOT (H),0.029,0.053,0.248,2.51,hard
 542,E.Le Fée,Sunderland,MID,8,LEE (H),0.174,0.245,0.227,3.83,hard
-542,E.Le Fée,Sunderland,MID,9,COV (A),0.221,0.312,0.198,4.24,hard
+542,E.Le Fée,Sunderland,MID,9,COV (A),0.221,0.312,0.197,4.24,hard
 542,E.Le Fée,Sunderland,MID,10,CHE (H),0.21,0.297,0.171,4.11,hard
 542,E.Le Fée,Sunderland,MID,11,AVL (A),0.169,0.239,0.178,3.74,hard
 542,E.Le Fée,Sunderland,MID,12,TOT (H),0.188,0.265,0.248,3.98,hard
 544,Xhaka,Sunderland,MID,8,LEE (H),0.013,0.218,0.227,2.95,hard
-544,Xhaka,Sunderland,MID,9,COV (A),0.017,0.278,0.198,3.12,hard
+544,Xhaka,Sunderland,MID,9,COV (A),0.017,0.278,0.197,3.12,hard
 544,Xhaka,Sunderland,MID,10,CHE (H),0.016,0.264,0.171,3.04,hard
 544,Xhaka,Sunderland,MID,11,AVL (A),0.013,0.212,0.178,2.88,hard
 544,Xhaka,Sunderland,MID,12,TOT (H),0.014,0.236,0.248,3.03,hard
 545,Sadiki,Sunderland,MID,8,LEE (H),0.04,0.055,0.227,2.59,hard
-545,Sadiki,Sunderland,MID,9,COV (A),0.05,0.07,0.198,2.66,hard
+545,Sadiki,Sunderland,MID,9,COV (A),0.05,0.07,0.197,2.66,hard
 545,Sadiki,Sunderland,MID,10,CHE (H),0.048,0.067,0.171,2.61,hard
 545,Sadiki,Sunderland,MID,11,AVL (A),0.039,0.054,0.178,2.53,hard
 545,Sadiki,Sunderland,MID,12,TOT (H),0.043,0.06,0.248,2.64,hard
 551,N.Angulo,Sunderland,MID,8,LEE (H),0.036,0.026,0.227,2.48,hard
-551,N.Angulo,Sunderland,MID,9,COV (A),0.046,0.033,0.198,2.53,hard
+551,N.Angulo,Sunderland,MID,9,COV (A),0.046,0.033,0.197,2.53,hard
 551,N.Angulo,Sunderland,MID,10,CHE (H),0.044,0.032,0.171,2.49,hard
 551,N.Angulo,Sunderland,MID,11,AVL (A),0.035,0.025,0.178,2.43,hard
 551,N.Angulo,Sunderland,MID,12,TOT (H),0.039,0.028,0.248,2.53,hard
