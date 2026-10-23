@@ -23,6 +23,7 @@ from fpl_projection import (
     expected_minutes,
     projected_fpl_points,
     projection_confidence,
+    select_projection_pool,
 )
 from model_performance import load_model_performance
 from actual_vs_expected import build_actual_vs_expected
@@ -1093,7 +1094,7 @@ def fpl(export_mode=False):
                 for _, fp in fpl_df.iterrows():
                     if fp["status"] not in ("a", "d"):
                         continue
-                    if fp["position"] not in ("MID", "FWD", "DEF"):
+                    if fp["position"] not in ("GK", "MID", "FWD", "DEF"):
                         continue
                     if fp["position"] == "DEF" and float(fp["price"]) < 4.4:
                         continue
@@ -1121,6 +1122,8 @@ def fpl(export_mode=False):
                              if web in k and v["team"] == fpl_team),
                             None
                         )
+                    if not match and fp["position"] == "GK":
+                        match = {"adj_share": 0, "adj_xa_share": 0}
                     if not match:
                         unmatched_players.append(fp["web_name"])
                         continue
@@ -1134,7 +1137,7 @@ def fpl(export_mode=False):
                     exp_mins = expected_minutes(
                         fp["minutes"], fp.get("starts", 0), games_played, chance
                     )
-                    if exp_mins < 20:
+                    if exp_mins < 60:
                         continue
                     mins_scale = exp_mins / 90
                     confidence = projection_confidence(fp["minutes"], games_played, exp_mins)
@@ -1143,6 +1146,9 @@ def fpl(export_mode=False):
                     xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
+                        # A fixture qualifies only when the player projects for 60+ minutes.
+                        if exp_mins < 60:
+                            continue
                         proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
                         proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
                         proj_cs = round(fix.get("cs_prob", 0), 3)
@@ -1152,6 +1158,7 @@ def fpl(export_mode=False):
                         )
                         fix_projections.append({
                             "gw":       fix["gw"],
+                            "expected_minutes": exp_mins,
                             "label":    f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
                             "proj_xg":  proj_xg,
                             "proj_xa":  proj_xa,
@@ -1205,8 +1212,7 @@ def fpl(export_mode=False):
                     })
 
                 all_player_projections = list(captain_picks)
-                captain_picks.sort(key=lambda x: x.get("gw5_pts", 0), reverse=True)
-                captain_picks = captain_picks[:100]
+                captain_picks = select_projection_pool(captain_picks)
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
                 if captain_picks:
                     captaincy_status = "ready"
