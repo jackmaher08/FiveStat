@@ -65,15 +65,15 @@ def projected_fpl_points(
     minutes: float,
 ) -> float:
     """Project the modelled components of official FPL scoring."""
-    goal_points = {"DEF": 6, "MID": 5, "FWD": 4}.get(position, 0)
-    clean_sheet_points = {"DEF": 4, "MID": 1, "FWD": 0}.get(position, 0)
+    goal_points = {"GK": 6, "DEF": 6, "MID": 5, "FWD": 4}.get(position, 0)
+    clean_sheet_points = {"GK": 4, "DEF": 4, "MID": 1, "FWD": 0}.get(position, 0)
     points = (
         expected_appearance_points(minutes)
         + goal_points * projected_xg
         + 3 * projected_xa
         + clean_sheet_points * clean_sheet_probability
     )
-    if position == "DEF":
+    if position in ("GK", "DEF"):
         points -= expected_goals_conceded_deduction(expected_goals_against)
     return round(points, 2)
 
@@ -87,3 +87,16 @@ def projection_confidence(total_minutes: float, games_played: int, expected_mins
     if games_played >= 4 and sample_share >= 0.50 and expected_mins >= 50:
         return "Medium"
     return "Low"
+
+
+def select_projection_pool(players: list[dict], per_team_position: int = 4) -> list[dict]:
+    """Keep the highest projected players per club and position; retain all for exports."""
+    counts: dict[tuple[str, str], int] = {}
+    selected = []
+    for player in sorted(players, key=lambda row: row.get("gw5_pts", 0), reverse=True):
+        key = (player["team"], player["position"])
+        if counts.get(key, 0) >= per_team_position:
+            continue
+        counts[key] = counts.get(key, 0) + 1
+        selected.append(player)
+    return selected
