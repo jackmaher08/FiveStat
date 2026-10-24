@@ -17,5 +17,5 @@ ipython
 lxml
 pyarrow
 understatapi
-fastf1>=3.5.0
+fastf1==3.8.3
 scipy
