@@ -24,8 +24,8 @@ Joe Willock,M S,Newcastle United,7,411,2,1.31,2,1.31,0,0.38,0,0
 Tyrick Mitchell,D,Crystal Palace,7,610,2,1.04,2,1.04,0,0.57,0,0
 Bruno Guimarães,M S,Arsenal,5,216,2,0.14,2,0.14,0,0.0,0,0
 Cole Palmer,M,Chelsea,7,625,2,2.01,2,2.01,3,2.59,2,0
-Dan Ndoye,M,Nottingham Forest,7,487,2,3.03,2,3.03,0,1.72,1,0
-Leif Davis,D,Ipswich,7,630,2,1.8,2,1.8,1,0.93,2,0
+Dan Ndoye,M,Nottingham Forest,8,558,2,3.17,2,3.17,0,2.38,1,0
+Leif Davis,D,Ipswich,8,720,2,1.8,2,1.8,1,0.93,2,0
 Jayden Bogle,D,Leeds,7,555,2,1.78,2,1.78,0,0.13,2,0
 Anthony Elanga,M,Newcastle United,3,241,2,0.42,2,0.42,0,0.68,1,0
 Vitaly Janelt,M,Brentford,7,630,2,0.86,2,0.86,0,0.17,4,1
@@ -39,8 +39,8 @@ Evanilson,F,Bournemouth,7,605,2,2.84,2,2.84,4,1.65,1,0
 Johan Manzambi,M S,Aston Villa,4,267,2,1.8,2,1.8,2,0.79,0,0
 Víctor Muñoz,M S,Liverpool,7,440,2,0.81,2,0.81,0,0.22,1,0
 Maxim De Cuyper,M,Brighton,7,591,2,1.76,2,1.76,2,1.67,2,0
-Zian Flemming,S,Ipswich,5,80,2,1.65,1,0.89,0,0.02,1,0
-Emersonn,F,Ipswich,7,486,2,2.07,2,2.07,1,1.19,0,0
+Zian Flemming,S,Ipswich,6,108,2,1.65,1,0.89,0,0.02,1,0
+Emersonn,F,Ipswich,8,548,2,2.07,2,2.07,1,1.55,0,0
 Jack Rudoni,M S,Coventry,7,479,2,2.81,1,2.05,0,0.59,1,0
 Malick Yalcouyé,M S,Brighton,7,264,2,1.44,2,1.44,0,0.96,0,0
 Alex Iwobi,M,Fulham,7,594,1,1.19,1,1.19,0,2.92,0,0
@@ -49,7 +49,7 @@ Ben Chilwell,S,Crystal Palace,2,20,1,0.46,1,0.46,0,0.0,0,0
 James Tarkowski,D,Everton,7,630,1,0.14,1,0.14,1,0.42,1,0
 Dominic Solanke,F S,Tottenham Hotspur,7,359,1,1.85,1,1.85,1,0.23,1,0
 Ainsley Maitland-Niles,D S,Everton,5,317,1,0.05,1,0.05,1,0.8,0,0
-Chuba Akpom,S,Ipswich,5,100,1,0.6,1,0.6,0,0.0,0,0
+Chuba Akpom,S,Ipswich,6,102,1,0.6,1,0.6,0,0.0,0,0
 Jefferson Lerma,D S,Crystal Palace,4,157,1,1.06,1,1.06,0,0.0,2,0
 Emiliano Buendía,F M,Aston Villa,7,556,1,1.14,1,1.14,0,0.4,1,0
 Semi Ajayi,D,Hull,7,606,1,0.94,1,0.94,0,0.0,1,0
@@ -60,7 +60,7 @@ Daichi Kamada,M,Crystal Palace,7,622,1,1.0,1,1.0,3,0.93,2,0
 Harvey Barnes,M,Newcastle United,7,630,1,1.3,1,1.3,2,1.19,0,0
 James Maddison,M S,Tottenham Hotspur,5,136,1,0.16,1,0.16,0,0.12,0,0
 Ryan Sessegnon,D S,Fulham,5,144,1,0.24,1,0.24,0,0.09,0,1
-Morgan Gibbs-White,M,Nottingham Forest,6,540,1,1.56,0,0.8,2,2.91,0,0
+Morgan Gibbs-White,M,Nottingham Forest,7,630,1,2.34,0,1.58,2,3.12,0,0
 Justin Kluivert,M S,Bournemouth,5,333,1,1.71,1,1.71,0,0.2,1,0
 Matheus Cunha,F M S,Manchester United,7,511,1,0.69,1,0.69,2,1.85,0,0
 Wilson Isidor,F S,Sunderland,6,190,1,1.26,1,1.26,0,0.0,0,0
@@ -68,13 +68,14 @@ Marc Guehi,D M,Manchester City,7,630,1,0.71,1,0.71,1,0.62,0,0
 John McGinn,M S,Aston Villa,7,579,1,1.1,1,1.1,2,0.69,2,0
 James Justin,D,Leeds,7,622,1,0.46,1,0.46,0,0.67,1,0
 Riccardo Calafiori,D,Arsenal,7,599,1,1.45,1,1.45,2,1.22,0,0
+Neco Williams,D,Nottingham Forest,8,716,1,1.11,1,1.11,0,1.15,1,0
 Omar Marmoush,F M S,Tottenham Hotspur,6,458,1,0.71,1,0.71,0,0.2,0,0
 Ellis Simms,F S,Coventry,4,115,1,0.58,1,0.58,0,0.02,0,0
 Sven Botman,D,Newcastle United,7,630,1,0.15,1,0.15,0,0.0,2,0
 Enzo Le Fée,M,Sunderland,7,615,1,1.88,0,0.35,1,2.29,0,0
 Mohamed Ali-Cho,S,Hull,4,62,1,0.79,1,0.79,0,0.1,0,0
-Dara O&#039;Shea,D,Ipswich,7,630,1,0.57,1,0.57,0,0.27,0,0
-Liam Delap,F S,Nottingham Forest,6,444,1,2.34,1,2.34,0,0.72,2,0
+Dara O&#039;Shea,D,Ipswich,8,720,1,0.57,1,0.57,0,0.27,0,0
+Liam Delap,F S,Nottingham Forest,7,534,1,2.97,1,2.97,0,0.72,2,0
 Jacob Ramsey,S,Newcastle United,3,64,1,0.15,1,0.15,0,0.0,1,0
 Jéremy Doku,M S,Manchester City,3,122,1,0.3,1,0.3,1,1.3,0,0
 Yeremi Pino,M S,Crystal Palace,7,460,1,1.1,1,1.1,0,1.07,2,0
@@ -87,9 +88,10 @@ Josko Gvardiol,D S,Manchester City,7,486,1,0.51,1,0.51,3,1.57,2,0
 Anton Stach,M,Leeds,7,630,1,1.57,1,1.57,0,0.72,0,0
 Romeo Lavia,M S,Chelsea,6,290,1,1.23,1,1.23,0,0.18,1,0
 Lewis Hall,D,Newcastle United,7,630,1,0.34,1,0.34,1,0.89,0,0
-Guemissongui Ouattara,D S,Ipswich,7,304,1,0.07,1,0.07,1,0.29,1,0
+Guemissongui Ouattara,D S,Ipswich,8,394,1,0.07,1,0.07,1,0.29,1,0
 Jaidon Anthony,M S,Brentford,7,447,1,1.4,1,1.4,1,0.84,1,0
 Jan Paul van Hecke,D,Tottenham Hotspur,7,630,1,1.04,1,1.04,0,0.25,2,0
+Julio Enciso,M,Ipswich,8,658,1,1.77,1,1.77,2,1.44,1,0
 Jørgen Strand Larsen,F S,Crystal Palace,7,451,1,0.99,1,0.99,0,0.18,0,0
 Michael Kayode,D S,Brentford,7,484,1,0.89,1,0.89,0,0.24,1,0
 Cody Gakpo,M S,Liverpool,5,373,1,0.53,1,0.53,3,1.64,0,0
@@ -104,7 +106,7 @@ Alex Scott,M,Bournemouth,5,449,1,0.61,1,0.61,0,0.54,1,0
 Nobel Mendy,D,Hull,5,350,1,1.06,1,1.06,0,0.0,0,0
 Tyrique George,M S,Everton,7,371,1,0.38,1,0.38,0,0.74,0,0
 Sidiki Chérif,F S,Coventry,3,172,1,0.63,1,0.63,0,0.06,0,0
-Jack Clarke,M S,Ipswich,6,201,1,0.27,1,0.27,1,0.78,1,0
+Jack Clarke,M S,Ipswich,7,228,1,0.34,1,0.34,1,0.78,1,0
 Chema Andres,M S,Brighton,4,290,1,0.55,1,0.55,1,0.02,1,0
 Thiago,F,Brentford,7,624,1,3.47,1,2.71,1,0.59,4,0
 Diego Gómez,M,Brighton,7,622,1,1.56,1,1.56,2,1.32,0,0
@@ -118,7 +120,7 @@ Alysson Edward,M S,Aston Villa,6,124,1,0.25,1,0.25,0,0.36,2,0
 Jay Dasilva,D,Coventry,7,626,1,0.4,1,0.4,1,0.55,1,0
 Liam Millar,S,Hull,2,46,1,0.36,1,0.36,0,0.0,1,0
 Anan Khalaili,D S,Crystal Palace,7,557,1,1.05,1,1.05,0,0.31,1,0
-Daizen Maeda,M S,Ipswich,7,417,1,0.96,1,0.96,0,0.02,0,0
+Daizen Maeda,M S,Ipswich,8,432,1,0.96,1,0.96,0,0.02,0,0
 Fabian Schär,S,Newcastle United,2,20,0,0.0,0,0.0,0,0.04,0,0
 Joelinton,M S,Newcastle United,2,119,0,0.0,0,0.0,0,0.08,2,0
 Bernd Leno,GK,Fulham,7,630,0,0.0,0,0.0,0,0.0,0,0
@@ -151,11 +153,11 @@ Andrew Robertson,D M S,Tottenham Hotspur,6,439,0,0.1,0,0.1,2,1.11,0,0
 Oliver McBurnie,F,Hull,7,624,0,1.64,0,1.64,1,0.66,3,0
 Lewis Cook,M S,Bournemouth,7,260,0,0.09,0,0.09,0,0.46,2,0
 Mateo Kovacic,M S,Manchester City,3,91,0,0.0,0,0.0,1,0.4,0,0
-Issa Diop,D,Ipswich,7,630,0,0.14,0,0.14,0,0.06,0,0
+Issa Diop,D,Ipswich,8,720,0,0.14,0,0.14,0,0.06,1,0
 Olivier Boscagli,D M,Brighton,7,592,0,0.07,0,0.07,1,1.14,2,0
 Darnell Furlong,S,Ipswich,1,15,0,0.0,0,0.0,0,0.0,0,0
 Emiliano Martinez,GK,Chelsea,6,528,0,0.0,0,0.0,0,0.27,0,0
-Chris Wood,S,Nottingham Forest,6,71,0,0.57,0,0.57,0,0.0,0,0
+Chris Wood,S,Nottingham Forest,7,72,0,0.57,0,0.57,0,0.0,0,0
 Kevin Danso,D,Sunderland,5,376,0,0.25,0,0.25,0,0.12,0,1
 Mikel Merino,S,Arsenal,7,93,0,0.21,0,0.21,0,0.0,1,0
 Declan Rice,M,Arsenal,7,598,0,0.2,0,0.2,4,1.07,1,0
@@ -179,12 +181,12 @@ Victor Lindelöf,D,Aston Villa,7,630,0,0.6,0,0.6,0,0.11,0,0
 Will Hughes,S,Crystal Palace,3,27,0,0.0,0,0.0,0,0.07,0,0
 Rodrigo Bentancur,M S,Tottenham Hotspur,6,390,0,0.03,0,0.03,0,0.02,0,1
 Timothy Castagne,D,Fulham,6,502,0,0.65,0,0.65,1,0.37,2,0
-Nikola Milenkovic,D,Nottingham Forest,3,270,0,0.12,0,0.12,0,0.0,1,0
+Nikola Milenkovic,D,Nottingham Forest,4,360,0,0.18,0,0.18,0,0.08,1,0
 Pau Torres,D S,Aston Villa,4,204,0,0.0,0,0.0,0,0.0,0,0
 Joachim Andersen,D S,Fulham,3,190,0,0.0,0,0.0,0,0.16,1,0
 Ethan Ampadu,M,Leeds,7,630,0,0.05,0,0.05,0,0.36,2,0
 Joe Rodon,D,Leeds,2,123,0,0.03,0,0.03,0,0.1,0,0
-Callum Hudson-Odoi,S,Nottingham Forest,3,14,0,0.0,0,0.0,0,0.08,0,0
+Callum Hudson-Odoi,S,Nottingham Forest,4,33,0,0.32,0,0.32,0,0.08,0,0
 Eddie Nketiah,F M S,Crystal Palace,6,214,0,1.34,0,1.34,1,1.73,0,0
 Lukas Nmecha,S,Leeds,6,79,0,0.32,0,0.32,1,0.86,0,0
 Dejan Kulusevski,S,Tottenham Hotspur,1,1,0,0.0,0,0.0,0,0.0,0,0
@@ -193,7 +195,7 @@ Jaka Bijol,D S,Leeds,4,168,0,0.08,0,0.08,0,0.0,0,0
 David Brooks,M S,Bournemouth,5,82,0,0.0,0,0.0,0,0.04,1,0
 Tom Cairney,S,Fulham,1,11,0,0.07,0,0.07,0,0.0,0,0
 Axel Disasi,D S,Crystal Palace,3,138,0,0.0,0,0.0,0,0.03,0,1
-Matz Sels,GK,Nottingham Forest,7,630,0,0.0,0,0.0,0,0.22,0,0
+Matz Sels,GK,Nottingham Forest,8,720,0,0.0,0,0.0,0,0.22,0,0
 Pedro Porro,D M,Tottenham Hotspur,3,198,0,0.24,0,0.24,0,0.42,0,0
 Georginio Rutter,F S,Brighton,4,121,0,0.17,0,0.17,2,1.26,0,0
 Sean Longstaff,S,Leeds,3,14,0,0.0,0,0.0,0,0.0,0,0
@@ -215,7 +217,7 @@ Dean Henderson,GK,Crystal Palace,3,270,0,0.0,0,0.0,0,0.0,0,0
 John Egan,D,Hull,7,623,0,0.08,0,0.08,0,0.06,1,0
 Ezri Konsa Ngoyo,D S,Arsenal,6,460,0,0.08,0,0.08,0,0.04,0,0
 Mason Mount,S,Manchester United,2,24,0,0.1,0,0.1,0,0.02,0,0
-Xaver Schlager,M S,Nottingham Forest,7,536,0,0.34,0,0.34,0,0.22,1,0
+Xaver Schlager,M S,Nottingham Forest,8,626,0,0.38,0,0.38,0,0.35,1,0
 Taiwo Awoniyi,F S,Coventry,5,261,0,1.52,0,1.52,0,0.15,0,1
 Caoimhin Kelleher,GK,Brentford,7,630,0,0.0,0,0.0,0,0.0,0,0
 Takehiro Tomiyasu,D S,Crystal Palace,4,189,0,0.0,0,0.0,0,0.02,0,0
@@ -228,16 +230,15 @@ Ronald Araújo,D S,Liverpool,7,414,0,0.0,0,0.0,0,0.05,2,0
 Nick Woltemade,S,Newcastle United,1,18,0,0.02,0,0.02,1,0.51,0,0
 Amad Diallo Traore,M,Manchester United,2,149,0,0.18,0,0.18,0,0.0,0,0
 Melvin Bard,S,Leeds,1,15,0,0.0,0,0.0,0,0.04,0,0
-Neco Williams,D,Nottingham Forest,7,630,0,0.63,0,0.63,0,0.97,1,0
 Amine Adli,S,Bournemouth,1,5,0,0.14,0,0.14,0,0.0,0,0
 Nicolás Domínguez,M S,Nottingham Forest,2,79,0,0.0,0,0.0,0,0.0,0,0
 Sander Berge,M S,Fulham,7,530,0,0.25,0,0.25,1,0.6,1,0
-Exequiel Palacios,M S,Ipswich,6,394,0,0.0,0,0.0,0,0.2,0,0
+Exequiel Palacios,M S,Ipswich,7,484,0,0.0,0,0.0,0,0.26,0,0
 Lucas Gourna Douath,M S,Hull,3,132,0,0.01,0,0.01,0,0.1,1,0
 Malick Thiaw,D,Newcastle United,7,630,0,0.0,0,0.0,0,0.14,1,0
 Alexis Mac Allister,M S,Liverpool,7,491,0,0.55,0,0.55,0,0.28,2,0
 Florian Wirtz,M,Liverpool,7,562,0,1.11,0,1.11,2,1.15,1,0
-Luca Netz,S,Nottingham Forest,3,21,0,0.0,0,0.0,0,0.01,0,0
+Luca Netz,S,Nottingham Forest,4,25,0,0.0,0,0.0,0,0.01,0,0
 Juanlu Sanchez,S,Bournemouth,1,16,0,0.0,0,0.0,0,0.0,0,0
 Chris Richards,D,Crystal Palace,7,630,0,0.14,0,0.14,0,0.03,1,0
 Jarrad Branthwaite,D,Everton,7,630,0,0.67,0,0.67,0,0.0,0,0
@@ -255,18 +256,18 @@ Matteo Ruggeri,D S,Aston Villa,4,158,0,0.02,0,0.02,0,0.06,0,0
 Antonee Robinson,D,Fulham,6,527,0,0.33,0,0.33,0,0.42,0,0
 Aaron Hickey,D S,Brentford,7,195,0,0.04,0,0.04,0,0.0,0,0
 Rúben Dias,D,Manchester City,7,630,0,0.28,0,0.28,0,0.38,0,0
-Florentino Luís,M S,Ipswich,4,161,0,0.0,0,0.0,0,0.11,0,0
+Florentino Luís,M S,Ipswich,5,248,0,0.0,0,0.0,0,0.11,0,0
 Omar Alderete,D S,Sunderland,2,86,0,0.0,0,0.0,0,0.0,1,0
 Óscar Mingueza,S,Crystal Palace,2,15,0,0.0,0,0.0,0,0.0,0,0
 Malo Gusto,D M S,Chelsea,5,275,0,0.06,0,0.06,0,0.03,0,0
 James Trafford,GK,Leeds,7,630,0,0.0,0,0.0,0,0.0,0,0
 Robert Sánchez,GK,Chelsea,1,90,0,0.0,0,0.0,0,0.0,0,0
 Elliot Anderson,M S,Manchester City,7,519,0,0.13,0,0.13,1,1.01,1,0
-Christian Walton,GK,Ipswich,3,270,0,0.0,0,0.0,0,0.01,1,0
+Christian Walton,GK,Ipswich,4,360,0,0.0,0,0.0,0,0.01,1,0
 Iliman Ndiaye,M S,"Everton,Manchester City",7,537,0,1.26,0,1.26,2,1.88,0,0
 Jeremie Frimpong,D S,Liverpool,5,201,0,0.01,0,0.01,0,0.58,1,0
 Kaine Hayden,S,Coventry,1,1,0,0.0,0,0.0,0,0.0,0,0
-Jaden Philogene-Bidace,M S,Ipswich,3,110,0,0.06,0,0.06,0,0.0,0,0
+Jaden Philogene-Bidace,M S,Ipswich,4,173,0,0.42,0,0.42,0,0.0,0,0
 Moisés Caicedo,M S,Chelsea,3,178,0,0.06,0,0.06,0,0.02,0,0
 Cody Drameh,S,Hull,2,60,0,0.04,0,0.04,0,0.0,0,0
 Daniel Jebbison,S,Bournemouth,3,29,0,0.08,0,0.08,0,0.0,0,0
@@ -289,13 +290,13 @@ Piero Hincapié,S,Arsenal,3,31,0,0.0,0,0.0,0,0.0,0,0
 Gabriel Gudmundsson,D,Leeds,5,435,0,0.04,0,0.04,1,0.57,1,0
 Kjell Scherpen,GK,Ipswich,4,360,0,0.0,0,0.0,0,0.0,0,0
 Loum Tchaouna,M S,Coventry,4,214,0,0.21,0,0.21,0,0.17,0,0
-Azor Matusiwa,S,Ipswich,1,17,0,0.0,0,0.0,0,0.0,0,0
+Azor Matusiwa,S,Ipswich,2,20,0,0.0,0,0.0,0,0.0,0,0
 Beto,S,Everton,2,25,0,0.11,0,0.11,0,0.0,0,0
 Bradley Barcola,M S,Liverpool,5,348,0,1.05,0,1.05,1,0.41,1,0
 Cristhian Mosquera,D,Arsenal,2,170,0,0.0,0,0.0,0,0.0,0,0
 Lamare Bogarde,S,Aston Villa,1,11,0,0.0,0,0.0,0,0.0,0,0
 Micky van de Ven,D S,Tottenham Hotspur,6,466,0,0.78,0,0.78,0,0.0,1,0
-James McAtee,M,Nottingham Forest,7,605,0,0.46,0,0.46,0,1.28,2,0
+James McAtee,M,Nottingham Forest,8,695,0,0.48,0,0.48,0,1.28,2,0
 Kasey McAteer,S,Ipswich,3,36,0,0.02,0,0.02,0,0.0,0,0
 Archie Gray,D M S,Tottenham Hotspur,6,495,0,0.44,0,0.44,0,0.08,1,0
 Vitalii Mykolenko,D,Everton,6,540,0,0.09,0,0.09,0,0.31,1,0
@@ -317,7 +318,6 @@ Jean Négoce,S,Leeds,2,2,0,0.0,0,0.0,0,0.0,0,0
 Rico Lewis,D,Manchester City,1,59,0,0.35,0,0.35,0,0.0,0,0
 Marcos Senesi,D,Tottenham Hotspur,2,179,0,0.0,0,0.0,0,0.11,0,0
 Matheus Nunes,D S,Manchester City,5,379,0,0.0,0,0.0,0,0.0,0,0
-Julio Enciso,M,Ipswich,7,570,0,1.38,0,1.38,2,1.44,1,0
 Pep Chavarría,D S,Chelsea,6,287,0,0.03,0,0.03,1,0.59,0,0
 Chadi Riad,D,Crystal Palace,1,77,0,0.0,0,0.0,0,0.0,0,0
 Kobbie Mainoo,M S,Manchester United,6,450,0,0.24,0,0.24,1,0.24,0,0
@@ -348,12 +348,12 @@ Patrick Dorgu,D M S,Manchester United,5,169,0,0.97,0,0.97,1,0.13,1,0
 Jake O&#039;Brien,S,Everton,3,22,0,0.0,0,0.0,0,0.0,0,0
 Mohammed Kudus,M S,Tottenham Hotspur,6,266,0,0.34,0,0.34,2,0.63,0,0
 Djordje Petrovic,GK,Bournemouth,7,630,0,0.0,0,0.0,0,0.0,0,0
-Murillo,D,Nottingham Forest,7,630,0,0.8,0,0.8,1,0.36,2,0
+Murillo,D,Nottingham Forest,8,720,0,0.97,0,0.97,1,0.36,3,0
 Ayyoub Bouaddi,M S,Manchester City,4,119,0,0.02,0,0.02,0,0.12,1,0
 Treymaurice Nyoni,S,Liverpool,5,115,0,0.06,0,0.06,0,0.02,0,0
 Myles Lewis-Skelly,M,Arsenal,5,346,0,0.18,0,0.18,0,0.14,0,0
 Malick Fofana,S,Sunderland,4,103,0,0.46,0,0.46,0,0.0,0,0
-Daniel Muñoz,D S,"Crystal Palace,Nottingham Forest",6,443,0,0.99,0,0.99,0,0.65,0,0
+Daniel Muñoz,D S,"Crystal Palace,Nottingham Forest",7,533,0,1.04,0,1.04,1,1.09,0,0
 Adam Wharton,M,Crystal Palace,7,622,0,0.1,0,0.1,1,1.48,1,0
 Lewis Koumas,F S,Liverpool,5,98,0,0.29,0,0.29,0,0.0,0,0
 Valentín Barco,M S,Chelsea,3,112,0,0.13,0,0.13,0,0.0,1,0
@@ -368,7 +368,7 @@ Honest Ahanor,D S,Crystal Palace,3,157,0,0.0,0,0.0,0,0.05,0,0
 Zion Suzuki,GK,Aston Villa,6,540,0,0.0,0,0.0,0,0.0,0,0
 Dayann Methalie,D S,Sunderland,2,105,0,0.01,0,0.01,0,0.0,1,0
 Sorba Thomas,M S,Hull,5,281,0,0.15,0,0.15,1,1.35,0,0
-Abdul Fatawu,M S,Ipswich,6,386,0,0.06,0,0.06,1,1.99,2,1
+Abdul Fatawu,M S,Ipswich,7,461,0,0.1,0,0.1,1,1.99,2,1
 Lucas Bergvall,M S,Tottenham Hotspur,4,139,0,0.08,0,0.08,0,0.0,0,0
 Mateus Fernandes,M S,Tottenham Hotspur,7,274,0,0.22,0,0.22,0,0.74,1,0
 Aurèle Amenda,D,Coventry,4,360,0,0.01,0,0.01,0,0.07,1,0
@@ -394,7 +394,7 @@ Chris Rigg,M S,Sunderland,3,85,0,0.0,0,0.0,0,0.0,1,0
 El Hadji Malick Diouf,D S,Brentford,4,125,0,0.06,0,0.06,0,0.03,0,0
 Estêvão,S,Chelsea,5,18,0,0.1,0,0.1,0,0.0,0,0
 Jorrel Hato,D,Chelsea,5,359,0,0.03,0,0.03,2,1.21,0,0
-Jair,D,Nottingham Forest,5,449,0,0.04,0,0.04,0,0.04,2,0
+Jair,D,Nottingham Forest,6,539,0,0.12,0,0.12,0,0.04,2,0
 Ibrahim Osman,S,Brighton,3,32,0,0.14,0,0.14,0,0.03,0,0
 Mike Penders,S,Chelsea,1,12,0,0.0,0,0.0,0,0.0,0,0
 Ao Tanaka,M S,Leeds,6,414,0,0.89,0,0.89,1,0.97,2,0

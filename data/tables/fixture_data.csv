@@ -69,7 +69,7 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 7,18/10/2026 14:00,Leeds,Manchester United,1 - 1,31247,True,1.0,1.0,1.41,1.08
 7,18/10/2026 16:30,Nottingham Forest,Arsenal,0 - 1,31248,True,0.0,1.0,0.75,0.92
 7,19/10/2026 20:00,Tottenham Hotspur,Coventry City,3 - 1,31249,True,3.0,1.0,0.97,1.14
-8,23/10/2026 20:00,Ipswich Town,Nottingham Forest,,31250,False,,,,
+8,23/10/2026 20:00,Ipswich Town,Nottingham Forest,,31250,True,1.0,1.0,0.86,2.76
 8,24/10/2026 12:30,Aston Villa,Manchester City,,31251,False,,,,
 8,24/10/2026 15:00,Arsenal,Everton,,31254,False,,,,
 8,24/10/2026 15:00,Coventry City,Fulham,,31253,False,,,,
