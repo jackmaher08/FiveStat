@@ -2,7 +2,7 @@ team,gw,fixture,difficulty,is_double_gameweek,is_blank_gameweek
 Manchester City,9,BHA (H),easy,False,False
 Manchester City,10,NFO (A),easy,False,False
 Manchester City,11,FUL (H),easy,False,False
-Manchester City,12,ARS (A),medium,False,False
+Manchester City,12,ARS (A),hard,False,False
 Manchester City,13,LEE (H),easy,False,False
 Arsenal,9,LIV (A),medium,False,False
 Arsenal,10,HUL (H),easy,False,False
@@ -24,15 +24,20 @@ Liverpool,10,CRY (A),medium,False,False
 Liverpool,11,MUN (H),medium,False,False
 Liverpool,12,EVE (A),medium,False,False
 Liverpool,13,SUN (H),medium,False,False
+Aston Villa,9,FUL (H),medium,False,False
+Aston Villa,10,MUN (A),hard,False,False
+Aston Villa,11,SUN (H),medium,False,False
+Aston Villa,12,IPS (A),easy,False,False
+Aston Villa,13,EVE (H),medium,False,False
 Brentford,9,NFO (H),medium,False,False
 Brentford,10,BHA (A),hard,False,False
 Brentford,11,EVE (H),medium,False,False
 Brentford,12,MUN (A),hard,False,False
 Brentford,13,ARS (H),hard,False,False
-Leeds,9,BOU (A),hard,False,False
+Leeds,9,BOU (A),medium,False,False
 Leeds,10,TOT (H),medium,False,False
 Leeds,11,CHE (A),hard,False,False
-Leeds,12,COV (H),medium,False,False
+Leeds,12,COV (H),easy,False,False
 Leeds,13,MCI (A),hard,False,False
 Everton,9,NEW (A),hard,False,False
 Everton,10,COV (H),medium,False,False
@@ -49,16 +54,21 @@ Hull City,10,ARS (A),hard,False,False
 Hull City,11,BHA (H),hard,False,False
 Hull City,12,CRY (A),hard,False,False
 Hull City,13,NFO (H),hard,False,False
+Tottenham Hotspur,9,CRY (H),medium,False,False
+Tottenham Hotspur,10,LEE (A),hard,False,False
+Tottenham Hotspur,11,IPS (H),easy,False,False
+Tottenham Hotspur,12,SUN (A),medium,False,False
+Tottenham Hotspur,13,FUL (H),medium,False,False
+Fulham,9,AVL (A),hard,False,False
+Fulham,10,NEW (H),hard,False,False
+Fulham,11,MCI (A),hard,False,False
+Fulham,12,BOU (H),hard,False,False
+Fulham,13,TOT (A),hard,False,False
 Newcastle United,9,EVE (H),medium,False,False
 Newcastle United,10,FUL (A),hard,False,False
 Newcastle United,11,ARS (H),hard,False,False
 Newcastle United,12,BHA (A),hard,False,False
 Newcastle United,13,MUN (H),hard,False,False
-Aston Villa,9,FUL (H),medium,False,False
-Aston Villa,10,MUN (A),hard,False,False
-Aston Villa,11,SUN (H),medium,False,False
-Aston Villa,12,IPS (A),easy,False,False
-Aston Villa,13,EVE (H),medium,False,False
 Manchester United,9,CHE (A),hard,False,False
 Manchester United,10,AVL (H),medium,False,False
 Manchester United,11,LIV (A),hard,False,False
@@ -79,21 +89,11 @@ Nottingham Forest,10,MCI (H),hard,False,False
 Nottingham Forest,11,BOU (A),hard,False,False
 Nottingham Forest,12,CHE (H),hard,False,False
 Nottingham Forest,13,HUL (A),easy,False,False
-Tottenham Hotspur,9,CRY (H),medium,False,False
-Tottenham Hotspur,10,LEE (A),hard,False,False
-Tottenham Hotspur,11,IPS (H),easy,False,False
-Tottenham Hotspur,12,SUN (A),medium,False,False
-Tottenham Hotspur,13,FUL (H),medium,False,False
-Coventry City,9,SUN (H),medium,False,False
+Coventry City,9,SUN (H),hard,False,False
 Coventry City,10,EVE (A),hard,False,False
-Coventry City,11,CRY (H),medium,False,False
+Coventry City,11,CRY (H),hard,False,False
 Coventry City,12,LEE (A),hard,False,False
-Coventry City,13,IPS (H),easy,False,False
-Fulham,9,AVL (A),hard,False,False
-Fulham,10,NEW (H),hard,False,False
-Fulham,11,MCI (A),hard,False,False
-Fulham,12,BOU (H),hard,False,False
-Fulham,13,TOT (A),hard,False,False
+Coventry City,13,IPS (H),medium,False,False
 Sunderland,9,COV (A),hard,False,False
 Sunderland,10,CHE (H),hard,False,False
 Sunderland,11,AVL (A),hard,False,False

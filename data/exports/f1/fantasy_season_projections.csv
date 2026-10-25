@@ -1,25 +1,25 @@
 code,name,constructor,championship_points,championship_position,completed_xfp,projected_remaining_xfp,projected_total_xfp,races_remaining
-ANT,Andrea Kimi Antonelli,Mercedes,340.0,1,586.0,62.1,648.1,6
-VER,Max Verstappen,Red Bull,221.0,4,347.0,71.1,418.1,6
-HAM,Lewis Hamilton,Ferrari,229.0,3,370.0,37.0,407.0,6
-LEC,Charles Leclerc,Ferrari,215.0,5,351.0,50.7,401.7,6
-RUS,George Russell,Mercedes,238.0,2,351.0,34.8,385.8,6
-NOR,Lando Norris,McLaren,201.0,6,272.0,39.7,311.7,6
-PIA,Oscar Piastri,McLaren,138.0,7,172.0,29.0,201.0,6
-HAD,Isack Hadjar,Red Bull,97.0,8,137.0,15.6,152.6,6
-LAW,Liam Lawson,RB F1 Team,75.0,9,151.0,1.6,152.6,6
-LIN,Arvid Lindblad,RB F1 Team,38.0,11,72.0,5.8,77.8,6
-GAS,Pierre Gasly,Alpine F1 Team,41.0,10,60.0,11.1,71.1,6
-OCO,Esteban Ocon,Haas F1 Team,7.0,16,65.0,4.2,69.2,6
-COL,Franco Colapinto,Alpine F1 Team,27.0,12,45.0,9.4,54.4,6
-SAI,Carlos Sainz,Williams,7.0,18,28.0,9.8,37.8,6
-BEA,Oliver Bearman,Haas F1 Team,23.0,13,26.0,9.7,35.7,6
-TSU,Yuki Tsunoda,RB F1 Team,1.0,20,7,0.6,7.6,6
-DOO,Jack Doohan,Alpine F1 Team,,,0,2.5,2.5,6
-BOR,Gabriel Bortoleto,Audi,10.0,15,-16.0,0.4,-15.6,6
-ALO,Fernando Alonso,Aston Martin,7.0,17,-46.0,10.9,-35.1,6
-HUL,Nico Hülkenberg,Audi,13.0,14,-47.0,1.6,-45.4,6
-PER,Sergio Pérez,Cadillac F1 Team,0.0,23,-53.0,7.4,-45.6,6
-ALB,Alexander Albon,Williams,5.0,19,-86.0,8.7,-77.3,6
-BOT,Valtteri Bottas,Cadillac F1 Team,0.0,22,-130.0,7.6,-122.4,6
-STR,Lance Stroll,Aston Martin,0.0,21,-218.0,3.4,-214.6,6
+ANT,Andrea Kimi Antonelli,Mercedes,340.0,1,586.0,51.7,637.7,5
+VER,Max Verstappen,Red Bull,221.0,4,347.0,59.2,406.2,5
+HAM,Lewis Hamilton,Ferrari,229.0,3,370.0,30.8,400.8,5
+LEC,Charles Leclerc,Ferrari,215.0,5,351.0,42.2,393.2,5
+RUS,George Russell,Mercedes,238.0,2,351.0,29.0,380.0,5
+NOR,Lando Norris,McLaren,201.0,6,272.0,33.0,305.0,5
+PIA,Oscar Piastri,McLaren,138.0,7,172.0,24.2,196.2,5
+LAW,Liam Lawson,RB F1 Team,75.0,9,151.0,1.2,152.2,5
+HAD,Isack Hadjar,Red Bull,97.0,8,137.0,12.9,149.9,5
+LIN,Arvid Lindblad,RB F1 Team,38.0,11,72.0,4.9,76.9,5
+GAS,Pierre Gasly,Alpine F1 Team,41.0,10,60.0,9.2,69.2,5
+OCO,Esteban Ocon,Haas F1 Team,7.0,16,65.0,3.5,68.5,5
+COL,Franco Colapinto,Alpine F1 Team,27.0,12,45.0,7.9,52.9,5
+SAI,Carlos Sainz,Williams,7.0,18,28.0,8.3,36.3,5
+BEA,Oliver Bearman,Haas F1 Team,23.0,13,26.0,8.2,34.2,5
+TSU,Yuki Tsunoda,RB F1 Team,1.0,20,7,0.5,7.5,5
+DOO,Jack Doohan,Alpine F1 Team,,,0,2.1,2.1,5
+BOR,Gabriel Bortoleto,Audi,10.0,15,-16.0,0.3,-15.7,5
+ALO,Fernando Alonso,Aston Martin,7.0,17,-46.0,9.2,-36.8,5
+HUL,Nico Hülkenberg,Audi,13.0,14,-47.0,1.2,-45.8,5
+PER,Sergio Pérez,Cadillac F1 Team,0.0,23,-53.0,6.3,-46.7,5
+ALB,Alexander Albon,Williams,5.0,19,-86.0,7.4,-78.6,5
+BOT,Valtteri Bottas,Cadillac F1 Team,0.0,22,-130.0,6.3,-123.7,5
+STR,Lance Stroll,Aston Martin,0.0,21,-218.0,2.8,-215.2,5

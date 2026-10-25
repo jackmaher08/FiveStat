@@ -1,591 +1,586 @@
 fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sheet_probability,projected_fpl_points,difficulty
-4,Gabriel,Arsenal,DEF,9,LIV (A),0.121,0.031,0.311,3.7,medium
-4,Gabriel,Arsenal,DEF,10,HUL (H),0.243,0.062,0.568,5.8,easy
-4,Gabriel,Arsenal,DEF,11,NEW (A),0.131,0.034,0.348,3.97,medium
-4,Gabriel,Arsenal,DEF,12,MCI (H),0.093,0.024,0.241,3.12,hard
-4,Gabriel,Arsenal,DEF,13,BRE (A),0.122,0.031,0.308,3.69,medium
-8,Calafiori,Arsenal,DEF,9,LIV (A),0.146,0.124,0.311,4.13,medium
-8,Calafiori,Arsenal,DEF,10,HUL (H),0.293,0.248,0.568,6.66,easy
-8,Calafiori,Arsenal,DEF,11,NEW (A),0.157,0.133,0.348,4.42,medium
-8,Calafiori,Arsenal,DEF,12,MCI (H),0.112,0.095,0.241,3.45,hard
-8,Calafiori,Arsenal,DEF,13,BRE (A),0.147,0.125,0.308,4.13,medium
-10,White,Arsenal,DEF,9,LIV (A),0.018,0.063,0.311,3.18,medium
-10,White,Arsenal,DEF,10,HUL (H),0.036,0.125,0.568,4.75,easy
-10,White,Arsenal,DEF,11,NEW (A),0.019,0.067,0.348,3.4,medium
-10,White,Arsenal,DEF,12,MCI (H),0.014,0.048,0.241,2.72,hard
-10,White,Arsenal,DEF,13,BRE (A),0.018,0.063,0.308,3.17,medium
-13,Rice,Arsenal,MID,9,LIV (A),0.03,0.18,0.311,3.0,medium
-13,Rice,Arsenal,MID,10,HUL (H),0.059,0.359,0.568,3.94,easy
-13,Rice,Arsenal,MID,11,NEW (A),0.032,0.193,0.348,3.09,medium
-13,Rice,Arsenal,MID,12,MCI (H),0.023,0.138,0.241,2.77,hard
-13,Rice,Arsenal,MID,13,BRE (A),0.03,0.181,0.308,3.0,medium
-15,Ødegaard,Arsenal,MID,9,LIV (A),0.233,0.261,0.311,4.26,medium
-15,Ødegaard,Arsenal,MID,10,HUL (H),0.466,0.523,0.568,6.47,easy
-15,Ødegaard,Arsenal,MID,11,NEW (A),0.251,0.281,0.348,4.45,medium
-15,Ødegaard,Arsenal,MID,12,MCI (H),0.179,0.201,0.241,3.74,hard
-15,Ødegaard,Arsenal,MID,13,BRE (A),0.235,0.263,0.308,4.27,medium
-26,Havertz,Arsenal,FWD,9,LIV (A),0.23,0.062,0.311,3.11,medium
-26,Havertz,Arsenal,FWD,10,HUL (H),0.459,0.124,0.568,4.21,easy
-26,Havertz,Arsenal,FWD,11,NEW (A),0.247,0.067,0.348,3.19,medium
-26,Havertz,Arsenal,FWD,12,MCI (H),0.176,0.048,0.241,2.85,hard
-26,Havertz,Arsenal,FWD,13,BRE (A),0.231,0.063,0.308,3.11,medium
-31,Konsa,Arsenal,DEF,9,LIV (A),0.017,0.004,0.311,3.0,medium
-31,Konsa,Arsenal,DEF,10,HUL (H),0.035,0.008,0.568,4.39,easy
-31,Konsa,Arsenal,DEF,11,NEW (A),0.019,0.004,0.348,3.21,medium
-31,Konsa,Arsenal,DEF,12,MCI (H),0.013,0.003,0.241,2.58,hard
-31,Konsa,Arsenal,DEF,13,BRE (A),0.017,0.004,0.308,2.98,medium
-37,Lindelöf,Aston Villa,DEF,9,FUL (H),0.082,0.054,0.312,3.54,medium
-37,Lindelöf,Aston Villa,DEF,10,MUN (A),0.064,0.043,0.16,2.48,hard
-37,Lindelöf,Aston Villa,DEF,11,SUN (H),0.083,0.055,0.347,3.74,medium
-37,Lindelöf,Aston Villa,DEF,12,IPS (A),0.106,0.071,0.367,4.03,easy
-37,Lindelöf,Aston Villa,DEF,13,EVE (H),0.079,0.053,0.301,3.46,medium
-41,Buendía,Aston Villa,MID,9,FUL (H),0.282,0.132,0.312,4.12,medium
-41,Buendía,Aston Villa,MID,10,MUN (A),0.221,0.104,0.16,3.58,hard
-41,Buendía,Aston Villa,MID,11,SUN (H),0.284,0.133,0.347,4.17,medium
-41,Buendía,Aston Villa,MID,12,IPS (A),0.365,0.171,0.367,4.71,easy
-41,Buendía,Aston Villa,MID,13,EVE (H),0.272,0.127,0.301,4.04,medium
-45,McGinn,Aston Villa,MID,9,FUL (H),0.236,0.109,0.312,3.82,medium
-45,McGinn,Aston Villa,MID,10,MUN (A),0.186,0.085,0.16,3.34,hard
-45,McGinn,Aston Villa,MID,11,SUN (H),0.238,0.109,0.347,3.86,medium
-45,McGinn,Aston Villa,MID,12,IPS (A),0.306,0.141,0.367,4.32,easy
-45,McGinn,Aston Villa,MID,13,EVE (H),0.228,0.105,0.301,3.76,medium
-47,Kamara,Aston Villa,MID,9,FUL (H),0.028,0.107,0.312,2.77,medium
-47,Kamara,Aston Villa,MID,10,MUN (A),0.022,0.084,0.16,2.52,hard
-47,Kamara,Aston Villa,MID,11,SUN (H),0.028,0.108,0.347,2.81,medium
-47,Kamara,Aston Villa,MID,12,IPS (A),0.036,0.139,0.367,2.96,easy
-47,Kamara,Aston Villa,MID,13,EVE (H),0.027,0.103,0.301,2.75,medium
-166,N.Jackson,Aston Villa,FWD,9,FUL (H),0.211,0.221,0.312,3.51,medium
-166,N.Jackson,Aston Villa,FWD,10,MUN (A),0.166,0.174,0.16,3.19,hard
-166,N.Jackson,Aston Villa,FWD,11,SUN (H),0.212,0.223,0.347,3.52,medium
-166,N.Jackson,Aston Villa,FWD,12,IPS (A),0.273,0.287,0.367,3.95,easy
-166,N.Jackson,Aston Villa,FWD,13,EVE (H),0.204,0.214,0.301,3.46,medium
-60,Hill,Bournemouth,DEF,9,LEE (H),0.005,0.133,0.218,2.78,hard
-60,Hill,Bournemouth,DEF,10,IPS (A),0.007,0.203,0.344,3.71,easy
-60,Hill,Bournemouth,DEF,11,NFO (H),0.005,0.139,0.262,3.06,medium
-60,Hill,Bournemouth,DEF,12,FUL (A),0.005,0.136,0.24,2.92,hard
-60,Hill,Bournemouth,DEF,13,BHA (H),0.004,0.125,0.207,2.68,hard
-61,Truffert,Bournemouth,DEF,9,LEE (H),0.014,0.126,0.218,2.81,hard
-61,Truffert,Bournemouth,DEF,10,IPS (A),0.021,0.191,0.344,3.76,easy
-61,Truffert,Bournemouth,DEF,11,NFO (H),0.014,0.131,0.262,3.09,medium
-61,Truffert,Bournemouth,DEF,12,FUL (A),0.014,0.128,0.24,2.95,hard
-61,Truffert,Bournemouth,DEF,13,BHA (H),0.013,0.117,0.207,2.71,hard
-64,Smith,Bournemouth,DEF,9,LEE (H),0.055,0.068,0.218,2.88,hard
-64,Smith,Bournemouth,DEF,10,IPS (A),0.084,0.104,0.344,3.88,easy
-64,Smith,Bournemouth,DEF,11,NFO (H),0.058,0.071,0.262,3.17,medium
-64,Smith,Bournemouth,DEF,12,FUL (A),0.057,0.07,0.24,3.03,hard
-64,Smith,Bournemouth,DEF,13,BHA (H),0.052,0.064,0.207,2.78,hard
-67,Rayan,Bournemouth,MID,9,LEE (H),0.168,0.112,0.218,3.39,hard
-67,Rayan,Bournemouth,MID,10,IPS (A),0.257,0.172,0.344,4.15,easy
-67,Rayan,Bournemouth,MID,11,NFO (H),0.176,0.117,0.262,3.49,medium
-67,Rayan,Bournemouth,MID,12,FUL (A),0.172,0.115,0.24,3.45,hard
-67,Rayan,Bournemouth,MID,13,BHA (H),0.158,0.105,0.207,3.31,hard
-68,Tavernier,Bournemouth,MID,9,LEE (H),0.264,0.208,0.218,4.16,hard
-68,Tavernier,Bournemouth,MID,10,IPS (A),0.402,0.317,0.344,5.31,easy
-68,Tavernier,Bournemouth,MID,11,NFO (H),0.275,0.217,0.262,4.29,medium
-68,Tavernier,Bournemouth,MID,12,FUL (A),0.27,0.213,0.24,4.23,hard
-68,Tavernier,Bournemouth,MID,13,BHA (H),0.247,0.195,0.207,4.03,hard
-73,Adams,Bournemouth,MID,9,LEE (H),0.01,0.013,0.218,2.31,hard
-73,Adams,Bournemouth,MID,10,IPS (A),0.015,0.02,0.344,2.48,easy
-73,Adams,Bournemouth,MID,11,NFO (H),0.011,0.014,0.262,2.36,medium
+4,Gabriel,Arsenal,DEF,9,LIV (A),0.152,0.029,0.315,3.9,medium
+4,Gabriel,Arsenal,DEF,10,HUL (H),0.305,0.058,0.571,6.18,easy
+4,Gabriel,Arsenal,DEF,11,NEW (A),0.165,0.031,0.351,4.18,medium
+4,Gabriel,Arsenal,DEF,12,MCI (H),0.122,0.023,0.246,3.32,hard
+4,Gabriel,Arsenal,DEF,13,BRE (A),0.153,0.029,0.311,3.89,medium
+10,White,Arsenal,DEF,9,LIV (A),0.016,0.097,0.315,3.29,medium
+10,White,Arsenal,DEF,10,HUL (H),0.032,0.194,0.571,4.95,easy
+10,White,Arsenal,DEF,11,NEW (A),0.018,0.105,0.351,3.52,medium
+10,White,Arsenal,DEF,12,MCI (H),0.013,0.078,0.246,2.83,hard
+10,White,Arsenal,DEF,13,BRE (A),0.016,0.098,0.311,3.27,medium
+13,Rice,Arsenal,MID,9,LIV (A),0.029,0.216,0.315,3.11,medium
+13,Rice,Arsenal,MID,10,HUL (H),0.058,0.432,0.571,4.16,easy
+13,Rice,Arsenal,MID,11,NEW (A),0.031,0.233,0.351,3.21,medium
+13,Rice,Arsenal,MID,12,MCI (H),0.023,0.173,0.246,2.88,hard
+13,Rice,Arsenal,MID,13,BRE (A),0.029,0.217,0.311,3.11,medium
+15,Ødegaard,Arsenal,MID,9,LIV (A),0.232,0.281,0.315,4.32,medium
+15,Ødegaard,Arsenal,MID,10,HUL (H),0.464,0.563,0.571,6.58,easy
+15,Ødegaard,Arsenal,MID,11,NEW (A),0.251,0.304,0.351,4.52,medium
+15,Ødegaard,Arsenal,MID,12,MCI (H),0.186,0.226,0.246,3.85,hard
+15,Ødegaard,Arsenal,MID,13,BRE (A),0.233,0.283,0.311,4.33,medium
+26,Havertz,Arsenal,FWD,9,LIV (A),0.18,0.039,0.315,2.84,medium
+26,Havertz,Arsenal,FWD,10,HUL (H),0.359,0.077,0.571,3.67,easy
+26,Havertz,Arsenal,FWD,11,NEW (A),0.194,0.042,0.351,2.9,medium
+26,Havertz,Arsenal,FWD,12,MCI (H),0.144,0.031,0.246,2.67,hard
+26,Havertz,Arsenal,FWD,13,BRE (A),0.181,0.039,0.311,2.84,medium
+31,Konsa,Arsenal,DEF,9,LIV (A),0.056,0.004,0.315,3.25,medium
+31,Konsa,Arsenal,DEF,10,HUL (H),0.112,0.007,0.571,4.87,easy
+31,Konsa,Arsenal,DEF,11,NEW (A),0.061,0.004,0.351,3.48,medium
+31,Konsa,Arsenal,DEF,12,MCI (H),0.045,0.003,0.246,2.8,hard
+31,Konsa,Arsenal,DEF,13,BRE (A),0.056,0.004,0.311,3.23,medium
+37,Lindelöf,Aston Villa,DEF,9,FUL (H),0.074,0.046,0.314,3.48,medium
+37,Lindelöf,Aston Villa,DEF,10,MUN (A),0.061,0.038,0.161,2.45,hard
+37,Lindelöf,Aston Villa,DEF,11,SUN (H),0.078,0.048,0.347,3.69,medium
+37,Lindelöf,Aston Villa,DEF,12,IPS (A),0.1,0.062,0.368,3.97,easy
+37,Lindelöf,Aston Villa,DEF,13,EVE (H),0.075,0.047,0.306,3.45,medium
+41,Buendía,Aston Villa,MID,9,FUL (H),0.226,0.105,0.314,3.76,medium
+41,Buendía,Aston Villa,MID,10,MUN (A),0.186,0.087,0.161,3.35,hard
+41,Buendía,Aston Villa,MID,11,SUN (H),0.238,0.111,0.347,3.87,medium
+41,Buendía,Aston Villa,MID,12,IPS (A),0.307,0.143,0.368,4.33,easy
+41,Buendía,Aston Villa,MID,13,EVE (H),0.23,0.107,0.306,3.78,medium
+45,McGinn,Aston Villa,MID,9,FUL (H),0.197,0.155,0.314,3.76,medium
+45,McGinn,Aston Villa,MID,10,MUN (A),0.162,0.128,0.161,3.35,hard
+45,McGinn,Aston Villa,MID,11,SUN (H),0.208,0.164,0.347,3.88,medium
+45,McGinn,Aston Villa,MID,12,IPS (A),0.268,0.211,0.368,4.34,easy
+45,McGinn,Aston Villa,MID,13,EVE (H),0.2,0.158,0.306,3.78,medium
+47,Kamara,Aston Villa,MID,9,FUL (H),0.025,0.097,0.314,2.73,medium
+47,Kamara,Aston Villa,MID,10,MUN (A),0.021,0.079,0.161,2.5,hard
+47,Kamara,Aston Villa,MID,11,SUN (H),0.027,0.102,0.347,2.79,medium
+47,Kamara,Aston Villa,MID,12,IPS (A),0.034,0.131,0.368,2.93,easy
+47,Kamara,Aston Villa,MID,13,EVE (H),0.026,0.098,0.306,2.73,medium
+166,N.Jackson,Aston Villa,FWD,9,FUL (H),0.234,0.193,0.314,3.51,medium
+166,N.Jackson,Aston Villa,FWD,10,MUN (A),0.193,0.159,0.161,3.25,hard
+166,N.Jackson,Aston Villa,FWD,11,SUN (H),0.247,0.203,0.347,3.6,medium
+166,N.Jackson,Aston Villa,FWD,12,IPS (A),0.318,0.262,0.368,4.06,easy
+166,N.Jackson,Aston Villa,FWD,13,EVE (H),0.238,0.196,0.306,3.54,medium
+60,Hill,Bournemouth,DEF,9,LEE (H),0.005,0.134,0.217,2.77,hard
+60,Hill,Bournemouth,DEF,10,IPS (A),0.007,0.203,0.343,3.71,easy
+60,Hill,Bournemouth,DEF,11,NFO (H),0.005,0.14,0.261,3.06,medium
+60,Hill,Bournemouth,DEF,12,FUL (A),0.004,0.13,0.24,2.89,hard
+60,Hill,Bournemouth,DEF,13,BHA (H),0.004,0.124,0.208,2.68,hard
+61,Truffert,Bournemouth,DEF,9,LEE (H),0.014,0.126,0.217,2.8,hard
+61,Truffert,Bournemouth,DEF,10,IPS (A),0.021,0.191,0.343,3.76,easy
+61,Truffert,Bournemouth,DEF,11,NFO (H),0.015,0.132,0.261,3.09,medium
+61,Truffert,Bournemouth,DEF,12,FUL (A),0.013,0.122,0.24,2.92,hard
+61,Truffert,Bournemouth,DEF,13,BHA (H),0.013,0.117,0.208,2.72,hard
+64,Smith,Bournemouth,DEF,9,LEE (H),0.056,0.069,0.217,2.88,hard
+64,Smith,Bournemouth,DEF,10,IPS (A),0.084,0.104,0.343,3.87,easy
+64,Smith,Bournemouth,DEF,11,NFO (H),0.058,0.072,0.261,3.17,medium
+64,Smith,Bournemouth,DEF,12,FUL (A),0.054,0.066,0.24,3.0,hard
+64,Smith,Bournemouth,DEF,13,BHA (H),0.051,0.063,0.208,2.78,hard
+67,Rayan,Bournemouth,MID,9,LEE (H),0.17,0.113,0.217,3.41,hard
+67,Rayan,Bournemouth,MID,10,IPS (A),0.257,0.172,0.343,4.14,easy
+67,Rayan,Bournemouth,MID,11,NFO (H),0.177,0.118,0.261,3.5,medium
+67,Rayan,Bournemouth,MID,12,FUL (A),0.164,0.109,0.24,3.39,hard
+67,Rayan,Bournemouth,MID,13,BHA (H),0.156,0.105,0.208,3.3,hard
+68,Tavernier,Bournemouth,MID,9,LEE (H),0.266,0.21,0.217,4.18,hard
+68,Tavernier,Bournemouth,MID,10,IPS (A),0.402,0.317,0.343,5.3,easy
+68,Tavernier,Bournemouth,MID,11,NFO (H),0.277,0.218,0.261,4.3,medium
+68,Tavernier,Bournemouth,MID,12,FUL (A),0.256,0.202,0.24,4.13,hard
+68,Tavernier,Bournemouth,MID,13,BHA (H),0.245,0.193,0.208,4.01,hard
+73,Adams,Bournemouth,MID,9,LEE (H),0.01,0.013,0.217,2.31,hard
+73,Adams,Bournemouth,MID,10,IPS (A),0.015,0.02,0.343,2.48,easy
+73,Adams,Bournemouth,MID,11,NFO (H),0.011,0.014,0.261,2.36,medium
 73,Adams,Bournemouth,MID,12,FUL (A),0.01,0.013,0.24,2.33,hard
-73,Adams,Bournemouth,MID,13,BHA (H),0.009,0.012,0.207,2.29,hard
-79,Evanilson,Bournemouth,FWD,9,LEE (H),0.264,0.163,0.218,3.54,hard
-79,Evanilson,Bournemouth,FWD,10,IPS (A),0.403,0.249,0.344,4.36,easy
-79,Evanilson,Bournemouth,FWD,11,NFO (H),0.275,0.17,0.262,3.61,medium
-79,Evanilson,Bournemouth,FWD,12,FUL (A),0.27,0.167,0.24,3.58,hard
-79,Evanilson,Bournemouth,FWD,13,BHA (H),0.247,0.153,0.207,3.45,hard
-566,Silva,Bournemouth,DEF,9,LEE (H),0.148,0.069,0.218,3.45,hard
-566,Silva,Bournemouth,DEF,10,IPS (A),0.225,0.105,0.344,4.73,easy
-566,Silva,Bournemouth,DEF,11,NFO (H),0.154,0.072,0.262,3.75,medium
-566,Silva,Bournemouth,DEF,12,FUL (A),0.151,0.07,0.24,3.6,hard
-566,Silva,Bournemouth,DEF,13,BHA (H),0.138,0.065,0.207,3.3,hard
-86,Lewis-Potter,Brentford,MID,9,NFO (H),0.148,0.166,0.307,3.55,medium
-86,Lewis-Potter,Brentford,MID,10,BHA (A),0.115,0.13,0.202,3.17,hard
-86,Lewis-Potter,Brentford,MID,11,EVE (H),0.157,0.176,0.323,3.64,medium
-86,Lewis-Potter,Brentford,MID,12,MUN (A),0.127,0.142,0.178,3.24,hard
-86,Lewis-Potter,Brentford,MID,13,ARS (H),0.104,0.117,0.2,3.07,hard
-87,Ajer,Brentford,DEF,9,NFO (H),0.047,0.054,0.307,3.31,medium
-87,Ajer,Brentford,DEF,10,BHA (A),0.037,0.042,0.202,2.6,hard
-87,Ajer,Brentford,DEF,11,EVE (H),0.05,0.058,0.323,3.42,medium
-87,Ajer,Brentford,DEF,12,MUN (A),0.04,0.047,0.178,2.47,hard
-87,Ajer,Brentford,DEF,13,ARS (H),0.033,0.038,0.2,2.55,hard
-105,Anthony,Brentford,MID,9,NFO (H),0.123,0.086,0.307,3.18,medium
-105,Anthony,Brentford,MID,10,BHA (A),0.096,0.067,0.202,2.88,hard
-105,Anthony,Brentford,MID,11,EVE (H),0.13,0.091,0.323,3.25,medium
-105,Anthony,Brentford,MID,12,MUN (A),0.105,0.073,0.178,2.92,hard
-105,Anthony,Brentford,MID,13,ARS (H),0.086,0.06,0.2,2.81,hard
-106,Thiago,Brentford,FWD,9,NFO (H),0.406,0.11,0.307,3.95,medium
-106,Thiago,Brentford,FWD,10,BHA (A),0.316,0.085,0.202,3.52,hard
-106,Thiago,Brentford,FWD,11,EVE (H),0.43,0.116,0.323,4.07,medium
-106,Thiago,Brentford,FWD,12,MUN (A),0.348,0.094,0.178,3.67,hard
-106,Thiago,Brentford,FWD,13,ARS (H),0.285,0.077,0.2,3.37,hard
-113,F.Kadıoğlu,Brighton,DEF,9,MCI (A),0.008,0.019,0.132,1.87,hard
-113,F.Kadıoğlu,Brighton,DEF,10,BRE (H),0.013,0.034,0.27,2.84,medium
-113,F.Kadıoğlu,Brighton,DEF,11,HUL (A),0.02,0.051,0.435,3.8,easy
-113,F.Kadıoğlu,Brighton,DEF,12,NEW (H),0.014,0.036,0.31,3.07,medium
-113,F.Kadıoğlu,Brighton,DEF,13,BOU (A),0.013,0.033,0.267,2.82,medium
-114,Boscagli,Brighton,DEF,9,MCI (A),0.003,0.094,0.132,2.06,hard
-114,Boscagli,Brighton,DEF,10,BRE (H),0.005,0.162,0.27,3.17,medium
-114,Boscagli,Brighton,DEF,11,HUL (A),0.008,0.245,0.435,4.31,easy
-114,Boscagli,Brighton,DEF,12,NEW (H),0.006,0.173,0.31,3.44,medium
-114,Boscagli,Brighton,DEF,13,BOU (A),0.005,0.16,0.267,3.15,medium
-115,De Cuyper,Brighton,DEF,9,MCI (A),0.077,0.112,0.132,2.56,hard
-115,De Cuyper,Brighton,DEF,10,BRE (H),0.133,0.193,0.27,4.03,medium
-115,De Cuyper,Brighton,DEF,11,HUL (A),0.201,0.292,0.435,5.61,easy
-115,De Cuyper,Brighton,DEF,12,NEW (H),0.142,0.206,0.31,4.35,medium
-115,De Cuyper,Brighton,DEF,13,BOU (A),0.131,0.19,0.267,4.0,medium
-116,Dunk,Brighton,DEF,9,MCI (A),0.001,0.009,0.132,1.8,hard
-116,Dunk,Brighton,DEF,10,BRE (H),0.002,0.016,0.27,2.72,medium
-116,Dunk,Brighton,DEF,11,HUL (A),0.003,0.025,0.435,3.62,easy
-116,Dunk,Brighton,DEF,12,NEW (H),0.002,0.017,0.31,2.94,medium
-116,Dunk,Brighton,DEF,13,BOU (A),0.002,0.016,0.267,2.7,medium
-124,Groß,Brighton,MID,9,MCI (A),0.118,0.165,0.132,3.22,hard
-124,Groß,Brighton,MID,10,BRE (H),0.203,0.283,0.27,4.13,medium
-124,Groß,Brighton,MID,11,HUL (A),0.307,0.429,0.435,5.26,easy
-124,Groß,Brighton,MID,12,NEW (H),0.217,0.303,0.31,4.3,medium
-124,Groß,Brighton,MID,13,BOU (A),0.2,0.28,0.267,4.11,medium
-127,Gomez,Brighton,MID,9,MCI (A),0.051,0.089,0.132,2.65,hard
-127,Gomez,Brighton,MID,10,BRE (H),0.088,0.154,0.27,3.17,medium
-127,Gomez,Brighton,MID,11,HUL (A),0.134,0.233,0.435,3.8,easy
-127,Gomez,Brighton,MID,12,NEW (H),0.095,0.164,0.31,3.28,medium
-127,Gomez,Brighton,MID,13,BOU (A),0.087,0.152,0.267,3.16,medium
-129,Ayari,Brighton,MID,9,MCI (A),0.054,0.017,0.132,2.45,hard
-129,Ayari,Brighton,MID,10,BRE (H),0.094,0.03,0.27,2.83,medium
-129,Ayari,Brighton,MID,11,HUL (A),0.141,0.045,0.435,3.27,easy
-129,Ayari,Brighton,MID,12,NEW (H),0.1,0.032,0.31,2.91,medium
-129,Ayari,Brighton,MID,13,BOU (A),0.092,0.029,0.267,2.81,medium
-138,Kostoulas,Brighton,FWD,9,MCI (A),0.086,0.013,0.132,2.38,hard
-138,Kostoulas,Brighton,FWD,10,BRE (H),0.148,0.022,0.27,2.66,medium
-138,Kostoulas,Brighton,FWD,11,HUL (A),0.224,0.034,0.435,3.0,easy
-138,Kostoulas,Brighton,FWD,12,NEW (H),0.158,0.024,0.31,2.7,medium
-138,Kostoulas,Brighton,FWD,13,BOU (A),0.146,0.022,0.267,2.65,medium
-504,Vuskovic,Brighton,DEF,9,MCI (A),0.066,0.02,0.132,2.22,hard
-504,Vuskovic,Brighton,DEF,10,BRE (H),0.114,0.035,0.27,3.45,medium
-504,Vuskovic,Brighton,DEF,11,HUL (A),0.172,0.053,0.435,4.72,easy
-504,Vuskovic,Brighton,DEF,12,NEW (H),0.122,0.038,0.31,3.73,medium
-504,Vuskovic,Brighton,DEF,13,BOU (A),0.113,0.035,0.267,3.42,medium
-40,Rogers,Chelsea,MID,9,MUN (H),0.288,0.298,0.171,4.5,hard
-40,Rogers,Chelsea,MID,10,SUN (A),0.286,0.297,0.263,4.58,medium
-40,Rogers,Chelsea,MID,11,LEE (H),0.281,0.292,0.208,4.49,medium
-40,Rogers,Chelsea,MID,12,NFO (A),0.259,0.268,0.259,4.36,medium
-40,Rogers,Chelsea,MID,13,CRY (H),0.359,0.372,0.268,5.18,medium
-149,Colwill,Chelsea,DEF,9,MUN (H),0.001,0.013,0.171,2.09,hard
-149,Colwill,Chelsea,DEF,10,SUN (A),0.001,0.013,0.263,2.66,medium
-149,Colwill,Chelsea,DEF,11,LEE (H),0.001,0.013,0.208,2.33,medium
-149,Colwill,Chelsea,DEF,12,NFO (A),0.001,0.012,0.259,2.64,medium
-149,Colwill,Chelsea,DEF,13,CRY (H),0.002,0.016,0.268,2.7,medium
-154,Palmer,Chelsea,MID,9,MUN (H),0.196,0.296,0.171,4.04,hard
-154,Palmer,Chelsea,MID,10,SUN (A),0.195,0.294,0.263,4.12,medium
-154,Palmer,Chelsea,MID,11,LEE (H),0.192,0.289,0.208,4.04,medium
-154,Palmer,Chelsea,MID,12,NFO (A),0.176,0.266,0.259,3.94,medium
-154,Palmer,Chelsea,MID,13,CRY (H),0.244,0.369,0.268,4.59,medium
-156,Neto,Chelsea,MID,9,MUN (H),0.159,0.178,0.171,3.5,hard
-156,Neto,Chelsea,MID,10,SUN (A),0.159,0.177,0.263,3.59,medium
-156,Neto,Chelsea,MID,11,LEE (H),0.156,0.174,0.208,3.51,medium
-156,Neto,Chelsea,MID,12,NFO (A),0.143,0.16,0.259,3.45,medium
-156,Neto,Chelsea,MID,13,CRY (H),0.199,0.222,0.268,3.93,medium
-165,João Pedro,Chelsea,FWD,9,MUN (H),0.364,0.068,0.171,3.66,hard
-165,João Pedro,Chelsea,FWD,10,SUN (A),0.362,0.067,0.263,3.65,medium
-165,João Pedro,Chelsea,FWD,11,LEE (H),0.356,0.066,0.208,3.62,medium
-165,João Pedro,Chelsea,FWD,12,NFO (A),0.327,0.061,0.259,3.49,medium
-165,João Pedro,Chelsea,FWD,13,CRY (H),0.454,0.084,0.268,4.07,medium
-200,Lacroix,Chelsea,DEF,9,MUN (H),0.056,0.059,0.171,2.55,hard
-200,Lacroix,Chelsea,DEF,10,SUN (A),0.056,0.059,0.263,3.13,medium
-200,Lacroix,Chelsea,DEF,11,LEE (H),0.055,0.058,0.208,2.79,medium
-200,Lacroix,Chelsea,DEF,12,NFO (A),0.05,0.053,0.259,3.05,medium
-200,Lacroix,Chelsea,DEF,13,CRY (H),0.07,0.073,0.268,3.28,medium
-91,Pinnock,Coventry City,DEF,9,SUN (H),0.023,0.015,0.247,2.71,medium
-91,Pinnock,Coventry City,DEF,10,EVE (A),0.019,0.013,0.162,2.13,hard
-91,Pinnock,Coventry City,DEF,11,CRY (H),0.026,0.017,0.205,2.47,medium
-91,Pinnock,Coventry City,DEF,12,LEE (A),0.017,0.011,0.114,1.75,hard
-91,Pinnock,Coventry City,DEF,13,IPS (H),0.034,0.022,0.272,2.94,easy
-183,Rudoni,Coventry City,MID,9,SUN (H),0.323,0.311,0.247,4.79,medium
-183,Rudoni,Coventry City,MID,10,EVE (A),0.269,0.259,0.162,4.28,hard
-183,Rudoni,Coventry City,MID,11,CRY (H),0.359,0.345,0.205,5.04,medium
-183,Rudoni,Coventry City,MID,12,LEE (A),0.245,0.236,0.114,4.05,hard
-183,Rudoni,Coventry City,MID,13,IPS (H),0.478,0.46,0.272,6.04,easy
-184,Grimes,Coventry City,MID,9,SUN (H),0.027,0.051,0.247,2.53,medium
-184,Grimes,Coventry City,MID,10,EVE (A),0.022,0.043,0.162,2.4,hard
-184,Grimes,Coventry City,MID,11,CRY (H),0.03,0.057,0.205,2.53,medium
-184,Grimes,Coventry City,MID,12,LEE (A),0.02,0.039,0.114,2.33,hard
-184,Grimes,Coventry City,MID,13,IPS (H),0.039,0.076,0.272,2.7,easy
-202,Richards,Crystal Palace,DEF,9,TOT (A),0.014,0.017,0.175,2.21,hard
-202,Richards,Crystal Palace,DEF,10,LIV (H),0.016,0.019,0.155,2.09,hard
-202,Richards,Crystal Palace,DEF,11,COV (A),0.019,0.023,0.165,2.19,hard
-202,Richards,Crystal Palace,DEF,12,HUL (H),0.027,0.033,0.371,3.47,easy
-202,Richards,Crystal Palace,DEF,13,CHE (A),0.016,0.019,0.109,1.73,hard
-203,Canvot,Crystal Palace,DEF,9,TOT (A),0.005,0.022,0.175,2.17,hard
+73,Adams,Bournemouth,MID,13,BHA (H),0.009,0.012,0.208,2.29,hard
+79,Evanilson,Bournemouth,FWD,9,LEE (H),0.266,0.165,0.217,3.56,hard
+79,Evanilson,Bournemouth,FWD,10,IPS (A),0.403,0.249,0.343,4.36,easy
+79,Evanilson,Bournemouth,FWD,11,NFO (H),0.277,0.172,0.261,3.62,medium
+79,Evanilson,Bournemouth,FWD,12,FUL (A),0.257,0.159,0.24,3.5,hard
+79,Evanilson,Bournemouth,FWD,13,BHA (H),0.245,0.152,0.208,3.44,hard
+566,Silva,Bournemouth,DEF,9,LEE (H),0.149,0.07,0.217,3.45,hard
+566,Silva,Bournemouth,DEF,10,IPS (A),0.225,0.105,0.343,4.72,easy
+566,Silva,Bournemouth,DEF,11,NFO (H),0.155,0.072,0.261,3.75,medium
+566,Silva,Bournemouth,DEF,12,FUL (A),0.143,0.067,0.24,3.54,hard
+566,Silva,Bournemouth,DEF,13,BHA (H),0.137,0.064,0.208,3.3,hard
+86,Lewis-Potter,Brentford,MID,9,NFO (H),0.149,0.167,0.305,3.55,medium
+86,Lewis-Potter,Brentford,MID,10,BHA (A),0.115,0.129,0.202,3.16,hard
+86,Lewis-Potter,Brentford,MID,11,EVE (H),0.158,0.177,0.326,3.65,medium
+86,Lewis-Potter,Brentford,MID,12,MUN (A),0.128,0.143,0.178,3.25,hard
+86,Lewis-Potter,Brentford,MID,13,ARS (H),0.103,0.116,0.198,3.06,hard
+87,Ajer,Brentford,DEF,9,NFO (H),0.047,0.055,0.305,3.3,medium
+87,Ajer,Brentford,DEF,10,BHA (A),0.036,0.042,0.202,2.59,hard
+87,Ajer,Brentford,DEF,11,EVE (H),0.05,0.058,0.326,3.44,medium
+87,Ajer,Brentford,DEF,12,MUN (A),0.041,0.047,0.178,2.48,hard
+87,Ajer,Brentford,DEF,13,ARS (H),0.033,0.038,0.198,2.53,hard
+105,Anthony,Brentford,MID,9,NFO (H),0.123,0.086,0.305,3.18,medium
+105,Anthony,Brentford,MID,10,BHA (A),0.095,0.066,0.202,2.88,hard
+105,Anthony,Brentford,MID,11,EVE (H),0.131,0.091,0.326,3.25,medium
+105,Anthony,Brentford,MID,12,MUN (A),0.106,0.074,0.178,2.93,hard
+105,Anthony,Brentford,MID,13,ARS (H),0.085,0.06,0.198,2.8,hard
+106,Thiago,Brentford,FWD,9,NFO (H),0.408,0.11,0.305,3.96,medium
+106,Thiago,Brentford,FWD,10,BHA (A),0.314,0.085,0.202,3.51,hard
+106,Thiago,Brentford,FWD,11,EVE (H),0.432,0.117,0.326,4.08,medium
+106,Thiago,Brentford,FWD,12,MUN (A),0.35,0.095,0.178,3.69,hard
+106,Thiago,Brentford,FWD,13,ARS (H),0.282,0.076,0.198,3.36,hard
+113,F.Kadıoğlu,Brighton,DEF,9,MCI (A),0.008,0.02,0.135,1.89,hard
+113,F.Kadıoğlu,Brighton,DEF,10,BRE (H),0.013,0.034,0.272,2.85,medium
+113,F.Kadıoğlu,Brighton,DEF,11,HUL (A),0.02,0.051,0.438,3.81,easy
+113,F.Kadıoğlu,Brighton,DEF,12,NEW (H),0.014,0.036,0.312,3.08,medium
+113,F.Kadıoğlu,Brighton,DEF,13,BOU (A),0.013,0.033,0.27,2.83,medium
+114,Boscagli,Brighton,DEF,9,MCI (A),0.003,0.098,0.135,2.1,hard
+114,Boscagli,Brighton,DEF,10,BRE (H),0.005,0.162,0.272,3.19,medium
+114,Boscagli,Brighton,DEF,11,HUL (A),0.008,0.245,0.438,4.32,easy
+114,Boscagli,Brighton,DEF,12,NEW (H),0.006,0.173,0.312,3.44,medium
+114,Boscagli,Brighton,DEF,13,BOU (A),0.005,0.159,0.27,3.16,medium
+115,De Cuyper,Brighton,DEF,9,MCI (A),0.081,0.117,0.135,2.62,hard
+115,De Cuyper,Brighton,DEF,10,BRE (H),0.133,0.193,0.272,4.05,medium
+115,De Cuyper,Brighton,DEF,11,HUL (A),0.201,0.292,0.438,5.62,easy
+115,De Cuyper,Brighton,DEF,12,NEW (H),0.142,0.206,0.312,4.36,medium
+115,De Cuyper,Brighton,DEF,13,BOU (A),0.13,0.189,0.27,4.0,medium
+116,Dunk,Brighton,DEF,9,MCI (A),0.001,0.01,0.135,1.82,hard
+116,Dunk,Brighton,DEF,10,BRE (H),0.002,0.016,0.272,2.73,medium
+116,Dunk,Brighton,DEF,11,HUL (A),0.003,0.025,0.438,3.63,easy
+116,Dunk,Brighton,DEF,12,NEW (H),0.002,0.017,0.312,2.95,medium
+116,Dunk,Brighton,DEF,13,BOU (A),0.002,0.016,0.27,2.72,medium
+124,Groß,Brighton,MID,9,MCI (A),0.123,0.172,0.135,3.27,hard
+124,Groß,Brighton,MID,10,BRE (H),0.203,0.283,0.272,4.14,medium
+124,Groß,Brighton,MID,11,HUL (A),0.307,0.429,0.438,5.26,easy
+124,Groß,Brighton,MID,12,NEW (H),0.217,0.303,0.312,4.31,medium
+124,Groß,Brighton,MID,13,BOU (A),0.199,0.278,0.27,4.1,medium
+127,Gomez,Brighton,MID,9,MCI (A),0.054,0.093,0.135,2.68,hard
+127,Gomez,Brighton,MID,10,BRE (H),0.088,0.154,0.272,3.17,medium
+127,Gomez,Brighton,MID,11,HUL (A),0.134,0.233,0.438,3.81,easy
+127,Gomez,Brighton,MID,12,NEW (H),0.095,0.164,0.312,3.28,medium
+127,Gomez,Brighton,MID,13,BOU (A),0.087,0.151,0.27,3.16,medium
+129,Ayari,Brighton,MID,9,MCI (A),0.057,0.018,0.135,2.47,hard
+129,Ayari,Brighton,MID,10,BRE (H),0.094,0.03,0.272,2.83,medium
+129,Ayari,Brighton,MID,11,HUL (A),0.141,0.045,0.438,3.28,easy
+129,Ayari,Brighton,MID,12,NEW (H),0.1,0.032,0.312,2.91,medium
+129,Ayari,Brighton,MID,13,BOU (A),0.092,0.029,0.27,2.82,medium
+138,Kostoulas,Brighton,FWD,9,MCI (A),0.09,0.014,0.135,2.4,hard
+138,Kostoulas,Brighton,FWD,10,BRE (H),0.148,0.022,0.272,2.66,medium
+138,Kostoulas,Brighton,FWD,11,HUL (A),0.224,0.034,0.438,3.0,easy
+138,Kostoulas,Brighton,FWD,12,NEW (H),0.158,0.024,0.312,2.7,medium
+138,Kostoulas,Brighton,FWD,13,BOU (A),0.145,0.022,0.27,2.65,medium
+504,Vuskovic,Brighton,DEF,9,MCI (A),0.069,0.021,0.135,2.26,hard
+504,Vuskovic,Brighton,DEF,10,BRE (H),0.114,0.035,0.272,3.46,medium
+504,Vuskovic,Brighton,DEF,11,HUL (A),0.172,0.053,0.438,4.73,easy
+504,Vuskovic,Brighton,DEF,12,NEW (H),0.122,0.038,0.312,3.73,medium
+504,Vuskovic,Brighton,DEF,13,BOU (A),0.112,0.035,0.27,3.43,medium
+40,Rogers,Chelsea,MID,9,MUN (H),0.284,0.279,0.168,4.42,hard
+40,Rogers,Chelsea,MID,10,SUN (A),0.284,0.279,0.261,4.52,medium
+40,Rogers,Chelsea,MID,11,LEE (H),0.276,0.271,0.205,4.4,medium
+40,Rogers,Chelsea,MID,12,NFO (A),0.258,0.253,0.256,4.31,medium
+40,Rogers,Chelsea,MID,13,CRY (H),0.354,0.347,0.265,5.08,medium
+149,Colwill,Chelsea,DEF,9,MUN (H),0.001,0.053,0.168,2.19,hard
+149,Colwill,Chelsea,DEF,10,SUN (A),0.001,0.053,0.261,2.77,medium
+149,Colwill,Chelsea,DEF,11,LEE (H),0.001,0.051,0.205,2.43,medium
+149,Colwill,Chelsea,DEF,12,NFO (A),0.001,0.048,0.256,2.73,medium
+149,Colwill,Chelsea,DEF,13,CRY (H),0.002,0.066,0.265,2.84,medium
+154,Palmer,Chelsea,MID,9,MUN (H),0.194,0.33,0.168,4.13,hard
+154,Palmer,Chelsea,MID,10,SUN (A),0.194,0.33,0.261,4.22,medium
+154,Palmer,Chelsea,MID,11,LEE (H),0.188,0.32,0.205,4.1,medium
+154,Palmer,Chelsea,MID,12,NFO (A),0.176,0.3,0.256,4.04,medium
+154,Palmer,Chelsea,MID,13,CRY (H),0.241,0.411,0.265,4.7,medium
+156,Neto,Chelsea,MID,9,MUN (H),0.176,0.178,0.168,3.58,hard
+156,Neto,Chelsea,MID,10,SUN (A),0.176,0.178,0.261,3.67,medium
+156,Neto,Chelsea,MID,11,LEE (H),0.171,0.173,0.205,3.58,medium
+156,Neto,Chelsea,MID,12,NFO (A),0.16,0.162,0.256,3.54,medium
+156,Neto,Chelsea,MID,13,CRY (H),0.219,0.222,0.265,4.03,medium
+200,Lacroix,Chelsea,DEF,9,MUN (H),0.056,0.054,0.168,2.52,hard
+200,Lacroix,Chelsea,DEF,10,SUN (A),0.056,0.054,0.261,3.1,medium
+200,Lacroix,Chelsea,DEF,11,LEE (H),0.054,0.053,0.205,2.75,medium
+200,Lacroix,Chelsea,DEF,12,NFO (A),0.051,0.049,0.256,3.03,medium
+200,Lacroix,Chelsea,DEF,13,CRY (H),0.07,0.068,0.265,3.25,medium
+91,Pinnock,Coventry City,DEF,9,SUN (H),0.022,0.013,0.267,2.81,hard
+91,Pinnock,Coventry City,DEF,10,EVE (A),0.018,0.011,0.182,2.26,hard
+91,Pinnock,Coventry City,DEF,11,CRY (H),0.024,0.015,0.224,2.57,hard
+91,Pinnock,Coventry City,DEF,12,LEE (A),0.016,0.01,0.129,1.86,hard
+91,Pinnock,Coventry City,DEF,13,IPS (H),0.032,0.02,0.292,3.03,medium
+183,Rudoni,Coventry City,MID,9,SUN (H),0.258,0.266,0.267,4.36,hard
+183,Rudoni,Coventry City,MID,10,EVE (A),0.216,0.223,0.182,3.93,hard
+183,Rudoni,Coventry City,MID,11,CRY (H),0.288,0.297,0.224,4.55,hard
+183,Rudoni,Coventry City,MID,12,LEE (A),0.196,0.202,0.129,3.72,hard
+183,Rudoni,Coventry City,MID,13,IPS (H),0.385,0.396,0.292,5.4,medium
+184,Grimes,Coventry City,MID,9,SUN (H),0.028,0.057,0.267,2.58,hard
+184,Grimes,Coventry City,MID,10,EVE (A),0.024,0.048,0.182,2.45,hard
+184,Grimes,Coventry City,MID,11,CRY (H),0.031,0.064,0.224,2.57,hard
+184,Grimes,Coventry City,MID,12,LEE (A),0.021,0.044,0.129,2.37,hard
+184,Grimes,Coventry City,MID,13,IPS (H),0.042,0.085,0.292,2.76,medium
+575,Yirenkyi,Coventry City,MID,9,SUN (H),0.003,0.029,0.267,2.37,hard
+575,Yirenkyi,Coventry City,MID,10,EVE (A),0.003,0.024,0.182,2.27,hard
+575,Yirenkyi,Coventry City,MID,11,CRY (H),0.004,0.033,0.224,2.34,hard
+575,Yirenkyi,Coventry City,MID,12,LEE (A),0.003,0.022,0.129,2.21,hard
+575,Yirenkyi,Coventry City,MID,13,IPS (H),0.005,0.043,0.292,2.45,medium
+202,Richards,Crystal Palace,DEF,9,TOT (A),0.014,0.017,0.174,2.2,hard
+202,Richards,Crystal Palace,DEF,10,LIV (H),0.016,0.019,0.155,2.08,hard
+202,Richards,Crystal Palace,DEF,11,COV (A),0.018,0.022,0.237,2.64,hard
+202,Richards,Crystal Palace,DEF,12,HUL (H),0.028,0.033,0.37,3.47,easy
+202,Richards,Crystal Palace,DEF,13,CHE (A),0.016,0.019,0.114,1.77,hard
+203,Canvot,Crystal Palace,DEF,9,TOT (A),0.005,0.021,0.174,2.16,hard
 203,Canvot,Crystal Palace,DEF,10,LIV (H),0.006,0.024,0.155,2.04,hard
-203,Canvot,Crystal Palace,DEF,11,COV (A),0.007,0.03,0.165,2.14,hard
-203,Canvot,Crystal Palace,DEF,12,HUL (H),0.01,0.042,0.371,3.39,easy
-203,Canvot,Crystal Palace,DEF,13,CHE (A),0.006,0.025,0.109,1.68,hard
-204,Mitchell,Crystal Palace,DEF,9,TOT (A),0.08,0.044,0.175,2.68,hard
-204,Mitchell,Crystal Palace,DEF,10,LIV (H),0.087,0.048,0.155,2.6,hard
-204,Mitchell,Crystal Palace,DEF,11,COV (A),0.107,0.059,0.165,2.82,hard
-204,Mitchell,Crystal Palace,DEF,12,HUL (H),0.153,0.083,0.371,4.37,easy
-204,Mitchell,Crystal Palace,DEF,13,CHE (A),0.089,0.049,0.109,2.25,hard
-210,Wharton,Crystal Palace,MID,9,TOT (A),0.015,0.21,0.175,2.88,hard
-210,Wharton,Crystal Palace,MID,10,LIV (H),0.016,0.229,0.155,2.92,hard
-210,Wharton,Crystal Palace,MID,11,COV (A),0.02,0.283,0.165,3.11,hard
-210,Wharton,Crystal Palace,MID,12,HUL (H),0.028,0.402,0.371,3.72,easy
-210,Wharton,Crystal Palace,MID,13,CHE (A),0.016,0.235,0.109,2.89,hard
-211,Yeremy,Crystal Palace,MID,9,TOT (A),0.087,0.125,0.175,2.98,hard
-211,Yeremy,Crystal Palace,MID,10,LIV (H),0.095,0.137,0.155,3.04,hard
-211,Yeremy,Crystal Palace,MID,11,COV (A),0.117,0.169,0.165,3.26,hard
-211,Yeremy,Crystal Palace,MID,12,HUL (H),0.167,0.24,0.371,3.93,easy
-211,Yeremy,Crystal Palace,MID,13,CHE (A),0.097,0.14,0.109,3.01,hard
-214,Kamada,Crystal Palace,MID,9,TOT (A),0.086,0.087,0.175,2.87,hard
-214,Kamada,Crystal Palace,MID,10,LIV (H),0.094,0.095,0.155,2.91,hard
-214,Kamada,Crystal Palace,MID,11,COV (A),0.116,0.117,0.165,3.1,hard
-214,Kamada,Crystal Palace,MID,12,HUL (H),0.164,0.166,0.371,3.69,easy
-214,Kamada,Crystal Palace,MID,13,CHE (A),0.096,0.097,0.109,2.88,hard
-588,Khalaili,Crystal Palace,DEF,9,TOT (A),0.111,0.082,0.175,2.98,hard
-588,Khalaili,Crystal Palace,DEF,10,LIV (H),0.122,0.089,0.155,2.93,hard
-588,Khalaili,Crystal Palace,DEF,11,COV (A),0.15,0.11,0.165,3.23,hard
-588,Khalaili,Crystal Palace,DEF,12,HUL (H),0.213,0.157,0.371,4.95,easy
-588,Khalaili,Crystal Palace,DEF,13,CHE (A),0.124,0.091,0.109,2.59,hard
-229,Tarkowski,Everton,DEF,9,NEW (A),0.017,0.027,0.203,2.43,hard
-229,Tarkowski,Everton,DEF,10,COV (H),0.026,0.04,0.258,2.87,medium
-229,Tarkowski,Everton,DEF,11,BRE (A),0.016,0.025,0.168,2.2,hard
-229,Tarkowski,Everton,DEF,12,LIV (H),0.018,0.028,0.2,2.43,hard
-229,Tarkowski,Everton,DEF,13,AVL (A),0.017,0.026,0.19,2.35,hard
-230,Branthwaite,Everton,DEF,9,NEW (A),0.036,0.011,0.203,2.5,hard
-230,Branthwaite,Everton,DEF,10,COV (H),0.055,0.016,0.258,2.97,medium
-230,Branthwaite,Everton,DEF,11,BRE (A),0.034,0.01,0.168,2.26,hard
-230,Branthwaite,Everton,DEF,12,LIV (H),0.039,0.011,0.2,2.5,hard
-230,Branthwaite,Everton,DEF,13,AVL (A),0.036,0.011,0.19,2.42,hard
-236,Dewsbury-Hall,Everton,MID,9,NEW (A),0.166,0.19,0.203,3.6,hard
-236,Dewsbury-Hall,Everton,MID,10,COV (H),0.249,0.286,0.258,4.36,medium
-236,Dewsbury-Hall,Everton,MID,11,BRE (A),0.155,0.177,0.168,3.47,hard
-236,Dewsbury-Hall,Everton,MID,12,LIV (H),0.177,0.203,0.2,3.69,hard
-236,Dewsbury-Hall,Everton,MID,13,AVL (A),0.164,0.188,0.19,3.57,hard
-239,Garner,Everton,MID,9,NEW (A),0.022,0.078,0.203,2.55,hard
-239,Garner,Everton,MID,10,COV (H),0.033,0.118,0.258,2.78,medium
-239,Garner,Everton,MID,11,BRE (A),0.02,0.073,0.168,2.49,hard
-239,Garner,Everton,MID,12,LIV (H),0.023,0.083,0.2,2.56,hard
-239,Garner,Everton,MID,13,AVL (A),0.022,0.077,0.19,2.53,hard
-244,Armstrong,Everton,MID,9,NEW (A),0.052,0.099,0.203,2.76,hard
-244,Armstrong,Everton,MID,10,COV (H),0.079,0.149,0.258,3.1,medium
-244,Armstrong,Everton,MID,11,BRE (A),0.049,0.092,0.168,2.69,hard
-244,Armstrong,Everton,MID,12,LIV (H),0.056,0.105,0.2,2.8,hard
-244,Armstrong,Everton,MID,13,AVL (A),0.052,0.098,0.19,2.74,hard
-249,Barry,Everton,FWD,9,NEW (A),0.513,0.027,0.203,4.13,hard
-249,Barry,Everton,FWD,10,COV (H),0.772,0.041,0.258,5.21,medium
-249,Barry,Everton,FWD,11,BRE (A),0.479,0.025,0.168,3.99,hard
-249,Barry,Everton,FWD,12,LIV (H),0.547,0.029,0.2,4.28,hard
-249,Barry,Everton,FWD,13,AVL (A),0.509,0.027,0.19,4.12,hard
-254,Robinson,Fulham,DEF,9,AVL (A),0.018,0.033,0.18,2.31,hard
-254,Robinson,Fulham,DEF,10,NEW (H),0.021,0.038,0.239,2.72,hard
-254,Robinson,Fulham,DEF,11,MCI (A),0.011,0.021,0.085,1.48,hard
-254,Robinson,Fulham,DEF,12,BOU (H),0.022,0.04,0.237,2.72,hard
-254,Robinson,Fulham,DEF,13,TOT (A),0.018,0.032,0.211,2.51,hard
-257,Bassey,Fulham,DEF,9,AVL (A),0.03,0.016,0.18,2.33,hard
-257,Bassey,Fulham,DEF,10,NEW (H),0.035,0.019,0.239,2.74,hard
-257,Bassey,Fulham,DEF,11,MCI (A),0.019,0.01,0.085,1.5,hard
-257,Bassey,Fulham,DEF,12,BOU (H),0.037,0.02,0.237,2.75,hard
-257,Bassey,Fulham,DEF,13,TOT (A),0.029,0.016,0.211,2.53,hard
-258,Castagne,Fulham,DEF,9,AVL (A),0.05,0.043,0.18,2.53,hard
-258,Castagne,Fulham,DEF,10,NEW (H),0.057,0.049,0.239,2.97,hard
-258,Castagne,Fulham,DEF,11,MCI (A),0.031,0.027,0.085,1.62,hard
-258,Castagne,Fulham,DEF,12,BOU (H),0.061,0.052,0.237,2.99,hard
-258,Castagne,Fulham,DEF,13,TOT (A),0.049,0.041,0.211,2.72,hard
-261,Iwobi,Fulham,MID,9,AVL (A),0.07,0.268,0.18,3.33,hard
-261,Iwobi,Fulham,MID,10,NEW (H),0.08,0.31,0.239,3.57,hard
-261,Iwobi,Fulham,MID,11,MCI (A),0.043,0.168,0.085,2.8,hard
-261,Iwobi,Fulham,MID,12,BOU (H),0.085,0.328,0.237,3.65,hard
-261,Iwobi,Fulham,MID,13,TOT (A),0.068,0.262,0.211,3.34,hard
-264,Bobb,Fulham,MID,9,AVL (A),0.103,0.13,0.18,3.09,hard
-264,Bobb,Fulham,MID,10,NEW (H),0.119,0.15,0.239,3.28,hard
-264,Bobb,Fulham,MID,11,MCI (A),0.065,0.081,0.085,2.65,hard
-264,Bobb,Fulham,MID,12,BOU (H),0.126,0.159,0.237,3.34,hard
-264,Bobb,Fulham,MID,13,TOT (A),0.101,0.127,0.211,3.1,hard
-265,Berge,Fulham,MID,9,AVL (A),0.022,0.043,0.18,2.42,hard
-265,Berge,Fulham,MID,10,NEW (H),0.025,0.05,0.239,2.51,hard
-265,Berge,Fulham,MID,11,MCI (A),0.014,0.027,0.085,2.24,hard
-265,Berge,Fulham,MID,12,BOU (H),0.027,0.053,0.237,2.53,hard
-265,Berge,Fulham,MID,13,TOT (A),0.021,0.042,0.211,2.44,hard
-268,King,Fulham,MID,9,AVL (A),0.173,0.136,0.18,3.45,hard
-268,King,Fulham,MID,10,NEW (H),0.199,0.157,0.239,3.71,hard
-268,King,Fulham,MID,11,MCI (A),0.108,0.085,0.085,2.88,hard
-268,King,Fulham,MID,12,BOU (H),0.211,0.166,0.237,3.79,hard
-268,King,Fulham,MID,13,TOT (A),0.168,0.133,0.211,3.45,hard
-569,Gonzalo,Fulham,FWD,9,AVL (A),0.295,0.092,0.18,3.46,hard
-569,Gonzalo,Fulham,FWD,10,NEW (H),0.34,0.106,0.239,3.68,hard
-569,Gonzalo,Fulham,FWD,11,MCI (A),0.184,0.057,0.085,2.91,hard
-569,Gonzalo,Fulham,FWD,12,BOU (H),0.36,0.112,0.237,3.78,hard
-569,Gonzalo,Fulham,FWD,13,TOT (A),0.287,0.089,0.211,3.41,hard
-580,Charles,Fulham,MID,9,AVL (A),0.01,0.04,0.18,2.35,hard
-580,Charles,Fulham,MID,10,NEW (H),0.011,0.046,0.239,2.43,hard
-580,Charles,Fulham,MID,11,MCI (A),0.006,0.025,0.085,2.19,hard
-580,Charles,Fulham,MID,12,BOU (H),0.012,0.049,0.237,2.44,hard
-580,Charles,Fulham,MID,13,TOT (A),0.009,0.039,0.211,2.37,hard
-286,Belloumi,Hull City,MID,9,IPS (H),0.176,0.215,0.199,3.72,hard
-286,Belloumi,Hull City,MID,10,ARS (A),0.066,0.081,0.041,2.61,hard
+203,Canvot,Crystal Palace,DEF,11,COV (A),0.007,0.028,0.237,2.59,hard
+203,Canvot,Crystal Palace,DEF,12,HUL (H),0.01,0.042,0.37,3.39,easy
+203,Canvot,Crystal Palace,DEF,13,CHE (A),0.006,0.025,0.114,1.72,hard
+204,Mitchell,Crystal Palace,DEF,9,TOT (A),0.078,0.042,0.174,2.66,hard
+204,Mitchell,Crystal Palace,DEF,10,LIV (H),0.088,0.048,0.155,2.6,hard
+204,Mitchell,Crystal Palace,DEF,11,COV (A),0.101,0.055,0.237,3.23,hard
+204,Mitchell,Crystal Palace,DEF,12,HUL (H),0.153,0.084,0.37,4.37,easy
+204,Mitchell,Crystal Palace,DEF,13,CHE (A),0.09,0.049,0.114,2.3,hard
+210,Wharton,Crystal Palace,MID,9,TOT (A),0.014,0.204,0.174,2.86,hard
+210,Wharton,Crystal Palace,MID,10,LIV (H),0.016,0.231,0.155,2.93,hard
+210,Wharton,Crystal Palace,MID,11,COV (A),0.019,0.267,0.237,3.13,hard
+210,Wharton,Crystal Palace,MID,12,HUL (H),0.028,0.403,0.37,3.72,easy
+210,Wharton,Crystal Palace,MID,13,CHE (A),0.016,0.236,0.114,2.9,hard
+211,Yeremy,Crystal Palace,MID,9,TOT (A),0.085,0.122,0.174,2.96,hard
+211,Yeremy,Crystal Palace,MID,10,LIV (H),0.096,0.138,0.155,3.05,hard
+211,Yeremy,Crystal Palace,MID,11,COV (A),0.111,0.159,0.237,3.27,hard
+211,Yeremy,Crystal Palace,MID,12,HUL (H),0.167,0.241,0.37,3.93,easy
+211,Yeremy,Crystal Palace,MID,13,CHE (A),0.098,0.141,0.114,3.03,hard
+214,Kamada,Crystal Palace,MID,9,TOT (A),0.084,0.084,0.174,2.85,hard
+214,Kamada,Crystal Palace,MID,10,LIV (H),0.095,0.095,0.155,2.92,hard
+214,Kamada,Crystal Palace,MID,11,COV (A),0.109,0.11,0.237,3.11,hard
+214,Kamada,Crystal Palace,MID,12,HUL (H),0.165,0.167,0.37,3.7,easy
+214,Kamada,Crystal Palace,MID,13,CHE (A),0.097,0.098,0.114,2.89,hard
+588,Khalaili,Crystal Palace,DEF,9,TOT (A),0.108,0.08,0.174,2.95,hard
+588,Khalaili,Crystal Palace,DEF,10,LIV (H),0.123,0.09,0.155,2.94,hard
+588,Khalaili,Crystal Palace,DEF,11,COV (A),0.141,0.104,0.237,3.62,hard
+588,Khalaili,Crystal Palace,DEF,12,HUL (H),0.214,0.157,0.37,4.96,easy
+588,Khalaili,Crystal Palace,DEF,13,CHE (A),0.125,0.092,0.114,2.64,hard
+229,Tarkowski,Everton,DEF,9,NEW (A),0.016,0.026,0.202,2.42,hard
+229,Tarkowski,Everton,DEF,10,COV (H),0.022,0.036,0.339,3.28,medium
+229,Tarkowski,Everton,DEF,11,BRE (A),0.015,0.024,0.167,2.18,hard
+229,Tarkowski,Everton,DEF,12,LIV (H),0.017,0.027,0.199,2.41,hard
+229,Tarkowski,Everton,DEF,13,AVL (A),0.016,0.025,0.189,2.33,hard
+230,Branthwaite,Everton,DEF,9,NEW (A),0.028,0.008,0.202,2.44,hard
+230,Branthwaite,Everton,DEF,10,COV (H),0.04,0.012,0.339,3.31,medium
+230,Branthwaite,Everton,DEF,11,BRE (A),0.026,0.008,0.167,2.2,hard
+230,Branthwaite,Everton,DEF,12,LIV (H),0.03,0.009,0.199,2.44,hard
+230,Branthwaite,Everton,DEF,13,AVL (A),0.028,0.008,0.189,2.35,hard
+236,Dewsbury-Hall,Everton,MID,9,NEW (A),0.156,0.172,0.202,3.5,hard
+236,Dewsbury-Hall,Everton,MID,10,COV (H),0.221,0.243,0.339,4.17,medium
+236,Dewsbury-Hall,Everton,MID,11,BRE (A),0.146,0.16,0.167,3.38,hard
+236,Dewsbury-Hall,Everton,MID,12,LIV (H),0.166,0.183,0.199,3.58,hard
+236,Dewsbury-Hall,Everton,MID,13,AVL (A),0.155,0.17,0.189,3.47,hard
+239,Garner,Everton,MID,9,NEW (A),0.023,0.083,0.202,2.57,hard
+239,Garner,Everton,MID,10,COV (H),0.033,0.117,0.339,2.85,medium
+239,Garner,Everton,MID,11,BRE (A),0.022,0.077,0.167,2.51,hard
+239,Garner,Everton,MID,12,LIV (H),0.025,0.088,0.199,2.59,hard
+239,Garner,Everton,MID,13,AVL (A),0.023,0.082,0.189,2.55,hard
+244,Armstrong,Everton,MID,9,NEW (A),0.051,0.113,0.202,2.8,hard
+244,Armstrong,Everton,MID,10,COV (H),0.073,0.159,0.339,3.18,medium
+244,Armstrong,Everton,MID,11,BRE (A),0.048,0.105,0.167,2.72,hard
+244,Armstrong,Everton,MID,12,LIV (H),0.055,0.12,0.199,2.83,hard
+244,Armstrong,Everton,MID,13,AVL (A),0.051,0.112,0.189,2.78,hard
+249,Barry,Everton,FWD,9,NEW (A),0.509,0.026,0.202,4.11,hard
+249,Barry,Everton,FWD,10,COV (H),0.721,0.037,0.339,5.0,medium
+249,Barry,Everton,FWD,11,BRE (A),0.475,0.024,0.167,3.97,hard
+249,Barry,Everton,FWD,12,LIV (H),0.543,0.028,0.199,4.26,hard
+249,Barry,Everton,FWD,13,AVL (A),0.505,0.026,0.189,4.1,hard
+254,Robinson,Fulham,DEF,9,AVL (A),0.017,0.033,0.194,2.4,hard
+254,Robinson,Fulham,DEF,10,NEW (H),0.019,0.038,0.254,2.79,hard
+254,Robinson,Fulham,DEF,11,MCI (A),0.011,0.022,0.096,1.59,hard
+254,Robinson,Fulham,DEF,12,BOU (H),0.021,0.04,0.253,2.81,hard
+254,Robinson,Fulham,DEF,13,TOT (A),0.016,0.031,0.226,2.59,hard
+257,Bassey,Fulham,DEF,9,AVL (A),0.035,0.016,0.194,2.45,hard
+257,Bassey,Fulham,DEF,10,NEW (H),0.04,0.019,0.254,2.86,hard
+257,Bassey,Fulham,DEF,11,MCI (A),0.023,0.011,0.096,1.63,hard
+257,Bassey,Fulham,DEF,12,BOU (H),0.043,0.02,0.253,2.88,hard
+257,Bassey,Fulham,DEF,13,TOT (A),0.033,0.015,0.226,2.64,hard
+258,Castagne,Fulham,DEF,9,AVL (A),0.043,0.054,0.194,2.62,hard
+258,Castagne,Fulham,DEF,10,NEW (H),0.05,0.062,0.254,3.05,hard
+258,Castagne,Fulham,DEF,11,MCI (A),0.028,0.036,0.096,1.73,hard
+258,Castagne,Fulham,DEF,12,BOU (H),0.053,0.066,0.253,3.08,hard
+258,Castagne,Fulham,DEF,13,TOT (A),0.041,0.051,0.226,2.8,hard
+261,Iwobi,Fulham,MID,9,AVL (A),0.077,0.28,0.194,3.42,hard
+261,Iwobi,Fulham,MID,10,NEW (H),0.09,0.326,0.254,3.68,hard
+261,Iwobi,Fulham,MID,11,MCI (A),0.051,0.186,0.096,2.91,hard
+261,Iwobi,Fulham,MID,12,BOU (H),0.095,0.345,0.253,3.76,hard
+261,Iwobi,Fulham,MID,13,TOT (A),0.074,0.268,0.226,3.4,hard
+264,Bobb,Fulham,MID,9,AVL (A),0.103,0.126,0.194,3.09,hard
+264,Bobb,Fulham,MID,10,NEW (H),0.12,0.146,0.254,3.29,hard
+264,Bobb,Fulham,MID,11,MCI (A),0.069,0.083,0.096,2.69,hard
+264,Bobb,Fulham,MID,12,BOU (H),0.127,0.155,0.253,3.35,hard
+264,Bobb,Fulham,MID,13,TOT (A),0.099,0.12,0.226,3.08,hard
+265,Berge,Fulham,MID,9,AVL (A),0.02,0.038,0.194,2.41,hard
+265,Berge,Fulham,MID,10,NEW (H),0.023,0.045,0.254,2.5,hard
+265,Berge,Fulham,MID,11,MCI (A),0.013,0.026,0.096,2.24,hard
+265,Berge,Fulham,MID,12,BOU (H),0.025,0.047,0.253,2.52,hard
+265,Berge,Fulham,MID,13,TOT (A),0.019,0.037,0.226,2.43,hard
+268,King,Fulham,MID,9,AVL (A),0.175,0.132,0.194,3.46,hard
+268,King,Fulham,MID,10,NEW (H),0.204,0.154,0.254,3.74,hard
+268,King,Fulham,MID,11,MCI (A),0.116,0.088,0.096,2.94,hard
+268,King,Fulham,MID,12,BOU (H),0.216,0.163,0.253,3.82,hard
+268,King,Fulham,MID,13,TOT (A),0.168,0.127,0.226,3.45,hard
+569,Gonzalo,Fulham,FWD,9,AVL (A),0.3,0.088,0.194,3.46,hard
+569,Gonzalo,Fulham,FWD,10,NEW (H),0.349,0.103,0.254,3.71,hard
+569,Gonzalo,Fulham,FWD,11,MCI (A),0.199,0.059,0.096,2.97,hard
+569,Gonzalo,Fulham,FWD,12,BOU (H),0.37,0.109,0.253,3.81,hard
+569,Gonzalo,Fulham,FWD,13,TOT (A),0.287,0.085,0.226,3.4,hard
+580,Charles,Fulham,MID,9,AVL (A),0.012,0.049,0.194,2.4,hard
+580,Charles,Fulham,MID,10,NEW (H),0.014,0.057,0.254,2.49,hard
+580,Charles,Fulham,MID,11,MCI (A),0.008,0.032,0.096,2.23,hard
+580,Charles,Fulham,MID,12,BOU (H),0.015,0.06,0.253,2.51,hard
+580,Charles,Fulham,MID,13,TOT (A),0.011,0.047,0.226,2.42,hard
+286,Belloumi,Hull City,MID,9,IPS (H),0.176,0.215,0.197,3.72,hard
+286,Belloumi,Hull City,MID,10,ARS (A),0.065,0.079,0.041,2.6,hard
 286,Belloumi,Hull City,MID,11,BHA (H),0.096,0.117,0.089,2.92,hard
-286,Belloumi,Hull City,MID,12,CRY (A),0.115,0.14,0.105,3.1,hard
-286,Belloumi,Hull City,MID,13,NFO (H),0.108,0.132,0.128,3.06,hard
-290,Slater,Hull City,MID,9,IPS (H),0.053,0.248,0.199,3.21,hard
-290,Slater,Hull City,MID,10,ARS (A),0.02,0.093,0.041,2.42,hard
+286,Belloumi,Hull City,MID,12,CRY (A),0.115,0.14,0.104,3.1,hard
+286,Belloumi,Hull City,MID,13,NFO (H),0.108,0.132,0.127,3.06,hard
+290,Slater,Hull City,MID,9,IPS (H),0.053,0.248,0.197,3.21,hard
+290,Slater,Hull City,MID,10,ARS (A),0.019,0.091,0.041,2.41,hard
 290,Slater,Hull City,MID,11,BHA (H),0.029,0.135,0.089,2.64,hard
-290,Slater,Hull City,MID,12,CRY (A),0.034,0.162,0.105,2.76,hard
-290,Slater,Hull City,MID,13,NFO (H),0.032,0.152,0.128,2.74,hard
-295,McBurnie,Hull City,FWD,9,IPS (H),0.271,0.093,0.199,3.36,hard
-295,McBurnie,Hull City,FWD,10,ARS (A),0.102,0.035,0.041,2.51,hard
+290,Slater,Hull City,MID,12,CRY (A),0.034,0.162,0.104,2.76,hard
+290,Slater,Hull City,MID,13,NFO (H),0.032,0.152,0.127,2.74,hard
+295,McBurnie,Hull City,FWD,9,IPS (H),0.271,0.093,0.197,3.36,hard
+295,McBurnie,Hull City,FWD,10,ARS (A),0.1,0.034,0.041,2.5,hard
 295,McBurnie,Hull City,FWD,11,BHA (H),0.148,0.051,0.089,2.75,hard
-295,McBurnie,Hull City,FWD,12,CRY (A),0.177,0.061,0.105,2.89,hard
-295,McBurnie,Hull City,FWD,13,NFO (H),0.166,0.057,0.128,2.83,hard
-316,Emersonn,Ipswich Town,FWD,9,HUL (A),0.29,0.041,0.219,3.28,medium
-316,Emersonn,Ipswich Town,FWD,10,BOU (H),0.191,0.027,0.117,2.85,hard
-316,Emersonn,Ipswich Town,FWD,11,TOT (A),0.174,0.025,0.098,2.77,hard
-316,Emersonn,Ipswich Town,FWD,12,AVL (H),0.179,0.025,0.108,2.79,hard
-316,Emersonn,Ipswich Town,FWD,13,COV (A),0.233,0.033,0.091,3.03,hard
-591,Enciso,Ipswich Town,MID,9,HUL (A),0.22,0.433,0.219,4.62,medium
-591,Enciso,Ipswich Town,MID,10,BOU (H),0.145,0.286,0.117,3.7,hard
-591,Enciso,Ipswich Town,MID,11,TOT (A),0.132,0.259,0.098,3.54,hard
-591,Enciso,Ipswich Town,MID,12,AVL (H),0.136,0.267,0.108,3.59,hard
-591,Enciso,Ipswich Town,MID,13,COV (A),0.176,0.347,0.091,4.01,hard
-330,Bogle,Leeds,DEF,9,BOU (A),0.191,0.121,0.243,4.01,hard
-330,Bogle,Leeds,DEF,10,TOT (H),0.202,0.128,0.297,4.4,medium
-330,Bogle,Leeds,DEF,11,CHE (A),0.197,0.125,0.176,3.63,hard
-330,Bogle,Leeds,DEF,12,COV (H),0.272,0.173,0.293,4.94,medium
-330,Bogle,Leeds,DEF,13,MCI (A),0.113,0.072,0.114,2.51,hard
-331,Gudmundsson,Leeds,DEF,9,BOU (A),0.006,0.067,0.243,2.74,hard
-331,Gudmundsson,Leeds,DEF,10,TOT (H),0.006,0.071,0.297,3.06,medium
-331,Gudmundsson,Leeds,DEF,11,CHE (A),0.006,0.069,0.176,2.32,hard
-331,Gudmundsson,Leeds,DEF,12,COV (H),0.008,0.095,0.293,3.12,medium
-331,Gudmundsson,Leeds,DEF,13,MCI (A),0.003,0.04,0.114,1.76,hard
-332,Justin,Leeds,DEF,9,BOU (A),0.055,0.171,0.243,3.35,hard
-332,Justin,Leeds,DEF,10,TOT (H),0.058,0.182,0.297,3.7,medium
-332,Justin,Leeds,DEF,11,CHE (A),0.057,0.177,0.176,2.95,hard
-332,Justin,Leeds,DEF,12,COV (H),0.078,0.245,0.293,3.99,medium
-332,Justin,Leeds,DEF,13,MCI (A),0.033,0.102,0.114,2.12,hard
-334,Muharemović,Leeds,DEF,9,BOU (A),0.068,0.11,0.243,3.24,hard
-334,Muharemović,Leeds,DEF,10,TOT (H),0.072,0.117,0.297,3.59,medium
-334,Muharemović,Leeds,DEF,11,CHE (A),0.07,0.114,0.176,2.84,hard
-334,Muharemović,Leeds,DEF,12,COV (H),0.097,0.158,0.293,3.84,medium
-334,Muharemović,Leeds,DEF,13,MCI (A),0.04,0.065,0.114,2.05,hard
-338,Ampadu,Leeds,MID,9,BOU (A),0.013,0.108,0.243,2.63,hard
-338,Ampadu,Leeds,MID,10,TOT (H),0.014,0.115,0.297,2.71,medium
-338,Ampadu,Leeds,MID,11,CHE (A),0.013,0.112,0.176,2.58,hard
-338,Ampadu,Leeds,MID,12,COV (H),0.018,0.155,0.293,2.85,medium
-338,Ampadu,Leeds,MID,13,MCI (A),0.008,0.064,0.114,2.35,hard
-598,Elvedi,Leeds,DEF,9,BOU (A),0.03,0.159,0.243,3.16,hard
-598,Elvedi,Leeds,DEF,10,TOT (H),0.032,0.168,0.297,3.5,medium
-598,Elvedi,Leeds,DEF,11,CHE (A),0.031,0.164,0.176,2.75,hard
-598,Elvedi,Leeds,DEF,12,COV (H),0.043,0.227,0.293,3.72,medium
-598,Elvedi,Leeds,DEF,13,MCI (A),0.018,0.094,0.114,2.01,hard
-356,Virgil,Liverpool,DEF,9,ARS (H),0.024,0.016,0.201,2.44,hard
+295,McBurnie,Hull City,FWD,12,CRY (A),0.177,0.061,0.104,2.89,hard
+295,McBurnie,Hull City,FWD,13,NFO (H),0.166,0.057,0.127,2.83,hard
+316,Emersonn,Ipswich Town,FWD,9,HUL (A),0.29,0.041,0.218,3.28,medium
+316,Emersonn,Ipswich Town,FWD,10,BOU (H),0.191,0.027,0.116,2.85,hard
+316,Emersonn,Ipswich Town,FWD,11,TOT (A),0.168,0.024,0.097,2.74,hard
+316,Emersonn,Ipswich Town,FWD,12,AVL (H),0.179,0.025,0.107,2.79,hard
+316,Emersonn,Ipswich Town,FWD,13,COV (A),0.22,0.031,0.147,2.97,hard
+591,Enciso,Ipswich Town,MID,9,HUL (A),0.22,0.433,0.218,4.62,medium
+591,Enciso,Ipswich Town,MID,10,BOU (H),0.145,0.286,0.116,3.7,hard
+591,Enciso,Ipswich Town,MID,11,TOT (A),0.127,0.251,0.097,3.48,hard
+591,Enciso,Ipswich Town,MID,12,AVL (H),0.136,0.267,0.107,3.59,hard
+591,Enciso,Ipswich Town,MID,13,COV (A),0.167,0.328,0.147,3.97,hard
+330,Bogle,Leeds,DEF,9,BOU (A),0.192,0.122,0.243,4.02,medium
+330,Bogle,Leeds,DEF,10,TOT (H),0.197,0.125,0.295,4.36,medium
+330,Bogle,Leeds,DEF,11,CHE (A),0.198,0.126,0.182,3.69,hard
+330,Bogle,Leeds,DEF,12,COV (H),0.257,0.163,0.375,5.26,easy
+330,Bogle,Leeds,DEF,13,MCI (A),0.118,0.075,0.115,2.56,hard
+331,Gudmundsson,Leeds,DEF,9,BOU (A),0.006,0.067,0.243,2.73,medium
+331,Gudmundsson,Leeds,DEF,10,TOT (H),0.006,0.069,0.295,3.04,medium
+331,Gudmundsson,Leeds,DEF,11,CHE (A),0.006,0.069,0.182,2.36,hard
+331,Gudmundsson,Leeds,DEF,12,COV (H),0.008,0.09,0.375,3.54,easy
+331,Gudmundsson,Leeds,DEF,13,MCI (A),0.004,0.041,0.115,1.77,hard
+332,Justin,Leeds,DEF,9,BOU (A),0.055,0.173,0.243,3.35,medium
+332,Justin,Leeds,DEF,10,TOT (H),0.057,0.177,0.295,3.67,medium
+332,Justin,Leeds,DEF,11,CHE (A),0.057,0.178,0.182,3.0,hard
+332,Justin,Leeds,DEF,12,COV (H),0.074,0.231,0.375,4.36,easy
+332,Justin,Leeds,DEF,13,MCI (A),0.034,0.106,0.115,2.15,hard
+334,Muharemović,Leeds,DEF,9,BOU (A),0.069,0.111,0.243,3.24,medium
+334,Muharemović,Leeds,DEF,10,TOT (H),0.07,0.114,0.295,3.56,medium
+334,Muharemović,Leeds,DEF,11,CHE (A),0.071,0.115,0.182,2.89,hard
+334,Muharemović,Leeds,DEF,12,COV (H),0.092,0.149,0.375,4.22,easy
+334,Muharemović,Leeds,DEF,13,MCI (A),0.042,0.068,0.115,2.08,hard
+338,Ampadu,Leeds,MID,9,BOU (A),0.013,0.109,0.243,2.63,medium
+338,Ampadu,Leeds,MID,10,TOT (H),0.013,0.112,0.295,2.7,medium
+338,Ampadu,Leeds,MID,11,CHE (A),0.013,0.113,0.182,2.59,hard
+338,Ampadu,Leeds,MID,12,COV (H),0.017,0.146,0.375,2.9,easy
+338,Ampadu,Leeds,MID,13,MCI (A),0.008,0.067,0.115,2.36,hard
+598,Elvedi,Leeds,DEF,9,BOU (A),0.03,0.16,0.243,3.16,medium
+598,Elvedi,Leeds,DEF,10,TOT (H),0.031,0.164,0.295,3.48,medium
+598,Elvedi,Leeds,DEF,11,CHE (A),0.031,0.165,0.182,2.8,hard
+598,Elvedi,Leeds,DEF,12,COV (H),0.041,0.214,0.375,4.11,easy
+598,Elvedi,Leeds,DEF,13,MCI (A),0.019,0.098,0.115,2.03,hard
+356,Virgil,Liverpool,DEF,9,ARS (H),0.024,0.016,0.2,2.43,hard
 356,Virgil,Liverpool,DEF,10,CRY (A),0.039,0.025,0.274,2.99,medium
-356,Virgil,Liverpool,DEF,11,MUN (H),0.034,0.022,0.221,2.64,medium
-356,Virgil,Liverpool,DEF,12,EVE (A),0.034,0.022,0.275,2.96,medium
-356,Virgil,Liverpool,DEF,13,SUN (H),0.038,0.025,0.371,3.51,medium
-358,Kerkez,Liverpool,DEF,9,ARS (H),0.006,0.014,0.201,2.32,hard
+356,Virgil,Liverpool,DEF,11,MUN (H),0.034,0.022,0.22,2.63,medium
+356,Virgil,Liverpool,DEF,12,EVE (A),0.034,0.022,0.277,2.97,medium
+356,Virgil,Liverpool,DEF,13,SUN (H),0.038,0.025,0.37,3.5,medium
+358,Kerkez,Liverpool,DEF,9,ARS (H),0.006,0.014,0.2,2.31,hard
 358,Kerkez,Liverpool,DEF,10,CRY (A),0.009,0.022,0.274,2.8,medium
-358,Kerkez,Liverpool,DEF,11,MUN (H),0.008,0.019,0.221,2.47,medium
-358,Kerkez,Liverpool,DEF,12,EVE (A),0.008,0.019,0.275,2.79,medium
-358,Kerkez,Liverpool,DEF,13,SUN (H),0.009,0.022,0.371,3.32,medium
-362,Jacquet,Liverpool,DEF,9,ARS (H),0.026,0.02,0.201,2.46,hard
-362,Jacquet,Liverpool,DEF,10,CRY (A),0.041,0.032,0.274,3.02,medium
-362,Jacquet,Liverpool,DEF,11,MUN (H),0.036,0.028,0.221,2.67,medium
-362,Jacquet,Liverpool,DEF,12,EVE (A),0.036,0.028,0.275,2.99,medium
-362,Jacquet,Liverpool,DEF,13,SUN (H),0.041,0.032,0.371,3.55,medium
-366,Wirtz,Liverpool,MID,9,ARS (H),0.1,0.135,0.201,3.11,hard
-366,Wirtz,Liverpool,MID,10,CRY (A),0.159,0.215,0.274,3.71,medium
-366,Wirtz,Liverpool,MID,11,MUN (H),0.14,0.19,0.221,3.49,medium
-366,Wirtz,Liverpool,MID,12,EVE (A),0.137,0.186,0.275,3.52,medium
-366,Wirtz,Liverpool,MID,13,SUN (H),0.157,0.213,0.371,3.8,medium
-372,Mac Allister,Liverpool,MID,9,ARS (H),0.046,0.094,0.201,2.71,hard
-372,Mac Allister,Liverpool,MID,10,CRY (A),0.073,0.149,0.274,3.09,medium
-372,Mac Allister,Liverpool,MID,11,MUN (H),0.064,0.131,0.221,2.93,medium
-372,Mac Allister,Liverpool,MID,12,EVE (A),0.063,0.129,0.275,2.98,medium
-372,Mac Allister,Liverpool,MID,13,SUN (H),0.072,0.147,0.371,3.17,medium
-379,Isak,Liverpool,FWD,9,ARS (H),0.276,0.012,0.201,3.14,hard
-379,Isak,Liverpool,FWD,10,CRY (A),0.439,0.019,0.274,3.81,medium
-379,Isak,Liverpool,FWD,11,MUN (H),0.387,0.017,0.221,3.6,medium
-379,Isak,Liverpool,FWD,12,EVE (A),0.38,0.017,0.275,3.57,medium
-379,Isak,Liverpool,FWD,13,SUN (H),0.434,0.019,0.371,3.79,medium
-237,Ndiaye,Manchester City,MID,9,BHA (H),0.124,0.11,0.393,3.34,easy
-237,Ndiaye,Manchester City,MID,10,NFO (A),0.125,0.11,0.461,3.42,easy
-237,Ndiaye,Manchester City,MID,11,FUL (H),0.152,0.134,0.48,3.64,easy
-237,Ndiaye,Manchester City,MID,12,ARS (A),0.087,0.077,0.292,2.96,medium
-237,Ndiaye,Manchester City,MID,13,LEE (H),0.134,0.118,0.406,3.43,easy
-388,Guéhi,Manchester City,DEF,9,BHA (H),0.089,0.067,0.393,4.05,easy
-388,Guéhi,Manchester City,DEF,10,NFO (A),0.09,0.068,0.461,4.4,easy
-388,Guéhi,Manchester City,DEF,11,FUL (H),0.109,0.082,0.48,4.65,easy
-388,Guéhi,Manchester City,DEF,12,ARS (A),0.063,0.047,0.292,3.3,medium
-388,Guéhi,Manchester City,DEF,13,LEE (H),0.096,0.072,0.406,4.17,easy
-390,Rúben,Manchester City,DEF,9,BHA (H),0.067,0.145,0.393,4.16,easy
-390,Rúben,Manchester City,DEF,10,NFO (A),0.067,0.146,0.461,4.49,easy
-390,Rúben,Manchester City,DEF,11,FUL (H),0.082,0.178,0.48,4.77,easy
-390,Rúben,Manchester City,DEF,12,ARS (A),0.047,0.102,0.292,3.37,medium
-390,Rúben,Manchester City,DEF,13,LEE (H),0.072,0.156,0.406,4.28,easy
-391,Gvardiol,Manchester City,DEF,9,BHA (H),0.025,0.125,0.393,3.84,easy
-391,Gvardiol,Manchester City,DEF,10,NFO (A),0.025,0.126,0.461,4.18,easy
-391,Gvardiol,Manchester City,DEF,11,FUL (H),0.03,0.153,0.48,4.39,easy
-391,Gvardiol,Manchester City,DEF,12,ARS (A),0.017,0.088,0.292,3.15,medium
-391,Gvardiol,Manchester City,DEF,13,LEE (H),0.026,0.135,0.406,3.94,easy
-411,Haaland,Manchester City,FWD,9,BHA (H),0.669,0.16,0.393,5.16,easy
-411,Haaland,Manchester City,FWD,10,NFO (A),0.673,0.161,0.461,5.17,easy
-411,Haaland,Manchester City,FWD,11,FUL (H),0.818,0.196,0.48,5.86,easy
-411,Haaland,Manchester City,FWD,12,ARS (A),0.47,0.113,0.292,4.22,medium
-411,Haaland,Manchester City,FWD,13,LEE (H),0.719,0.172,0.406,5.39,easy
-481,Anderson,Manchester City,MID,9,BHA (H),0.018,0.079,0.393,2.72,easy
-481,Anderson,Manchester City,MID,10,NFO (A),0.018,0.079,0.461,2.79,easy
-481,Anderson,Manchester City,MID,11,FUL (H),0.022,0.096,0.48,2.88,easy
-481,Anderson,Manchester City,MID,12,ARS (A),0.013,0.055,0.292,2.52,medium
-481,Anderson,Manchester City,MID,13,LEE (H),0.019,0.085,0.406,2.76,easy
-43,Tielemans,Manchester United,MID,9,CHE (A),0.068,0.2,0.168,3.11,hard
+358,Kerkez,Liverpool,DEF,11,MUN (H),0.008,0.019,0.22,2.47,medium
+358,Kerkez,Liverpool,DEF,12,EVE (A),0.008,0.019,0.277,2.8,medium
+358,Kerkez,Liverpool,DEF,13,SUN (H),0.009,0.022,0.37,3.32,medium
+362,Jacquet,Liverpool,DEF,9,ARS (H),0.026,0.02,0.2,2.45,hard
+362,Jacquet,Liverpool,DEF,10,CRY (A),0.042,0.032,0.274,3.03,medium
+362,Jacquet,Liverpool,DEF,11,MUN (H),0.037,0.028,0.22,2.67,medium
+362,Jacquet,Liverpool,DEF,12,EVE (A),0.036,0.028,0.277,3.0,medium
+362,Jacquet,Liverpool,DEF,13,SUN (H),0.041,0.032,0.37,3.54,medium
+366,Wirtz,Liverpool,MID,9,ARS (H),0.099,0.134,0.2,3.1,hard
+366,Wirtz,Liverpool,MID,10,CRY (A),0.159,0.216,0.274,3.72,medium
+366,Wirtz,Liverpool,MID,11,MUN (H),0.141,0.191,0.22,3.5,medium
+366,Wirtz,Liverpool,MID,12,EVE (A),0.137,0.186,0.277,3.52,medium
+366,Wirtz,Liverpool,MID,13,SUN (H),0.157,0.213,0.37,3.79,medium
+372,Mac Allister,Liverpool,MID,9,ARS (H),0.045,0.093,0.2,2.7,hard
+372,Mac Allister,Liverpool,MID,10,CRY (A),0.073,0.15,0.274,3.09,medium
+372,Mac Allister,Liverpool,MID,11,MUN (H),0.065,0.132,0.22,2.94,medium
+372,Mac Allister,Liverpool,MID,12,EVE (A),0.063,0.129,0.277,2.98,medium
+372,Mac Allister,Liverpool,MID,13,SUN (H),0.072,0.147,0.37,3.17,medium
+379,Isak,Liverpool,FWD,9,ARS (H),0.274,0.012,0.2,3.13,hard
+379,Isak,Liverpool,FWD,10,CRY (A),0.441,0.019,0.274,3.82,medium
+379,Isak,Liverpool,FWD,11,MUN (H),0.389,0.017,0.22,3.61,medium
+379,Isak,Liverpool,FWD,12,EVE (A),0.38,0.017,0.277,3.57,medium
+379,Isak,Liverpool,FWD,13,SUN (H),0.434,0.019,0.37,3.79,medium
+237,Ndiaye,Manchester City,MID,9,BHA (H),0.121,0.149,0.379,3.43,easy
+237,Ndiaye,Manchester City,MID,10,NFO (A),0.123,0.151,0.444,3.51,easy
+237,Ndiaye,Manchester City,MID,11,FUL (H),0.142,0.175,0.465,3.7,easy
+237,Ndiaye,Manchester City,MID,12,ARS (A),0.085,0.104,0.275,3.01,hard
+237,Ndiaye,Manchester City,MID,13,LEE (H),0.13,0.161,0.389,3.52,easy
+388,Guéhi,Manchester City,DEF,9,BHA (H),0.077,0.056,0.379,3.88,easy
+388,Guéhi,Manchester City,DEF,10,NFO (A),0.078,0.057,0.444,4.21,easy
+388,Guéhi,Manchester City,DEF,11,FUL (H),0.091,0.065,0.465,4.41,easy
+388,Guéhi,Manchester City,DEF,12,ARS (A),0.054,0.039,0.275,3.13,hard
+388,Guéhi,Manchester City,DEF,13,LEE (H),0.083,0.06,0.389,3.98,easy
+390,Rúben,Manchester City,DEF,9,BHA (H),0.06,0.127,0.379,3.99,easy
+390,Rúben,Manchester City,DEF,10,NFO (A),0.061,0.129,0.444,4.32,easy
+390,Rúben,Manchester City,DEF,11,FUL (H),0.071,0.15,0.465,4.55,easy
+390,Rúben,Manchester City,DEF,12,ARS (A),0.042,0.089,0.275,3.21,hard
+390,Rúben,Manchester City,DEF,13,LEE (H),0.065,0.138,0.389,4.1,easy
+391,Gvardiol,Manchester City,DEF,9,BHA (H),0.075,0.124,0.379,4.07,easy
+391,Gvardiol,Manchester City,DEF,10,NFO (A),0.076,0.126,0.444,4.41,easy
+391,Gvardiol,Manchester City,DEF,11,FUL (H),0.088,0.146,0.465,4.64,easy
+391,Gvardiol,Manchester City,DEF,12,ARS (A),0.052,0.087,0.275,3.26,hard
+391,Gvardiol,Manchester City,DEF,13,LEE (H),0.081,0.134,0.389,4.19,easy
+411,Haaland,Manchester City,FWD,9,BHA (H),0.643,0.123,0.379,4.94,easy
+411,Haaland,Manchester City,FWD,10,NFO (A),0.652,0.125,0.444,4.98,easy
+411,Haaland,Manchester City,FWD,11,FUL (H),0.755,0.145,0.465,5.45,easy
+411,Haaland,Manchester City,FWD,12,ARS (A),0.45,0.086,0.275,4.06,hard
+411,Haaland,Manchester City,FWD,13,LEE (H),0.694,0.133,0.389,5.17,easy
+481,Anderson,Manchester City,MID,9,BHA (H),0.017,0.097,0.379,2.75,easy
+481,Anderson,Manchester City,MID,10,NFO (A),0.017,0.099,0.444,2.83,easy
+481,Anderson,Manchester City,MID,11,FUL (H),0.019,0.115,0.465,2.91,easy
+481,Anderson,Manchester City,MID,12,ARS (A),0.012,0.068,0.275,2.54,hard
+481,Anderson,Manchester City,MID,13,LEE (H),0.018,0.105,0.389,2.79,easy
+43,Tielemans,Manchester United,MID,9,CHE (A),0.069,0.202,0.174,3.13,hard
 43,Tielemans,Manchester United,MID,10,AVL (H),0.07,0.207,0.26,3.23,medium
 43,Tielemans,Manchester United,MID,11,LIV (A),0.058,0.171,0.193,3.0,hard
-43,Tielemans,Manchester United,MID,12,BRE (H),0.066,0.195,0.236,3.15,medium
-43,Tielemans,Manchester United,MID,13,NEW (A),0.062,0.183,0.226,3.08,medium
-417,Dalot,Manchester United,DEF,9,CHE (A),0.026,0.055,0.168,2.35,hard
+43,Tielemans,Manchester United,MID,12,BRE (H),0.067,0.196,0.236,3.16,medium
+43,Tielemans,Manchester United,MID,13,NEW (A),0.063,0.185,0.226,3.1,medium
+417,Dalot,Manchester United,DEF,9,CHE (A),0.026,0.055,0.174,2.38,hard
 417,Dalot,Manchester United,DEF,10,AVL (H),0.027,0.056,0.26,2.93,medium
-417,Dalot,Manchester United,DEF,11,LIV (A),0.022,0.047,0.193,2.47,hard
-417,Dalot,Manchester United,DEF,12,BRE (H),0.025,0.053,0.236,2.77,medium
+417,Dalot,Manchester United,DEF,11,LIV (A),0.022,0.047,0.193,2.46,hard
+417,Dalot,Manchester United,DEF,12,BRE (H),0.025,0.053,0.236,2.76,medium
 417,Dalot,Manchester United,DEF,13,NEW (A),0.024,0.05,0.226,2.69,medium
-418,Maguire,Manchester United,DEF,9,CHE (A),0.039,0.079,0.168,2.5,hard
+418,Maguire,Manchester United,DEF,9,CHE (A),0.039,0.079,0.174,2.53,hard
 418,Maguire,Manchester United,DEF,10,AVL (H),0.04,0.081,0.26,3.08,medium
 418,Maguire,Manchester United,DEF,11,LIV (A),0.033,0.067,0.193,2.59,hard
-418,Maguire,Manchester United,DEF,12,BRE (H),0.038,0.076,0.236,2.92,medium
-418,Maguire,Manchester United,DEF,13,NEW (A),0.035,0.072,0.226,2.82,medium
-426,B.Fernandes,Manchester United,MID,9,CHE (A),0.311,0.265,0.168,4.52,hard
+418,Maguire,Manchester United,DEF,12,BRE (H),0.038,0.077,0.236,2.91,medium
+418,Maguire,Manchester United,DEF,13,NEW (A),0.036,0.072,0.226,2.83,medium
+426,B.Fernandes,Manchester United,MID,9,CHE (A),0.313,0.267,0.174,4.54,hard
 426,B.Fernandes,Manchester United,MID,10,AVL (H),0.322,0.274,0.26,4.69,medium
 426,B.Fernandes,Manchester United,MID,11,LIV (A),0.266,0.226,0.193,4.2,hard
-426,B.Fernandes,Manchester United,MID,12,BRE (H),0.303,0.258,0.236,4.52,medium
-426,B.Fernandes,Manchester United,MID,13,NEW (A),0.285,0.243,0.226,4.38,medium
-427,Mbeumo,Manchester United,MID,9,CHE (A),0.49,0.188,0.168,5.18,hard
+426,B.Fernandes,Manchester United,MID,12,BRE (H),0.304,0.259,0.236,4.53,medium
+426,B.Fernandes,Manchester United,MID,13,NEW (A),0.287,0.244,0.226,4.39,medium
+427,Mbeumo,Manchester United,MID,9,CHE (A),0.493,0.189,0.174,5.21,hard
 427,Mbeumo,Manchester United,MID,10,AVL (H),0.507,0.194,0.26,5.38,medium
 427,Mbeumo,Manchester United,MID,11,LIV (A),0.418,0.16,0.193,4.76,hard
-427,Mbeumo,Manchester United,MID,12,BRE (H),0.477,0.182,0.236,5.17,medium
-427,Mbeumo,Manchester United,MID,13,NEW (A),0.449,0.172,0.226,4.99,medium
-428,Cunha,Manchester United,MID,9,CHE (A),0.083,0.159,0.168,3.06,hard
+427,Mbeumo,Manchester United,MID,12,BRE (H),0.479,0.183,0.236,5.18,medium
+427,Mbeumo,Manchester United,MID,13,NEW (A),0.452,0.173,0.226,5.0,medium
+428,Cunha,Manchester United,MID,9,CHE (A),0.083,0.16,0.174,3.07,hard
 428,Cunha,Manchester United,MID,10,AVL (H),0.085,0.164,0.26,3.18,medium
 428,Cunha,Manchester United,MID,11,LIV (A),0.07,0.136,0.193,2.95,hard
-428,Cunha,Manchester United,MID,12,BRE (H),0.08,0.155,0.236,3.1,medium
+428,Cunha,Manchester United,MID,12,BRE (H),0.081,0.155,0.236,3.11,medium
 428,Cunha,Manchester United,MID,13,NEW (A),0.076,0.146,0.226,3.04,medium
-447,Botman,Newcastle,DEF,9,EVE (H),0.033,0.065,0.299,3.21,medium
-447,Botman,Newcastle,DEF,10,FUL (A),0.03,0.058,0.26,2.95,hard
-447,Botman,Newcastle,DEF,11,ARS (H),0.022,0.043,0.179,2.36,hard
+447,Botman,Newcastle,DEF,9,EVE (H),0.033,0.065,0.301,3.22,medium
+447,Botman,Newcastle,DEF,10,FUL (A),0.028,0.055,0.259,2.93,hard
+447,Botman,Newcastle,DEF,11,ARS (H),0.022,0.042,0.176,2.33,hard
 447,Botman,Newcastle,DEF,12,BHA (A),0.024,0.047,0.181,2.4,hard
-447,Botman,Newcastle,DEF,13,MUN (H),0.031,0.06,0.198,2.59,hard
-449,Hall,Newcastle,DEF,9,EVE (H),0.046,0.197,0.299,3.69,medium
-449,Hall,Newcastle,DEF,10,FUL (A),0.041,0.176,0.26,3.37,hard
-449,Hall,Newcastle,DEF,11,ARS (H),0.031,0.131,0.179,2.68,hard
+447,Botman,Newcastle,DEF,13,MUN (H),0.031,0.06,0.196,2.58,hard
+449,Hall,Newcastle,DEF,9,EVE (H),0.046,0.197,0.301,3.7,medium
+449,Hall,Newcastle,DEF,10,FUL (A),0.04,0.169,0.259,3.34,hard
+449,Hall,Newcastle,DEF,11,ARS (H),0.03,0.13,0.176,2.65,hard
 449,Hall,Newcastle,DEF,12,BHA (A),0.034,0.144,0.181,2.75,hard
-449,Hall,Newcastle,DEF,13,MUN (H),0.043,0.184,0.198,3.03,hard
-453,Barnes,Newcastle,MID,9,EVE (H),0.208,0.237,0.299,4.05,medium
-453,Barnes,Newcastle,MID,10,FUL (A),0.186,0.211,0.26,3.82,hard
-453,Barnes,Newcastle,MID,11,ARS (H),0.138,0.157,0.179,3.34,hard
+449,Hall,Newcastle,DEF,13,MUN (H),0.043,0.184,0.196,3.02,hard
+453,Barnes,Newcastle,MID,9,EVE (H),0.208,0.237,0.301,4.05,medium
+453,Barnes,Newcastle,MID,10,FUL (A),0.178,0.203,0.259,3.76,hard
+453,Barnes,Newcastle,MID,11,ARS (H),0.137,0.155,0.176,3.33,hard
 453,Barnes,Newcastle,MID,12,BHA (A),0.152,0.173,0.181,3.46,hard
-453,Barnes,Newcastle,MID,13,MUN (H),0.194,0.22,0.198,3.83,hard
-459,L.Miley,Newcastle,MID,9,EVE (H),0.009,0.092,0.299,2.62,medium
-459,L.Miley,Newcastle,MID,10,FUL (A),0.008,0.082,0.26,2.55,hard
-459,L.Miley,Newcastle,MID,11,ARS (H),0.006,0.061,0.179,2.39,hard
+453,Barnes,Newcastle,MID,13,MUN (H),0.194,0.22,0.196,3.83,hard
+459,L.Miley,Newcastle,MID,9,EVE (H),0.009,0.092,0.301,2.62,medium
+459,L.Miley,Newcastle,MID,10,FUL (A),0.008,0.079,0.259,2.54,hard
+459,L.Miley,Newcastle,MID,11,ARS (H),0.006,0.06,0.176,2.39,hard
 459,L.Miley,Newcastle,MID,12,BHA (A),0.006,0.067,0.181,2.41,hard
-459,L.Miley,Newcastle,MID,13,MUN (H),0.008,0.086,0.198,2.5,hard
-464,Wissa,Newcastle,FWD,9,EVE (H),0.441,0.06,0.299,3.94,medium
-464,Wissa,Newcastle,FWD,10,FUL (A),0.395,0.054,0.26,3.74,hard
-464,Wissa,Newcastle,FWD,11,ARS (H),0.292,0.04,0.179,3.29,hard
+459,L.Miley,Newcastle,MID,13,MUN (H),0.008,0.086,0.196,2.49,hard
+464,Wissa,Newcastle,FWD,9,EVE (H),0.441,0.06,0.301,3.94,medium
+464,Wissa,Newcastle,FWD,10,FUL (A),0.378,0.051,0.259,3.67,hard
+464,Wissa,Newcastle,FWD,11,ARS (H),0.29,0.039,0.176,3.28,hard
 464,Wissa,Newcastle,FWD,12,BHA (A),0.323,0.044,0.181,3.42,hard
-464,Wissa,Newcastle,FWD,13,MUN (H),0.411,0.056,0.198,3.81,hard
-167,Delap,Nottingham Forest,FWD,9,BRE (A),0.152,0.043,0.186,2.74,hard
-167,Delap,Nottingham Forest,FWD,10,MCI (H),0.101,0.028,0.132,2.49,hard
-167,Delap,Nottingham Forest,FWD,11,BOU (A),0.173,0.049,0.23,2.84,hard
-167,Delap,Nottingham Forest,FWD,12,CHE (H),0.174,0.049,0.201,2.84,hard
-167,Delap,Nottingham Forest,FWD,13,HUL (A),0.266,0.075,0.395,3.29,easy
-201,Muñoz,Nottingham Forest,DEF,9,BRE (A),0.065,0.063,0.186,2.72,hard
-201,Muñoz,Nottingham Forest,DEF,10,MCI (H),0.043,0.041,0.132,2.14,hard
-201,Muñoz,Nottingham Forest,DEF,11,BOU (A),0.074,0.071,0.23,3.08,hard
-201,Muñoz,Nottingham Forest,DEF,12,CHE (H),0.074,0.072,0.201,2.9,hard
-201,Muñoz,Nottingham Forest,DEF,13,HUL (A),0.114,0.11,0.395,4.34,easy
-469,N.Williams,Nottingham Forest,DEF,9,BRE (A),0.055,0.098,0.186,2.77,hard
-469,N.Williams,Nottingham Forest,DEF,10,MCI (H),0.036,0.065,0.132,2.17,hard
-469,N.Williams,Nottingham Forest,DEF,11,BOU (A),0.063,0.111,0.23,3.13,hard
-469,N.Williams,Nottingham Forest,DEF,12,CHE (H),0.063,0.112,0.201,2.96,hard
-469,N.Williams,Nottingham Forest,DEF,13,HUL (A),0.096,0.171,0.395,4.42,easy
-472,Murillo,Nottingham Forest,DEF,9,BRE (A),0.08,0.063,0.186,2.81,hard
-472,Murillo,Nottingham Forest,DEF,10,MCI (H),0.053,0.042,0.132,2.2,hard
-472,Murillo,Nottingham Forest,DEF,11,BOU (A),0.09,0.072,0.23,3.18,hard
-472,Murillo,Nottingham Forest,DEF,12,CHE (H),0.091,0.072,0.201,3.01,hard
-472,Murillo,Nottingham Forest,DEF,13,HUL (A),0.139,0.11,0.395,4.49,easy
-474,Jair Cunha,Nottingham Forest,DEF,9,BRE (A),0.011,0.004,0.186,2.22,hard
-474,Jair Cunha,Nottingham Forest,DEF,10,MCI (H),0.007,0.003,0.132,1.81,hard
-474,Jair Cunha,Nottingham Forest,DEF,11,BOU (A),0.013,0.005,0.23,2.51,hard
-474,Jair Cunha,Nottingham Forest,DEF,12,CHE (H),0.013,0.005,0.201,2.34,hard
-474,Jair Cunha,Nottingham Forest,DEF,13,HUL (A),0.02,0.007,0.395,3.47,easy
-480,Gibbs-White,Nottingham Forest,MID,9,BRE (A),0.142,0.242,0.186,3.62,hard
-480,Gibbs-White,Nottingham Forest,MID,10,MCI (H),0.094,0.16,0.132,3.08,hard
-480,Gibbs-White,Nottingham Forest,MID,11,BOU (A),0.161,0.274,0.23,3.86,hard
-480,Gibbs-White,Nottingham Forest,MID,12,CHE (H),0.162,0.276,0.201,3.84,hard
-480,Gibbs-White,Nottingham Forest,MID,13,HUL (A),0.248,0.422,0.395,4.9,easy
-483,Ndoye,Nottingham Forest,MID,9,BRE (A),0.152,0.135,0.186,3.35,hard
-483,Ndoye,Nottingham Forest,MID,10,MCI (H),0.101,0.089,0.132,2.9,hard
-483,Ndoye,Nottingham Forest,MID,11,BOU (A),0.173,0.153,0.23,3.55,hard
-483,Ndoye,Nottingham Forest,MID,12,CHE (H),0.174,0.154,0.201,3.53,hard
-483,Ndoye,Nottingham Forest,MID,13,HUL (A),0.266,0.236,0.395,4.43,easy
-486,McAtee,Nottingham Forest,MID,9,BRE (A),0.039,0.118,0.186,2.73,hard
-486,McAtee,Nottingham Forest,MID,10,MCI (H),0.026,0.078,0.132,2.5,hard
-486,McAtee,Nottingham Forest,MID,11,BOU (A),0.044,0.134,0.23,2.85,hard
-486,McAtee,Nottingham Forest,MID,12,CHE (H),0.044,0.135,0.201,2.83,hard
-486,McAtee,Nottingham Forest,MID,13,HUL (A),0.068,0.206,0.395,3.35,easy
-558,Schlager,Nottingham Forest,MID,9,BRE (A),0.023,0.042,0.186,2.43,hard
-558,Schlager,Nottingham Forest,MID,10,MCI (H),0.015,0.027,0.132,2.29,hard
-558,Schlager,Nottingham Forest,MID,11,BOU (A),0.027,0.047,0.23,2.51,hard
-558,Schlager,Nottingham Forest,MID,12,CHE (H),0.027,0.048,0.201,2.48,hard
-558,Schlager,Nottingham Forest,MID,13,HUL (A),0.041,0.072,0.395,2.82,easy
-112,Van Hecke,Tottenham Hotspur,DEF,9,CRY (H),0.16,0.151,0.308,4.28,medium
-112,Van Hecke,Tottenham Hotspur,DEF,10,LEE (A),0.112,0.106,0.2,3.23,hard
-112,Van Hecke,Tottenham Hotspur,DEF,11,IPS (H),0.213,0.201,0.38,5.13,easy
-112,Van Hecke,Tottenham Hotspur,DEF,12,SUN (A),0.129,0.121,0.304,3.98,medium
-112,Van Hecke,Tottenham Hotspur,DEF,13,FUL (H),0.142,0.134,0.319,4.18,medium
-401,Marmoush,Tottenham Hotspur,FWD,9,CRY (H),0.073,0.039,0.308,2.41,medium
-401,Marmoush,Tottenham Hotspur,FWD,10,LEE (A),0.051,0.027,0.2,2.29,hard
-401,Marmoush,Tottenham Hotspur,FWD,11,IPS (H),0.097,0.052,0.38,2.54,easy
-401,Marmoush,Tottenham Hotspur,FWD,12,SUN (A),0.059,0.031,0.304,2.33,medium
-401,Marmoush,Tottenham Hotspur,FWD,13,FUL (H),0.065,0.034,0.319,2.36,medium
-455,Tonali,Tottenham Hotspur,MID,9,CRY (H),0.068,0.349,0.308,3.69,medium
-455,Tonali,Tottenham Hotspur,MID,10,LEE (A),0.047,0.245,0.2,3.17,hard
-455,Tonali,Tottenham Hotspur,MID,11,IPS (H),0.09,0.465,0.38,4.23,easy
-455,Tonali,Tottenham Hotspur,MID,12,SUN (A),0.054,0.281,0.304,3.42,medium
-455,Tonali,Tottenham Hotspur,MID,13,FUL (H),0.06,0.311,0.319,3.55,medium
-503,Van de Ven,Tottenham Hotspur,DEF,9,CRY (H),0.114,0.015,0.308,3.6,medium
-503,Van de Ven,Tottenham Hotspur,DEF,10,LEE (A),0.08,0.011,0.2,2.75,hard
-503,Van de Ven,Tottenham Hotspur,DEF,11,IPS (H),0.152,0.021,0.38,4.22,easy
-503,Van de Ven,Tottenham Hotspur,DEF,12,SUN (A),0.091,0.012,0.304,3.43,medium
-503,Van de Ven,Tottenham Hotspur,DEF,13,FUL (H),0.101,0.014,0.319,3.58,medium
-522,Gray,Tottenham Hotspur,MID,9,CRY (H),0.056,0.025,0.308,2.66,medium
-522,Gray,Tottenham Hotspur,MID,10,LEE (A),0.039,0.018,0.2,2.45,hard
-522,Gray,Tottenham Hotspur,MID,11,IPS (H),0.075,0.033,0.38,2.85,easy
-522,Gray,Tottenham Hotspur,MID,12,SUN (A),0.045,0.02,0.304,2.59,medium
-522,Gray,Tottenham Hotspur,MID,13,FUL (H),0.05,0.022,0.319,2.63,medium
-533,Mukiele,Sunderland,DEF,9,COV (A),0.085,0.057,0.198,2.9,hard
-533,Mukiele,Sunderland,DEF,10,CHE (H),0.08,0.054,0.171,2.68,hard
+464,Wissa,Newcastle,FWD,13,MUN (H),0.411,0.056,0.196,3.81,hard
+167,Delap,Nottingham Forest,FWD,9,BRE (A),0.154,0.043,0.185,2.75,hard
+167,Delap,Nottingham Forest,FWD,10,MCI (H),0.105,0.029,0.132,2.51,hard
+167,Delap,Nottingham Forest,FWD,11,BOU (A),0.173,0.049,0.228,2.84,hard
+167,Delap,Nottingham Forest,FWD,12,CHE (H),0.176,0.049,0.204,2.85,hard
+167,Delap,Nottingham Forest,FWD,13,HUL (A),0.267,0.075,0.393,3.29,easy
+201,Muñoz,Nottingham Forest,DEF,9,BRE (A),0.066,0.063,0.185,2.72,hard
+201,Muñoz,Nottingham Forest,DEF,10,MCI (H),0.045,0.043,0.132,2.16,hard
+201,Muñoz,Nottingham Forest,DEF,11,BOU (A),0.074,0.071,0.228,3.07,hard
+201,Muñoz,Nottingham Forest,DEF,12,CHE (H),0.075,0.072,0.204,2.93,hard
+201,Muñoz,Nottingham Forest,DEF,13,HUL (A),0.114,0.11,0.393,4.33,easy
+469,N.Williams,Nottingham Forest,DEF,9,BRE (A),0.056,0.099,0.185,2.77,hard
+469,N.Williams,Nottingham Forest,DEF,10,MCI (H),0.038,0.067,0.132,2.19,hard
+469,N.Williams,Nottingham Forest,DEF,11,BOU (A),0.063,0.111,0.228,3.12,hard
+469,N.Williams,Nottingham Forest,DEF,12,CHE (H),0.064,0.113,0.204,2.98,hard
+469,N.Williams,Nottingham Forest,DEF,13,HUL (A),0.097,0.172,0.393,4.42,easy
+472,Murillo,Nottingham Forest,DEF,9,BRE (A),0.08,0.064,0.185,2.81,hard
+472,Murillo,Nottingham Forest,DEF,10,MCI (H),0.055,0.043,0.132,2.22,hard
+472,Murillo,Nottingham Forest,DEF,11,BOU (A),0.09,0.072,0.228,3.17,hard
+472,Murillo,Nottingham Forest,DEF,12,CHE (H),0.092,0.073,0.204,3.03,hard
+472,Murillo,Nottingham Forest,DEF,13,HUL (A),0.14,0.111,0.393,4.49,easy
+474,Jair Cunha,Nottingham Forest,DEF,9,BRE (A),0.011,0.004,0.185,2.21,hard
+474,Jair Cunha,Nottingham Forest,DEF,10,MCI (H),0.008,0.003,0.132,1.82,hard
+474,Jair Cunha,Nottingham Forest,DEF,11,BOU (A),0.013,0.005,0.228,2.5,hard
+474,Jair Cunha,Nottingham Forest,DEF,12,CHE (H),0.013,0.005,0.204,2.35,hard
+474,Jair Cunha,Nottingham Forest,DEF,13,HUL (A),0.02,0.007,0.393,3.46,easy
+480,Gibbs-White,Nottingham Forest,MID,9,BRE (A),0.143,0.244,0.185,3.63,hard
+480,Gibbs-White,Nottingham Forest,MID,10,MCI (H),0.097,0.166,0.132,3.11,hard
+480,Gibbs-White,Nottingham Forest,MID,11,BOU (A),0.161,0.274,0.228,3.86,hard
+480,Gibbs-White,Nottingham Forest,MID,12,CHE (H),0.163,0.278,0.204,3.85,hard
+480,Gibbs-White,Nottingham Forest,MID,13,HUL (A),0.249,0.424,0.393,4.91,easy
+483,Ndoye,Nottingham Forest,MID,9,BRE (A),0.154,0.136,0.185,3.36,hard
+483,Ndoye,Nottingham Forest,MID,10,MCI (H),0.105,0.093,0.132,2.94,hard
+483,Ndoye,Nottingham Forest,MID,11,BOU (A),0.173,0.153,0.228,3.55,hard
+483,Ndoye,Nottingham Forest,MID,12,CHE (H),0.176,0.155,0.204,3.55,hard
+483,Ndoye,Nottingham Forest,MID,13,HUL (A),0.267,0.237,0.393,4.44,easy
+486,McAtee,Nottingham Forest,MID,9,BRE (A),0.039,0.119,0.185,2.74,hard
+486,McAtee,Nottingham Forest,MID,10,MCI (H),0.027,0.081,0.132,2.51,hard
+486,McAtee,Nottingham Forest,MID,11,BOU (A),0.044,0.134,0.228,2.85,hard
+486,McAtee,Nottingham Forest,MID,12,CHE (H),0.045,0.136,0.204,2.84,hard
+486,McAtee,Nottingham Forest,MID,13,HUL (A),0.068,0.207,0.393,3.35,easy
+558,Schlager,Nottingham Forest,MID,9,BRE (A),0.024,0.042,0.185,2.43,hard
+558,Schlager,Nottingham Forest,MID,10,MCI (H),0.016,0.029,0.132,2.3,hard
+558,Schlager,Nottingham Forest,MID,11,BOU (A),0.027,0.047,0.228,2.5,hard
+558,Schlager,Nottingham Forest,MID,12,CHE (H),0.027,0.048,0.204,2.48,hard
+558,Schlager,Nottingham Forest,MID,13,HUL (A),0.041,0.073,0.393,2.82,easy
+112,Van Hecke,Tottenham Hotspur,DEF,9,CRY (H),0.146,0.143,0.318,4.23,medium
+112,Van Hecke,Tottenham Hotspur,DEF,10,LEE (A),0.102,0.1,0.208,3.2,hard
+112,Van Hecke,Tottenham Hotspur,DEF,11,IPS (H),0.195,0.19,0.39,5.04,easy
+112,Van Hecke,Tottenham Hotspur,DEF,12,SUN (A),0.117,0.114,0.314,3.95,medium
+112,Van Hecke,Tottenham Hotspur,DEF,13,FUL (H),0.125,0.122,0.33,4.1,medium
+401,Marmoush,Tottenham Hotspur,FWD,9,CRY (H),0.114,0.037,0.318,2.57,medium
+401,Marmoush,Tottenham Hotspur,FWD,10,LEE (A),0.079,0.025,0.208,2.39,hard
+401,Marmoush,Tottenham Hotspur,FWD,11,IPS (H),0.151,0.049,0.39,2.75,easy
+401,Marmoush,Tottenham Hotspur,FWD,12,SUN (A),0.091,0.029,0.314,2.45,medium
+401,Marmoush,Tottenham Hotspur,FWD,13,FUL (H),0.097,0.031,0.33,2.48,medium
+455,Tonali,Tottenham Hotspur,MID,9,CRY (H),0.077,0.335,0.318,3.71,medium
+455,Tonali,Tottenham Hotspur,MID,10,LEE (A),0.053,0.233,0.208,3.17,hard
+455,Tonali,Tottenham Hotspur,MID,11,IPS (H),0.102,0.445,0.39,4.23,easy
+455,Tonali,Tottenham Hotspur,MID,12,SUN (A),0.061,0.268,0.314,3.42,medium
+455,Tonali,Tottenham Hotspur,MID,13,FUL (H),0.065,0.285,0.33,3.51,medium
+503,Van de Ven,Tottenham Hotspur,DEF,9,CRY (H),0.109,0.015,0.318,3.62,medium
+503,Van de Ven,Tottenham Hotspur,DEF,10,LEE (A),0.076,0.01,0.208,2.77,hard
+503,Van de Ven,Tottenham Hotspur,DEF,11,IPS (H),0.145,0.02,0.39,4.23,easy
+503,Van de Ven,Tottenham Hotspur,DEF,12,SUN (A),0.087,0.012,0.314,3.46,medium
+503,Van de Ven,Tottenham Hotspur,DEF,13,FUL (H),0.093,0.013,0.33,3.58,medium
+522,Gray,Tottenham Hotspur,MID,9,CRY (H),0.053,0.024,0.318,2.66,medium
+522,Gray,Tottenham Hotspur,MID,10,LEE (A),0.037,0.017,0.208,2.44,hard
+522,Gray,Tottenham Hotspur,MID,11,IPS (H),0.071,0.032,0.39,2.84,easy
+522,Gray,Tottenham Hotspur,MID,12,SUN (A),0.043,0.019,0.314,2.59,medium
+522,Gray,Tottenham Hotspur,MID,13,FUL (H),0.045,0.021,0.33,2.62,medium
+533,Mukiele,Sunderland,DEF,9,COV (A),0.08,0.054,0.274,3.32,hard
+533,Mukiele,Sunderland,DEF,10,CHE (H),0.081,0.054,0.174,2.71,hard
 533,Mukiele,Sunderland,DEF,11,AVL (A),0.064,0.043,0.177,2.6,hard
-533,Mukiele,Sunderland,DEF,12,TOT (H),0.072,0.048,0.248,3.1,hard
-533,Mukiele,Sunderland,DEF,13,LIV (A),0.06,0.04,0.159,2.44,hard
-536,Reinildo,Sunderland,DEF,9,COV (A),0.0,0.048,0.198,2.37,hard
-536,Reinildo,Sunderland,DEF,10,CHE (H),0.0,0.045,0.171,2.18,hard
+533,Mukiele,Sunderland,DEF,12,TOT (H),0.07,0.047,0.246,3.08,hard
+533,Mukiele,Sunderland,DEF,13,LIV (A),0.06,0.041,0.159,2.44,hard
+536,Reinildo,Sunderland,DEF,9,COV (A),0.0,0.045,0.274,2.82,hard
+536,Reinildo,Sunderland,DEF,10,CHE (H),0.0,0.045,0.174,2.2,hard
 536,Reinildo,Sunderland,DEF,11,AVL (A),0.0,0.036,0.177,2.19,hard
-536,Reinildo,Sunderland,DEF,12,TOT (H),0.0,0.04,0.248,2.65,hard
+536,Reinildo,Sunderland,DEF,12,TOT (H),0.0,0.039,0.246,2.64,hard
 536,Reinildo,Sunderland,DEF,13,LIV (A),0.0,0.034,0.159,2.06,hard
-542,E.Le Fée,Sunderland,MID,9,COV (A),0.221,0.312,0.198,4.24,hard
-542,E.Le Fée,Sunderland,MID,10,CHE (H),0.21,0.297,0.171,4.11,hard
+542,E.Le Fée,Sunderland,MID,9,COV (A),0.208,0.294,0.274,4.2,hard
+542,E.Le Fée,Sunderland,MID,10,CHE (H),0.212,0.299,0.174,4.13,hard
 542,E.Le Fée,Sunderland,MID,11,AVL (A),0.167,0.236,0.177,3.72,hard
-542,E.Le Fée,Sunderland,MID,12,TOT (H),0.188,0.265,0.248,3.98,hard
-542,E.Le Fée,Sunderland,MID,13,LIV (A),0.156,0.221,0.159,3.6,hard
-544,Xhaka,Sunderland,MID,9,COV (A),0.017,0.278,0.198,3.12,hard
-544,Xhaka,Sunderland,MID,10,CHE (H),0.016,0.264,0.171,3.04,hard
+542,E.Le Fée,Sunderland,MID,12,TOT (H),0.183,0.259,0.246,3.94,hard
+542,E.Le Fée,Sunderland,MID,13,LIV (A),0.158,0.223,0.159,3.62,hard
+544,Xhaka,Sunderland,MID,9,COV (A),0.016,0.262,0.274,3.14,hard
+544,Xhaka,Sunderland,MID,10,CHE (H),0.016,0.266,0.174,3.05,hard
 544,Xhaka,Sunderland,MID,11,AVL (A),0.013,0.21,0.177,2.87,hard
-544,Xhaka,Sunderland,MID,12,TOT (H),0.014,0.236,0.248,3.03,hard
-544,Xhaka,Sunderland,MID,13,LIV (A),0.012,0.197,0.159,2.81,hard
-545,Sadiki,Sunderland,MID,9,COV (A),0.05,0.07,0.198,2.66,hard
-545,Sadiki,Sunderland,MID,10,CHE (H),0.048,0.067,0.171,2.61,hard
+544,Xhaka,Sunderland,MID,12,TOT (H),0.014,0.23,0.246,3.01,hard
+544,Xhaka,Sunderland,MID,13,LIV (A),0.012,0.199,0.159,2.82,hard
+545,Sadiki,Sunderland,MID,9,COV (A),0.048,0.066,0.274,2.71,hard
+545,Sadiki,Sunderland,MID,10,CHE (H),0.048,0.067,0.174,2.62,hard
 545,Sadiki,Sunderland,MID,11,AVL (A),0.038,0.053,0.177,2.53,hard
-545,Sadiki,Sunderland,MID,12,TOT (H),0.043,0.06,0.248,2.64,hard
+545,Sadiki,Sunderland,MID,12,TOT (H),0.042,0.058,0.246,2.63,hard
 545,Sadiki,Sunderland,MID,13,LIV (A),0.036,0.05,0.159,2.49,hard
-551,N.Angulo,Sunderland,MID,9,COV (A),0.046,0.033,0.198,2.53,hard
-551,N.Angulo,Sunderland,MID,10,CHE (H),0.044,0.032,0.171,2.49,hard
+551,N.Angulo,Sunderland,MID,9,COV (A),0.043,0.031,0.274,2.58,hard
+551,N.Angulo,Sunderland,MID,10,CHE (H),0.044,0.032,0.174,2.49,hard
 551,N.Angulo,Sunderland,MID,11,AVL (A),0.035,0.025,0.177,2.43,hard
-551,N.Angulo,Sunderland,MID,12,TOT (H),0.039,0.028,0.248,2.53,hard
-551,N.Angulo,Sunderland,MID,13,LIV (A),0.032,0.024,0.159,2.39,hard
+551,N.Angulo,Sunderland,MID,12,TOT (H),0.038,0.028,0.246,2.52,hard
+551,N.Angulo,Sunderland,MID,13,LIV (A),0.033,0.024,0.159,2.4,hard
