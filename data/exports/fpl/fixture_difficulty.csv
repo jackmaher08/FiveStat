@@ -14,46 +14,56 @@ Brighton,10,BRE (H),medium,False,False
 Brighton,11,HUL (A),easy,False,False
 Brighton,12,NEW (H),medium,False,False
 Brighton,13,BOU (A),medium,False,False
-Chelsea,9,MUN (H),hard,False,False
-Chelsea,10,SUN (A),medium,False,False
-Chelsea,11,LEE (H),medium,False,False
-Chelsea,12,NFO (A),medium,False,False
-Chelsea,13,CRY (H),medium,False,False
 Liverpool,9,ARS (H),hard,False,False
 Liverpool,10,CRY (A),medium,False,False
 Liverpool,11,MUN (H),medium,False,False
 Liverpool,12,EVE (A),medium,False,False
 Liverpool,13,SUN (H),medium,False,False
-Aston Villa,9,FUL (H),medium,False,False
-Aston Villa,10,MUN (A),hard,False,False
-Aston Villa,11,SUN (H),medium,False,False
-Aston Villa,12,IPS (A),easy,False,False
-Aston Villa,13,EVE (H),medium,False,False
+Chelsea,9,MUN (H),medium,False,False
+Chelsea,10,SUN (A),medium,False,False
+Chelsea,11,LEE (H),medium,False,False
+Chelsea,12,NFO (A),medium,False,False
+Chelsea,13,CRY (H),medium,False,False
 Brentford,9,NFO (H),medium,False,False
 Brentford,10,BHA (A),hard,False,False
 Brentford,11,EVE (H),medium,False,False
 Brentford,12,MUN (A),hard,False,False
 Brentford,13,ARS (H),hard,False,False
-Leeds,9,BOU (A),medium,False,False
+Leeds,9,BOU (A),hard,False,False
 Leeds,10,TOT (H),medium,False,False
 Leeds,11,CHE (A),hard,False,False
 Leeds,12,COV (H),easy,False,False
 Leeds,13,MCI (A),hard,False,False
-Everton,9,NEW (A),hard,False,False
-Everton,10,COV (H),medium,False,False
-Everton,11,BRE (A),hard,False,False
-Everton,12,LIV (H),hard,False,False
-Everton,13,AVL (A),hard,False,False
-Ipswich Town,9,HUL (A),medium,False,False
-Ipswich Town,10,BOU (H),hard,False,False
-Ipswich Town,11,TOT (A),hard,False,False
-Ipswich Town,12,AVL (H),hard,False,False
-Ipswich Town,13,COV (A),hard,False,False
+Newcastle United,9,EVE (H),medium,False,False
+Newcastle United,10,FUL (A),hard,False,False
+Newcastle United,11,ARS (H),hard,False,False
+Newcastle United,12,BHA (A),hard,False,False
+Newcastle United,13,MUN (H),hard,False,False
+Aston Villa,9,FUL (H),medium,False,False
+Aston Villa,10,MUN (A),hard,False,False
+Aston Villa,11,SUN (H),medium,False,False
+Aston Villa,12,IPS (A),easy,False,False
+Aston Villa,13,EVE (H),medium,False,False
 Hull City,9,IPS (H),hard,False,False
 Hull City,10,ARS (A),hard,False,False
 Hull City,11,BHA (H),hard,False,False
 Hull City,12,CRY (A),hard,False,False
 Hull City,13,NFO (H),hard,False,False
+Everton,9,NEW (A),hard,False,False
+Everton,10,COV (H),medium,False,False
+Everton,11,BRE (A),hard,False,False
+Everton,12,LIV (H),hard,False,False
+Everton,13,AVL (A),hard,False,False
+Ipswich Town,9,HUL (A),hard,False,False
+Ipswich Town,10,BOU (H),hard,False,False
+Ipswich Town,11,TOT (A),hard,False,False
+Ipswich Town,12,AVL (H),hard,False,False
+Ipswich Town,13,COV (A),hard,False,False
+Bournemouth,9,LEE (H),hard,False,False
+Bournemouth,10,IPS (A),easy,False,False
+Bournemouth,11,NFO (H),medium,False,False
+Bournemouth,12,FUL (A),hard,False,False
+Bournemouth,13,BHA (H),hard,False,False
 Tottenham Hotspur,9,CRY (H),medium,False,False
 Tottenham Hotspur,10,LEE (A),hard,False,False
 Tottenham Hotspur,11,IPS (H),easy,False,False
@@ -64,26 +74,16 @@ Fulham,10,NEW (H),hard,False,False
 Fulham,11,MCI (A),hard,False,False
 Fulham,12,BOU (H),hard,False,False
 Fulham,13,TOT (A),hard,False,False
-Newcastle United,9,EVE (H),medium,False,False
-Newcastle United,10,FUL (A),hard,False,False
-Newcastle United,11,ARS (H),hard,False,False
-Newcastle United,12,BHA (A),hard,False,False
-Newcastle United,13,MUN (H),hard,False,False
 Manchester United,9,CHE (A),hard,False,False
 Manchester United,10,AVL (H),medium,False,False
 Manchester United,11,LIV (A),hard,False,False
 Manchester United,12,BRE (H),medium,False,False
-Manchester United,13,NEW (A),medium,False,False
+Manchester United,13,NEW (A),hard,False,False
 Crystal Palace,9,TOT (A),hard,False,False
 Crystal Palace,10,LIV (H),hard,False,False
 Crystal Palace,11,COV (A),hard,False,False
 Crystal Palace,12,HUL (H),easy,False,False
 Crystal Palace,13,CHE (A),hard,False,False
-Bournemouth,9,LEE (H),hard,False,False
-Bournemouth,10,IPS (A),easy,False,False
-Bournemouth,11,NFO (H),medium,False,False
-Bournemouth,12,FUL (A),hard,False,False
-Bournemouth,13,BHA (H),hard,False,False
 Nottingham Forest,9,BRE (A),hard,False,False
 Nottingham Forest,10,MCI (H),hard,False,False
 Nottingham Forest,11,BOU (A),hard,False,False
