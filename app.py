@@ -22,6 +22,7 @@ from fpl_projection import (
     eligibility_minutes,
     expected_minutes,
     projected_fpl_points,
+    historical_extra_points,
     projection_confidence,
     select_projection_pool,
 )
@@ -1142,8 +1143,7 @@ def fpl(export_mode=False):
                     mins_scale = exp_mins / 90
                     confidence = projection_confidence(fp["minutes"], games_played, exp_mins)
 
-                    # Per-fixture projections
-                    xa_share = match.get("adj_xa_share", 0)
+                    # Per-fixture projections\n                    bonus_pts, defcon_pts = historical_extra_points(\n                        fp["position"], fp.get("bonus", 0),\n                        fp.get("defensive_contribution", 0),\n                        fp["minutes"], exp_mins,\n                    )\n                    xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
                         # A fixture qualifies only when the player projects for 60+ minutes.
@@ -1156,8 +1156,7 @@ def fpl(export_mode=False):
                             fp["position"], proj_xg, proj_xa, proj_cs,
                             fix.get("fix_xga", 0), exp_mins,
                         )
-                        fix_projections.append({
-                            "gw":       fix["gw"],
+                        proj_fpl = round(proj_fpl + bonus_pts + defcon_pts, 2)\n                        fix_projections.append({\n                            "proj_bonus": bonus_pts,\n                            "proj_defcon": defcon_pts,\n                            "gw":       fix["gw"],
                             "expected_minutes": exp_mins,
                             "label":    f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
                             "proj_xg":  proj_xg,
@@ -1192,7 +1191,7 @@ def fpl(export_mode=False):
                         "ownership":    float(fp["ownership"]),
                         "expected_minutes": exp_mins,
                         "confidence":   confidence,
-                        "ep_next":      float(fp.get("ep_next", 0) or 0),
+                        "ep_next":      float(fp.get("ep_next", 0) or 0),\n                        "proj_bonus":   bonus_pts,\n                        "proj_defcon":  defcon_pts,
                         "gw1_xg":       round(gw1_xg, 3),
                         "gw3_xg":       gw3_xg,
                         "gw5_xg":       gw5_xg,
