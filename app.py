@@ -401,11 +401,7 @@ def generate_single_radar():
 
     ax.text(
         x=0, y=0.05, 
-        s='Metrics show per 90 percentile
-stats compared againt all players
-in The Premier League
-
-@Five_Stat', 
+        s='Metrics show per 90 percentile\nstats compared againt all players\nin The Premier League\n\n@Five_Stat', 
         fontsize=11, ha='left', va='center', transform=ax.transAxes, fontfamily='monospace'
     )
 
