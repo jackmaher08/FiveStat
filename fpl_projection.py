@@ -108,17 +108,31 @@ def historical_extra_points(
     played_minutes: float,
     expected_fixture_minutes: float,
 ) -> tuple[float, float]:
-    """Season-to-date bonus and defensive-contribution points, projected by minutes.
+    """Forecast bonus points and DEFCON points from season-to-date FPL data.
 
-    These are FPL's *awarded points*, not BPS or raw defensive actions.
-    Returns (expected bonus, expected defensive-contribution points).
-    Missing fields should be passed as zero, yielding a conservative estimate.
+    'bonus' is the *awarded points* total. 'defensive_contribution' is the
+    cumulative count of qualifying defensive actions, NOT awarded FPL points.
+    For DEFCON, estimate the probability of crossing the position-specific
+    per-fixture threshold (10 for DEF, 12 for MID/FWD) with a Poisson model.
+    This is a first-order approximation, not a simulation of individual actions.
     """
     if played_minutes <= 0 or expected_fixture_minutes <= 0:
         return (0.0, 0.0)
-    scale = min(max(float(expected_fixture_minutes), 0.0), 90.0) / float(played_minutes)
+    minutes = min(max(float(expected_fixture_minutes), 0.0), 90.0)
+    scale = minutes / float(played_minutes)
     expected_bonus = min(3.0, max(0.0, float(bonus)) * scale)
-    expected_defcon = 0.0 if position == "GK" else min(
-        2.0, max(0.0, float(defensive_contribution)) * scale
-    )
+    if position not in ("DEF", "MID", "FWD"):
+        return round(expected_bonus, 3), 0.0
+    threshold = 10 if position == "DEF" else 12
+    lam = min(100.0, max(0.0, float(defensive_contribution)) * scale)
+    # Stable recurrence for P(X < threshold); handle high means separately.
+    if lam > 40:
+        expected_defcon = 2.0
+    else:
+        probability = math.exp(-lam)
+        below_threshold = probability
+        for k in range(1, threshold):
+            probability *= lam / k
+            below_threshold += probability
+        expected_defcon = 2.0 * max(0.0, 1.0 - below_threshold)
     return round(expected_bonus, 3), round(expected_defcon, 3)
