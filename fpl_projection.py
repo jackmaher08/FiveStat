@@ -100,3 +100,25 @@ def select_projection_pool(players: list[dict], per_team_position: int = 4) -> l
         counts[key] = counts.get(key, 0) + 1
         selected.append(player)
     return selected
+
+def historical_extra_points(
+    position: str,
+    bonus: float,
+    defensive_contribution: float,
+    played_minutes: float,
+    expected_fixture_minutes: float,
+) -> tuple[float, float]:
+    """Season-to-date bonus and defensive-contribution points, projected by minutes.
+
+    These are FPL's *awarded points*, not BPS or raw defensive actions.
+    Returns (expected bonus, expected defensive-contribution points).
+    Missing fields should be passed as zero, yielding a conservative estimate.
+    """
+    if played_minutes <= 0 or expected_fixture_minutes <= 0:
+        return (0.0, 0.0)
+    scale = min(max(float(expected_fixture_minutes), 0.0), 90.0) / float(played_minutes)
+    expected_bonus = min(3.0, max(0.0, float(bonus)) * scale)
+    expected_defcon = 0.0 if position == "GK" else min(
+        2.0, max(0.0, float(defensive_contribution)) * scale
+    )
+    return round(expected_bonus, 3), round(expected_defcon, 3)
