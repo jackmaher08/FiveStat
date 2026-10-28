@@ -22,6 +22,7 @@ from fpl_projection import (
     eligibility_minutes,
     expected_minutes,
     projected_fpl_points,
+    historical_extra_points,
     projection_confidence,
     select_projection_pool,
 )
@@ -1143,6 +1144,11 @@ def fpl(export_mode=False):
                     confidence = projection_confidence(fp["minutes"], games_played, exp_mins)
 
                     # Per-fixture projections
+                    bonus_pts, defcon_pts = historical_extra_points(
+                        fp["position"], fp.get("bonus", 0),
+                        fp.get("defensive_contribution", 0),
+                        fp["minutes"], exp_mins,
+                    )
                     xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
@@ -1156,7 +1162,10 @@ def fpl(export_mode=False):
                             fp["position"], proj_xg, proj_xa, proj_cs,
                             fix.get("fix_xga", 0), exp_mins,
                         )
+                        proj_fpl = round(proj_fpl + bonus_pts + defcon_pts, 2)
                         fix_projections.append({
+                            "proj_bonus": bonus_pts,
+                            "proj_defcon": defcon_pts,
                             "gw":       fix["gw"],
                             "expected_minutes": exp_mins,
                             "label":    f"{fix['opp']} ({'H' if fix['is_home'] else 'A'})",
@@ -1193,6 +1202,8 @@ def fpl(export_mode=False):
                         "expected_minutes": exp_mins,
                         "confidence":   confidence,
                         "ep_next":      float(fp.get("ep_next", 0) or 0),
+                        "proj_bonus":   bonus_pts,
+                        "proj_defcon":  defcon_pts,
                         "gw1_xg":       round(gw1_xg, 3),
                         "gw3_xg":       gw3_xg,
                         "gw5_xg":       gw5_xg,

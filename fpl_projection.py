@@ -100,3 +100,39 @@ def select_projection_pool(players: list[dict], per_team_position: int = 4) -> l
         counts[key] = counts.get(key, 0) + 1
         selected.append(player)
     return selected
+
+def historical_extra_points(
+    position: str,
+    bonus: float,
+    defensive_contribution: float,
+    played_minutes: float,
+    expected_fixture_minutes: float,
+) -> tuple[float, float]:
+    """Forecast bonus points and DEFCON points from season-to-date FPL data.
+
+    'bonus' is the *awarded points* total. 'defensive_contribution' is the
+    cumulative count of qualifying defensive actions, NOT awarded FPL points.
+    For DEFCON, estimate the probability of crossing the position-specific
+    per-fixture threshold (10 for DEF, 12 for MID/FWD) with a Poisson model.
+    This is a first-order approximation, not a simulation of individual actions.
+    """
+    if played_minutes <= 0 or expected_fixture_minutes <= 0:
+        return (0.0, 0.0)
+    minutes = min(max(float(expected_fixture_minutes), 0.0), 90.0)
+    scale = minutes / float(played_minutes)
+    expected_bonus = min(3.0, max(0.0, float(bonus)) * scale)
+    if position not in ("DEF", "MID", "FWD"):
+        return round(expected_bonus, 3), 0.0
+    threshold = 10 if position == "DEF" else 12
+    lam = min(100.0, max(0.0, float(defensive_contribution)) * scale)
+    # Stable recurrence for P(X < threshold); handle high means separately.
+    if lam > 40:
+        expected_defcon = 2.0
+    else:
+        probability = math.exp(-lam)
+        below_threshold = probability
+        for k in range(1, threshold):
+            probability *= lam / k
+            below_threshold += probability
+        expected_defcon = 2.0 * max(0.0, 1.0 - below_threshold)
+    return round(expected_bonus, 3), round(expected_defcon, 3)

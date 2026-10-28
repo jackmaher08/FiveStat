@@ -839,6 +839,8 @@ try:
             "goals":        int(p["goals_scored"]),
             "assists":      int(p["assists"]),
             "clean_sheets": int(p["clean_sheets"]),
+            "bonus":        int(p.get("bonus", 0) or 0),
+            "defensive_contribution": int(p.get("defensive_contribution", 0) or 0),
             "status":       p["status"],
             "chance_of_playing_next_round": p.get("chance_of_playing_next_round"),
             "news":         p.get("news", ""),

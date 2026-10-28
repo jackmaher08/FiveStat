@@ -132,7 +132,7 @@
                         {% endif %}
                         <td class="fpl-pts-val" data-gw1="{{ pick.gw1_pts }}" data-gw3="{{ pick.gw3_pts }}" data-gw5="{{ pick.gw5_pts }}">
                             <span class="fpl-pts-main">{{ "%.1f"|format(pick.gw1_pts) }}</span>
-                            <span class="fpl-ep-sub">FPL: {{ pick.ep_next }}</span>
+                            <span class="fpl-ep-sub" title="Official FPL expected points (separate from FiveStat model)">FPL: {{ pick.ep_next }}</span>
                         </td>
                         <td class="fpl-price">£{{ pick.price }}m</td>
                         <td>
