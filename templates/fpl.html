@@ -89,7 +89,7 @@
             <select id="fpl-team-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All clubs</option>{% for club in captain_picks | map(attribute="team") | unique | sort %}<option value="{{ club }}">{{ club }}</option>{% endfor %}</select>
             <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
         </div>
-        <p class="fpl-freshness">Updated {{ captaincy_updated_at }} · projections exclude bonus, cards and other low-frequency scoring events.</p>
+        <p class="fpl-freshness">· Updated {{ captaincy_updated_at }} ·</p>
         {% if captain_picks %}
         <div class="fpl-table-wrap">
             <table class="fpl-cap-table">
