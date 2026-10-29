@@ -181,6 +181,10 @@
         {% endif %}
     </div>
 
+    {# ── Newsletter after the main player projections ── #}
+    {% set newsletter_source = 'fpl' %}
+    {% include "_newsletter_cta.html" %}
+
     {# ── Team xGA Chart ── #}
     {% if xga_data %}
     <div class="fpl-section">
@@ -220,6 +224,9 @@
     {% endif %}
 
 
+
+    {# ── Season performance: same chart and data as the Premier League page ── #}
+    {% include "_actual_vs_expected.html" %}
 
     {# ── Fixture Difficulty ── #}
     {% if fixture_ticker %}
@@ -281,7 +288,7 @@
     <p><strong>Why might a player be missing?</strong><br>
     A player may be absent if they have insufficient minutes for the current stage of the season, are unavailable, project below 60 minutes per fixture, have no upcoming fixture data, or lack enough attacking data for a meaningful projection.</p>
     <p><strong>How are projections calculated?</strong><br>
-    Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Bonus, cards and other low-frequency events are not yet included.</p>
+    Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Historical bonus and defensive contribution estimates are included where data is available; cards and other rare events are not yet modelled.</p>
     <p><strong>What does the Differentials tab show?</strong><br>
     The Differentials tab filters the list to players with an FPL ownership below 15% — useful for identifying high-upside picks that most managers won't have.</p>
 </div>
@@ -291,6 +298,9 @@
 
 {% block extra_scripts %}
 <script>
+{% include "_actual_vs_expected_script.html" %}
+document.addEventListener('DOMContentLoaded', ensureActualVsExpectedChart);
+
 gtag('event', 'fpl_view', { event_category: 'Engagement' });
 
 const capData = {{ captain_picks | tojson }};

@@ -1,0 +1,167 @@
+    const actualVsExpectedData = {{ (actual_vs_expected or {}) | tojson }};
+    let actualVsExpectedChart = null;
+    let actualVsExpectedView = 'scoring';
+
+    const actualVsExpectedDeltaLabels = {
+        id: 'actualVsExpectedDeltaLabels',
+        afterDatasetsDraw: function(chart) {
+            const view = actualVsExpectedData[actualVsExpectedView];
+            if (!view || !view.rows.length) return;
+
+            const meta = chart.getDatasetMeta(1);
+            const xScale = chart.scales.x;
+            const ctx = chart.ctx;
+            ctx.save();
+            ctx.font = '700 11px Barlow, sans-serif';
+            ctx.textBaseline = 'middle';
+
+            view.rows.forEach(function(row, index) {
+                const bar = meta.data[index];
+                if (!bar) return;
+                const edge = xScale.getPixelForValue(Math.max(row.actual, row.expected));
+                const text = (row.difference > 0 ? '+' : '') + row.difference.toFixed(1);
+                const width = ctx.measureText(text).width;
+                const x = Math.min(edge + 7, chart.chartArea.right - width);
+                ctx.fillStyle = row.status === 'above'
+                    ? '#167a5b'
+                    : row.status === 'below' ? '#a64040' : '#8a6900';
+                ctx.fillText(text, x, bar.y);
+            });
+            ctx.restore();
+        }
+    };
+
+    function actualVsExpectedColor(status) {
+        if (status === 'above') return '#1D9E75';
+        if (status === 'below') return '#C95F5F';
+        return '#D9A300';
+    }
+
+    function actualVsExpectedNumber(value) {
+        return Number.isInteger(value) ? value.toFixed(0) : value.toFixed(1);
+    }
+
+    function renderActualVsExpectedChart(viewName) {
+        const canvas = document.getElementById('actualVsExpectedChart');
+        const view = actualVsExpectedData[viewName];
+        if (!canvas || !view || !view.rows.length || typeof Chart === 'undefined') return;
+
+        actualVsExpectedView = viewName;
+        const rows = view.rows;
+        const isMobileChart = window.matchMedia('(max-width: 700px)').matches;
+        const description = document.getElementById('ave-description');
+        if (description) description.textContent = view.explanation;
+
+        canvas.setAttribute(
+            'aria-label',
+            'Premier League team ' + view.actual_label.toLowerCase() +
+            ' compared with ' + view.expected_label.toLowerCase()
+        );
+
+        if (actualVsExpectedChart) actualVsExpectedChart.destroy();
+
+        actualVsExpectedChart = new Chart(canvas.getContext('2d'), {
+            type: 'bar',
+            plugins: [actualVsExpectedDeltaLabels],
+            data: {
+                labels: rows.map(function(row) { return row.label; }),
+                datasets: [
+                    {
+                        label: view.expected_label,
+                        data: rows.map(function(row) { return row.expected; }),
+                        backgroundColor: 'rgba(137, 143, 139, 0.24)',
+                        borderColor: 'rgba(137, 143, 139, 0.42)',
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        barThickness: 19,
+                        grouped: false,
+                        order: 2
+                    },
+                    {
+                        label: view.actual_label,
+                        data: rows.map(function(row) { return row.actual; }),
+                        backgroundColor: rows.map(function(row) {
+                            return actualVsExpectedColor(row.status);
+                        }),
+                        borderRadius: 5,
+                        barThickness: 11,
+                        grouped: false,
+                        order: 1
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                events: isMobileChart
+                    ? []
+                    : ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove'],
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { right: 42 } },
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: !isMobileChart,
+                        callbacks: {
+                            title: function(items) {
+                                return items.length ? items[0].label : '';
+                            },
+                            label: function(context) {
+                                return context.dataset.label + ': ' +
+                                    actualVsExpectedNumber(Number(context.raw));
+                            },
+                            afterBody: function(items) {
+                                if (!items.length) return [];
+                                const row = rows[items[0].dataIndex];
+                                return [
+                                    'Matches played: ' + row.matches,
+                                    view.difference_label + ': ' +
+                                        (row.difference > 0 ? '+' : '') + row.difference.toFixed(1),
+                                    view.actual_label + ' per match: ' + row.actual_per_match.toFixed(2),
+                                    view.expected_label + ' per match: ' + row.expected_per_match.toFixed(2)
+                                ];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grace: '14%',
+                        title: {
+                            display: true,
+                            text: view.axis_label,
+                            color: '#7b7e7a',
+                            font: { family: 'Barlow, sans-serif', size: 11 }
+                        },
+                        grid: { color: 'rgba(0,0,0,0.055)' },
+                        ticks: { color: '#7b7e7a', precision: 0 }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#343735',
+                            autoSkip: false,
+                            font: { family: 'Barlow Condensed, sans-serif', size: 12, weight: '600' }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    function ensureActualVsExpectedChart() {
+        if (!actualVsExpectedChart) renderActualVsExpectedChart(actualVsExpectedView);
+        else actualVsExpectedChart.resize();
+    }
+
+    function setActualVsExpectedView(viewName) {
+        document.querySelectorAll('.ave-toggle').forEach(function(button) {
+            const active = button.dataset.view === viewName;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        renderActualVsExpectedChart(viewName);
+    }
+

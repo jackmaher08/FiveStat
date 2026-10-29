@@ -822,6 +822,10 @@ def fpl(export_mode=False):
         league_df  = pd.read_csv("data/tables/league_table_data.csv")
         teams      = league_df["Team"].tolist()
         team_rank  = {row["Team"]: idx + 1 for idx, row in league_df.iterrows()}
+        actual_vs_expected = build_actual_vs_expected(
+            league_df.to_dict(orient="records"),
+            display_names={team: TEAM_NAME_MAPPING.get(team, team) for team in teams},
+        )
 
         upcoming_df = fixtures_df[
             (fixtures_df["isResult"] == False) &
@@ -1287,6 +1291,7 @@ def fpl(export_mode=False):
 
         context = dict(
             all_player_projections=all_player_projections,
+            actual_vs_expected=actual_vs_expected,
             cs_data=cs_data,
             xg_data=xg_data,
             xga_data=xga_data,
@@ -1310,6 +1315,7 @@ def fpl(export_mode=False):
         print(f"❌ FPL page error: {e}")
         import traceback; traceback.print_exc()
         return render_template("fpl.html",
+            actual_vs_expected=None,
             cs_data=[], xg_data=[], xga_data=[], fixture_ticker=[], captain_picks=[],
             captaincy_status="error",
             captaincy_message="Player projections are temporarily unavailable while the latest data is checked.",

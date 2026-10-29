@@ -22,12 +22,45 @@
     <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon-192.png') }}">
 
     {# ── Google Analytics ── #}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-SQPCR3KM4Y');
+        // The site owner's testing browsers can opt out without excluding real users
+        // on the same Wi-Fi. Works before GA4 loads, including for custom events.
+        (function () {
+            var setting = new URLSearchParams(window.location.search).get('fivestat_analytics');
+            try {
+                if (setting === 'off') localStorage.setItem('fivestat_analytics_disabled', '1');
+                if (setting === 'on') localStorage.removeItem('fivestat_analytics_disabled');
+            } catch (e) {
+                // Private browsing may disable localStorage; still honour this page's choice.
+            }
+
+            if (setting === 'on' || setting === 'off') {
+                var cleanUrl = new URL(window.location.href);
+                cleanUrl.searchParams.delete('fivestat_analytics');
+                history.replaceState(history.state, '', cleanUrl.pathname + cleanUrl.search + cleanUrl.hash);
+            }
+
+            var disabled = setting === 'off';
+            try {
+                disabled = localStorage.getItem('fivestat_analytics_disabled') === '1';
+            } catch (e) {
+                disabled = setting === 'off';
+            }
+            window.fivestatAnalyticsEnabled = !disabled;
+            window['ga-disable-G-SQPCR3KM4Y'] = disabled;
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () {
+                if (window.fivestatAnalyticsEnabled) window.dataLayer.push(arguments);
+            };
+            if (!disabled) {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-SQPCR3KM4Y';
+                document.head.appendChild(script);
+                gtag('js', new Date());
+                gtag('config', 'G-SQPCR3KM4Y');
+            }
+        })();
     </script>
 
     {# ── Global stylesheets ── #}
@@ -142,6 +175,19 @@
         <span>Newsletter</span>
     </a>
     {% endif %}
+
+    <script>
+        // Clicks are intent signals, NOT confirmed MailerLite subscriptions.
+        document.addEventListener('click', function (event) {
+            var link = event.target.closest && event.target.closest('.newsletter-cta-link');
+            if (link && typeof gtag === 'function') {
+                gtag('event', 'newsletter_cta_click', {
+                    cta_location: link.getAttribute('data-newsletter-source'),
+                    event_category: 'newsletter'
+                });
+            }
+        });
+    </script>
 
     {# ════════════════════════════════════════
        FOOTER
