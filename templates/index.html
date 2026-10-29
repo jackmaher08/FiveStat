@@ -184,6 +184,30 @@
         </div>
         <p class="lp-newsletter-privacy">One email a week. Unsubscribe at any time. See our <a href="/privacy.html">Privacy Policy</a>.</p>
     </section>
+    <script>
+        // Observing/using the embedded form is distinct from a confirmed signup.
+        document.addEventListener('DOMContentLoaded', function () {
+            var container = document.querySelector('.lp-newsletter-form');
+            if (!container || typeof gtag !== 'function') return;
+            var interacted = false;
+            function trackInteraction() {
+                if (interacted) return;
+                interacted = true;
+                gtag('event', 'newsletter_form_interaction', { event_category: 'newsletter' });
+            }
+            container.addEventListener('click', trackInteraction);
+            container.addEventListener('focusin', trackInteraction);
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                    if (entries.some(function (entry) { return entry.isIntersecting; })) {
+                        gtag('event', 'newsletter_form_view', { event_category: 'newsletter' });
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.5 });
+                observer.observe(container);
+            }
+        });
+    </script>
     {% endif %}
 
     {# ── All shots shotmap ── #}
