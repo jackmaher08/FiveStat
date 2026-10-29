@@ -1,0 +1,11 @@
+{# Newsletter CTA shared by the Premier League and FPL pages. #}
+{% if config.get('MAILERLITE_ACCOUNT_ID') and config.get('MAILERLITE_FORM_ID') %}
+<aside class="newsletter-cta" aria-labelledby="newsletter-cta-title-{{ newsletter_source }}">
+    <div class="newsletter-cta-copy">
+        <span class="newsletter-cta-kicker"><i class="fa-regular fa-envelope" aria-hidden="true"></i> FiveStat Weekly Edge · Free</span>
+        <h2 id="newsletter-cta-title-{{ newsletter_source }}">Get the projections in your inbox before every gameweek.</h2>
+        <p>Match probabilities, FPL captain picks and the numbers worth knowing. Free every Thursday. Unsubscribe anytime.</p>
+    </div>
+    <a class="newsletter-cta-link" href="/#newsletter" data-newsletter-source="{{ newsletter_source }}">Get the Weekly Edge <span aria-hidden="true">&rarr;</span></a>
+</aside>
+{% endif %}
