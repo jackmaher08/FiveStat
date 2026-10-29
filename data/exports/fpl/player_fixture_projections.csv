@@ -189,11 +189,6 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 156,Neto,Chelsea,MID,11,LEE (H),0.167,0.169,0.219,4.05,medium
 156,Neto,Chelsea,MID,12,NFO (A),0.162,0.164,0.261,4.05,medium
 156,Neto,Chelsea,MID,13,CRY (H),0.222,0.225,0.279,4.55,medium
-200,Lacroix,Chelsea,DEF,9,MUN (H),0.059,0.057,0.178,3.46,medium
-200,Lacroix,Chelsea,DEF,10,SUN (A),0.056,0.054,0.274,4.03,medium
-200,Lacroix,Chelsea,DEF,11,LEE (H),0.053,0.052,0.219,3.68,medium
-200,Lacroix,Chelsea,DEF,12,NFO (A),0.052,0.05,0.261,3.92,medium
-200,Lacroix,Chelsea,DEF,13,CRY (H),0.071,0.069,0.279,4.19,medium
 91,Pinnock,Coventry City,DEF,9,SUN (H),0.021,0.013,0.271,3.6,hard
 91,Pinnock,Coventry City,DEF,10,EVE (A),0.018,0.011,0.18,3.02,hard
 91,Pinnock,Coventry City,DEF,11,CRY (H),0.024,0.015,0.231,3.38,hard
@@ -409,11 +404,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 362,Jacquet,Liverpool,DEF,11,MUN (H),0.035,0.045,0.233,3.99,medium
 362,Jacquet,Liverpool,DEF,12,EVE (A),0.033,0.042,0.283,4.27,medium
 362,Jacquet,Liverpool,DEF,13,SUN (H),0.037,0.048,0.382,4.84,medium
-366,Wirtz,Liverpool,MID,9,ARS (H),0.067,0.107,0.208,2.87,hard
-366,Wirtz,Liverpool,MID,10,CRY (A),0.11,0.174,0.289,3.37,medium
-366,Wirtz,Liverpool,MID,11,MUN (H),0.099,0.158,0.233,3.21,medium
-366,Wirtz,Liverpool,MID,12,EVE (A),0.094,0.15,0.283,3.21,medium
-366,Wirtz,Liverpool,MID,13,SUN (H),0.106,0.168,0.382,3.43,medium
+366,Wirtz,Liverpool,MID,9,ARS (H),0.089,0.142,0.208,3.15,hard
+366,Wirtz,Liverpool,MID,10,CRY (A),0.146,0.233,0.289,3.79,medium
+366,Wirtz,Liverpool,MID,11,MUN (H),0.132,0.211,0.233,3.6,medium
+366,Wirtz,Liverpool,MID,12,EVE (A),0.125,0.2,0.283,3.58,medium
+366,Wirtz,Liverpool,MID,13,SUN (H),0.141,0.224,0.382,3.83,medium
 372,Mac Allister,Liverpool,MID,9,ARS (H),0.044,0.087,0.208,2.99,hard
 372,Mac Allister,Liverpool,MID,10,CRY (A),0.071,0.142,0.289,3.37,medium
 372,Mac Allister,Liverpool,MID,11,MUN (H),0.065,0.129,0.233,3.25,medium
