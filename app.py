@@ -1377,6 +1377,27 @@ def ev_checker():
                     "bookie_under25": float(b["bookie_under25"]) if pd.notna(b["bookie_under25"]) and b["bookie_under25"] != "" else None,
                 }
 
+    # ── Raw, unadjusted bookmaker prices for expected ROI ──
+    raw_odds_lookup = {}
+    raw_path = "data/tables/bookie_raw_odds_by_gw.csv"
+    if os.path.exists(raw_path):
+        raw_df = pd.read_csv(raw_path)
+        gw_rows = raw_df[raw_df["gw"] == f"GW{current_gw}"]
+        for _, b in gw_rows.iterrows():
+            if pd.notna(b["home_team"]) and pd.notna(b["away_team"]):
+                bh = BOOKIE_TEAM_NAME_MAP.get(b["home_team"], b["home_team"])
+                ba = BOOKIE_TEAM_NAME_MAP.get(b["away_team"], b["away_team"])
+                raw_odds_lookup[f"{bh}|{ba}"] = b
+
+    def expected_roi(model_probability, decimal_odds):
+        """Expected percentage return per unit staked at the median available price."""
+        if decimal_odds is None or pd.isna(decimal_odds):
+            return None
+        price = float(decimal_odds)
+        if not np.isfinite(price) or price <= 1:
+            return None
+        return round((model_probability / 100 * price - 1) * 100, 1)
+
     # ── Build EV data per fixture ──
     def ev_val(model, bookie):
         if model is None or bookie is None:
@@ -1397,6 +1418,10 @@ def ev_checker():
 
         bookie_win = bookie_win_lookup.get(key, {})
         bookie_ou  = bookie_ou_lookup.get(key, {})
+        raw_odds   = raw_odds_lookup.get(key, {})
+
+        def roi_for(column, model_probability):
+            return expected_roi(model_probability, raw_odds.get(column))
 
         bookie_home_win = bookie_win.get("bookie_home_win")
         bookie_draw     = bookie_win.get("bookie_draw")
@@ -1422,6 +1447,11 @@ def ev_checker():
             "ev_away_win":  ev_val(model_away_win, bookie_away_win),
             "ev_over25":    ev_val(model_over25,   bookie_over25),
             "ev_under25":   ev_val(model_under25,  bookie_under25),
+            "roi_home_win": roi_for("home_odds_median", model_home_win),
+            "roi_draw":     roi_for("draw_odds_median", model_draw),
+            "roi_away_win": roi_for("away_odds_median", model_away_win),
+            "roi_over25":   roi_for("over25_odds_median", model_over25),
+            "roi_under25":  roi_for("under25_odds_median", model_under25),
         })
 
     return render_template(
