@@ -26,7 +26,7 @@
     <div class="modal" id="infoModal">
         <button class="close-button" onclick="toggleModal('infoModal')">✖</button>
         <p><strong>What is Expected Value (EV)?</strong><br>
-        EV is the edge our model's probability has over what the bookmaker is implying with their odds. A positive EV means our model thinks an outcome is more likely than the bookie is pricing it - suggesting the market may be undervaluing that result. A negative EV means the bookie is pricing the outcome higher than our model estimates.</p>
+        Edge compares model probability with the bookmaker's margin-adjusted implied probability. Expected ROI uses the actual bookmaker decimal price to estimate the return on a bet according to our model. Row highlights and value thresholds are based on Expected ROI, not Edge.</p>
         <p><strong>How is bookie probability calculated?</strong><br>
         Bookmakers build a margin (overround) into their odds so that the implied probabilities across all outcomes add up to more than 100%. We strip that margin out to get a fair, margin-adjusted implied probability - giving a like-for-like comparison against our model.</p>
         <p><strong>How to read the table</strong><br>
@@ -35,11 +35,11 @@
         <strong>Edge</strong> - model minus fair bookie probability, expressed in percentage points (pp).<br>
         <strong>Expected ROI</strong> - (model probability × median bookmaker decimal odds − 1) × 100. Uses actual odds without removing the bookmaker margin. Positive means a model-estimated profit per unit staked; negative means an expected loss. A dash means no valid price is available.</p>
         <p><strong>Value thresholds</strong><br>
-        <strong>Strong value (&gt;+10%)</strong> - a meaningful gap between model and market, worth paying attention to.<br>
-        <strong>Marginal (+1-10%)</strong> - a slight edge, but within the range of normal model uncertainty.<br>
-        <strong>No value (≤0%)</strong> - the bookie's price is fair or short relative to our model.</p>
+        <strong>Strong value (ROI &gt;+10%)</strong> - model-estimated expected return above 10%.<br>
+        <strong>Marginal (ROI &gt;0% to +10%)</strong> - positive model-estimated expected return up to 10%.<br>
+        <strong>No value (ROI ≤0%)</strong> - zero or negative expected return at the median quoted price. No highlight is applied where ROI is unavailable.</p>
         <p><strong>Important</strong><br>
-        EV is a model-driven signal, not a guarantee of profit. Bookmaker odds move constantly as fixtures approach, so treat this as a guide to where the model disagrees with the market - not as betting advice. Gamble responsibly.</p>
+        Expected ROI is model-driven, not a guarantee of profit. Median recorded bookmaker prices may differ from odds actually available when placing a bet. Odds move constantly, and projections carry uncertainty. This is not betting advice. Gamble responsibly.</p>
     </div>
 
 
@@ -49,9 +49,9 @@
 
     {# ── Legend ── #}
     <div class="ev-legend">
-        <span class="ev-badge ev-badge-good">Strong value  &gt;+10%</span>
-        <span class="ev-badge ev-badge-low">Marginal  +1-10%</span>
-        <span class="ev-badge ev-badge-none">No value  ≤0%</span>
+        <span class="ev-badge ev-badge-good">Strong value · ROI &gt;+10%</span>
+        <span class="ev-badge ev-badge-low">Marginal · ROI &gt;0% to +10%</span>
+        <span class="ev-badge ev-badge-none">No value · ROI ≤0%</span>
     </div>
 
     {# ── Win probability table ── #}
@@ -77,7 +77,7 @@
                             (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win, f.roi_away_win)
                         ] %}
                         {% for market_label, model_p, bookie_p, ev, roi in markets %}
-                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                        <tr class="{% if roi is not none %}{% if roi > 10 %}ev-row-good{% elif roi > 0 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
                                 {% if loop.first %}
@@ -89,17 +89,9 @@
                             <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
                             <td>
                                 {% if ev is not none %}
-                                    {% if ev > 10 %}
-                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
-                                    {% elif ev > 1 %}
-                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
-                                    {% elif ev > 0 %}
-                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
-                                    {% else %}
-                                        <span class="ev-edge-neg">{{ ev }}%</span>
-                                    {% endif %}
+                                    <span class="{{ 'ev-edge-neg' if ev < 0 else 'ev-edge-neutral' }}">{{ "%+.1f"|format(ev) if ev > 0 else "%.1f"|format(ev) }} pp</span>
                                 {% else %}
-                                    <span class="ev-edge-neutral">-</span>
+                                    <span class="ev-edge-neutral">—</span>
                                 {% endif %}
                             </td>
                             <td>
@@ -142,7 +134,7 @@
                             ("Under 2.5", f.model_under25, f.bookie_under25, f.ev_under25, f.roi_under25)
                         ] %}
                         {% for market_label, model_p, bookie_p, ev, roi in ou_markets %}
-                        <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
+                        <tr class="{% if roi is not none %}{% if roi > 10 %}ev-row-good{% elif roi > 0 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
                                 {% if loop.first %}
@@ -154,17 +146,9 @@
                             <td>{{ bookie_p ~ "%" if bookie_p is not none else "—" }}</td>
                             <td>
                                 {% if ev is not none %}
-                                    {% if ev > 10 %}
-                                        <span class="ev-badge ev-badge-good">+{{ ev }}%</span>
-                                    {% elif ev > 1 %}
-                                        <span class="ev-badge ev-badge-low">+{{ ev }}%</span>
-                                    {% elif ev > 0 %}
-                                        <span class="ev-edge-neutral">+{{ ev }}%</span>
-                                    {% else %}
-                                        <span class="ev-edge-neg">{{ ev }}%</span>
-                                    {% endif %}
+                                    <span class="{{ 'ev-edge-neg' if ev < 0 else 'ev-edge-neutral' }}">{{ "%+.1f"|format(ev) if ev > 0 else "%.1f"|format(ev) }} pp</span>
                                 {% else %}
-                                    <span class="ev-edge-neutral">-</span>
+                                    <span class="ev-edge-neutral">—</span>
                                 {% endif %}
                             </td>
                             <td>
