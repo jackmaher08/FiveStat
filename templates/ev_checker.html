@@ -32,7 +32,8 @@
         <p><strong>How to read the table</strong><br>
         <strong>Model %</strong> - our model's probability for that outcome.<br>
         <strong>Bookie %</strong> - the margin-adjusted implied probability from the bookmaker's odds.<br>
-        <strong>EV</strong> - the difference. Positive = potential value, negative = bookie prices it higher than we do.</p>
+        <strong>Edge</strong> - model minus fair bookie probability, expressed in percentage points (pp).<br>
+        <strong>Expected ROI</strong> - (model probability × median bookmaker decimal odds − 1) × 100. Uses actual odds without removing the bookmaker margin. Positive means a model-estimated profit per unit staked; negative means an expected loss. A dash means no valid price is available.</p>
         <p><strong>Value thresholds</strong><br>
         <strong>Strong value (&gt;+10%)</strong> - a meaningful gap between model and market, worth paying attention to.<br>
         <strong>Marginal (+1-10%)</strong> - a slight edge, but within the range of normal model uncertainty.<br>
@@ -65,16 +66,17 @@
                         <th>Our model</th>
                         <th>Bookie</th>
                         <th>Edge</th>
+                        <th title="Expected percentage return at the median bookmaker decimal odds, using FiveStat model probability">Expected ROI</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for f in ev_fixtures %}
                         {% set markets = [
-                            (f.home_team ~ " win",  f.model_home_win, f.bookie_home_win, f.ev_home_win),
-                            ("Draw",                f.model_draw,     f.bookie_draw,     f.ev_draw),
-                            (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win)
+                            (f.home_team ~ " win",  f.model_home_win, f.bookie_home_win, f.ev_home_win, f.roi_home_win),
+                            ("Draw",                f.model_draw,     f.bookie_draw,     f.ev_draw,     f.roi_draw),
+                            (f.away_team ~ " win",  f.model_away_win, f.bookie_away_win, f.ev_away_win, f.roi_away_win)
                         ] %}
-                        {% for market_label, model_p, bookie_p, ev in markets %}
+                        {% for market_label, model_p, bookie_p, ev, roi in markets %}
                         <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
@@ -98,6 +100,17 @@
                                     {% endif %}
                                 {% else %}
                                     <span class="ev-edge-neutral">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if roi is none %}
+                                    <span class="ev-edge-neutral">—</span>
+                                {% elif roi > 0 %}
+                                    <span class="ev-badge {{ 'ev-badge-good' if roi > 10 else 'ev-badge-low' }}">{{ "%+.1f"|format(roi) }}%</span>
+                                {% elif roi < 0 %}
+                                    <span class="ev-edge-neg">{{ "%.1f"|format(roi) }}%</span>
+                                {% else %}
+                                    <span class="ev-edge-neutral">0.0%</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -119,15 +132,16 @@
                         <th>Our model</th>
                         <th>Bookie</th>
                         <th>Edge</th>
+                        <th title="Expected percentage return at the median bookmaker decimal odds, using FiveStat model probability">Expected ROI</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for f in ev_fixtures %}
                         {% set ou_markets = [
-                            ("Over 2.5",  f.model_over25,  f.bookie_over25,  f.ev_over25),
-                            ("Under 2.5", f.model_under25, f.bookie_under25, f.ev_under25)
+                            ("Over 2.5",  f.model_over25,  f.bookie_over25,  f.ev_over25,  f.roi_over25),
+                            ("Under 2.5", f.model_under25, f.bookie_under25, f.ev_under25, f.roi_under25)
                         ] %}
-                        {% for market_label, model_p, bookie_p, ev in ou_markets %}
+                        {% for market_label, model_p, bookie_p, ev, roi in ou_markets %}
                         <tr class="{% if ev is not none %}{% if ev > 10 %}ev-row-good{% elif ev > 1 %}ev-row-low{% endif %}{% endif %}
                                    {% if loop.first %}ev-fixture-first{% endif %}">
                             <td class="ev-fixture-cell">
@@ -151,6 +165,17 @@
                                     {% endif %}
                                 {% else %}
                                     <span class="ev-edge-neutral">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if roi is none %}
+                                    <span class="ev-edge-neutral">—</span>
+                                {% elif roi > 0 %}
+                                    <span class="ev-badge {{ 'ev-badge-good' if roi > 10 else 'ev-badge-low' }}">{{ "%+.1f"|format(roi) }}%</span>
+                                {% elif roi < 0 %}
+                                    <span class="ev-edge-neg">{{ "%.1f"|format(roi) }}%</span>
+                                {% else %}
+                                    <span class="ev-edge-neutral">0.0%</span>
                                 {% endif %}
                             </td>
                         </tr>
