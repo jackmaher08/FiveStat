@@ -50,24 +50,9 @@
     </script>
     {% endif %}
 
-    {# ── Team xG Chart ── #}
-    {% if xg_data %}
-    <div class="fpl-section">
-        <div class="fpl-section-row">
-            <div class="fpl-section-title"><span></span> Team xG</div>
-            <div class="fpl-btn-group">
-                <button class="fpl-btn fpl-btn-xg active" onclick="setXgWindow('gw1', this)">GW{{ current_gw }}</button>
-                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw3', this)">Next 3 GWs</button>
-                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw5', this)">Next 5 GWs</button>
-            </div>
-        </div>
-        <span class="f1-section-badge">FiveStat Model</span>
-        <p class="fpl-note" id="xgNote">Model xG for Gameweek {{ current_gw }}</p>
-        <div class="fpl-chart-wrap">
-            <canvas id="xgChart"></canvas>
-        </div>
-    </div>
-    {% endif %}
+    {# ── Newsletter CTA above player projections ── #}
+    {% set newsletter_source = 'fpl' %}
+    {% include "_newsletter_cta.html" %}
 
     {# ── Captain Picks ── #}
     <div class="fpl-section">
@@ -181,9 +166,24 @@
         {% endif %}
     </div>
 
-    {# ── Newsletter after the main player projections ── #}
-    {% set newsletter_source = 'fpl' %}
-    {% include "_newsletter_cta.html" %}
+    {# ── Team xG Chart ── #}
+    {% if xg_data %}
+    <div class="fpl-section">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Team xG</div>
+            <div class="fpl-btn-group">
+                <button class="fpl-btn fpl-btn-xg active" onclick="setXgWindow('gw1', this)">GW{{ current_gw }}</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw3', this)">Next 3 GWs</button>
+                <button class="fpl-btn fpl-btn-xg"        onclick="setXgWindow('gw5', this)">Next 5 GWs</button>
+            </div>
+        </div>
+        <span class="f1-section-badge">FiveStat Model</span>
+        <p class="fpl-note" id="xgNote">Model xG for Gameweek {{ current_gw }}</p>
+        <div class="fpl-chart-wrap">
+            <canvas id="xgChart"></canvas>
+        </div>
+    </div>
+    {% endif %}
 
     {# ── Team xGA Chart ── #}
     {% if xga_data %}
