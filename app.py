@@ -104,6 +104,7 @@ BOOKIE_TEAM_NAME_MAP = {
     "Arsenal":         "Arsenal",
     "Aston Villa":     "Aston Villa",
     "West Ham":        "West Ham",
+    "Ipswich":         "Ipswich Town",
 }
 
 TEAM_SHORT_NAMES = {
