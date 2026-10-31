@@ -249,11 +249,6 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 229,Tarkowski,Everton,DEF,11,BRE (A),0.014,0.023,0.17,4.3,hard
 229,Tarkowski,Everton,DEF,12,LIV (H),0.016,0.027,0.197,4.5,hard
 229,Tarkowski,Everton,DEF,13,AVL (A),0.016,0.025,0.188,4.44,hard
-230,Branthwaite,Everton,DEF,9,NEW (A),0.028,0.008,0.197,3.24,hard
-230,Branthwaite,Everton,DEF,10,COV (H),0.04,0.012,0.341,4.16,medium
-230,Branthwaite,Everton,DEF,11,BRE (A),0.026,0.008,0.17,3.04,hard
-230,Branthwaite,Everton,DEF,12,LIV (H),0.029,0.009,0.197,3.24,hard
-230,Branthwaite,Everton,DEF,13,AVL (A),0.028,0.008,0.188,3.18,hard
 236,Dewsbury-Hall,Everton,MID,9,NEW (A),0.156,0.172,0.197,4.45,hard
 236,Dewsbury-Hall,Everton,MID,10,COV (H),0.222,0.245,0.341,5.15,medium
 236,Dewsbury-Hall,Everton,MID,11,BRE (A),0.143,0.157,0.17,4.32,hard
