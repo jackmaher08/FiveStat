@@ -10,11 +10,27 @@
     {# ── Meta description ── #}
     <meta name="description" content="{% block meta_description %}FiveStat offers football fans correct score heatmaps, player radar charts, match predictions, and xG analytics.{% endblock %}">
 
+    {# ── Preferred indexable URL; strip query strings (e.g. hub tab selections). ── #}
+    <link rel="canonical" href="https://www.fivestat.co.uk{{ request.path }}">
+
     {# ── Open Graph ── #}
-    <meta property="og:title"       content="{% block og_title %}FiveStat - Football Analytics & EPL Predictions{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Explore match predictions, player stats, and correct score forecasts powered by data.{% endblock %}">
-    <meta property="og:url"         content="{% block og_url %}https://www.fivestat.co.uk/{% endblock %}">
+    <meta property="og:title"       content="{% block og_title %}{{ self.title() | striptags | trim }}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ self.meta_description() | striptags | trim }}{% endblock %}">
+    <meta property="og:url"         content="{% block og_url %}https://www.fivestat.co.uk{{ request.path }}{% endblock %}">
     <meta property="og:type"        content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ self.title() | striptags | trim }}">
+    <meta name="twitter:description" content="{{ self.meta_description() | striptags | trim }}">
+
+    {# WebPage markup uses visible page metadata. No fabricated ratings, reviews or actions. #}
+    <script type="application/ld+json">{{ {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": self.title() | striptags | trim,
+        "description": self.meta_description() | striptags | trim,
+        "url": "https://www.fivestat.co.uk" ~ request.path,
+        "isPartOf": {"@type": "WebSite", "name": "FiveStat", "url": "https://www.fivestat.co.uk/"}
+    } | tojson }}</script>
 
     {# ── Favicon ── #}
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">

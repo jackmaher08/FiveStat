@@ -1,54 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    <url>
-        <loc>https://www.fivestat.co.uk/</loc>
-        <priority>1.0</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/premier-league</loc>
-        <priority>0.9</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/premier-league?tab=fixtures</loc>
-        <priority>0.9</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/premier-league?tab=table</loc>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/premier-league?tab=teams</loc>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/fpl</loc>
-        <priority>0.9</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/ev_checker</loc>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/model-performance</loc>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/about</loc>
-        <priority>0.6</priority>
-    </url>
-
-    <url>
-        <loc>https://www.fivestat.co.uk/methodology</loc>
-        <priority>0.6</priority>
-    </url>
-
+  <url><loc>https://www.fivestat.co.uk/</loc></url>
+  <url><loc>https://www.fivestat.co.uk/premier-league</loc></url>
+  <url><loc>https://www.fivestat.co.uk/epl_fixtures</loc></url>
+  <url><loc>https://www.fivestat.co.uk/epl_table</loc></url>
+  <url><loc>https://www.fivestat.co.uk/teams</loc></url>
+  <url><loc>https://www.fivestat.co.uk/fpl</loc></url>
+  <url><loc>https://www.fivestat.co.uk/f1</loc></url>
+  <url><loc>https://www.fivestat.co.uk/f1/drivers</loc></url>
+  <url><loc>https://www.fivestat.co.uk/f1/fantasy</loc></url>
+  <url><loc>https://www.fivestat.co.uk/f1/predictions</loc></url>
+  <url><loc>https://www.fivestat.co.uk/gaa</loc></url>
+  <url><loc>https://www.fivestat.co.uk/ev_checker</loc></url>
+  <url><loc>https://www.fivestat.co.uk/model-performance</loc></url>
+  <url><loc>https://www.fivestat.co.uk/about</loc></url>
+  <url><loc>https://www.fivestat.co.uk/methodology</loc></url>
 </urlset>
