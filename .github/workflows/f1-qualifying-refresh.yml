@@ -1,0 +1,54 @@
+name: F1 Qualifying Refresh
+
+on:
+  # UTC, throughout Friday-Sunday. A published qualifying classification can
+  # arrive on Friday (sprint weekends) or Saturday; no daily full scrape needed.
+  schedule:
+    - cron: '15 */3 * * 5,6,0'
+  workflow_dispatch:
+
+concurrency:
+  group: fivestat-auto-update
+  cancel-in-progress: false
+
+jobs:
+  qualifying:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Test F1 race-weekend behaviour
+        run: python -m unittest tests.test_f1_race_weekend -v
+      - name: Fetch published qualifying
+        run: python -m scripts.refresh_f1_qualifying
+      - name: Check for new qualifying data
+        id: changed
+        shell: bash
+        run: |
+          if [ -n "$(git status --porcelain -- data/f1/races)" ]; then
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Rebuild F1 exports with post-qualifying forecasts
+        if: steps.changed.outputs.updated == 'true'
+        run: python -m scripts.export_b2b_data --sport f1
+      - name: Commit and trigger deployment
+        if: steps.changed.outputs.updated == 'true'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/f1/races data/exports/f1
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "F1: refresh published qualifying and race forecasts"
+          git pull --rebase origin main
+          git push origin HEAD:main
