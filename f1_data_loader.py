@@ -3,7 +3,7 @@ import glob
 import json
 import numpy as np
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 F1_DATA_DIR = "data/f1"
 RACES_DIR = os.path.join(F1_DATA_DIR, "races")
@@ -157,10 +157,50 @@ def get_last_race_info():
     return last
 
 
-def get_next_race_info():
-    schedule = load_f1_schedule()
-    today = datetime.now().strftime("%Y-%m-%d")
-    upcoming = [r for r in schedule if r.get("date", "") > today]
+def _race_start_utc(race):
+    """Use the UTC race-start timestamp, not the calendar day, for selection."""
+    date = race.get("date")
+    if not date:
+        return None
+    race_time = race.get("time") or "23:59:59Z"
+    try:
+        start = datetime.fromisoformat(f"{date}T{race_time.replace('Z', '+00:00')}")
+        return start.replace(tzinfo=timezone.utc) if start.tzinfo is None else start.astimezone(timezone.utc)
+    except (ValueError, TypeError, AttributeError):
+        return None
+
+
+def get_upcoming_f1_races(schedule=None, now=None):
+    """Races still to run, including today's race until results or a safety cutoff.
+
+    Qualifying does not complete a Grand Prix. Prefer actual race results to
+    determine completion; after six hours past scheduled start, move on even
+    if results ingestion is delayed or unavailable.
+    """
+    if schedule is None:
+        schedule = load_f1_schedule()
+    if now is None:
+        now = datetime.now(timezone.utc)
+    if now.tzinfo is None:
+        raise ValueError("now must be timezone-aware")
+
+    upcoming = []
+    for race in schedule:
+        start = _race_start_utc(race)
+        if start is None:
+            continue
+        if now < start:
+            upcoming.append(race)
+            continue
+        results = load_f1_race_results(race.get("season", CURRENT_YEAR), race["round"])
+        if len(results) >= 15 or now >= start + timedelta(hours=6):
+            continue
+        upcoming.append(race)
+    return sorted(upcoming, key=_race_start_utc)
+
+
+def get_next_race_info(now=None):
+    upcoming = get_upcoming_f1_races(now=now)
     return upcoming[0] if upcoming else None
 
 
@@ -703,7 +743,18 @@ def _parse_laptime_to_seconds(t):
 
 
 def calculate_race_predictions(year, round_num, bust_cache=False):
-    cache_key = f"pred_{year}_{round_num}"
+    # A qualifying/results file can arrive between requests on a running server.
+    # Include both file mtimes so a pre-qualifying cache cannot survive ingestion.
+    race_key = _race_key(year, round_num)
+    source_paths = [
+        os.path.join(RACES_DIR, f"{race_key}_qualifying.json"),
+        os.path.join(RACES_DIR, f"{race_key}_results.json"),
+    ]
+    source_versions = tuple(
+        os.stat(path).st_mtime_ns if os.path.exists(path) else None
+        for path in source_paths
+    )
+    cache_key = f"pred_{year}_{round_num}_{source_versions}"
     if not bust_cache:
         cached = _cache_get(cache_key)
         if cached is not None:
@@ -1098,9 +1149,9 @@ def calculate_season_xfp_projection():
         return cached
 
     schedule = load_f1_schedule()
-    today = datetime.now().strftime("%Y-%m-%d")
-    upcoming = [r for r in schedule if r.get("date", "") > today]
-    completed_races = [r for r in schedule if r.get("date", "") <= today]
+    upcoming = get_upcoming_f1_races(schedule)
+    upcoming_keys = {(r["season"], r["round"]) for r in upcoming}
+    completed_races = [r for r in schedule if (r["season"], r["round"]) not in upcoming_keys]
 
     driver_projected = {}
     driver_completed_xfp = {}
@@ -1186,9 +1237,7 @@ def calculate_transfer_targets(horizons=(1, 3, 5)):
     if cached is not None:
         return cached
 
-    schedule = load_f1_schedule()
-    today = datetime.now().strftime("%Y-%m-%d")
-    upcoming = [r for r in schedule if r.get("date", "") > today]
+    upcoming = get_upcoming_f1_races()
 
     result = {}
     for horizon in horizons:
@@ -1305,10 +1354,7 @@ def get_f1_fantasy_data():
         "next_race_xfp": next_xfp,
         "season_projection": season_projection,
         "transfer_targets": transfer_targets,
-        "races_remaining": len([
-            r for r in load_f1_schedule()
-            if r.get("date", "") > datetime.now().strftime("%Y-%m-%d")
-        ]),
+        "races_remaining": len(get_upcoming_f1_races()),
     }
     _cache_set(cache_key, result)
     return result

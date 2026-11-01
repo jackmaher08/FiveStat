@@ -224,13 +224,12 @@ def export_fpl(root: Path = EXPORT_ROOT) -> None:
 def export_f1(root: Path = EXPORT_ROOT) -> None:
     from f1_data_loader import (
         calculate_constructor_pace_index, calculate_driver_pace_rating,
-        get_f1_fantasy_data, get_f1_predictions_data, load_f1_schedule,
+        get_f1_fantasy_data, get_f1_predictions_data, get_upcoming_f1_races, load_f1_schedule,
     )
     schedule = load_f1_schedule()
     if not schedule:
         raise ValueError("F1 schedule is empty")
-    today = datetime.now(timezone.utc).date().isoformat()
-    upcoming = [race for race in schedule if race.get("date", "") > today]
+    upcoming = get_upcoming_f1_races(schedule)
     races = []
     for race in upcoming:
         pred = get_f1_predictions_data(int(race["season"]), int(race["round"]))

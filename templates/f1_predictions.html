@@ -49,7 +49,7 @@
 
 {% if mode == 'pre_quali' %}
 <div class="f1-pred-notice">
-    Qualifying has not yet taken place. Grid positions are estimated from pace rankings. Predictions will update automatically once qualifying results are available.
+    Qualifying results are not yet available to FiveStat. Grid positions are estimated from pace rankings until the qualifying classification is published and ingested. Predictions then refresh automatically.
 </div>
 {% endif %}
 
@@ -146,8 +146,8 @@
 
 <div class="f1-pred-methodology">
     <h3 class="f1-pred-methodology-title">How this works</h3>
-    <p>Each driver's pace score combines their Constructor Pace Index (car speed vs field) and Driver Pace Rating (speed vs teammate). This is blended with their qualifying grid position using a circuit-specific overtaking index - circuits like Monaco weight grid position heavily; circuits like Monza weight pure pace. 10,000 race simulations are run, each drawing from a normal distribution of race randomness with an 8% DNF probability per driver. Win, podium and points probabilities are tallied across all simulations.</p>
-    <p>When qualifying has not yet taken place, grid positions are estimated from pace rankings.</p>
+    <p>Each driver's pace score combines their Constructor Pace Index (car speed vs field) and Driver Pace Rating (speed vs teammate). This is blended with their qualifying grid position using a circuit-specific overtaking index - circuits like Monaco weight grid position heavily; circuits like Monza weight pure pace. {{ n_simulations|int }} race simulations are run, each drawing from a normal distribution of race randomness with an 8% DNF probability per driver. Win, podium and points probabilities are tallied across all simulations.</p>
+    <p>Before qualifying data is available, grid positions are estimated from pace rankings. After qualifying, the model uses the published qualifying order; grid penalties can still change the actual race starting order.</p>
 </div>
 
 {% else %}
