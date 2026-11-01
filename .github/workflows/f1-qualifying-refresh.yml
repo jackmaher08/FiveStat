@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Test F1 race-weekend behaviour
-        run: python -m unittest tests.test_f1_race_weekend -v
+        run: python -m unittest discover -s tests -p 'test_f1_race_weekend.py' -v
       - name: Fetch published qualifying
         run: python -m scripts.refresh_f1_qualifying
       - name: Check for new qualifying data
