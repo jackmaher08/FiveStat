@@ -79,14 +79,14 @@ round_number,date,home_team,away_team,result,id,isResult,home_goals,away_goals,h
 8,25/10/2026 14:00,Liverpool,Brighton,2 - 0,31252,True,2.0,0.0,1.28,1.31
 8,25/10/2026 14:00,Manchester United,Bournemouth,0 - 3,31256,True,0.0,3.0,0.84,2.56
 8,25/10/2026 16:30,Sunderland,Leeds,0 - 0,31259,True,0.0,0.0,1.02,1.07
-9,31/10/2026 12:30,Chelsea,Manchester United,,31260,False,,,,
-9,31/10/2026 15:00,Bournemouth,Leeds,,31264,False,,,,
-9,31/10/2026 15:00,Brentford,Nottingham Forest,,31265,False,,,,
-9,31/10/2026 15:00,Coventry City,Sunderland,,31261,False,,,,
-9,31/10/2026 15:00,Hull City,Ipswich Town,,31262,False,,,,
-9,31/10/2026 15:00,Manchester City,Brighton,,31263,False,,,,
-9,31/10/2026 17:30,Tottenham Hotspur,Crystal Palace,,31266,False,,,,
-9,31/10/2026 20:00,Aston Villa,Fulham,,31267,False,,,,
+9,31/10/2026 12:30,Chelsea,Manchester United,,31260,True,2.0,0.0,2.79,1.39
+9,31/10/2026 15:00,Bournemouth,Leeds,,31264,True,2.0,0.0,1.46,0.99
+9,31/10/2026 15:00,Brentford,Nottingham Forest,,31265,True,2.0,0.0,0.83,0.96
+9,31/10/2026 15:00,Coventry City,Sunderland,,31261,True,3.0,1.0,0.97,1.6
+9,31/10/2026 15:00,Hull City,Ipswich Town,,31262,True,2.0,2.0,0.61,1.66
+9,31/10/2026 15:00,Manchester City,Brighton,,31263,True,0.0,1.0,2.66,1.57
+9,31/10/2026 17:30,Tottenham Hotspur,Crystal Palace,,31266,True,2.0,0.0,3.72,0.14
+9,31/10/2026 20:00,Aston Villa,Fulham,,31267,True,1.0,1.0,2.25,2.77
 9,01/11/2026 16:30,Liverpool,Arsenal,,31268,False,,,,
 9,02/11/2026 20:00,Newcastle United,Everton,,31269,False,,,,
 10,06/11/2026 20:00,Everton,Coventry City,,31273,False,,,,
