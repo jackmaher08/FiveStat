@@ -119,9 +119,10 @@ def refresh_basic_league_table(fixtures, cached_table):
         }
         for col in ("xG", "npxG", "xGA", "npxGA", "xPTS"):
             row[col] = cached[col]
-        row["xG +/-"] = row["xG"] - gf
-        row["xGA +/-"] = row["xGA"] - ga
-        row["xPTS +/-"] = row["xPTS"] - row["PTS"]
+        # Historical expected-vs-actual deltas must not mix stale expected
+        # metrics with newer FPL actuals. Retain the entire cached deltas.
+        for col in ("xG +/-", "xGA +/-", "xPTS +/-"):
+            row[col] = cached[col]
         rows.append(row)
     columns = ["Team", "MP", "W", "D", "L", "G", "GD", "GA", "xG",
                "npxG", "xG +/-", "xGA", "npxGA", "xGA +/-",
