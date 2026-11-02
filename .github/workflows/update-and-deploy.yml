@@ -71,8 +71,13 @@ jobs:
           python data_scraper_script.py
           python data_loader.py
           python betting_tracker.py
-          python generate_shotmaps.py
-          python shotmap_script.py
+          # Keep the last valid shotmaps when the source is unavailable.
+          if python -c "import json; s=json.load(open('data/tables/understat_status.json')); exit(0 if s['status']=='fresh' else 1)"; then
+            python generate_shotmaps.py
+            python shotmap_script.py
+          else
+            echo "::warning::Understat unavailable: preserving existing shotmap images."
+          fi
 
       - name: Validate FPL outputs
         if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'

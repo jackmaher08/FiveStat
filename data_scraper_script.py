@@ -4,7 +4,7 @@ import json
 import requests
 import pandas as pd
 import numpy as np
-from understatapi import UnderstatClient
+from understat_fallback import fetch_understat_league, merge_fpl_and_understat_fixtures, refresh_basic_league_table
 from io import StringIO
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
@@ -102,13 +102,17 @@ if not BOOKIE_ONLY:
             "date":         date_str,
             "result":       result,
             "finished":     finished,
+            "fpl_id":       int(f["id"]),
+            "home_goals":    h_score if finished else None,
+            "away_goals":    a_score if finished else None,
         })
 
     fixtures_df = pd.DataFrame(fix_rows)
     print(f"✅ FPL fixture schedule loaded ({len(fixtures_df)} fixtures, {fixtures_df['round_number'].nunique()} gameweeks)")
 
     # 📌 **Second Source: Understat** – fixtures/xG via understatapi
-    understat_season = "2026"  # corresponds to the 2024/25 EPL season
+    understat_season = "2026"  # 2026/27 season
+    understat_failed = []
 
     # Team name mapping for consistency
     team_name_mapping = {
@@ -125,14 +129,13 @@ if not BOOKIE_ONLY:
     }
 
     # Pull all league matches from Understat
-    with UnderstatClient() as understat_client:
-        league_matches = understat_client.league(league="EPL").get_match_data(
-            season=understat_season
-        )
+    league_matches = fetch_understat_league("get_match_data", season=understat_season)
+    if league_matches is None:
+        understat_failed.append("match data")
 
     # Parse fixture data
     fixture_data_temp = []
-    for match in league_matches:
+    for match in (league_matches or []):
         fixture_entry = {
             "id": match.get("id"),
             "isResult": match.get("isResult"),
@@ -176,30 +179,15 @@ if not BOOKIE_ONLY:
             "continuing without Understat xG/goals."
         )
 
-    # Merge fixturedownload fixtures with Understat xG/results
-    fixture_data = pd.merge(
-        fixtures_df[["round_number", "date", "home_team", "away_team", "result", "finished"]],
-        fixture_data_df[
-            [
-                "id",
-                "home_team",
-                "away_team",
-                "isResult",
-                "home_goals",
-                "away_goals",
-                "home_xG",
-                "away_xG",
-            ]
-        ],
-        on=["home_team", "away_team"],
-        how="left",
+    # Actual scores/completion are always sourced from FPL, with cached
+    # Understat IDs and xG retained if upstream data is unavailable.
+    cached_fixture_path = "data/tables/fixture_data.csv"
+    cached_fixtures = pd.read_csv(cached_fixture_path) if os.path.exists(cached_fixture_path) else None
+    fixture_data = merge_fpl_and_understat_fixtures(
+        fixtures_df,
+        fixture_data_df if league_matches is not None else None,
+        cached_fixtures,
     )
-    fixture_data["isResult"] = fixture_data["isResult"].fillna(fixture_data["finished"])
-    fixture_data = fixture_data.drop(columns=["finished"])
-
-
-
-
 
     # Define the save directory
     save_dir = "data/tables"
@@ -321,10 +309,9 @@ if not BOOKIE_ONLY:
     # 📌 Understat player stats via understatapi
     understat_season = "2026"  # same season as above
 
-    with UnderstatClient() as understat_client:
-        players_raw = understat_client.league(league="EPL").get_player_data(
-            season=understat_season
-        )
+    players_raw = fetch_understat_league("get_player_data", season=understat_season)
+    if players_raw is None:
+        understat_failed.append("player data")
 
     # Parse data into a list of dicts
     player_rows = [
@@ -343,28 +330,26 @@ if not BOOKIE_ONLY:
             "YC": int(p["yellow_cards"]) if p.get("yellow_cards") else 0,
             "RC": int(p["red_cards"]) if p.get("red_cards") else 0,
         }
-        for p in players_raw
+        for p in (players_raw or [])
     ]
 
-    if not player_rows:
-        print(f"⚠️  No Understat player data available yet for {understat_season} — skipping player stats this run.")
-        player_data = pd.DataFrame(columns=[
-            "Name", "POS", "Team", "MP", "Mins", "G", "xG", "NPG",
-            "NPxG", "A", "xA", "YC", "RC"
-        ])
-    else:
-        player_data = pd.DataFrame(player_rows)
-        player_data["Team"] = player_data["Team"].replace(
-            {"Tottenham": "Tottenham Hotspur"}
-        )
-
-    # Define the file path
     player_file_path = os.path.join(save_dir, "player_data.csv")
+    if players_raw is None:
+        # Preserve existing player xG/xA instead of writing empty rows.
+        if not os.path.exists(player_file_path):
+            raise RuntimeError("Understat unavailable and no cached player_data.csv exists")
+        cached_players = pd.read_csv(player_file_path)
+        if cached_players.empty:
+            raise RuntimeError("Understat unavailable and cached player data is empty")
+        print("⚠️ Keeping cached player_data.csv (Understat player feed unavailable)")
+    else:
+        if not player_rows:
+            raise RuntimeError("Understat returned no parsed player statistics")
+        player_data = pd.DataFrame(player_rows)
+        player_data["Team"] = player_data["Team"].replace(team_name_mapping)
+        player_data.to_csv(player_file_path, index=False)
 
-    # ✅ Save the DataFrame as a CSV file
-    player_data.to_csv(player_file_path, index=False)
-
-    print(f"✅ player data saved to: {player_file_path}")
+    print(f"✅ player data available at: {player_file_path}")
 
 
 
@@ -398,16 +383,15 @@ if not BOOKIE_ONLY:
     # Gathering league table data via understatapi (instead of scraping HTML)
     understat_season = "2026"  # same season you use elsewhere
 
-    with UnderstatClient() as understat_client:
-        fixture_results_df = understat_client.league(league="EPL").get_team_data(
-            season=understat_season
-        )
+    fixture_results_df = fetch_understat_league("get_team_data", season=understat_season)
+    if fixture_results_df is None:
+        understat_failed.append("team data")
 
     # Prepare the list to store extracted data
     team_stats = []
 
-    if not fixture_results_df:
-        print(f"⚠️  No Understat league table data available yet for {understat_season} — skipping league table build.")
+    if fixture_results_df is None:
+        print("⚠️ Keeping cached team xG; refreshing actual results from FPL")
     else:
         # Extract relevant fields for each team
         for team_id, team_info in fixture_results_df.items():
@@ -434,23 +418,14 @@ if not BOOKIE_ONLY:
 
     league_table_file_path = os.path.join(save_dir, "league_table_data.csv")
 
-    if complete_fixture_results_df.empty:
-        print("⚠️  No match results yet — writing blank-slate league table for season start.")
-        teams_2026 = [
-            "Arsenal", "Aston Villa", "Bournemouth", "Brentford", "Brighton",
-            "Chelsea", "Coventry City", "Crystal Palace", "Everton", "Fulham",
-            "Hull City", "Ipswich Town", "Leeds", "Liverpool", "Manchester City",
-            "Manchester United", "Newcastle United", "Nottingham Forest",
-            "Sunderland", "Tottenham Hotspur"
-        ]
-        aggregated_results_df = pd.DataFrame({
-            "Team": teams_2026,
-            "MP": 0, "W": 0, "D": 0, "L": 0,
-            "G": 0, "GD": 0, "GA": 0,
-            "xG": 0.0, "npxG": 0.0, "xG +/-": 0.0,
-            "xGA": 0.0, "npxGA": 0.0, "xGA +/-": 0.0,
-            "PTS": 0, "xPTS": 0.0, "xPTS +/-": 0.0
-        })
+    if fixture_results_df is None:
+        if not os.path.exists(league_table_file_path):
+            raise RuntimeError("Understat unavailable and no cached league_table_data.csv exists")
+        aggregated_results_df = refresh_basic_league_table(
+            fixture_data, pd.read_csv(league_table_file_path)
+        )
+    elif complete_fixture_results_df.empty:
+        raise RuntimeError("Understat team data empty; refusing to overwrite the cached league table")
     else:
         complete_fixture_results_df["Team"] = complete_fixture_results_df["Team"].replace(team_name_mapping)
 
@@ -480,6 +455,17 @@ if not BOOKIE_ONLY:
 
     aggregated_results_df.to_csv(league_table_file_path, index=False)
     print(f"✅ League table data saved to: {league_table_file_path}")
+
+    # A persisted marker allows the UI to label cached xG as stale.
+    understat_status = {
+        "status": "stale" if understat_failed else "fresh",
+        "checked_at_utc": datetime.now(timezone.utc).isoformat(),
+        "unavailable": understat_failed,
+    }
+    with open(os.path.join(save_dir, "understat_status.json"), "w") as status_file:
+        json.dump(understat_status, status_file, indent=2)
+    print(f"Understat status: {understat_status['status']}, missing: {understat_failed}")
+
 
 
 

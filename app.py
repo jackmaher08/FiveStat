@@ -517,6 +517,9 @@ def team_page(team_name):
             gw  = int(row["round_number"])
             mid = str(row["id"])
             match_shots = shots_df[shots_df["match_id"].astype(str) == mid]
+            # An uncollected match is NOT a 0-xG match.
+            if match_shots.empty:
+                continue
             home_s = match_shots[match_shots["h_a"] == "h"]
             away_s = match_shots[match_shots["h_a"] == "a"]
             if gw in past_fixtures_by_gw:
@@ -723,6 +726,9 @@ def premier_league():
         for _, fix in gw_fixtures[gw_fixtures["isResult"]].iterrows():
             mid = str(fix["id"])
             match_shots = shots_df[shots_df["match_id"].astype(str) == mid]
+            # An uncollected match is NOT a 0-xG match.
+            if match_shots.empty:
+                continue
             home_s = match_shots[match_shots["h_a"] == "h"]
             away_s = match_shots[match_shots["h_a"] == "a"]
             key = f"{fix['home_team']}|{fix['away_team']}"
@@ -781,8 +787,15 @@ def premier_league():
             ]
         })
 
+    understat_stale = False
+    understat_status_path = "data/tables/understat_status.json"
+    if os.path.exists(understat_status_path):
+        with open(understat_status_path, "r") as f:
+            understat_stale = json.load(f).get("status") == "stale"
+
     return render_template(
         "premier_league.html",
+        understat_stale=understat_stale,
         fixture_groups=dict(fixture_groups),
         current_gw=gw,
         gameweeks=gameweeks,
