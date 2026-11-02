@@ -7,18 +7,18 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 365.0,
+    "points": 380.0,
     "wins": 9
   },
   {
     "position": 2,
-    "driver_id": "russell",
-    "code": "RUS",
-    "name": "George Russell",
-    "nationality": "British",
-    "constructor": "Mercedes",
-    "constructor_id": "mercedes",
-    "points": 242.0,
+    "driver_id": "max_verstappen",
+    "code": "VER",
+    "name": "Max Verstappen",
+    "nationality": "Dutch",
+    "constructor": "Red Bull",
+    "constructor_id": "red_bull",
+    "points": 261.0,
     "wins": 3
   },
   {
@@ -29,19 +29,19 @@
     "nationality": "British",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 241.0,
+    "points": 259.0,
     "wins": 1
   },
   {
     "position": 4,
-    "driver_id": "max_verstappen",
-    "code": "VER",
-    "name": "Max Verstappen",
-    "nationality": "Dutch",
-    "constructor": "Red Bull",
-    "constructor_id": "red_bull",
-    "points": 236.0,
-    "wins": 2
+    "driver_id": "russell",
+    "code": "RUS",
+    "name": "George Russell",
+    "nationality": "British",
+    "constructor": "Mercedes",
+    "constructor_id": "mercedes",
+    "points": 250.0,
+    "wins": 3
   },
   {
     "position": 5,
@@ -51,7 +51,7 @@
     "nationality": "Monegasque",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 233.0,
+    "points": 245.0,
     "wins": 1
   },
   {
@@ -62,7 +62,7 @@
     "nationality": "British",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 211.0,
+    "points": 221.0,
     "wins": 2
   },
   {
@@ -73,7 +73,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 144.0,
+    "points": 150.0,
     "wins": 0
   },
   {
@@ -95,7 +95,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 77.0,
+    "points": 79.0,
     "wins": 0
   },
   {
@@ -106,7 +106,7 @@
     "nationality": "French",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 42.0,
+    "points": 43.0,
     "wins": 0
   },
   {
@@ -128,7 +128,7 @@
     "nationality": "Argentine",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 27.0,
+    "points": 31.0,
     "wins": 0
   },
   {
@@ -243,6 +243,17 @@
   },
   {
     "position": 23,
+    "driver_id": "ryo_hirakawa",
+    "code": "HIR",
+    "name": "Ryo Hirakawa",
+    "nationality": "Japanese",
+    "constructor": "Haas F1 Team",
+    "constructor_id": "haas",
+    "points": 0.0,
+    "wins": 0
+  },
+  {
+    "position": 24,
     "driver_id": "perez",
     "code": "PER",
     "name": "Sergio P\u00e9rez",

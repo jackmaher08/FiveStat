@@ -1,36 +1,37 @@
 type,id,name,pace_delta_percent,races_counted,constructor
-driver,ALB,Alexander Albon,-0.005,36,Williams
+driver,ALB,Alexander Albon,-0.083,37,Williams
 driver,ALO,Fernando Alonso,-0.596,34,Aston Martin
-driver,ANT,Andrea Kimi Antonelli,-0.49,37,Mercedes
-driver,BEA,Oliver Bearman,0.304,38,Haas F1 Team
-driver,BOR,Gabriel Bortoleto,0.06,33,Audi
-driver,BOT,Valtteri Bottas,0.803,14,Cadillac F1 Team
-driver,COL,Franco Colapinto,0.742,31,Alpine F1 Team
+driver,ANT,Andrea Kimi Antonelli,-0.398,38,Mercedes
+driver,BEA,Oliver Bearman,0.199,39,Haas F1 Team
+driver,BOR,Gabriel Bortoleto,0.054,34,Audi
+driver,BOT,Valtteri Bottas,0.854,15,Cadillac F1 Team
+driver,COL,Franco Colapinto,0.614,32,Alpine F1 Team
 driver,DOO,Jack Doohan,0.353,4,Alpine F1 Team
-driver,GAS,Pierre Gasly,-0.731,35,Alpine F1 Team
-driver,HAD,Isack Hadjar,0.749,31,Red Bull
-driver,HAM,Lewis Hamilton,0.191,36,Ferrari
-driver,HUL,Nico Hülkenberg,-0.059,33,Audi
-driver,LAW,Liam Lawson,-0.136,33,RB F1 Team
-driver,LEC,Charles Leclerc,-0.188,36,Ferrari
-driver,LIN,Arvid Lindblad,0.366,14,RB F1 Team
-driver,NOR,Lando Norris,-0.269,35,McLaren
+driver,GAS,Pierre Gasly,-0.605,36,Alpine F1 Team
+driver,HAD,Isack Hadjar,0.903,32,Red Bull
+driver,HAM,Lewis Hamilton,0.157,37,Ferrari
+driver,HIR,Ryo Hirakawa,0.298,1,Haas F1 Team
+driver,HUL,Nico Hülkenberg,-0.052,34,Audi
+driver,LAW,Liam Lawson,-0.149,34,RB F1 Team
+driver,LEC,Charles Leclerc,-0.154,37,Ferrari
+driver,LIN,Arvid Lindblad,0.336,15,RB F1 Team
+driver,NOR,Lando Norris,-0.257,36,McLaren
 driver,OCO,Esteban Ocon,-0.299,38,Haas F1 Team
-driver,PER,Sergio Pérez,-0.791,14,Cadillac F1 Team
-driver,PIA,Oscar Piastri,0.272,35,McLaren
-driver,RUS,George Russell,0.5,37,Mercedes
-driver,SAI,Carlos Sainz,0.009,36,Williams
+driver,PER,Sergio Pérez,-0.842,15,Cadillac F1 Team
+driver,PIA,Oscar Piastri,0.259,36,McLaren
+driver,RUS,George Russell,0.407,38,Mercedes
+driver,SAI,Carlos Sainz,0.087,37,Williams
 driver,STR,Lance Stroll,0.609,34,Aston Martin
 driver,TSU,Yuki Tsunoda,0.197,24,RB F1 Team
-driver,VER,Max Verstappen,-0.887,34,Red Bull
-constructor,alpine,Alpine F1 Team,0.381,17,Alpine F1 Team
-constructor,aston_martin,Aston Martin,2.122,17,Aston Martin
-constructor,audi,Audi,0.411,17,Audi
-constructor,cadillac,Cadillac F1 Team,2.423,17,Cadillac F1 Team
-constructor,ferrari,Ferrari,-1.281,17,Ferrari
-constructor,haas,Haas F1 Team,0.768,17,Haas F1 Team
-constructor,mclaren,McLaren,-0.988,17,McLaren
-constructor,mercedes,Mercedes,-1.266,17,Mercedes
-constructor,rb,RB F1 Team,0.246,17,RB F1 Team
-constructor,red_bull,Red Bull,-1.067,17,Red Bull
-constructor,williams,Williams,1.07,17,Williams
+driver,VER,Max Verstappen,-0.988,35,Red Bull
+constructor,alpine,Alpine F1 Team,0.404,18,Alpine F1 Team
+constructor,aston_martin,Aston Martin,2.477,18,Aston Martin
+constructor,audi,Audi,0.502,18,Audi
+constructor,cadillac,Cadillac F1 Team,2.333,18,Cadillac F1 Team
+constructor,ferrari,Ferrari,-1.237,18,Ferrari
+constructor,haas,Haas F1 Team,0.849,18,Haas F1 Team
+constructor,mclaren,McLaren,-0.862,18,McLaren
+constructor,mercedes,Mercedes,-1.146,18,Mercedes
+constructor,rb,RB F1 Team,0.283,18,RB F1 Team
+constructor,red_bull,Red Bull,-0.976,18,Red Bull
+constructor,williams,Williams,1.1,18,Williams
