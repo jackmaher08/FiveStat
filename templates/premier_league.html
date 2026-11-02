@@ -35,6 +35,9 @@
 
 <div id="panel-fixtures" class="pl-tab-panel">
 
+    {% set newsletter_source = 'premier_league' %}
+    {% include "_newsletter_cta.html" %}
+
     <div class="gw-selector">
         <button class="gw-nav-btn" id="gw-prev" title="Previous gameweek"
             {% if current_gw <= gameweeks[0] %}disabled{% endif %}
@@ -205,9 +208,6 @@
         {% endfor %}
     </div>
 
-
-{% set newsletter_source = 'premier_league' %}
-{% include "_newsletter_cta.html" %}
 
 {% include "_actual_vs_expected.html" %}
 
