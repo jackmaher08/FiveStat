@@ -73,7 +73,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 150.0,
+    "points": 144.0,
     "wins": 0
   },
   {
@@ -84,7 +84,7 @@
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 105.0,
+    "points": 107.0,
     "wins": 0
   },
   {
@@ -95,7 +95,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 79.0,
+    "points": 83.0,
     "wins": 0
   },
   {
@@ -106,7 +106,7 @@
     "nationality": "French",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 43.0,
+    "points": 42.0,
     "wins": 0
   },
   {
@@ -128,7 +128,7 @@
     "nationality": "Argentine",
     "constructor": "Alpine F1 Team",
     "constructor_id": "alpine",
-    "points": 31.0,
+    "points": 27.0,
     "wins": 0
   },
   {
@@ -144,6 +144,17 @@
   },
   {
     "position": 14,
+    "driver_id": "bortoleto",
+    "code": "BOR",
+    "name": "Gabriel Bortoleto",
+    "nationality": "Brazilian",
+    "constructor": "Audi",
+    "constructor_id": "audi",
+    "points": 14.0,
+    "wins": 0
+  },
+  {
+    "position": 15,
     "driver_id": "hulkenberg",
     "code": "HUL",
     "name": "Nico H\u00fclkenberg",
@@ -151,17 +162,6 @@
     "constructor": "Audi",
     "constructor_id": "audi",
     "points": 13.0,
-    "wins": 0
-  },
-  {
-    "position": 15,
-    "driver_id": "bortoleto",
-    "code": "BOR",
-    "name": "Gabriel Bortoleto",
-    "nationality": "Brazilian",
-    "constructor": "Audi",
-    "constructor_id": "audi",
-    "points": 10.0,
     "wins": 0
   },
   {
@@ -221,6 +221,17 @@
   },
   {
     "position": 21,
+    "driver_id": "ryo_hirakawa",
+    "code": "HIR",
+    "name": "Ryo Hirakawa",
+    "nationality": "Japanese",
+    "constructor": "Haas F1 Team",
+    "constructor_id": "haas",
+    "points": 1.0,
+    "wins": 0
+  },
+  {
+    "position": 22,
     "driver_id": "stroll",
     "code": "STR",
     "name": "Lance Stroll",
@@ -231,24 +242,13 @@
     "wins": 0
   },
   {
-    "position": 22,
+    "position": 23,
     "driver_id": "bottas",
     "code": "BOT",
     "name": "Valtteri Bottas",
     "nationality": "Finnish",
     "constructor": "Cadillac F1 Team",
     "constructor_id": "cadillac",
-    "points": 0.0,
-    "wins": 0
-  },
-  {
-    "position": 23,
-    "driver_id": "ryo_hirakawa",
-    "code": "HIR",
-    "name": "Ryo Hirakawa",
-    "nationality": "Japanese",
-    "constructor": "Haas F1 Team",
-    "constructor_id": "haas",
     "points": 0.0,
     "wins": 0
   },

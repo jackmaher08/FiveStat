@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-02T19:42:22Z",
+  "generated_at_utc": "2026-11-03T08:53:25Z",
   "product": "f1",
   "season": 2026,
   "units": {
@@ -694,7 +694,7 @@
           "cpi": -0.862,
           "best_quali_time": null,
           "championship_pos": 7,
-          "championship_pts": 150.0,
+          "championship_pts": 144.0,
           "win_prob": 3.4,
           "podium_prob": 17.2,
           "points_prob": 74.8,
@@ -714,7 +714,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 10,
-          "championship_pts": 43.0,
+          "championship_pts": 42.0,
           "win_prob": 1.7,
           "podium_prob": 10.0,
           "points_prob": 64.5,
@@ -734,7 +734,7 @@
           "cpi": -0.976,
           "best_quali_time": null,
           "championship_pos": 8,
-          "championship_pts": 105.0,
+          "championship_pts": 107.0,
           "win_prob": 1.3,
           "podium_prob": 6.6,
           "points_prob": 58.6,
@@ -754,7 +754,7 @@
           "cpi": 0.283,
           "best_quali_time": null,
           "championship_pos": 9,
-          "championship_pts": 79.0,
+          "championship_pts": 83.0,
           "win_prob": 0.7,
           "podium_prob": 5.4,
           "points_prob": 50.8,
@@ -773,7 +773,7 @@
           "dpr": -0.052,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 14,
+          "championship_pos": 15,
           "championship_pts": 13.0,
           "win_prob": 0.3,
           "podium_prob": 2.6,
@@ -833,8 +833,8 @@
           "dpr": 0.054,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 15,
-          "championship_pts": 10.0,
+          "championship_pos": 14,
+          "championship_pts": 14.0,
           "win_prob": 0.1,
           "podium_prob": 1.2,
           "points_prob": 28.2,
@@ -914,7 +914,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 12,
-          "championship_pts": 31.0,
+          "championship_pts": 27.0,
           "win_prob": 0.0,
           "podium_prob": 0.2,
           "points_prob": 12.4,
@@ -953,8 +953,8 @@
           "dpr": 0.298,
           "cpi": 0.849,
           "best_quali_time": null,
-          "championship_pos": 23,
-          "championship_pts": 0.0,
+          "championship_pos": 21,
+          "championship_pts": 1.0,
           "win_prob": 0.0,
           "podium_prob": 0.1,
           "points_prob": 7.5,
@@ -1033,7 +1033,7 @@
           "dpr": 0.609,
           "cpi": 2.477,
           "best_quali_time": null,
-          "championship_pos": 21,
+          "championship_pos": 22,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -1053,7 +1053,7 @@
           "dpr": 0.854,
           "cpi": 2.333,
           "best_quali_time": null,
-          "championship_pos": 22,
+          "championship_pos": 23,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -1213,7 +1213,7 @@
           "cpi": -0.862,
           "best_quali_time": null,
           "championship_pos": 7,
-          "championship_pts": 150.0,
+          "championship_pts": 144.0,
           "win_prob": 3.4,
           "podium_prob": 17.2,
           "points_prob": 74.8,
@@ -1233,7 +1233,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 10,
-          "championship_pts": 43.0,
+          "championship_pts": 42.0,
           "win_prob": 1.7,
           "podium_prob": 10.0,
           "points_prob": 64.5,
@@ -1253,7 +1253,7 @@
           "cpi": -0.976,
           "best_quali_time": null,
           "championship_pos": 8,
-          "championship_pts": 105.0,
+          "championship_pts": 107.0,
           "win_prob": 1.3,
           "podium_prob": 6.6,
           "points_prob": 58.6,
@@ -1273,7 +1273,7 @@
           "cpi": 0.283,
           "best_quali_time": null,
           "championship_pos": 9,
-          "championship_pts": 79.0,
+          "championship_pts": 83.0,
           "win_prob": 0.7,
           "podium_prob": 5.4,
           "points_prob": 50.8,
@@ -1292,7 +1292,7 @@
           "dpr": -0.052,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 14,
+          "championship_pos": 15,
           "championship_pts": 13.0,
           "win_prob": 0.3,
           "podium_prob": 2.6,
@@ -1352,8 +1352,8 @@
           "dpr": 0.054,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 15,
-          "championship_pts": 10.0,
+          "championship_pos": 14,
+          "championship_pts": 14.0,
           "win_prob": 0.1,
           "podium_prob": 1.2,
           "points_prob": 28.2,
@@ -1433,7 +1433,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 12,
-          "championship_pts": 31.0,
+          "championship_pts": 27.0,
           "win_prob": 0.0,
           "podium_prob": 0.2,
           "points_prob": 12.4,
@@ -1472,8 +1472,8 @@
           "dpr": 0.298,
           "cpi": 0.849,
           "best_quali_time": null,
-          "championship_pos": 23,
-          "championship_pts": 0.0,
+          "championship_pos": 21,
+          "championship_pts": 1.0,
           "win_prob": 0.0,
           "podium_prob": 0.1,
           "points_prob": 7.5,
@@ -1552,7 +1552,7 @@
           "dpr": 0.609,
           "cpi": 2.477,
           "best_quali_time": null,
-          "championship_pos": 21,
+          "championship_pos": 22,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -1572,7 +1572,7 @@
           "dpr": 0.854,
           "cpi": 2.333,
           "best_quali_time": null,
-          "championship_pos": 22,
+          "championship_pos": 23,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -1732,7 +1732,7 @@
           "cpi": -0.862,
           "best_quali_time": null,
           "championship_pos": 7,
-          "championship_pts": 150.0,
+          "championship_pts": 144.0,
           "win_prob": 3.4,
           "podium_prob": 17.3,
           "points_prob": 75.3,
@@ -1752,7 +1752,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 10,
-          "championship_pts": 43.0,
+          "championship_pts": 42.0,
           "win_prob": 1.7,
           "podium_prob": 10.2,
           "points_prob": 65.1,
@@ -1772,7 +1772,7 @@
           "cpi": -0.976,
           "best_quali_time": null,
           "championship_pos": 8,
-          "championship_pts": 105.0,
+          "championship_pts": 107.0,
           "win_prob": 1.3,
           "podium_prob": 6.6,
           "points_prob": 59.4,
@@ -1792,7 +1792,7 @@
           "cpi": 0.283,
           "best_quali_time": null,
           "championship_pos": 9,
-          "championship_pts": 79.0,
+          "championship_pts": 83.0,
           "win_prob": 0.7,
           "podium_prob": 5.4,
           "points_prob": 51.4,
@@ -1811,7 +1811,7 @@
           "dpr": -0.052,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 14,
+          "championship_pos": 15,
           "championship_pts": 13.0,
           "win_prob": 0.3,
           "podium_prob": 2.7,
@@ -1871,8 +1871,8 @@
           "dpr": 0.054,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 15,
-          "championship_pts": 10.0,
+          "championship_pos": 14,
+          "championship_pts": 14.0,
           "win_prob": 0.1,
           "podium_prob": 1.1,
           "points_prob": 27.9,
@@ -1952,7 +1952,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 12,
-          "championship_pts": 31.0,
+          "championship_pts": 27.0,
           "win_prob": 0.0,
           "podium_prob": 0.2,
           "points_prob": 11.7,
@@ -1991,8 +1991,8 @@
           "dpr": 0.298,
           "cpi": 0.849,
           "best_quali_time": null,
-          "championship_pos": 23,
-          "championship_pts": 0.0,
+          "championship_pos": 21,
+          "championship_pts": 1.0,
           "win_prob": 0.0,
           "podium_prob": 0.1,
           "points_prob": 7.0,
@@ -2071,7 +2071,7 @@
           "dpr": 0.609,
           "cpi": 2.477,
           "best_quali_time": null,
-          "championship_pos": 21,
+          "championship_pos": 22,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -2091,7 +2091,7 @@
           "dpr": 0.854,
           "cpi": 2.333,
           "best_quali_time": null,
-          "championship_pos": 22,
+          "championship_pos": 23,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -2251,7 +2251,7 @@
           "cpi": -0.862,
           "best_quali_time": null,
           "championship_pos": 7,
-          "championship_pts": 150.0,
+          "championship_pts": 144.0,
           "win_prob": 3.4,
           "podium_prob": 17.2,
           "points_prob": 75.6,
@@ -2271,7 +2271,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 10,
-          "championship_pts": 43.0,
+          "championship_pts": 42.0,
           "win_prob": 1.8,
           "podium_prob": 10.3,
           "points_prob": 65.7,
@@ -2291,7 +2291,7 @@
           "cpi": -0.976,
           "best_quali_time": null,
           "championship_pos": 8,
-          "championship_pts": 105.0,
+          "championship_pts": 107.0,
           "win_prob": 1.3,
           "podium_prob": 6.7,
           "points_prob": 59.9,
@@ -2311,7 +2311,7 @@
           "cpi": 0.283,
           "best_quali_time": null,
           "championship_pos": 9,
-          "championship_pts": 79.0,
+          "championship_pts": 83.0,
           "win_prob": 0.7,
           "podium_prob": 5.4,
           "points_prob": 51.9,
@@ -2330,7 +2330,7 @@
           "dpr": -0.052,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 14,
+          "championship_pos": 15,
           "championship_pts": 13.0,
           "win_prob": 0.3,
           "podium_prob": 2.7,
@@ -2390,8 +2390,8 @@
           "dpr": 0.054,
           "cpi": 0.502,
           "best_quali_time": null,
-          "championship_pos": 15,
-          "championship_pts": 10.0,
+          "championship_pos": 14,
+          "championship_pts": 14.0,
           "win_prob": 0.1,
           "podium_prob": 1.1,
           "points_prob": 27.7,
@@ -2471,7 +2471,7 @@
           "cpi": 0.404,
           "best_quali_time": null,
           "championship_pos": 12,
-          "championship_pts": 31.0,
+          "championship_pts": 27.0,
           "win_prob": 0.0,
           "podium_prob": 0.2,
           "points_prob": 11.1,
@@ -2510,8 +2510,8 @@
           "dpr": 0.298,
           "cpi": 0.849,
           "best_quali_time": null,
-          "championship_pos": 23,
-          "championship_pts": 0.0,
+          "championship_pos": 21,
+          "championship_pts": 1.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
           "points_prob": 6.3,
@@ -2590,7 +2590,7 @@
           "dpr": 0.609,
           "cpi": 2.477,
           "best_quali_time": null,
-          "championship_pos": 21,
+          "championship_pos": 22,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -2610,7 +2610,7 @@
           "dpr": 0.854,
           "cpi": 2.333,
           "best_quali_time": null,
-          "championship_pos": 22,
+          "championship_pos": 23,
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
@@ -2768,7 +2768,7 @@
         "cpi": -0.862,
         "best_quali_time": null,
         "championship_pos": 7,
-        "championship_pts": 150.0,
+        "championship_pts": 144.0,
         "win_prob": 3.4,
         "podium_prob": 17.2,
         "points_prob": 74.8,
@@ -2828,7 +2828,7 @@
         "cpi": 0.404,
         "best_quali_time": null,
         "championship_pos": 10,
-        "championship_pts": 43.0,
+        "championship_pts": 42.0,
         "win_prob": 1.7,
         "podium_prob": 10.0,
         "points_prob": 64.5,
@@ -2867,8 +2867,8 @@
         "dpr": 0.298,
         "cpi": 0.849,
         "best_quali_time": null,
-        "championship_pos": 23,
-        "championship_pts": 0.0,
+        "championship_pos": 21,
+        "championship_pts": 1.0,
         "win_prob": 0.0,
         "podium_prob": 0.1,
         "points_prob": 7.5,
@@ -2888,7 +2888,7 @@
         "cpi": -0.976,
         "best_quali_time": null,
         "championship_pos": 8,
-        "championship_pts": 105.0,
+        "championship_pts": 107.0,
         "win_prob": 1.3,
         "podium_prob": 6.6,
         "points_prob": 58.6,
@@ -2907,7 +2907,7 @@
         "dpr": 0.854,
         "cpi": 2.333,
         "best_quali_time": null,
-        "championship_pos": 22,
+        "championship_pos": 23,
         "championship_pts": 0.0,
         "win_prob": 0.0,
         "podium_prob": 0.0,
@@ -2948,7 +2948,7 @@
         "cpi": 0.404,
         "best_quali_time": null,
         "championship_pos": 12,
-        "championship_pts": 31.0,
+        "championship_pts": 27.0,
         "win_prob": 0.0,
         "podium_prob": 0.2,
         "points_prob": 12.4,
@@ -2968,7 +2968,7 @@
         "cpi": 0.283,
         "best_quali_time": null,
         "championship_pos": 9,
-        "championship_pts": 79.0,
+        "championship_pts": 83.0,
         "win_prob": 0.7,
         "podium_prob": 5.4,
         "points_prob": 50.8,
@@ -3007,7 +3007,7 @@
         "dpr": 0.609,
         "cpi": 2.477,
         "best_quali_time": null,
-        "championship_pos": 21,
+        "championship_pos": 22,
         "championship_pts": 0.0,
         "win_prob": 0.0,
         "podium_prob": 0.0,
@@ -3027,8 +3027,8 @@
         "dpr": 0.054,
         "cpi": 0.502,
         "best_quali_time": null,
-        "championship_pos": 15,
-        "championship_pts": 10.0,
+        "championship_pos": 14,
+        "championship_pts": 14.0,
         "win_prob": 0.1,
         "podium_prob": 1.2,
         "points_prob": 28.2,
@@ -3127,7 +3127,7 @@
         "dpr": -0.052,
         "cpi": 0.502,
         "best_quali_time": null,
-        "championship_pos": 14,
+        "championship_pos": 15,
         "championship_pts": 13.0,
         "win_prob": 0.3,
         "podium_prob": 2.6,
@@ -3216,7 +3216,7 @@
         "name": "Oscar Piastri",
         "constructor": "McLaren",
         "constructor_id": "mclaren",
-        "championship_points": 150.0,
+        "championship_points": 144.0,
         "championship_position": 7,
         "completed_xfp": 193.0,
         "projected_remaining_xfp": 16.1,
@@ -3228,7 +3228,7 @@
         "name": "Liam Lawson",
         "constructor": "RB F1 Team",
         "constructor_id": "rb",
-        "championship_points": 79.0,
+        "championship_points": 83.0,
         "championship_position": 9,
         "completed_xfp": 172.0,
         "projected_remaining_xfp": 3.6,
@@ -3240,7 +3240,7 @@
         "name": "Isack Hadjar",
         "constructor": "Red Bull",
         "constructor_id": "red_bull",
-        "championship_points": 105.0,
+        "championship_points": 107.0,
         "championship_position": 8,
         "completed_xfp": 149.0,
         "projected_remaining_xfp": 6.3,
@@ -3252,7 +3252,7 @@
         "name": "Pierre Gasly",
         "constructor": "Alpine F1 Team",
         "constructor_id": "alpine",
-        "championship_points": 43.0,
+        "championship_points": 42.0,
         "championship_position": 10,
         "completed_xfp": 62.0,
         "projected_remaining_xfp": 8.0,
@@ -3288,7 +3288,7 @@
         "name": "Franco Colapinto",
         "constructor": "Alpine F1 Team",
         "constructor_id": "alpine",
-        "championship_points": 31.0,
+        "championship_points": 27.0,
         "championship_position": 12,
         "completed_xfp": 32.0,
         "projected_remaining_xfp": 3.3,
@@ -3312,8 +3312,8 @@
         "name": "Ryo Hirakawa",
         "constructor": "Haas F1 Team",
         "constructor_id": "haas",
-        "championship_points": 0.0,
-        "championship_position": 23,
+        "championship_points": 1.0,
+        "championship_position": 21,
         "completed_xfp": 5,
         "projected_remaining_xfp": 5.9,
         "projected_total_xfp": 10.9,
@@ -3348,8 +3348,8 @@
         "name": "Gabriel Bortoleto",
         "constructor": "Audi",
         "constructor_id": "audi",
-        "championship_points": 10.0,
-        "championship_position": 15,
+        "championship_points": 14.0,
+        "championship_position": 14,
         "completed_xfp": -6.0,
         "projected_remaining_xfp": 1.8,
         "projected_total_xfp": -4.2,
@@ -3385,7 +3385,7 @@
         "constructor": "Audi",
         "constructor_id": "audi",
         "championship_points": 13.0,
-        "championship_position": 14,
+        "championship_position": 15,
         "completed_xfp": -53.0,
         "projected_remaining_xfp": -0.8,
         "projected_total_xfp": -53.8,
@@ -3421,7 +3421,7 @@
         "constructor": "Cadillac F1 Team",
         "constructor_id": "cadillac",
         "championship_points": 0.0,
-        "championship_position": 22,
+        "championship_position": 23,
         "completed_xfp": -170.0,
         "projected_remaining_xfp": 6.1,
         "projected_total_xfp": -163.9,
@@ -3433,7 +3433,7 @@
         "constructor": "Aston Martin",
         "constructor_id": "aston_martin",
         "championship_points": 0.0,
-        "championship_position": 21,
+        "championship_position": 22,
         "completed_xfp": -231.0,
         "projected_remaining_xfp": 3.4,
         "projected_total_xfp": -227.6,
@@ -3566,7 +3566,7 @@
               "podium_prob": 17.2
             }
           ],
-          "championship_points": 150.0
+          "championship_points": 144.0
         },
         {
           "code": "SAI",
@@ -3620,7 +3620,7 @@
               "podium_prob": 10.0
             }
           ],
-          "championship_points": 43.0
+          "championship_points": 42.0
         },
         {
           "code": "ALO",
@@ -3656,7 +3656,7 @@
               "podium_prob": 0.1
             }
           ],
-          "championship_points": 0.0
+          "championship_points": 1.0
         },
         {
           "code": "HAD",
@@ -3674,7 +3674,7 @@
               "podium_prob": 6.6
             }
           ],
-          "championship_points": 105.0
+          "championship_points": 107.0
         },
         {
           "code": "BOT",
@@ -3728,7 +3728,7 @@
               "podium_prob": 0.2
             }
           ],
-          "championship_points": 31.0
+          "championship_points": 27.0
         },
         {
           "code": "LAW",
@@ -3746,7 +3746,7 @@
               "podium_prob": 5.4
             }
           ],
-          "championship_points": 79.0
+          "championship_points": 83.0
         },
         {
           "code": "DOO",
@@ -3800,7 +3800,7 @@
               "podium_prob": 1.2
             }
           ],
-          "championship_points": 10.0
+          "championship_points": 14.0
         },
         {
           "code": "LIN",
@@ -4116,7 +4116,7 @@
               "podium_prob": 17.3
             }
           ],
-          "championship_points": 150.0
+          "championship_points": 144.0
         },
         {
           "code": "PER",
@@ -4212,7 +4212,7 @@
               "podium_prob": 10.2
             }
           ],
-          "championship_points": 43.0
+          "championship_points": 42.0
         },
         {
           "code": "ALO",
@@ -4276,7 +4276,7 @@
               "podium_prob": 0.1
             }
           ],
-          "championship_points": 0.0
+          "championship_points": 1.0
         },
         {
           "code": "HAD",
@@ -4308,7 +4308,7 @@
               "podium_prob": 6.6
             }
           ],
-          "championship_points": 105.0
+          "championship_points": 107.0
         },
         {
           "code": "BOT",
@@ -4404,7 +4404,7 @@
               "podium_prob": 0.2
             }
           ],
-          "championship_points": 31.0
+          "championship_points": 27.0
         },
         {
           "code": "LAW",
@@ -4436,7 +4436,7 @@
               "podium_prob": 5.4
             }
           ],
-          "championship_points": 79.0
+          "championship_points": 83.0
         },
         {
           "code": "STR",
@@ -4564,7 +4564,7 @@
               "podium_prob": 1.1
             }
           ],
-          "championship_points": 10.0
+          "championship_points": 14.0
         },
         {
           "code": "OCO",
@@ -4967,7 +4967,7 @@
               "podium_prob": 17.2
             }
           ],
-          "championship_points": 150.0
+          "championship_points": 144.0
         },
         {
           "code": "PER",
@@ -5045,7 +5045,7 @@
               "podium_prob": 10.3
             }
           ],
-          "championship_points": 43.0
+          "championship_points": 42.0
         },
         {
           "code": "SAI",
@@ -5162,7 +5162,7 @@
               "podium_prob": 6.7
             }
           ],
-          "championship_points": 105.0
+          "championship_points": 107.0
         },
         {
           "code": "BOT",
@@ -5240,7 +5240,7 @@
               "podium_prob": 0.0
             }
           ],
-          "championship_points": 0.0
+          "championship_points": 1.0
         },
         {
           "code": "BEA",
@@ -5318,7 +5318,7 @@
               "podium_prob": 5.4
             }
           ],
-          "championship_points": 79.0
+          "championship_points": 83.0
         },
         {
           "code": "STR",
@@ -5396,7 +5396,7 @@
               "podium_prob": 0.2
             }
           ],
-          "championship_points": 31.0
+          "championship_points": 27.0
         },
         {
           "code": "DOO",
@@ -5513,7 +5513,7 @@
               "podium_prob": 1.1
             }
           ],
-          "championship_points": 10.0
+          "championship_points": 14.0
         },
         {
           "code": "OCO",
