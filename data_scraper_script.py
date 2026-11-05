@@ -808,8 +808,46 @@ try:
         for t in fpl_json["teams"]
     }
 
+    # Pull match-level minutes for the last five *completed* gameweeks.
+    # One live endpoint per GW rather than an element-summary request per player.
+    # Fail closed: partial data must not masquerade as a five-week sample.
+    completed_gws = [
+        event["id"] for event in fpl_json["events"]
+        if event.get("finished") and event.get("data_checked")
+    ][-5:]
+    recent_minutes_by_id = {}
+    recent_games = 0
+    if len(completed_gws) >= 4:
+        try:
+            for gw in completed_gws:
+                live_resp = requests.get(
+                    f"https://fantasy.premierleague.com/api/event/{gw}/live/",
+                    headers={"User-Agent": "Mozilla/5.0"},
+                    timeout=15,
+                )
+                live_resp.raise_for_status()
+                elements = live_resp.json()["elements"]
+                recent_games += 1
+                for pid, data in elements.items():
+                    recent_minutes_by_id.setdefault(int(pid), []).append(
+                        int(data.get("stats", {}).get("minutes", 0) or 0)
+                    )
+            print(f"✅ FPL recent minutes loaded for {recent_games} completed GWs")
+        except (requests.RequestException, KeyError, TypeError, ValueError) as exc:
+            print(f"⚠️ FPL recent match minutes unavailable ({exc}); using season baselines")
+            recent_minutes_by_id = {}
+            recent_games = 0
+
     fpl_rows = []
     for p in fpl_json["elements"]:
+        recent = recent_minutes_by_id.get(p["id"])
+        # Missing player IDs count as 0 minutes, never omit quiet gameweeks.
+        if recent is not None:
+            recent = recent + [0] * (recent_games - len(recent))
+        fpl_rows.append({
+            "recent_minutes": sum(recent) if recent is not None else None,
+            "recent_games": recent_games if recent is not None else None,
+            "recent_60_games": sum(m >= 60 for m in recent) if recent is not None else None,
         fpl_rows.append({
             "fpl_id":       p["id"],
             "fpl_name":     f"{p['first_name']} {p['second_name']}",

@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 from io import BytesIO
 from fpl_projection import (
     eligibility_minutes,
+    recent_minutes_eligible,
     expected_minutes,
     projected_fpl_points,
     historical_extra_points,
@@ -1121,7 +1122,20 @@ def fpl(export_mode=False):
                     fpl_team = fp["team"]
                     games_played = int(team_games_played.get(fpl_team, 0))
                     minimum_minutes = eligibility_minutes(games_played, fp["position"])
-                    if int(fp["minutes"]) < minimum_minutes:
+                    # Recent sustained starts can establish reliability faster
+                    # than the season-average minutes gate permits.
+                    recent_minutes = fp.get("recent_minutes")
+                    recent_games = fp.get("recent_games")
+                    recent_60_games = fp.get("recent_60_games")
+                    has_recent = (
+                        pd.notna(recent_minutes)
+                        and pd.notna(recent_games)
+                        and pd.notna(recent_60_games)
+                    )
+                    recent_eligible = has_recent and recent_minutes_eligible(
+                        float(recent_minutes), int(recent_games), int(recent_60_games)
+                    )
+                    if int(fp["minutes"]) < minimum_minutes and not recent_eligible:
                         continue
                     # Form is a useful signal, but never let an early-season or
                     # temporarily blank FPL value remove the whole player pool.
@@ -1154,7 +1168,9 @@ def fpl(export_mode=False):
                     if pd.isna(chance):
                         chance = 75 if fp["status"] == "d" else 100
                     exp_mins = expected_minutes(
-                        fp["minutes"], fp.get("starts", 0), games_played, chance
+                        fp["minutes"], fp.get("starts", 0), games_played, chance,
+                        recent_minutes=float(recent_minutes) if has_recent else None,
+                        recent_games=int(recent_games) if has_recent else None,
                     )
                     if exp_mins < 60:
                         continue
