@@ -22,11 +22,33 @@ def eligibility_minutes(games_played: int, position: str) -> int:
     return int(min(cap, max(floor, round(available * share))))
 
 
+
+def recent_minutes_eligible(
+    recent_minutes: float | None,
+    recent_games: int | None,
+    recent_60_games: int | None,
+    min_games: int = 4,
+) -> bool:
+    """Require a sustained recent run before overriding season-long eligibility.
+
+    Match-level data is optional; missing history never creates an exemption.
+    The window includes zero-minute gameweeks to avoid selection bias.
+    """
+    if recent_minutes is None or recent_games is None or recent_60_games is None:
+        return False
+    if recent_games < min_games or recent_60_games < 3:
+        return False
+    return recent_minutes / recent_games >= 65
+
+
+
 def expected_minutes(
     total_minutes: float,
     starts: float,
     games_played: int,
     chance_of_playing: float | None = None,
+    recent_minutes: float | None = None,
+    recent_games: int | None = None,
 ) -> float:
     """Estimate next-fixture minutes from season usage and availability."""
     if games_played <= 0:
@@ -34,6 +56,11 @@ def expected_minutes(
     average_minutes = float(total_minutes) / games_played
     start_rate = float(np.clip(float(starts) / games_played, 0, 1))
     baseline = 0.7 * average_minutes + 0.3 * (90 * start_rate)
+    if recent_minutes is not None and recent_games is not None and recent_games >= 4:
+        recent_average = float(np.clip(recent_minutes / recent_games, 0, 90))
+        # Recent usage is predictive for newly established starters, but do
+        # not overreact to a single game or discard the season baseline.
+        baseline = 0.75 * recent_average + 0.25 * baseline
     availability = 1.0 if chance_of_playing is None else float(np.clip(chance_of_playing / 100, 0, 1))
     return round(float(np.clip(baseline * availability, 0, 90)), 1)
 
