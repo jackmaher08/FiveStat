@@ -971,64 +971,148 @@ F1F_QUALI_POINTS = {
 F1F_QUALI_NO_TIME = -5
 
 
-def calculate_xfp(predictions, race_round=None):
-    """
-    Expected Fantasy Points per driver for a single race.
+def calculate_xfp(predictions, race_round=None, race_meta=None, has_quali=False):
+    """Project 2026 *driver* F1 Fantasy points across the full race weekend.
 
-    Scoring:
-      Finish points from F1F_POINTS_FINISH lookup
-      DNF: -20 pts
-      Fastest lap: +5 pts, applied at F1F_FASTEST_LAP_PROB per driver weighted by win_prob
-      Positions gained vs grid: +2 per place
-      Positions lost vs grid: -1 per place
+    Race finish, qualifying, grid movement, overtakes, fastest lap, Driver of
+    the Day, non-classification and (on Sprint weekends) sprint scoring are
+    included. Where event-level forecasting inputs do not exist, overtakes,
+    DoTD and pre-qualifying grid positions use disclosed heuristics.
 
-    Returns predictions list with xfp field added, sorted by xfp desc.
+    These are *unboosted driver* xFP, not official whole-team fantasy scores:
+    constructors/pit stops, chips, x2/x3 boosts and transfer penalties depend
+    on a user's selected fantasy team and are not incorporated here.
+
+    Source: https://fantasy.formula1.com/en/game-rules (2026).
     """
     if not predictions:
         return []
 
-    total_win_prob = sum(d.get("win_prob", 0) for d in predictions) or 1
+    if race_meta is None and race_round is not None:
+        race_meta = next(
+            (race for race in load_f1_schedule() if race.get("round") == race_round),
+            {},
+        )
+    race_meta = race_meta or {}
+    sprint_weekend = bool(race_meta.get("has_sprint", False))
+    circuit_factor = _get_circuit_overtaking_index(
+        race_meta.get("circuit_id", "")
+    ) / 0.55
+    survival_prob = 1.0 - DNF_RATE
+    field_size = len(predictions)
+
+    # Each weekend has one race fastest lap and one Driver of the Day.
+    # Distribute their expected bonus across drivers, not 10 points EACH.
+    fl_weights = []
+    dotd_weights = []
+    for d in predictions:
+        win = max(0.0, float(d.get("win_prob") or 0))
+        podium = max(win, float(d.get("podium_prob") or 0))
+        points = max(podium, float(d.get("points_prob") or 0))
+        grid = float(d.get("grid") or field_size)
+        expected_pos = float(d.get("expected_pos") or grid)
+        fl_weights.append(0.50 * win + 0.35 * podium + 0.15 * points)
+        dotd_weights.append(
+            0.35 * win + 0.25 * podium + 2.0 * max(grid - expected_pos, 0)
+            + 0.10 * points
+        )
+    fl_total = sum(fl_weights)
+    dotd_total = sum(dotd_weights)
 
     result = []
-    for d in predictions:
-        grid = d.get("grid") or 10
-        win_prob = d.get("win_prob", 0)
-        podium_prob = d.get("podium_prob", 0)
-        points_prob = d.get("points_prob", 0)
-        expected_pos = d.get("expected_pos") or grid
-        dnf_prob = DNF_RATE
+    for i, d in enumerate(predictions):
+        grid = int(d.get("grid") or field_size)
+        expected_pos = float(d.get("expected_pos") or grid)
+        win = max(0.0, min(100.0, float(d.get("win_prob") or 0))) / 100.0
+        podium = max(win, min(1.0, float(d.get("podium_prob") or 0) / 100.0))
+        top_ten = max(podium, min(1.0, float(d.get("points_prob") or 0) / 100.0))
+        podium_excl_win = max(0.0, podium - win)
+        points_excl_podium = max(0.0, top_ten - podium)
 
-        finish_xfp = 0
-        for pos, pts in F1F_POINTS_FINISH.items():
-            if pos == 1:
-                p = win_prob / 100
-            elif pos <= 3:
-                p = (podium_prob - win_prob) / 100 / 2
-            elif pos <= 10:
-                p = (points_prob - podium_prob) / 100 / 7
-            else:
-                p = 0
-            p = max(p, 0)
-            finish_xfp += p * pts
+        # The race model exposes win, podium and top-10 probabilities rather
+        # than every finishing position. Approximate P2/P3 and P4-P10 as
+        # uniformly distributed inside their respective buckets.
+        finish_xfp = (
+            win * F1F_POINTS_FINISH[1]
+            + podium_excl_win * (F1F_POINTS_FINISH[2] + F1F_POINTS_FINISH[3]) / 2
+            + points_excl_podium
+            * sum(F1F_POINTS_FINISH[p] for p in range(4, 11)) / 7
+        )
+        dnf_xfp = DNF_RATE * F1F_POINTS_DNF
 
-        dnf_xfp = dnf_prob * F1F_POINTS_DNF
+        # Before qualifying, "grid" is the pace model's projected grid.
+        # Once qualifying is ingested, use the actual result instead.
+        no_quali_time = has_quali and "best_quali_time" in d and not d["best_quali_time"]
+        qualifying_xfp = (
+            F1F_QUALI_NO_TIME if no_quali_time
+            else F1F_QUALI_POINTS.get(grid, 0)
+        )
 
-        fl_weight = (win_prob / total_win_prob) if total_win_prob else 0
-        fl_xfp = fl_weight * F1F_FASTEST_LAP_PROB * F1F_POINTS_FASTEST_LAP * 20
+        # Expected race position includes the DNF tail. Remove that tail to
+        # avoid charging a DNF both a -20 penalty AND lost positions.
+        classified_pos = (expected_pos - DNF_RATE * (field_size + 1)) / survival_prob
+        classified_pos = max(1.0, min(float(field_size), classified_pos))
+        position_xfp = survival_prob * (grid - classified_pos)
 
-        pos_delta = grid - expected_pos
-        if pos_delta > 0:
-            pos_xfp = pos_delta * F1F_POINTS_PER_PLACE_GAINED
-        else:
-            pos_xfp = pos_delta * abs(F1F_POINTS_PER_PLACE_LOST)
+        # Legal on-track passes are not in the race forecast input. Estimate
+        # them explicitly from grid depth, movement and circuit passing index.
+        # This is a heuristic until official overtake histories are ingested.
+        estimated_overtakes = survival_prob * circuit_factor * (
+            1.5 + 3.5 * grid / field_size + 0.30 * max(0.0, grid - classified_pos)
+        )
 
-        xfp = round(finish_xfp + dnf_xfp + fl_xfp + pos_xfp, 1)
+        fastest_lap_xfp = (
+            F1F_POINTS_FASTEST_LAP * fl_weights[i] / fl_total
+            if fl_total else 0.0
+        )
+        driver_of_day_xfp = (
+            10.0 * dotd_weights[i] / dotd_total
+            if dotd_total else 0.0
+        )
 
-        result.append({**d, "xfp": xfp})
+        components = {
+            "qualifying": qualifying_xfp,
+            "race_finish": finish_xfp,
+            "race_positions": position_xfp,
+            "race_overtakes_est": estimated_overtakes,
+            "race_fastest_lap": fastest_lap_xfp,
+            "race_driver_of_day": driver_of_day_xfp,
+            "race_dnf": dnf_xfp,
+        }
+
+        if sprint_weekend:
+            # Sprint qualifying does not score separately in official F1
+            # Fantasy. In the absence of Sprint-specific simulations, proxy
+            # its P1-P8 distribution from the race model's buckets and scale
+            # passing/positions for the shorter Sprint distance.
+            sprint_finish = (
+                win * F1F_SPRINT_POINTS_FINISH[1]
+                + podium_excl_win
+                * (F1F_SPRINT_POINTS_FINISH[2] + F1F_SPRINT_POINTS_FINISH[3]) / 2
+                + points_excl_podium * (5.0 / 7.0)
+                * sum(F1F_SPRINT_POINTS_FINISH[p] for p in range(4, 9)) / 5
+            )
+            components.update({
+                "sprint_finish": sprint_finish,
+                "sprint_positions": max(-10.0, position_xfp * 0.5),
+                "sprint_overtakes_est": estimated_overtakes * 0.35,
+                "sprint_fastest_lap": (
+                    5.0 * fl_weights[i] / fl_total if fl_total else 0.0
+                ),
+                "sprint_dnf": DNF_RATE * F1F_SPRINT_POINTS_DNF,
+            })
+
+        xfp = round(sum(components.values()), 1)
+        result.append({
+            **d,
+            "xfp": xfp,
+            "xfp_components": {k: round(v, 2) for k, v in components.items()},
+            "xfp_is_estimate": True,
+            "xfp_includes_sprint": sprint_weekend,
+        })
 
     result.sort(key=lambda x: x["xfp"], reverse=True)
     return result
-
 
 def calculate_actual_fantasy_points(year, round_num):
     """
@@ -1187,7 +1271,7 @@ def calculate_season_xfp_projection():
         year = race.get("season", CURRENT_YEAR)
         round_num = race.get("round")
         pred = calculate_race_predictions(year, round_num)
-        xfp_list = calculate_xfp(pred.get("predictions", []))
+        xfp_list = calculate_xfp(pred.get("predictions", []), race_meta=pred.get("race_meta"), has_quali=pred.get("has_quali", False))
         for d in xfp_list:
             code = d["code"]
             driver_projected.setdefault(code, 0)
@@ -1226,9 +1310,9 @@ def calculate_season_xfp_projection():
     return projection
 
 
-def calculate_transfer_targets(horizons=(1, 3, 5)):
+def calculate_transfer_targets(horizons=(5,)):
     """
-    Transfer targets for each horizon (next 1, 3, 5 races).
+    Transfer targets by cumulative xFP, with five races as the only UI horizon.
     Returns dict: {1: [...], 3: [...], 5: [...]}
     Each list is drivers sorted by summed xFP over that horizon.
     """
@@ -1250,7 +1334,7 @@ def calculate_transfer_targets(horizons=(1, 3, 5)):
             round_num = race.get("round")
             race_name = race.get("name", f"Round {round_num}")
             pred = calculate_race_predictions(year, round_num)
-            xfp_list = calculate_xfp(pred.get("predictions", []))
+            xfp_list = calculate_xfp(pred.get("predictions", []), race_meta=pred.get("race_meta"), has_quali=pred.get("has_quali", False))
             for d in xfp_list:
                 code = d["code"]
                 driver_xfp.setdefault(code, {"total": 0, "races": []})
@@ -1313,7 +1397,7 @@ def get_f1_predictions_data(year, round_num):
         (r for r in schedule if r.get("round", 0) > int(round_num)), None
     )
 
-    xfp = calculate_xfp(pred.get("predictions", []))
+    xfp = calculate_xfp(pred.get("predictions", []), race_meta=pred.get("race_meta"), has_quali=pred.get("has_quali", False))
     xfp_map = {d["code"]: d["xfp"] for d in xfp}
     predictions_with_xfp = [
         {**p, "xfp": xfp_map.get(p["code"], 0)}
@@ -1343,11 +1427,11 @@ def get_f1_fantasy_data():
         pred = calculate_race_predictions(
             next_race.get("season", CURRENT_YEAR), next_race["round"]
         )
-        next_xfp = calculate_xfp(pred.get("predictions", []))
+        next_xfp = calculate_xfp(pred.get("predictions", []), race_meta=pred.get("race_meta"), has_quali=pred.get("has_quali", False))
         next_pred = {**pred, "xfp": next_xfp}
 
     season_projection = calculate_season_xfp_projection()
-    transfer_targets = calculate_transfer_targets(horizons=(1, 3, 5))
+    transfer_targets = calculate_transfer_targets(horizons=(5,))
 
     result = {
         "next_race": next_race,
