@@ -68,7 +68,7 @@ class B2BExportTests(unittest.TestCase):
                   "podium_prob": 62.0, "points_prob": 94.0, "expected_pos": 4.2, "xfp": 30.2}
         fantasy = {"season_projection": [{"code": "ABC", "name": "Example Driver",
             "constructor": "Example Team", "projected_total_xfp": 100.0}],
-            "transfer_targets": {1: [{"code": "ABC", "name": "Example Driver",
+            "transfer_targets": {5: [{"code": "ABC", "name": "Example Driver",
                 "constructor": "Example Team", "total_xfp": 30.2, "per_race_xfp": 30.2}]}}
         payload, tables = build_f1_exports(
             [race], {"ABC": {"name": "Example Driver", "dpr": -0.1}},
@@ -83,7 +83,7 @@ class B2BExportTests(unittest.TestCase):
             saved = json.loads((root / "f1/predictions.json").read_text())
             self.assertEqual(saved["upcoming_race_predictions"][0]["predictions"][0]["xfp"], 30.2)
             with (root / "f1/fantasy_transfer_targets.csv").open() as handle:
-                self.assertEqual(list(csv.DictReader(handle))[0]["horizon_races"], "1")
+                self.assertEqual(list(csv.DictReader(handle))[0]["horizon_races"], "5")
 
     def test_f1_no_upcoming_races_writes_headers(self):
         payload, tables = build_f1_exports(
