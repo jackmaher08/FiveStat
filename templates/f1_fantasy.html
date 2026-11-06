@@ -26,7 +26,7 @@
         {% if next_race %} - {{ next_race.name }}{% endif %}
     </h2>
         <span class="f1-section-badge">FiveStat Model</span>
-    <p class="f1-section-desc">Expected fantasy points for the next race. Based on win/podium/points probabilities, positions gained vs grid, and fastest lap probability.</p>
+    <p class="f1-section-desc">Projected unboosted driver fantasy points across qualifying and the race (plus Sprint when scheduled). Overtakes and Driver of the Day are estimated; constructor bonuses, chips and transfer costs are excluded.</p>
     <div class="table-container">
         <table class="league-table">
             <thead>
@@ -63,55 +63,44 @@
 </div>
 {% endif %}
 
-{% if transfer_targets %}
+{% if transfer_targets and transfer_targets.get(5) %}
 <div class="section">
-    <h2 class="f1-section-title">Transfer Targets</h2>
-     <span class="f1-section-badge">FiveStat Model</span>
-    <p class="f1-section-desc">Best picks by summed xFP across the next 1, 3, and 5 races. Use for short holds, medium holds, and season picks.</p>
-
-    <div class="f1-fantasy-tabs">
-        <button class="f1-fantasy-tab f1-fantasy-tab--active" onclick="showTab('tab1', this)">Next Race</button>
-        <button class="f1-fantasy-tab" onclick="showTab('tab3', this)">Next 3 Races</button>
-        <button class="f1-fantasy-tab" onclick="showTab('tab5', this)">Next 5 Races</button>
+    <h2 class="f1-section-title">Transfer Targets — Next 5 Races</h2>
+    <span class="f1-section-badge">FiveStat Model</span>
+    <p class="f1-section-desc">Ranked by cumulative projected driver fantasy points over the next five races (or all remaining races if fewer than five). Excludes constructor points, chips and transfer costs.</p>
+    <div class="table-container">
+        <table class="league-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th style="text-align:left;">Driver</th>
+                    <th>Team</th>
+                    <th>Total xFP</th>
+                    <th>Per Race</th>
+                    <th>Race Breakdown</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for d in transfer_targets[5][:15] %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td style="text-align:left;font-weight:600;">
+                        <span class="f1-constructor-dot" data-constructor="{{ d.constructor_id }}"></span>
+                        {{ d.name }}
+                    </td>
+                    <td style="color:var(--text-muted);font-size:0.78rem;">{{ d.constructor }}</td>
+                    <td style="font-weight:700;color:var(--accent);">{{ d.total_xfp }}</td>
+                    <td style="color:var(--text-secondary);">{{ d.per_race_xfp }}</td>
+                    <td style="font-size:0.75rem;color:var(--text-muted);">
+                        {% for r in d.races %}
+                        <span class="f1-xfp-race-chip">{{ r.name.split(' Grand')[0] }}: {{ r.xfp }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
-
-    {% for horizon, targets in transfer_targets.items() %}
-    <div class="f1-fantasy-tab-content" id="tab{{ horizon }}" style="display:{% if horizon == 1 %}block{% else %}none{% endif %};">
-        <div class="table-container">
-            <table class="league-table">
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th style="text-align:left;">Driver</th>
-                        <th>Team</th>
-                        <th>Total xFP</th>
-                        <th>Per Race</th>
-                        <th>Race Breakdown</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for d in targets[:15] %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td style="text-align:left;font-weight:600;">
-                            <span class="f1-constructor-dot" data-constructor="{{ d.constructor_id }}"></span>
-                            {{ d.name }}
-                        </td>
-                        <td style="color:var(--text-muted);font-size:0.78rem;">{{ d.constructor }}</td>
-                        <td style="font-weight:700;color:var(--accent);">{{ d.total_xfp }}</td>
-                        <td style="color:var(--text-secondary);">{{ d.per_race_xfp }}</td>
-                        <td style="font-size:0.75rem;color:var(--text-muted);">
-                            {% for r in d.races %}
-                            <span class="f1-xfp-race-chip">{{ r.name.split(' Grand')[0] }}: {{ r.xfp }}</span>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% endfor %}
 </div>
 {% endif %}
 
@@ -156,8 +145,8 @@
 
 <div class="f1-pred-methodology">
     <h3 class="f1-pred-methodology-title">How xFP is calculated</h3>
-    <p>Expected Fantasy Points (xFP) uses FiveStat's race prediction probabilities to estimate each driver's likely fantasy score. Finish position points (25 for 1st down to 1 for 10th) are weighted by win/podium/points probabilities. A -20 DNF penalty is applied at 8% probability per driver. Fastest lap (+5) is distributed proportionally by win probability. Grid position vs expected finish position determines positions gained/lost bonuses.</p>
-    <p>Season projections use actual fantasy points from completed races (calculated from real results) combined with xFP model projections for remaining rounds. Transfer targets rank drivers by summed xFP over the next 1, 3, or 5 races.</p>
+    <p>FiveStat estimates unboosted driver fantasy points using its race probabilities and projected grid: qualifying points (10 for pole through 1 for P10), race finishing points (25 for P1 through 1 for P10), changes in race position, expected overtakes (+1 each), fastest lap (+10), Driver of the Day (+10), and an 8% probability of not being classified (-20). On Sprint weekends, Sprint finishing, positions, overtakes, fastest lap and non-classification are also included.</p>
+    <p>Position, overtake, Driver of the Day and Sprint forecasts use simplified assumptions, not verified future events. Results after qualifying use recorded qualifying positions when available. These estimates do not yet model constructor-specific bonuses, pit-stop scoring, chips, team costs or transfer penalties, so they should not be interpreted as projected total team scores. Season forecasts add manually verified fantasy points for completed rounds to projected points for upcoming rounds. Transfer targets use up to the next five races.</p>
 </div>
 
 {% endblock %}
@@ -184,11 +173,5 @@
         el.style.background = constructorColours[cid] || 'var(--text-muted)';
     });
 
-    function showTab(id, btn) {
-        document.querySelectorAll('.f1-fantasy-tab-content').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.f1-fantasy-tab').forEach(el => el.classList.remove('f1-fantasy-tab--active'));
-        document.getElementById(id).style.display = 'block';
-        btn.classList.add('f1-fantasy-tab--active');
-    }
 </script>
 {% endblock %}
