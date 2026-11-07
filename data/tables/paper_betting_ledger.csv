@@ -14,3 +14,4 @@ fixture_id,gw,kickoff,home_team,away_team,market,model_probability,market_fair_p
 31256,8,25/10/2026 14:00,Manchester United,Bournemouth,home_win,52.66,41.9,10.76,2.25,1.0,2026-10-25T07:38:46.703028+00:00,LOST,False,-1.0,2026-10-26T07:56:01.051354+00:00
 31278,10,07/11/2026 17:30,Nottingham Forest,Manchester City,away_win,65.22,55.2,10.02,1.7,1.0,2026-11-03T09:59:05.407689+00:00,OPEN,,,
 31275,10,08/11/2026 14:00,Ipswich,Bournemouth,away_win,62.96,48.8,14.16,1.92,1.0,2026-11-03T09:59:05.407689+00:00,OPEN,,,
+31270,10,07/11/2026 15:00,Arsenal,Hull,home_win,87.0,73.2,13.8,1.29,1.0,2026-11-07T15:44:00.479453+00:00,OPEN,,,
