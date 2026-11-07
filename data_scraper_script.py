@@ -9,6 +9,7 @@ from io import StringIO
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from fpl_deadlines import next_deadline_event
+from fpl_live import extract_live_minutes
 
 import sys
 BOOKIE_ONLY = "--bookie-only" in sys.argv
@@ -56,6 +57,15 @@ if not BOOKIE_ONLY:
     )
     fpl_bootstrap_resp.raise_for_status()
     fpl_bootstrap = fpl_bootstrap_resp.json()
+    # Persist the *full* official gameweek calendar so the website and
+    # exporters can derive the next deadline without a stale sentinel JSON.
+    events_path = "data/tables/fpl_events.csv"
+    os.makedirs(os.path.dirname(events_path), exist_ok=True)
+    pd.DataFrame([
+        {"id": e["id"], "deadline_time": e["deadline_time"]}
+        for e in fpl_bootstrap["events"] if e.get("id") and e.get("deadline_time")
+    ]).to_csv(events_path, index=False)
+    print(f"✅ FPL event calendar saved to {events_path}")
     fpl_team_id_to_name = {
         t["id"]: t["name"] for t in fpl_bootstrap["teams"]
     }
@@ -827,12 +837,12 @@ try:
                     timeout=15,
                 )
                 live_resp.raise_for_status()
-                elements = live_resp.json()["elements"]
-                recent_games += 1
-                for pid, data in elements.items():
-                    recent_minutes_by_id.setdefault(int(pid), []).append(
-                        int(data.get("stats", {}).get("minutes", 0) or 0)
+                minutes_this_gw = extract_live_minutes(live_resp.json()["elements"])
+                for pid in set(recent_minutes_by_id) | set(minutes_this_gw):
+                    recent_minutes_by_id.setdefault(pid, [0] * recent_games).append(
+                        minutes_this_gw.get(pid, 0)
                     )
+                recent_games += 1
             print(f"✅ FPL recent minutes loaded for {recent_games} completed GWs")
         except (requests.RequestException, KeyError, TypeError, ValueError) as exc:
             print(f"⚠️ FPL recent match minutes unavailable ({exc}); using season baselines")
@@ -877,17 +887,6 @@ try:
     fpl_path = os.path.join(save_dir, "fpl_player_data.csv")
     fpl_df.to_csv(fpl_path, index=False)
     print(f"✅ FPL player data saved ({len(fpl_df)} players) to {fpl_path}")
-
-    # The API's is_next flag can lag behind the actual deadline.
-    next_event = next_deadline_event(fpl_json["events"])
-    if next_event is None:
-        print("⚠️ No future FPL deadline in bootstrap data; retaining existing deadline file.")
-
-    if next_event is not None:
-        deadline_path = os.path.join(save_dir, "next_deadline.json")
-        with open(deadline_path, "w") as f:
-            json.dump({"deadline_time": next_event["deadline_time"], "gw": next_event["id"]}, f)
-        print(f"✅ Next deadline saved (GW{next_event['id']}) to {deadline_path}")
 
 except Exception as e:
     print(f"⚠️  Could not fetch FPL bootstrap data: {e}")
