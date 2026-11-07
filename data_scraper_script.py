@@ -848,7 +848,6 @@ try:
             "recent_minutes": sum(recent) if recent is not None else None,
             "recent_games": recent_games if recent is not None else None,
             "recent_60_games": sum(m >= 60 for m in recent) if recent is not None else None,
-        fpl_rows.append({
             "fpl_id":       p["id"],
             "fpl_name":     f"{p['first_name']} {p['second_name']}",
             "web_name":     p["web_name"],
