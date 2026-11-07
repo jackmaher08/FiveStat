@@ -10,7 +10,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fpl_projection import eligibility_minutes
-from fpl_deadlines import parse_deadline
+from fpl_deadlines import parse_deadline, load_next_event
 
 
 TABLES = Path("data/tables")
@@ -25,7 +25,7 @@ def main() -> None:
         "players": TABLES / "fpl_player_data.csv",
         "fixtures": TABLES / "fixture_data.csv",
         "probabilities": TABLES / "fixture_probabilities.csv",
-        "deadline": TABLES / "next_deadline.json",
+        "events": TABLES / "fpl_events.csv",
     }
     missing = [str(path) for path in required_paths.values() if not path.exists()]
     if missing:
@@ -34,7 +34,7 @@ def main() -> None:
     players = pd.read_csv(required_paths["players"])
     fixtures = pd.read_csv(required_paths["fixtures"])
     probabilities = pd.read_csv(required_paths["probabilities"])
-    deadline = json.loads(required_paths["deadline"].read_text())
+    next_event = load_next_event(required_paths["events"])
 
     player_columns = {
         "fpl_name", "web_name", "team", "position", "minutes", "starts",
@@ -46,10 +46,9 @@ def main() -> None:
     if len(players) < 300:
         fail(f"only {len(players)} FPL players were saved")
 
-    deadline_time = parse_deadline(deadline.get("deadline_time"))
-    if deadline_time is None or deadline_time <= datetime.now(timezone.utc):
-        fail("next_deadline.json is missing a future deadline; FPL gameweek data is stale")
-    current_gw = int(deadline["gw"])
+    if next_event is None:
+        fail("fpl_events.csv has no future FPL deadline; refresh the official event calendar")
+    current_gw = int(next_event["id"])
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
     upcoming = fixtures[(~fixtures["isResult"]) & (fixtures["round_number"] == current_gw)]
