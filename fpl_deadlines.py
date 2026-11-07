@@ -1,5 +1,7 @@
 """Deadline-based FPL gameweek selection (independent of Understat)."""
 from datetime import datetime, timezone
+import csv
+from pathlib import Path
 
 
 def parse_deadline(value):
@@ -37,3 +39,13 @@ def display_gameweek(deadline_record, fixtures, now=None):
     if deadline <= now:
         return max(gw + 1, fallback)
     return gw
+
+
+def load_next_event(path="data/tables/fpl_events.csv", now=None):
+    """Read the full official FPL event calendar, not a single cached GW."""
+    try:
+        with Path(path).open(newline="", encoding="utf-8") as stream:
+            events = list(csv.DictReader(stream))
+    except (OSError, csv.Error):
+        return None
+    return next_deadline_event(events, now=now)
