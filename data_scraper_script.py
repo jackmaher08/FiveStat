@@ -8,6 +8,7 @@ from understat_fallback import fetch_understat_league, merge_fpl_and_understat_f
 from io import StringIO
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
+from fpl_deadlines import next_deadline_event
 
 import sys
 BOOKIE_ONLY = "--bookie-only" in sys.argv
@@ -877,9 +878,10 @@ try:
     fpl_df.to_csv(fpl_path, index=False)
     print(f"✅ FPL player data saved ({len(fpl_df)} players) to {fpl_path}")
 
-    next_event = next((e for e in fpl_json["events"] if e.get("is_next")), None)
+    # The API's is_next flag can lag behind the actual deadline.
+    next_event = next_deadline_event(fpl_json["events"])
     if next_event is None:
-        next_event = next((e for e in fpl_json["events"] if not e.get("finished")), None)
+        print("⚠️ No future FPL deadline in bootstrap data; retaining existing deadline file.")
 
     if next_event is not None:
         deadline_path = os.path.join(save_dir, "next_deadline.json")
