@@ -1,6 +1,7 @@
 """Fail the update workflow when the FPL feature inputs are unusable."""
 
 from pathlib import Path
+from datetime import datetime, timezone
 import json
 import sys
 
@@ -9,6 +10,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from fpl_projection import eligibility_minutes
+from fpl_deadlines import parse_deadline
 
 
 TABLES = Path("data/tables")
@@ -44,6 +46,9 @@ def main() -> None:
     if len(players) < 300:
         fail(f"only {len(players)} FPL players were saved")
 
+    deadline_time = parse_deadline(deadline.get("deadline_time"))
+    if deadline_time is None or deadline_time <= datetime.now(timezone.utc):
+        fail("next_deadline.json is missing a future deadline; FPL gameweek data is stale")
     current_gw = int(deadline["gw"])
     fixtures["round_number"] = pd.to_numeric(fixtures["round_number"], errors="coerce")
     fixtures["isResult"] = fixtures["isResult"].astype(str).str.lower() == "true"
