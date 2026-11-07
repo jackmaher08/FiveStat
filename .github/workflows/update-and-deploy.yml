@@ -62,6 +62,10 @@ jobs:
             echo "type=${{ inputs.run_type }}" >> "$GITHUB_OUTPUT"
           fi
 
+      # Fail early on syntax errors rather than silently skipping data updates.
+      - name: Validate Python syntax
+        run: python -m compileall -q data_scraper_script.py data_loader.py app.py fpl_deadlines.py scripts
+
       # Football and FPL
       - name: Football and FPL pipeline
         if: steps.run_type.outputs.type == 'football' || steps.run_type.outputs.type == 'full'

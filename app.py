@@ -13,6 +13,7 @@ from wc_model import get_wc_data
 from gaa_model import get_gaa_data, teams_still_in, load_results as gaa_load_results, load_fixtures as gaa_load_fixtures
 from collections import defaultdict
 from datetime import datetime
+from fpl_deadlines import display_gameweek
 import json
 import unicodedata
 import requests
@@ -824,14 +825,15 @@ def fpl(export_mode=False):
         if GW_OVERRIDE is not None:
             current_gw = GW_OVERRIDE
         else:
-            current_gw = None
+            deadline_record = None
             deadline_path = "data/tables/next_deadline.json"
             if os.path.exists(deadline_path):
-                with open(deadline_path) as f:
-                    current_gw = json.load(f).get("gw")
-            if current_gw is None:
-                upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
-                current_gw = int(upcoming.min()) if not upcoming.empty else 1
+                try:
+                    with open(deadline_path) as f:
+                        deadline_record = json.load(f)
+                except (OSError, ValueError):
+                    app.logger.warning("Invalid FPL deadline file; using fixture fallback")
+            current_gw = display_gameweek(deadline_record, fixtures_df)
 
         probs_df   = pd.read_csv("data/tables/fixture_probabilities.csv")
         league_df  = pd.read_csv("data/tables/league_table_data.csv")
