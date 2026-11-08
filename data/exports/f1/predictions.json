@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-11-05T09:39:53Z",
+  "generated_at_utc": "2026-11-08T00:40:10Z",
   "product": "f1",
   "season": 2026,
   "units": {
@@ -559,456 +559,316 @@
         "time": "17:00:00Z",
         "has_sprint": false
       },
-      "mode": "pre_quali",
-      "has_qualifying": false,
+      "mode": "post_quali",
+      "has_qualifying": true,
       "simulation_count": 5000,
       "predictions": [
-        {
-          "code": "VER",
-          "name": "Max Verstappen",
-          "constructor": "Red Bull",
-          "constructor_id": "red_bull",
-          "grid": 1,
-          "pace_score": -1.964,
-          "dpr": -0.988,
-          "cpi": -0.976,
-          "best_quali_time": null,
-          "championship_pos": 2,
-          "championship_pts": 261.0,
-          "win_prob": 31.7,
-          "podium_prob": 64.7,
-          "points_prob": 90.8,
-          "expected_pos": 4.7,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 12.8
-        },
         {
           "code": "ANT",
           "name": "Andrea Kimi Antonelli",
           "constructor": "Mercedes",
           "constructor_id": "mercedes",
-          "grid": 2,
+          "grid": 3,
           "pace_score": -1.544,
           "dpr": -0.398,
           "cpi": -1.146,
           "best_quali_time": null,
           "championship_pos": 1,
           "championship_pts": 380.0,
-          "win_prob": 21.2,
-          "podium_prob": 52.8,
-          "points_prob": 89.2,
-          "expected_pos": 5.4,
+          "win_prob": 25.6,
+          "podium_prob": 57.8,
+          "points_prob": 90.5,
+          "expected_pos": 4.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 9.9
-        },
-        {
-          "code": "LEC",
-          "name": "Charles Leclerc",
-          "constructor": "Ferrari",
-          "constructor_id": "ferrari",
-          "grid": 3,
-          "pace_score": -1.391,
-          "dpr": -0.154,
-          "cpi": -1.237,
-          "best_quali_time": null,
-          "championship_pos": 5,
-          "championship_pts": 245.0,
-          "win_prob": 15.4,
-          "podium_prob": 45.2,
-          "points_prob": 88.4,
-          "expected_pos": 5.8,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 8.6
+          "xfp": 11.8
         },
         {
           "code": "NOR",
           "name": "Lando Norris",
           "constructor": "McLaren",
           "constructor_id": "mclaren",
-          "grid": 4,
+          "grid": 1,
           "pace_score": -1.119,
           "dpr": -0.257,
           "cpi": -0.862,
           "best_quali_time": null,
           "championship_pos": 6,
           "championship_pts": 221.0,
-          "win_prob": 10.0,
-          "podium_prob": 36.4,
-          "points_prob": 86.3,
-          "expected_pos": 6.4,
+          "win_prob": 21.7,
+          "podium_prob": 53.5,
+          "points_prob": 89.9,
+          "expected_pos": 5.1,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.9
+          "xfp": 8.3
         },
         {
-          "code": "HAM",
-          "name": "Lewis Hamilton",
+          "code": "LEC",
+          "name": "Charles Leclerc",
           "constructor": "Ferrari",
           "constructor_id": "ferrari",
-          "grid": 5,
-          "pace_score": -1.08,
-          "dpr": 0.157,
+          "grid": 4,
+          "pace_score": -1.391,
+          "dpr": -0.154,
           "cpi": -1.237,
           "best_quali_time": null,
-          "championship_pos": 3,
-          "championship_pts": 259.0,
-          "win_prob": 8.6,
-          "podium_prob": 31.8,
-          "points_prob": 84.3,
-          "expected_pos": 6.9,
+          "championship_pos": 5,
+          "championship_pts": 245.0,
+          "win_prob": 19.6,
+          "podium_prob": 49.4,
+          "points_prob": 88.4,
+          "expected_pos": 5.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.6
+          "xfp": 10.3
         },
         {
           "code": "RUS",
           "name": "George Russell",
           "constructor": "Mercedes",
           "constructor_id": "mercedes",
-          "grid": 6,
+          "grid": 2,
           "pace_score": -0.739,
           "dpr": 0.407,
           "cpi": -1.146,
           "best_quali_time": null,
           "championship_pos": 4,
           "championship_pts": 250.0,
-          "win_prob": 4.9,
-          "podium_prob": 20.3,
-          "points_prob": 78.7,
-          "expected_pos": 7.9,
+          "win_prob": 13.3,
+          "podium_prob": 40.3,
+          "points_prob": 88.0,
+          "expected_pos": 5.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.3
+          "xfp": 5.8
         },
         {
-          "code": "PIA",
-          "name": "Oscar Piastri",
-          "constructor": "McLaren",
-          "constructor_id": "mclaren",
-          "grid": 7,
-          "pace_score": -0.603,
-          "dpr": 0.259,
-          "cpi": -0.862,
-          "best_quali_time": null,
-          "championship_pos": 7,
-          "championship_pts": 144.0,
-          "win_prob": 3.4,
-          "podium_prob": 17.2,
-          "points_prob": 74.8,
-          "expected_pos": 8.4,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 4.0
-        },
-        {
-          "code": "GAS",
-          "name": "Pierre Gasly",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "grid": 8,
-          "pace_score": -0.201,
-          "dpr": -0.605,
-          "cpi": 0.404,
-          "best_quali_time": null,
-          "championship_pos": 10,
-          "championship_pts": 42.0,
-          "win_prob": 1.7,
-          "podium_prob": 10.0,
-          "points_prob": 64.5,
-          "expected_pos": 9.8,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 1.9
-        },
-        {
-          "code": "HAD",
-          "name": "Isack Hadjar",
+          "code": "VER",
+          "name": "Max Verstappen",
           "constructor": "Red Bull",
           "constructor_id": "red_bull",
-          "grid": 9,
-          "pace_score": -0.073,
-          "dpr": 0.903,
+          "grid": 16,
+          "pace_score": -1.964,
+          "dpr": -0.988,
           "cpi": -0.976,
           "best_quali_time": null,
-          "championship_pos": 8,
-          "championship_pts": 107.0,
-          "win_prob": 1.3,
-          "podium_prob": 6.6,
-          "points_prob": 58.6,
-          "expected_pos": 10.4,
+          "championship_pos": 2,
+          "championship_pts": 261.0,
+          "win_prob": 6.2,
+          "podium_prob": 25.2,
+          "points_prob": 80.9,
+          "expected_pos": 7.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.5
+          "xfp": 20.5
+        },
+        {
+          "code": "HAM",
+          "name": "Lewis Hamilton",
+          "constructor": "Ferrari",
+          "constructor_id": "ferrari",
+          "grid": 11,
+          "pace_score": -1.08,
+          "dpr": 0.157,
+          "cpi": -1.237,
+          "best_quali_time": null,
+          "championship_pos": 3,
+          "championship_pts": 259.0,
+          "win_prob": 4.5,
+          "podium_prob": 19.7,
+          "points_prob": 76.4,
+          "expected_pos": 8.0,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 10.8
         },
         {
           "code": "LAW",
           "name": "Liam Lawson",
           "constructor": "RB F1 Team",
           "constructor_id": "rb",
-          "grid": 10,
+          "grid": 5,
           "pace_score": 0.134,
           "dpr": -0.149,
           "cpi": 0.283,
           "best_quali_time": null,
           "championship_pos": 9,
           "championship_pts": 83.0,
-          "win_prob": 0.7,
-          "podium_prob": 5.4,
-          "points_prob": 50.8,
-          "expected_pos": 11.4,
+          "win_prob": 2.6,
+          "podium_prob": 13.8,
+          "points_prob": 71.3,
+          "expected_pos": 8.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 0.6
+        },
+        {
+          "code": "HAD",
+          "name": "Isack Hadjar",
+          "constructor": "Red Bull",
+          "constructor_id": "red_bull",
+          "grid": 7,
+          "pace_score": -0.073,
+          "dpr": 0.903,
+          "cpi": -0.976,
+          "best_quali_time": null,
+          "championship_pos": 8,
+          "championship_pts": 107.0,
+          "win_prob": 2.2,
+          "podium_prob": 12.4,
+          "points_prob": 67.4,
+          "expected_pos": 9.2,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 1.8
+        },
+        {
+          "code": "PIA",
+          "name": "Oscar Piastri",
+          "constructor": "McLaren",
+          "constructor_id": "mclaren",
+          "grid": 12,
+          "pace_score": -0.603,
+          "dpr": 0.259,
+          "cpi": -0.862,
+          "best_quali_time": null,
+          "championship_pos": 7,
+          "championship_pts": 144.0,
+          "win_prob": 2.2,
+          "podium_prob": 10.6,
+          "points_prob": 65.5,
+          "expected_pos": 9.3,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 8.3
         },
         {
           "code": "HUL",
           "name": "Nico Hülkenberg",
           "constructor": "Audi",
           "constructor_id": "audi",
-          "grid": 11,
+          "grid": 6,
           "pace_score": 0.45,
           "dpr": -0.052,
           "cpi": 0.502,
           "best_quali_time": null,
           "championship_pos": 15,
           "championship_pts": 13.0,
-          "win_prob": 0.3,
-          "podium_prob": 2.6,
-          "points_prob": 39.9,
-          "expected_pos": 12.5,
+          "win_prob": 1.3,
+          "podium_prob": 7.8,
+          "points_prob": 60.0,
+          "expected_pos": 9.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.3
-        },
-        {
-          "code": "TSU",
-          "name": "Yuki Tsunoda",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "grid": 12,
-          "pace_score": 0.48,
-          "dpr": 0.197,
-          "cpi": 0.283,
-          "best_quali_time": null,
-          "championship_pos": 20,
-          "championship_pts": 1.0,
-          "win_prob": 0.3,
-          "podium_prob": 2.0,
-          "points_prob": 36.1,
-          "expected_pos": 13.0,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": -0.1
-        },
-        {
-          "code": "OCO",
-          "name": "Esteban Ocon",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "grid": 13,
-          "pace_score": 0.55,
-          "dpr": -0.299,
-          "cpi": 0.849,
-          "best_quali_time": null,
-          "championship_pos": 16,
-          "championship_pts": 7.0,
-          "win_prob": 0.2,
-          "podium_prob": 1.5,
-          "points_prob": 31.3,
-          "expected_pos": 13.5,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.0
-        },
-        {
-          "code": "BOR",
-          "name": "Gabriel Bortoleto",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "grid": 14,
-          "pace_score": 0.556,
-          "dpr": 0.054,
-          "cpi": 0.502,
-          "best_quali_time": null,
-          "championship_pos": 14,
-          "championship_pts": 14.0,
-          "win_prob": 0.1,
-          "podium_prob": 1.2,
-          "points_prob": 28.2,
-          "expected_pos": 13.8,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.5
-        },
-        {
-          "code": "LIN",
-          "name": "Arvid Lindblad",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "grid": 15,
-          "pace_score": 0.619,
-          "dpr": 0.336,
-          "cpi": 0.283,
-          "best_quali_time": null,
-          "championship_pos": 11,
-          "championship_pts": 38.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.8,
-          "points_prob": 23.3,
-          "expected_pos": 14.4,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.5
-        },
-        {
-          "code": "DOO",
-          "name": "Jack Doohan",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "grid": 16,
-          "pace_score": 0.757,
-          "dpr": 0.353,
-          "cpi": 0.404,
-          "best_quali_time": null,
-          "championship_pos": null,
-          "championship_pts": null,
-          "win_prob": 0.0,
-          "podium_prob": 0.6,
-          "points_prob": 20.1,
-          "expected_pos": 14.9,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.8
-        },
-        {
-          "code": "ALB",
-          "name": "Alexander Albon",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "grid": 17,
-          "pace_score": 1.017,
-          "dpr": -0.083,
-          "cpi": 1.1,
-          "best_quali_time": null,
-          "championship_pos": 19,
-          "championship_pts": 5.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.2,
-          "points_prob": 13.3,
-          "expected_pos": 16.2,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.0
-        },
-        {
-          "code": "COL",
-          "name": "Franco Colapinto",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "grid": 18,
-          "pace_score": 1.018,
-          "dpr": 0.614,
-          "cpi": 0.404,
-          "best_quali_time": null,
-          "championship_pos": 12,
-          "championship_pts": 27.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.2,
-          "points_prob": 12.4,
-          "expected_pos": 16.3,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 0.9
+          "xfp": -1.2
         },
         {
           "code": "BEA",
           "name": "Oliver Bearman",
           "constructor": "Haas F1 Team",
           "constructor_id": "haas",
-          "grid": 19,
+          "grid": 8,
           "pace_score": 1.048,
           "dpr": 0.199,
           "cpi": 0.849,
           "best_quali_time": null,
           "championship_pos": 13,
           "championship_pts": 23.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.3,
-          "points_prob": 10.1,
-          "expected_pos": 16.7,
+          "win_prob": 0.3,
+          "podium_prob": 2.1,
+          "points_prob": 36.3,
+          "expected_pos": 12.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.4
+          "xfp": -4.0
         },
         {
-          "code": "HIR",
-          "name": "Ryo Hirakawa",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "grid": 20,
-          "pace_score": 1.147,
-          "dpr": 0.298,
-          "cpi": 0.849,
-          "best_quali_time": null,
-          "championship_pos": 21,
-          "championship_pts": 1.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.1,
-          "points_prob": 7.5,
-          "expected_pos": 17.3,
-          "actual_position": null,
-          "actual_points": null,
-          "xfp": 1.6
-        },
-        {
-          "code": "SAI",
-          "name": "Carlos Sainz",
+          "code": "ALB",
+          "name": "Alexander Albon",
           "constructor": "Williams",
           "constructor_id": "williams",
-          "grid": 21,
-          "pace_score": 1.187,
-          "dpr": 0.087,
+          "grid": 10,
+          "pace_score": 1.017,
+          "dpr": -0.083,
           "cpi": 1.1,
           "best_quali_time": null,
-          "championship_pos": 18,
-          "championship_pts": 7.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.1,
-          "points_prob": 5.9,
-          "expected_pos": 17.7,
+          "championship_pos": 19,
+          "championship_pts": 5.0,
+          "win_prob": 0.1,
+          "podium_prob": 1.5,
+          "points_prob": 31.8,
+          "expected_pos": 12.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": -2.6
         },
         {
-          "code": "PER",
-          "name": "Sergio Pérez",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "grid": 22,
-          "pace_score": 1.491,
-          "dpr": -0.842,
-          "cpi": 2.333,
+          "code": "LIN",
+          "name": "Arvid Lindblad",
+          "constructor": "RB F1 Team",
+          "constructor_id": "rb",
+          "grid": 14,
+          "pace_score": 0.619,
+          "dpr": 0.336,
+          "cpi": 0.283,
           "best_quali_time": null,
-          "championship_pos": 24,
-          "championship_pts": 0.0,
-          "win_prob": 0.0,
-          "podium_prob": 0.0,
-          "points_prob": 3.7,
-          "expected_pos": 18.5,
+          "championship_pos": 11,
+          "championship_pts": 38.0,
+          "win_prob": 0.1,
+          "podium_prob": 1.5,
+          "points_prob": 28.6,
+          "expected_pos": 13.1,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": 1.9
+        },
+        {
+          "code": "COL",
+          "name": "Franco Colapinto",
+          "constructor": "Alpine F1 Team",
+          "constructor_id": "alpine",
+          "grid": 17,
+          "pace_score": 1.018,
+          "dpr": 0.614,
+          "cpi": 0.404,
+          "best_quali_time": null,
+          "championship_pos": 12,
+          "championship_pts": 27.0,
+          "win_prob": 0.1,
+          "podium_prob": 0.5,
+          "points_prob": 14.0,
+          "expected_pos": 15.0,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 2.5
+        },
+        {
+          "code": "GAS",
+          "name": "Pierre Gasly",
+          "constructor": "Alpine F1 Team",
+          "constructor_id": "alpine",
+          "grid": 18,
+          "pace_score": -0.201,
+          "dpr": -0.605,
+          "cpi": 0.404,
+          "best_quali_time": null,
+          "championship_pos": 10,
+          "championship_pts": 42.0,
+          "win_prob": 0.1,
+          "podium_prob": 2.1,
+          "points_prob": 36.3,
+          "expected_pos": 12.4,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 9.5
         },
         {
           "code": "ALO",
           "name": "Fernando Alonso",
           "constructor": "Aston Martin",
           "constructor_id": "aston_martin",
-          "grid": 23,
+          "grid": 9,
           "pace_score": 1.881,
           "dpr": -0.596,
           "cpi": 2.477,
@@ -1016,19 +876,59 @@
           "championship_pos": 17,
           "championship_pts": 7.0,
           "win_prob": 0.0,
-          "podium_prob": 0.0,
-          "points_prob": 1.5,
-          "expected_pos": 19.6,
+          "podium_prob": 0.4,
+          "points_prob": 18.0,
+          "expected_pos": 14.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": -6.5
+        },
+        {
+          "code": "",
+          "name": "Rafael Camara",
+          "constructor": "Haas F1 Team",
+          "constructor_id": "haas",
+          "grid": 13,
+          "pace_score": 0.849,
+          "dpr": 0.0,
+          "cpi": 0.849,
+          "best_quali_time": null,
+          "championship_pos": null,
+          "championship_pts": null,
+          "win_prob": 0.0,
+          "podium_prob": 0.9,
+          "points_prob": 25.8,
+          "expected_pos": 13.5,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": -0.4
+        },
+        {
+          "code": "SAI",
+          "name": "Carlos Sainz",
+          "constructor": "Williams",
+          "constructor_id": "williams",
+          "grid": 15,
+          "pace_score": 1.187,
+          "dpr": 0.087,
+          "cpi": 1.1,
+          "best_quali_time": null,
+          "championship_pos": 18,
+          "championship_pts": 7.0,
+          "win_prob": 0.0,
+          "podium_prob": 0.3,
+          "points_prob": 14.7,
+          "expected_pos": 14.9,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": -0.3
         },
         {
           "code": "STR",
           "name": "Lance Stroll",
           "constructor": "Aston Martin",
           "constructor_id": "aston_martin",
-          "grid": 24,
+          "grid": 19,
           "pace_score": 3.086,
           "dpr": 0.609,
           "cpi": 2.477,
@@ -1037,18 +937,18 @@
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
-          "points_prob": 0.2,
-          "expected_pos": 21.6,
+          "points_prob": 0.6,
+          "expected_pos": 19.0,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": -1.2
         },
         {
           "code": "BOT",
           "name": "Valtteri Bottas",
           "constructor": "Cadillac F1 Team",
           "constructor_id": "cadillac",
-          "grid": 25,
+          "grid": 20,
           "pace_score": 3.187,
           "dpr": 0.854,
           "cpi": 2.333,
@@ -1057,11 +957,51 @@
           "championship_pts": 0.0,
           "win_prob": 0.0,
           "podium_prob": 0.0,
-          "points_prob": 0.0,
-          "expected_pos": 21.9,
+          "points_prob": 0.4,
+          "expected_pos": 19.2,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.5
+          "xfp": -0.0
+        },
+        {
+          "code": "PER",
+          "name": "Sergio Pérez",
+          "constructor": "Cadillac F1 Team",
+          "constructor_id": "cadillac",
+          "grid": 21,
+          "pace_score": 1.491,
+          "dpr": -0.842,
+          "cpi": 2.333,
+          "best_quali_time": null,
+          "championship_pos": 24,
+          "championship_pts": 0.0,
+          "win_prob": 0.0,
+          "podium_prob": 0.0,
+          "points_prob": 4.4,
+          "expected_pos": 17.0,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 4.9
+        },
+        {
+          "code": "BOR",
+          "name": "Gabriel Bortoleto",
+          "constructor": "Audi",
+          "constructor_id": "audi",
+          "grid": 22,
+          "pace_score": 0.556,
+          "dpr": 0.054,
+          "cpi": 0.502,
+          "best_quali_time": null,
+          "championship_pos": 14,
+          "championship_pts": 14.0,
+          "win_prob": 0.0,
+          "podium_prob": 0.2,
+          "points_prob": 11.0,
+          "expected_pos": 15.5,
+          "actual_position": null,
+          "actual_points": null,
+          "xfp": 9.0
         }
       ]
     },
@@ -1100,7 +1040,7 @@
           "expected_pos": 4.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 12.8
+          "xfp": 26.6
         },
         {
           "code": "ANT",
@@ -1120,7 +1060,7 @@
           "expected_pos": 5.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 9.9
+          "xfp": 23.1
         },
         {
           "code": "LEC",
@@ -1140,7 +1080,7 @@
           "expected_pos": 5.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 8.6
+          "xfp": 21.1
         },
         {
           "code": "NOR",
@@ -1160,7 +1100,7 @@
           "expected_pos": 6.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.9
+          "xfp": 18.7
         },
         {
           "code": "HAM",
@@ -1180,7 +1120,7 @@
           "expected_pos": 6.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.6
+          "xfp": 17.4
         },
         {
           "code": "RUS",
@@ -1200,7 +1140,7 @@
           "expected_pos": 7.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.3
+          "xfp": 14.3
         },
         {
           "code": "PIA",
@@ -1220,7 +1160,7 @@
           "expected_pos": 8.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.0
+          "xfp": 13.0
         },
         {
           "code": "GAS",
@@ -1240,7 +1180,7 @@
           "expected_pos": 9.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": 9.9
         },
         {
           "code": "HAD",
@@ -1260,7 +1200,7 @@
           "expected_pos": 10.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.5
+          "xfp": 8.4
         },
         {
           "code": "LAW",
@@ -1280,7 +1220,7 @@
           "expected_pos": 11.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 6.8
         },
         {
           "code": "HUL",
@@ -1300,7 +1240,7 @@
           "expected_pos": 12.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.3
+          "xfp": 4.6
         },
         {
           "code": "TSU",
@@ -1320,7 +1260,7 @@
           "expected_pos": 13.0,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.1
+          "xfp": 4.8
         },
         {
           "code": "OCO",
@@ -1340,7 +1280,7 @@
           "expected_pos": 13.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.0
+          "xfp": 5.1
         },
         {
           "code": "BOR",
@@ -1360,7 +1300,7 @@
           "expected_pos": 13.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.5
+          "xfp": 5.9
         },
         {
           "code": "LIN",
@@ -1380,7 +1320,7 @@
           "expected_pos": 14.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.5
+          "xfp": 6.1
         },
         {
           "code": "DOO",
@@ -1400,7 +1340,7 @@
           "expected_pos": 14.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 6.6
         },
         {
           "code": "ALB",
@@ -1420,7 +1360,7 @@
           "expected_pos": 16.2,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.0
+          "xfp": 5.7
         },
         {
           "code": "COL",
@@ -1440,7 +1380,7 @@
           "expected_pos": 16.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.9
+          "xfp": 7.0
         },
         {
           "code": "BEA",
@@ -1460,7 +1400,7 @@
           "expected_pos": 16.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.4
+          "xfp": 7.7
         },
         {
           "code": "HIR",
@@ -1480,7 +1420,7 @@
           "expected_pos": 17.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.6
+          "xfp": 8.1
         },
         {
           "code": "SAI",
@@ -1500,7 +1440,7 @@
           "expected_pos": 17.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": 8.9
         },
         {
           "code": "PER",
@@ -1520,7 +1460,7 @@
           "expected_pos": 18.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": 9.1
         },
         {
           "code": "ALO",
@@ -1540,7 +1480,7 @@
           "expected_pos": 19.6,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": 8.8
         },
         {
           "code": "STR",
@@ -1560,7 +1500,7 @@
           "expected_pos": 21.6,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 7.4
         },
         {
           "code": "BOT",
@@ -1580,7 +1520,7 @@
           "expected_pos": 21.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.5
+          "xfp": 8.4
         }
       ]
     },
@@ -1619,7 +1559,7 @@
           "expected_pos": 4.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 12.8
+          "xfp": 26.4
         },
         {
           "code": "ANT",
@@ -1639,7 +1579,7 @@
           "expected_pos": 5.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 9.9
+          "xfp": 23.0
         },
         {
           "code": "LEC",
@@ -1659,7 +1599,7 @@
           "expected_pos": 5.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 8.6
+          "xfp": 21.0
         },
         {
           "code": "NOR",
@@ -1679,7 +1619,7 @@
           "expected_pos": 6.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 7.0
+          "xfp": 18.6
         },
         {
           "code": "HAM",
@@ -1699,7 +1639,7 @@
           "expected_pos": 6.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.5
+          "xfp": 17.2
         },
         {
           "code": "RUS",
@@ -1719,7 +1659,7 @@
           "expected_pos": 7.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.4
+          "xfp": 14.1
         },
         {
           "code": "PIA",
@@ -1739,7 +1679,7 @@
           "expected_pos": 8.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.0
+          "xfp": 12.9
         },
         {
           "code": "GAS",
@@ -1759,7 +1699,7 @@
           "expected_pos": 9.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": 9.8
         },
         {
           "code": "HAD",
@@ -1779,7 +1719,7 @@
           "expected_pos": 10.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.6
+          "xfp": 8.3
         },
         {
           "code": "LAW",
@@ -1799,7 +1739,7 @@
           "expected_pos": 11.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.9
+          "xfp": 6.7
         },
         {
           "code": "HUL",
@@ -1819,7 +1759,7 @@
           "expected_pos": 12.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.2
+          "xfp": 4.5
         },
         {
           "code": "TSU",
@@ -1839,7 +1779,7 @@
           "expected_pos": 12.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.0
+          "xfp": 4.7
         },
         {
           "code": "OCO",
@@ -1859,7 +1799,7 @@
           "expected_pos": 13.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.0
+          "xfp": 4.8
         },
         {
           "code": "BOR",
@@ -1879,7 +1819,7 @@
           "expected_pos": 13.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.4
+          "xfp": 5.5
         },
         {
           "code": "LIN",
@@ -1899,7 +1839,7 @@
           "expected_pos": 14.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.5
+          "xfp": 5.7
         },
         {
           "code": "DOO",
@@ -1919,7 +1859,7 @@
           "expected_pos": 14.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 6.2
         },
         {
           "code": "ALB",
@@ -1939,7 +1879,7 @@
           "expected_pos": 16.2,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.0
+          "xfp": 5.3
         },
         {
           "code": "COL",
@@ -1959,7 +1899,7 @@
           "expected_pos": 16.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.8
+          "xfp": 6.5
         },
         {
           "code": "BEA",
@@ -1979,7 +1919,7 @@
           "expected_pos": 16.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.2
+          "xfp": 7.1
         },
         {
           "code": "HIR",
@@ -1999,7 +1939,7 @@
           "expected_pos": 17.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.4
+          "xfp": 7.5
         },
         {
           "code": "SAI",
@@ -2019,7 +1959,7 @@
           "expected_pos": 17.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": 8.3
         },
         {
           "code": "PER",
@@ -2039,7 +1979,7 @@
           "expected_pos": 18.6,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.0
+          "xfp": 8.4
         },
         {
           "code": "ALO",
@@ -2059,7 +1999,7 @@
           "expected_pos": 19.6,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": 8.3
         },
         {
           "code": "STR",
@@ -2079,7 +2019,7 @@
           "expected_pos": 21.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.9
+          "xfp": 7.0
         },
         {
           "code": "BOT",
@@ -2099,7 +2039,7 @@
           "expected_pos": 21.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.5
+          "xfp": 7.9
         }
       ]
     },
@@ -2138,7 +2078,7 @@
           "expected_pos": 4.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 12.7
+          "xfp": 26.2
         },
         {
           "code": "ANT",
@@ -2158,7 +2098,7 @@
           "expected_pos": 5.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 10.0
+          "xfp": 22.9
         },
         {
           "code": "LEC",
@@ -2178,7 +2118,7 @@
           "expected_pos": 5.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 8.6
+          "xfp": 20.8
         },
         {
           "code": "NOR",
@@ -2198,7 +2138,7 @@
           "expected_pos": 6.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 7.0
+          "xfp": 18.5
         },
         {
           "code": "HAM",
@@ -2218,7 +2158,7 @@
           "expected_pos": 6.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 6.5
+          "xfp": 17.0
         },
         {
           "code": "RUS",
@@ -2238,7 +2178,7 @@
           "expected_pos": 7.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.4
+          "xfp": 13.9
         },
         {
           "code": "PIA",
@@ -2258,7 +2198,7 @@
           "expected_pos": 8.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 4.1
+          "xfp": 12.7
         },
         {
           "code": "GAS",
@@ -2278,7 +2218,7 @@
           "expected_pos": 9.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 2.1
+          "xfp": 9.7
         },
         {
           "code": "HAD",
@@ -2298,7 +2238,7 @@
           "expected_pos": 10.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.7
+          "xfp": 8.2
         },
         {
           "code": "LAW",
@@ -2318,7 +2258,7 @@
           "expected_pos": 11.2,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.1
+          "xfp": 6.6
         },
         {
           "code": "HUL",
@@ -2338,7 +2278,7 @@
           "expected_pos": 12.3,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.0
+          "xfp": 4.4
         },
         {
           "code": "TSU",
@@ -2358,7 +2298,7 @@
           "expected_pos": 12.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.1
+          "xfp": 4.6
         },
         {
           "code": "OCO",
@@ -2378,7 +2318,7 @@
           "expected_pos": 13.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.1
+          "xfp": 4.7
         },
         {
           "code": "BOR",
@@ -2398,7 +2338,7 @@
           "expected_pos": 13.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.4
+          "xfp": 5.2
         },
         {
           "code": "LIN",
@@ -2418,7 +2358,7 @@
           "expected_pos": 14.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.5
+          "xfp": 5.3
         },
         {
           "code": "DOO",
@@ -2438,7 +2378,7 @@
           "expected_pos": 14.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.7
+          "xfp": 5.8
         },
         {
           "code": "ALB",
@@ -2458,7 +2398,7 @@
           "expected_pos": 16.2,
           "actual_position": null,
           "actual_points": null,
-          "xfp": -0.0
+          "xfp": 4.9
         },
         {
           "code": "COL",
@@ -2478,7 +2418,7 @@
           "expected_pos": 16.4,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.7
+          "xfp": 5.9
         },
         {
           "code": "BEA",
@@ -2498,7 +2438,7 @@
           "expected_pos": 16.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.1
+          "xfp": 6.5
         },
         {
           "code": "HIR",
@@ -2518,7 +2458,7 @@
           "expected_pos": 17.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.3
+          "xfp": 6.9
         },
         {
           "code": "SAI",
@@ -2538,7 +2478,7 @@
           "expected_pos": 17.9,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.8
+          "xfp": 7.6
         },
         {
           "code": "PER",
@@ -2558,7 +2498,7 @@
           "expected_pos": 18.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.9
+          "xfp": 7.8
         },
         {
           "code": "ALO",
@@ -2578,7 +2518,7 @@
           "expected_pos": 19.7,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.8
+          "xfp": 7.7
         },
         {
           "code": "STR",
@@ -2598,7 +2538,7 @@
           "expected_pos": 21.5,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 0.9
+          "xfp": 6.5
         },
         {
           "code": "BOT",
@@ -2618,7 +2558,7 @@
           "expected_pos": 21.8,
           "actual_position": null,
           "actual_points": null,
-          "xfp": 1.6
+          "xfp": 7.5
         }
       ]
     }
@@ -2642,167 +2582,286 @@
         "name": "Max Verstappen",
         "constructor": "Red Bull",
         "constructor_id": "red_bull",
-        "grid": 1,
+        "grid": 16,
         "pace_score": -1.964,
         "dpr": -0.988,
         "cpi": -0.976,
         "best_quali_time": null,
         "championship_pos": 2,
         "championship_pts": 261.0,
-        "win_prob": 31.7,
-        "podium_prob": 64.7,
-        "points_prob": 90.8,
-        "expected_pos": 4.7,
+        "win_prob": 6.2,
+        "podium_prob": 25.2,
+        "points_prob": 80.9,
+        "expected_pos": 7.3,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 12.8
+        "xfp": 20.5,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 8.11,
+          "race_positions": 9.26,
+          "race_overtakes_est": 7.68,
+          "race_fastest_lap": 0.79,
+          "race_driver_of_day": 1.22,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "ANT",
         "name": "Andrea Kimi Antonelli",
         "constructor": "Mercedes",
         "constructor_id": "mercedes",
-        "grid": 2,
+        "grid": 3,
         "pace_score": -1.544,
         "dpr": -0.398,
         "cpi": -1.146,
         "best_quali_time": null,
         "championship_pos": 1,
         "championship_pts": 380.0,
-        "win_prob": 21.2,
-        "podium_prob": 52.8,
-        "points_prob": 89.2,
-        "expected_pos": 5.4,
+        "win_prob": 25.6,
+        "podium_prob": 57.8,
+        "points_prob": 90.5,
+        "expected_pos": 4.8,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 9.9
-      },
-      {
-        "code": "LEC",
-        "name": "Charles Leclerc",
-        "constructor": "Ferrari",
-        "constructor_id": "ferrari",
-        "grid": 3,
-        "pace_score": -1.391,
-        "dpr": -0.154,
-        "cpi": -1.237,
-        "best_quali_time": null,
-        "championship_pos": 5,
-        "championship_pts": 245.0,
-        "win_prob": 15.4,
-        "podium_prob": 45.2,
-        "points_prob": 88.4,
-        "expected_pos": 5.8,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 8.6
-      },
-      {
-        "code": "NOR",
-        "name": "Lando Norris",
-        "constructor": "McLaren",
-        "constructor_id": "mclaren",
-        "grid": 4,
-        "pace_score": -1.119,
-        "dpr": -0.257,
-        "cpi": -0.862,
-        "best_quali_time": null,
-        "championship_pos": 6,
-        "championship_pts": 221.0,
-        "win_prob": 10.0,
-        "podium_prob": 36.4,
-        "points_prob": 86.3,
-        "expected_pos": 6.4,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 6.9
+        "xfp": 11.8,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 13.72,
+          "race_positions": -0.2,
+          "race_overtakes_est": 2.15,
+          "race_fastest_lap": 1.53,
+          "race_driver_of_day": 1.17,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "HAM",
         "name": "Lewis Hamilton",
         "constructor": "Ferrari",
         "constructor_id": "ferrari",
-        "grid": 5,
+        "grid": 11,
         "pace_score": -1.08,
         "dpr": 0.157,
         "cpi": -1.237,
         "best_quali_time": null,
         "championship_pos": 3,
         "championship_pts": 259.0,
-        "win_prob": 8.6,
-        "podium_prob": 31.8,
-        "points_prob": 84.3,
-        "expected_pos": 6.9,
+        "win_prob": 4.5,
+        "podium_prob": 19.7,
+        "points_prob": 76.4,
+        "expected_pos": 8.0,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 6.6
+        "xfp": 10.8,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 7.12,
+          "race_positions": 3.96,
+          "race_overtakes_est": 4.94,
+          "race_fastest_lap": 0.68,
+          "race_driver_of_day": 0.72,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "RUS",
-        "name": "George Russell",
-        "constructor": "Mercedes",
-        "constructor_id": "mercedes",
-        "grid": 6,
-        "pace_score": -0.739,
-        "dpr": 0.407,
-        "cpi": -1.146,
+        "code": "LEC",
+        "name": "Charles Leclerc",
+        "constructor": "Ferrari",
+        "constructor_id": "ferrari",
+        "grid": 4,
+        "pace_score": -1.391,
+        "dpr": -0.154,
+        "cpi": -1.237,
         "best_quali_time": null,
-        "championship_pos": 4,
-        "championship_pts": 250.0,
-        "win_prob": 4.9,
-        "podium_prob": 20.3,
-        "points_prob": 78.7,
-        "expected_pos": 7.9,
+        "championship_pos": 5,
+        "championship_pts": 245.0,
+        "win_prob": 19.6,
+        "podium_prob": 49.4,
+        "points_prob": 88.4,
+        "expected_pos": 5.5,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 4.3
+        "xfp": 10.3,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 12.21,
+          "race_positions": 0.02,
+          "race_overtakes_est": 2.33,
+          "race_fastest_lap": 1.32,
+          "race_driver_of_day": 1.01,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "GAS",
+        "name": "Pierre Gasly",
+        "constructor": "Alpine F1 Team",
+        "constructor_id": "alpine",
+        "grid": 18,
+        "pace_score": -0.201,
+        "dpr": -0.605,
+        "cpi": 0.404,
+        "best_quali_time": null,
+        "championship_pos": 10,
+        "championship_pts": 42.0,
+        "win_prob": 0.1,
+        "podium_prob": 2.1,
+        "points_prob": 36.3,
+        "expected_pos": 12.4,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": 9.5,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 2.46,
+          "race_positions": 6.0,
+          "race_overtakes_est": 6.87,
+          "race_fastest_lap": 0.2,
+          "race_driver_of_day": 0.55,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "BOR",
+        "name": "Gabriel Bortoleto",
+        "constructor": "Audi",
+        "constructor_id": "audi",
+        "grid": 22,
+        "pace_score": 0.556,
+        "dpr": 0.054,
+        "cpi": 0.502,
+        "best_quali_time": null,
+        "championship_pos": 14,
+        "championship_pts": 14.0,
+        "win_prob": 0.0,
+        "podium_prob": 0.2,
+        "points_prob": 11.0,
+        "expected_pos": 15.5,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": 9.0,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.7,
+          "race_positions": 6.58,
+          "race_overtakes_est": 7.77,
+          "race_fastest_lap": 0.06,
+          "race_driver_of_day": 0.51,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "NOR",
+        "name": "Lando Norris",
+        "constructor": "McLaren",
+        "constructor_id": "mclaren",
+        "grid": 1,
+        "pace_score": -1.119,
+        "dpr": -0.257,
+        "cpi": -0.862,
+        "best_quali_time": null,
+        "championship_pos": 6,
+        "championship_pts": 221.0,
+        "win_prob": 21.7,
+        "podium_prob": 53.5,
+        "points_prob": 89.9,
+        "expected_pos": 5.1,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": 8.3,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 12.91,
+          "race_positions": -2.34,
+          "race_overtakes_est": 1.8,
+          "race_fastest_lap": 1.41,
+          "race_driver_of_day": 1.08,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "PIA",
         "name": "Oscar Piastri",
         "constructor": "McLaren",
         "constructor_id": "mclaren",
-        "grid": 7,
+        "grid": 12,
         "pace_score": -0.603,
         "dpr": 0.259,
         "cpi": -0.862,
         "best_quali_time": null,
         "championship_pos": 7,
         "championship_pts": 144.0,
-        "win_prob": 3.4,
-        "podium_prob": 17.2,
-        "points_prob": 74.8,
-        "expected_pos": 8.4,
+        "win_prob": 2.2,
+        "podium_prob": 10.6,
+        "points_prob": 65.5,
+        "expected_pos": 9.3,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 4.0
+        "xfp": 8.3,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 5.31,
+          "race_positions": 3.58,
+          "race_overtakes_est": 4.98,
+          "race_fastest_lap": 0.48,
+          "race_driver_of_day": 0.55,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "SAI",
-        "name": "Carlos Sainz",
-        "constructor": "Williams",
-        "constructor_id": "williams",
-        "grid": 21,
-        "pace_score": 1.187,
-        "dpr": 0.087,
-        "cpi": 1.1,
+        "code": "RUS",
+        "name": "George Russell",
+        "constructor": "Mercedes",
+        "constructor_id": "mercedes",
+        "grid": 2,
+        "pace_score": -0.739,
+        "dpr": 0.407,
+        "cpi": -1.146,
         "best_quali_time": null,
-        "championship_pos": 18,
-        "championship_pts": 7.0,
-        "win_prob": 0.0,
-        "podium_prob": 0.1,
-        "points_prob": 5.9,
-        "expected_pos": 17.7,
+        "championship_pos": 4,
+        "championship_pts": 250.0,
+        "win_prob": 13.3,
+        "podium_prob": 40.3,
+        "points_prob": 88.0,
+        "expected_pos": 5.9,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 2.1
+        "xfp": 5.8,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 10.71,
+          "race_positions": -2.22,
+          "race_overtakes_est": 1.98,
+          "race_fastest_lap": 1.11,
+          "race_driver_of_day": 0.84,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "PER",
         "name": "Sergio Pérez",
         "constructor": "Cadillac F1 Team",
         "constructor_id": "cadillac",
-        "grid": 22,
+        "grid": 21,
         "pace_score": 1.491,
         "dpr": -0.842,
         "cpi": 2.333,
@@ -2811,98 +2870,153 @@
         "championship_pts": 0.0,
         "win_prob": 0.0,
         "podium_prob": 0.0,
-        "points_prob": 3.7,
-        "expected_pos": 18.5,
+        "points_prob": 4.4,
+        "expected_pos": 17.0,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 2.1
+        "xfp": 4.9,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.27,
+          "race_positions": 4.16,
+          "race_overtakes_est": 6.74,
+          "race_fastest_lap": 0.02,
+          "race_driver_of_day": 0.3,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "GAS",
-        "name": "Pierre Gasly",
+        "code": "COL",
+        "name": "Franco Colapinto",
         "constructor": "Alpine F1 Team",
         "constructor_id": "alpine",
-        "grid": 8,
-        "pace_score": -0.201,
-        "dpr": -0.605,
+        "grid": 17,
+        "pace_score": 1.018,
+        "dpr": 0.614,
         "cpi": 0.404,
         "best_quali_time": null,
-        "championship_pos": 10,
-        "championship_pts": 42.0,
-        "win_prob": 1.7,
-        "podium_prob": 10.0,
-        "points_prob": 64.5,
-        "expected_pos": 9.8,
+        "championship_pos": 12,
+        "championship_pts": 27.0,
+        "win_prob": 0.1,
+        "podium_prob": 0.5,
+        "points_prob": 14.0,
+        "expected_pos": 15.0,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 1.9
+        "xfp": 2.5,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.92,
+          "race_positions": 2.48,
+          "race_overtakes_est": 5.45,
+          "race_fastest_lap": 0.08,
+          "race_driver_of_day": 0.2,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "ALO",
-        "name": "Fernando Alonso",
-        "constructor": "Aston Martin",
-        "constructor_id": "aston_martin",
-        "grid": 23,
-        "pace_score": 1.881,
-        "dpr": -0.596,
-        "cpi": 2.477,
+        "code": "LIN",
+        "name": "Arvid Lindblad",
+        "constructor": "RB F1 Team",
+        "constructor_id": "rb",
+        "grid": 14,
+        "pace_score": 0.619,
+        "dpr": 0.336,
+        "cpi": 0.283,
         "best_quali_time": null,
-        "championship_pos": 17,
-        "championship_pts": 7.0,
-        "win_prob": 0.0,
-        "podium_prob": 0.0,
-        "points_prob": 1.5,
-        "expected_pos": 19.6,
+        "championship_pos": 11,
+        "championship_pts": 38.0,
+        "win_prob": 0.1,
+        "podium_prob": 1.5,
+        "points_prob": 28.6,
+        "expected_pos": 13.1,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 1.9
-      },
-      {
-        "code": "HIR",
-        "name": "Ryo Hirakawa",
-        "constructor": "Haas F1 Team",
-        "constructor_id": "haas",
-        "grid": 20,
-        "pace_score": 1.147,
-        "dpr": 0.298,
-        "cpi": 0.849,
-        "best_quali_time": null,
-        "championship_pos": 21,
-        "championship_pts": 1.0,
-        "win_prob": 0.0,
-        "podium_prob": 0.1,
-        "points_prob": 7.5,
-        "expected_pos": 17.3,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 1.6
+        "xfp": 1.9,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 1.92,
+          "race_positions": 1.62,
+          "race_overtakes_est": 4.63,
+          "race_fastest_lap": 0.16,
+          "race_driver_of_day": 0.18,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "HAD",
         "name": "Isack Hadjar",
         "constructor": "Red Bull",
         "constructor_id": "red_bull",
-        "grid": 9,
+        "grid": 7,
         "pace_score": -0.073,
         "dpr": 0.903,
         "cpi": -0.976,
         "best_quali_time": null,
         "championship_pos": 8,
         "championship_pts": 107.0,
-        "win_prob": 1.3,
-        "podium_prob": 6.6,
-        "points_prob": 58.6,
-        "expected_pos": 10.4,
+        "win_prob": 2.2,
+        "podium_prob": 12.4,
+        "points_prob": 67.4,
+        "expected_pos": 9.2,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 1.5
+        "xfp": 1.8,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 5.61,
+          "race_positions": -0.92,
+          "race_overtakes_est": 2.84,
+          "race_fastest_lap": 0.51,
+          "race_driver_of_day": 0.38,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "LAW",
+        "name": "Liam Lawson",
+        "constructor": "RB F1 Team",
+        "constructor_id": "rb",
+        "grid": 5,
+        "pace_score": 0.134,
+        "dpr": -0.149,
+        "cpi": 0.283,
+        "best_quali_time": null,
+        "championship_pos": 9,
+        "championship_pts": 83.0,
+        "win_prob": 2.6,
+        "podium_prob": 13.8,
+        "points_prob": 71.3,
+        "expected_pos": 8.7,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": 0.6,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 6.03,
+          "race_positions": -2.26,
+          "race_overtakes_est": 2.5,
+          "race_fastest_lap": 0.55,
+          "race_driver_of_day": 0.41,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "BOT",
         "name": "Valtteri Bottas",
         "constructor": "Cadillac F1 Team",
         "constructor_id": "cadillac",
-        "grid": 25,
+        "grid": 20,
         "pace_score": 3.187,
         "dpr": 0.854,
         "cpi": 2.333,
@@ -2911,98 +3025,122 @@
         "championship_pts": 0.0,
         "win_prob": 0.0,
         "podium_prob": 0.0,
-        "points_prob": 0.0,
-        "expected_pos": 21.9,
+        "points_prob": 0.4,
+        "expected_pos": 19.2,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 1.5
+        "xfp": -0.0,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.02,
+          "race_positions": 1.04,
+          "race_overtakes_est": 5.46,
+          "race_fastest_lap": 0.0,
+          "race_driver_of_day": 0.06,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "BEA",
-        "name": "Oliver Bearman",
-        "constructor": "Haas F1 Team",
-        "constructor_id": "haas",
-        "grid": 19,
-        "pace_score": 1.048,
-        "dpr": 0.199,
-        "cpi": 0.849,
+        "code": "SAI",
+        "name": "Carlos Sainz",
+        "constructor": "Williams",
+        "constructor_id": "williams",
+        "grid": 15,
+        "pace_score": 1.187,
+        "dpr": 0.087,
+        "cpi": 1.1,
         "best_quali_time": null,
-        "championship_pos": 13,
-        "championship_pts": 23.0,
+        "championship_pos": 18,
+        "championship_pts": 7.0,
         "win_prob": 0.0,
         "podium_prob": 0.3,
-        "points_prob": 10.1,
-        "expected_pos": 16.7,
+        "points_prob": 14.7,
+        "expected_pos": 14.9,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 1.4
+        "xfp": -0.3,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.93,
+          "race_positions": 0.74,
+          "race_overtakes_est": 4.49,
+          "race_fastest_lap": 0.08,
+          "race_driver_of_day": 0.06,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
-        "code": "COL",
-        "name": "Franco Colapinto",
-        "constructor": "Alpine F1 Team",
-        "constructor_id": "alpine",
-        "grid": 18,
-        "pace_score": 1.018,
-        "dpr": 0.614,
-        "cpi": 0.404,
-        "best_quali_time": null,
-        "championship_pos": 12,
-        "championship_pts": 27.0,
-        "win_prob": 0.0,
-        "podium_prob": 0.2,
-        "points_prob": 12.4,
-        "expected_pos": 16.3,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 0.9
-      },
-      {
-        "code": "LAW",
-        "name": "Liam Lawson",
-        "constructor": "RB F1 Team",
-        "constructor_id": "rb",
-        "grid": 10,
-        "pace_score": 0.134,
-        "dpr": -0.149,
-        "cpi": 0.283,
-        "best_quali_time": null,
-        "championship_pos": 9,
-        "championship_pts": 83.0,
-        "win_prob": 0.7,
-        "podium_prob": 5.4,
-        "points_prob": 50.8,
-        "expected_pos": 11.4,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 0.8
-      },
-      {
-        "code": "DOO",
-        "name": "Jack Doohan",
-        "constructor": "Alpine F1 Team",
-        "constructor_id": "alpine",
-        "grid": 16,
-        "pace_score": 0.757,
-        "dpr": 0.353,
-        "cpi": 0.404,
+        "code": "",
+        "name": "Rafael Camara",
+        "constructor": "Haas F1 Team",
+        "constructor_id": "haas",
+        "grid": 13,
+        "pace_score": 0.849,
+        "dpr": 0.0,
+        "cpi": 0.849,
         "best_quali_time": null,
         "championship_pos": null,
         "championship_pts": null,
         "win_prob": 0.0,
-        "podium_prob": 0.6,
-        "points_prob": 20.1,
-        "expected_pos": 14.9,
+        "podium_prob": 0.9,
+        "points_prob": 25.8,
+        "expected_pos": 13.5,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 0.8
+        "xfp": -0.4,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 1.68,
+          "race_positions": 0.3,
+          "race_overtakes_est": 3.99,
+          "race_fastest_lap": 0.14,
+          "race_driver_of_day": 0.1,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "HUL",
+        "name": "Nico Hülkenberg",
+        "constructor": "Audi",
+        "constructor_id": "audi",
+        "grid": 6,
+        "pace_score": 0.45,
+        "dpr": -0.052,
+        "cpi": 0.502,
+        "best_quali_time": null,
+        "championship_pos": 15,
+        "championship_pts": 13.0,
+        "win_prob": 1.3,
+        "podium_prob": 7.8,
+        "points_prob": 60.0,
+        "expected_pos": 9.9,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": -1.2,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 4.6,
+          "race_positions": -2.54,
+          "race_overtakes_est": 2.67,
+          "race_fastest_lap": 0.41,
+          "race_driver_of_day": 0.3,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "STR",
         "name": "Lance Stroll",
         "constructor": "Aston Martin",
         "constructor_id": "aston_martin",
-        "grid": 24,
+        "grid": 19,
         "pace_score": 3.086,
         "dpr": 0.609,
         "cpi": 2.477,
@@ -3011,131 +3149,115 @@
         "championship_pts": 0.0,
         "win_prob": 0.0,
         "podium_prob": 0.0,
-        "points_prob": 0.2,
-        "expected_pos": 21.6,
+        "points_prob": 0.6,
+        "expected_pos": 19.0,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 0.8
-      },
-      {
-        "code": "BOR",
-        "name": "Gabriel Bortoleto",
-        "constructor": "Audi",
-        "constructor_id": "audi",
-        "grid": 14,
-        "pace_score": 0.556,
-        "dpr": 0.054,
-        "cpi": 0.502,
-        "best_quali_time": null,
-        "championship_pos": 14,
-        "championship_pts": 14.0,
-        "win_prob": 0.1,
-        "podium_prob": 1.2,
-        "points_prob": 28.2,
-        "expected_pos": 13.8,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 0.5
-      },
-      {
-        "code": "LIN",
-        "name": "Arvid Lindblad",
-        "constructor": "RB F1 Team",
-        "constructor_id": "rb",
-        "grid": 15,
-        "pace_score": 0.619,
-        "dpr": 0.336,
-        "cpi": 0.283,
-        "best_quali_time": null,
-        "championship_pos": 11,
-        "championship_pts": 38.0,
-        "win_prob": 0.0,
-        "podium_prob": 0.8,
-        "points_prob": 23.3,
-        "expected_pos": 14.4,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 0.5
-      },
-      {
-        "code": "OCO",
-        "name": "Esteban Ocon",
-        "constructor": "Haas F1 Team",
-        "constructor_id": "haas",
-        "grid": 13,
-        "pace_score": 0.55,
-        "dpr": -0.299,
-        "cpi": 0.849,
-        "best_quali_time": null,
-        "championship_pos": 16,
-        "championship_pts": 7.0,
-        "win_prob": 0.2,
-        "podium_prob": 1.5,
-        "points_prob": 31.3,
-        "expected_pos": 13.5,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": 0.0
+        "xfp": -1.2,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 0.04,
+          "race_positions": 0.32,
+          "race_overtakes_est": 5.03,
+          "race_fastest_lap": 0.0,
+          "race_driver_of_day": 0.0,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       },
       {
         "code": "ALB",
         "name": "Alexander Albon",
         "constructor": "Williams",
         "constructor_id": "williams",
-        "grid": 17,
+        "grid": 10,
         "pace_score": 1.017,
         "dpr": -0.083,
         "cpi": 1.1,
         "best_quali_time": null,
         "championship_pos": 19,
         "championship_pts": 5.0,
+        "win_prob": 0.1,
+        "podium_prob": 1.5,
+        "points_prob": 31.8,
+        "expected_pos": 12.8,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": -2.6,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 2.12,
+          "race_positions": -1.76,
+          "race_overtakes_est": 3.36,
+          "race_fastest_lap": 0.18,
+          "race_driver_of_day": 0.13,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "BEA",
+        "name": "Oliver Bearman",
+        "constructor": "Haas F1 Team",
+        "constructor_id": "haas",
+        "grid": 8,
+        "pace_score": 1.048,
+        "dpr": 0.199,
+        "cpi": 0.849,
+        "best_quali_time": null,
+        "championship_pos": 13,
+        "championship_pts": 23.0,
+        "win_prob": 0.3,
+        "podium_prob": 2.1,
+        "points_prob": 36.3,
+        "expected_pos": 12.4,
+        "actual_position": null,
+        "actual_points": null,
+        "xfp": -4.0,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 2.47,
+          "race_positions": -3.2,
+          "race_overtakes_est": 3.01,
+          "race_fastest_lap": 0.21,
+          "race_driver_of_day": 0.15,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
+      },
+      {
+        "code": "ALO",
+        "name": "Fernando Alonso",
+        "constructor": "Aston Martin",
+        "constructor_id": "aston_martin",
+        "grid": 9,
+        "pace_score": 1.881,
+        "dpr": -0.596,
+        "cpi": 2.477,
+        "best_quali_time": null,
+        "championship_pos": 17,
+        "championship_pts": 7.0,
         "win_prob": 0.0,
-        "podium_prob": 0.2,
-        "points_prob": 13.3,
-        "expected_pos": 16.2,
+        "podium_prob": 0.4,
+        "points_prob": 18.0,
+        "expected_pos": 14.5,
         "actual_position": null,
         "actual_points": null,
-        "xfp": 0.0
-      },
-      {
-        "code": "TSU",
-        "name": "Yuki Tsunoda",
-        "constructor": "RB F1 Team",
-        "constructor_id": "rb",
-        "grid": 12,
-        "pace_score": 0.48,
-        "dpr": 0.197,
-        "cpi": 0.283,
-        "best_quali_time": null,
-        "championship_pos": 20,
-        "championship_pts": 1.0,
-        "win_prob": 0.3,
-        "podium_prob": 2.0,
-        "points_prob": 36.1,
-        "expected_pos": 13.0,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": -0.1
-      },
-      {
-        "code": "HUL",
-        "name": "Nico Hülkenberg",
-        "constructor": "Audi",
-        "constructor_id": "audi",
-        "grid": 11,
-        "pace_score": 0.45,
-        "dpr": -0.052,
-        "cpi": 0.502,
-        "best_quali_time": null,
-        "championship_pos": 15,
-        "championship_pts": 13.0,
-        "win_prob": 0.3,
-        "podium_prob": 2.6,
-        "points_prob": 39.9,
-        "expected_pos": 12.5,
-        "actual_position": null,
-        "actual_points": null,
-        "xfp": -0.3
+        "xfp": -6.5,
+        "xfp_components": {
+          "qualifying": -5,
+          "race_finish": 1.15,
+          "race_positions": -4.38,
+          "race_overtakes_est": 3.19,
+          "race_fastest_lap": 0.09,
+          "race_driver_of_day": 0.07,
+          "race_dnf": -1.6
+        },
+        "xfp_is_estimate": true,
+        "xfp_includes_sprint": false
       }
     ],
     "season_projection": [
@@ -3147,8 +3269,8 @@
         "championship_points": 380.0,
         "championship_position": 1,
         "completed_xfp": 643.0,
-        "projected_remaining_xfp": 39.7,
-        "projected_total_xfp": 682.7,
+        "projected_remaining_xfp": 80.8,
+        "projected_total_xfp": 723.8,
         "races_remaining": 4
       },
       {
@@ -3159,8 +3281,8 @@
         "championship_points": 261.0,
         "championship_position": 2,
         "completed_xfp": 406.0,
-        "projected_remaining_xfp": 51.1,
-        "projected_total_xfp": 457.1,
+        "projected_remaining_xfp": 99.7,
+        "projected_total_xfp": 505.7,
         "races_remaining": 4
       },
       {
@@ -3171,8 +3293,8 @@
         "championship_points": 259.0,
         "championship_position": 3,
         "completed_xfp": 426.0,
-        "projected_remaining_xfp": 26.2,
-        "projected_total_xfp": 452.2,
+        "projected_remaining_xfp": 62.4,
+        "projected_total_xfp": 488.4,
         "races_remaining": 4
       },
       {
@@ -3183,8 +3305,8 @@
         "championship_points": 245.0,
         "championship_position": 5,
         "completed_xfp": 407.0,
-        "projected_remaining_xfp": 34.4,
-        "projected_total_xfp": 441.4,
+        "projected_remaining_xfp": 73.2,
+        "projected_total_xfp": 480.2,
         "races_remaining": 4
       },
       {
@@ -3195,8 +3317,8 @@
         "championship_points": 250.0,
         "championship_position": 4,
         "completed_xfp": 371.0,
-        "projected_remaining_xfp": 17.4,
-        "projected_total_xfp": 388.4,
+        "projected_remaining_xfp": 48.1,
+        "projected_total_xfp": 419.1,
         "races_remaining": 4
       },
       {
@@ -3207,8 +3329,8 @@
         "championship_points": 221.0,
         "championship_position": 6,
         "completed_xfp": 304.0,
-        "projected_remaining_xfp": 27.8,
-        "projected_total_xfp": 331.8,
+        "projected_remaining_xfp": 64.1,
+        "projected_total_xfp": 368.1,
         "races_remaining": 4
       },
       {
@@ -3219,8 +3341,8 @@
         "championship_points": 144.0,
         "championship_position": 7,
         "completed_xfp": 193.0,
-        "projected_remaining_xfp": 16.1,
-        "projected_total_xfp": 209.1,
+        "projected_remaining_xfp": 46.9,
+        "projected_total_xfp": 239.9,
         "races_remaining": 4
       },
       {
@@ -3231,8 +3353,8 @@
         "championship_points": 83.0,
         "championship_position": 9,
         "completed_xfp": 172.0,
-        "projected_remaining_xfp": 3.6,
-        "projected_total_xfp": 175.6,
+        "projected_remaining_xfp": 20.7,
+        "projected_total_xfp": 192.7,
         "races_remaining": 4
       },
       {
@@ -3243,8 +3365,8 @@
         "championship_points": 107.0,
         "championship_position": 8,
         "completed_xfp": 149.0,
-        "projected_remaining_xfp": 6.3,
-        "projected_total_xfp": 155.3,
+        "projected_remaining_xfp": 26.7,
+        "projected_total_xfp": 175.7,
         "races_remaining": 4
       },
       {
@@ -3255,8 +3377,8 @@
         "championship_points": 42.0,
         "championship_position": 10,
         "completed_xfp": 62.0,
-        "projected_remaining_xfp": 8.0,
-        "projected_total_xfp": 70.0,
+        "projected_remaining_xfp": 38.9,
+        "projected_total_xfp": 100.9,
         "races_remaining": 4
       },
       {
@@ -3267,8 +3389,8 @@
         "championship_points": 7.0,
         "championship_position": 16,
         "completed_xfp": 66.0,
-        "projected_remaining_xfp": 0.1,
-        "projected_total_xfp": 66.1,
+        "projected_remaining_xfp": 14.6,
+        "projected_total_xfp": 80.6,
         "races_remaining": 4
       },
       {
@@ -3279,8 +3401,8 @@
         "championship_points": 38.0,
         "championship_position": 11,
         "completed_xfp": 58.0,
-        "projected_remaining_xfp": 2.0,
-        "projected_total_xfp": 60.0,
+        "projected_remaining_xfp": 19.0,
+        "projected_total_xfp": 77.0,
         "races_remaining": 4
       },
       {
@@ -3291,8 +3413,8 @@
         "championship_points": 27.0,
         "championship_position": 12,
         "completed_xfp": 32.0,
-        "projected_remaining_xfp": 3.3,
-        "projected_total_xfp": 35.3,
+        "projected_remaining_xfp": 21.9,
+        "projected_total_xfp": 53.9,
         "races_remaining": 4
       },
       {
@@ -3303,8 +3425,8 @@
         "championship_points": 7.0,
         "championship_position": 18,
         "completed_xfp": 26.0,
-        "projected_remaining_xfp": 7.9,
-        "projected_total_xfp": 33.9,
+        "projected_remaining_xfp": 24.5,
+        "projected_total_xfp": 50.5,
         "races_remaining": 4
       },
       {
@@ -3315,8 +3437,8 @@
         "championship_points": 1.0,
         "championship_position": 21,
         "completed_xfp": 5,
-        "projected_remaining_xfp": 5.9,
-        "projected_total_xfp": 10.9,
+        "projected_remaining_xfp": 22.5,
+        "projected_total_xfp": 27.5,
         "races_remaining": 4
       },
       {
@@ -3327,20 +3449,8 @@
         "championship_points": 1.0,
         "championship_position": 20,
         "completed_xfp": 7,
-        "projected_remaining_xfp": -0.1,
-        "projected_total_xfp": 6.9,
-        "races_remaining": 4
-      },
-      {
-        "code": "DOO",
-        "name": "Jack Doohan",
-        "constructor": "Alpine F1 Team",
-        "constructor_id": "alpine",
-        "championship_points": null,
-        "championship_position": null,
-        "completed_xfp": 0,
-        "projected_remaining_xfp": 3.1,
-        "projected_total_xfp": 3.1,
+        "projected_remaining_xfp": 14.1,
+        "projected_total_xfp": 21.1,
         "races_remaining": 4
       },
       {
@@ -3351,8 +3461,20 @@
         "championship_points": 14.0,
         "championship_position": 14,
         "completed_xfp": -6.0,
-        "projected_remaining_xfp": 1.8,
-        "projected_total_xfp": -4.2,
+        "projected_remaining_xfp": 25.6,
+        "projected_total_xfp": 19.6,
+        "races_remaining": 4
+      },
+      {
+        "code": "DOO",
+        "name": "Jack Doohan",
+        "constructor": "Alpine F1 Team",
+        "constructor_id": "alpine",
+        "championship_points": null,
+        "championship_position": null,
+        "completed_xfp": 0,
+        "projected_remaining_xfp": 18.6,
+        "projected_total_xfp": 18.6,
         "races_remaining": 4
       },
       {
@@ -3363,8 +3485,20 @@
         "championship_points": 23.0,
         "championship_position": 13,
         "completed_xfp": -14.0,
-        "projected_remaining_xfp": 5.1,
-        "projected_total_xfp": -8.9,
+        "projected_remaining_xfp": 17.3,
+        "projected_total_xfp": 3.3,
+        "races_remaining": 4
+      },
+      {
+        "code": "",
+        "name": "Rafael Camara",
+        "constructor": "Haas F1 Team",
+        "constructor_id": "haas",
+        "championship_points": null,
+        "championship_position": null,
+        "completed_xfp": 0,
+        "projected_remaining_xfp": -0.4,
+        "projected_total_xfp": -0.4,
         "races_remaining": 4
       },
       {
@@ -3375,8 +3509,8 @@
         "championship_points": 0.0,
         "championship_position": 24,
         "completed_xfp": -51.0,
-        "projected_remaining_xfp": 8.1,
-        "projected_total_xfp": -42.9,
+        "projected_remaining_xfp": 30.2,
+        "projected_total_xfp": -20.8,
         "races_remaining": 4
       },
       {
@@ -3387,8 +3521,8 @@
         "championship_points": 13.0,
         "championship_position": 15,
         "completed_xfp": -53.0,
-        "projected_remaining_xfp": -0.8,
-        "projected_total_xfp": -53.8,
+        "projected_remaining_xfp": 12.3,
+        "projected_total_xfp": -40.7,
         "races_remaining": 4
       },
       {
@@ -3399,8 +3533,8 @@
         "championship_points": 7.0,
         "championship_position": 17,
         "completed_xfp": -70.0,
-        "projected_remaining_xfp": 7.5,
-        "projected_total_xfp": -62.5,
+        "projected_remaining_xfp": 18.3,
+        "projected_total_xfp": -51.7,
         "races_remaining": 4
       },
       {
@@ -3411,8 +3545,8 @@
         "championship_points": 5.0,
         "championship_position": 19,
         "completed_xfp": -84.0,
-        "projected_remaining_xfp": 0.0,
-        "projected_total_xfp": -84.0,
+        "projected_remaining_xfp": 13.3,
+        "projected_total_xfp": -70.7,
         "races_remaining": 4
       },
       {
@@ -3423,8 +3557,8 @@
         "championship_points": 0.0,
         "championship_position": 23,
         "completed_xfp": -170.0,
-        "projected_remaining_xfp": 6.1,
-        "projected_total_xfp": -163.9,
+        "projected_remaining_xfp": 23.8,
+        "projected_total_xfp": -146.2,
         "races_remaining": 4
       },
       {
@@ -3435,1300 +3569,46 @@
         "championship_points": 0.0,
         "championship_position": 22,
         "completed_xfp": -231.0,
-        "projected_remaining_xfp": 3.4,
-        "projected_total_xfp": -227.6,
+        "projected_remaining_xfp": 19.7,
+        "projected_total_xfp": -211.3,
         "races_remaining": 4
       }
     ],
     "transfer_targets": {
-      "1": [
-        {
-          "code": "VER",
-          "name": "Max Verstappen",
-          "constructor": "Red Bull",
-          "constructor_id": "red_bull",
-          "total_xfp": 12.8,
-          "per_race_xfp": 12.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 12.8,
-              "win_prob": 31.7,
-              "podium_prob": 64.7
-            }
-          ],
-          "championship_points": 261.0
-        },
-        {
-          "code": "ANT",
-          "name": "Andrea Kimi Antonelli",
-          "constructor": "Mercedes",
-          "constructor_id": "mercedes",
-          "total_xfp": 9.9,
-          "per_race_xfp": 9.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 9.9,
-              "win_prob": 21.2,
-              "podium_prob": 52.8
-            }
-          ],
-          "championship_points": 380.0
-        },
-        {
-          "code": "LEC",
-          "name": "Charles Leclerc",
-          "constructor": "Ferrari",
-          "constructor_id": "ferrari",
-          "total_xfp": 8.6,
-          "per_race_xfp": 8.6,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 8.6,
-              "win_prob": 15.4,
-              "podium_prob": 45.2
-            }
-          ],
-          "championship_points": 245.0
-        },
-        {
-          "code": "NOR",
-          "name": "Lando Norris",
-          "constructor": "McLaren",
-          "constructor_id": "mclaren",
-          "total_xfp": 6.9,
-          "per_race_xfp": 6.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 6.9,
-              "win_prob": 10.0,
-              "podium_prob": 36.4
-            }
-          ],
-          "championship_points": 221.0
-        },
-        {
-          "code": "HAM",
-          "name": "Lewis Hamilton",
-          "constructor": "Ferrari",
-          "constructor_id": "ferrari",
-          "total_xfp": 6.6,
-          "per_race_xfp": 6.6,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 6.6,
-              "win_prob": 8.6,
-              "podium_prob": 31.8
-            }
-          ],
-          "championship_points": 259.0
-        },
-        {
-          "code": "RUS",
-          "name": "George Russell",
-          "constructor": "Mercedes",
-          "constructor_id": "mercedes",
-          "total_xfp": 4.3,
-          "per_race_xfp": 4.3,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 4.3,
-              "win_prob": 4.9,
-              "podium_prob": 20.3
-            }
-          ],
-          "championship_points": 250.0
-        },
-        {
-          "code": "PIA",
-          "name": "Oscar Piastri",
-          "constructor": "McLaren",
-          "constructor_id": "mclaren",
-          "total_xfp": 4.0,
-          "per_race_xfp": 4.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 4.0,
-              "win_prob": 3.4,
-              "podium_prob": 17.2
-            }
-          ],
-          "championship_points": 144.0
-        },
-        {
-          "code": "SAI",
-          "name": "Carlos Sainz",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 2.1,
-          "per_race_xfp": 2.1,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "PER",
-          "name": "Sergio Pérez",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 2.1,
-          "per_race_xfp": 2.1,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "GAS",
-          "name": "Pierre Gasly",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 1.9,
-          "per_race_xfp": 1.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 1.7,
-              "podium_prob": 10.0
-            }
-          ],
-          "championship_points": 42.0
-        },
-        {
-          "code": "ALO",
-          "name": "Fernando Alonso",
-          "constructor": "Aston Martin",
-          "constructor_id": "aston_martin",
-          "total_xfp": 1.9,
-          "per_race_xfp": 1.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "HIR",
-          "name": "Ryo Hirakawa",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 1.6,
-          "per_race_xfp": 1.6,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.6,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            }
-          ],
-          "championship_points": 1.0
-        },
-        {
-          "code": "HAD",
-          "name": "Isack Hadjar",
-          "constructor": "Red Bull",
-          "constructor_id": "red_bull",
-          "total_xfp": 1.5,
-          "per_race_xfp": 1.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 1.3,
-              "podium_prob": 6.6
-            }
-          ],
-          "championship_points": 107.0
-        },
-        {
-          "code": "BOT",
-          "name": "Valtteri Bottas",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 1.5,
-          "per_race_xfp": 1.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "BEA",
-          "name": "Oliver Bearman",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 1.4,
-          "per_race_xfp": 1.4,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.4,
-              "win_prob": 0.0,
-              "podium_prob": 0.3
-            }
-          ],
-          "championship_points": 23.0
-        },
-        {
-          "code": "COL",
-          "name": "Franco Colapinto",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 0.9,
-          "per_race_xfp": 0.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 27.0
-        },
-        {
-          "code": "LAW",
-          "name": "Liam Lawson",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": 0.8,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.7,
-              "podium_prob": 5.4
-            }
-          ],
-          "championship_points": 83.0
-        },
-        {
-          "code": "DOO",
-          "name": "Jack Doohan",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 0.8,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            }
-          ],
-          "championship_points": null
-        },
-        {
-          "code": "STR",
-          "name": "Lance Stroll",
-          "constructor": "Aston Martin",
-          "constructor_id": "aston_martin",
-          "total_xfp": 0.8,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "BOR",
-          "name": "Gabriel Bortoleto",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": 0.5,
-          "per_race_xfp": 0.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.1,
-              "podium_prob": 1.2
-            }
-          ],
-          "championship_points": 14.0
-        },
-        {
-          "code": "LIN",
-          "name": "Arvid Lindblad",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": 0.5,
-          "per_race_xfp": 0.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.8
-            }
-          ],
-          "championship_points": 38.0
-        },
-        {
-          "code": "OCO",
-          "name": "Esteban Ocon",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 0.0,
-          "per_race_xfp": 0.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.2,
-              "podium_prob": 1.5
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "ALB",
-          "name": "Alexander Albon",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 0.0,
-          "per_race_xfp": 0.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 5.0
-        },
-        {
-          "code": "TSU",
-          "name": "Yuki Tsunoda",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": -0.1,
-          "per_race_xfp": -0.1,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": -0.1,
-              "win_prob": 0.3,
-              "podium_prob": 2.0
-            }
-          ],
-          "championship_points": 1.0
-        },
-        {
-          "code": "HUL",
-          "name": "Nico Hülkenberg",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": -0.3,
-          "per_race_xfp": -0.3,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": -0.3,
-              "win_prob": 0.3,
-              "podium_prob": 2.6
-            }
-          ],
-          "championship_points": 13.0
-        }
-      ],
-      "3": [
-        {
-          "code": "VER",
-          "name": "Max Verstappen",
-          "constructor": "Red Bull",
-          "constructor_id": "red_bull",
-          "total_xfp": 38.4,
-          "per_race_xfp": 12.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 12.8,
-              "win_prob": 31.7,
-              "podium_prob": 64.7
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 12.8,
-              "win_prob": 31.7,
-              "podium_prob": 64.7
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 12.8,
-              "win_prob": 31.5,
-              "podium_prob": 64.4
-            }
-          ],
-          "championship_points": 261.0
-        },
-        {
-          "code": "ANT",
-          "name": "Andrea Kimi Antonelli",
-          "constructor": "Mercedes",
-          "constructor_id": "mercedes",
-          "total_xfp": 29.7,
-          "per_race_xfp": 9.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 9.9,
-              "win_prob": 21.2,
-              "podium_prob": 52.8
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 9.9,
-              "win_prob": 21.2,
-              "podium_prob": 52.8
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 9.9,
-              "win_prob": 21.4,
-              "podium_prob": 52.9
-            }
-          ],
-          "championship_points": 380.0
-        },
-        {
-          "code": "LEC",
-          "name": "Charles Leclerc",
-          "constructor": "Ferrari",
-          "constructor_id": "ferrari",
-          "total_xfp": 25.8,
-          "per_race_xfp": 8.6,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 8.6,
-              "win_prob": 15.4,
-              "podium_prob": 45.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 8.6,
-              "win_prob": 15.4,
-              "podium_prob": 45.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 8.6,
-              "win_prob": 15.5,
-              "podium_prob": 45.2
-            }
-          ],
-          "championship_points": 245.0
-        },
-        {
-          "code": "NOR",
-          "name": "Lando Norris",
-          "constructor": "McLaren",
-          "constructor_id": "mclaren",
-          "total_xfp": 20.8,
-          "per_race_xfp": 6.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 6.9,
-              "win_prob": 10.0,
-              "podium_prob": 36.4
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 6.9,
-              "win_prob": 10.0,
-              "podium_prob": 36.4
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 7.0,
-              "win_prob": 10.1,
-              "podium_prob": 36.6
-            }
-          ],
-          "championship_points": 221.0
-        },
-        {
-          "code": "HAM",
-          "name": "Lewis Hamilton",
-          "constructor": "Ferrari",
-          "constructor_id": "ferrari",
-          "total_xfp": 19.7,
-          "per_race_xfp": 6.6,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 6.6,
-              "win_prob": 8.6,
-              "podium_prob": 31.8
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 6.6,
-              "win_prob": 8.6,
-              "podium_prob": 31.8
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 6.5,
-              "win_prob": 8.5,
-              "podium_prob": 31.7
-            }
-          ],
-          "championship_points": 259.0
-        },
-        {
-          "code": "RUS",
-          "name": "George Russell",
-          "constructor": "Mercedes",
-          "constructor_id": "mercedes",
-          "total_xfp": 13.0,
-          "per_race_xfp": 4.3,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 4.3,
-              "win_prob": 4.9,
-              "podium_prob": 20.3
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 4.3,
-              "win_prob": 4.9,
-              "podium_prob": 20.3
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 4.4,
-              "win_prob": 4.9,
-              "podium_prob": 20.4
-            }
-          ],
-          "championship_points": 250.0
-        },
-        {
-          "code": "PIA",
-          "name": "Oscar Piastri",
-          "constructor": "McLaren",
-          "constructor_id": "mclaren",
-          "total_xfp": 12.0,
-          "per_race_xfp": 4.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 4.0,
-              "win_prob": 3.4,
-              "podium_prob": 17.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 4.0,
-              "win_prob": 3.4,
-              "podium_prob": 17.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 4.0,
-              "win_prob": 3.4,
-              "podium_prob": 17.3
-            }
-          ],
-          "championship_points": 144.0
-        },
-        {
-          "code": "PER",
-          "name": "Sergio Pérez",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 6.2,
-          "per_race_xfp": 2.1,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 2.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "SAI",
-          "name": "Carlos Sainz",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 6.1,
-          "per_race_xfp": 2.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "GAS",
-          "name": "Pierre Gasly",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 5.9,
-          "per_race_xfp": 2.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 1.7,
-              "podium_prob": 10.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 1.7,
-              "podium_prob": 10.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 1.7,
-              "podium_prob": 10.2
-            }
-          ],
-          "championship_points": 42.0
-        },
-        {
-          "code": "ALO",
-          "name": "Fernando Alonso",
-          "constructor": "Aston Martin",
-          "constructor_id": "aston_martin",
-          "total_xfp": 5.7,
-          "per_race_xfp": 1.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "HIR",
-          "name": "Ryo Hirakawa",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 4.6,
-          "per_race_xfp": 1.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.6,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.6,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.4,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            }
-          ],
-          "championship_points": 1.0
-        },
-        {
-          "code": "HAD",
-          "name": "Isack Hadjar",
-          "constructor": "Red Bull",
-          "constructor_id": "red_bull",
-          "total_xfp": 4.6,
-          "per_race_xfp": 1.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 1.3,
-              "podium_prob": 6.6
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 1.3,
-              "podium_prob": 6.6
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.6,
-              "win_prob": 1.3,
-              "podium_prob": 6.6
-            }
-          ],
-          "championship_points": 107.0
-        },
-        {
-          "code": "BOT",
-          "name": "Valtteri Bottas",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 4.5,
-          "per_race_xfp": 1.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "BEA",
-          "name": "Oliver Bearman",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 4.0,
-          "per_race_xfp": 1.3,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.4,
-              "win_prob": 0.0,
-              "podium_prob": 0.3
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 1.4,
-              "win_prob": 0.0,
-              "podium_prob": 0.3
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.2,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 23.0
-        },
-        {
-          "code": "COL",
-          "name": "Franco Colapinto",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 2.6,
-          "per_race_xfp": 0.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 27.0
-        },
-        {
-          "code": "LAW",
-          "name": "Liam Lawson",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": 2.5,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.7,
-              "podium_prob": 5.4
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.7,
-              "podium_prob": 5.4
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.7,
-              "podium_prob": 5.4
-            }
-          ],
-          "championship_points": 83.0
-        },
-        {
-          "code": "STR",
-          "name": "Lance Stroll",
-          "constructor": "Aston Martin",
-          "constructor_id": "aston_martin",
-          "total_xfp": 2.5,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
-          "code": "DOO",
-          "name": "Jack Doohan",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 2.4,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            }
-          ],
-          "championship_points": null
-        },
-        {
-          "code": "LIN",
-          "name": "Arvid Lindblad",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": 1.5,
-          "per_race_xfp": 0.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.8
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.8
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.7
-            }
-          ],
-          "championship_points": 38.0
-        },
-        {
-          "code": "BOR",
-          "name": "Gabriel Bortoleto",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": 1.4,
-          "per_race_xfp": 0.5,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.1,
-              "podium_prob": 1.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.1,
-              "podium_prob": 1.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.4,
-              "win_prob": 0.1,
-              "podium_prob": 1.1
-            }
-          ],
-          "championship_points": 14.0
-        },
-        {
-          "code": "OCO",
-          "name": "Esteban Ocon",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 0.0,
-          "per_race_xfp": 0.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.2,
-              "podium_prob": 1.5
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.2,
-              "podium_prob": 1.5
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.2,
-              "podium_prob": 1.4
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "ALB",
-          "name": "Alexander Albon",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 0.0,
-          "per_race_xfp": 0.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 5.0
-        },
-        {
-          "code": "TSU",
-          "name": "Yuki Tsunoda",
-          "constructor": "RB F1 Team",
-          "constructor_id": "rb",
-          "total_xfp": -0.2,
-          "per_race_xfp": -0.1,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": -0.1,
-              "win_prob": 0.3,
-              "podium_prob": 2.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": -0.1,
-              "win_prob": 0.3,
-              "podium_prob": 2.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.3,
-              "podium_prob": 2.0
-            }
-          ],
-          "championship_points": 1.0
-        },
-        {
-          "code": "HUL",
-          "name": "Nico Hülkenberg",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": -0.8,
-          "per_race_xfp": -0.3,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": -0.3,
-              "win_prob": 0.3,
-              "podium_prob": 2.6
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": -0.3,
-              "win_prob": 0.3,
-              "podium_prob": 2.6
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": -0.2,
-              "win_prob": 0.3,
-              "podium_prob": 2.7
-            }
-          ],
-          "championship_points": 13.0
-        }
-      ],
       "5": [
         {
           "code": "VER",
           "name": "Max Verstappen",
           "constructor": "Red Bull",
           "constructor_id": "red_bull",
-          "total_xfp": 51.1,
-          "per_race_xfp": 12.8,
+          "total_xfp": 99.7,
+          "per_race_xfp": 24.9,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 12.8,
-              "win_prob": 31.7,
-              "podium_prob": 64.7
+              "xfp": 20.5,
+              "win_prob": 6.2,
+              "podium_prob": 25.2
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 12.8,
+              "xfp": 26.6,
               "win_prob": 31.7,
               "podium_prob": 64.7
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 12.8,
+              "xfp": 26.4,
               "win_prob": 31.5,
               "podium_prob": 64.4
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 12.7,
+              "xfp": 26.2,
               "win_prob": 31.3,
               "podium_prob": 64.2
             }
@@ -4740,34 +3620,34 @@
           "name": "Andrea Kimi Antonelli",
           "constructor": "Mercedes",
           "constructor_id": "mercedes",
-          "total_xfp": 39.7,
-          "per_race_xfp": 9.9,
+          "total_xfp": 80.8,
+          "per_race_xfp": 20.2,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 9.9,
-              "win_prob": 21.2,
-              "podium_prob": 52.8
+              "xfp": 11.8,
+              "win_prob": 25.6,
+              "podium_prob": 57.8
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 9.9,
+              "xfp": 23.1,
               "win_prob": 21.2,
               "podium_prob": 52.8
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 9.9,
+              "xfp": 23.0,
               "win_prob": 21.4,
               "podium_prob": 52.9
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 10.0,
+              "xfp": 22.9,
               "win_prob": 21.5,
               "podium_prob": 53.2
             }
@@ -4779,34 +3659,34 @@
           "name": "Charles Leclerc",
           "constructor": "Ferrari",
           "constructor_id": "ferrari",
-          "total_xfp": 34.4,
-          "per_race_xfp": 8.6,
+          "total_xfp": 73.2,
+          "per_race_xfp": 18.3,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 8.6,
-              "win_prob": 15.4,
-              "podium_prob": 45.2
+              "xfp": 10.3,
+              "win_prob": 19.6,
+              "podium_prob": 49.4
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 8.6,
+              "xfp": 21.1,
               "win_prob": 15.4,
               "podium_prob": 45.2
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 8.6,
+              "xfp": 21.0,
               "win_prob": 15.5,
               "podium_prob": 45.2
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 8.6,
+              "xfp": 20.8,
               "win_prob": 15.5,
               "podium_prob": 45.2
             }
@@ -4818,34 +3698,34 @@
           "name": "Lando Norris",
           "constructor": "McLaren",
           "constructor_id": "mclaren",
-          "total_xfp": 27.8,
-          "per_race_xfp": 7.0,
+          "total_xfp": 64.1,
+          "per_race_xfp": 16.0,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 6.9,
-              "win_prob": 10.0,
-              "podium_prob": 36.4
+              "xfp": 8.3,
+              "win_prob": 21.7,
+              "podium_prob": 53.5
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 6.9,
+              "xfp": 18.7,
               "win_prob": 10.0,
               "podium_prob": 36.4
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 7.0,
+              "xfp": 18.6,
               "win_prob": 10.1,
               "podium_prob": 36.6
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 7.0,
+              "xfp": 18.5,
               "win_prob": 10.2,
               "podium_prob": 36.7
             }
@@ -4857,34 +3737,34 @@
           "name": "Lewis Hamilton",
           "constructor": "Ferrari",
           "constructor_id": "ferrari",
-          "total_xfp": 26.2,
-          "per_race_xfp": 6.6,
+          "total_xfp": 62.4,
+          "per_race_xfp": 15.6,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 6.6,
-              "win_prob": 8.6,
-              "podium_prob": 31.8
+              "xfp": 10.8,
+              "win_prob": 4.5,
+              "podium_prob": 19.7
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 6.6,
+              "xfp": 17.4,
               "win_prob": 8.6,
               "podium_prob": 31.8
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 6.5,
+              "xfp": 17.2,
               "win_prob": 8.5,
               "podium_prob": 31.7
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 6.5,
+              "xfp": 17.0,
               "win_prob": 8.4,
               "podium_prob": 31.5
             }
@@ -4896,34 +3776,34 @@
           "name": "George Russell",
           "constructor": "Mercedes",
           "constructor_id": "mercedes",
-          "total_xfp": 17.4,
-          "per_race_xfp": 4.4,
+          "total_xfp": 48.1,
+          "per_race_xfp": 12.0,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 4.3,
-              "win_prob": 4.9,
-              "podium_prob": 20.3
+              "xfp": 5.8,
+              "win_prob": 13.3,
+              "podium_prob": 40.3
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 4.3,
+              "xfp": 14.3,
               "win_prob": 4.9,
               "podium_prob": 20.3
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 4.4,
+              "xfp": 14.1,
               "win_prob": 4.9,
               "podium_prob": 20.4
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 4.4,
+              "xfp": 13.9,
               "win_prob": 4.9,
               "podium_prob": 20.4
             }
@@ -4935,34 +3815,34 @@
           "name": "Oscar Piastri",
           "constructor": "McLaren",
           "constructor_id": "mclaren",
-          "total_xfp": 16.1,
-          "per_race_xfp": 4.0,
+          "total_xfp": 46.9,
+          "per_race_xfp": 11.7,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 4.0,
-              "win_prob": 3.4,
-              "podium_prob": 17.2
+              "xfp": 8.3,
+              "win_prob": 2.2,
+              "podium_prob": 10.6
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 4.0,
+              "xfp": 13.0,
               "win_prob": 3.4,
               "podium_prob": 17.2
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 4.0,
+              "xfp": 12.9,
               "win_prob": 3.4,
               "podium_prob": 17.3
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 4.1,
+              "xfp": 12.7,
               "win_prob": 3.4,
               "podium_prob": 17.2
             }
@@ -4970,77 +3850,38 @@
           "championship_points": 144.0
         },
         {
-          "code": "PER",
-          "name": "Sergio Pérez",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 8.1,
-          "per_race_xfp": 2.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 2.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 23,
-              "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 0.0
-        },
-        {
           "code": "GAS",
           "name": "Pierre Gasly",
           "constructor": "Alpine F1 Team",
           "constructor_id": "alpine",
-          "total_xfp": 8.0,
-          "per_race_xfp": 2.0,
+          "total_xfp": 38.9,
+          "per_race_xfp": 9.7,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 1.7,
-              "podium_prob": 10.0
+              "xfp": 9.5,
+              "win_prob": 0.1,
+              "podium_prob": 2.1
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.9,
+              "xfp": 9.9,
               "win_prob": 1.7,
               "podium_prob": 10.0
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 2.1,
+              "xfp": 9.8,
               "win_prob": 1.7,
               "podium_prob": 10.2
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 2.1,
+              "xfp": 9.7,
               "win_prob": 1.8,
               "podium_prob": 10.3
             }
@@ -5048,116 +3889,77 @@
           "championship_points": 42.0
         },
         {
-          "code": "SAI",
-          "name": "Carlos Sainz",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 7.9,
-          "per_race_xfp": 2.0,
+          "code": "PER",
+          "name": "Sergio Pérez",
+          "constructor": "Cadillac F1 Team",
+          "constructor_id": "cadillac",
+          "total_xfp": 30.2,
+          "per_race_xfp": 7.5,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 2.1,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 1.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            },
-            {
-              "round": 23,
-              "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
-            }
-          ],
-          "championship_points": 7.0
-        },
-        {
-          "code": "ALO",
-          "name": "Fernando Alonso",
-          "constructor": "Aston Martin",
-          "constructor_id": "aston_martin",
-          "total_xfp": 7.5,
-          "per_race_xfp": 1.9,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.9,
+              "xfp": 4.9,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.9,
+              "xfp": 9.1,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 1.9,
+              "xfp": 8.4,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.8,
+              "xfp": 7.8,
               "win_prob": 0.0,
               "podium_prob": 0.0
             }
           ],
-          "championship_points": 7.0
+          "championship_points": 0.0
         },
         {
           "code": "HAD",
           "name": "Isack Hadjar",
           "constructor": "Red Bull",
           "constructor_id": "red_bull",
-          "total_xfp": 6.3,
-          "per_race_xfp": 1.6,
+          "total_xfp": 26.7,
+          "per_race_xfp": 6.7,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 1.3,
-              "podium_prob": 6.6
+              "xfp": 1.8,
+              "win_prob": 2.2,
+              "podium_prob": 12.4
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.5,
+              "xfp": 8.4,
               "win_prob": 1.3,
               "podium_prob": 6.6
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 1.6,
+              "xfp": 8.3,
               "win_prob": 1.3,
               "podium_prob": 6.6
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.7,
+              "xfp": 8.2,
               "win_prob": 1.3,
               "podium_prob": 6.7
             }
@@ -5165,38 +3967,116 @@
           "championship_points": 107.0
         },
         {
-          "code": "BOT",
-          "name": "Valtteri Bottas",
-          "constructor": "Cadillac F1 Team",
-          "constructor_id": "cadillac",
-          "total_xfp": 6.1,
-          "per_race_xfp": 1.5,
+          "code": "BOR",
+          "name": "Gabriel Bortoleto",
+          "constructor": "Audi",
+          "constructor_id": "audi",
+          "total_xfp": 25.6,
+          "per_race_xfp": 6.4,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 1.5,
+              "xfp": 9.0,
               "win_prob": 0.0,
-              "podium_prob": 0.0
+              "podium_prob": 0.2
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.0
+              "xfp": 5.9,
+              "win_prob": 0.1,
+              "podium_prob": 1.2
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 1.5,
+              "xfp": 5.5,
+              "win_prob": 0.1,
+              "podium_prob": 1.1
+            },
+            {
+              "round": 23,
+              "name": "Abu Dhabi Grand Prix",
+              "xfp": 5.2,
+              "win_prob": 0.1,
+              "podium_prob": 1.1
+            }
+          ],
+          "championship_points": 14.0
+        },
+        {
+          "code": "SAI",
+          "name": "Carlos Sainz",
+          "constructor": "Williams",
+          "constructor_id": "williams",
+          "total_xfp": 24.5,
+          "per_race_xfp": 6.1,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -0.3,
+              "win_prob": 0.0,
+              "podium_prob": 0.3
+            },
+            {
+              "round": 21,
+              "name": "Las Vegas Grand Prix",
+              "xfp": 8.9,
+              "win_prob": 0.0,
+              "podium_prob": 0.1
+            },
+            {
+              "round": 22,
+              "name": "Qatar Grand Prix",
+              "xfp": 8.3,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.6,
+              "xfp": 7.6,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            }
+          ],
+          "championship_points": 7.0
+        },
+        {
+          "code": "BOT",
+          "name": "Valtteri Bottas",
+          "constructor": "Cadillac F1 Team",
+          "constructor_id": "cadillac",
+          "total_xfp": 23.8,
+          "per_race_xfp": 6.0,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -0.0,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            },
+            {
+              "round": 21,
+              "name": "Las Vegas Grand Prix",
+              "xfp": 8.4,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            },
+            {
+              "round": 22,
+              "name": "Qatar Grand Prix",
+              "xfp": 7.9,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            },
+            {
+              "round": 23,
+              "name": "Abu Dhabi Grand Prix",
+              "xfp": 7.5,
               "win_prob": 0.0,
               "podium_prob": 0.0
             }
@@ -5208,34 +4088,27 @@
           "name": "Ryo Hirakawa",
           "constructor": "Haas F1 Team",
           "constructor_id": "haas",
-          "total_xfp": 5.9,
-          "per_race_xfp": 1.5,
+          "total_xfp": 22.5,
+          "per_race_xfp": 5.6,
           "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 1.6,
-              "win_prob": 0.0,
-              "podium_prob": 0.1
-            },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.6,
+              "xfp": 8.1,
               "win_prob": 0.0,
               "podium_prob": 0.1
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 1.4,
+              "xfp": 7.5,
               "win_prob": 0.0,
               "podium_prob": 0.1
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.3,
+              "xfp": 6.9,
               "win_prob": 0.0,
               "podium_prob": 0.0
             }
@@ -5243,77 +4116,77 @@
           "championship_points": 1.0
         },
         {
-          "code": "BEA",
-          "name": "Oliver Bearman",
-          "constructor": "Haas F1 Team",
-          "constructor_id": "haas",
-          "total_xfp": 5.1,
-          "per_race_xfp": 1.3,
+          "code": "COL",
+          "name": "Franco Colapinto",
+          "constructor": "Alpine F1 Team",
+          "constructor_id": "alpine",
+          "total_xfp": 21.9,
+          "per_race_xfp": 5.5,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 1.4,
-              "win_prob": 0.0,
-              "podium_prob": 0.3
+              "xfp": 2.5,
+              "win_prob": 0.1,
+              "podium_prob": 0.5
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 1.4,
+              "xfp": 7.0,
               "win_prob": 0.0,
-              "podium_prob": 0.3
+              "podium_prob": 0.2
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 1.2,
+              "xfp": 6.5,
               "win_prob": 0.0,
               "podium_prob": 0.2
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.1,
+              "xfp": 5.9,
               "win_prob": 0.0,
               "podium_prob": 0.2
             }
           ],
-          "championship_points": 23.0
+          "championship_points": 27.0
         },
         {
           "code": "LAW",
           "name": "Liam Lawson",
           "constructor": "RB F1 Team",
           "constructor_id": "rb",
-          "total_xfp": 3.6,
-          "per_race_xfp": 0.9,
+          "total_xfp": 20.7,
+          "per_race_xfp": 5.2,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.7,
-              "podium_prob": 5.4
+              "xfp": 0.6,
+              "win_prob": 2.6,
+              "podium_prob": 13.8
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
+              "xfp": 6.8,
               "win_prob": 0.7,
               "podium_prob": 5.4
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.9,
+              "xfp": 6.7,
               "win_prob": 0.7,
               "podium_prob": 5.4
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 1.1,
+              "xfp": 6.6,
               "win_prob": 0.7,
               "podium_prob": 5.4
             }
@@ -5325,34 +4198,34 @@
           "name": "Lance Stroll",
           "constructor": "Aston Martin",
           "constructor_id": "aston_martin",
-          "total_xfp": 3.4,
-          "per_race_xfp": 0.8,
+          "total_xfp": 19.7,
+          "per_race_xfp": 4.9,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
+              "xfp": -1.2,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
+              "xfp": 7.4,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.9,
+              "xfp": 7.0,
               "win_prob": 0.0,
               "podium_prob": 0.0
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.9,
+              "xfp": 6.5,
               "win_prob": 0.0,
               "podium_prob": 0.0
             }
@@ -5360,116 +4233,38 @@
           "championship_points": 0.0
         },
         {
-          "code": "COL",
-          "name": "Franco Colapinto",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 3.3,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.9,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 23,
-              "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.7,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 27.0
-        },
-        {
-          "code": "DOO",
-          "name": "Jack Doohan",
-          "constructor": "Alpine F1 Team",
-          "constructor_id": "alpine",
-          "total_xfp": 3.1,
-          "per_race_xfp": 0.8,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.8,
-              "win_prob": 0.0,
-              "podium_prob": 0.6
-            },
-            {
-              "round": 23,
-              "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.7,
-              "win_prob": 0.0,
-              "podium_prob": 0.5
-            }
-          ],
-          "championship_points": null
-        },
-        {
           "code": "LIN",
           "name": "Arvid Lindblad",
           "constructor": "RB F1 Team",
           "constructor_id": "rb",
-          "total_xfp": 2.0,
-          "per_race_xfp": 0.5,
+          "total_xfp": 19.0,
+          "per_race_xfp": 4.8,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.0,
-              "podium_prob": 0.8
+              "xfp": 1.9,
+              "win_prob": 0.1,
+              "podium_prob": 1.5
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 0.5,
+              "xfp": 6.1,
               "win_prob": 0.0,
               "podium_prob": 0.8
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.5,
+              "xfp": 5.7,
               "win_prob": 0.0,
               "podium_prob": 0.7
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.5,
+              "xfp": 5.3,
               "win_prob": 0.0,
               "podium_prob": 0.7
             }
@@ -5477,77 +4272,141 @@
           "championship_points": 38.0
         },
         {
-          "code": "BOR",
-          "name": "Gabriel Bortoleto",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": 1.8,
-          "per_race_xfp": 0.4,
+          "code": "DOO",
+          "name": "Jack Doohan",
+          "constructor": "Alpine F1 Team",
+          "constructor_id": "alpine",
+          "total_xfp": 18.6,
+          "per_race_xfp": 4.7,
           "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.1,
-              "podium_prob": 1.2
-            },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 0.5,
-              "win_prob": 0.1,
-              "podium_prob": 1.2
+              "xfp": 6.6,
+              "win_prob": 0.0,
+              "podium_prob": 0.6
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.4,
-              "win_prob": 0.1,
-              "podium_prob": 1.1
+              "xfp": 6.2,
+              "win_prob": 0.0,
+              "podium_prob": 0.6
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.4,
-              "win_prob": 0.1,
-              "podium_prob": 1.1
+              "xfp": 5.8,
+              "win_prob": 0.0,
+              "podium_prob": 0.5
             }
           ],
-          "championship_points": 14.0
+          "championship_points": null
+        },
+        {
+          "code": "ALO",
+          "name": "Fernando Alonso",
+          "constructor": "Aston Martin",
+          "constructor_id": "aston_martin",
+          "total_xfp": 18.3,
+          "per_race_xfp": 4.6,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -6.5,
+              "win_prob": 0.0,
+              "podium_prob": 0.4
+            },
+            {
+              "round": 21,
+              "name": "Las Vegas Grand Prix",
+              "xfp": 8.8,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            },
+            {
+              "round": 22,
+              "name": "Qatar Grand Prix",
+              "xfp": 8.3,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            },
+            {
+              "round": 23,
+              "name": "Abu Dhabi Grand Prix",
+              "xfp": 7.7,
+              "win_prob": 0.0,
+              "podium_prob": 0.0
+            }
+          ],
+          "championship_points": 7.0
+        },
+        {
+          "code": "BEA",
+          "name": "Oliver Bearman",
+          "constructor": "Haas F1 Team",
+          "constructor_id": "haas",
+          "total_xfp": 17.3,
+          "per_race_xfp": 4.3,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -4.0,
+              "win_prob": 0.3,
+              "podium_prob": 2.1
+            },
+            {
+              "round": 21,
+              "name": "Las Vegas Grand Prix",
+              "xfp": 7.7,
+              "win_prob": 0.0,
+              "podium_prob": 0.3
+            },
+            {
+              "round": 22,
+              "name": "Qatar Grand Prix",
+              "xfp": 7.1,
+              "win_prob": 0.0,
+              "podium_prob": 0.2
+            },
+            {
+              "round": 23,
+              "name": "Abu Dhabi Grand Prix",
+              "xfp": 6.5,
+              "win_prob": 0.0,
+              "podium_prob": 0.2
+            }
+          ],
+          "championship_points": 23.0
         },
         {
           "code": "OCO",
           "name": "Esteban Ocon",
           "constructor": "Haas F1 Team",
           "constructor_id": "haas",
-          "total_xfp": 0.1,
-          "per_race_xfp": 0.0,
+          "total_xfp": 14.6,
+          "per_race_xfp": 3.6,
           "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.2,
-              "podium_prob": 1.5
-            },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": 0.0,
+              "xfp": 5.1,
               "win_prob": 0.2,
               "podium_prob": 1.5
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.0,
+              "xfp": 4.8,
               "win_prob": 0.2,
               "podium_prob": 1.4
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.1,
+              "xfp": 4.7,
               "win_prob": 0.2,
               "podium_prob": 1.4
             }
@@ -5555,77 +4414,31 @@
           "championship_points": 7.0
         },
         {
-          "code": "ALB",
-          "name": "Alexander Albon",
-          "constructor": "Williams",
-          "constructor_id": "williams",
-          "total_xfp": 0.0,
-          "per_race_xfp": 0.0,
-          "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 21,
-              "name": "Las Vegas Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 22,
-              "name": "Qatar Grand Prix",
-              "xfp": 0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            },
-            {
-              "round": 23,
-              "name": "Abu Dhabi Grand Prix",
-              "xfp": -0.0,
-              "win_prob": 0.0,
-              "podium_prob": 0.2
-            }
-          ],
-          "championship_points": 5.0
-        },
-        {
           "code": "TSU",
           "name": "Yuki Tsunoda",
           "constructor": "RB F1 Team",
           "constructor_id": "rb",
-          "total_xfp": -0.1,
-          "per_race_xfp": -0.0,
+          "total_xfp": 14.1,
+          "per_race_xfp": 3.5,
           "races": [
-            {
-              "round": 20,
-              "name": "Brazilian Grand Prix",
-              "xfp": -0.1,
-              "win_prob": 0.3,
-              "podium_prob": 2.0
-            },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": -0.1,
+              "xfp": 4.8,
               "win_prob": 0.3,
               "podium_prob": 2.0
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": 0.0,
+              "xfp": 4.7,
               "win_prob": 0.3,
               "podium_prob": 2.0
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": 0.1,
+              "xfp": 4.6,
               "win_prob": 0.3,
               "podium_prob": 2.0
             }
@@ -5633,43 +4446,100 @@
           "championship_points": 1.0
         },
         {
-          "code": "HUL",
-          "name": "Nico Hülkenberg",
-          "constructor": "Audi",
-          "constructor_id": "audi",
-          "total_xfp": -0.8,
-          "per_race_xfp": -0.2,
+          "code": "ALB",
+          "name": "Alexander Albon",
+          "constructor": "Williams",
+          "constructor_id": "williams",
+          "total_xfp": 13.3,
+          "per_race_xfp": 3.3,
           "races": [
             {
               "round": 20,
               "name": "Brazilian Grand Prix",
-              "xfp": -0.3,
-              "win_prob": 0.3,
-              "podium_prob": 2.6
+              "xfp": -2.6,
+              "win_prob": 0.1,
+              "podium_prob": 1.5
             },
             {
               "round": 21,
               "name": "Las Vegas Grand Prix",
-              "xfp": -0.3,
+              "xfp": 5.7,
+              "win_prob": 0.0,
+              "podium_prob": 0.2
+            },
+            {
+              "round": 22,
+              "name": "Qatar Grand Prix",
+              "xfp": 5.3,
+              "win_prob": 0.0,
+              "podium_prob": 0.2
+            },
+            {
+              "round": 23,
+              "name": "Abu Dhabi Grand Prix",
+              "xfp": 4.9,
+              "win_prob": 0.0,
+              "podium_prob": 0.2
+            }
+          ],
+          "championship_points": 5.0
+        },
+        {
+          "code": "HUL",
+          "name": "Nico Hülkenberg",
+          "constructor": "Audi",
+          "constructor_id": "audi",
+          "total_xfp": 12.3,
+          "per_race_xfp": 3.1,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -1.2,
+              "win_prob": 1.3,
+              "podium_prob": 7.8
+            },
+            {
+              "round": 21,
+              "name": "Las Vegas Grand Prix",
+              "xfp": 4.6,
               "win_prob": 0.3,
               "podium_prob": 2.6
             },
             {
               "round": 22,
               "name": "Qatar Grand Prix",
-              "xfp": -0.2,
+              "xfp": 4.5,
               "win_prob": 0.3,
               "podium_prob": 2.7
             },
             {
               "round": 23,
               "name": "Abu Dhabi Grand Prix",
-              "xfp": -0.0,
+              "xfp": 4.4,
               "win_prob": 0.3,
               "podium_prob": 2.7
             }
           ],
           "championship_points": 13.0
+        },
+        {
+          "code": "",
+          "name": "Rafael Camara",
+          "constructor": "Haas F1 Team",
+          "constructor_id": "haas",
+          "total_xfp": -0.4,
+          "per_race_xfp": -0.1,
+          "races": [
+            {
+              "round": 20,
+              "name": "Brazilian Grand Prix",
+              "xfp": -0.4,
+              "win_prob": 0.0,
+              "podium_prob": 0.9
+            }
+          ],
+          "championship_points": null
         }
       ]
     },
