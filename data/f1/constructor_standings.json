@@ -4,7 +4,7 @@
     "constructor_id": "mercedes",
     "name": "Mercedes",
     "nationality": "German",
-    "points": 630.0,
+    "points": 652.0,
     "wins": 12
   },
   {
@@ -12,7 +12,7 @@
     "constructor_id": "ferrari",
     "name": "Ferrari",
     "nationality": "Italian",
-    "points": 504.0,
+    "points": 512.0,
     "wins": 2
   },
   {
@@ -20,7 +20,7 @@
     "constructor_id": "red_bull",
     "name": "Red Bull",
     "nationality": "Austrian",
-    "points": 382.0,
+    "points": 415.0,
     "wins": 3
   },
   {
@@ -28,15 +28,15 @@
     "constructor_id": "mclaren",
     "name": "McLaren",
     "nationality": "British",
-    "points": 365.0,
-    "wins": 2
+    "points": 398.0,
+    "wins": 3
   },
   {
     "position": 5,
     "constructor_id": "rb",
     "name": "RB F1 Team",
     "nationality": "Italian",
-    "points": 108.0,
+    "points": 112.0,
     "wins": 0
   },
   {
@@ -60,7 +60,7 @@
     "constructor_id": "audi",
     "name": "Audi",
     "nationality": "German",
-    "points": 27.0,
+    "points": 28.0,
     "wins": 0
   },
   {
