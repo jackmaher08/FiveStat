@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "competition": "Premier League",
-  "generated_at_utc": "2026-11-08T09:04:50Z",
+  "generated_at_utc": "2026-11-08T21:00:59Z",
   "probability_scale": "0_to_1",
   "model": {
     "name": "FiveStat EPL Match Model",
