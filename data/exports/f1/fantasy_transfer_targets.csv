@@ -1,27 +1,26 @@
 horizon_races,rank,code,name,constructor,total_xfp,per_race_xfp,championship_points
-5,1,VER,Max Verstappen,Red Bull,99.7,24.9,261.0
-5,2,ANT,Andrea Kimi Antonelli,Mercedes,80.8,20.2,380.0
-5,3,LEC,Charles Leclerc,Ferrari,73.2,18.3,245.0
-5,4,NOR,Lando Norris,McLaren,64.1,16.0,221.0
-5,5,HAM,Lewis Hamilton,Ferrari,62.4,15.6,259.0
-5,6,RUS,George Russell,Mercedes,48.1,12.0,250.0
-5,7,PIA,Oscar Piastri,McLaren,46.9,11.7,144.0
-5,8,GAS,Pierre Gasly,Alpine F1 Team,38.9,9.7,42.0
-5,9,PER,Sergio Pérez,Cadillac F1 Team,30.2,7.5,0.0
-5,10,HAD,Isack Hadjar,Red Bull,26.7,6.7,107.0
-5,11,BOR,Gabriel Bortoleto,Audi,25.6,6.4,14.0
-5,12,SAI,Carlos Sainz,Williams,24.5,6.1,7.0
-5,13,BOT,Valtteri Bottas,Cadillac F1 Team,23.8,6.0,0.0
-5,14,HIR,Ryo Hirakawa,Haas F1 Team,22.5,5.6,1.0
-5,15,COL,Franco Colapinto,Alpine F1 Team,21.9,5.5,27.0
-5,16,LAW,Liam Lawson,RB F1 Team,20.7,5.2,83.0
-5,17,STR,Lance Stroll,Aston Martin,19.7,4.9,0.0
-5,18,LIN,Arvid Lindblad,RB F1 Team,19.0,4.8,38.0
-5,19,DOO,Jack Doohan,Alpine F1 Team,18.6,4.7,
-5,20,ALO,Fernando Alonso,Aston Martin,18.3,4.6,7.0
-5,21,BEA,Oliver Bearman,Haas F1 Team,17.3,4.3,23.0
-5,22,OCO,Esteban Ocon,Haas F1 Team,14.6,3.6,7.0
-5,23,TSU,Yuki Tsunoda,RB F1 Team,14.1,3.5,1.0
-5,24,ALB,Alexander Albon,Williams,13.3,3.3,5.0
-5,25,HUL,Nico Hülkenberg,Audi,12.3,3.1,13.0
-5,26,,Rafael Camara,Haas F1 Team,-0.4,-0.1,
+5,1,VER,Max Verstappen,Red Bull,79.2,26.4,261.0
+5,2,ANT,Andrea Kimi Antonelli,Mercedes,69.0,23.0,380.0
+5,3,LEC,Charles Leclerc,Ferrari,62.9,21.0,245.0
+5,4,NOR,Lando Norris,McLaren,55.8,18.6,221.0
+5,5,HAM,Lewis Hamilton,Ferrari,51.6,17.2,259.0
+5,6,RUS,George Russell,Mercedes,42.3,14.1,250.0
+5,7,PIA,Oscar Piastri,McLaren,38.6,12.9,144.0
+5,8,GAS,Pierre Gasly,Alpine F1 Team,29.4,9.8,42.0
+5,9,PER,Sergio Pérez,Cadillac F1 Team,25.3,8.4,0.0
+5,10,HAD,Isack Hadjar,Red Bull,24.9,8.3,107.0
+5,11,SAI,Carlos Sainz,Williams,24.8,8.3,7.0
+5,12,ALO,Fernando Alonso,Aston Martin,24.8,8.3,7.0
+5,13,BOT,Valtteri Bottas,Cadillac F1 Team,23.8,7.9,0.0
+5,14,HIR,Ryo Hirakawa,Haas F1 Team,22.5,7.5,1.0
+5,15,BEA,Oliver Bearman,Haas F1 Team,21.3,7.1,23.0
+5,16,STR,Lance Stroll,Aston Martin,20.9,7.0,0.0
+5,17,LAW,Liam Lawson,RB F1 Team,20.1,6.7,83.0
+5,18,COL,Franco Colapinto,Alpine F1 Team,19.4,6.5,27.0
+5,19,DOO,Jack Doohan,Alpine F1 Team,18.6,6.2,
+5,20,LIN,Arvid Lindblad,RB F1 Team,17.1,5.7,38.0
+5,21,BOR,Gabriel Bortoleto,Audi,16.6,5.5,14.0
+5,22,ALB,Alexander Albon,Williams,15.9,5.3,5.0
+5,23,OCO,Esteban Ocon,Haas F1 Team,14.6,4.9,7.0
+5,24,TSU,Yuki Tsunoda,RB F1 Team,14.1,4.7,1.0
+5,25,HUL,Nico Hülkenberg,Audi,13.5,4.5,13.0

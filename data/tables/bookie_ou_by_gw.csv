@@ -181,10 +181,27 @@ GW9,Brentford,Everton,56.7,43.3
 GW10,Manchester City,Fulham,63.5,36.5
 GW10,Aston Villa,Sunderland,54.1,45.9
 GW10,Bournemouth,Nottingham Forest,52.4,47.6
-GW10,Chelsea,Leeds United,54.7,45.3
 GW10,Coventry City,Crystal Palace,54.9,45.1
-GW10,Tottenham Hotspur,Ipswich,59.5,40.5
 GW10,Newcastle United,Arsenal,56.3,43.7
 GW10,Hull City,Brighton,58.4,41.6
 GW10,Liverpool,Manchester United,60.6,39.4
 GW10,Brentford,Everton,55.3,44.7
+GW11,Manchester City,Fulham,63.5,36.5
+GW11,Aston Villa,Sunderland,54.2,45.8
+GW11,Bournemouth,Nottingham Forest,52.5,47.5
+GW11,Chelsea,Leeds United,54.9,45.1
+GW11,Coventry City,Crystal Palace,56.1,43.9
+GW11,Tottenham Hotspur,Ipswich,59.7,40.3
+GW11,Newcastle United,Arsenal,56.2,43.8
+GW11,Hull City,Brighton,57.6,42.4
+GW11,Liverpool,Manchester United,59.4,40.6
+GW11,Brentford,Everton,55.0,45.0
+GW11,Nottingham Forest,Chelsea,53.8,46.2
+GW11,Manchester United,Brentford,58.4,41.6
+GW11,Leeds United,Coventry City,53.0,47.0
+GW11,Ipswich,Aston Villa,59.2,40.8
+GW11,Everton,Liverpool,56.7,43.3
+GW11,Fulham,Bournemouth,52.3,47.7
+GW11,Crystal Palace,Hull City,53.0,47.0
+GW11,Sunderland,Tottenham Hotspur,50.3,49.7
+GW11,Arsenal,Manchester City,55.1,44.9

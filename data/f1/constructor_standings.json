@@ -12,7 +12,7 @@
     "constructor_id": "ferrari",
     "name": "Ferrari",
     "nationality": "Italian",
-    "points": 512.0,
+    "points": 510.0,
     "wins": 2
   },
   {
@@ -36,7 +36,7 @@
     "constructor_id": "rb",
     "name": "RB F1 Team",
     "nationality": "Italian",
-    "points": 112.0,
+    "points": 114.0,
     "wins": 0
   },
   {

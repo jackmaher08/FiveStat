@@ -1,11 +1,11 @@
 round_number,date,home_team,away_team
-10,06/11/2026 20:00,Everton,Coventry City
-10,07/11/2026 12:30,Leeds,Tottenham Hotspur
-10,07/11/2026 15:00,Arsenal,Hull City
-10,07/11/2026 15:00,Fulham,Newcastle United
-10,07/11/2026 17:30,Nottingham Forest,Manchester City
-10,08/11/2026 14:00,Brighton,Brentford
-10,08/11/2026 14:00,Crystal Palace,Liverpool
-10,08/11/2026 14:00,Ipswich Town,Bournemouth
-10,08/11/2026 14:00,Sunderland,Chelsea
-10,08/11/2026 16:30,Manchester United,Aston Villa
+11,21/11/2026 12:30,Manchester City,Fulham
+11,21/11/2026 15:00,Aston Villa,Sunderland
+11,21/11/2026 15:00,Bournemouth,Nottingham Forest
+11,21/11/2026 15:00,Chelsea,Leeds
+11,21/11/2026 15:00,Coventry City,Crystal Palace
+11,21/11/2026 15:00,Tottenham Hotspur,Ipswich Town
+11,21/11/2026 17:30,Newcastle United,Arsenal
+11,22/11/2026 14:00,Hull City,Brighton
+11,22/11/2026 16:30,Liverpool,Manchester United
+11,23/11/2026 20:00,Brentford,Everton
