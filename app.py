@@ -14,6 +14,7 @@ from gaa_model import get_gaa_data, teams_still_in, load_results as gaa_load_res
 from collections import defaultdict
 from datetime import datetime
 from fpl_deadlines import display_gameweek, load_next_event
+from epl_gameweek import select_epl_gameweek
 import json
 import unicodedata
 import requests
@@ -187,8 +188,7 @@ def index():
         if GW_OVERRIDE is not None:
             current_gw = GW_OVERRIDE
         else:
-            upcoming = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
-            current_gw = int(upcoming.min()) if not upcoming.empty else int(fixtures_df["round_number"].max())
+            current_gw = select_epl_gameweek(fixtures_df)
 
         if current_gw:
             probs_lookup = {}
@@ -675,8 +675,7 @@ def premier_league():
     if GW_OVERRIDE is not None:
         current_gw = GW_OVERRIDE
     else:
-        upcoming_rounds = fixtures_df[fixtures_df["isResult"] == False]["round_number"]
-        current_gw = int(upcoming_rounds.min()) if not upcoming_rounds.empty else int(max(gameweeks))
+        current_gw = select_epl_gameweek(fixtures_df)
 
     gw = int(request.args.get("gw", current_gw))
 
