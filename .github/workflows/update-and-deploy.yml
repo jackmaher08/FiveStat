@@ -64,7 +64,7 @@ jobs:
 
       # Fail early on syntax errors rather than silently skipping data updates.
       - name: Validate Python syntax
-        run: python -m compileall -q data_scraper_script.py data_loader.py app.py fpl_deadlines.py fpl_live.py scripts
+        run: python -m compileall -q data_scraper_script.py data_loader.py app.py fpl_deadlines.py fpl_live.py epl_gameweek.py scripts
 
       # Football and FPL
       - name: Football and FPL pipeline

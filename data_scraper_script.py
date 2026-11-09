@@ -10,6 +10,7 @@ from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from fpl_deadlines import next_deadline_event
 from fpl_live import extract_live_minutes
+from epl_gameweek import select_epl_gameweek
 
 import sys
 BOOKIE_ONLY = "--bookie-only" in sys.argv
@@ -212,12 +213,9 @@ if not BOOKIE_ONLY:
 
     print(f"✅ fixture data saved to: {file_path}")
 
-    # load next gw fixtures
-    # Count how many fixtures per round have isResult == False
-    round_counts = fixture_data[fixture_data["isResult"] == False].groupby("round_number").size()
-
-    # Find the first round_number where at least 5 fixtures are still to be played
-    next_round_number = round_counts[round_counts >= 5].index.min()
+    # Use the same GW transition rule as the EPL page, rather than jumping
+    # to the next week when fewer than five matches remain in the current GW.
+    next_round_number = select_epl_gameweek(fixture_data)
 
     # Filter the fixtures for that round
     next_gw_fixtures = fixture_data[
@@ -598,8 +596,7 @@ if BOOKIE_ONLY:
     _fix = pd.read_csv(os.path.join(save_dir, "fixture_data.csv"))
     _fix["round_number"] = pd.to_numeric(_fix["round_number"], errors="coerce")
     _upcoming = _fix[_fix["isResult"].astype(str).str.lower() != "true"]
-    _counts = _upcoming.groupby("round_number").size()
-    next_round_number = _counts[_counts >= 5].index.min()
+    next_round_number = select_epl_gameweek(_fix) if not _upcoming.empty else float("nan")
     if pd.isna(next_round_number):
         print("ℹ️  Season complete — no upcoming gameweeks detected in bookie-only mode.")
     else:
