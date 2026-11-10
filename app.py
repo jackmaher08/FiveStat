@@ -1230,6 +1230,7 @@ def fpl(export_mode=False):
                         "expected_minutes": exp_mins,
                         "confidence":   confidence,
                         "ep_next":      float(fp.get("ep_next", 0) or 0),
+                        "form":         float(fp.get("form", 0) or 0),
                         "proj_bonus":   bonus_pts,
                         "proj_defcon":  defcon_pts,
                         "gw1_xg":       round(gw1_xg, 3),
