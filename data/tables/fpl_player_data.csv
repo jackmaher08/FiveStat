@@ -68,7 +68,7 @@ recent_minutes,recent_games,recent_60_games,fpl_id,fpl_name,web_name,team,positi
 450,5,5,57,Đorđe Petrović,Petrović,Bournemouth,GK,4.5,3.2,5.0,5.0,900,10,0,0,3,0,0,a,,,0.0,0.0,0.0
 0,5,0,58,Fraser Forster,Forster,Bournemouth,GK,4.0,3.3,0.0,0.0,0,0,0,0,0,0,0,a,,,0.0,0.0,0.0
 0,5,0,59,Will Dennis,Dennis,Bournemouth,GK,4.0,0.1,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined MK Dons permanently,0.0,0.0,0.0
-450,5,5,60,James Hill,Hill,Bournemouth,DEF,5.6,3.1,7.0,7.0,900,10,0,0,3,4,115,a,,,0.4,0.92,1.32
+450,5,5,60,James Hill,Hill,Bournemouth,DEF,5.6,3.2,7.0,7.0,900,10,0,0,3,4,115,a,,,0.4,0.92,1.32
 443,5,5,61,Adrien Truffert,Truffert,Bournemouth,DEF,5.4,3.4,6.0,6.0,893,10,0,1,3,3,72,a,,,0.17,1.03,1.2
 17,5,0,62,Bafodé Diakité,Diakité,Bournemouth,DEF,4.9,0.1,1.0,1.0,17,0,0,0,0,0,4,a,,,0.0,0.0,0.0
 0,5,0,63,Veljko Milosavljevic,Milosavljević,Bournemouth,DEF,4.9,0.0,0.0,0.0,0,0,0,0,0,0,0,i,0.0,Thigh injury - Expected back 31 Oct,0.0,0.0,0.0
@@ -87,7 +87,7 @@ recent_minutes,recent_games,recent_60_games,fpl_id,fpl_name,web_name,team,positi
 0,5,0,76,Alex Tóth,Tóth.A,Bournemouth,MID,4.9,0.0,0.0,0.0,17,0,0,0,0,0,2,i,0.0,Hamstring injury - Unknown return date,0.0,0.0,0.0
 21,5,0,77,Amine Adli,Adli,Bournemouth,MID,4.8,0.0,3.3,3.3,21,0,1,0,0,2,3,a,100.0,,0.49,0.07,0.56
 47,5,0,78,Junior Kroupi,Kroupi.Jr,Bournemouth,MID,7.3,0.7,2.0,2.0,47,0,0,1,0,0,7,a,100.0,,0.0,0.29,0.29
-413,5,5,79,Francisco Evanilson de Lima Barbosa,Evanilson,Bournemouth,FWD,6.5,24.3,8.0,8.0,837,10,5,4,5,10,65,a,,,4.45,1.05,5.5
+413,5,5,79,Francisco Evanilson de Lima Barbosa,Evanilson,Bournemouth,FWD,6.5,24.4,8.0,8.0,837,10,5,4,5,10,65,a,,,4.45,1.05,5.5
 0,5,0,80,Enes Ünal,Enes Ünal,Bournemouth,FWD,5.5,0.0,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined Getafe permanently,0.0,0.0,0.0
 48,5,0,81,Álvaro Rodríguez,Rodríguez,Bournemouth,FWD,6.0,0.2,0.7,0.7,58,0,0,0,0,0,6,a,100.0,,0.41,0.05,0.46
 450,5,5,566,António João Pereira de Albuquerque Tavares da Silva,Silva,Bournemouth,DEF,5.1,3.7,6.3,6.3,900,10,0,0,3,3,106,a,,,1.3,0.37,1.67
@@ -461,7 +461,7 @@ recent_minutes,recent_games,recent_60_games,fpl_id,fpl_name,web_name,team,positi
 0,5,0,376,Stefan Bajčetić Maquieira,Bajcetic,Liverpool,MID,5.0,0.0,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined Celta Vigo permanently,0.0,0.0,0.0
 198,5,2,377,Victor Munoz,Munoz,Liverpool,MID,6.5,0.7,0.3,0.3,455,5,2,1,1,2,30,a,100.0,,0.79,0.41,1.2
 0,5,0,378,James McConnell,McConnell,Liverpool,MID,4.3,0.2,0.0,0.0,0,0,0,0,0,0,0,a,,,0.0,0.0,0.0
-334,5,4,379,Alexander Isak,Isak,Liverpool,FWD,9.3,25.3,6.3,6.3,747,9,7,0,5,16,15,a,100.0,,4.88,0.28,5.16
+334,5,4,379,Alexander Isak,Isak,Liverpool,FWD,9.3,25.4,6.3,6.3,747,9,7,0,5,16,15,a,100.0,,4.88,0.28,5.16
 0,5,0,380,Hugo Ekitiké,Ekitiké,Liverpool,FWD,7.4,0.1,0.0,0.0,0,0,0,0,0,0,0,i,0.0,Achilles injury - Unknown return date,0.0,0.0,0.0
 108,5,1,381,Lewis Koumas,Koumas,Liverpool,MID,5.0,0.1,1.0,1.0,130,1,0,0,0,0,8,a,,,0.43,0.01,0.44
 0,5,0,382,Jayden Danns,Danns,Liverpool,FWD,4.5,0.2,0.0,0.0,0,0,0,0,0,0,0,a,100.0,,0.0,0.0,0.0
@@ -651,7 +651,7 @@ recent_minutes,recent_games,recent_60_games,fpl_id,fpl_name,web_name,team,positi
 432,5,5,536,Reinildo Mandava,Reinildo,Sunderland,DEF,4.4,0.2,4.0,4.0,792,9,0,0,3,0,63,a,100.0,,0.03,0.36,0.39
 0,5,0,537,Jenson Seelt,Seelt,Sunderland,DEF,4.5,0.0,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined Swansea City on loan for the rest of the season,0.0,0.0,0.0
 0,5,0,538,Leo Fuhr Hjelde,Hjelde,Sunderland,DEF,4.0,0.0,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined KV Mechelen on loan for the rest of the season,0.0,0.0,0.0
-301,5,3,539,Luke O'Nien,O'Nien,Sunderland,DEF,3.9,2.4,6.0,6.0,367,4,0,1,2,1,38,a,,,0.33,0.14,0.47
+301,5,3,539,Luke O'Nien,O'Nien,Sunderland,DEF,3.9,2.5,6.0,6.0,367,4,0,1,2,1,38,a,,,0.33,0.14,0.47
 0,5,0,540,Arthur Masuaku,Masuaku,Sunderland,DEF,4.0,0.1,0.0,0.0,0,0,0,0,0,0,0,u,0.0,Has joined Konyaspor permanently,0.0,0.0,0.0
 138,5,1,541,Thomas Meunier,Meunier,Sunderland,DEF,4.4,0.2,2.0,2.0,534,7,0,1,2,0,28,a,100.0,,0.49,0.61,1.1
 425,5,5,542,Enzo Le Fée,E.Le Fée,Sunderland,MID,5.7,2.9,7.3,7.3,863,10,3,1,3,5,59,a,,,3.83,1.86,5.69
