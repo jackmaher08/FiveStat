@@ -49,6 +49,11 @@ def select_epl_gameweek(fixtures, now=None):
         if week["complete"].all():
             continue
 
+        # A missing kickoff for an unfinished fixture cannot be assumed complete.
+        # Completed fixtures with missing dates do not block rollover.
+        if week.loc[~week["complete"], "kickoff"].isna().any():
+            return gw
+
         kickoff_times = week["kickoff"].dropna().tolist()
         if not kickoff_times:
             return gw  # Do not advance if we have no reliable dates.
