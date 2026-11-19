@@ -1,13 +1,13 @@
 code,name,constructor,championship_points,championship_position,completed_xfp,projected_remaining_xfp,projected_total_xfp,races_remaining
-ANT,Andrea Kimi Antonelli,Mercedes,380.0,1,655.0,69.0,724.0,3
-VER,Max Verstappen,Red Bull,261.0,2,438.0,79.2,517.2,3
-HAM,Lewis Hamilton,Ferrari,259.0,3,434.0,51.6,485.6,3
-LEC,Charles Leclerc,Ferrari,245.0,5,412.0,62.9,474.9,3
-RUS,George Russell,Mercedes,250.0,4,381.0,42.3,423.3,3
-NOR,Lando Norris,McLaren,221.0,6,324.0,55.8,379.8,3
-PIA,Oscar Piastri,McLaren,144.0,7,200.0,38.6,238.6,3
-LAW,Liam Lawson,RB F1 Team,83.0,9,169.0,20.1,189.1,3
-HAD,Isack Hadjar,Red Bull,107.0,8,161.0,24.9,185.9,3
+ANT,Andrea Kimi Antonelli,Mercedes,390.0,1,655.0,69.0,724.0,3
+VER,Max Verstappen,Red Bull,279.0,2,438.0,79.2,517.2,3
+HAM,Lewis Hamilton,Ferrari,261.0,4,434.0,51.6,485.6,3
+LEC,Charles Leclerc,Ferrari,249.0,5,412.0,62.9,474.9,3
+RUS,George Russell,Mercedes,262.0,3,381.0,42.3,423.3,3
+NOR,Lando Norris,McLaren,246.0,6,324.0,55.8,379.8,3
+PIA,Oscar Piastri,McLaren,152.0,7,200.0,38.6,238.6,3
+LAW,Liam Lawson,RB F1 Team,89.0,9,169.0,20.1,189.1,3
+HAD,Isack Hadjar,Red Bull,122.0,8,161.0,24.9,185.9,3
 GAS,Pierre Gasly,Alpine F1 Team,42.0,10,58.0,29.4,87.4,3
 OCO,Esteban Ocon,Haas F1 Team,7.0,16,66.0,14.6,80.6,3
 LIN,Arvid Lindblad,RB F1 Team,38.0,11,60.0,17.1,77.1,3
@@ -19,7 +19,7 @@ DOO,Jack Doohan,Alpine F1 Team,,,0,18.6,18.6,3
 BOR,Gabriel Bortoleto,Audi,14.0,14,-8.0,16.6,8.6,3
 BEA,Oliver Bearman,Haas F1 Team,23.0,13,-30.0,21.3,-8.7,3
 PER,Sergio Pérez,Cadillac F1 Team,0.0,24,-52.0,25.3,-26.7,3
-HUL,Nico Hülkenberg,Audi,13.0,15,-63.0,13.5,-49.5,3
+HUL,Nico Hülkenberg,Audi,14.0,15,-63.0,13.5,-49.5,3
 ALO,Fernando Alonso,Aston Martin,7.0,17,-79.0,24.8,-54.2,3
 ALB,Alexander Albon,Williams,5.0,19,-95.0,15.9,-79.1,3
 BOT,Valtteri Bottas,Cadillac F1 Team,0.0,23,-195.0,23.8,-171.2,3

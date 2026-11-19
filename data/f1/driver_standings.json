@@ -7,7 +7,7 @@
     "nationality": "Italian",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 380.0,
+    "points": 390.0,
     "wins": 9
   },
   {
@@ -18,30 +18,30 @@
     "nationality": "Dutch",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 261.0,
+    "points": 279.0,
     "wins": 3
   },
   {
     "position": 3,
-    "driver_id": "hamilton",
-    "code": "HAM",
-    "name": "Lewis Hamilton",
-    "nationality": "British",
-    "constructor": "Ferrari",
-    "constructor_id": "ferrari",
-    "points": 259.0,
-    "wins": 1
-  },
-  {
-    "position": 4,
     "driver_id": "russell",
     "code": "RUS",
     "name": "George Russell",
     "nationality": "British",
     "constructor": "Mercedes",
     "constructor_id": "mercedes",
-    "points": 250.0,
+    "points": 262.0,
     "wins": 3
+  },
+  {
+    "position": 4,
+    "driver_id": "hamilton",
+    "code": "HAM",
+    "name": "Lewis Hamilton",
+    "nationality": "British",
+    "constructor": "Ferrari",
+    "constructor_id": "ferrari",
+    "points": 261.0,
+    "wins": 1
   },
   {
     "position": 5,
@@ -51,7 +51,7 @@
     "nationality": "Monegasque",
     "constructor": "Ferrari",
     "constructor_id": "ferrari",
-    "points": 245.0,
+    "points": 249.0,
     "wins": 1
   },
   {
@@ -62,8 +62,8 @@
     "nationality": "British",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 221.0,
-    "wins": 2
+    "points": 246.0,
+    "wins": 3
   },
   {
     "position": 7,
@@ -73,7 +73,7 @@
     "nationality": "Australian",
     "constructor": "McLaren",
     "constructor_id": "mclaren",
-    "points": 144.0,
+    "points": 152.0,
     "wins": 0
   },
   {
@@ -84,7 +84,7 @@
     "nationality": "French",
     "constructor": "Red Bull",
     "constructor_id": "red_bull",
-    "points": 107.0,
+    "points": 122.0,
     "wins": 0
   },
   {
@@ -95,7 +95,7 @@
     "nationality": "New Zealander",
     "constructor": "RB F1 Team",
     "constructor_id": "rb",
-    "points": 83.0,
+    "points": 89.0,
     "wins": 0
   },
   {
@@ -161,7 +161,7 @@
     "nationality": "German",
     "constructor": "Audi",
     "constructor_id": "audi",
-    "points": 13.0,
+    "points": 14.0,
     "wins": 0
   },
   {
@@ -260,6 +260,17 @@
     "nationality": "Mexican",
     "constructor": "Cadillac F1 Team",
     "constructor_id": "cadillac",
+    "points": 0.0,
+    "wins": 0
+  },
+  {
+    "position": 25,
+    "driver_id": "rafael_camara",
+    "code": "CAM",
+    "name": "Rafael Camara",
+    "nationality": "Brazilian",
+    "constructor": "Haas F1 Team",
+    "constructor_id": "haas",
     "points": 0.0,
     "wins": 0
   }
