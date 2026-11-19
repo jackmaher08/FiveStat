@@ -45,6 +45,15 @@ class EPLGameweekTests(unittest.TestCase):
             select_epl_gameweek(fixtures(last_date=""), utc(9, 10)), 10
         )
 
+    def test_completed_fixture_with_missing_kickoff_does_not_block_rollover(self):
+        frame = fixtures(last_finished=True, last_date="")
+        self.assertEqual(select_epl_gameweek(frame, utc(9, 10)), 11)
+
+    def test_missing_kickoff_on_unfinished_fixture_blocks_rollover(self):
+        frame = fixtures()
+        frame.loc[0, "date"] = ""
+        self.assertEqual(select_epl_gameweek(frame, utc(9, 10)), 10)
+
     def test_empty_fixtures(self):
         self.assertIsNone(select_epl_gameweek(pd.DataFrame()))
 
