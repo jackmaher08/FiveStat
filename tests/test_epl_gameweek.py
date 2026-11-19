@@ -50,7 +50,8 @@ class EPLGameweekTests(unittest.TestCase):
         self.assertEqual(select_epl_gameweek(frame, utc(9, 10)), 11)
 
     def test_missing_kickoff_on_unfinished_fixture_blocks_rollover(self):
-        frame = fixtures()
+        frame = fixtures(last_finished=True)
+        frame.loc[0, "isResult"] = False
         frame.loc[0, "date"] = ""
         self.assertEqual(select_epl_gameweek(frame, utc(9, 10)), 10)
 
