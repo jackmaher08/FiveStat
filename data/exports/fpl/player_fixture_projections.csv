@@ -184,11 +184,6 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 156,Neto,Chelsea,MID,13,CRY (H),0.266,0.215,0.288,4.65,medium
 156,Neto,Chelsea,MID,14,LIV (H),0.204,0.166,0.167,4.07,hard
 156,Neto,Chelsea,MID,15,MCI (A),0.142,0.115,0.075,3.52,hard
-159,Caicedo,Chelsea,MID,11,LEE (H),0.005,0.012,0.226,2.43,medium
-159,Caicedo,Chelsea,MID,12,NFO (A),0.005,0.011,0.234,2.43,hard
-159,Caicedo,Chelsea,MID,13,CRY (H),0.008,0.016,0.288,2.52,medium
-159,Caicedo,Chelsea,MID,14,LIV (H),0.006,0.013,0.167,2.38,hard
-159,Caicedo,Chelsea,MID,15,MCI (A),0.004,0.009,0.075,2.26,hard
 91,Pinnock,Coventry City,DEF,11,CRY (H),0.03,0.059,0.217,4.04,medium
 91,Pinnock,Coventry City,DEF,12,LEE (A),0.019,0.037,0.123,3.25,hard
 91,Pinnock,Coventry City,DEF,13,IPS (H),0.039,0.075,0.251,4.35,medium
@@ -204,11 +199,6 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 185,Sakamoto,Coventry City,MID,13,IPS (H),0.094,0.024,0.251,2.81,medium
 185,Sakamoto,Coventry City,MID,14,MUN (A),0.056,0.015,0.087,2.43,hard
 185,Sakamoto,Coventry City,MID,15,AVL (H),0.065,0.017,0.135,2.53,hard
-575,Yirenkyi,Coventry City,MID,11,CRY (H),0.023,0.048,0.217,2.63,medium
-575,Yirenkyi,Coventry City,MID,12,LEE (A),0.015,0.03,0.123,2.44,hard
-575,Yirenkyi,Coventry City,MID,13,IPS (H),0.03,0.062,0.251,2.74,medium
-575,Yirenkyi,Coventry City,MID,14,MUN (A),0.018,0.037,0.087,2.44,hard
-575,Yirenkyi,Coventry City,MID,15,AVL (H),0.021,0.043,0.135,2.52,hard
 202,Richards,Crystal Palace,DEF,11,COV (A),0.021,0.018,0.166,3.53,hard
 202,Richards,Crystal Palace,DEF,12,HUL (H),0.027,0.023,0.361,4.72,medium
 202,Richards,Crystal Palace,DEF,13,CHE (A),0.017,0.014,0.106,3.03,hard
@@ -369,6 +359,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 330,Bogle,Leeds,DEF,13,MCI (A),0.105,0.097,0.132,3.44,hard
 330,Bogle,Leeds,DEF,14,IPS (H),0.256,0.236,0.415,6.43,easy
 330,Bogle,Leeds,DEF,15,LIV (A),0.132,0.122,0.224,4.3,hard
+331,Gudmundsson,Leeds,DEF,11,CHE (A),0.009,0.066,0.196,2.47,hard
+331,Gudmundsson,Leeds,DEF,12,COV (H),0.012,0.094,0.321,3.3,medium
+331,Gudmundsson,Leeds,DEF,13,MCI (A),0.006,0.044,0.132,1.94,hard
+331,Gudmundsson,Leeds,DEF,14,IPS (H),0.014,0.106,0.415,3.84,easy
+331,Gudmundsson,Leeds,DEF,15,LIV (A),0.007,0.055,0.224,2.6,hard
 332,Justin,Leeds,DEF,11,CHE (A),0.052,0.238,0.196,4.22,hard
 332,Justin,Leeds,DEF,12,COV (H),0.073,0.335,0.321,5.36,medium
 332,Justin,Leeds,DEF,13,MCI (A),0.034,0.156,0.132,3.42,hard
