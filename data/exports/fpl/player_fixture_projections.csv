@@ -49,6 +49,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 47,Kamara,Aston Villa,MID,13,EVE (H),0.019,0.063,0.283,3.26,medium
 47,Kamara,Aston Villa,MID,14,CRY (H),0.023,0.075,0.304,3.33,medium
 47,Kamara,Aston Villa,MID,15,COV (A),0.023,0.075,0.202,3.23,medium
+53,Manzambi,Aston Villa,MID,11,SUN (H),0.138,0.165,0.331,4.55,medium
+53,Manzambi,Aston Villa,MID,12,IPS (A),0.181,0.217,0.335,4.92,easy
+53,Manzambi,Aston Villa,MID,13,EVE (H),0.133,0.16,0.283,4.46,medium
+53,Manzambi,Aston Villa,MID,14,CRY (H),0.16,0.191,0.304,4.71,medium
+53,Manzambi,Aston Villa,MID,15,COV (A),0.16,0.191,0.202,4.6,medium
 166,N.Jackson,Aston Villa,FWD,11,SUN (H),0.348,0.193,0.331,5.37,medium
 166,N.Jackson,Aston Villa,FWD,12,IPS (A),0.457,0.254,0.335,5.99,easy
 166,N.Jackson,Aston Villa,FWD,13,EVE (H),0.336,0.187,0.283,5.31,medium
@@ -58,42 +63,42 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 60,Hill,Bournemouth,DEF,12,FUL (A),0.022,0.102,0.265,4.89,hard
 60,Hill,Bournemouth,DEF,13,BHA (H),0.021,0.096,0.232,4.67,hard
 60,Hill,Bournemouth,DEF,14,HUL (H),0.039,0.178,0.413,6.01,easy
-60,Hill,Bournemouth,DEF,15,ARS (A),0.014,0.067,0.142,3.94,hard
+60,Hill,Bournemouth,DEF,15,ARS (A),0.014,0.067,0.143,3.95,hard
 61,Truffert,Bournemouth,DEF,11,NFO (H),0.01,0.159,0.261,3.81,hard
 61,Truffert,Bournemouth,DEF,12,FUL (A),0.01,0.151,0.265,3.81,hard
 61,Truffert,Bournemouth,DEF,13,BHA (H),0.009,0.141,0.232,3.58,hard
 61,Truffert,Bournemouth,DEF,14,HUL (H),0.017,0.262,0.413,4.98,easy
-61,Truffert,Bournemouth,DEF,15,ARS (A),0.006,0.098,0.142,2.84,hard
+61,Truffert,Bournemouth,DEF,15,ARS (A),0.006,0.098,0.143,2.84,hard
 64,Smith,Bournemouth,DEF,11,NFO (H),0.043,0.056,0.261,3.04,hard
 64,Smith,Bournemouth,DEF,12,FUL (A),0.041,0.054,0.265,3.05,hard
 64,Smith,Bournemouth,DEF,13,BHA (H),0.039,0.05,0.232,2.83,hard
 64,Smith,Bournemouth,DEF,14,HUL (H),0.072,0.093,0.413,4.14,easy
-64,Smith,Bournemouth,DEF,15,ARS (A),0.027,0.035,0.142,2.11,hard
+64,Smith,Bournemouth,DEF,15,ARS (A),0.027,0.035,0.143,2.12,hard
 67,Rayan,Bournemouth,MID,11,NFO (H),0.21,0.084,0.261,3.59,hard
 67,Rayan,Bournemouth,MID,12,FUL (A),0.2,0.08,0.265,3.54,hard
 67,Rayan,Bournemouth,MID,13,BHA (H),0.188,0.075,0.232,3.43,hard
 67,Rayan,Bournemouth,MID,14,HUL (H),0.348,0.139,0.413,4.6,easy
-67,Rayan,Bournemouth,MID,15,ARS (A),0.13,0.052,0.142,2.98,hard
+67,Rayan,Bournemouth,MID,15,ARS (A),0.13,0.052,0.143,2.98,hard
 68,Tavernier,Bournemouth,MID,11,NFO (H),0.254,0.195,0.261,5.51,hard
 68,Tavernier,Bournemouth,MID,12,FUL (A),0.242,0.185,0.265,5.42,hard
 68,Tavernier,Bournemouth,MID,13,BHA (H),0.227,0.174,0.232,5.28,hard
 68,Tavernier,Bournemouth,MID,14,HUL (H),0.421,0.322,0.413,6.87,easy
-68,Tavernier,Bournemouth,MID,15,ARS (A),0.157,0.12,0.142,4.68,hard
+68,Tavernier,Bournemouth,MID,15,ARS (A),0.157,0.12,0.143,4.68,hard
 73,Adams,Bournemouth,MID,11,NFO (H),0.011,0.02,0.261,3.28,hard
 73,Adams,Bournemouth,MID,12,FUL (A),0.01,0.019,0.265,3.27,hard
 73,Adams,Bournemouth,MID,13,BHA (H),0.009,0.018,0.232,3.23,hard
 73,Adams,Bournemouth,MID,14,HUL (H),0.017,0.033,0.413,3.5,easy
-73,Adams,Bournemouth,MID,15,ARS (A),0.007,0.012,0.142,3.11,hard
+73,Adams,Bournemouth,MID,15,ARS (A),0.007,0.012,0.143,3.11,hard
 79,Evanilson,Bournemouth,FWD,11,NFO (H),0.31,0.132,0.261,4.7,hard
 79,Evanilson,Bournemouth,FWD,12,FUL (A),0.295,0.126,0.265,4.62,hard
 79,Evanilson,Bournemouth,FWD,13,BHA (H),0.277,0.118,0.232,4.52,hard
 79,Evanilson,Bournemouth,FWD,14,HUL (H),0.513,0.219,0.413,5.77,easy
-79,Evanilson,Bournemouth,FWD,15,ARS (A),0.192,0.082,0.142,4.07,hard
+79,Evanilson,Bournemouth,FWD,15,ARS (A),0.192,0.082,0.143,4.07,hard
 566,Silva,Bournemouth,DEF,11,NFO (H),0.1,0.059,0.261,4.91,hard
 566,Silva,Bournemouth,DEF,12,FUL (A),0.095,0.056,0.265,4.9,hard
 566,Silva,Bournemouth,DEF,13,BHA (H),0.089,0.053,0.232,4.66,hard
 566,Silva,Bournemouth,DEF,14,HUL (H),0.165,0.098,0.413,6.23,easy
-566,Silva,Bournemouth,DEF,15,ARS (A),0.062,0.037,0.142,3.85,hard
+566,Silva,Bournemouth,DEF,15,ARS (A),0.062,0.037,0.143,3.85,hard
 86,Lewis-Potter,Brentford,MID,11,EVE (H),0.11,0.12,0.332,3.82,medium
 86,Lewis-Potter,Brentford,MID,12,MUN (A),0.102,0.111,0.189,3.61,hard
 86,Lewis-Potter,Brentford,MID,13,ARS (H),0.07,0.077,0.218,3.38,hard
@@ -159,6 +164,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 504,Vuskovic,Brighton,DEF,13,BOU (A),0.1,0.028,0.29,4.84,medium
 504,Vuskovic,Brighton,DEF,14,NFO (A),0.089,0.025,0.34,5.04,medium
 504,Vuskovic,Brighton,DEF,15,EVE (H),0.111,0.031,0.375,5.37,medium
+639,Andrés,Brighton,MID,11,HUL (A),0.042,0.047,0.445,2.86,easy
+639,Andrés,Brighton,MID,12,NEW (H),0.032,0.035,0.325,2.65,medium
+639,Andrés,Brighton,MID,13,BOU (A),0.028,0.031,0.29,2.58,medium
+639,Andrés,Brighton,MID,14,NFO (A),0.025,0.028,0.34,2.61,medium
+639,Andrés,Brighton,MID,15,EVE (H),0.031,0.035,0.375,2.69,medium
 40,Rogers,Chelsea,MID,11,LEE (H),0.279,0.234,0.226,4.81,medium
 40,Rogers,Chelsea,MID,12,NFO (A),0.261,0.22,0.234,4.69,hard
 40,Rogers,Chelsea,MID,13,CRY (H),0.384,0.323,0.288,5.67,medium
@@ -174,6 +184,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 149,Colwill,Chelsea,DEF,13,CRY (H),0.001,0.078,0.288,3.25,medium
 149,Colwill,Chelsea,DEF,14,LIV (H),0.001,0.06,0.167,2.45,hard
 149,Colwill,Chelsea,DEF,15,MCI (A),0.001,0.042,0.075,1.64,hard
+151,Acheampong,Chelsea,DEF,11,LEE (H),0.006,0.008,0.226,2.93,medium
+151,Acheampong,Chelsea,DEF,12,NFO (A),0.006,0.008,0.234,2.98,hard
+151,Acheampong,Chelsea,DEF,13,CRY (H),0.008,0.012,0.288,3.31,medium
+151,Acheampong,Chelsea,DEF,14,LIV (H),0.006,0.009,0.167,2.55,hard
+151,Acheampong,Chelsea,DEF,15,MCI (A),0.004,0.006,0.075,1.77,hard
 154,Palmer,Chelsea,MID,11,LEE (H),0.253,0.231,0.226,4.51,medium
 154,Palmer,Chelsea,MID,12,NFO (A),0.238,0.217,0.234,4.41,hard
 154,Palmer,Chelsea,MID,13,CRY (H),0.349,0.319,0.288,5.32,medium
@@ -184,6 +199,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 156,Neto,Chelsea,MID,13,CRY (H),0.266,0.215,0.288,4.65,medium
 156,Neto,Chelsea,MID,14,LIV (H),0.204,0.166,0.167,4.07,hard
 156,Neto,Chelsea,MID,15,MCI (A),0.142,0.115,0.075,3.52,hard
+159,Caicedo,Chelsea,MID,11,LEE (H),0.005,0.012,0.226,2.43,medium
+159,Caicedo,Chelsea,MID,12,NFO (A),0.005,0.011,0.234,2.43,hard
+159,Caicedo,Chelsea,MID,13,CRY (H),0.008,0.016,0.288,2.52,medium
+159,Caicedo,Chelsea,MID,14,LIV (H),0.006,0.013,0.167,2.38,hard
+159,Caicedo,Chelsea,MID,15,MCI (A),0.004,0.009,0.075,2.26,hard
 91,Pinnock,Coventry City,DEF,11,CRY (H),0.03,0.059,0.217,4.04,medium
 91,Pinnock,Coventry City,DEF,12,LEE (A),0.019,0.037,0.123,3.25,hard
 91,Pinnock,Coventry City,DEF,13,IPS (H),0.039,0.075,0.251,4.35,medium
@@ -329,6 +349,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 650,Affengruber,Fulham,DEF,13,TOT (A),0.017,0.007,0.228,3.66,hard
 650,Affengruber,Fulham,DEF,14,EVE (A),0.019,0.007,0.262,3.88,hard
 650,Affengruber,Fulham,DEF,15,BRE (H),0.02,0.008,0.225,3.67,hard
+286,Belloumi,Hull City,MID,11,BHA (H),0.074,0.101,0.115,3.02,hard
+286,Belloumi,Hull City,MID,12,CRY (A),0.093,0.127,0.139,3.23,hard
+286,Belloumi,Hull City,MID,13,NFO (H),0.083,0.113,0.137,3.12,hard
+286,Belloumi,Hull City,MID,14,BOU (A),0.081,0.109,0.1,3.06,hard
+286,Belloumi,Hull City,MID,15,TOT (H),0.083,0.113,0.133,3.12,hard
 290,Slater,Hull City,MID,11,BHA (H),0.025,0.127,0.115,2.67,hard
 290,Slater,Hull City,MID,12,CRY (A),0.031,0.159,0.139,2.82,hard
 290,Slater,Hull City,MID,13,NFO (H),0.028,0.142,0.137,2.75,hard
@@ -394,11 +419,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 598,Elvedi,Leeds,DEF,13,MCI (A),0.028,0.078,0.132,2.43,hard
 598,Elvedi,Leeds,DEF,14,IPS (H),0.067,0.189,0.415,4.66,easy
 598,Elvedi,Leeds,DEF,15,LIV (A),0.035,0.097,0.224,3.14,hard
-356,Virgil,Liverpool,DEF,11,MUN (H),0.028,0.037,0.238,3.21,medium
-356,Virgil,Liverpool,DEF,12,EVE (A),0.024,0.032,0.285,3.44,medium
-356,Virgil,Liverpool,DEF,13,SUN (H),0.027,0.036,0.384,4.0,medium
-356,Virgil,Liverpool,DEF,14,CHE (A),0.027,0.036,0.178,2.82,hard
-356,Virgil,Liverpool,DEF,15,LEE (H),0.023,0.03,0.292,3.47,medium
+356,Virgil,Liverpool,DEF,11,MUN (H),0.037,0.049,0.238,3.92,medium
+356,Virgil,Liverpool,DEF,12,EVE (A),0.033,0.043,0.285,4.15,medium
+356,Virgil,Liverpool,DEF,13,SUN (H),0.036,0.048,0.384,4.71,medium
+356,Virgil,Liverpool,DEF,14,CHE (A),0.036,0.048,0.178,3.53,hard
+356,Virgil,Liverpool,DEF,15,LEE (H),0.03,0.04,0.292,4.16,medium
 358,Kerkez,Liverpool,DEF,11,MUN (H),0.021,0.047,0.238,2.93,medium
 358,Kerkez,Liverpool,DEF,12,EVE (A),0.018,0.041,0.285,3.17,medium
 358,Kerkez,Liverpool,DEF,13,SUN (H),0.02,0.046,0.384,3.72,medium
