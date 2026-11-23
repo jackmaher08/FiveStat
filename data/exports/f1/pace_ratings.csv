@@ -1,37 +1,38 @@
 type,id,name,pace_delta_percent,races_counted,constructor
 driver,ALB,Alexander Albon,-0.083,37,Williams
-driver,ALO,Fernando Alonso,-0.596,34,Aston Martin
-driver,ANT,Andrea Kimi Antonelli,-0.398,38,Mercedes
-driver,BEA,Oliver Bearman,0.199,39,Haas F1 Team
-driver,BOR,Gabriel Bortoleto,0.054,34,Audi
-driver,BOT,Valtteri Bottas,0.854,15,Cadillac F1 Team
-driver,COL,Franco Colapinto,0.614,32,Alpine F1 Team
+driver,ALO,Fernando Alonso,-0.592,35,Aston Martin
+driver,ANT,Andrea Kimi Antonelli,-0.369,39,Mercedes
+driver,BEA,Oliver Bearman,0.154,40,Haas F1 Team
+driver,BOR,Gabriel Bortoleto,0.091,35,Audi
+driver,BOT,Valtteri Bottas,0.76,16,Cadillac F1 Team
+driver,CAM,Rafael Camara,0.029,1,Haas F1 Team
+driver,COL,Franco Colapinto,0.494,33,Alpine F1 Team
 driver,DOO,Jack Doohan,0.353,4,Alpine F1 Team
-driver,GAS,Pierre Gasly,-0.605,36,Alpine F1 Team
-driver,HAD,Isack Hadjar,0.903,32,Red Bull
-driver,HAM,Lewis Hamilton,0.157,37,Ferrari
+driver,GAS,Pierre Gasly,-0.486,37,Alpine F1 Team
+driver,HAD,Isack Hadjar,0.606,33,Red Bull
+driver,HAM,Lewis Hamilton,0.095,38,Ferrari
 driver,HIR,Ryo Hirakawa,0.298,1,Haas F1 Team
-driver,HUL,Nico Hülkenberg,-0.052,34,Audi
-driver,LAW,Liam Lawson,-0.149,34,RB F1 Team
-driver,LEC,Charles Leclerc,-0.154,37,Ferrari
-driver,LIN,Arvid Lindblad,0.336,15,RB F1 Team
-driver,NOR,Lando Norris,-0.257,36,McLaren
+driver,HUL,Nico Hülkenberg,-0.09,35,Audi
+driver,LAW,Liam Lawson,-0.207,35,RB F1 Team
+driver,LEC,Charles Leclerc,-0.093,38,Ferrari
+driver,LIN,Arvid Lindblad,0.357,16,RB F1 Team
+driver,NOR,Lando Norris,-0.182,37,McLaren
 driver,OCO,Esteban Ocon,-0.299,38,Haas F1 Team
-driver,PER,Sergio Pérez,-0.842,15,Cadillac F1 Team
-driver,PIA,Oscar Piastri,0.259,36,McLaren
-driver,RUS,George Russell,0.407,38,Mercedes
+driver,PER,Sergio Pérez,-0.75,16,Cadillac F1 Team
+driver,PIA,Oscar Piastri,0.184,37,McLaren
+driver,RUS,George Russell,0.376,39,Mercedes
 driver,SAI,Carlos Sainz,0.087,37,Williams
-driver,STR,Lance Stroll,0.609,34,Aston Martin
+driver,STR,Lance Stroll,0.603,35,Aston Martin
 driver,TSU,Yuki Tsunoda,0.197,24,RB F1 Team
-driver,VER,Max Verstappen,-0.988,35,Red Bull
-constructor,alpine,Alpine F1 Team,0.404,18,Alpine F1 Team
-constructor,aston_martin,Aston Martin,2.477,18,Aston Martin
-constructor,audi,Audi,0.502,18,Audi
-constructor,cadillac,Cadillac F1 Team,2.333,18,Cadillac F1 Team
-constructor,ferrari,Ferrari,-1.237,18,Ferrari
-constructor,haas,Haas F1 Team,0.849,18,Haas F1 Team
-constructor,mclaren,McLaren,-0.862,18,McLaren
-constructor,mercedes,Mercedes,-1.146,18,Mercedes
-constructor,rb,RB F1 Team,0.283,18,RB F1 Team
-constructor,red_bull,Red Bull,-0.976,18,Red Bull
-constructor,williams,Williams,1.1,18,Williams
+driver,VER,Max Verstappen,-0.71,36,Red Bull
+constructor,alpine,Alpine F1 Team,0.248,19,Alpine F1 Team
+constructor,aston_martin,Aston Martin,2.317,19,Aston Martin
+constructor,audi,Audi,0.406,19,Audi
+constructor,cadillac,Cadillac F1 Team,2.212,19,Cadillac F1 Team
+constructor,ferrari,Ferrari,-1.116,19,Ferrari
+constructor,haas,Haas F1 Team,0.799,19,Haas F1 Team
+constructor,mclaren,McLaren,-0.855,19,McLaren
+constructor,mercedes,Mercedes,-1.043,19,Mercedes
+constructor,rb,RB F1 Team,0.256,19,RB F1 Team
+constructor,red_bull,Red Bull,-0.914,19,Red Bull
+constructor,williams,Williams,0.791,19,Williams
