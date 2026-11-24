@@ -27,7 +27,6 @@ from fpl_projection import (
     projected_fpl_points,
     historical_extra_points,
     projection_confidence,
-    select_projection_pool,
 )
 from model_performance import load_model_performance
 from actual_vs_expected import build_actual_vs_expected
@@ -1096,7 +1095,6 @@ def fpl(export_mode=False):
                     if web != pname:
                         player_xg_map[web] = entry
 
-                form_available = fpl_df["form"].astype(float).fillna(0).max() > 0
                 team_games_played = {
                     team: fixtures_df[
                         ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
