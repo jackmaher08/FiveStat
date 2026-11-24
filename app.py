@@ -27,7 +27,6 @@ from fpl_projection import (
     projected_fpl_points,
     historical_extra_points,
     projection_confidence,
-    select_projection_pool,
 )
 from model_performance import load_model_performance
 from actual_vs_expected import build_actual_vs_expected
@@ -905,6 +904,7 @@ def fpl(export_mode=False):
         all_player_projections = []
         captaincy_status = "unavailable"
         captaincy_message = "Player projections are temporarily unavailable while the latest Gameweek data is refreshed."
+        eligibility_diagnostics = {"included": 0, "excluded": {}, "examples": {}}
         fpl_path    = "data/tables/fpl_player_data.csv"
         player_path = "data/tables/player_data.csv"
         shots_path  = "data/tables/shots_data.csv"
@@ -1095,7 +1095,6 @@ def fpl(export_mode=False):
                     if web != pname:
                         player_xg_map[web] = entry
 
-                form_available = fpl_df["form"].astype(float).fillna(0).max() > 0
                 team_games_played = {
                     team: fixtures_df[
                         ((fixtures_df["home_team"] == team) | (fixtures_df["away_team"] == team)) &
@@ -1104,13 +1103,21 @@ def fpl(export_mode=False):
                     for team in teams
                 }
                 unmatched_players = []
+                exclusion_counts = {}
+                exclusion_examples = {}
+
+                def exclude_player(fp, reason):
+                    exclusion_counts[reason] = exclusion_counts.get(reason, 0) + 1
+                    examples = exclusion_examples.setdefault(reason, [])
+                    if len(examples) < 8:
+                        examples.append(str(fp.get("web_name", "Unknown")))
 
                 for _, fp in fpl_df.iterrows():
                     if fp["status"] not in ("a", "d"):
+                        exclude_player(fp, "unavailable_status")
                         continue
                     if fp["position"] not in ("GK", "MID", "FWD", "DEF"):
-                        continue
-                    if fp["position"] == "DEF" and float(fp["price"]) < 4.4:
+                        exclude_player(fp, "unsupported_position")
                         continue
 
                     fpl_team = fp["team"]
@@ -1130,13 +1137,11 @@ def fpl(export_mode=False):
                         float(recent_minutes), int(recent_games), int(recent_60_games)
                     )
                     if int(fp["minutes"]) < minimum_minutes and not recent_eligible:
-                        continue
-                    # Form is a useful signal, but never let an early-season or
-                    # temporarily blank FPL value remove the whole player pool.
-                    if games_played >= 6 and form_available and float(fp.get("form", 0) or 0) < 0.5:
+                        exclude_player(fp, "insufficient_season_and_recent_minutes")
                         continue
                     team_fixes = team_fix_map.get(fpl_team, [])
                     if not team_fixes:
+                        exclude_player(fp, "no_upcoming_fixture")
                         continue
 
                     # Name match
@@ -1153,8 +1158,10 @@ def fpl(export_mode=False):
                         match = {"adj_share": 0, "adj_xa_share": 0}
                     if not match:
                         unmatched_players.append(fp["web_name"])
+                        exclude_player(fp, "unmatched_projection_data")
                         continue
                     if fp["position"] != "DEF" and match["adj_share"] <= 0:
+                        exclude_player(fp, "zero_attacking_xg_share")
                         continue
                     # recently_active flag removed — season_share used as fallback
                     # Minutes availability scale
@@ -1166,7 +1173,8 @@ def fpl(export_mode=False):
                         recent_minutes=float(recent_minutes) if has_recent else None,
                         recent_games=int(recent_games) if has_recent else None,
                     )
-                    if exp_mins < 60:
+                    if exp_mins < 45:
+                        exclude_player(fp, "expected_minutes_below_45")
                         continue
                     mins_scale = exp_mins / 90
                     confidence = projection_confidence(fp["minutes"], games_played, exp_mins)
@@ -1180,9 +1188,7 @@ def fpl(export_mode=False):
                     xa_share = match.get("adj_xa_share", 0)
                     fix_projections = []
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
-                        # A fixture qualifies only when the player projects for 60+ minutes.
-                        if exp_mins < 60:
-                            continue
+                        # Players here have already passed the 45-minute eligibility gate.
                         proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
                         proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
                         proj_cs = round(fix.get("cs_prob", 0), 3)
@@ -1218,6 +1224,7 @@ def fpl(export_mode=False):
                     gw5_cs  = round(sum(f["proj_cs"] for f in fix_projections), 3)
                         
                     if gw5_pts <= 0:
+                        exclude_player(fp, "nonpositive_five_gw_projection")
                         continue
 
                     captain_picks.append({
@@ -1252,7 +1259,7 @@ def fpl(export_mode=False):
                     })
 
                 all_player_projections = list(captain_picks)
-                captain_picks = select_projection_pool(captain_picks)
+                eligibility_diagnostics = {"included": len(captain_picks), "excluded": exclusion_counts, "examples": exclusion_examples}
                 captain_picks.sort(key=lambda x: x.get("gw1_pts", 0), reverse=True)
                 if captain_picks:
                     captaincy_status = "ready"
@@ -1260,6 +1267,9 @@ def fpl(export_mode=False):
                 else:
                     captaincy_status = "empty"
                     captaincy_message = "No players currently meet the projection reliability and availability checks."
+                # Internal diagnostic: every excluded player is counted once, at their first failing gate.
+                print(f"FPL projection eligibility: {len(captain_picks)} included; "
+                      f"excluded by reason: {exclusion_counts}; examples: {exclusion_examples}")
                 if unmatched_players:
                     print(f"⚠️  Captain picks unmatched players ({len(unmatched_players)}): {unmatched_players[:15]}")
 
@@ -1313,6 +1323,7 @@ def fpl(export_mode=False):
 
         context = dict(
             all_player_projections=all_player_projections,
+            eligibility_diagnostics=eligibility_diagnostics,
             actual_vs_expected=actual_vs_expected,
             cs_data=cs_data,
             xg_data=xg_data,
@@ -1330,6 +1341,7 @@ def fpl(export_mode=False):
         if export_mode:
             return context
         context.pop("all_player_projections", None)
+        context.pop("eligibility_diagnostics", None)
         return render_template("fpl.html", **context)
     except Exception as e:
         if export_mode:

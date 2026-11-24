@@ -66,13 +66,16 @@
             </div>
         </div>
         <span class="f1-section-badge">FiveStat Model</span>
-        <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Players require at least 60 expected minutes per fixture. Click a row for details.</p>
+        <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Players require at least 45 expected minutes per fixture. Click a row for details.</p>
         <div class="fpl-btn-group" style="margin:0.6rem 0;flex-wrap:wrap;">
             <label for="fpl-position-filter">Position</label>
             <select id="fpl-position-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All positions</option><option value="GK">GK</option><option value="DEF">DEF</option><option value="MID">MID</option><option value="FWD">FWD</option></select>
             <label for="fpl-team-filter">Club</label>
             <select id="fpl-team-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All clubs</option>{% for club in captain_picks | map(attribute="team") | unique | sort %}<option value="{{ club }}">{{ club }}</option>{% endfor %}</select>
+            <label for="fpl-player-search">Search player</label>
+            <input id="fpl-player-search" type="search" placeholder="Player name" aria-label="Search player" oninput="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))" style="padding:0.65rem;max-width:180px;">
             <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
+            <span id="fpl-results-count" aria-live="polite"></span>
         </div>
         <p class="fpl-freshness">· Updated {{ captaincy_updated_at }} ·</p>
         {% if captain_picks %}
@@ -97,7 +100,7 @@
                         <td class="fpl-rank">{{ loop.index }}</td>
                         <td>
                             <span class="fpl-player-name">{{ pick.name }}</span>
-                            <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }}</span>
+                            <span class="fpl-player-meta">{{ pick.team }} · {{ pick.position }} · {{ pick.confidence }} confidence · {{ pick.expected_minutes|round|int }} xMins</span>
                             <span class="fpl-player-meta fpl-mobile-meta">£{{ pick.price }}m · {{ pick.ownership }}% owned · {{ pick.expected_minutes|round|int }} xMins</span>
                             {% if pick.ownership >= 25 %}
                             <span class="fpl-badge fpl-easy" style="font-size:10px;margin-top:2px;">Safe - popular pick</span>
@@ -307,7 +310,7 @@ const capData = {{ captain_picks | tojson }};
 let currentCapMode = "gw1";
 let capLimit = 10;
 function toggleCapLimit() {
-    capLimit = capLimit === 10 ? 20 : 10;
+    capLimit = capLimit === 10 ? 20 : capLimit === 20 ? Infinity : 10;
     setCapWindow(currentCapMode, document.querySelector(".fpl-btn-cap.active"));
 }
 document.addEventListener('DOMContentLoaded', function() {
@@ -359,12 +362,14 @@ function setCapWindow(mode, btn) {
     if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
     const posFilter = document.getElementById("fpl-position-filter").value;
     const teamFilter = document.getElementById("fpl-team-filter").value;
-    rowArr = rowArr.filter(x => (posFilter === "ALL" || capData[x.idx].position === posFilter) && (teamFilter === "ALL" || capData[x.idx].team === teamFilter));
+    const playerSearch = document.getElementById("fpl-player-search").value.trim().toLowerCase();
+    rowArr = rowArr.filter(x => (posFilter === "ALL" || capData[x.idx].position === posFilter) && (teamFilter === "ALL" || capData[x.idx].team === teamFilter) && capData[x.idx].name.toLowerCase().includes(playerSearch));
     const visibleIndices = new Set(rowArr.map(x => x.idx));
     rows.forEach(r => { r.style.display = "none"; const exp = document.getElementById(`cap-expand-${r.dataset.idx}`); if (exp) exp.style.display = "none"; });
     const moreBtn = document.getElementById("fpl-show-more");
     moreBtn.style.display = rowArr.length > 10 ? "" : "none";
-    moreBtn.textContent = capLimit === 10 ? "Show 20" : "Show 10";
+    moreBtn.textContent = capLimit === 10 ? "Show 20" : capLimit === 20 ? "Show all" : "Show 10";
+    document.getElementById("fpl-results-count").textContent = rowArr.length + " eligible players";
     rowArr.sort((a, b) => b.val - a.val);
     const tbody = document.querySelector('.fpl-cap-table tbody');
     rowArr.forEach((item, rank) => {

@@ -7,15 +7,16 @@ from fpl_projection import (
     expected_minutes,
     projected_fpl_points,
     projection_confidence,
+    select_projection_pool,
 )
 
 
 class FplProjectionTests(unittest.TestCase):
     def test_eligibility_gate_scales_early_in_season(self):
-        self.assertEqual(eligibility_minutes(4, "MID"), 198)
-        self.assertEqual(eligibility_minutes(4, "DEF"), 216)
+        self.assertEqual(eligibility_minutes(4, "MID"), 162)
+        self.assertEqual(eligibility_minutes(4, "DEF"), 180)
         self.assertEqual(eligibility_minutes(12, "MID"), 450)
-        self.assertEqual(eligibility_minutes(12, "DEF"), 648)
+        self.assertEqual(eligibility_minutes(12, "DEF"), 486)
 
     def test_availability_reduces_expected_minutes(self):
         available = expected_minutes(450, 5, 5, 100)
@@ -26,6 +27,8 @@ class FplProjectionTests(unittest.TestCase):
     def test_recent_eligibility_requires_sustained_usage(self):
         self.assertTrue(recent_minutes_eligible(350, 5, 4))
         self.assertFalse(recent_minutes_eligible(260, 5, 3))
+        self.assertTrue(recent_minutes_eligible(330, 5, 2))
+        self.assertFalse(recent_minutes_eligible(320, 5, 2))
         self.assertFalse(recent_minutes_eligible(250, 3, 3))
         self.assertFalse(recent_minutes_eligible(None, None, None))
 
@@ -43,6 +46,26 @@ class FplProjectionTests(unittest.TestCase):
             expected_minutes(384, 5, 9, 50, recent_minutes=400, recent_games=5),
             60,
         )
+
+    def test_inclusive_pool_retains_all_eligible_players(self):
+        players = [
+            {"team": "Tottenham", "position": "DEF", "name": str(i), "gw5_pts": 10 - i}
+            for i in range(8)
+        ]
+        self.assertEqual(len(select_projection_pool(players)), 8)
+        self.assertEqual(select_projection_pool(players), players)
+
+    def test_expected_minutes_scale_for_returning_player(self):
+        # A full-availability flag does not erase a sustained spell of low minutes.
+        porro_like = expected_minutes(
+            422, 5, 10, 100, recent_minutes=134, recent_games=5
+        )
+        self.assertLess(porro_like, 45)
+        # Recent consistent starts can improve a genuinely returning player.
+        returning = expected_minutes(
+            422, 5, 10, 100, recent_minutes=400, recent_games=5
+        )
+        self.assertGreaterEqual(returning, 45)
 
     def test_position_specific_clean_sheet_points(self):
         defender = projected_fpl_points("DEF", 0, 0, 1, 0, 90)
