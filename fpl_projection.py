@@ -16,9 +16,9 @@ def eligibility_minutes(games_played: int, position: str) -> int:
     available = max(int(games_played), 0) * 90
     if available == 0:
         return 0
-    share = 0.60 if position == "DEF" else 0.55
+    share = 0.45
     floor = 180 if position == "DEF" else 90
-    cap = 720 if position == "DEF" else 450
+    cap = 540 if position == "DEF" else 450
     return int(min(cap, max(floor, round(available * share))))
 
 
@@ -36,7 +36,7 @@ def recent_minutes_eligible(
     """
     if recent_minutes is None or recent_games is None or recent_60_games is None:
         return False
-    if recent_games < min_games or recent_60_games < 3:
+    if recent_games < min_games or recent_60_games < 2:
         return False
     return recent_minutes / recent_games >= 65
 
@@ -117,16 +117,9 @@ def projection_confidence(total_minutes: float, games_played: int, expected_mins
 
 
 def select_projection_pool(players: list[dict], per_team_position: int = 4) -> list[dict]:
-    """Keep the highest projected players per club and position; retain all for exports."""
-    counts: dict[tuple[str, str], int] = {}
-    selected = []
-    for player in sorted(players, key=lambda row: row.get("gw5_pts", 0), reverse=True):
-        key = (player["team"], player["position"])
-        if counts.get(key, 0) >= per_team_position:
-            continue
-        counts[key] = counts.get(key, 0) + 1
-        selected.append(player)
-    return selected
+    """Preserve the complete eligible player universe (legacy API compatibility)."""
+    return list(players)
+
 
 def historical_extra_points(
     position: str,
