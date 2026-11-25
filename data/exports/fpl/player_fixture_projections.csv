@@ -674,6 +674,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 419,Martinez,Manchester United,DEF,14,COV (H),0.014,0.078,0.201,2.19,medium
 419,Martinez,Manchester United,DEF,15,CRY (A),0.01,0.059,0.249,2.4,medium
 419,Martinez,Manchester United,DEF,16,ARS (A),0.006,0.032,0.125,1.47,hard
+420,Yoro,Manchester United,DEF,12,BRE (H),0.014,0.029,0.183,2.81,hard
+420,Yoro,Manchester United,DEF,13,NEW (A),0.014,0.029,0.179,2.79,hard
+420,Yoro,Manchester United,DEF,14,COV (H),0.022,0.045,0.201,3.03,medium
+420,Yoro,Manchester United,DEF,15,CRY (A),0.016,0.034,0.249,3.25,medium
+420,Yoro,Manchester United,DEF,16,ARS (A),0.009,0.019,0.125,2.34,hard
 426,B.Fernandes,Manchester United,MID,12,BRE (H),0.234,0.206,0.183,4.23,hard
 426,B.Fernandes,Manchester United,MID,13,NEW (A),0.232,0.205,0.179,4.21,hard
 426,B.Fernandes,Manchester United,MID,14,COV (H),0.368,0.325,0.201,5.28,medium
