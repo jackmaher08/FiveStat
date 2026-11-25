@@ -27,6 +27,7 @@ from fpl_projection import (
     projected_fpl_points,
     historical_extra_points,
     projection_confidence,
+    horizon_attacking_share,
 )
 from model_performance import load_model_performance
 from actual_vs_expected import build_actual_vs_expected
@@ -902,6 +903,7 @@ def fpl(export_mode=False):
         # ── Captain picks — multi-GW projected xG ─────────────────────────
         captain_picks = []
         all_player_projections = []
+        season_projection_ready = False
         captaincy_status = "unavailable"
         captaincy_message = "Player projections are temporarily unavailable while the latest Gameweek data is refreshed."
         eligibility_diagnostics = {"included": 0, "excluded": {}, "examples": {}}
@@ -926,9 +928,34 @@ def fpl(export_mode=False):
                     (fixtures_df["round_number"] <  current_gw + 5)
                 ].merge(probs_df, on=["home_team","away_team"], how="left")
 
-                # Pre-build team fixture map: team -> [{gw, opp, is_home, fix_xg, fix_diff}]
+                # The website can extend projections, but the export contract remains five GWs.
+                projection_fixtures = upcoming5_df
+                if not export_mode:
+                    remaining = fixtures_df[fixtures_df["isResult"] == False]
+                    valid_rounds = remaining["round_number"].between(current_gw, 38)
+                    keys = ["home_team", "away_team"]
+                    required = ["home_xg", "away_xg", "home_cs_prob", "away_cs_prob",
+                                "home_win_prob", "away_win_prob"]
+                    if (not remaining.empty and valid_rounds.all()
+                            and not remaining.duplicated(keys).any()
+                            and not probs_df.duplicated(keys).any()
+                            and all(column in probs_df for column in required)):
+                        full = remaining.merge(probs_df, on=keys, how="left")
+                        values = full[required].apply(pd.to_numeric, errors="coerce")
+                        season_projection_ready = (
+                            len(full) == len(remaining)
+                            and np.isfinite(values.to_numpy()).all()
+                            and (values[["home_xg", "away_xg"]] >= 0).all().all()
+                            and values[required[2:]].ge(0).all().all()
+                            and values[required[2:]].le(1).all().all()
+                            and current_gw <= 38
+                        )
+                        if season_projection_ready:
+                            projection_fixtures = full
+
+                # Pre-build team fixture map.
                 team_fix_map = {}
-                for _, fix in upcoming5_df.iterrows():
+                for _, fix in projection_fixtures.iterrows():
                     ht, at = fix["home_team"], fix["away_team"]
                     gw_num = int(fix["round_number"])
                     h_xg   = float(fix.get("home_xg", 0) or 0)
@@ -1086,6 +1113,7 @@ def fpl(export_mode=False):
 
                     entry = {
                         "adj_share":       adj_share,
+                        "season_share":    season_share,
                         "xa_share":        season_xa_share,
                         "adj_xa_share":    adj_xa_share,
                         "team":            fteam,
@@ -1140,7 +1168,7 @@ def fpl(export_mode=False):
                         exclude_player(fp, "insufficient_season_and_recent_minutes")
                         continue
                     team_fixes = team_fix_map.get(fpl_team, [])
-                    if not team_fixes:
+                    if not any(fix["gw"] < current_gw + 5 for fix in team_fixes):
                         exclude_player(fp, "no_upcoming_fixture")
                         continue
 
@@ -1189,8 +1217,11 @@ def fpl(export_mode=False):
                     fix_projections = []
                     for fix in sorted(team_fixes, key=lambda x: x["gw"]):
                         # Players here have already passed the 45-minute eligibility gate.
-                        proj_xg = round(match["adj_share"] * fix["fix_xg"] * mins_scale, 3)
-                        proj_xa = round(xa_share * fix["fix_xg"] * mins_scale, 3)
+                        offset = fix["gw"] - current_gw
+                        xg_share = horizon_attacking_share(match.get("season_share", match["adj_share"]), match["adj_share"], offset)
+                        adjusted_xa = horizon_attacking_share(match.get("xa_share", xa_share), xa_share, offset)
+                        proj_xg = round(xg_share * fix["fix_xg"] * mins_scale, 3)
+                        proj_xa = round(adjusted_xa * fix["fix_xg"] * mins_scale, 3)
                         proj_cs = round(fix.get("cs_prob", 0), 3)
                         proj_fpl = projected_fpl_points(
                             fp["position"], proj_xg, proj_xa, proj_cs,
@@ -1210,6 +1241,8 @@ def fpl(export_mode=False):
                             "diff":     fix["diff"],
                         })
 
+                    season_fixtures = fix_projections
+                    fix_projections = [f for f in season_fixtures if f["gw"] < current_gw + 5]
                     gw1_xg = sum(f["proj_xg"] for f in fix_projections if f["gw"] == current_gw)
                     gw3_xg = round(sum(f["proj_xg"] for f in fix_projections if f["gw"] < current_gw + 3), 3)
                     gw5_xg = round(sum(f["proj_xg"] for f in fix_projections), 3)
@@ -1254,6 +1287,7 @@ def fpl(export_mode=False):
                         "gw3_cs":       gw3_cs,
                         "gw5_cs":       gw5_cs,
                         "fixtures":     fix_projections,
+                        **({"season_fixtures": season_fixtures} if season_projection_ready else {}),
                         "gw1_fixture":  " + ".join(f["label"] for f in fix_projections if f["gw"] == current_gw) or "",
                         "gw1_diff":     "easy" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "easy" for f in fix_projections if f["gw"] == current_gw) else "hard" if any(f["gw"] == current_gw for f in fix_projections) and all(f["diff"] == "hard" for f in fix_projections if f["gw"] == current_gw) else "medium",
                     })
@@ -1333,6 +1367,7 @@ def fpl(export_mode=False):
             captaincy_status=captaincy_status,
             captaincy_message=captaincy_message,
             captaincy_updated_at=get_last_updated_time(),
+            season_projection_ready=bool(season_projection_ready and captain_picks and captaincy_status == "ready"),
             next_deadline=next_deadline,
             current_gw=current_gw,
             gw_range=list(range(current_gw, current_gw + 5)),
@@ -1354,6 +1389,7 @@ def fpl(export_mode=False):
             captaincy_status="error",
             captaincy_message="Player projections are temporarily unavailable while the latest data is checked.",
             captaincy_updated_at=get_last_updated_time(),
+            season_projection_ready=False,
             current_gw=1, gw_range=[], next_deadline=None, last_updated=get_last_updated_time()
         )
 
