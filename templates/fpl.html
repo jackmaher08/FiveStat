@@ -147,7 +147,8 @@
                 <div class="fpl-filter-field" id="cap-gw-picker" style="display:none">
                     <label for="cap-gw-select">Gameweek</label>
                     <select id="cap-gw-select" onchange="setCapWindow('custom', document.querySelector('.fpl-btn-cap.active'))">
-                    {% for gw in gw_range if gw <= 38 %}
+                    {% set cap_gw_range = range(current_gw, 39) if season_projection_ready else gw_range %}
+                    {% for gw in cap_gw_range if gw <= 38 %}
                     <option value="{{ gw }}" {% if gw == current_gw + 1 %}selected{% endif %}>GW{{ gw }}</option>
                     {% endfor %}
                 </select>
@@ -419,7 +420,7 @@
     <p><strong>How are projections calculated?</strong><br>
     Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Historical bonus and defensive contribution estimates are included where data is available; cards and other rare events are not yet modelled.</p>
     <p><strong>Which Gameweeks can I select?</strong><br>
-    Choose the next Gameweek, the next five Gameweeks combined, the rest of the season, or one specific Gameweek within the current five-Gameweek projection window. Double Gameweek projections sum both fixtures; a blank Gameweek has zero projected points. Rest of season uses currently scheduled fixtures and current playing-time assumptions, not predicted future injuries or transfers. The 30% recent attacking-form weight is retained for the first five Gameweeks, then halved every five further Gameweeks. Team-level forecasts are unchanged.</p>
+    Choose the next Gameweek, the next five Gameweeks combined, the rest of the season, or one specific remaining Gameweek through GW38 when full-season projections are available (otherwise the next five Gameweeks). Double Gameweek projections sum both fixtures; a blank Gameweek has zero projected points. Rest of season uses currently scheduled fixtures and current playing-time assumptions, not predicted future injuries or transfers. The 30% recent attacking-form weight is retained for the first five Gameweeks, then halved every five further Gameweeks. Team-level forecasts are unchanged.</p>
     <p><strong>What does the Differentials filter show?</strong><br>
     The filter limits any selected projection window to players with FPL ownership below 15%.</p>
 </div>
@@ -449,8 +450,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function capProjection(player, mode, selectedGw) {
-    const fixtures = mode === 'season' ? (player.season_fixtures || []) :
-        (player.fixtures || []).filter(f => mode === 'gw5' || Number(f.gw) === selectedGw);
+    const shortFixtures = player.fixtures || [];
+    const seasonFixtures = player.season_fixtures || [];
+    const fixtures = mode === 'season' ? seasonFixtures :
+        mode === 'gw5' ? shortFixtures :
+        (mode === 'custom' && selectedGw >= capCurrentGw + 5 && capSeasonReady
+            ? seasonFixtures : shortFixtures).filter(f => Number(f.gw) === selectedGw);
     const total = key => fixtures.reduce((sum, f) => sum + Number(f[key] || 0), 0);
     return {
         fixtures,
@@ -481,7 +486,8 @@ function setCapWindow(mode, btn) {
     document.getElementById('capNote').textContent = mode === 'season'
         ? 'Projected points through GW38, based on scheduled fixtures and current availability. Distant player attacking form is tapered; long-range estimates are uncertain.'
         : multi ? 'Transfer targets ranked by projected points across the next 5 Gameweeks. Click a row for the fixture breakdown.'
-        : 'Ranked by projected FPL points for Gameweek ' + selectedGw + '. Click a row for the fixture breakdown.';
+        : 'Ranked by projected FPL points for Gameweek ' + selectedGw + '. Click a row for the fixture breakdown.' +
+          (mode === 'custom' && selectedGw >= capCurrentGw + 5 ? ' Long-range estimates use current availability and tapered recent attacking form.' : '');
     document.getElementById('capXgHeader').textContent = multi ? 'xG' + suffix : 'Proj. xG';
     document.getElementById('capXaHeader').textContent = multi ? 'xA' + suffix : 'Proj. xA';
     document.getElementById('capPtsHeader').textContent = multi ? 'Pts' + suffix : 'Proj. Pts';
@@ -537,7 +543,9 @@ function setCapWindow(mode, btn) {
         tbody.appendChild(row);
         if (expandRow) {
             expandRow.querySelectorAll('[data-cap-gw]').forEach(f => {
-                f.style.display = mode === 'season' || Number(f.dataset.capGw) < capCurrentGw + 5 ? '' : 'none';
+                const gw = Number(f.dataset.capGw);
+                f.style.display = mode === 'season' || gw < capCurrentGw + 5 ||
+                    (mode === 'custom' && gw === selectedGw) ? '' : 'none';
             });
             tbody.appendChild(expandRow);
         }
