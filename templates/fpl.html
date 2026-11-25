@@ -59,21 +59,28 @@
         <div class="fpl-section-row">
             <div class="fpl-section-title"><span></span> Projected Points & Transfer Targets<button class="info-button" onclick="toggleModal('playerWatchModal')" title="How is this list built?"><i class="fas fa-info-circle"></i></button></div>
             <div class="fpl-btn-group">
-                <button class="fpl-btn fpl-btn-cap active" onclick="setCapWindow('gw1', this)">This GW</button>
-                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw3', this)">3-GW Transfers</button>
-                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('gw5', this)">5-GW Transfers</button>
-                <button class="fpl-btn fpl-btn-cap"        onclick="setCapWindow('diff', this)">Differentials</button>
+                <button type="button" class="fpl-btn fpl-btn-cap active" aria-pressed="true" onclick="setCapWindow('gw1', this)">Next GW</button>
+                <button type="button" class="fpl-btn fpl-btn-cap" aria-pressed="false" onclick="setCapWindow('gw5', this)">Next 5 GWs</button>
+                <button type="button" class="fpl-btn fpl-btn-cap" aria-pressed="false" onclick="setCapWindow('custom', this)" {% if not gw_range %}disabled{% endif %}>Select a GW</button>
             </div>
         </div>
         <span class="f1-section-badge">FiveStat Model</span>
         <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Players require at least 45 expected minutes per fixture. Click a row for details.</p>
         <div class="fpl-btn-group" style="margin:0.6rem 0;flex-wrap:wrap;">
+            <label id="cap-gw-picker" for="cap-gw-select" style="display:none">Gameweek
+                <select id="cap-gw-select" onchange="setCapWindow('custom', document.querySelector('.fpl-btn-cap.active'))">
+                    {% for gw in gw_range if gw <= 38 %}
+                    <option value="{{ gw }}" {% if gw == current_gw + 1 %}selected{% endif %}>GW{{ gw }}</option>
+                    {% endfor %}
+                </select>
+            </label>
             <label for="fpl-position-filter">Position</label>
             <select id="fpl-position-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All positions</option><option value="GK">GK</option><option value="DEF">DEF</option><option value="MID">MID</option><option value="FWD">FWD</option></select>
             <label for="fpl-team-filter">Club</label>
             <select id="fpl-team-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All clubs</option>{% for club in captain_picks | map(attribute="team") | unique | sort %}<option value="{{ club }}">{{ club }}</option>{% endfor %}</select>
             <label for="fpl-player-search">Search player</label>
             <input id="fpl-player-search" type="search" placeholder="Player name" aria-label="Search player" oninput="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))" style="padding:0.65rem;max-width:180px;">
+            <label for="fpl-differentials"><input type="checkbox" id="fpl-differentials" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"> Differentials (&lt;15%)</label>
             <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
             <span id="fpl-results-count" aria-live="polite"></span>
         </div>
@@ -110,7 +117,7 @@
                             <span class="fpl-badge fpl-diff-chip" style="font-size:10px;margin-top:2px;">Bold! - low ownership</span>
                             {% endif %}
                         </td>
-                        <td><span class="fpl-diff-cell fpl-{{ pick.gw1_diff }}">{{ pick.gw1_fixture }}</span></td>
+                        <td><span class="cap-fixture fpl-diff-cell fpl-{{ pick.gw1_diff }}">{{ pick.gw1_fixture }}</span></td>
                         <td class="fpl-xg-val" data-gw1="{{ pick.gw1_xg }}" data-gw3="{{ pick.gw3_xg }}" data-gw5="{{ pick.gw5_xg }}">{{ "%.2f"|format(pick.gw1_xg) }}</td>
                         <td class="fpl-xa-val" data-gw1="{{ pick.gw1_xa }}" data-gw3="{{ pick.gw3_xa }}" data-gw5="{{ pick.gw5_xa }}">{{ "%.2f"|format(pick.gw1_xa) }}</td>
                         {% if pick.position in ("GK", "DEF", "MID") %}
@@ -292,8 +299,10 @@
     A player may be absent if they have insufficient minutes for the current stage of the season, are unavailable, project below 60 minutes per fixture, have no upcoming fixture data, or lack enough attacking data for a meaningful projection.</p>
     <p><strong>How are projections calculated?</strong><br>
     Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Historical bonus and defensive contribution estimates are included where data is available; cards and other rare events are not yet modelled.</p>
-    <p><strong>What does the Differentials tab show?</strong><br>
-    The Differentials tab filters the list to players with an FPL ownership below 15% — useful for identifying high-upside picks that most managers won't have.</p>
+    <p><strong>Which Gameweeks can I select?</strong><br>
+    Choose the next Gameweek, the next five Gameweeks combined, or one specific Gameweek within the current five-Gameweek projection window. Double Gameweek projections sum both fixtures; a blank Gameweek has zero projected points.</p>
+    <p><strong>What does the Differentials filter show?</strong><br>
+    The filter limits any selected projection window to players with FPL ownership below 15%.</p>
 </div>
 
 {% endblock %}
@@ -318,88 +327,90 @@ document.addEventListener('DOMContentLoaded', function() {
     if (defaultBtn) setCapWindow('gw1', defaultBtn);
 });
 
-const capNotes = {
-    gw1:  'Captaincy ranking for Gameweek {{ current_gw }}, led by projected points and expected minutes. Click a row for the fixture breakdown.',
-    gw3:  'Transfer targets ranked by projected points across the next 3 Gameweeks.',
-    gw5:  'Transfer targets ranked by projected points across the next 5 Gameweeks.',
-    diff: 'Differentials only (ownership under 15%), ranked by projected FPL points this Gameweek.',
-};
-const capHeaders = {
-    gw1: 'Proj. xG', gw3: 'xG (Next 3)', gw5: 'xG (Next 5)', diff: 'Proj. xG'
-};
-
-const capXaHeaders = {
-    gw1: 'Proj. xA', gw3: 'xA (Next 3)', gw5: 'xA (Next 5)', diff: 'Proj. xA'
-};
-const capPtsHeaders = {
-    gw1: 'Proj. Pts', gw3: 'Pts (Next 3)', gw5: 'Pts (Next 5)', diff: 'Proj. Pts'
-};
-const capCsHeaders = {
-    gw1: 'Proj. CS', gw3: 'CS (Next 3)', gw5: 'CS (Next 5)', diff: 'Proj. CS'
-};
+function capProjection(player, mode, selectedGw) {
+    const fixtures = (player.fixtures || []).filter(f => mode === 'gw5' || Number(f.gw) === selectedGw);
+    const total = key => fixtures.reduce((sum, f) => sum + Number(f[key] || 0), 0);
+    return {
+        fixtures,
+        pts: total('proj_fpl'),
+        xg: total('proj_xg'),
+        xa: total('proj_xa'),
+        cs: total('proj_cs'),
+    };
+}
 
 function setCapWindow(mode, btn) {
     currentCapMode = mode;
+    const picker = document.getElementById('cap-gw-select');
+    const selectedGw = mode === 'custom' ? Number(picker.value) : {{ current_gw | tojson }};
+    document.getElementById('cap-gw-picker').style.display = mode === 'custom' ? '' : 'none';
+    document.querySelectorAll('.fpl-btn-cap').forEach(b => {
+        b.classList.toggle('active', b === btn);
+        b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    });
     const table = document.querySelector('.fpl-cap-table');
     if (!table || !capData.length) return;
-    document.getElementById('capNote').textContent = capNotes[mode];
-    document.getElementById('capXgHeader').textContent  = capHeaders[mode];
-    document.getElementById('capXaHeader').textContent  = capXaHeaders[mode];
-    document.getElementById('capPtsHeader').textContent = capPtsHeaders[mode];
-    document.getElementById('capCsHeader').textContent  = capCsHeaders[mode];
-    document.querySelectorAll('.fpl-btn-cap').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
 
-    const rows = document.querySelectorAll('.cap-main-row');
-    const key  = mode === 'diff' ? 'gw1' : mode;
+    const multi = mode === 'gw5';
+    document.getElementById('capNote').textContent = multi
+        ? 'Transfer targets ranked by projected points across the next 5 Gameweeks. Click a row for the fixture breakdown.'
+        : 'Ranked by projected FPL points for Gameweek ' + selectedGw + '. Click a row for the fixture breakdown.';
+    document.getElementById('capXgHeader').textContent = multi ? 'xG (Next 5)' : 'Proj. xG';
+    document.getElementById('capXaHeader').textContent = multi ? 'xA (Next 5)' : 'Proj. xA';
+    document.getElementById('capPtsHeader').textContent = multi ? 'Pts (Next 5)' : 'Proj. Pts';
+    document.getElementById('capCsHeader').textContent = multi ? 'CS (Next 5)' : 'Proj. CS';
 
-    let rowArr = Array.from(rows).map(r => {
-        const idx = parseInt(r.dataset.idx);
-        const p   = capData[idx];
-        return { row: r, val: p[`${key}_pts`], idx, ownership: p.ownership };
+    const rows = table.querySelectorAll('.cap-main-row');
+    const posFilter = document.getElementById('fpl-position-filter').value;
+    const teamFilter = document.getElementById('fpl-team-filter').value;
+    const playerSearch = document.getElementById('fpl-player-search').value.trim().toLowerCase();
+    const diffOnly = document.getElementById('fpl-differentials').checked;
+
+    const rowArr = Array.from(rows).map(row => {
+        const idx = Number(row.dataset.idx);
+        const player = capData[idx];
+        return { row, idx, player, projection: capProjection(player, mode, selectedGw) };
+    }).filter(({player}) =>
+        (!diffOnly || player.ownership < 15) &&
+        (posFilter === 'ALL' || player.position === posFilter) &&
+        (teamFilter === 'ALL' || player.team === teamFilter) &&
+        player.name.toLowerCase().includes(playerSearch)
+    );
+    rows.forEach(row => {
+        row.style.display = 'none';
+        row.setAttribute('aria-expanded', 'false');
+        const exp = document.getElementById('cap-expand-' + row.dataset.idx);
+        if (exp) exp.style.display = 'none';
     });
+    const moreBtn = document.getElementById('fpl-show-more');
+    moreBtn.style.display = rowArr.length > 10 ? '' : 'none';
+    moreBtn.textContent = capLimit === 10 ? 'Show 20' : capLimit === 20 ? 'Show all' : 'Show 10';
+    document.getElementById('fpl-results-count').textContent = rowArr.length + ' eligible players';
+    rowArr.sort((a, b) => b.projection.pts - a.projection.pts);
+    const tbody = table.tBodies[0];
+    rowArr.forEach(({row, idx, player, projection}, rank) => {
+        const expandRow = document.getElementById('cap-expand-' + idx);
+        row.querySelector('.fpl-rank').textContent = rank + 1;
+        row.querySelector('.fpl-xg-val').textContent = projection.xg.toFixed(2);
+        row.querySelector('.fpl-xa-val').textContent = projection.xa.toFixed(2);
+        row.querySelector('.fpl-pts-val .fpl-pts-main').textContent = projection.pts.toFixed(1);
+        row.querySelector('.fpl-cs-val').textContent = player.position === 'FWD' ? '-' : projection.cs.toFixed(2);
 
-    if (mode === 'diff') rowArr = rowArr.filter(x => x.ownership < 15);
-    const posFilter = document.getElementById("fpl-position-filter").value;
-    const teamFilter = document.getElementById("fpl-team-filter").value;
-    const playerSearch = document.getElementById("fpl-player-search").value.trim().toLowerCase();
-    rowArr = rowArr.filter(x => (posFilter === "ALL" || capData[x.idx].position === posFilter) && (teamFilter === "ALL" || capData[x.idx].team === teamFilter) && capData[x.idx].name.toLowerCase().includes(playerSearch));
-    const visibleIndices = new Set(rowArr.map(x => x.idx));
-    rows.forEach(r => { r.style.display = "none"; const exp = document.getElementById(`cap-expand-${r.dataset.idx}`); if (exp) exp.style.display = "none"; });
-    const moreBtn = document.getElementById("fpl-show-more");
-    moreBtn.style.display = rowArr.length > 10 ? "" : "none";
-    moreBtn.textContent = capLimit === 10 ? "Show 20" : capLimit === 20 ? "Show all" : "Show 10";
-    document.getElementById("fpl-results-count").textContent = rowArr.length + " eligible players";
-    rowArr.sort((a, b) => b.val - a.val);
-    const tbody = document.querySelector('.fpl-cap-table tbody');
-    rowArr.forEach((item, rank) => {
-        const mainRow   = item.row;
-        const expandRow = document.getElementById(`cap-expand-${item.idx}`);
-        const p = capData[item.idx];
-        mainRow.querySelector('.fpl-rank').textContent   = rank + 1;
-        mainRow.querySelector('.fpl-xg-val').textContent  = parseFloat(p[`${key}_xg`]).toFixed(2);
-        mainRow.querySelector('.fpl-xa-val').textContent  = parseFloat(p[`${key}_xa`]).toFixed(2);
-        mainRow.querySelector('.fpl-pts-val .fpl-pts-main').textContent = parseFloat(p[`${key}_pts`]).toFixed(1);
-        const csCell = mainRow.querySelector('.fpl-cs-val');
-        if (csCell) {
-            const csVal = p[`${key}_cs`];
-            csCell.textContent = (csVal !== null && csVal !== undefined && p.position !== 'FWD') ? parseFloat(csVal).toFixed(2) : '-';
+        const fixtureCell = row.querySelector('.cap-fixture');
+        const fixes = projection.fixtures;
+        const labels = fixes.map(f => f.label);
+        fixtureCell.className = 'cap-fixture fpl-diff-cell';
+        fixtureCell.title = labels.join(' · ');
+        fixtureCell.textContent = !fixes.length ? 'No projected fixture' : multi ? fixes.length + (fixes.length === 1 ? ' fixture' : ' fixtures') : labels.join(' + ');
+        if (fixes.length && !multi) {
+            const diff = fixes.every(f => f.diff === 'easy') ? 'easy' : fixes.every(f => f.diff === 'hard') ? 'hard' : 'medium';
+            fixtureCell.classList.add('fpl-' + diff);
         }
-        tbody.appendChild(mainRow);
-        if (expandRow) { expandRow.style.display = 'none'; tbody.appendChild(expandRow); }
-        mainRow.style.display = rank < capLimit ? '' : 'none';
-    });
 
-    if (mode === 'diff') {
-        rows.forEach(r => {
-            const idx = parseInt(r.dataset.idx);
-            if (capData[idx].ownership >= 15) {
-                r.style.display = 'none';
-                const exp = document.getElementById(`cap-expand-${idx}`);
-                if (exp) exp.style.display = 'none';
-            }
-        });
-    }
+        tbody.appendChild(row);
+        if (expandRow) tbody.appendChild(expandRow);
+        row.style.display = rank < capLimit ? '' : 'none';
+    });
 }
 
 function toggleCapRow(idx) {
