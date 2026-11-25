@@ -156,3 +156,14 @@ def historical_extra_points(
             below_threshold += probability
         expected_defcon = 2.0 * max(0.0, 1.0 - below_threshold)
     return round(expected_bonus, 3), round(expected_defcon, 3)
+
+
+def horizon_attacking_share(season_share: float, blended_share: float, offset: int) -> float:
+    """Preserve the 70/30 blend for five GWs, then halve its recent-form effect every five GWs.
+
+    At offset 9 (the tenth GW), recent form has 15% weight rather than 30%.
+    This is a heuristic; team fixture forecasts and minutes assumptions are unchanged.
+    """
+    if offset <= 4:
+        return blended_share
+    return season_share + (blended_share - season_share) * (0.5 ** ((offset - 4) / 5))
