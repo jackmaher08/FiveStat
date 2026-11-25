@@ -136,6 +136,7 @@
             <div class="fpl-btn-group">
                 <button type="button" class="fpl-btn fpl-btn-cap active" aria-pressed="true" onclick="setCapWindow('gw1', this)">Next GW</button>
                 <button type="button" class="fpl-btn fpl-btn-cap" aria-pressed="false" onclick="setCapWindow('gw5', this)">Next 5 GWs</button>
+                <button type="button" class="fpl-btn fpl-btn-cap" aria-pressed="false" onclick="setCapWindow('season', this)" {% if not season_projection_ready %}disabled title="Remaining fixture projections unavailable"{% endif %}>Rest of Season</button>
                 <button type="button" class="fpl-btn fpl-btn-cap" aria-pressed="false" onclick="setCapWindow('custom', this)" {% if not gw_range %}disabled{% endif %}>Select a GW</button>
             </div>
         </div>
@@ -168,6 +169,9 @@
                 <label class="fpl-filter-differentials" for="fpl-differentials"><input type="checkbox" id="fpl-differentials" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"> Differentials (&lt;15%)</label>
                 <div class="fpl-filter-results">
                     <span id="fpl-results-count" aria-live="polite"></span>
+                    <button type="button" class="fpl-btn" onclick="resetCapFilters()">Reset filters</button>
+                    <button type="button" class="fpl-btn" onclick="copyCapLink()">Copy link</button>
+                    <span id="cap-copy-status" role="status"></span>
                     <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
                 </div>
             </div>
@@ -233,8 +237,8 @@
                                     <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th><th>Proj. CS</th><th>xMins</th><th>Proj. Pts</th></tr>
                                 </thead>
                                 <tbody>
-                                    {% for fix in pick.fixtures %}
-                                    <tr>
+                                    {% for fix in pick.season_fixtures|default(pick.fixtures) %}
+                                    <tr data-cap-gw="{{ fix.gw }}" {% if fix.gw >= current_gw + 5 %}style="display:none"{% endif %}>
                                         <td>{{ fix.gw }}</td>
                                         <td><span class="fpl-diff-cell fpl-{{ fix.diff }}">{{ fix.label }}</span></td>
                                         <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
@@ -263,6 +267,32 @@
         </div>
         {% endif %}
     </div>
+
+    {% if captain_picks %}
+    <div class="fpl-section" id="fpl-player-comparison">
+        <div class="fpl-section-row">
+            <div class="fpl-section-title"><span></span> Player Comparison</div>
+        </div>
+        <p class="fpl-note">Compare two or three eligible players across the next five Gameweeks, including price, minutes, fixtures and projected points.</p>
+        <div class="fpl-filter-fields">
+            {% for slot in range(1, 4) %}
+            <div class="fpl-filter-field">
+                <label for="compare-player-{{ slot }}">Player {{ slot }}{% if slot == 3 %} (optional){% endif %}</label>
+                <select id="compare-player-{{ slot }}" onchange="renderPlayerComparison()">
+                    <option value="">Select player</option>
+                    {% for player in captain_picks|sort(attribute="name") %}
+                    <option value="{{ player.fpl_id }}">{{ player.name }} · {{ player.team }} · {{ player.position }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+        </div>
+        <p id="compare-status" role="status" class="fpl-note">Select at least two different players.</p>
+        <div class="fpl-table-wrap" id="compare-results" hidden>
+            <table class="fpl-cap-table" id="compare-table"><thead></thead><tbody></tbody></table>
+        </div>
+    </div>
+    {% endif %}
 
     {# ── Team xG Chart ── #}
     {% if xg_data %}
@@ -388,7 +418,7 @@
     <p><strong>How are projections calculated?</strong><br>
     Each player's projected xG and xA uses a 70% season / 30% recent blend, applied to FiveStat's team projection and scaled by expected minutes. Points then use position-specific FPL goal, assist and clean-sheet scoring. Historical bonus and defensive contribution estimates are included where data is available; cards and other rare events are not yet modelled.</p>
     <p><strong>Which Gameweeks can I select?</strong><br>
-    Choose the next Gameweek, the next five Gameweeks combined, or one specific Gameweek within the current five-Gameweek projection window. Double Gameweek projections sum both fixtures; a blank Gameweek has zero projected points.</p>
+    Choose the next Gameweek, the next five Gameweeks combined, the rest of the season, or one specific Gameweek within the current five-Gameweek projection window. Double Gameweek projections sum both fixtures; a blank Gameweek has zero projected points. Rest of season uses currently scheduled fixtures and current playing-time assumptions, not predicted future injuries or transfers. The 30% recent attacking-form weight is retained for the first five Gameweeks, then halved every five further Gameweeks. Team-level forecasts are unchanged.</p>
     <p><strong>What does the Differentials filter show?</strong><br>
     The filter limits any selected projection window to players with FPL ownership below 15%.</p>
 </div>
@@ -404,6 +434,8 @@ document.addEventListener('DOMContentLoaded', ensureActualVsExpectedChart);
 gtag('event', 'fpl_view', { event_category: 'Engagement' });
 
 const capData = {{ captain_picks | tojson }};
+const capCurrentGw = {{ current_gw | tojson }};
+const capSeasonReady = {{ season_projection_ready | default(false) | tojson }};
 let currentCapMode = "gw1";
 let capLimit = 10;
 function toggleCapLimit() {
@@ -411,12 +443,13 @@ function toggleCapLimit() {
     setCapWindow(currentCapMode, document.querySelector(".fpl-btn-cap.active"));
 }
 document.addEventListener('DOMContentLoaded', function() {
-    const defaultBtn = document.querySelector('.fpl-btn-cap.active');
-    if (defaultBtn) setCapWindow('gw1', defaultBtn);
+    restoreCapFilters();
+    renderPlayerComparison();
 });
 
 function capProjection(player, mode, selectedGw) {
-    const fixtures = (player.fixtures || []).filter(f => mode === 'gw5' || Number(f.gw) === selectedGw);
+    const fixtures = mode === 'season' ? (player.season_fixtures || []) :
+        (player.fixtures || []).filter(f => mode === 'gw5' || Number(f.gw) === selectedGw);
     const total = key => fixtures.reduce((sum, f) => sum + Number(f[key] || 0), 0);
     return {
         fixtures,
@@ -428,7 +461,9 @@ function capProjection(player, mode, selectedGw) {
 }
 
 function setCapWindow(mode, btn) {
+    if (mode === 'season' && !capSeasonReady) mode = 'gw1';
     currentCapMode = mode;
+    btn = capButton(mode);
     const picker = document.getElementById('cap-gw-select');
     const selectedGw = mode === 'custom' ? Number(picker.value) : {{ current_gw | tojson }};
     document.getElementById('cap-gw-picker').style.display = mode === 'custom' ? '' : 'none';
@@ -436,17 +471,20 @@ function setCapWindow(mode, btn) {
         b.classList.toggle('active', b === btn);
         b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
     });
+    syncCapUrl();
     const table = document.querySelector('.fpl-cap-table');
     if (!table || !capData.length) return;
 
-    const multi = mode === 'gw5';
-    document.getElementById('capNote').textContent = multi
-        ? 'Transfer targets ranked by projected points across the next 5 Gameweeks. Click a row for the fixture breakdown.'
+    const multi = mode === 'gw5' || mode === 'season';
+    const suffix = mode === 'season' ? ' (ROS)' : ' (Next 5)';
+    document.getElementById('capNote').textContent = mode === 'season'
+        ? 'Projected points through GW38, based on scheduled fixtures and current availability. Distant player attacking form is tapered; long-range estimates are uncertain.'
+        : multi ? 'Transfer targets ranked by projected points across the next 5 Gameweeks. Click a row for the fixture breakdown.'
         : 'Ranked by projected FPL points for Gameweek ' + selectedGw + '. Click a row for the fixture breakdown.';
-    document.getElementById('capXgHeader').textContent = multi ? 'xG (Next 5)' : 'Proj. xG';
-    document.getElementById('capXaHeader').textContent = multi ? 'xA (Next 5)' : 'Proj. xA';
-    document.getElementById('capPtsHeader').textContent = multi ? 'Pts (Next 5)' : 'Proj. Pts';
-    document.getElementById('capCsHeader').textContent = multi ? 'CS (Next 5)' : 'Proj. CS';
+    document.getElementById('capXgHeader').textContent = multi ? 'xG' + suffix : 'Proj. xG';
+    document.getElementById('capXaHeader').textContent = multi ? 'xA' + suffix : 'Proj. xA';
+    document.getElementById('capPtsHeader').textContent = multi ? 'Pts' + suffix : 'Proj. Pts';
+    document.getElementById('capCsHeader').textContent = multi ? 'CS' + suffix : 'Proj. CS';
 
     const rows = table.querySelectorAll('.cap-main-row');
     const posFilter = document.getElementById('fpl-position-filter').value;
@@ -496,9 +534,118 @@ function setCapWindow(mode, btn) {
         }
 
         tbody.appendChild(row);
-        if (expandRow) tbody.appendChild(expandRow);
+        if (expandRow) {
+            expandRow.querySelectorAll('[data-cap-gw]').forEach(f => {
+                f.style.display = mode === 'season' || Number(f.dataset.capGw) < capCurrentGw + 5 ? '' : 'none';
+            });
+            tbody.appendChild(expandRow);
+        }
         row.style.display = rank < capLimit ? '' : 'none';
     });
+}
+
+
+function capButton(mode) {
+    return [...document.querySelectorAll('.fpl-btn-cap')].find(b => b.getAttribute('onclick').includes("'" + mode + "'"));
+}
+function validSelect(id, value, fallback) {
+    const el = document.getElementById(id);
+    el.value = [...el.options].some(o => o.value === value) ? value : fallback;
+}
+function defaultCapGw() {
+    const options = [...document.getElementById('cap-gw-select').options];
+    return options.find(o => o.defaultSelected)?.value || options[0]?.value || '';
+}
+function restoreCapFilters() {
+    const q = new URLSearchParams(location.search);
+    const requested = q.get('window');
+    let mode = ['gw1','gw5','custom','season'].includes(requested) ? requested : 'gw1';
+    if (mode === 'season' && !capSeasonReady) mode = 'gw1';
+    validSelect('cap-gw-select', q.get('gw'), defaultCapGw());
+    if (mode === 'custom' && ![...document.getElementById('cap-gw-select').options].some(o => o.value === q.get('gw'))) mode = 'gw1';
+    validSelect('fpl-position-filter', q.get('position'), 'ALL');
+    validSelect('fpl-team-filter', q.get('club'), 'ALL');
+    document.getElementById('fpl-player-search').value = (q.get('player') || '').slice(0, 100);
+    document.getElementById('fpl-differentials').checked = q.get('diff') === '1';
+    setCapWindow(mode, capButton(mode));
+}
+function syncCapUrl() {
+    const url = new URL(location.href);
+    const values = {
+        window: currentCapMode === 'gw1' ? '' : currentCapMode,
+        gw: currentCapMode === 'custom' ? document.getElementById('cap-gw-select').value : '',
+        position: document.getElementById('fpl-position-filter').value,
+        club: document.getElementById('fpl-team-filter').value,
+        player: document.getElementById('fpl-player-search').value.trim(),
+        diff: document.getElementById('fpl-differentials').checked ? '1' : '',
+    };
+    Object.entries(values).forEach(([key, value]) => {
+        if (value && value !== 'ALL') url.searchParams.set(key, value);
+        else url.searchParams.delete(key);
+    });
+    if (url.href !== location.href) history.replaceState(history.state, '', url);
+}
+function resetCapFilters() {
+    validSelect('cap-gw-select', defaultCapGw(), '');
+    validSelect('fpl-position-filter', 'ALL', 'ALL');
+    validSelect('fpl-team-filter', 'ALL', 'ALL');
+    document.getElementById('fpl-player-search').value = '';
+    document.getElementById('fpl-differentials').checked = false;
+    document.getElementById('cap-copy-status').textContent = '';
+    capLimit = 10;
+    setCapWindow('gw1', capButton('gw1'));
+}
+async function copyCapLink() {
+    const status = document.getElementById('cap-copy-status');
+    try {
+        await navigator.clipboard.writeText(location.href);
+        status.textContent = 'Link copied';
+    } catch {
+        status.textContent = 'Copy the link from your address bar.';
+    }
+}
+function renderPlayerComparison() {
+    const table = document.getElementById('compare-table');
+    if (!table) return;
+    const ids = [1,2,3].map(i => document.getElementById('compare-player-' + i).value).filter(Boolean);
+    const status = document.getElementById('compare-status');
+    const wrapper = document.getElementById('compare-results');
+    if (ids.length < 2 || new Set(ids).size !== ids.length) {
+        wrapper.hidden = true;
+        status.textContent = ids.length < 2 ? 'Select at least two different players.' : 'Select different players in each field.';
+        return;
+    }
+    const players = ids.map(id => capData.find(p => String(p.fpl_id) === id));
+    if (players.some(p => !p)) return;
+    const row = (parent, label, values, tag='td') => {
+        const tr = document.createElement('tr');
+        [label, ...values].forEach(value => {
+            const cell = document.createElement(tag);
+            cell.textContent = value;
+            tr.appendChild(cell);
+        });
+        parent.appendChild(tr);
+    };
+    const head = table.tHead, body = table.tBodies[0];
+    head.replaceChildren(); body.replaceChildren();
+    row(head, 'Metric', players.map(p => p.name + ' · ' + p.team), 'th');
+    row(body, 'Position', players.map(p => p.position));
+    row(body, 'Price', players.map(p => '£' + Number(p.price).toFixed(1) + 'm'));
+    row(body, 'Expected minutes / fixture', players.map(p => Math.round(p.expected_minutes)));
+    row(body, 'Confidence', players.map(p => p.confidence));
+    const totals = players.map(p => capProjection(p, 'gw5', capCurrentGw));
+    row(body, 'Next 5 xPts', totals.map(p => p.pts.toFixed(1)));
+    row(body, 'Next 5 xG', totals.map(p => p.xg.toFixed(2)));
+    row(body, 'Next 5 xA', totals.map(p => p.xa.toFixed(2)));
+    if (capSeasonReady) row(body, 'Rest of season xPts', players.map(p => capProjection(p, 'season', capCurrentGw).pts.toFixed(1)));
+    for (let gw = capCurrentGw; gw <= Math.min(38, capCurrentGw + 4); gw++) {
+        row(body, 'GW' + gw, players.map(p => {
+            const pr = capProjection(p, 'custom', gw);
+            return (pr.fixtures.map(f => f.label).join(' + ') || 'No projected fixture') + ' · ' + pr.pts.toFixed(1) + ' xPts';
+        }));
+    }
+    status.textContent = 'FiveStat projections · current price and availability assumptions';
+    wrapper.hidden = false;
 }
 
 function toggleCapRow(idx) {
