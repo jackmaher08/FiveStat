@@ -8,10 +8,21 @@ from fpl_projection import (
     projected_fpl_points,
     projection_confidence,
     select_projection_pool,
+    horizon_attacking_share,
 )
 
 
 class FplProjectionTests(unittest.TestCase):
+    def test_horizon_preserves_short_term_blend(self):
+        for offset in range(5):
+            self.assertEqual(horizon_attacking_share(0.2, 0.32, offset), 0.32)
+
+    def test_horizon_halves_recent_form_effect_every_five_weeks(self):
+        self.assertAlmostEqual(horizon_attacking_share(0.2, 0.32, 9), 0.26)
+        self.assertAlmostEqual(horizon_attacking_share(0.2, 0.32, 14), 0.23)
+        self.assertAlmostEqual(horizon_attacking_share(0.2, 0.08, 9), 0.14)
+        self.assertEqual(horizon_attacking_share(0.2, 0.2, 30), 0.2)
+
     def test_eligibility_gate_scales_early_in_season(self):
         self.assertEqual(eligibility_minutes(4, "MID"), 162)
         self.assertEqual(eligibility_minutes(4, "DEF"), 180)
