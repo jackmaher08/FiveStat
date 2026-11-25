@@ -3196,7 +3196,7 @@ input:checked + .slider:before {
   border-collapse: collapse;
   font-size: 0.85rem;
 }
-.fpl-cap-table thead th {
+.fpl-cap-table > thead > tr > th {
   text-align: center;
   padding: 0.5rem 1rem;
   font-size: 0.75rem;
@@ -3205,13 +3205,13 @@ input:checked + .slider:before {
   border-bottom: 1px solid var(--border);
   background: var(--surface-alt, #f9f9f6);
 }
-.fpl-cap-table tbody td {
+.fpl-cap-table > tbody > tr > td {
   padding: 0.6rem 1rem;
   border-bottom: 1px solid var(--border);
   text-align: center;
   vertical-align: middle;
 }
-.fpl-cap-table tbody tr:last-child td { border-bottom: none; }
+.fpl-cap-table > tbody > tr:last-child > td { border-bottom: none; }
 .cap-main-row { cursor: pointer; }
 .cap-main-row:hover td { background: var(--accent-light); }
 .cap-main-row:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
@@ -3224,7 +3224,9 @@ input:checked + .slider:before {
   border-collapse: collapse;
   font-size: 0.82rem;
 }
+.cap-inner-label-short { display: none; }
 .cap-inner-table th {
+  background: var(--surface-alt, #f9f9f6);
   padding: 0.35rem 1rem;
   font-size: 0.75rem;
   font-weight: 600;
@@ -3364,39 +3366,93 @@ input:checked + .slider:before {
     border: 0;
   }
   .fpl-cap-table {
-    width: max-content;
-    min-width: 600px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0 0.6rem;
   }
-  .fpl-cap-table thead th:nth-child(4),
-  .fpl-cap-table thead th:nth-child(5),
-  .fpl-cap-table thead th:nth-child(6),
-  .fpl-cap-table thead th:nth-child(8),
-  .fpl-cap-table tbody .cap-main-row > td:nth-child(4),
-  .fpl-cap-table tbody .cap-main-row > td:nth-child(5),
-  .fpl-cap-table tbody .cap-main-row > td:nth-child(6),
-  .fpl-cap-table tbody .cap-main-row > td:nth-child(8) { display: none; }
-  .fpl-cap-table thead th { padding: 0.45rem 0.35rem; font-size: 0.68rem; }
-  .fpl-cap-table tbody .cap-main-row > td {
+  .fpl-cap-table > thead > tr > th:nth-child(1) { width: 7%; }
+  .fpl-cap-table > thead > tr > th:nth-child(2) { width: 37%; }
+  .fpl-cap-table > thead > tr > th:nth-child(3) { width: 21%; }
+  .fpl-cap-table > thead > tr > th:nth-child(7) { width: 18%; }
+  .fpl-cap-table > thead > tr > th:nth-child(9) { width: 17%; }
+  .fpl-cap-table > tbody > .cap-main-row > td,
+  .fpl-cap-table > thead > tr > th {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+  }
+  .fpl-cap-table > tbody > .cap-main-row .fpl-diff-cell {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    padding: 0.25rem 0.15rem;
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .fpl-cap-table > tbody > .cap-main-row .fpl-own-chip,
+  .fpl-cap-table > tbody > .cap-main-row .fpl-diff-chip {
+    padding-left: 3px;
+    padding-right: 3px;
+    white-space: normal;
+  }
+  .fpl-cap-table > thead > tr > th:nth-child(4),
+  .fpl-cap-table > thead > tr > th:nth-child(5),
+  .fpl-cap-table > thead > tr > th:nth-child(6),
+  .fpl-cap-table > thead > tr > th:nth-child(8),
+  .fpl-cap-table > tbody > .cap-main-row > td:nth-child(4),
+  .fpl-cap-table > tbody > .cap-main-row > td:nth-child(5),
+  .fpl-cap-table > tbody > .cap-main-row > td:nth-child(6),
+  .fpl-cap-table > tbody > .cap-main-row > td:nth-child(8) { display: none; }
+  .fpl-cap-table > thead > tr > th { padding: 0.45rem 0.35rem; font-size: 0.68rem; }
+  .fpl-cap-table > tbody > .cap-main-row > td {
     padding: 0.65rem 0.35rem;
     background: var(--surface);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
-  .fpl-cap-table tbody .cap-main-row > td:first-child {
+  .fpl-cap-table > tbody > .cap-main-row > td:first-child {
     border-left: 1px solid var(--border);
     border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   }
-  .fpl-cap-table tbody .cap-main-row > td:last-child {
+  .fpl-cap-table > tbody > .cap-main-row > td:last-child {
     border-right: 1px solid var(--border);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   }
   .fpl-player-name { font-size: 0.88rem; }
   .fpl-mobile-meta { display: block; }
   .cap-expand-row > td { display: table-cell !important; }
-  .cap-inner-table { min-width: 520px; }
-  .cap-expand-cell { overflow-x: auto; }
+  .cap-inner-table {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    table-layout: fixed;
+    margin: 0;
+    font-size: 0.75rem;
+  }
+  .cap-inner-table th,
+  .cap-inner-table td {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.72rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    letter-spacing: normal;
+  }
+  .cap-inner-table th { text-transform: none; }
+  .cap-inner-table th:nth-child(2) { width: 22%; }
+  .cap-inner-table .fpl-diff-cell {
+    display: inline-block;
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    padding: 0.25rem 0.15rem;
+    font-size: 0.7rem;
+  }
+  .cap-inner-label-full { display: none; }
+  .cap-inner-label-short { display: inline; }
 }
 
 

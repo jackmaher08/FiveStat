@@ -353,7 +353,7 @@
                         <td colspan="9" class="cap-expand-cell">
                             <table class="cap-inner-table">
                                 <thead>
-                                    <tr><th>GW</th><th>Fixture</th><th>Proj. xG</th><th>Proj. xA</th><th>Proj. CS</th><th>xMins</th><th>Proj. Pts</th></tr>
+                                    <tr><th scope="col" aria-label="Gameweek" title="Gameweek">GW</th><th scope="col" aria-label="Opponent fixture" title="Opponent fixture"><span class="cap-inner-label-full">Fixture</span><span class="cap-inner-label-short" aria-hidden="true">Opp.</span></th><th scope="col" aria-label="Projected goals" title="Projected goals"><span class="cap-inner-label-full">Proj. xG</span><span class="cap-inner-label-short" aria-hidden="true">xG</span></th><th scope="col" aria-label="Projected assists" title="Projected assists"><span class="cap-inner-label-full">Proj. xA</span><span class="cap-inner-label-short" aria-hidden="true">xA</span></th><th scope="col" aria-label="Expected clean sheets" title="Expected clean sheets"><span class="cap-inner-label-full">Proj. CS</span><span class="cap-inner-label-short" aria-hidden="true">xCS</span></th><th scope="col" aria-label="Expected minutes" title="Expected minutes"><span class="cap-inner-label-full">xMins</span><span class="cap-inner-label-short" aria-hidden="true">xMin</span></th><th scope="col" aria-label="Projected points" title="Projected points"><span class="cap-inner-label-full">Proj. Pts</span><span class="cap-inner-label-short" aria-hidden="true">xPts</span></th></tr>
                                 </thead>
                                 <tbody>
                                     {% for fix in pick.season_fixtures|default(pick.fixtures) %}
@@ -362,7 +362,7 @@
                                         <td><span class="fpl-diff-cell fpl-{{ fix.diff }}">{{ fix.label }}</span></td>
                                         <td class="fpl-xg-val">{{ "%.2f"|format(fix.proj_xg) }}</td>
                                         <td class="fpl-xa-val">{{ "%.2f"|format(fix.proj_xa) }}</td>
-                                        {% if pick.position in ("DEF", "MID") %}
+                                        {% if pick.position in ("GK", "DEF", "MID") %}
                                         <td class="fpl-cs-val">{{ "%.2f"|format(fix.proj_cs) }}</td>
                                         {% else %}
                                         <td class="fpl-cs-val">-</td>
@@ -936,6 +936,20 @@ function renderPlayerComparison() {
         (mode === 'season' || (mode === 'custom' && customGw >= capCurrentGw + 5) ? ' · long-range estimates use tapered attacking form' : '');
     wrapper.hidden = false;
 }
+
+// Keep expanded rows aligned to the number of visible outer columns.
+function syncCapExpandedColspan() {
+    const table = document.querySelector('.fpl-cap-table');
+    if (!table) return;
+    const count = Array.from(table.tHead.rows[0].cells).filter(
+        cell => getComputedStyle(cell).display !== 'none'
+    ).length;
+    table.querySelectorAll('.cap-expand-cell').forEach(cell => {
+        cell.colSpan = count || 9;
+    });
+}
+document.addEventListener('DOMContentLoaded', syncCapExpandedColspan);
+window.addEventListener('resize', syncCapExpandedColspan);
 
 function toggleCapRow(idx) {
     const exp = document.getElementById(`cap-expand-${idx}`);
