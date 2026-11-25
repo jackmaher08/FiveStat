@@ -97,8 +97,8 @@
             min-width: 0; text-align: left; border: 1px solid var(--border);
             border-radius: var(--radius-md); background: var(--surface);
         }
-        #fpl-player-comparison .compare-picker summary {
-            cursor: pointer; padding: .65rem; min-height: 44px; box-sizing: border-box;
+        #fpl-player-comparison .compare-picker-label {
+            display: block; padding: .5rem .55rem .3rem; box-sizing: border-box;
             color: var(--text-primary); font-size: .82rem; font-weight: 600;
             overflow-wrap: anywhere;
         }
@@ -113,6 +113,11 @@
             display: grid; gap: .25rem; margin-top: .35rem;
             max-height: 16rem; overflow-y: auto;
         }
+        #fpl-player-comparison .compare-search-feedback {
+            display: block; font-size: .73rem; color: var(--text-muted);
+            margin-top: .25rem;
+        }
+        #fpl-player-comparison .compare-search-feedback:empty { display: none; }
         #fpl-player-comparison .compare-option {
             background: var(--surface-alt); color: var(--text-primary);
             border: 1px solid var(--border); border-radius: var(--radius-sm);
@@ -187,7 +192,7 @@
         }
         @media (max-width: 600px) {
             #fpl-player-comparison .compare-grid { gap: .3rem; }
-            #fpl-player-comparison .compare-picker summary { padding: .55rem .35rem; font-size: .78rem; }
+            #fpl-player-comparison .compare-picker-label { padding: .5rem .35rem .3rem; font-size: .78rem; }
             #fpl-player-comparison .compare-picker-body { padding: 0 .35rem .35rem; }
             #fpl-player-comparison .compare-score { font-size: 1.4rem; }
             #fpl-player-comparison .compare-table th,
@@ -416,14 +421,14 @@
         </div>
         <div class="compare-grid compare-pickers" id="compare-pickers">
             {% for slot in range(1, 4) %}
-            <details class="compare-picker" id="compare-slot-{{ slot }}" {% if slot == 3 %}hidden{% endif %}>
-                <summary id="compare-label-{{ slot }}">Select player {{ slot }}</summary>
+            <div class="compare-picker" id="compare-slot-{{ slot }}" {% if slot == 3 %}hidden{% endif %}>
+                <label class="compare-picker-label" id="compare-label-{{ slot }}" for="compare-search-{{ slot }}">Player {{ slot }}</label>
                 <div class="compare-picker-body">
-                    <label class="compare-meta" for="compare-search-{{ slot }}">Search name or club</label>
-                    <input type="search" class="compare-search" id="compare-search-{{ slot }}" placeholder="Search player" autocomplete="off" oninput="renderCompareOptions({{ slot }})">
-                    <div class="compare-search-results" id="compare-options-{{ slot }}" aria-label="Matching players"></div>
+                    <input type="search" class="compare-search" id="compare-search-{{ slot }}" placeholder="Type player name" autocomplete="off" aria-controls="compare-options-{{ slot }}" oninput="renderCompareOptions({{ slot }})" onkeydown="handleCompareSearchKey(event, {{ slot }})">
+                    <div class="compare-search-results" id="compare-options-{{ slot }}" aria-label="Matching players" hidden></div>
+                    <span class="compare-search-feedback" id="compare-feedback-{{ slot }}" role="status"></span>
                 </div>
-            </details>
+            </div>
             {% endfor %}
         </div>
         <div class="compare-actions">
@@ -765,13 +770,23 @@ async function copyCapLink() {
 const compareSelected = [null, null, null];
 let compareThird = false;
 const comparePlayer = id => capData.find(p => String(p.fpl_id) === String(id));
-const compareNormalise = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+const compareNormalise = value => String(value || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[øłđæœß]/g, char => ({ø:'o',ł:'l',đ:'d',æ:'ae',œ:'oe',ß:'ss'})[char]).trim();
 
 function compareMatches(players, query, excluded) {
-    const tokens = compareNormalise(query).split(/\s+/).filter(Boolean);
+    const normal = compareNormalise(query);
+    const tokens = normal.split(/\s+/).filter(Boolean);
+    if (!tokens.length) return [];
+    const rank = p => {
+        const name = compareNormalise(p.name);
+        if (name === normal) return 0;
+        if (name.startsWith(normal)) return 1;
+        if (name.split(/\s+/).some(word => word.startsWith(normal))) return 2;
+        if (name.includes(normal)) return 3;
+        return 4;
+    };
     return players.filter(p => !excluded.includes(String(p.fpl_id)) &&
         tokens.every(token => compareNormalise(p.name + ' ' + p.team + ' ' + p.position).includes(token)))
-        .sort((a,b) => a.name.localeCompare(b.name) || a.team.localeCompare(b.team))
+        .sort((a,b) => rank(a) - rank(b) || a.name.localeCompare(b.name) || a.team.localeCompare(b.team))
         .slice(0, 12);
 }
 function compareNode(tag, className, content) {
@@ -782,27 +797,64 @@ function compareNode(tag, className, content) {
 }
 function renderCompareOptions(slot) {
     const results = document.getElementById('compare-options-' + slot);
-    const query = document.getElementById('compare-search-' + slot).value;
+    const query = document.getElementById('compare-search-' + slot).value.trim();
+    const feedback = document.getElementById('compare-feedback-' + slot);
     const excluded = compareSelected.filter((id,i) => id !== null && i !== slot - 1);
     const matches = compareMatches(capData, query, excluded);
     results.replaceChildren();
+    results.hidden = !query || !matches.length;
+    feedback.textContent = !query ? '' : !matches.length ? 'No matching players' :
+        matches.length === 12 ? 'Showing up to 12 matches. Keep typing to narrow results.' :
+        matches.length + (matches.length === 1 ? ' match' : ' matches');
     for (const p of matches) {
         const button = compareNode('button', 'compare-option', p.name + ' · ' + p.team + ' · ' + p.position);
         button.type = 'button';
         button.addEventListener('click', () => selectComparePlayer(slot, String(p.fpl_id)));
+        button.addEventListener('keydown', event => {
+            const options = [...results.querySelectorAll('button')];
+            const index = options.indexOf(button);
+            if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                event.preventDefault();
+                const next = index + (event.key === 'ArrowDown' ? 1 : -1);
+                (options[next] || document.getElementById('compare-search-' + slot)).focus();
+            } else if (event.key === 'Escape') {
+                event.preventDefault();
+                clearCompareQuery(slot);
+                document.getElementById('compare-search-' + slot).focus();
+            }
+        });
         results.appendChild(button);
     }
-    if (!matches.length) results.appendChild(compareNode('span', 'compare-meta', 'No matching players'));
-    else if (!query.trim()) results.appendChild(compareNode('span', 'compare-meta', 'Search to find more players.'));
+}
+function handleCompareSearchKey(event, slot) {
+    const first = document.querySelector('#compare-options-' + slot + ' button');
+    if (event.key === 'Escape') {
+        event.preventDefault();
+        clearCompareQuery(slot);
+    } else if (event.key === 'ArrowDown' && first) {
+        event.preventDefault();
+        first.focus();
+    } else if (event.key === 'Enter' && first) {
+        event.preventDefault();
+        first.click();
+    }
+}
+function clearCompareQuery(slot) {
+    document.getElementById('compare-search-' + slot).value = '';
+    renderCompareOptions(slot);
 }
 function selectComparePlayer(slot, id) {
     const player = comparePlayer(id);
     if (!player || (slot === 3 && !compareThird) || compareSelected.some((v,i) => v === id && i !== slot - 1)) return;
     compareSelected[slot - 1] = id;
     const label = document.getElementById('compare-label-' + slot);
-    label.textContent = player.name + ' · ' + player.team;
-    document.getElementById('compare-search-' + slot).value = '';
-    document.getElementById('compare-slot-' + slot).open = false;
+    label.textContent = 'Player ' + slot + ' · ' + player.name + ' (' + player.team + ')';
+    const input = document.getElementById('compare-search-' + slot);
+    input.placeholder = 'Type to change player';
+    input.value = '';
+    // Keep focus on a visible control when the selected result disappears.
+    // The label itself is not an interactive dropdown.
+    label.tabIndex = -1;
     label.focus();
     renderPlayerComparison();
 }
@@ -814,20 +866,22 @@ function toggleCompareThird(show) {
     document.getElementById('compare-pickers').style.setProperty('--compare-count', show ? 3 : 2);
     if (!show) {
         compareSelected[2] = null;
-        document.getElementById('compare-label-3').textContent = 'Select player 3';
-        document.getElementById('compare-search-3').value = '';
-        document.getElementById('compare-slot-3').open = false;
+        document.getElementById('compare-label-3').textContent = 'Player 3';
+        const input = document.getElementById('compare-search-3');
+        input.value = '';
+        input.placeholder = 'Type player name';
     }
     renderPlayerComparison();
-    if (show) document.getElementById('compare-label-3').focus();
+    if (show) document.getElementById('compare-search-3').focus();
     else document.getElementById('compare-add').focus();
 }
 function resetPlayerComparison() {
     compareSelected.fill(null);
     for (const slot of [1,2,3]) {
-        document.getElementById('compare-label-' + slot).textContent = 'Select player ' + slot;
-        document.getElementById('compare-search-' + slot).value = '';
-        document.getElementById('compare-slot-' + slot).open = false;
+        document.getElementById('compare-label-' + slot).textContent = 'Player ' + slot;
+        const input = document.getElementById('compare-search-' + slot);
+        input.value = '';
+        input.placeholder = 'Type player name';
     }
     document.getElementById('compare-period').value = 'gw5';
     document.getElementById('compare-gw').selectedIndex = 0;
