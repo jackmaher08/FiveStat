@@ -5,6 +5,81 @@
 
 {% block extra_head %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .fpl-player-filters {
+            margin: 0.75rem 0;
+            text-align: left;
+        }
+        .fpl-filter-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+            gap: 0.65rem;
+            align-items: end;
+        }
+        .fpl-filter-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            min-width: 0;
+        }
+        .fpl-filter-field label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .fpl-filter-field select,
+        .fpl-filter-field input[type="search"] {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            min-height: 40px;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.875rem;
+            font-family: var(--font-body);
+            border-radius: var(--radius-md);
+            border: 1.5px solid var(--border);
+            background-color: var(--surface);
+            color: var(--text-primary);
+        }
+        .fpl-filter-field select:focus,
+        .fpl-filter-field input[type="search"]:focus {
+            border-color: var(--accent);
+        }
+        .fpl-filter-actions,
+        .fpl-filter-results {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+        .fpl-filter-actions {
+            justify-content: space-between;
+            margin-top: 0.65rem;
+        }
+        .fpl-filter-differentials {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.85rem;
+        }
+        .fpl-filter-differentials input {
+            margin: 0;
+            accent-color: var(--accent);
+        }
+        .fpl-filter-results {
+            font-size: 0.8rem;
+        }
+        @media (max-width: 600px) {
+            .fpl-filter-fields {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 320px) {
+            .fpl-filter-fields {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+    </style>
 {% endblock %}
 
 
@@ -66,23 +141,36 @@
         </div>
         <span class="f1-section-badge">FiveStat Model</span>
         <p class="fpl-note" id="capNote">Ranked by projected FPL points for Gameweek {{ current_gw }}. Players require at least 45 expected minutes per fixture. Click a row for details.</p>
-        <div class="fpl-btn-group" style="margin:0.6rem 0;flex-wrap:wrap;">
-            <label id="cap-gw-picker" for="cap-gw-select" style="display:none">Gameweek
-                <select id="cap-gw-select" onchange="setCapWindow('custom', document.querySelector('.fpl-btn-cap.active'))">
+        <div class="fpl-player-filters">
+            <div class="fpl-filter-fields">
+                <div class="fpl-filter-field" id="cap-gw-picker" style="display:none">
+                    <label for="cap-gw-select">Gameweek</label>
+                    <select id="cap-gw-select" onchange="setCapWindow('custom', document.querySelector('.fpl-btn-cap.active'))">
                     {% for gw in gw_range if gw <= 38 %}
                     <option value="{{ gw }}" {% if gw == current_gw + 1 %}selected{% endif %}>GW{{ gw }}</option>
                     {% endfor %}
                 </select>
-            </label>
-            <label for="fpl-position-filter">Position</label>
-            <select id="fpl-position-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All positions</option><option value="GK">GK</option><option value="DEF">DEF</option><option value="MID">MID</option><option value="FWD">FWD</option></select>
-            <label for="fpl-team-filter">Club</label>
-            <select id="fpl-team-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All clubs</option>{% for club in captain_picks | map(attribute="team") | unique | sort %}<option value="{{ club }}">{{ club }}</option>{% endfor %}</select>
-            <label for="fpl-player-search">Search player</label>
-            <input id="fpl-player-search" type="search" placeholder="Player name" aria-label="Search player" oninput="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))" style="padding:0.65rem;max-width:180px;">
-            <label for="fpl-differentials"><input type="checkbox" id="fpl-differentials" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"> Differentials (&lt;15%)</label>
-            <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
-            <span id="fpl-results-count" aria-live="polite"></span>
+                </div>
+                <div class="fpl-filter-field">
+                    <label for="fpl-position-filter">Position</label>
+                    <select id="fpl-position-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All positions</option><option value="GK">GK</option><option value="DEF">DEF</option><option value="MID">MID</option><option value="FWD">FWD</option></select>
+                </div>
+                <div class="fpl-filter-field">
+                    <label for="fpl-team-filter">Club</label>
+                    <select id="fpl-team-filter" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"><option value="ALL">All clubs</option>{% for club in captain_picks | map(attribute="team") | unique | sort %}<option value="{{ club }}">{{ club }}</option>{% endfor %}</select>
+                </div>
+                <div class="fpl-filter-field">
+                    <label for="fpl-player-search">Search player</label>
+                    <input id="fpl-player-search" type="search" placeholder="Player name" aria-label="Search player" oninput="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))">
+                </div>
+            </div>
+            <div class="fpl-filter-actions">
+                <label class="fpl-filter-differentials" for="fpl-differentials"><input type="checkbox" id="fpl-differentials" onchange="setCapWindow(currentCapMode, document.querySelector('.fpl-btn-cap.active'))"> Differentials (&lt;15%)</label>
+                <div class="fpl-filter-results">
+                    <span id="fpl-results-count" aria-live="polite"></span>
+                    <button type="button" id="fpl-show-more" class="fpl-btn" onclick="toggleCapLimit()" style="display:none">Show 20</button>
+                </div>
+            </div>
         </div>
         <p class="fpl-freshness">· Updated {{ captaincy_updated_at }} ·</p>
         {% if captain_picks %}
