@@ -29,6 +29,7 @@ from fpl_projection import (
     projection_confidence,
     horizon_attacking_share,
 )
+from fpl_team_charts import build_team_chart_windows
 from model_performance import load_model_performance
 from actual_vs_expected import build_actual_vs_expected
 
@@ -1375,6 +1376,9 @@ def fpl(export_mode=False):
         )
         if export_mode:
             return context
+        context["team_chart_windows"] = build_team_chart_windows(
+            fixtures_df, probs_df, teams, TEAM_NAME_MAPPING, current_gw
+        )
         context.pop("all_player_projections", None)
         context.pop("eligibility_diagnostics", None)
         return render_template("fpl.html", **context)
@@ -1386,6 +1390,7 @@ def fpl(export_mode=False):
         return render_template("fpl.html",
             actual_vs_expected=None,
             cs_data=[], xg_data=[], xga_data=[], fixture_ticker=[], captain_picks=[],
+            team_chart_windows={"weeks": [], "by_gw": {}, "next5": []},
             captaincy_status="error",
             captaincy_message="Player projections are temporarily unavailable while the latest data is checked.",
             captaincy_updated_at=get_last_updated_time(),
