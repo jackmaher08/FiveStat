@@ -249,11 +249,11 @@ fpl_id,name,team,position,gw,opponent_fixture,projected_xg,projected_xa,clean_sh
 156,Neto,Chelsea,MID,14,LIV (H),0.168,0.149,0.152,3.74,hard
 156,Neto,Chelsea,MID,15,MCI (A),0.118,0.105,0.071,3.28,hard
 156,Neto,Chelsea,MID,16,AVL (H),0.193,0.17,0.192,3.97,medium
-159,Caicedo,Chelsea,MID,12,NFO (A),0.003,0.008,0.226,1.96,hard
-159,Caicedo,Chelsea,MID,13,CRY (H),0.004,0.012,0.277,2.03,medium
-159,Caicedo,Chelsea,MID,14,LIV (H),0.003,0.009,0.152,1.89,hard
-159,Caicedo,Chelsea,MID,15,MCI (A),0.002,0.006,0.071,1.8,hard
-159,Caicedo,Chelsea,MID,16,AVL (H),0.004,0.01,0.192,1.94,medium
+159,Caicedo,Chelsea,MID,12,NFO (A),0.004,0.011,0.226,2.38,hard
+159,Caicedo,Chelsea,MID,13,CRY (H),0.006,0.016,0.277,2.45,medium
+159,Caicedo,Chelsea,MID,14,LIV (H),0.004,0.012,0.152,2.31,hard
+159,Caicedo,Chelsea,MID,15,MCI (A),0.003,0.008,0.071,2.21,hard
+159,Caicedo,Chelsea,MID,16,AVL (H),0.005,0.014,0.192,2.36,medium
 161,Lavia,Chelsea,MID,12,NFO (A),0.047,0.036,0.226,2.57,hard
 161,Lavia,Chelsea,MID,13,CRY (H),0.071,0.055,0.277,2.79,medium
 161,Lavia,Chelsea,MID,14,LIV (H),0.052,0.041,0.152,2.53,hard
